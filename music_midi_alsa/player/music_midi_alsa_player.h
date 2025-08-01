@@ -49,7 +49,7 @@ namespace music
 
             void OnMmsgDone(::music::midi::sequence *pSeq);
             DECL_GEN_SIGNAL(OnUserMessage);
-               //void SaveFile(const_char_pointer  lpszPathName);
+               //void SaveFile(const_char_pointer lpszPathName);
             void SetPosition(double dRate);
             virtual void pause() override;
             virtual void close_file() override;

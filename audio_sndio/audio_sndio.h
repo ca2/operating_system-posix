@@ -74,7 +74,7 @@ namespace multimedia
          int sndio_start();
          int sndio_set_sample_format();
          int sndio_wait_space_avail();
-         int sndio_write(const_char_pointer  buf, int cnt);
+         int sndio_write(const_char_pointer buf, int cnt);
          int sndio_pause();
          int sndio_unpause();
          int sndio_buffer_space();

@@ -237,7 +237,7 @@ virtual void _on_focus_changed(bool bHasFocus);
 
 
             GMenu* _create_system_menu();
-            // virtual void _on_window_simple_action(const_char_pointer  pszActionName);
+            // virtual void _on_window_simple_action(const_char_pointer pszActionName);
 
 
             //void on_destruct_mouse_message(::message::mouse * pmouse) override;

@@ -32,7 +32,7 @@
 #include <sys/ioctl.h>
 #include <sys/drvctlio.h>
 
-int	drvctl_foreach(int, const_char_pointer  ,
-	    void (*)(void *, const_char_pointer  , const_char_pointer  , unsigned int), void *);
+int	drvctl_foreach(int, const_char_pointer ,
+	    void (*)(void *, const_char_pointer ,const_char_pointer ,unsigned int), void *);
 
 #endif /* !_HAVE_DRVCTL_H */

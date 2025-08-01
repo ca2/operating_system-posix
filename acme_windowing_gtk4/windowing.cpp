@@ -1301,7 +1301,7 @@ m_bMessageThread=true;
          //
          //
          //
-         // void windowing::_os_process_user_theme(string strOsTheme)
+         // void windowing::_os_process_user_theme(const ::scoped_string & scopedstrOsTheme)
          // {
          //
          //    informationf(
@@ -1352,7 +1352,7 @@ m_bMessageThread=true;
          //
          //
          //
-         // void windowing::_os_process_user_icon_theme(string strOsUserIconTheme)
+         // void windowing::_os_process_user_icon_theme(const ::scoped_string & scopedstrOsUserIconTheme)
          // {
          //
          //    informationf(

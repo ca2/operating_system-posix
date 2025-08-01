@@ -52,7 +52,7 @@
 
 void install_operating_system_default_signal_handlers();
 
-//void xfce4_dbus_set_wallpaper(const_char_pointer  wallpaper_path);
+//void xfce4_dbus_set_wallpaper(const_char_pointer wallpaper_path);
 
 
 //namespace x11
@@ -84,8 +84,8 @@ bool aaa_x11_message_loop_step();
 gboolean gtk_quit_callback(gpointer data);
 
 
-//void gio_open_url(const_char_pointer  pszUrl);
-///int gtk_launch (const_char_pointer  pszDesktopFileTitle);
+//void gio_open_url(const_char_pointer pszUrl);
+///int gtk_launch (const_char_pointer pszDesktopFileTitle);
 
 
 void copy(::color::color &color, const GdkRGBA &rgba)
@@ -334,7 +334,7 @@ cairo_surface_t * __cairo_create_image_argb32_surface(::memory & m, int w, int h
 //}
 
 
-bool __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state, const_char_pointer  pszProperty, ::color::color & color)
+bool __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state, const_char_pointer pszProperty, ::color::color & color)
 {
 
    GdkRGBA *prgba = nullptr;
@@ -457,13 +457,13 @@ namespace node_gtk3
 
 void os_post_quit();
 
-void apex_application_run(const_char_pointer  pszAppName, const_char_pointer  pszProgName);
+void apex_application_run(const_char_pointer pszAppName, const_char_pointer pszProgName);
 
 namespace node_gtk3
 {
 
 
-   CLASS_DECL_ACME void _os_process_user_theme(string strTheme);
+   CLASS_DECL_ACME void _os_process_user_theme(const ::scoped_string & scopedstrTheme);
    void gtk_defer_do_main_tasks();
 
 
@@ -562,11 +562,11 @@ namespace node_gtk3
       //   }
       //
 
-//      const_char_pointer  pszName = m_XstrAppId;
+//      const_char_pointer pszName = m_XstrAppId;
 
 //       g_set_application_name(scopedstrName);
 
-//      const_char_pointer  pszPrgName = m_strProgName;
+//      const_char_pointer pszPrgName = m_strProgName;
 
 //      g_set_prgname(scopedstrPrgName);
 
@@ -578,7 +578,7 @@ namespace node_gtk3
 
       //int c = 2;
 
-      //const_char_pointer  argv[]={"app", "--g-fatal-warnings"};
+      //const_char_pointer argv[]={"app", "--g-fatal-warnings"};
 
 #if !defined(__SANITIZE_ADDRESS__)
 
@@ -1248,7 +1248,7 @@ namespace node_gtk3
 //   }
 //
 //
-////   void node::os_process_user_theme(string strTheme)
+////   void node::os_process_user_theme(const ::scoped_string & scopedstrTheme)
 ////   {
 ////
 ////      _os_process_user_theme(strTheme);
@@ -1257,7 +1257,7 @@ namespace node_gtk3
 //
 //
 //
-//   bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay)
+//   bool node::set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrLocalImagePath, ::windowing::display * pwindowingdisplay)
 //   {
 //
 //      // wall-changer sourceforge.net contribution
@@ -1587,12 +1587,12 @@ namespace node_gtk3
 //   }
 
 
-   GtkStyleContext * __get_style_context_for_theme(const_char_pointer  pszTheme, bool bDarkMode)
+   GtkStyleContext * __get_style_context_for_theme(const_char_pointer pszTheme, bool bDarkMode)
    {
 
       GtkStyleContext* pstylecontext = gtk_style_context_new();
 
-      const_char_pointer  pszVariant = nullptr;
+      const_char_pointer pszVariant = nullptr;
 
       if(bDarkMode)
       {
@@ -1997,7 +1997,7 @@ namespace node_gtk3
 //   }
 
 
-//   void node::os_process_user_theme(string strOsTheme)
+//   void node::os_process_user_theme(const ::scoped_string & scopedstrOsTheme)
 //   {
 //
 //      informationf(
@@ -2046,7 +2046,7 @@ namespace node_gtk3
 //   }
 
 
-//   void node::os_process_user_icon_theme(string strOsIconTheme)
+//   void node::os_process_user_icon_theme(const ::scoped_string & scopedstrOsIconTheme)
 //   {
 //
 //      informationf(
@@ -2093,7 +2093,7 @@ namespace node_gtk3
 //   }
 
 
-//   void node::_os_process_user_theme_color(string strTheme)
+//   void node::_os_process_user_theme_color(const ::scoped_string & scopedstrTheme)
 //   {
 //
 //      auto pthemecolors = _new_os_theme_colors(strTheme);
@@ -2239,7 +2239,7 @@ namespace node_gtk3
 
          //}
 
-         const_char_pointer  pszUrl = strUrl;
+         const_char_pointer pszUrl = strUrl;
 
          GError *perror = nullptr;
       
@@ -2646,7 +2646,7 @@ namespace node_gtk3
 //      if (pGtkIconInfo != nullptr)
 //      {
 //
-//         const_char_pointer  p = gtk_icon_info_get_filename(pGtkIconInfo);
+//         const_char_pointer p= gtk_icon_info_get_filename(pGtkIconInfo);
 //
 //         if (p)
 //         {
@@ -2677,7 +2677,7 @@ namespace node_gtk3
 //   char *gsettings_get_malloc(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey);
 //
 
-   //CLASS_DECL_ACME void _os_process_user_theme_color(string strTheme);
+   //CLASS_DECL_ACME void _os_process_user_theme_color(const ::scoped_string & scopedstrTheme);
 
 //   ::string_array node::_gsettings_schema_keys(const ::scoped_string & scopedstrSchema)
 //   {
@@ -3026,7 +3026,7 @@ namespace node_gtk3
 //   }
 
 
-//   ::string node::_g_get_file_icon_path(const_char_pointer  pszPath, int iSize)
+//   ::string node::_g_get_file_icon_path(const_char_pointer pszPath, int iSize)
 //   {
 //
 //      GFile * pfile = g_file_new_for_path (scopedstrPath);
@@ -3112,7 +3112,7 @@ namespace node_gtk3
 //   }
 
 
-//   const_char_pointer  g_get_file_content_type(const_char_pointer  pszPath)
+//   const_char_pointer g_get_file_content_type(const_char_pointer pszPath)
 //   {
 //
 //      GFile * pfile = g_file_new_for_path (scopedstrPath);
@@ -3135,9 +3135,9 @@ namespace node_gtk3
 //
 //      }
 //
-//      const_char_pointer  pszContentType = g_file_info_get_content_type (pfileinfo);
+//      const_char_pointer pszContentType = g_file_info_get_content_type (pfileinfo);
 //
-//      const_char_pointer  point = nullptr;
+//      const_char_pointer point = nullptr;
 //
 //      if(scopedstrContentType != nullptr)
 //      {
@@ -3152,7 +3152,7 @@ namespace node_gtk3
 
 
 
-//   int gdk_launch_uri(const_char_pointer  pszUri, char * pszError, int iBufferSize)
+//   int gdk_launch_uri(const_char_pointer pszUri, char * pszError, int iBufferSize)
 //   {
 //
 //      gboolean ret;
@@ -3487,7 +3487,7 @@ log_handler(const gchar *log_domain,
 //}
 
 
-//int gdk_launch_uri(const_char_pointer  pszUri, char * pszError, int iBufferSize)
+//int gdk_launch_uri(const_char_pointer pszUri, char * pszError, int iBufferSize)
 //{
 //
 //   gboolean ret;

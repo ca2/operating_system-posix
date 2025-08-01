@@ -338,7 +338,7 @@ namespace music
          }
 
 
-         void midi::error_handler(const_char_pointer  file, int line, const_char_pointer  function, int err, const_char_pointer  fmt, ...)
+         void midi::error_handler(const_char_pointer file, int line, const_char_pointer function, int err, const_char_pointer fmt, ...)
          {
             va_list arg;
 
@@ -490,7 +490,7 @@ namespace music
          /*
           * list subscribers of specified type
           */
-         void midi::list_each_subs(snd_seq_t *seq, snd_seq_query_subscribe_t *subs, snd_seq_query_subs_type_t type, const_char_pointer  msg)
+         void midi::list_each_subs(snd_seq_t *seq, snd_seq_query_subscribe_t *subs, snd_seq_query_subs_type_t type, const_char_pointer msg)
          {
             int count = 0;
             snd_seq_query_subscribe_set_type(subs, type);
@@ -675,8 +675,8 @@ namespace music
 //         {
 //
 //            snd_rawmidi_info_t *info = nullptr;
-//            const_char_pointer  name;
-//            const_char_pointer  sub_name;
+//            const_char_pointer name;
+//            const_char_pointer sub_name;
 //            int subs;
 //            int sub;
 //            int err;
@@ -698,7 +698,7 @@ namespace music
 //            else
 //            {
 //
-//               const_char_pointer  pszError = snd_strerror(err);
+//               const_char_pointer pszError = snd_strerror(err);
 //
 //               informationf("cannot not get snd_ctl_rawmidi_info: %s", pszError);
 //

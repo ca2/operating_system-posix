@@ -46,8 +46,8 @@ struct mixer_plugin_ops {
 };
 
 struct mixer_plugin_opt {
-	const_char_pointer  name;
-	int (*set)(const_char_pointer  val);
+	const_char_pointer name;
+	int (*set)(const_char_pointer val);
 	int (*get)(char **val);
 };
 

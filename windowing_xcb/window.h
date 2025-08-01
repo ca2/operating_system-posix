@@ -250,7 +250,7 @@ namespace windowing_xcb
 
 
       virtual ::e_status _send_client_event(xcb_atom_t atom, unsigned int numArgs, ...);
-      virtual ::e_status _store_name(const_char_pointer  psz);
+      virtual ::e_status _store_name(const_char_pointer psz);
       virtual ::e_status _select_input(int iInput);
       virtual ::e_status _select_all_input();
       virtual ::e_status _map_window();
@@ -260,7 +260,7 @@ namespace windowing_xcb
       virtual ::e_status _destroy_window();
 
 
-      virtual ::e_status _set_class_hint(const_char_pointer  pszName, const_char_pointer  pszClass);
+      virtual ::e_status _set_class_hint(const_char_pointer pszName, const_char_pointer pszClass);
       virtual ::e_status _get_window_attributes();
       virtual ::e_status _get_geometry();
       virtual ::e_status _move_resize(int x, int y, int cx, int cy);

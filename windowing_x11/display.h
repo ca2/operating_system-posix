@@ -122,11 +122,11 @@ namespace windowing_x11
 
       ::int_point _get_mouse_cursor_position() override;
 
-      Atom intern_atom(const_char_pointer  pszAtomName, bool bCreate);
+      Atom intern_atom(const_char_pointer pszAtomName, bool bCreate);
 
       Atom intern_atom(::x11::enuid() eatom, bool bCreate);
 
-      Atom _intern_atom_unlocked(const_char_pointer  pszAtomName, bool bCreate);
+      Atom _intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate);
 
       Atom _intern_atom_unlocked(::x11::enuid() eatom, bool bCreate);
 

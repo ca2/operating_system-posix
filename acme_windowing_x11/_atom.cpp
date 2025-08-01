@@ -9,7 +9,7 @@ namespace x11
 {
 
 
-   const_char_pointer  g_pszAtomName[] = {
+   const_char_pointer g_pszAtomName[] = {
       "_NET_WM_STATE",
       "_NET_WM_STATE_ABOVE",
       "_NET_WM_STATE_BELOW",
@@ -31,7 +31,7 @@ namespace x11
    };
 
 
-   const_char_pointer  atom_name(enuid() eatom)
+   const_char_pointer atom_name(enuid() eatom)
    {
 
       int iAtom = (int) eatom;

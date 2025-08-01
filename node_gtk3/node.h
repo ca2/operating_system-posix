@@ -93,9 +93,9 @@ namespace node_gtk3
 
       //virtual ::e_status _os_set_user_icon_theme(const ::scoped_string & scopedstrUserIconTheme);
 
-      //void os_process_user_theme(string strTheme) override;
+      //void os_process_user_theme(const ::scoped_string & scopedstrTheme) override;
 
-      //void os_process_user_icon_theme(string strTheme) override;
+      //void os_process_user_icon_theme(const ::scoped_string & scopedstrTheme) override;
 
       //void enable_wallpaper_change_notification() override;
 
@@ -103,7 +103,7 @@ namespace node_gtk3
 
       //string get_file_content_type(const ::scoped_string & scopedstrPath) override;
 
-      //bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
+      //bool set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrLocalImagePath, ::windowing::display * pwindowingdisplay) override;
 
       //string get_wallpaper(::collection::index iScreen) override;
 
@@ -115,7 +115,7 @@ namespace node_gtk3
 
       void defer_do_main_tasks() override;
 
-      //virtual void _os_process_user_theme_color(string strTheme);
+      //virtual void _os_process_user_theme_color(const ::scoped_string & scopedstrTheme);
 
       //void user_post_quit() override;
 

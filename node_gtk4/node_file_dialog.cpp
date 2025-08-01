@@ -97,7 +97,7 @@ namespace node_gtk4
          //    auto pitem = g_list_model_get_item(plistmodel, i);
          //
          //    // If the items are strings (e.g., in GtkStringList), cast it to a GValueArray or gchar*
-         //    const_char_pointer  string_item = gtk_string_list_get_string(GTK_STRING_LIST(plistmodel), i);
+         //    const_char_pointer string_item = gtk_string_list_get_string(GTK_STRING_LIST(plistmodel), i);
          //
          //    //g_print("Item %u: %s\n", i, string_item);
          //

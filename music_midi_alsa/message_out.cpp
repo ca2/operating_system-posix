@@ -17,7 +17,7 @@ namespace music
       {
 
 
-         message_out::message_out(midi * pmidi, string strDevice)
+         message_out::message_out(midi * pmidi, const ::scoped_string & scopedstrDevice)
          {
 
             m_iWrite = 0;

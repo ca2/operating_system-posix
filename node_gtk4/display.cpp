@@ -200,7 +200,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 ////   }
 //
 //
-////   Atom display::intern_atom(const_char_pointer  pszAtomName, bool bCreate)
+////   Atom display::intern_atom(const_char_pointer pszAtomName, bool bCreate)
 ////   {
 ////
 ////      if (m_pdisplay == nullptr)
@@ -314,7 +314,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 //
 //
 //
-//   bool display::impl_set_wallpaper(::collection::index, string strWallpaper)
+//   bool display::impl_set_wallpaper(::collection::index, const ::scoped_string & scopedstrWallpaper)
 //   {
 //
 //      // wall-changer sourceforge.net contribution

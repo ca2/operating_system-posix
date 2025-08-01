@@ -155,8 +155,8 @@ namespace wayland
                                         int32_t physical_width,
                                         int32_t physical_height,
                                         int32_t subpixel,
-                                        const_char_pointer  make,
-                                        const_char_pointer  model,
+                                        const_char_pointer make,
+                                        const_char_pointer model,
                                         int32_t transform);
 
 

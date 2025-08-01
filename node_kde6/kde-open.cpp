@@ -42,7 +42,7 @@
 //};
 
 
-void kde_open_local_file(QApplication * papplication, const_char_pointer  pszUrl, const_char_pointer  pszMimeType)
+void kde_open_local_file(QApplication * papplication, const_char_pointer pszUrl, const_char_pointer pszMimeType)
 {
 
    QString strUrl(scopedstrUrl);
@@ -128,7 +128,7 @@ void kde_open_local_file(QApplication * papplication, const_char_pointer  pszUrl
 //////   }
 ////}
 ////
-//////static void showStatField(const KIO::UDSEntry &entry, uint field, const_char_pointer  name)
+//////static void showStatField(const KIO::UDSEntry &entry, uint field, const_char_pointer name)
 //////{
 //////   if (!entry.contains(field))
 //////      return;

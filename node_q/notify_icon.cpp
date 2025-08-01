@@ -71,7 +71,7 @@ namespace node_q
    //
    // }
    QIcon createIconFromMemory(void *p, int len) {
-      QByteArray byteArray(reinterpret_cast<const_char_pointer  >(p), len);  // Convert to QByteArray
+      QByteArray byteArray(reinterpret_cast<const_char_pointer >(p), len);  // Convert to QByteArray
       QPixmap pixmap;
       pixmap.loadFromData(byteArray, "PNG");  // Load as a PNG image
       return QIcon(pixmap);

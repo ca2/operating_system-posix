@@ -194,7 +194,7 @@ namespace multimedia
 
    m_bStop = false;
    
-   const_char_pointer  adev="/dev/audio";
+   const_char_pointer adev="/dev/audio";
    
         auto estatus = audio_dev_init(adev);
 
@@ -1017,7 +1017,7 @@ static const audio_dev_backend *audio_dev_backends[] = {
 };
 
 
-      ::e_status wave_out::audio_dev_init(const_char_pointer  dev)
+      ::e_status wave_out::audio_dev_init(const_char_pointer dev)
       {
 
          m_pdata = ___new pcm_data;
@@ -1127,13 +1127,13 @@ static const audio_dev_backend *audio_dev_backends[] = {
       }
 
 
-      void wave_out::audio_dev_slave(const_char_pointer  dev)
+      void wave_out::audio_dev_slave(const_char_pointer dev)
       {
     
          pcm_data *pb = m_pdata;
          const audio_dev_backend *ad;
          pcm_buffer *pbuffer;
-         const_char_pointer  ext = strchr(dev, ':');
+         const_char_pointer ext = strchr(dev, ':');
          int rv, prodpeer = 0;
 
          if (ext == NULL)

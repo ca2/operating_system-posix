@@ -12,7 +12,7 @@
 //#include <memory.h>
 //
 //char * get_line(char * str, char * & next);
-//char * get_command_output(const_char_pointer  pszCommand);
+//char * get_command_output(const_char_pointer pszCommand);
 
 //#include "apex/networking/http/_user_agent.h"
 

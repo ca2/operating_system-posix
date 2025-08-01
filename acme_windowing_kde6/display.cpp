@@ -86,7 +86,7 @@ namespace kde6
          }
 
 
-         //         Atom display::intern_atom(const_char_pointer  pszAtomName, bool bCreate)
+         //         Atom display::intern_atom(const_char_pointer pszAtomName, bool bCreate)
          //         {
          //
          //            return _intern_atom_unlocked(scopedstrAtomName, bCreate);
@@ -143,7 +143,7 @@ namespace kde6
          //
          //
          //
-         //         Atom display::_intern_atom_unlocked(const_char_pointer  pszAtomName, bool bCreate)
+         //         Atom display::_intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate)
          //         {
          //
          //            if (m_pdisplay == nullptr)
@@ -755,7 +755,7 @@ namespace kde6
 //         //int _c_XErrorHandler(Display * display, XErrorEvent * perrorevent)
 //         //{
 //         //
-//         //   const_char_pointer  pszError;
+//         //   const_char_pointer pszError;
 //         //
 //         //   if(perrorevent->error_code == BadRequest)
 //         //   {
@@ -866,7 +866,7 @@ namespace kde6
 //         //
 //         //   }
 //         //
-//         //const_char_pointer  pszRequest;
+//         //const_char_pointer pszRequest;
 //         //   if(perrorevent->request_code == 1)
 //         //   {
 //         //
@@ -1358,7 +1358,7 @@ namespace kde6
 ////          }
 ////
 ////
-////          //   void node::os_process_user_theme(string strTheme)
+////          //   void node::os_process_user_theme(const ::scoped_string & scopedstrTheme)
 ////          //   {
 ////          //
 ////          //      _os_process_user_theme(strTheme);
@@ -1690,7 +1690,7 @@ namespace kde6
 
             }
 
-//            bool display::set_wallpaper(::collection::index , string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay)
+//            bool display::set_wallpaper(::collection::index , const ::scoped_string & scopedstrLocalImagePath, ::acme::windowing::display * pwindowingdisplay)
 //   {
 //
 //      ::string strCommand;

@@ -93,16 +93,16 @@ namespace acme_posix
 
 
    #if defined(MUTEX_NAMED_POSIX)
-      mutex(enum_create_new ecreatenew = create_new, const_char_pointer  psz = nullptr, const_char_pointer  pstrName,sem_t * psem,bool bOwner = true);
+      mutex(enum_create_new ecreatenew = create_new, const_char_pointer psz = nullptr, const_char_pointer pstrName,sem_t * psem,bool bOwner = true);
    #elif defined(MUTEX_NAMED_FD)
-      mutex(enum_create_new ecreatenew, const_char_pointer  pstrName, int iFd, bool bOwner = true);
+      mutex(enum_create_new ecreatenew, const_char_pointer pstrName, int iFd, bool bOwner = true);
    #elif defined(MUTEX_NAMED_VSEM)
-      mutex(enum_create_new ecreatenew, const_char_pointer  pstrName,key_t key, int semid, bool bOwner = true);
+      mutex(enum_create_new ecreatenew, const_char_pointer pstrName,key_t key, int semid, bool bOwner = true);
    #endif
       mutex(::particle
       * pparticle,
       bool bInitiallyOwn,
-      const_char_pointer  lpszName);
+      const_char_pointer lpszName);
 
       mutex(enum_create_new
       ecreatenew = e_create_new,
@@ -137,7 +137,7 @@ namespace acme_posix
       //bool already_exists();
 
 
-   ///static ::pointer < ::mutex >open_mutex(::matter * pmatter, const_char_pointer  lpszName) {return ::open_mutex(pmatter, lpszName);}
+   ///static ::pointer < ::mutex >open_mutex(::matter * pmatter, const_char_pointer lpszName) {return ::open_mutex(pmatter, lpszName);}
 
 
    };
@@ -146,7 +146,7 @@ namespace acme_posix
 } // namespace acme_posix
 
 
-//CLASS_DECL_ACME void wait_until_mutex_does_not_exist(const_char_pointer  lpszName);
+//CLASS_DECL_ACME void wait_until_mutex_does_not_exist(const_char_pointer lpszName);
 //
 //
 //

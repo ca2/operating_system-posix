@@ -7,18 +7,18 @@
 
 
 
-// const_char_pointer  linux_g_direct_get_file_icon_path(const_char_pointer  pszPath, int iSize);
+// const_char_pointer linux_g_direct_get_file_icon_path(const_char_pointer pszPath, int iSize);
 
-// string linux_get_file_icon_path(string strPath, int iSize)
+// string linux_get_file_icon_path(const ::scoped_string & scopedstrPath, int iSize)
 // {
 
 //    return ::string_from_strdup(linux_g_direct_get_file_icon_path(strPath, iSize));
 
 // }
 
-// const_char_pointer  linux_g_direct_get_file_content_type(const_char_pointer  pszFile);
+// const_char_pointer linux_g_direct_get_file_content_type(const_char_pointer pszFile);
 
-// string core_linux_get_file_content_type(string strPath)
+// string core_linux_get_file_content_type(const ::scoped_string & scopedstrPath)
 // {
 
 //    return ::string_from_strdup(linux_g_direct_get_file_content_type(strPath));
@@ -411,7 +411,7 @@ namespace aura_posix
    //            if (strlen(imagekey.m_strPath) <= 0)
    //            {
    //               SHGetFileInfo(
-   //                  (const_char_pointer  )lpiidlAbsolute,
+   //                  (const_char_pointer )lpiidlAbsolute,
    //                  FILE_ATTRIBUTE_NORMAL,
    //                  &shfi16,
    //                  sizeof(shfi16),
@@ -420,7 +420,7 @@ namespace aura_posix
    //                  | SHGFI_SMALLICON);
    //               hicon16 = shfi16.hIcon;
    //               SHGetFileInfo(
-   //                  (const_char_pointer  )lpiidlAbsolute,
+   //                  (const_char_pointer )lpiidlAbsolute,
    //                  FILE_ATTRIBUTE_NORMAL,
    //                  &shfi48,
    //                  sizeof(shfi48),
@@ -493,7 +493,7 @@ namespace aura_posix
 
 
 
-//      bool freebsd::get_icon( oswindow oswindow, const_char_pointer  psz, const unichar * lpcszExtra, e_icon eicon, HICON * phicon16, HICON * phicon48)
+//      bool freebsd::get_icon( oswindow oswindow, const_char_pointer psz, const unichar * lpcszExtra, e_icon eicon, HICON * phicon16, HICON * phicon48)
 //      {
 //
 //         single_lock synchronouslock(mutex(), true);

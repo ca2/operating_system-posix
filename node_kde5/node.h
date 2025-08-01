@@ -78,7 +78,7 @@ namespace node_kde5
 
       //void os_set_user_theme(const ::scoped_string & scopedstrUserTheme) override;
 
-      //void os_process_user_theme(string strTheme) override;
+      //void os_process_user_theme(const ::scoped_string & scopedstrTheme) override;
 
       //void enable_wallpaper_change_notification() override;
 
@@ -86,7 +86,7 @@ namespace node_kde5
 
       string get_file_content_type(const ::scoped_string & scopedstrPath) override;
 
-      //bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay) override;
+      //bool set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrLocalImagePath, ::acme::windowing::display * pwindowingdisplay) override;
 
       //string get_wallpaper(::collection::index iScreen, ::acme::windowing::display * pwindowingdisplay) override;
 

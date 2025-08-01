@@ -42,13 +42,13 @@ namespace node_gtk_based
 
 void os_post_quit();
 
-void apex_application_run(const_char_pointer  pszAppName, const_char_pointer  pszProgName);
+void apex_application_run(const_char_pointer pszAppName, const_char_pointer pszProgName);
 
 namespace node_gtk_based
 {
 
 
-   CLASS_DECL_ACME void _os_process_user_theme(string strTheme);
+   CLASS_DECL_ACME void _os_process_user_theme(const ::scoped_string & scopedstrTheme);
 
 
    node::node()

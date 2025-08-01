@@ -21,7 +21,7 @@ namespace node_kde6
       ~appindicator() override;
 
 
-      virtual bool create(const_char_pointer  pszId, const_char_pointer  pszIcon, const_char_pointer  pszFolder, application_menu * papplicationmenu, ::command_handler * pcallback);
+      virtual bool create(const_char_pointer pszId, const_char_pointer pszIcon, const_char_pointer pszFolder, application_menu * papplicationmenu, ::command_handler * pcallback);
 
 
    };

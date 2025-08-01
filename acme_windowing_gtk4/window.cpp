@@ -1079,10 +1079,10 @@ namespace gtk4
 
             // Create a GMenu that will be used by the popover
             auto* pmenu = g_menu_new();
-            const_char_pointer  pszDisplayHint = nullptr;
-            //const_char_pointer  pszDisplayHint = "horizontabuttons";
-            //const_char_pointer  pszDisplayHint = "circular-bul-ttons";
-            //const_char_pointer  pszDisplayHint = "inline-buttons";
+            const_char_pointer pszDisplayHint = nullptr;
+            //const_char_pointer pszDisplayHint = "horizontabuttons";
+            //const_char_pointer pszDisplayHint = "circular-bul-ttons";
+            //const_char_pointer pszDisplayHint = "inline-buttons";
             // // Create a section in the menu
             GMenu* pmenuSection = nullptr;
 
@@ -1477,7 +1477,7 @@ namespace gtk4
 
             GObject* objectContent = G_OBJECT(pbox);
             GType typeContent = G_OBJECT_TYPE(objectContent);
-            const_char_pointer  type_nameContent = g_type_name(typeContent);
+            const_char_pointer type_nameContent = g_type_name(typeContent);
 
             GtkWidget* abuttontemplate = nullptr;
             GtkWidget* abuttontemplatechild = nullptr;
@@ -1488,7 +1488,7 @@ namespace gtk4
             {
                auto pobject = G_OBJECT(p);
                GType type = G_OBJECT_TYPE(pobject);
-               const_char_pointer  type_name = g_type_name(type);
+               const_char_pointer type_name = g_type_name(type);
                if (g_strcmp0(type_name, "GtkModelButton") == 0)
                {
 
@@ -1588,7 +1588,7 @@ namespace gtk4
 
 
                   auto ppTemplate = gtk_widget_get_css_classes(abuttontemplate);
-                  gtk_widget_set_css_classes(GTK_WIDGET(pbutton), (const_char_pointer  *)ppTemplate);
+                  gtk_widget_set_css_classes(GTK_WIDGET(pbutton), (const_char_pointer *)ppTemplate);
                   // auto ppT = gtk_widget_get_css_name(abuttontemplate);
                   // auto pOld = gtk_widget_get_css_name(GTK_WIDGET(pbutton));
                   // g_object_set(pbutton, "css-name", ppT, NULL);
@@ -1596,7 +1596,7 @@ namespace gtk4
                   if (abuttontemplatechild)
                   {
                      auto ppTemplateChild = gtk_widget_get_css_classes(abuttontemplatechild);
-                     gtk_widget_set_css_classes(plabel, (const_char_pointer  *)ppTemplateChild);
+                     gtk_widget_set_css_classes(plabel, (const_char_pointer *)ppTemplateChild);
                   }
                   // auto ppTC = gtk_widget_get_css_name(abuttontemplatechild);
                   // auto pLOld = gtk_widget_get_css_name(plabel);

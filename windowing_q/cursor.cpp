@@ -93,7 +93,7 @@ namespace windowing_q
 //
 //   void
 //   global_registry_handler(void *data, struct wl_registry *registry, uint32_t id,
-//                           const_char_pointer  interface, uint32_t version)
+//                           const_char_pointer interface, uint32_t version)
 //   {
 //      printf("Got a registry happening for %s id %d\n", interface, id);
 //      if (strcmp(interface, "wl_compositor") == 0) {
@@ -391,7 +391,7 @@ namespace windowing_q
 
       __check_refdbg;
 
-      //const_char_pointer  cursor_name = "left_ptr";
+      //const_char_pointer cursor_name = "left_ptr";
 
       Qt::CursorShape shape;
 

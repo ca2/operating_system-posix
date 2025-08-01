@@ -152,7 +152,7 @@ gtk_shell1_get_gtk_surface(struct gtk_shell1 *gtk_shell1, struct wl_surface *sur
  * @ingroup iface_gtk_shell1
  */
 static inline void
-gtk_shell1_set_startup_id(struct gtk_shell1 *gtk_shell1, const_char_pointer  startup_id)
+gtk_shell1_set_startup_id(struct gtk_shell1 *gtk_shell1, const_char_pointer startup_id)
 {
 	wl_proxy_marshal_flags((struct wl_proxy *) gtk_shell1,
 			 GTK_SHELL1_SET_STARTUP_ID, NULL, wl_proxy_get_version((struct wl_proxy *) gtk_shell1), 0, startup_id);
@@ -222,7 +222,7 @@ gtk_surface1_destroy(struct gtk_surface1 *gtk_surface1)
  * @ingroup iface_gtk_surface1
  */
 static inline void
-gtk_surface1_set_dbus_properties(struct gtk_surface1 *gtk_surface1, const_char_pointer  application_id, const_char_pointer  app_menu_path, const_char_pointer  menubar_path, const_char_pointer  window_object_path, const_char_pointer  application_object_path, const_char_pointer  unique_bus_name)
+gtk_surface1_set_dbus_properties(struct gtk_surface1 *gtk_surface1, const_char_pointer application_id, const_char_pointer app_menu_path, const_char_pointer menubar_path, const_char_pointer window_object_path, const_char_pointer application_object_path, const_char_pointer unique_bus_name)
 {
 	wl_proxy_marshal_flags((struct wl_proxy *) gtk_surface1,
 			 GTK_SURFACE1_SET_DBUS_PROPERTIES, NULL, wl_proxy_get_version((struct wl_proxy *) gtk_surface1), 0, application_id, app_menu_path, menubar_path, window_object_path, application_object_path, unique_bus_name);

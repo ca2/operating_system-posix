@@ -386,7 +386,7 @@ namespace multimedia
 
 
 
-      int sndio::sndio_write(const_char_pointer  buf, int cnt)
+      int sndio::sndio_write(const_char_pointer buf, int cnt)
       {
          
          size_t rc;

@@ -29,7 +29,7 @@ namespace node_xfce
       ~node() override;
 
 
-      //virtual ::os_theme_colors * _new_os_theme_colors(string strTheme);
+      //virtual ::os_theme_colors * _new_os_theme_colors(const ::scoped_string & scopedstrTheme);
 
       //virtual int node_init_check(int * pi, char *** ppz) override;
 
@@ -49,7 +49,7 @@ namespace node_xfce
 
       //void os_set_user_theme(const ::scoped_string & scopedstrUserTheme) override;
 
-      //virtual void os_process_user_theme(string strTheme) override;
+      //virtual void os_process_user_theme(const ::scoped_string & scopedstrTheme) override;
 
       //virtual void enable_wallpaper_change_notification() override;
 
@@ -57,7 +57,7 @@ namespace node_xfce
 
       //string get_file_content_type(const ::scoped_string & scopedstrPath) override;
 
-      //bool set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::windowing::display * pwindowingdisplay) override;
+      //bool set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrLocalImagePath, ::windowing::display * pwindowingdisplay) override;
 
       //string get_wallpaper(::collection::index iScreen) override;
 
@@ -71,9 +71,9 @@ namespace node_xfce
 
       //virtual void on_subject(::promise::topic * ptopic, ::handler_context * pcontext) override;
 
-      //virtual void _on_change_os_user_theme(string strTheme);
+      //virtual void _on_change_os_user_theme(const ::scoped_string & scopedstrTheme);
 
-      //virtual void _os_process_user_theme_color(string strTheme);
+      //virtual void _os_process_user_theme_color(const ::scoped_string & scopedstrTheme);
 
       //virtual ::node_linux::appindicator * appindicator_allocate() override;
 

@@ -13,7 +13,7 @@
 void gdk_branch(const ::procedure & procedure);
 
 
-int gdk_launch_uri(const_char_pointer  pszUri, char * pszError, int iBufferSize);
+int gdk_launch_uri(const_char_pointer pszUri, char * pszError, int iBufferSize);
 
 
 void x11_add_idle_source(::node_xfce::node * pnode);
@@ -42,10 +42,10 @@ void x11_add_idle_source(::node_xfce::node * pnode);
 //}
 //
 
-const_char_pointer  linux_g_direct_get_file_icon_path(const_char_pointer  pszPath, int iSize);
+const_char_pointer linux_g_direct_get_file_icon_path(const_char_pointer pszPath, int iSize);
 
 
-const_char_pointer  linux_g_direct_get_file_content_type(const_char_pointer  pszPath);
+const_char_pointer linux_g_direct_get_file_content_type(const_char_pointer pszPath);
 
 
 //void aaa_x11_add_idle_source();
@@ -76,13 +76,13 @@ namespace node_xfce
 
 void os_post_quit();
 
-void apex_application_run(const_char_pointer  pszAppName, const_char_pointer  pszProgName);
+void apex_application_run(const_char_pointer pszAppName, const_char_pointer pszProgName);
 
 namespace node_xfce
 {
 
 
-   CLASS_DECL_ACME void _os_process_user_theme(string strTheme);
+   CLASS_DECL_ACME void _os_process_user_theme(const ::scoped_string & scopedstrTheme);
 
 
    node::node()
@@ -148,11 +148,11 @@ namespace node_xfce
 //      //   }
 //      //
 //
-////      const_char_pointer  pszName = m_XstrAppId;
+////      const_char_pointer pszName = m_XstrAppId;
 //
 ////       g_set_application_name(scopedstrName);
 //
-////      const_char_pointer  pszPrgName = m_strProgName;
+////      const_char_pointer pszPrgName = m_strProgName;
 //
 ////      g_set_prgname(scopedstrPrgName);
 //
@@ -164,7 +164,7 @@ namespace node_xfce
 //
 //      //int c = 2;
 //
-//      //const_char_pointer  argv[]={"app", "--g-fatal-warnings"};
+//      //const_char_pointer argv[]={"app", "--g-fatal-warnings"};
 //
 //#if !defined(__SANITIZE_ADDRESS__)
 //
@@ -454,7 +454,7 @@ namespace node_xfce
 //   }
 
 
-//   void node::os_process_user_theme(string strTheme)
+//   void node::os_process_user_theme(const ::scoped_string & scopedstrTheme)
 //   {
 //
 //      _os_process_user_theme(strTheme);
@@ -462,7 +462,7 @@ namespace node_xfce
 //   }
 
 
-//   bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath)
+//   bool node::set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrLocalImagePath)
 //   {
 //
 //      return ::node_gtk::node::set_wallpaper(iScreen, strLocalImagePath);
@@ -573,7 +573,7 @@ namespace node_xfce
 //   }
 //
 //
-//   string node::get_file_icon_path(const_char_pointer  pszPath, int iSize)
+//   string node::get_file_icon_path(const_char_pointer pszPath, int iSize)
 //   {
 //
 //      return ::linux_g_direct_get_file_icon_path(scopedstrPath, iSize);
@@ -581,7 +581,7 @@ namespace node_xfce
 //   }
 //
 //
-//   string node::get_file_content_type(const_char_pointer  pszPath)
+//   string node::get_file_content_type(const_char_pointer pszPath)
 //   {
 //
 //      return ::linux_g_direct_get_file_content_type(scopedstrPath);
@@ -779,7 +779,7 @@ namespace node_xfce
 //   }
 
 
-//   int node::os_launch_uri(const_char_pointer  pszUri, char * pszError, int iBufferSize)
+//   int node::os_launch_uri(const_char_pointer pszUri, char * pszError, int iBufferSize)
 //   {
 //
 //      int iRet = gdk_launch_uri(scopedstrUri, pszError, iBufferSize);

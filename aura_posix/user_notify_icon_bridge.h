@@ -11,7 +11,7 @@
 //
 //   virtual int _get_notification_area_action_count() = 0;
 //   virtual bool _get_notification_area_action_info(char ** ppszName, char ** ppszId, char ** ppszLabel, char ** ppszAccelerator, char ** ppszDescription, int iIndex) = 0;
-//   virtual void call_notification_area_action(const_char_pointer  pszId) = 0;
+//   virtual void call_notification_area_action(const_char_pointer pszId) = 0;
 //
 //
 //};

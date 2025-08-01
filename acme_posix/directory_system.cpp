@@ -106,7 +106,7 @@ namespace acme_posix
    }
 
    //
-   //   ::e_status directory_system::create(const_char_pointer  path)
+   //   ::e_status directory_system::create(const_char_pointer path)
    //   {
    //
    //
@@ -119,7 +119,7 @@ namespace acme_posix
    //   }
    //
    //
-   //   ::e_status directory_system::_create(const_char_pointer  path)
+   //   ::e_status directory_system::_create(const_char_pointer path)
    //   {
    //
    //      return ::create_directory_path(path);
@@ -127,7 +127,7 @@ namespace acme_posix
    //   }
    //
    //
-   //   ::e_status directory_system::create_directory(const_char_pointer  path)
+   //   ::e_status directory_system::create_directory(const_char_pointer path)
    //   {
    //
    //      return ::create_directory(path);
@@ -162,7 +162,7 @@ namespace acme_posix
 //   }
 
 
-   //   void directory_system::rls(::file::path_array & stra, const_char_pointer  psz)
+   //   void directory_system::rls(::file::path_array & stra, const_char_pointer psz)
    //   {
    //
    //      ::collection::count start = stra.get_count();
@@ -186,7 +186,7 @@ namespace acme_posix
    //   }
 
 
-   //   void directory_system::rls_dir(::file::path_array & stra, const_char_pointer  psz)
+   //   void directory_system::rls_dir(::file::path_array & stra, const_char_pointer psz)
    //   {
    //
    //      ::collection::count start = stra.get_count();
@@ -222,7 +222,7 @@ namespace acme_posix
 
       string strFilename(dp->d_name);
 
-      //const_char_pointer  psz = dp->d_name;
+      //const_char_pointer psz = dp->d_name;
 
       path = listing.m_pathFinal / strFilename;
       
@@ -306,7 +306,7 @@ namespace acme_posix
    }
 
 
-static int rmFiles(const_char_pointer  pathname, const struct stat *sbuf, int type, struct FTW *ftwb)
+static int rmFiles(const_char_pointer pathname, const struct stat *sbuf, int type, struct FTW *ftwb)
 {
     if(remove(pathname) < 0)
     {
@@ -439,7 +439,7 @@ void directory_system::erase_recursively(const ::file::path &path)
    }
 
 
-   //   void directory_system::ls_dir(::file::path_array & stra, const_char_pointer  psz)
+   //   void directory_system::ls_dir(::file::path_array & stra, const_char_pointer psz)
    //   {
    //
    //      DIR * dirp = opendir(scopedstr);
@@ -479,7 +479,7 @@ void directory_system::erase_recursively(const ::file::path &path)
    //   }
    //
    //
-   //   void directory_system::ls_file(::file::path_array & stra, const_char_pointer  psz)
+   //   void directory_system::ls_file(::file::path_array & stra, const_char_pointer psz)
    //   {
    //
    //      DIR * dirp = opendir(scopedstr);
@@ -568,7 +568,7 @@ void directory_system::erase_recursively(const ::file::path &path)
 
       ::file::path path;//Unix sys are generic ...
 
-      const_char_pointer  homedir{ nullptr };
+      const_char_pointer homedir{ nullptr };
 
       if ((homedir = getenv("HOME")) == nullptr)
       {

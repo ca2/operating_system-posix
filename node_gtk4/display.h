@@ -73,7 +73,7 @@
 ////   Atom get_window_long_atom(int nIndex);
 ////
 ////
-////   Atom intern_atom(const_char_pointer  pszAtomName, bool bCreate);
+////   Atom intern_atom(const_char_pointer pszAtomName, bool bCreate);
 ////
 ////   Atom intern_atom(e_net_wm_state estate, bool bCreate);
 ////
@@ -150,7 +150,7 @@
 //      virtual ::collection::count get_monitor_count() override;
 //
 //
-//      bool impl_set_wallpaper(::collection::index, string strWallpaper) override;
+//      bool impl_set_wallpaper(::collection::index, const ::scoped_string & scopedstrWallpaper) override;
 //
 //};
 //

@@ -100,7 +100,7 @@ static int	audio_dev_readpeer(struct audio_dev_ctx *);
 static void	audio_dev_sigpipe(int);
 static int	audio_dev_output(struct audio_dev_ctx *, struct pcm_data *);
 static void	audio_dev_command(struct audio_dev_ctx *, int *);
-static void	audio_dev_slave(const_char_pointer  , struct audio_dev_ctx *);
+static void	audio_dev_slave(const_char_pointer ,struct audio_dev_ctx *);
 //static inline signed long audio_linear_dither(unsigned int, mad_fixed_t,
 //		    mad_fixed_t *);
 //static void	audio_convert_dither(unsigned char *, unsigned int,
@@ -170,7 +170,7 @@ audio_dev_sigpipe(int arg)
 }
 
 void *
-audio_dev_init(const_char_pointer  dev)
+audio_dev_init(const_char_pointer dev)
 {
 	struct audio_dev_ctx *ac;
 	struct pcm_buffer *pb;
@@ -389,12 +389,12 @@ void audio_dev_unpause(void * arg)
 }
 
 static void
-audio_dev_slave(const_char_pointer  dev, struct audio_dev_ctx *ac)
+audio_dev_slave(const_char_pointer dev, struct audio_dev_ctx *ac)
 {
 	struct pcm_buffer *pb = ac->ac_pcm;
 	const struct audio_dev_backend *ad;
 	struct pcm_data *pd;
-	const_char_pointer  ext;
+	const_char_pointer ext;
 	int rv, prodpeer = 0;
 	struct pollfd fds[2];
 	nfds_t nfds;

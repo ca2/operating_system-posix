@@ -115,13 +115,13 @@ namespace windowing_q
 
       virtual void _set_os_user_theme(const ::scoped_string & strTheme);
       virtual void _apply_os_user_theme();
-      virtual void _os_process_user_theme(string strOsUserTheme);
+      virtual void _os_process_user_theme(const ::scoped_string & scopedstrOsUserTheme);
       virtual ::string _get_os_user_theme();
 
 
       virtual void _set_os_user_icon_theme(const ::scoped_string & strIconTheme);
       virtual void _apply_os_user_icon_theme();
-      virtual void _os_process_user_icon_theme(string strOsUserIconTheme);
+      virtual void _os_process_user_icon_theme(const ::scoped_string & scopedstrOsUserIconTheme);
 
 
       virtual void _fetch_dark_mode();

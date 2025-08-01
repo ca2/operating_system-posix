@@ -229,7 +229,7 @@ namespace draw2d_xlib
       //return ::GetBitmapBits((HBITMAP)get_handle(), dwCount, lpBits);
       return 0;
    }
-   bool bitmap::LoadBitmap(const_char_pointer  lpszResourceName)
+   bool bitmap::LoadBitmap(const_char_pointer lpszResourceName)
    {
    //   return Attach(::LoadBitmap(::aura::FindResourceHandle(
    //lpszResourceName, RT_BITMAP), lpszResourceName));

@@ -54,7 +54,7 @@ namespace windowing_gtk4
 
       void _on_text(const ::scoped_string & scopedstr) override;
 
-      virtual void _on_gtk_im_context_commit(const_char_pointer  psz);
+      virtual void _on_gtk_im_context_commit(const_char_pointer psz);
 
       void _on_window_visibility_changed(GObject * object, GParamSpec * pspec) override;
 
@@ -85,7 +85,7 @@ namespace windowing_gtk4
       void _on_window_button_released(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture,
                                       int n_press, double x, double y) override;
 
-      virtual int store_name(const_char_pointer  psz);
+      virtual int store_name(const_char_pointer psz);
 
       virtual int select_input(int iInput);
 
@@ -95,7 +95,7 @@ namespace windowing_gtk4
 
       virtual int unmap_window(bool bWithdraw);
 
-      virtual void set_wm_class(const_char_pointer  psz);
+      virtual void set_wm_class(const_char_pointer psz);
 
       void exit_iconify() override;
 

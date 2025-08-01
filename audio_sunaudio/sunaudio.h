@@ -87,7 +87,7 @@ namespace multimedia
 
          memsize sunaudio_write(const void * data, memsize bytes);
 
-         const_char_pointer  sunaudio_strerror(int error);
+         const_char_pointer sunaudio_strerror(int error);
 
          int sunaudio_pause();
 
@@ -104,7 +104,7 @@ namespace multimedia
 //int sndio_exit(void);
 //int sndio_close(void);
 //int sndio_open(sample_format_t sf, const channel_position_t *channel_map);
-//int sndio_write(const_char_pointer  buf, int cnt);
+//int sndio_write(const_char_pointer buf, int cnt);
 //int sndio_pause(void);
 //int sndio_unpause(void);
 //int sndio_buffer_space(void);

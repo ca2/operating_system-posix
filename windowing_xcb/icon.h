@@ -38,11 +38,11 @@ namespace windowing_xcb
       void * get_os_data(const ::int_size & size) const override;
 
 
-      void load_matter(string strPath);
+      void load_matter(const ::scoped_string & scopedstrPath);
 
-      void load_app_tray_icon(string strPath);
+      void load_app_tray_icon(const ::scoped_string & scopedstrPath);
 
-      void load_file(string strPath);
+      void load_file(const ::scoped_string & scopedstrPath);
 
 
       ::image::image_pointer get_image(const ::int_size & size) override;

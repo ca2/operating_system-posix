@@ -43,15 +43,15 @@ namespace acme_posix
 
       //bool _is(const ::file::path & path1) override;
 
-      //string name(string path) override;
+      //string name(const ::scoped_string & scopedstrPath) override;
 
-      //void rls(::file::path_array & stra, const_char_pointer  psz) override;
+      //void rls(::file::path_array & stra, const_char_pointer psz) override;
 
-      //void rls_dir(::file::path_array & stra, const_char_pointer  psz) override;
-      //void ls(::file::path_array & stra, const_char_pointer  psz) override;
+      //void rls_dir(::file::path_array & stra, const_char_pointer psz) override;
+      //void ls(::file::path_array & stra, const_char_pointer psz) override;
 
-      //void ls_dir(::file::path_array & stra, const_char_pointer  psz) override;
-      //void ls_file(::file::path_array & stra, const_char_pointer  psz) override;
+      //void ls_dir(::file::path_array & stra, const_char_pointer psz) override;
+      //void ls_file(::file::path_array & stra, const_char_pointer psz) override;
       
       void erase_recursively(const ::file::path & path) override;
 
@@ -63,7 +63,7 @@ namespace acme_posix
 
       ::file::path archive() override;
 
-      //int make_path(const_char_pointer  psz) override;
+      //int make_path(const_char_pointer psz) override;
       ::file::path home()override;
 
       ::file::path get_current()override;

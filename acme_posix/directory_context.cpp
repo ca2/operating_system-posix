@@ -7,7 +7,7 @@
 #include "acme/platform/system.h"
 
 
-::file::path xdg_get_dir(::matter * pmatter, string str)
+::file::path xdg_get_dir(::matter * pmatter, const ::scoped_string & scopedstr)
 {
 
    ::file::path pathHome;

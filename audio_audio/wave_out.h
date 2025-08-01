@@ -66,7 +66,7 @@ namespace multimedia
  */
 struct audio_dev_backend {
 	const char	*ad_name;
-	void *		(*ad_init)(const_char_pointer  );
+	void *		(*ad_init)(const_char_pointer );
 	void		(*ad_close)(void *);
 	int		(*ad_config)(void *, int, int, int lowat, int hiwat);
 	ssize_t		(*ad_output)(void *, void *, size_t);
@@ -196,7 +196,7 @@ int m_fd;
 
          class ::time out_get_time_for_synch();
 
-         ::e_status	audio_dev_init(const_char_pointer  );
+         ::e_status	audio_dev_init(const_char_pointer );
          void	audio_dev_close();
 
          int audio_dev_write(void *pcmdata, int samplecount);
@@ -208,7 +208,7 @@ int m_fd;
          int audio_dev_flush_wait();
          int audio_dev_purge_wait();
 
-         void audio_dev_slave(const_char_pointer  dev);
+         void audio_dev_slave(const_char_pointer dev);
 
          long long audio_dev_buffer_time();
 

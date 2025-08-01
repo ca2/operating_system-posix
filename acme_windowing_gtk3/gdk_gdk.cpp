@@ -36,7 +36,7 @@ namespace gdk
    char *gsettings_get_malloc(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey);
 
 
-   //CLASS_DECL_ACME void _os_process_user_theme_color(string strTheme);
+   //CLASS_DECL_ACME void _os_process_user_theme_color(const ::scoped_string & scopedstrTheme);
 
    ::string_array gsettings_schema_keys(const ::scoped_string & scopedstrSchema)
    {
@@ -385,7 +385,7 @@ namespace gdk
    }
 
 
-   const_char_pointer  g_get_file_icon_path(const_char_pointer  pszPath, int iSize)
+   const_char_pointer g_get_file_icon_path(const_char_pointer pszPath, int iSize)
    {
 
       GFile * pfile = g_file_new_for_path (scopedstrPath);
@@ -491,7 +491,7 @@ namespace gdk
    }
 
 
-   const_char_pointer  g_get_file_content_type(const_char_pointer  pszPath)
+   const_char_pointer g_get_file_content_type(const_char_pointer pszPath)
    {
 
       GFile * pfile = g_file_new_for_path (scopedstrPath);
@@ -514,9 +514,9 @@ namespace gdk
 
       }
 
-      const_char_pointer  pszContentType = g_file_info_get_content_type (pfileinfo);
+      const_char_pointer pszContentType = g_file_info_get_content_type (pfileinfo);
 
-      const_char_pointer  point = nullptr;
+      const_char_pointer point = nullptr;
 
       if(scopedstrContentType != nullptr)
       {
@@ -531,7 +531,7 @@ namespace gdk
 
 
 
-   int gdk_launch_uri(const_char_pointer  pszUri, char * pszError, int iBufferSize)
+   int gdk_launch_uri(const_char_pointer pszUri, char * pszError, int iBufferSize)
    {
 
       gboolean ret;
@@ -619,7 +619,7 @@ namespace gdk
    }
 
 
-void open_file_with_default_app(const_char_pointer  filename) {
+void open_file_with_default_app(const_char_pointer filename) {
     GError *error = NULL;
     GFile *file = g_file_new_for_path(filename);
     
@@ -663,7 +663,7 @@ void on_file_opened(GObject *source_object, GAsyncResult *res, gpointer user_dat
 }
 
 // Function to open the file asynchronously with the default application
-void open_file_with_default_app_async(const_char_pointer  filename) {
+void open_file_with_default_app_async(const_char_pointer filename) {
     GError *error = NULL;
     GFile *file = g_file_new_for_path(filename);
 

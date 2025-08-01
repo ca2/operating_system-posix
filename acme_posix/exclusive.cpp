@@ -31,7 +31,7 @@ namespace acme_posix
 //#ifdef WINDOWS
 //
 
-//   exclusive::exclusive(::particle * pparticle, string strId ARG_SEC_ATTRS)
+//   exclusive::exclusive(::particle * pparticle, const ::scoped_string & scopedstrId ARG_SEC_ATTRS)
 //   //exclusive::exclusive()
 //   {
 //
@@ -113,7 +113,7 @@ namespace acme_posix
 
       directory_system()->create(path.folder());
 
-      const_char_pointer  pszPath = path.c_str();
+      const_char_pointer pszPath = path.c_str();
 
       pparticle->informationf("exclusive::exlusive Going to create exclusive at path : %s", pszPath);
 

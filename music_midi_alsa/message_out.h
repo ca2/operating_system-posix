@@ -30,7 +30,7 @@ namespace music
             memory_file             m_file;
 
 
-            message_out(midi * pmidi, string strDevice);
+            message_out(midi * pmidi, const ::scoped_string & scopedstrDevice);
             ~message_out() override;
 
             void start() override;

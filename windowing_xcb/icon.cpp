@@ -58,7 +58,7 @@ namespace windowing_xcb
    }
 
 
-   void icon::load_file(string strPath)
+   void icon::load_file(const ::scoped_string & scopedstrPath)
    {
 
       throw ::interface_only();
@@ -68,7 +68,7 @@ namespace windowing_xcb
    }
 
 
-   void icon::load_matter(string strMatter)
+   void icon::load_matter(const ::scoped_string & scopedstrMatter)
    {
 
       string strPath = directory()->matter(strMatter);
@@ -89,7 +89,7 @@ namespace windowing_xcb
    }
 
 
-   void icon::load_app_tray_icon(string strAppId)
+   void icon::load_app_tray_icon(const ::scoped_string & scopedstrAppId)
    {
 
       //auto estatus =

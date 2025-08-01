@@ -56,8 +56,8 @@ gboolean gtk_quit_callback(gpointer data);
 
 void gtk_defer_do_main_tasks();
 
-//void gio_open_url(const_char_pointer  pszUrl);
-///int gtk_launch (const_char_pointer  pszDesktopFileTitle);
+//void gio_open_url(const_char_pointer pszUrl);
+///int gtk_launch (const_char_pointer pszDesktopFileTitle);
 
 
 void copy(::color::color &color, const GdkRGBA &rgba)
@@ -347,7 +347,7 @@ cairo_surface_t * __cairo_create_image_argb32_surface(::memory & m, int w, int h
 //}
 
 
-// bool __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state, const_char_pointer  pszProperty, ::color::color & color)
+// bool __gtk_style_context_get_color(GtkStyleContext *context, GtkStateFlags state, const_char_pointer pszProperty, ::color::color & color)
 // {
 //
 //    GdkRGBA *prgba = nullptr;
@@ -386,7 +386,7 @@ gboolean node_gtk_source_func(gpointer pUserdata);
 #include <stdio.h>
 #include <stdlib.h>
 
-void dbus_activate_application(const_char_pointer  bus_name, const_char_pointer  object_path) {
+void dbus_activate_application(const_char_pointer bus_name, const_char_pointer object_path) {
     DBusError error;
     DBusConnection *connection;
     DBusMessage *message, *reply;
@@ -457,13 +457,13 @@ namespace node_gtk4
 
 void os_post_quit(GApplication *pgapplication);
 
-void apex_application_run(const_char_pointer  pszAppName, const_char_pointer  pszProgName);
+void apex_application_run(const_char_pointer pszAppName, const_char_pointer pszProgName);
 
 namespace node_gtk4
 {
 
 
-   CLASS_DECL_ACME void _os_process_user_theme(string strTheme);
+   CLASS_DECL_ACME void _os_process_user_theme(const ::scoped_string & scopedstrTheme);
 
 
    node::node()
@@ -560,11 +560,11 @@ namespace node_gtk4
       //   }
       //
 
-//      const_char_pointer  pszName = m_XstrAppId;
+//      const_char_pointer pszName = m_XstrAppId;
 
 //       g_set_application_name(scopedstrName);
 
-//      const_char_pointer  pszPrgName = m_strProgName;
+//      const_char_pointer pszPrgName = m_strProgName;
 
 //      g_set_prgname(scopedstrPrgName);
 
@@ -576,7 +576,7 @@ namespace node_gtk4
 
       //int c = 2;
 
-      //const_char_pointer  argv[]={"app", "--g-fatal-warnings"};
+      //const_char_pointer argv[]={"app", "--g-fatal-warnings"};
 
 #if !defined(__SANITIZE_ADDRESS__)
 
@@ -1008,7 +1008,7 @@ namespace node_gtk4
    }
 
 
-//   void node::os_process_user_theme(string strTheme)
+//   void node::os_process_user_theme(const ::scoped_string & scopedstrTheme)
 //   {
 //
 //      _os_process_user_theme(strTheme);
@@ -1017,7 +1017,7 @@ namespace node_gtk4
 
 
 
-   // bool node::set_wallpaper(::collection::index iScreen, string strLocalImagePath, ::acme::windowing::display * pwindowingdisplay)
+   // bool node::set_wallpaper(::collection::index iScreen, const ::scoped_string & scopedstrLocalImagePath, ::acme::windowing::display * pwindowingdisplay)
    // {
    //
    //    // wall-changer sourceforge.net contribution
@@ -1354,12 +1354,12 @@ namespace node_gtk4
    }
 
 
-   // GtkStyleContext * __get_style_context_for_theme(const_char_pointer  pszTheme, bool bDarkMode)
+   // GtkStyleContext * __get_style_context_for_theme(const_char_pointer pszTheme, bool bDarkMode)
    // {
    //
    //    GtkStyleContext* pstylecontext = gtk_style_context_new();
    //
-   //    const_char_pointer  pszVariant = nullptr;
+   //    const_char_pointer pszVariant = nullptr;
    //
    //    if(bDarkMode)
    //    {
@@ -1732,7 +1732,7 @@ namespace node_gtk4
    // }
 
 //
-//    void node::os_process_user_theme(string strOsTheme)
+//    void node::os_process_user_theme(const ::scoped_string & scopedstrOsTheme)
 //    {
 //
 //       informationf(
@@ -1783,7 +1783,7 @@ namespace node_gtk4
 
 
 
-//   void node::_os_process_user_theme_color(string strTheme)
+//   void node::_os_process_user_theme_color(const ::scoped_string & scopedstrTheme)
 //   {
 //
 //      auto pthemecolors = _new_os_theme_colors(strTheme);
@@ -1904,7 +1904,7 @@ namespace node_gtk4
    void node::open_internet_link_in_system_browser(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile)
    {
 
-      const_char_pointer  pszUrl = strUrl;
+      const_char_pointer pszUrl = strUrl;
 
       GError *perror = nullptr;
 
@@ -2108,7 +2108,7 @@ namespace node_gtk4
     
     strObjectName = "/" + strObjectName;
     
-    const_char_pointer  object_path = strObjectName;
+    const_char_pointer object_path = strObjectName;
     
     informationf("Dbus name: %s", strDbusName.c_str());
     
@@ -2540,7 +2540,7 @@ gboolean x11_source_func(gpointer p)
 // }
 
 
-//int gdk_launch_uri(const_char_pointer  pszUri, char * pszError, int iBufferSize)
+//int gdk_launch_uri(const_char_pointer pszUri, char * pszError, int iBufferSize)
 //{
 //
 //   gboolean ret;

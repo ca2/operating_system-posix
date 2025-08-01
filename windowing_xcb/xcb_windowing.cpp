@@ -82,7 +82,7 @@ CLASS_DECL_ACME string message_box_result_to_string(int iResult);
 
 //CLASS_DECL_ACME void xcb_message_box(const ::scoped_string & scopedstrMessage, const ::scoped_string & scopedstrTitle, const ::e_message_box & emessagebox, const ::promise::process & process);
 
-//::e_status message_box_synchronous(oswindow oswindow, const_char_pointer  pszMessage, const_char_pointer  pszTitle, const ::e_message_box & emessagebox, ::future future)
+//::e_status message_box_synchronous(oswindow oswindow, const_char_pointer pszMessage, const_char_pointer pszTitle, const ::e_message_box & emessagebox, ::future future)
 //{
 //
 //   xcb_message_box(scopedstrMessage, pszTitle, emessagebox, future);

@@ -413,7 +413,7 @@ namespace windowing_wayland
 
 
 
-//   Atom display::intern_atom(const_char_pointer  pszAtomName, bool bCreate)
+//   Atom display::intern_atom(const_char_pointer pszAtomName, bool bCreate)
 //   {
 //
 //      if (m_px11display == nullptr)
@@ -456,7 +456,7 @@ namespace windowing_wayland
 //   }
 //
 //
-//   Atom display::_intern_atom_unlocked(const_char_pointer  pszAtomName, bool bCreate)
+//   Atom display::_intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate)
 //   {
 //
 //      if (m_px11display == nullptr)

@@ -431,7 +431,7 @@ namespace windowing_q
    //   m_playout->process_escape(pnode, set);
    //}
 
-//   bool keyboard::load_layout(const_char_pointer  pszPath, const ::action_context & context)
+//   bool keyboard::load_layout(const_char_pointer pszPath, const ::action_context & context)
 //   {
 //
 //      auto playout = __allocate ::user::keyboard_layout();
@@ -520,7 +520,7 @@ namespace windowing_q
 
    //}
 
-   //string keyboard::process_char(const_char_pointer  pszKey)
+   //string keyboard::process_char(const_char_pointer pszKey)
    //{
    //   if(m_playout == nullptr)
    //   {
@@ -529,7 +529,7 @@ namespace windowing_q
    //   return m_playout->process_char(scopedstrKey);
    //}
 
-   //string keyboard::process_escape(const_char_pointer  pszEscape)
+   //string keyboard::process_escape(const_char_pointer pszEscape)
    //{
    //   if(m_playout == nullptr)
    //   {
@@ -668,7 +668,7 @@ namespace windowing_q
 //   }
 
 
-//   bool keyboard::initialize(keyboard_layout_id * playoutid, const_char_pointer  pszPath)
+//   bool keyboard::initialize(keyboard_layout_id * playoutid, const_char_pointer pszPath)
 //   {
 //
 //      if(!Context.file()->exists(scopedstrPath))
@@ -730,7 +730,7 @@ namespace windowing_q
 //   }
 
 
-   void keyboard::show_software_keyboard(::user::interaction_base* pprimitive, string str, character_count iBeg, character_count iEnd)
+   void keyboard::show_software_keyboard(::user::interaction_base* pprimitive, const ::scoped_string & scopedstr, character_count iBeg, character_count iEnd)
    {
 
       synchronous_lock synchronouslock(this->synchronization());
@@ -870,13 +870,13 @@ namespace windowing_q
 //////      if(pxkbinput)
 //////      {
 //////
-//////         pxkbinput->xkb_keymap_new_from_string((const_char_pointer  ) p, XKB_KEYMAP_FORMAT_TEXT_V1,
+//////         pxkbinput->xkb_keymap_new_from_string((const_char_pointer )p, XKB_KEYMAP_FORMAT_TEXT_V1,
 //////                                             XKB_KEYMAP_COMPILE_NO_FLAGS);
 //////
 //////      }
 ////
 ////      m_pxkbkeymap = ::xkb_keymap_new_from_string(
-////         m_pxkbcontext, (const_char_pointer  ) p, XKB_KEYMAP_FORMAT_TEXT_V1,
+////         m_pxkbcontext, (const_char_pointer )p, XKB_KEYMAP_FORMAT_TEXT_V1,
 ////         XKB_KEYMAP_COMPILE_NO_FLAGS);
 ////
 ////      ::munmap(p, size);

@@ -54,10 +54,10 @@ namespace lxq1
 //             bool is_branch_current() const override;
 //
 //
-// //            virtual Atom intern_atom(const_char_pointer  pszAtomName, bool bCreate);
+// //            virtual Atom intern_atom(const_char_pointer pszAtomName, bool bCreate);
 // //            virtual Atom intern_atom(enuid() eatom, bool bCreate);
 // //
-// //            virtual Atom _intern_atom_unlocked(const_char_pointer  pszAtomName, bool bCreate);
+// //            virtual Atom _intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate);
 // //            virtual Atom _intern_atom_unlocked(enuid() eatom, bool bCreate);
 // //
 // //            unsigned char * _get_string_property(Display *display, Window window, char *property_name);

@@ -24,7 +24,7 @@ namespace draw2d_xlib
       void * get_os_data() const;
 
 
-      bool LoadBitmap(const_char_pointer  lpszResourceName);
+      bool LoadBitmap(const_char_pointer lpszResourceName);
       bool LoadBitmap(unsigned int nIDResource);
       bool LoadOEMBitmap(unsigned int nIDBitmap); // for OBM_/OCR_/OIC_
       bool CreateBitmap(::draw2d::graphics * pgraphics, int nWidth, int nHeight, unsigned int nPlanes, unsigned int nBitcount, const void * lpBits, int iStride);

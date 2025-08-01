@@ -716,7 +716,7 @@ namespace windowing_kde6
 //   }
 //
 //
-//   //   static int open_restricted(const_char_pointer  path, int flags, void *user_data)
+//   //   static int open_restricted(const_char_pointer path, int flags, void *user_data)
 //   //   {
 //   //      int fd = ::open(path, flags);
 //   //      return fd < 0 ? -errno : fd;
@@ -1383,7 +1383,7 @@ namespace windowing_kde6
 //
 //
 //
-//   void windowing::_os_process_user_theme(string strOsTheme)
+//   void windowing::_os_process_user_theme(const ::scoped_string & scopedstrOsTheme)
 //   {
 //
 //      informationf(
@@ -1434,7 +1434,7 @@ namespace windowing_kde6
 //
 //
 //
-//   void windowing::_os_process_user_icon_theme(string strOsUserIconTheme)
+//   void windowing::_os_process_user_icon_theme(const ::scoped_string & scopedstrOsUserIconTheme)
 //   {
 //
 //      informationf(

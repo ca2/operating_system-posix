@@ -400,7 +400,7 @@ namespace node_gtk3
 //
 //   clipboard_data * pdata = (clipboard_data *) data;
 //
-//   string str = (const_char_pointer  )gtk_selection_data_get_data(selection_data);
+//   string str = (const_char_pointer )gtk_selection_data_get_data(selection_data);
 //
 //   string_array stra;
 //
@@ -510,7 +510,7 @@ namespace node_gtk3
 //
 //   GdkAtom target = gtk_selection_data_get_target(selection_data);
 //
-//   gtk_selection_data_set(selection_data, target, 8, (const guchar *) (const_char_pointer  ) str, str.length());
+//   gtk_selection_data_set(selection_data, target, 8, (const guchar *) (const_char_pointer )str, str.length());
 //
 //
 //}

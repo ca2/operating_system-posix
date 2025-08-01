@@ -137,12 +137,12 @@ namespace gtk4
 
 
             // virtual void _apply_os_user_theme();
-            // virtual void _os_process_user_theme(string strOsUserTheme);
+            // virtual void _os_process_user_theme(const ::scoped_string & scopedstrOsUserTheme);
             // //virtual ::string _get_os_user_theme();
             //
             //
             // virtual void _apply_os_user_icon_theme();
-            // virtual void _os_process_user_icon_theme(string strOsUserIconTheme);
+            // virtual void _os_process_user_icon_theme(const ::scoped_string & scopedstrOsUserIconTheme);
 
             ::pixmap get_pixmap_from_file(memory& memoryHost, const void* psourceFile, memsize sizeSourceFile) override;
 

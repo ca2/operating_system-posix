@@ -89,7 +89,7 @@ namespace nano
       }
 
 
-      //   Atom display::intern_atom(const_char_pointer  pszAtomName, bool bCreate)
+      //   Atom display::intern_atom(const_char_pointer pszAtomName, bool bCreate)
       //   {
       //
       //      return _intern_atom_unlocked(scopedstrAtomName, bCreate);
@@ -146,7 +146,7 @@ namespace nano
       //
       //
       //
-      //   Atom display::_intern_atom_unlocked(const_char_pointer  pszAtomName, bool bCreate)
+      //   Atom display::_intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate)
       //   {
       //
       //      if (m_pdisplay == nullptr)

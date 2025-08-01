@@ -38,22 +38,22 @@
 #endif
 
 /* Disabled NLS.
-   The casts to 'const_char_pointer  ' serve the purpose of producing warnings
+   The casts to 'const_char_pointer 'serve the purpose of producing warnings
    for invalid uses of the value returned from these functions.
    On pre-ANSI systems without 'const', the config.h file is supposed to
    contain "#define const".  */
-# define gettext(Msgid) ((const_char_pointer  ) (Msgid))
-# define dgettext(Domainname, Msgid) ((const_char_pointer  ) (Msgid))
-# define dcgettext(Domainname, Msgid, Category) ((const_char_pointer  ) (Msgid))
+# define gettext(Msgid) ((const_char_pointer )(Msgid))
+# define dgettext(Domainname, Msgid) ((const_char_pointer )(Msgid))
+# define dcgettext(Domainname, Msgid, Category) ((const_char_pointer )(Msgid))
 # define ngettext(Msgid1, Msgid2, N) \
-    ((N) == 1 ? (const_char_pointer  ) (Msgid1) : (const_char_pointer  ) (Msgid2))
+    ((N) == 1 ? (const_char_pointer )(Msgid1) : (const_char_pointer )(Msgid2))
 # define dngettext(Domainname, Msgid1, Msgid2, N) \
-    ((N) == 1 ? (const_char_pointer  ) (Msgid1) : (const_char_pointer  ) (Msgid2))
+    ((N) == 1 ? (const_char_pointer )(Msgid1) : (const_char_pointer )(Msgid2))
 # define dcngettext(Domainname, Msgid1, Msgid2, N, Category) \
-    ((N) == 1 ? (const_char_pointer  ) (Msgid1) : (const_char_pointer  ) (Msgid2))
-# define textdomain(Domainname) ((const_char_pointer  ) (Domainname))
-# define bindtextdomain(Domainname, Dirname) ((const_char_pointer  ) (Dirname))
-# define bind_textdomain_codeset(Domainname, Codeset) ((const_char_pointer  ) (Codeset))
+    ((N) == 1 ? (const_char_pointer )(Msgid1) : (const_char_pointer )(Msgid2))
+# define textdomain(Domainname) ((const_char_pointer )(Domainname))
+# define bindtextdomain(Domainname, Dirname) ((const_char_pointer )(Dirname))
+# define bind_textdomain_codeset(Domainname, Codeset) ((const_char_pointer )(Codeset))
 
 #endif
 

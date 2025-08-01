@@ -17,11 +17,11 @@ namespace acme_posix
 
 
       file_lock();
-      file_lock(const_char_pointer  pszName);
+      file_lock(const_char_pointer pszName);
       ~file_lock();
 
 
-      bool set_name(const_char_pointer  pszName);
+      bool set_name(const_char_pointer pszName);
 
 
       bool is_active();
@@ -33,7 +33,7 @@ namespace acme_posix
       bool close_file();
 
 
-      static string _get_file_name(const_char_pointer  lpszName);
+      static string _get_file_name(const_char_pointer lpszName);
 
 
    };

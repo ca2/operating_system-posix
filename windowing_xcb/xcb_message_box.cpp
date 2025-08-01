@@ -42,7 +42,7 @@ struct Dimensions{
 struct Dimensions dim = {400, 0, 5, 50, 30, 10, 30, 30, 20, 75, 25, 8};
 
 
-void setWindowTitle(const_char_pointer  title, const xcb_window_t *win, xcb_connection_t *dpy){
+void setWindowTitle(const_char_pointer title, const xcb_window_t *win, xcb_connection_t *dpy){
     xcb_atom_t wm_Name = XInternAtom(dpy, "_NET_WM_NAME", false);
     xcb_atom_t utf8Str = XInternAtom(dpy, "UTF8_STRING", false);
 
@@ -91,7 +91,7 @@ void setWindowTitle(const_char_pointer  title, const xcb_window_t *win, xcb_conn
 //     }
 // }
 
-//::e_status xcbMessageBoxA(const_char_pointer  title, const_char_pointer  text, const Button* buttons, int numButtons);
+//::e_status xcbMessageBoxA(const_char_pointer title, const_char_pointer text, const Button* buttons, int numButtons);
 
 
 
@@ -111,7 +111,7 @@ void setWindowTitle(const_char_pointer  title, const xcb_window_t *win, xcb_conn
 
 
 
-//::e_status xcbMessageBoxA(const_char_pointer  title, const_char_pointer  text, const Button* btsData, int numButtons)
+//::e_status xcbMessageBoxA(const_char_pointer title, const_char_pointer text, const Button* btsData, int numButtons)
 //{
 //    //setlocale(LC_ALL,"");
 //

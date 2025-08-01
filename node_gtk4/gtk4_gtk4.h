@@ -17,7 +17,7 @@ typedef enum
 } WallpaperAlign;
 
 
-bool gconf_set_as_wallpaper( const_char_pointer  image_path, WallpaperAlign align );
+bool gconf_set_as_wallpaper( const_char_pointer image_path, WallpaperAlign align );
 
 
 namespace node_gtk4
