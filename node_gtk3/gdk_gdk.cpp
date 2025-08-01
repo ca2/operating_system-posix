@@ -372,7 +372,7 @@ namespace node_gtk3
 //   }
 //
 //
-//   const char * g_get_file_icon_path(const char * pszPath, int iSize)
+//   const_char_pointer g_get_file_icon_path(const_char_pointer pszPath, int iSize)
 //   {
 //
 //      GFile * pfile = g_file_new_for_path (scopedstrPath);
@@ -454,7 +454,7 @@ namespace node_gtk3
 //
 //         }
 //
-//         const char * point = gtk_icon_info_get_filename(pGtkIconInfo);
+//         const_char_pointer point = gtk_icon_info_get_filename(pGtkIconInfo);
 //
 //         char * psz = nullptr;
 //
@@ -474,7 +474,7 @@ namespace node_gtk3
 //   }
 //
 //
-//   const char * g_get_file_content_type(const char * pszPath)
+//   const_char_pointer g_get_file_content_type(const_char_pointer pszPath)
 //   {
 //
 //      GFile * pfile = g_file_new_for_path (scopedstrPath);
@@ -497,9 +497,9 @@ namespace node_gtk3
 //
 //      }
 //
-//      const char * pszContentType = g_file_info_get_content_type (pfileinfo);
+//      const_char_pointer pszContentType = g_file_info_get_content_type (pfileinfo);
 //
-//      const char * point = nullptr;
+//      const_char_pointer point = nullptr;
 //
 //      if(scopedstrContentType != nullptr)
 //      {
@@ -514,7 +514,7 @@ namespace node_gtk3
 //
 //
 //
-//   int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
+//   int gdk_launch_uri(const_char_pointer pszUri, char * pszError, int iBufferSize)
 //   {
 //
 //      gboolean ret;

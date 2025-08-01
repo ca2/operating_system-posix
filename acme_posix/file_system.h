@@ -53,7 +53,7 @@ namespace acme_posix
       ::file::path module() override;
 
       void put_contents(const ::file::path & path, const ::block & block) override;
-      //bool get_temporary_file_name_template(char * szRet, character_count iBufferSize, const char * lpszName, const char * pszExtension, const char * pszTemplate) override;
+      //bool get_temporary_file_name_template(char * szRet, character_count iBufferSize, const_char_pointer lpszName, const_char_pointer pszExtension, const_char_pointer pszTemplate) override;
       filesize get_size(const ::file::path & path) override;
       //filesize get_size(FILE * pfile) override;
       filesize get_size_fd(int iFileDescriptor) override;
@@ -64,8 +64,8 @@ namespace acme_posix
 //      bool _memory_map_file_copy(const ::file::path & pathNew, const ::file::path & pathSrc) override;
 //      
       
-//   virtual FILE * FILE_open(const ::file::path & path, const char * attrs, int iShare);
-//   virtual int FILE_printf(FILE * fp, const char * s, ...);
+//   virtual FILE * FILE_open(const ::file::path & path, const_char_pointer attrs, int iShare);
+//   virtual int FILE_printf(FILE * fp, const_char_pointer s, ...);
 //   virtual int FILE_close(FILE * fp);
 //   virtual int FILE_eof(FILE * fp);
 //   virtual filesize FILE_seek(FILE * str, filesize offset, int origin);
@@ -99,9 +99,9 @@ namespace acme_posix
       //void set_size(FILE * pfile, filesize iSize) override;
 
 
-      //bool transfer(const char * pszNewName, const char * pszOldName) override;
+      //bool transfer(const_char_pointer pszNewName, const_char_pointer pszOldName) override;
 
-      //::e_status delete_file(const char * pszFileName) override;
+      //::e_status delete_file(const_char_pointer pszFileName) override;
 
 
       class ::time modification_time(const ::file::path & path) override;

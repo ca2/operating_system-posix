@@ -67,7 +67,7 @@ namespace acme_posix
       ::pointer < ::mutex > create_local_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes = nullptr) override;
       ::pointer < ::mutex > create_global_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes = nullptr) override;
 
-      ::pointer<::mutex> open_named_mutex(::particle * pparticle, const char * lpszName);
+      ::pointer<::mutex> open_named_mutex(::particle * pparticle, const_char_pointer lpszName);
 
       ::pointer < ::mutex > open_local_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName) override;
       ::pointer < ::mutex > open_global_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName) override;
@@ -136,7 +136,7 @@ namespace acme_posix
 
       void detached_command(const ::scoped_string & scopedstrCommand, const ::file::path & pathLog) override;
 
-      bool _is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath = nullptr, const char * pszPath = nullptr) override;
+      bool _is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath = nullptr, const_char_pointer pszPath = nullptr) override;
 
       //enum_windowing calculate_ewindowing() override;
 

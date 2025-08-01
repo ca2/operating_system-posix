@@ -615,9 +615,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
    xcb_atom_t *wm_get_list_raw(oswindow w, xcb_atom_t atomList, unsigned long int *items);
 
-   int wm_test_state(oswindow w, const char *pszNetStateFlag);
+   int wm_test_state(oswindow w, const_char_pointer pszNetStateFlag);
 
-   int wm_test_state_raw(oswindow w, const char *pszNetStateFlag);
+   int wm_test_state_raw(oswindow w, const_char_pointer pszNetStateFlag);
 
    int wm_test_list_raw(oswindow w, xcb_atom_t atomList, xcb_atom_t atomFlag);
 
@@ -1231,7 +1231,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 //
 //
-//const char *g_pszaNetWmState[] =
+//const_char_pointer g_pszaNetWmState[] =
 //   {
 //      "_NET_WM_STATE_ABOVE",
 //      "_NET_WM_STATE_BELOW",
@@ -1246,7 +1246,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 
 //
-//const char *net_wm_state_text(enum_net_wm_state estate)
+//const_char_pointer net_wm_state_text(enum_net_wm_state estate)
 //{
 //
 //   if (estate < e_net_wm_state_first || estate >= e_net_wm_state_count)
@@ -1261,7 +1261,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //}
 //
 //
-//enum_net_wm_state net_wm_state(const char *pszText)
+//enum_net_wm_state net_wm_state(const_char_pointer pszText)
 //{
 //
 //   if (::is_null(scopedstrText))

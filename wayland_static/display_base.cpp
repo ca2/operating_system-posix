@@ -73,8 +73,8 @@ namespace wayland
                                  int32_t physical_width,
                                  int32_t physical_height,
                                  int32_t subpixel,
-                                 const char * make,
-                                 const char * model,
+                                 const_char_pointer make,
+                                 const_char_pointer model,
                                  int32_t transform)
          {
 
@@ -229,7 +229,7 @@ namespace wayland
           */
          void wl_output_name(void * data,
                              struct wl_output * wl_output,
-                             const char * name)
+                             const_char_pointer name)
          {
 
 
@@ -257,7 +257,7 @@ namespace wayland
           */
          void wl_output_description(void * data,
                                     struct wl_output * wl_output,
-                                    const char * description)
+                                    const_char_pointer description)
          {
 
 
@@ -486,7 +486,7 @@ namespace wayland
 
          void shm_format(void * data, struct wl_shm * wl_shm, uint32_t format)
          {
-            const char * s;
+            const_char_pointer s;
             switch (format)
             {
             case WL_SHM_FORMAT_ARGB8888:
@@ -655,7 +655,7 @@ namespace wayland
 
 
          void global_registry_handler(void * data, struct wl_registry * pwlregistry, uint32_t id,
-                                      const char * interface, uint32_t version)
+                                      const_char_pointer interface, uint32_t version)
          {
 
             auto pdisplay = (display_base *) data;
@@ -1650,13 +1650,13 @@ namespace wayland
             //      if(pxkbinput)
             //      {
             //
-            //         pxkbinput->xkb_keymap_new_from_string((const char *) p, XKB_KEYMAP_FORMAT_TEXT_V1,
+            //         pxkbinput->xkb_keymap_new_from_string((const_char_pointer ) p, XKB_KEYMAP_FORMAT_TEXT_V1,
             //                                             XKB_KEYMAP_COMPILE_NO_FLAGS);
             //
             //      }
 
             m_pxkbkeymap = ::xkb_keymap_new_from_string(
-               m_pxkbcontext, (const char *) p, XKB_KEYMAP_FORMAT_TEXT_V1,
+               m_pxkbcontext, (const_char_pointer ) p, XKB_KEYMAP_FORMAT_TEXT_V1,
                XKB_KEYMAP_COMPILE_NO_FLAGS);
 
             ::munmap(p, size);
@@ -1800,8 +1800,8 @@ namespace wayland
                                                         int32_t physical_width,
                                                         int32_t physical_height,
                                                         int32_t subpixel,
-                                                        const char * make,
-                                                        const char * model,
+                                                        const_char_pointer make,
+                                                        const_char_pointer model,
                                                         int32_t transform)
          {
 

@@ -778,7 +778,7 @@ namespace windowing_xcb
 //
 //         auto cookie = xcb_send_event(xcb_connection(), 0, xcb_windowing()->m_pdisplay->m_pxcbdisplay->m_windowRoot,
 //                                      XCB_EVENT_MASK_SUBSTRUCTURE_NOTIFY | XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT,
-//                                      (const char *) &happening);
+//                                      (const_char_pointer ) &happening);
 //
 //         auto estatus1 = xcb_display()->_request_check(cookie);
 //
@@ -821,7 +821,7 @@ namespace windowing_xcb
 
          auto cookie = xcb_send_event(xcb_connection(), 0, xcb_windowing()->m_pdisplay->m_pxcbdisplay->m_windowRoot,
                                       XCB_EVENT_MASK_SUBSTRUCTURE_NOTIFY | XCB_EVENT_MASK_SUBSTRUCTURE_REDIRECT,
-                                      (const char *) &happening);
+                                      (const_char_pointer ) &happening);
 
          auto estatus2 = xcb_display()->_request_check(cookie);
 

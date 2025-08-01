@@ -476,7 +476,7 @@ namespace kde5
    // {
    //
    //
-   //    QByteArray imageData = QByteArray::fromRawData((const char *) psourceFile, sizeSourceFile);  // Replace with actual image bytes and size
+   //    QByteArray imageData = QByteArray::fromRawData((const_char_pointer ) psourceFile, sizeSourceFile);  // Replace with actual image bytes and size
    //
    //    // Create a QImage object
    //    QImage image;

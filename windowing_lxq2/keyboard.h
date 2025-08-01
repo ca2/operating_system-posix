@@ -46,21 +46,21 @@ namespace windowing_lxq2
 
       void initialize(::particle * pparticle) override;
 
-      //bool load_layout(const char * pszPath, const ::action_context & action_context);
+      //bool load_layout(const_char_pointer pszPath, const ::action_context & action_context);
 
       //string process_key(key * pkey);
 
       //string process_key(::user::enum_key ekey);
 
-      //string process_char(const char * pszChar);
+      //string process_char(const_char_pointer pszChar);
 
-      //string process_escape(const char * pszChar);
+      //string process_escape(const_char_pointer pszChar);
 
       //void process_escape(::pointer<::xml::node>pnode, ::property_set & set);
 
       //string get_current_system_layout();
 
-      //bool initialize(::user::keyboard_layout_id * playoutid, const char * pszPath);
+      //bool initialize(::user::keyboard_layout_id * playoutid, const_char_pointer pszPath);
 
       void translate_os_key_message(::user::key * pkey) override;
 

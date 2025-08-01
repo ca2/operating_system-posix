@@ -468,7 +468,7 @@ sun_object::sunaudio_flush()
       
    }
 
-const char *
+const_char_pointer 
 sun_object::sunaudio_strerror(
                     int error)
 {
@@ -476,9 +476,9 @@ sun_object::sunaudio_strerror(
 }
 
 //struct audio_object *
-//create_sun_object(const char *device,
-                  //const char *application_name,
-                  //const char *description)
+//create_sun_object(const_char_pointer device,
+                  //const_char_pointer application_name,
+                  //const_char_pointer description)
 //{
 	//struct sun_object *self = malloc(sizeof(struct sun_object));
 	//if (!self)

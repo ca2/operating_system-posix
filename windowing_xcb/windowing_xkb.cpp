@@ -32,7 +32,7 @@ namespace windowing_xcb
 
 //To Get keymap (Wayland...)
 ///* From the wl_keyboard::keymap happening. */
-//   const char *keymap_string = <...>;
+//   const_char_pointer keymap_string = <...>;
 //   struct xkb_keymap *keymap;
 //
 //   keymap = xkb_keymap_new_from_string(ctx, keymap_string,

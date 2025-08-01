@@ -156,8 +156,8 @@ namespace windowing_kde6
 //         virtual void _on_reposition(int x, int y);
 //         virtual void _on_size(int cx, int cy);
 //
-//         //void _on_window_button_pressed(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
-//         //void _on_window_button_released(GtkWidget * pwidget, const char * pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
+//         //void _on_window_button_pressed(GtkWidget * pwidget, const_char_pointer pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
+//         //void _on_window_button_released(GtkWidget * pwidget, const_char_pointer pszName, GtkGestureClick * pgesture, int n_press, double x, double y);
 //
 ////      static Atom get_window_long_atom(int nIndex);
 ////
@@ -195,12 +195,12 @@ namespace windowing_kde6
 ////      virtual ::e_status initialize_x11_window(::windowing_kde5::display * pdisplay, ::Window window, ::Visual *pvisual, int iDepth, int iScreen, Colormap colormap);
 //
 ////      virtual void send_client_event(Atom atom, unsigned int numArgs, ...);
-//      virtual int store_name(const char * psz);
+//      virtual int store_name(const_char_pointer psz);
 //      virtual int select_input(int iInput);
 //      virtual int select_all_input();
 //      virtual int map_window();
 //      virtual int unmap_window(bool bWithdraw);
-//      virtual void set_wm_class(const char * psz);
+//      virtual void set_wm_class(const_char_pointer psz);
 //
 //      void exit_iconify() override;
 //
@@ -343,8 +343,8 @@ namespace windowing_kde6
 //
 ////      virtual comparable_array < Atom > _wm_get_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList);
 ////      virtual ::comparable_array < Atom > _get_net_wm_state_unlocked();
-////      virtual int wm_test_state( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
-////      virtual int _wm_test_state_unlocked( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
+////      virtual int wm_test_state( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
+////      virtual int _wm_test_state_unlocked( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
 ////      virtual int _wm_test_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
 ////      virtual bool _wm_add_remove_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
 ////      virtual void _wm_add_remove_state_mapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
@@ -375,8 +375,8 @@ namespace windowing_kde6
 ////      //virtual int_bool IsWindowVisibleRaw(oswindow w);
 //////      virtual Atom * wm_get_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, unsigned long int * pnum_items);
 //////      virtual int wm_test_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
-//////      virtual int wm_test_state_raw( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
-//////      virtual int wm_test_state( WINDOWING_X11_WINDOW_MEMBER const char * pszNetStateFlag);
+//////      virtual int wm_test_state_raw( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
+//////      virtual int wm_test_state( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
 //////      virtual bool wm_add_remove_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
 //
 //
@@ -388,7 +388,7 @@ namespace windowing_kde6
 //      virtual ::e_status rectangle(::int_rectangle * prectangle);
 //      //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::int_rectangle & rectangle);
 //
-//      //virtual ::e_status x11_store_name(const char * pszName);
+//      //virtual ::e_status x11_store_name(const_char_pointer pszName);
 //      //virtual ::e_status set_foreground_window();
 //      //virtual ::e_status set_active_window();
 //      //virtual void wm_toolwindow( WINDOWING_X11_WINDOW_MEMBER bool bToolWindow);
@@ -448,7 +448,7 @@ namespace windowing_kde6
 //      void _on_windowing_close_window() override;
 //
 //         //GMenu* _create_system_menu();
-//         //virtual void _on_window_simple_action(const char * pszActionName);
+//         //virtual void _on_window_simple_action(const_char_pointer pszActionName);
 //
 //       ///virtual void _on_a_system_menu_item_action_triggered(::operating_system::a_system_menu_item * pitem);
 //

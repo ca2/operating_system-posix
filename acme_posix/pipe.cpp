@@ -125,7 +125,7 @@ namespace acme_posix
 
       size_t dwWritten;
 
-      dwWritten = ::write(m_fd[1], (const char *)scopedstr.begin(), dwLen);
+      dwWritten = ::write(m_fd[1], (const_char_pointer )scopedstr.begin(), dwLen);
 
       return bSuccess != false && dwWritten == dwLen;
 

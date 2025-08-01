@@ -370,7 +370,7 @@ namespace gdk
    }
 
 
-   const char * g_get_file_icon_path(const char * pszPath, int iSize)
+   const_char_pointer g_get_file_icon_path(const_char_pointer pszPath, int iSize)
    {
 
       GFile * pfile = g_file_new_for_path (scopedstrPath);
@@ -486,7 +486,7 @@ namespace gdk
    }
 
 
-   const char * g_get_file_content_type(const char * pszPath)
+   const_char_pointer g_get_file_content_type(const_char_pointer pszPath)
    {
 
       GFile * pfile = g_file_new_for_path (scopedstrPath);
@@ -509,9 +509,9 @@ namespace gdk
 
       }
 
-      const char * pszContentType = g_file_info_get_content_type (pfileinfo);
+      const_char_pointer pszContentType = g_file_info_get_content_type (pfileinfo);
 
-      const char * point = nullptr;
+      const_char_pointer point = nullptr;
 
       if(scopedstrContentType != nullptr)
       {
@@ -526,7 +526,7 @@ namespace gdk
 
 
 
-   int gdk_launch_uri(const char * pszUri, char * pszError, int iBufferSize)
+   int gdk_launch_uri(const_char_pointer pszUri, char * pszError, int iBufferSize)
    {
 
       gboolean ret;
@@ -638,7 +638,7 @@ void gtk_defer_do_main_tasks()
 }
 
 
-::e_status dbus_set_string(const char * channel, const char * key, const char * payload)
+::e_status dbus_set_string(const_char_pointer channel, const_char_pointer key, const_char_pointer payload)
 {
     DBusError err;
     DBusConnection *conn;
@@ -674,8 +674,8 @@ void gtk_defer_do_main_tasks()
 
     // Append arguments
     dbus_message_iter_init_append(msg, &args);
-    //const char *channel = "xfce4-desktop";
-    //const char *property = "/backdrop/screen0/monitor0/workspace0/last-image";
+    //const_char_pointer channel = "xfce4-desktop";
+    //const_char_pointer property = "/backdrop/screen0/monitor0/workspace0/last-image";
 
     if (!dbus_message_iter_append_basic(&args, DBUS_TYPE_STRING, &channel) ||
         !dbus_message_iter_append_basic(&args, DBUS_TYPE_STRING, &key)) {
@@ -685,7 +685,7 @@ void gtk_defer_do_main_tasks()
 
     // Add the value to be set (variant type with a single string)
     DBusMessageIter variant;
-    const char *type = "s"; // String type
+    const_char_pointer type = "s"; // String type
     dbus_message_iter_open_container(&args, DBUS_TYPE_VARIANT, type, &variant);
     if (!dbus_message_iter_append_basic(&variant, DBUS_TYPE_STRING, &payload)) {
         fprintf(stderr, "Out of Memory!\n");
@@ -726,7 +726,7 @@ void gtk_defer_do_main_tasks()
 }
 
 
-::e_status dbus_get_property_string(::string & str, const char *channel, const char *property)
+::e_status dbus_get_property_string(::string & str, const_char_pointer channel, const_char_pointer property)
 {
 
     DBusError err;
@@ -811,7 +811,7 @@ void gtk_defer_do_main_tasks()
 }
 
 
-::e_status xfce4_set_wallpaper(const char *wallpaper_path)
+::e_status xfce4_set_wallpaper(const_char_pointer wallpaper_path)
 {
 
    auto estatusMonitor0 = dbus_set_string("xfce4-desktop", "/backdrop/screen0/monitor0/workspace0/last-image", wallpaper_path);

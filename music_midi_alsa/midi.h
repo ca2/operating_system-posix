@@ -44,8 +44,8 @@ namespace music
             //bool Initialize();
 
 
-            //bool IsSoftKaraokeFile(const char * lpszPathName);
-            //bool IsXFFile(const char * lpcszPathName);
+            //bool IsSoftKaraokeFile(const_char_pointer lpszPathName);
+            //bool IsXFFile(const_char_pointer lpcszPathName);
 
 
             //virtual bool veriwell_multimedia_music_midi_factory();
@@ -71,11 +71,11 @@ namespace music
 
             //virtual bool list_midi_out_devices(snd_ctl_t *ctl, int card, int device);
 
-            void list_each_subs(snd_seq_t *seq, snd_seq_query_subscribe_t *subs, snd_seq_query_subs_type_t type, const char *msg);
+            void list_each_subs(snd_seq_t *seq, snd_seq_query_subscribe_t *subs, snd_seq_query_subs_type_t type, const_char_pointer msg);
 
             void list_subscribers(snd_seq_t *seq, const snd_seq_addr_t *addr);
 
-            void error_handler(const char *file, int line, const char *function, int err, const char *fmt, ...);
+            void error_handler(const_char_pointer file, int line, const_char_pointer function, int err, const_char_pointer fmt, ...);
 
             int check_permission(snd_seq_port_info_t *pinfo, int perm);
 

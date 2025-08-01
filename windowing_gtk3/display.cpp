@@ -529,7 +529,7 @@ namespace windowing_gtk3
 
 
 
-//   Atom display::intern_atom(const char * pszAtomName, bool bCreate)
+//   Atom display::intern_atom(const_char_pointer pszAtomName, bool bCreate)
 //   {
 //
 //      if (m_px11display == nullptr)
@@ -572,7 +572,7 @@ namespace windowing_gtk3
 //   }
 //
 //
-//   Atom display::_intern_atom_unlocked(const char * pszAtomName, bool bCreate)
+//   Atom display::_intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate)
 //   {
 //
 //      if (m_px11display == nullptr)

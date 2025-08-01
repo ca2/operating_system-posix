@@ -809,7 +809,7 @@ namespace multimedia
                   
                   continue;
 
-/////                  const char *pszError = //snd_strerror(iFrameFreeCount);
+/////                  const_char_pointer pszError = //snd_strerror(iFrameFreeCount);
 /////                   //informationf("ALSA wave_out snd_pcm_avail error: %s (%d)\n", pszError, iFrameFreeCount);
 //////
 //////                   //iFrameFreeCount = defer_underrun_recovery(iFrameFreeCount);
@@ -905,7 +905,7 @@ namespace multimedia
          while (iBytesToWrite > 0)
          {
 
-            iBytesJustWritten = sunaudio_write((const char *) pdata, iBytesToWrite);
+            iBytesJustWritten = sunaudio_write((const_char_pointer ) pdata, iBytesToWrite);
 
             //informationf("snd_pcm_writei iFramesJustWritten " << iFramesJustWritten);
 

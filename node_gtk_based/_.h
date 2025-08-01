@@ -35,7 +35,7 @@ namespace node_gtk_based
 // {
 //
 //
-//    char * gsettings_get_malloc(const char * pszSchema, const char * pszKey);
+//    char * gsettings_get_malloc(const_char_pointer pszSchema, const_char_pointer pszKey);
 //
 //
 // }

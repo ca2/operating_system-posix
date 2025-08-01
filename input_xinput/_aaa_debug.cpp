@@ -39,7 +39,7 @@
 int _cx_XErrorHandler(Display * display, XErrorEvent * perrorevent)
 {
 
-   const char * pszError;
+   const_char_pointer pszError;
 
    if(perrorevent->error_code == BadRequest)
    {
@@ -150,7 +150,7 @@ int _cx_XErrorHandler(Display * display, XErrorEvent * perrorevent)
 
    }
 
-const char * pszRequest;
+const_char_pointer pszRequest;
    if(perrorevent->request_code == 1)
    {
 

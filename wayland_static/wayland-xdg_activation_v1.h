@@ -233,7 +233,7 @@ xdg_activation_v1_get_activation_token(struct xdg_activation_v1 *xdg_activation_
  * token is passed.
  */
 static inline void
-xdg_activation_v1_activate(struct xdg_activation_v1 *xdg_activation_v1, const char *token, struct wl_surface *surface)
+xdg_activation_v1_activate(struct xdg_activation_v1 *xdg_activation_v1, const_char_pointer token, struct wl_surface *surface)
 {
    wl_proxy_marshal_flags((struct wl_proxy *) xdg_activation_v1,
                           XDG_ACTIVATION_V1_ACTIVATE, NULL, wl_proxy_get_version((struct wl_proxy *) xdg_activation_v1), 0, token, surface);
@@ -263,7 +263,7 @@ struct xdg_activation_token_v1_listener {
     */
    void (*done)(void *data,
                 struct xdg_activation_token_v1 *xdg_activation_token_v1,
-                const char *token);
+                const_char_pointer token);
 };
 
 /**
@@ -361,7 +361,7 @@ xdg_activation_token_v1_set_serial(struct xdg_activation_token_v1 *xdg_activatio
  * Must be sent before commit. This information is optional.
  */
 static inline void
-xdg_activation_token_v1_set_app_id(struct xdg_activation_token_v1 *xdg_activation_token_v1, const char *app_id)
+xdg_activation_token_v1_set_app_id(struct xdg_activation_token_v1 *xdg_activation_token_v1, const_char_pointer app_id)
 {
    wl_proxy_marshal_flags((struct wl_proxy *) xdg_activation_token_v1,
                           XDG_ACTIVATION_TOKEN_V1_SET_APP_ID, NULL, wl_proxy_get_version((struct wl_proxy *) xdg_activation_token_v1), 0, app_id);

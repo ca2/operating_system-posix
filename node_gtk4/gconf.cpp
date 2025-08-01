@@ -8,12 +8,12 @@
 //#include <stdio.h>
 
 
-//bool gconf_set_as_wallpaper( const char *image_path, WallpaperAlign align )
+//bool gconf_set_as_wallpaper( const_char_pointer image_path, WallpaperAlign align )
 //{
 //
 //   GConfClient * client;
 //
-//   const char * options = "none";
+//   const_char_pointer options = "none";
 //
 //   client = gconf_client_get_default();
 //

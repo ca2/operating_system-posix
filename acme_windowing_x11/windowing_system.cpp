@@ -219,7 +219,7 @@ namespace x11
          int _c_XErrorHandler(Display * display, XErrorEvent * perrorevent)
          {
 
-            const char * pszError;
+            const_char_pointer pszError;
 
             if(perrorevent->error_code == BadRequest)
             {
@@ -330,7 +330,7 @@ namespace x11
 
             }
 
-            const char * pszRequest;
+            const_char_pointer pszRequest;
             if(perrorevent->request_code == 1)
             {
 

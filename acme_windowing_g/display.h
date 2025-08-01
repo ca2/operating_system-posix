@@ -96,10 +96,10 @@ namespace g
 //            //bool is_wallpaper_associated_with_theming() override;
 //
 //
-//            //virtual Atom intern_atom(const char *pszAtomName, bool bCreate);
+//            //virtual Atom intern_atom(const_char_pointer pszAtomName, bool bCreate);
 //            //virtual Atom intern_atom(enuid() eatom, bool bCreate);
 //
-//            //virtual Atom _intern_atom_unlocked(const char *pszAtomName, bool bCreate);
+//            //virtual Atom _intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate);
 //            //virtual Atom _intern_atom_unlocked(enuid() eatom, bool bCreate);
 //
 //            //unsigned char * _get_string_property(Display *display, Window window, char *property_name);
@@ -223,8 +223,8 @@ namespace g
 //            //                         int32_t physical_width,
 //            //                         int32_t physical_height,
 //            //                         int32_t subpixel,
-//            //                         const char *make,
-//            //                         const char *model,
+//            //                         const_char_pointer make,
+//            //                         const_char_pointer model,
 //            //                         int32_t transform);
 //            //
 //            //

@@ -37,7 +37,7 @@
 void initialize_x11_display(::particle * pparticle, void * pX11Display);
 void * initialize_x11_display(::particle * pparticle);
 
-void kde_open_local_file(QApplication * papplication, const char *psz, const char * pszMimeType);
+void kde_open_local_file(QApplication * papplication, const_char_pointer psz, const_char_pointer pszMimeType);
 
 
 
@@ -477,7 +477,7 @@ namespace node_kde6
    string node::get_file_icon_path(const ::scoped_string & scopedstrPath, int iSize)
    {
 
-      QUrl url((const char *) ("file://"+strPath));
+      QUrl url((const_char_pointer ) ("file://"+strPath));
 
       KFileItem fileitem(url, KFileItem::NormalMimeTypeDetermination);
 
@@ -496,7 +496,7 @@ namespace node_kde6
 
       QByteArray bytea = path.toUtf8();
 
-      const char *pathData = bytea.constData();
+      const_char_pointer pathData = bytea.constData();
 
       return pathData;
 
@@ -632,7 +632,7 @@ namespace node_kde6
    int node::os_launch_uri(const ::scoped_string & scopedstrUri, char * pszError, int iBufferSize)
    {
 
-      QDesktopServices::openUrl(QUrl((const char *) strUri));
+      QDesktopServices::openUrl(QUrl((const_char_pointer ) strUri));
 
       return 0;
 
@@ -803,7 +803,7 @@ namespace node_kde6
 
                                        ::pointer<::file::file_dialog> pdialogTransfer(transfer_t{}, pdialog);
 
-                                       pdialog->m_pathStartFolder = (const char *) pqfiledialog->directory().absolutePath().toUtf8().data();
+                                       pdialog->m_pathStartFolder = (const_char_pointer ) pqfiledialog->directory().absolutePath().toUtf8().data();
 
                                        if(finished)
                                        {
@@ -812,7 +812,7 @@ namespace node_kde6
                                           for(auto & file : pqfiledialog->selectedFiles())
                                           {
 
-                                             pdialog->m_patha.add((const char *) file.toUtf8().data());
+                                             pdialog->m_patha.add((const_char_pointer ) file.toUtf8().data());
 
                                           }
 
@@ -864,7 +864,7 @@ namespace node_kde6
                                        if(finished)
                                        {
 
-                                           pdialog->m_path = (const char *) pqfiledialog->directory().absolutePath().toUtf8().data();
+                                           pdialog->m_path = (const_char_pointer ) pqfiledialog->directory().absolutePath().toUtf8().data();
 
                                        }
 

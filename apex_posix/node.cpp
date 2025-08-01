@@ -37,7 +37,7 @@
 void os_post_quit();
 
 
-void apex_application_run(const char * pszAppName, const char * pszProgName);
+void apex_application_run(const_char_pointer pszAppName, const_char_pointer pszProgName);
 
 
 namespace apex_posix

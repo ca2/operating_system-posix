@@ -89,7 +89,7 @@ namespace windowing_gtk3
    static void on_commit(GtkWidget* widget, gchar* text, gpointer p)
    {
       auto* pwindow = (::windowing_gtk3::window *)p;
-      pwindow->_on_text((const char *)text);
+      pwindow->_on_text((const_char_pointer )text);
       g_print("Committed text: %s\n", text);
    }
 
@@ -1501,9 +1501,9 @@ namespace windowing_gtk3
       //////            //
       //////            //         string strApplicationServerName = psystem->get_application_server_name();
       //////            //
-      //////            //         pupdate->res_class = (char *) (const char *) strApplicationServerName;
+      //////            //         pupdate->res_class = (char *) (const_char_pointer ) strApplicationServerName;
       //////            //
-      //////            //         pupdate->res_name = (char *) (const char *) strApplicationServerName;
+      //////            //         pupdate->res_name = (char *) (const_char_pointer ) strApplicationServerName;
       //////            //
       //////            //         XSetClassHint(display, window, pupdate);
       //////            //
@@ -2372,7 +2372,7 @@ namespace windowing_gtk3
    //   }
 
 
-   void window::set_wm_class(const char* psz)
+   void window::set_wm_class(const_char_pointer psz)
    {
 
       synchronous_lock synchronouslock(user_synchronization());
@@ -2383,9 +2383,9 @@ namespace windowing_gtk3
       //
       //      XClassHint classHint;
       //
-      //      classHint.res_name = (char *) (const char *) m_strWMClass;
+      //      classHint.res_name = (char *) (const_char_pointer ) m_strWMClass;
       //
-      //      classHint.res_class = (char *) (const char *) m_strWMClass;
+      //      classHint.res_class = (char *) (const_char_pointer ) m_strWMClass;
       //
       //      XSetClassHint(Display(), Window(), &classHint);
 
@@ -2767,7 +2767,7 @@ namespace windowing_gtk3
       //         XA_STRING,
       //         8,
       //         PropModeReplace,
-      //         (const unsigned char *) (const char *) path,
+      //         (const unsigned char *) (const_char_pointer ) path,
       //         path.length());
       //
       //      informationf("windowing_gtk3::window::bamf_set_icon END");
@@ -2994,7 +2994,7 @@ namespace windowing_gtk3
    }
 
 
-   int window::store_name(const char* psz)
+   int window::store_name(const_char_pointer psz)
    {
 
       windowing_output_debug_string("\nwindow::store_name");
@@ -3722,7 +3722,7 @@ namespace windowing_gtk3
       //         ixa,
       //         8,
       //         PropModeReplace,
-      //         (const unsigned char *) (const char *) path,
+      //         (const unsigned char *) (const_char_pointer ) path,
       //         path.length());
       //
       //      informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
@@ -4459,7 +4459,7 @@ namespace windowing_gtk3
       //         ixa,
       //         8,
       //         PropModeReplace,
-      //         (const unsigned char *) (const char *) path,
+      //         (const unsigned char *) (const_char_pointer ) path,
       //         path.length());
       //
       //      informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
@@ -5256,7 +5256,7 @@ namespace windowing_gtk3
    //   }
    //
    //
-   //   int window::_wm_test_state_unlocked(const char * pszNetStateFlag)
+   //   int window::_wm_test_state_unlocked(const_char_pointer pszNetStateFlag)
    //   {
    //
    //      //synchronous_lock synchronouslock(user_synchronization());
@@ -5288,7 +5288,7 @@ namespace windowing_gtk3
    //   }
    //
    //
-   //   int window::wm_test_state(const char * pszNetStateFlag)
+   //   int window::wm_test_state(const_char_pointer pszNetStateFlag)
    //   {
    //
    //      synchronous_lock synchronouslock(user_synchronization());
@@ -5480,7 +5480,7 @@ namespace windowing_gtk3
    //
    //
    //   /// should be run in user thread
-   //   ::e_status window::x11_store_name(const char * pszName)
+   //   ::e_status window::x11_store_name(const_char_pointer pszName)
    //   {
    //
    //      synchronous_lock synchronouslock(user_synchronization());

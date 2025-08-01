@@ -175,7 +175,7 @@ void os_post_quit();
 void ansios_sigchld_handler(int sig);
 
 
-void apex_application_run(const char * pszAppName, const char * pszProgName);
+void apex_application_run(const_char_pointer pszAppName, const_char_pointer pszProgName);
 
 
 //#include "_linux.h"
@@ -237,7 +237,7 @@ namespace acme_posix
    }
 
 
-//      ::e_status node::call_async(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
+//      ::e_status node::call_async(const_char_pointer pszPath, const_char_pointer pszParam, const_char_pointer pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
 //      {
 //
 //         throw ::interface_only();
@@ -247,7 +247,7 @@ namespace acme_posix
 //      }
 
 
-//      ::e_status node::call_sync(const char * pszPath, const char * pszParam, const char * pszDir, ::e_display edisplay, const class time & timeTimeout, ::property_set & set)
+//      ::e_status node::call_sync(const_char_pointer pszPath, const_char_pointer pszParam, const_char_pointer pszDir, ::e_display edisplay, const class time & timeTimeout, ::property_set & set)
 //      {
 //
 //         throw ::interface_only();
@@ -384,7 +384,7 @@ namespace acme_posix
 
 
 
-   ::pointer<::mutex>node::open_named_mutex(::particle * pparticle, const char * lpszName)
+   ::pointer<::mutex>node::open_named_mutex(::particle * pparticle, const_char_pointer lpszName)
 {
 
 #ifdef WINDOWS
@@ -569,7 +569,7 @@ namespace acme_posix
 
    }
 
-//      atom_array node::module_path_get_pid(const char * pszModulePath, bool bModuleNameIsPropertyFormatted)
+//      atom_array node::module_path_get_pid(const_char_pointer pszModulePath, bool bModuleNameIsPropertyFormatted)
 //      {
 //
 //         return ::platform::node::module_path_get_pid(scopedstrModulePath, bModuleNameIsPropertyFormatted);
@@ -955,7 +955,7 @@ namespace acme_posix
 
       char * pEnvCMD = nullptr;
 
-      const ::string & pDefaultCMD = "CMD.EXE";
+      const ::scoped_string & scopedstrDefaultCMD = "CMD.EXE";
 
       ULONG rc;
 
@@ -1150,7 +1150,7 @@ namespace acme_posix
 
       mem.data()[s] = '\0';
 
-      return (const char *)mem.data();
+      return (const_char_pointer )mem.data();
 
    }
 
@@ -1299,16 +1299,16 @@ namespace acme_posix
 
       //char ch;
 
-      rangeArgument.m_begin = (const char *) mem.begin();
+      rangeArgument.m_begin = (const_char_pointer ) mem.begin();
 
-      rangeArgument.m_end = (const char *) mem.data();
+      rangeArgument.m_end = (const_char_pointer ) mem.data();
 
       bool bHasSpace = false;
 
       while(true)
       {
 
-         if (rangeArgument.m_end >= (const char*) mem.end() || *rangeArgument.m_end == '\0')
+         if (rangeArgument.m_end >= (const_char_pointer ) mem.end() || *rangeArgument.m_end == '\0')
          {
 
             if(rangeArgument.has_character())
@@ -1329,7 +1329,7 @@ namespace acme_posix
 
             }
 
-            if(rangeArgument.m_end >= (const char *) mem.end())
+            if(rangeArgument.m_end >= (const_char_pointer ) mem.end())
             {
 
                break;
@@ -2771,7 +2771,7 @@ namespace acme_posix
    }
 
 
-   bool node::_is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath, const char * pszPath)
+   bool node::_is_code_exe_user_path_environment_variable_ok(::string* pstrCorrectPath, const_char_pointer pszPath)
    {
 
       information() << "_is_code_exe_user_path_environment_variable_ok";
@@ -3252,7 +3252,7 @@ return{};
 } // namespace acme_posix
 
 
-char * c_expand_environment_variables(const char * p);
+char * c_expand_environment_variables(const_char_pointer p);
 
 
 ::string __expand_environment_variables(const ::scoped_string & scopedstr)

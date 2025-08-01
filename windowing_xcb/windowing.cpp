@@ -2514,7 +2514,7 @@ if(bSentResponse)
 
             auto pevent = (xcb_alloc_named_color_request_t *) pgenericevent;
 
-            const char * pszAllocNamedColor = (const char *) pevent->pad1;
+            const_char_pointer pszAllocNamedColor = (const_char_pointer ) pevent->pad1;
 
          }
             break;

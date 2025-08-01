@@ -309,7 +309,7 @@ void simple_ui_display::on_expose(Display * pdisplay)
       if(iDraw == 1)
       {
 
-         const char * buf = "Test";
+         const_char_pointer buf = "Test";
 
          XftDrawRect(m_pdraw, &m_colorBack, 0, 0, m_size.cx(), m_size.cy());
 
@@ -544,7 +544,7 @@ int simple_ui_display::show()
          //printf("Window created %" PRId64 "\n", m_window);
          XStoreName(pdisplay, m_window, m_strTitle);
 
-         const char * pszFont = "Ubuntu:size=12";
+         const_char_pointer pszFont = "Ubuntu:size=12";
 
          m_pfont = XftFontOpenName(pdisplay, m_iScreen, pszFont);
 

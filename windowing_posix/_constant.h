@@ -35,7 +35,7 @@
 //   };
 //
 //
-//   const char * atom_name(enuid() eatom);
+//   const_char_pointer atom_name(enuid() eatom);
 //
 //   int atom_count();
 //

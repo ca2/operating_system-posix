@@ -34,7 +34,7 @@
 #include "drvctl.h"
 
 static int
-drvctl_list(int fd, const char *name, struct devlistargs *laa)
+drvctl_list(int fd, const_char_pointer name, struct devlistargs *laa)
 {
 	size_t children;
 
@@ -52,7 +52,7 @@ drvctl_list(int fd, const char *name, struct devlistargs *laa)
 }
 
 static bool
-drvctl_get_properties(int fd, const char *devnode, prop_dictionary_t *props)
+drvctl_get_properties(int fd, const_char_pointer devnode, prop_dictionary_t *props)
 {
 	prop_dictionary_t command_dict;
 	prop_dictionary_t args_dict;
@@ -96,8 +96,8 @@ drvctl_get_properties(int fd, const char *devnode, prop_dictionary_t *props)
 }
 
 static int
-drvctl_search(int fd, const char *curnode, const char *dvname,
-    void (*callback)(void *, const char *, const char *, unsigned int),
+drvctl_search(int fd, const_char_pointer curnode, const_char_pointer dvname,
+    void (*callback)(void *, const_char_pointer , const_char_pointer , unsigned int),
     void *args)
 {
 	struct devlistargs laa;
@@ -110,7 +110,7 @@ drvctl_search(int fd, const char *curnode, const char *dvname,
 
 	for (i = 0; i < laa.l_children; i++) {
 		prop_dictionary_t props = NULL;
-		const char *curdvname;
+		const_char_pointer curdvname;
 
 		rv = drvctl_get_properties(fd, laa.l_childname[i], &props);
 		if (rv == false || props == NULL)
@@ -135,8 +135,8 @@ drvctl_search(int fd, const char *curnode, const char *dvname,
 }
 
 int
-drvctl_foreach(int fd, const char *dvname,
-    void (*callback)(void *, const char *, const char *, unsigned int),
+drvctl_foreach(int fd, const_char_pointer dvname,
+    void (*callback)(void *, const_char_pointer , const_char_pointer , unsigned int),
     void *args)
 {
 	return drvctl_search(fd, "", dvname, callback, args);

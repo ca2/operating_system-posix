@@ -55,7 +55,7 @@ struct output_plugin_ops {
 	int (*open)(sample_format_t sf, const channel_position_t *channel_map);
 	int (*close)(void);
 	int (*drop)(void);
-	int (*write)(const char *buffer, int count);
+	int (*write)(const_char_pointer buffer, int count);
 	int (*buffer_space)(void);
 
 	/* these can be NULL */
@@ -68,8 +68,8 @@ struct output_plugin_ops {
 	prefix ## _get_ ## name }
 
 struct output_plugin_opt {
-	const char *name;
-	int (*set)(const char *val);
+	const_char_pointer name;
+	int (*set)(const_char_pointer val);
 	int (*get)(char **val);
 };
 

@@ -749,9 +749,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
    Atom *wm_get_list_raw(oswindow w, Atom atomList, unsigned long int *items);
 
-   int wm_test_state(oswindow w, const char *pszNetStateFlag);
+   int wm_test_state(oswindow w, const_char_pointer pszNetStateFlag);
 
-   int wm_test_state_raw(oswindow w, const char *pszNetStateFlag);
+   int wm_test_state_raw(oswindow w, const_char_pointer pszNetStateFlag);
 
    int wm_test_list_raw(oswindow w, Atom atomList, Atom atomFlag);
 

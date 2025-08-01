@@ -45,8 +45,8 @@ struct MWMHints
 //CLASS_DECL_WINDOWING_X11 ::particle * user_synchronization();
 
 
-//enum_net_wm_state net_wm_state(const char *pszText);
-//const char * net_wm_state_text(enum_net_wm_state estate);
+//enum_net_wm_state net_wm_state(const_char_pointer pszText);
+//const_char_pointer net_wm_state_text(enum_net_wm_state estate);
 //void x11_check_status(int status, unsigned long window);
 
 string x11_get_name(Display * display, Window w);
@@ -58,10 +58,10 @@ bool x11_get_client_rect(Display * d, Window window, ::int_rectangle * prectangl
 //CLASS_DECL_WINDOWING_X11 ::Display * x11_get_display();
 
 
-//CLASS_DECL_WINDOWING_X11 enum_net_wm_state net_wm_state(const char * pszText);
+//CLASS_DECL_WINDOWING_X11 enum_net_wm_state net_wm_state(const_char_pointer pszText);
 //
 //
-//CLASS_DECL_WINDOWING_X11 const char * net_wm_state_text(enum_net_wm_state estate);
+//CLASS_DECL_WINDOWING_X11 const_char_pointer net_wm_state_text(enum_net_wm_state estate);
 
 
 //CLASS_DECL_ACME int xinerama_get_monitor_count();

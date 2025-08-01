@@ -38,7 +38,7 @@ extern ::particle * user_synchronization();
 //int _cx_XErrorHandler(xcb_connection_t * display, XErrorEvent * perrorevent)
 //{
 //
-//   const char * pszError;
+//   const_char_pointer pszError;
 //
 //   if(perrorevent->error_code == BadRequest)
 //   {
@@ -149,7 +149,7 @@ extern ::particle * user_synchronization();
 //
 //   }
 //
-//const char * pszRequest;
+//const_char_pointer pszRequest;
 //   if(perrorevent->request_code == 1)
 //   {
 //

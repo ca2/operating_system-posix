@@ -31,14 +31,14 @@ namespace node_gtk3
       ~appindicator() override;
 
 
-      bool create(const char * pszId, const char * pszIcon, const char * pszFolder, application_menu * papplicationmenu, ::command_handler * pcommandhandler) override;
+      bool create(const_char_pointer pszId, const_char_pointer pszIcon, const_char_pointer pszFolder, application_menu * papplicationmenu, ::command_handler * pcommandhandler) override;
 
 
 //      gnome_appindicator();
 //      virtual ~gnome_appindicator();
 //
 
-      //virtual bool create(const char * pszId, const char * pszIcon, const char * pszFolder, user_notify_icon_bridge * pbridge) override;
+      //virtual bool create(const_char_pointer pszId, const_char_pointer pszIcon, const_char_pointer pszFolder, user_notify_icon_bridge * pbridge) override;
       virtual bool init(application_menu * papplicationmenu, ::command_handler * pcommandhandler);
       void close() override;
 

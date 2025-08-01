@@ -334,7 +334,7 @@ namespace windowing_gtk3
 //
 //      }
 
-      const char * cursor_name = "left_ptr";
+      const_char_pointer cursor_name = "left_ptr";
 
       switch(ecursor)
       {

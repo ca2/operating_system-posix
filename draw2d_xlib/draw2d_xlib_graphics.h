@@ -89,8 +89,8 @@ namespace draw2d_xlib
       virtual double get_dpix() const;
 
       // Constructors
-      bool CreateDC(const char * lpszDriverName, const char * lpszDeviceName, const char * lpszOutput, const void * lpInitData);
-      bool CreateIC(const char * lpszDriverName, const char * lpszDeviceName, const char * lpszOutput, const void * lpInitData);
+      bool CreateDC(const_char_pointer lpszDriverName, const_char_pointer lpszDeviceName, const_char_pointer lpszOutput, const void * lpInitData);
+      bool CreateIC(const_char_pointer lpszDriverName, const_char_pointer lpszDeviceName, const_char_pointer lpszOutput, const void * lpInitData);
       bool CreateCompatibleDC(::image::image *pimage);
 
       bool DeleteDC();
@@ -268,9 +268,9 @@ namespace draw2d_xlib
                HBRUSH hBrush = nullptr);
             bool DrawState(const ::int_point & point, const ::int_size & size, HICON hIcon, unsigned int nFlags,
                ::draw2d::brush* pBrush = nullptr);*/
-//      bool DrawState(const ::int_point & point, const ::int_size & size, const char * lpszText, unsigned int nFlags,
+//      bool DrawState(const ::int_point & point, const ::int_size & size, const_char_pointer lpszText, unsigned int nFlags,
 //                     bool bPrefixText = true, int nTextLen = 0, HBRUSH hBrush = nullptr);
-//      bool DrawState(const ::int_point & point, const ::int_size & size, const char * lpszText, unsigned int nFlags,
+//      bool DrawState(const ::int_point & point, const ::int_size & size, const_char_pointer lpszText, unsigned int nFlags,
 //                     bool bPrefixText = true, int nTextLen = 0, ::draw2d::brush* pBrush = nullptr);
 //xxx      bool DrawState(const ::int_point & point, const ::int_size & size, DRAWSTATEPROC lpDrawProc,
 //xxx         LPARAM lData, unsigned int nFlags, HBRUSH hBrush = nullptr);
@@ -342,38 +342,38 @@ namespace draw2d_xlib
         BLENDFUNCTION blend);*/
 
       // Text Functions
-      virtual bool TextOut(int x, int y, const char * lpszString, int nCount);
+      virtual bool TextOut(int x, int y, const_char_pointer lpszString, int nCount);
       virtual bool TextOut(int x, int y, const ::scoped_string & scopedstr);
-      virtual bool TextOut(double x, double y, const char * lpszString, int nCount);
+      virtual bool TextOut(double x, double y, const_char_pointer lpszString, int nCount);
       virtual bool TextOut(double x, double y, const ::scoped_string & scopedstr);
       virtual bool ExtTextOut(int x, int y, unsigned int nOptions, const ::int_rectangle & rectangle,
-                              const char * lpszString, unsigned int nCount, LPINT lpDxWidths);
+                              const_char_pointer lpszString, unsigned int nCount, LPINT lpDxWidths);
       bool ExtTextOut(int x, int y, unsigned int nOptions, const ::int_rectangle & rectangle,
                       const ::scoped_string & scopedstr, LPINT lpDxWidths);
-      virtual int_size TabbedTextOut(int x, int y, const char * lpszString, int nCount,
+      virtual int_size TabbedTextOut(int x, int y, const_char_pointer lpszString, int nCount,
                                  int nTabPositions, LPINT lpnTabStopPositions, int nTabOrigin);
       int_size TabbedTextOut(int x, int y, const ::scoped_string & scopedstr,
                          int nTabPositions, LPINT lpnTabStopPositions, int nTabOrigin);
 
       using ::draw2d::graphics::draw_text;
-      virtual int draw_text(const char * lpszString, int nCount, ::int_rectangle * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none);
+      virtual int draw_text(const_char_pointer lpszString, int nCount, ::int_rectangle * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none);
       virtual int draw_text(const ::scoped_string & scopedstr, ::int_rectangle * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none);
 
       using ::draw2d::graphics::draw_text_ex;
       virtual int draw_text_ex(char * lpszString, int nCount, ::int_rectangle * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none, LPDRAWTEXTPARAMS lpDTParams);
       virtual int draw_text_ex(const ::scoped_string & scopedstr, ::int_rectangle * prectangle, const ::e_align & ealign = e_align_top_left, const ::e_draw_text & edrawtext = e_draw_text_none, LPDRAWTEXTPARAMS lpDTParams);
 
-      int_size get_text_extent(const char * lpszString, character_count nCount, int iIndex) const;
-      int_size get_text_extent(const char * lpszString, character_count nCount) const;
+      int_size get_text_extent(const_char_pointer lpszString, character_count nCount, int iIndex) const;
+      int_size get_text_extent(const_char_pointer lpszString, character_count nCount) const;
       int_size get_text_extent(const ::scoped_string & scopedstr) const;
-      bool get_text_extent(double_size & size, const char * lpszString, character_count nCount, int iIndex) const;
-      bool get_text_extent(double_size & size, const char * lpszString, character_count nCount) const;
+      bool get_text_extent(double_size & size, const_char_pointer lpszString, character_count nCount, int iIndex) const;
+      bool get_text_extent(double_size & size, const_char_pointer lpszString, character_count nCount) const;
       bool get_text_extent(double_size & size, const ::scoped_string & scopedstr) const;
-      int_size GetOutputTextExtent(const char * lpszString, character_count nCount) const;
+      int_size GetOutputTextExtent(const_char_pointer lpszString, character_count nCount) const;
       int_size GetOutputTextExtent(const ::scoped_string & scopedstr) const;
-      int_size GetTabbedTextExtent(const char * lpszString, character_count nCount, int nTabPositions, LPINT lpnTabStopPositions) const;
+      int_size GetTabbedTextExtent(const_char_pointer lpszString, character_count nCount, int nTabPositions, LPINT lpnTabStopPositions) const;
       int_size GetTabbedTextExtent(const ::scoped_string & scopedstr, int nTabPositions, LPINT lpnTabStopPositions) const;
-      int_size GetOutputTabbedTextExtent(const char * lpszString, character_count nCount, int nTabPositions, LPINT lpnTabStopPositions) const;
+      int_size GetOutputTabbedTextExtent(const_char_pointer lpszString, character_count nCount, int nTabPositions, LPINT lpnTabStopPositions) const;
       int_size GetOutputTabbedTextExtent(const ::scoped_string & scopedstr, int nTabPositions, LPINT lpnTabStopPositions) const;
       virtual bool GrayString(::draw2d::brush* pBrush,
                               bool (CALLBACK* lpfnOutput)(HDC, LPARAM, int), LPARAM lpData,
@@ -388,7 +388,7 @@ namespace draw2d_xlib
       int GetTextCharacterExtra() const;
       int SetTextCharacterExtra(int nCharExtra);
 
-//xxx      unsigned int GetCharacterPlacement(const char * lpString, int nCount, int nMaxExtent, LPGCP_RESULTS lpResults, unsigned int dwFlags) const;
+//xxx      unsigned int GetCharacterPlacement(const_char_pointer lpString, int nCount, int nMaxExtent, LPGCP_RESULTS lpResults, unsigned int dwFlags) const;
 //xxx      unsigned int GetCharacterPlacement(string & str, int nMaxExtent, LPGCP_RESULTS lpResults, unsigned int dwFlags) const;
 
 #if (_WIN32_WINNT >= 0x0500)
@@ -436,12 +436,12 @@ namespace draw2d_xlib
 #endif
 
       // Printer/Device Escape Functions
-      virtual int Escape(int nEscape, int nCount, const char * lpszInData, LPVOID lpOutData);
-      int Escape(int nEscape, int nInputSize, const char * lpszInputData, int nOutputSize, char * lpszOutputData);
-      int DrawEscape(int nEscape, int nInputSize, const char * lpszInputData);
+      virtual int Escape(int nEscape, int nCount, const_char_pointer lpszInData, LPVOID lpOutData);
+      int Escape(int nEscape, int nInputSize, const_char_pointer lpszInputData, int nOutputSize, char * lpszOutputData);
+      int DrawEscape(int nEscape, int nInputSize, const_char_pointer lpszInputData);
 
       // Escape helpers
-      int StartDoc(const char * lpszDocName);  // old Win3.0 version
+      int StartDoc(const_char_pointer lpszDocName);  // old Win3.0 version
 //xxx      int StartDoc(LPDOCINFO lpDocInfo);
       int StartPage();
       int EndPage();

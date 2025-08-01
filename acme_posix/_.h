@@ -39,7 +39,7 @@ class directory_system;
 #ifdef USE_DBUS
 
 
-void dbus_do_power_off (const char *action);
+void dbus_do_power_off (const_char_pointer action);
 
 
 #endif

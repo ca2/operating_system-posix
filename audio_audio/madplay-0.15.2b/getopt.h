@@ -94,7 +94,7 @@ extern int optopt;
 struct option
 {
 # if (defined __STDC__ && __STDC__) || defined __cplusplus
-  const char *name;
+  const_char_pointer name;
 # else
   char *name;
 # endif
@@ -142,22 +142,22 @@ struct option
 /* Many other libraries have conflicting prototypes for getopt, with
    differences in the consts, in stdlib.h.  To avoid compilation
    errors, only prototype getopt for the GNU C library.  */
-extern int getopt (int ___argc, char *const *___argv, const char *__shortopts);
+extern int getopt (int ___argc, char *const *___argv, const_char_pointer __shortopts);
 # else /* not __GNU_LIBRARY__ */
 extern int getopt ();
 # endif /* __GNU_LIBRARY__ */
 
 # ifndef __need_getopt
 extern int getopt_long (int ___argc, char *const *___argv,
-			const char *__shortopts,
+			const_char_pointer __shortopts,
 		        const struct option *__longopts, int *__longind);
 extern int getopt_long_only (int ___argc, char *const *___argv,
-			     const char *__shortopts,
+			     const_char_pointer __shortopts,
 		             const struct option *__longopts, int *__longind);
 
 /* Internal only.  Users should not call this directly.  */
 extern int _getopt_internal (int ___argc, char *const *___argv,
-			     const char *__shortopts,
+			     const_char_pointer __shortopts,
 		             const struct option *__longopts, int *__longind,
 			     int __long_only);
 # endif

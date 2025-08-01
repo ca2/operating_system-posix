@@ -81,7 +81,7 @@ namespace q6
          }
 
 
-         //         Atom display::intern_atom(const char *pszAtomName, bool bCreate)
+         //         Atom display::intern_atom(const_char_pointer pszAtomName, bool bCreate)
          //         {
          //
          //            return _intern_atom_unlocked(scopedstrAtomName, bCreate);
@@ -138,7 +138,7 @@ namespace q6
          //
          //
          //
-         //         Atom display::_intern_atom_unlocked(const char *pszAtomName, bool bCreate)
+         //         Atom display::_intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate)
          //         {
          //
          //            if (m_pdisplay == nullptr)
@@ -750,7 +750,7 @@ namespace q6
 //          //int _c_XErrorHandler(Display * display, XErrorEvent * perrorevent)
 //          //{
 //          //
-//          //   const char * pszError;
+//          //   const_char_pointer pszError;
 //          //
 //          //   if(perrorevent->error_code == BadRequest)
 //          //   {
@@ -861,7 +861,7 @@ namespace q6
 //          //
 //          //   }
 //          //
-//          //const char * pszRequest;
+//          //const_char_pointer pszRequest;
 //          //   if(perrorevent->request_code == 1)
 //          //   {
 //          //

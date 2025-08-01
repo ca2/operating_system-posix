@@ -32,7 +32,7 @@ enum mp3_stream_id3tag {
 
 #define MP3_STREAM_DBL_BUFF_SIZE	0x8000
 
-extern void	*mp3_stream_open(const char *, int, int);
+extern void	*mp3_stream_open(const_char_pointer , int, int);
 extern void	mp3_stream_close(void *);
 extern ssize_t	mp3_stream_read(void *, void *, size_t, int);
 extern long	mp3_stream_seek(void *, long, int);
