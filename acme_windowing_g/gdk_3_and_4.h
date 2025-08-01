@@ -8,7 +8,7 @@ namespace gdk
 {
 
 
-   char * gsettings_get_malloc(const_char_pointer pszSchema, const_char_pointer pszKey);
+   char * gsettings_get_malloc(const_char_pointer  pszSchema, const_char_pointer  pszKey);
 
 
    void g_defer_init();
@@ -41,23 +41,23 @@ namespace gdk
    ::e_status node_enable_wallpaper_change_notification(::g::acme::windowing::display * pdisplay, const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey);
 
 
-   const_char_pointer g_get_file_icon_path(const_char_pointer pszPath, int iSize);
+   const_char_pointer  g_get_file_icon_path(const_char_pointer  pszPath, int iSize);
 
 
-   const_char_pointer g_get_file_content_type(const_char_pointer pszPath);
+   const_char_pointer  g_get_file_content_type(const_char_pointer  pszPath);
 
 
    void gdk_branch(const ::procedure & procedure);
 
 
-   int gdk_launch_uri(const_char_pointer pszUri, char * pszError, int iBufferSize);
+   int gdk_launch_uri(const_char_pointer  pszUri, char * pszError, int iBufferSize);
 
 
 } // namespace gdk
 
 
 
-CLASS_DECL_ACME_WINDOWING_G ::e_status xfce4_set_wallpaper(const_char_pointer wallpaper_path);
+CLASS_DECL_ACME_WINDOWING_G ::e_status xfce4_set_wallpaper(const_char_pointer  wallpaper_path);
 CLASS_DECL_ACME_WINDOWING_G ::string xfce4_get_user_theme();
 CLASS_DECL_ACME_WINDOWING_G ::e_status xfce4_set_user_theme(const ::scoped_string & scopedstrTheme);
 

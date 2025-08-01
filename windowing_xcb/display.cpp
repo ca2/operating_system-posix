@@ -327,7 +327,7 @@ namespace windowing_xcb
 
 
 
-   xcb_atom_t display::intern_atom(const_char_pointer pszAtomName, bool bCreate)
+   xcb_atom_t display::intern_atom(const_char_pointer  pszAtomName, bool bCreate)
    {
 
       return m_pxcbdisplay->intern_atom(scopedstrAtomName, bCreate);
@@ -902,7 +902,7 @@ namespace windowing_xcb
 
       auto data = xcb_get_property_value(preply);
 
-      string strProperty((const_char_pointer ) data, len);
+      string strProperty((const_char_pointer  ) data, len);
 
       return strProperty;
 

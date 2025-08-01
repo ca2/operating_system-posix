@@ -11,7 +11,7 @@
 
 
 static void
-display_error (const_char_pointer message)
+display_error (const_char_pointer  message)
 {
    g_printerr ("%s\n", message);
 }
@@ -61,7 +61,7 @@ get_sm_proxy (void)
 
 
 
-void dbus_do_power_off (const_char_pointer action)
+void dbus_do_power_off (const_char_pointer  action)
 {
    DBusGProxy *sm_proxy;
    GError     *error;

@@ -331,7 +331,7 @@ namespace multimedia
          if (err < 0)
          {
 
-            const_char_pointer pszError = snd_strerror(err);
+            const_char_pointer  pszError = snd_strerror(err);
 
             error() <<"snd_pcm_hw_params_get_periods_min failed: (" << pszError << ")";
 
@@ -350,7 +350,7 @@ namespace multimedia
          if (err < 0)
          {
 
-            const_char_pointer pszError = snd_strerror(err);
+            const_char_pointer  pszError = snd_strerror(err);
 
             error() <<"snd_pcm_hw_params_get_periods_max failed: " << pszError;
 
@@ -369,7 +369,7 @@ namespace multimedia
          if (err < 0)
          {
 
-            const_char_pointer pszError = snd_strerror(err);
+            const_char_pointer  pszError = snd_strerror(err);
 
             error() <<"snd_pcm_hw_params_get_period_size_min failed: " << pszError;
 
@@ -388,7 +388,7 @@ namespace multimedia
          if (err < 0)
          {
 
-            const_char_pointer pszError = snd_strerror(err);
+            const_char_pointer  pszError = snd_strerror(err);
 
             error() <<"snd_pcm_hw_params_get_period_size_max failed: " << pszError;
 
@@ -431,7 +431,7 @@ namespace multimedia
          if (err < 0)
          {
 
-            const_char_pointer pszError = snd_strerror(err);
+            const_char_pointer  pszError = snd_strerror(err);
 
             error() <<"snd_pcm_hw_params_get_periods failed: " << pszError;
 
@@ -448,7 +448,7 @@ namespace multimedia
          if (err < 0)
          {
 
-            const_char_pointer pszError = snd_strerror(err);
+            const_char_pointer  pszError = snd_strerror(err);
 
             error() <<"snd_pcm_hw_params_get_periods failed: " << pszError;
 
@@ -487,7 +487,7 @@ namespace multimedia
          if (err < 0)
          {
 
-            const_char_pointer pszError = snd_strerror(err);
+            const_char_pointer  pszError = snd_strerror(err);
 
             error() <<"snd_pcm_hw_params_set_period_size(" << m_frameCount << ") failed: " << pszError;
 
@@ -500,7 +500,7 @@ namespace multimedia
          if (err < 0)
          {
 
-            const_char_pointer pszError = snd_strerror(err);
+            const_char_pointer  pszError = snd_strerror(err);
 
             error() <<"snd_pcm_hw_params_get_period_size failed: " << pszError;
 

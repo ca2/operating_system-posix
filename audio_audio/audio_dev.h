@@ -32,7 +32,7 @@
 #define AD_WOULD_BLOCK	(-2)
 
 void *
-audio_dev_init(const_char_pointer dev);
+audio_dev_init(const_char_pointer  dev);
 void
 audio_dev_close(void *arg);
 void
@@ -53,7 +53,7 @@ int audio_dev_write(void *arg, void *pcmdata, int samplecount, int nchannels, in
  */
 #define ADC_PAUSE	1
 
-extern void	*audio_dev_init(const_char_pointer );
+extern void	*audio_dev_init(const_char_pointer  );
 extern void	audio_dev_close(void *);
 extern void	audio_dev_register_read_callback(void *,void (*)(void *),void*);
 extern int	audio_dev_send_command(void *, int, int *, int);
@@ -69,7 +69,7 @@ extern int	audio_dev_played_time(void *);
  */
 struct audio_dev_backend {
 	const char	*ad_name;
-	void *		(*ad_init)(const_char_pointer );
+	void *		(*ad_init)(const_char_pointer  );
 	void		(*ad_close)(void *);
 	int		(*ad_config)(void *, int, int);
 	ssize_t		(*ad_output)(void *, void *, size_t);

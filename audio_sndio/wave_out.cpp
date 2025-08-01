@@ -741,7 +741,7 @@ namespace multimedia
 ////                else if (iFrameFreeCount < 0)
 ////                {
 ////
-////                   const_char_pointer pszError = //snd_strerror(iFrameFreeCount);
+////                   const_char_pointer  pszError = //snd_strerror(iFrameFreeCount);
 ////
 ////                   //informationf("ALSA wave_out snd_pcm_avail error: %s (%d)\n", pszError, iFrameFreeCount);
 ////
@@ -842,7 +842,7 @@ namespace multimedia
                
             }
 
-            iBytesJustWritten = sndio_write((const_char_pointer ) pdata, iBytesToWrite);
+            iBytesJustWritten = sndio_write((const_char_pointer  ) pdata, iBytesToWrite);
 
             //informationf("snd_pcm_writei iFramesJustWritten " << iFramesJustWritten);
 

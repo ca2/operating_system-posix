@@ -482,12 +482,12 @@ namespace windowing_kde5
    // //          auto p = gtk_widget_get_first_child(pbutton);
    // //          GObject *objectMenuSectionBox = G_OBJECT(p);
    // //          GType typeMenuSectionBox = G_OBJECT_TYPE (objectMenuSectionBox);
-   // //          const_char_pointer type_nameMenuSectionBox = g_type_name(typeMenuSectionBox);
+   // //          const_char_pointer  type_nameMenuSectionBox = g_type_name(typeMenuSectionBox);
    // //
    // // //         auto p2 = gtk_widget_get_first_child(p);
    // //   //       GObject *object2 = G_OBJECT(p2);
    // //     //     GType type2 = G_OBJECT_TYPE (object2);
-   // //       //   const_char_pointer type_name2 = g_type_name(type2);
+   // //       //   const_char_pointer  type_name2 = g_type_name(type2);
    // //          clear_controllers(p);
    // //          // // Create a gesture fo)r button presses (GtkGestureClick)
    // //          GtkGesture *gesture = gtk_gesture_click_new();
@@ -634,7 +634,7 @@ namespace windowing_kde5
       // //
       // //       GObject *objectContent = G_OBJECT(pbox);
       // // GType typeContent = G_OBJECT_TYPE (objectContent);
-      // // const_char_pointer type_nameContent = g_type_name(typeContent);
+      // // const_char_pointer  type_nameContent = g_type_name(typeContent);
       // //
       // // GtkWidget * abuttontemplate=nullptr;
       // // GtkWidget * abuttontemplatechild=nullptr;
@@ -645,7 +645,7 @@ namespace windowing_kde5
       // // {
       // //    auto pobject = G_OBJECT(p);
       // //    GType type = G_OBJECT_TYPE (pobject);
-      // //    const_char_pointer type_name = g_type_name(type);
+      // //    const_char_pointer  type_name = g_type_name(type);
       // //    if(g_strcmp0(type_name, "GtkModelButton") == 0)
       // //    {
       // //       break;
@@ -676,7 +676,7 @@ namespace windowing_kde5
       // //
       // //          GObject *objectScrolledWindow = G_OBJECT(pmenuScrolledWindow);
       // //          GType typeScrolledWindow = G_OBJECT_TYPE (objectScrolledWindow);
-      // //          const_char_pointer type_nameScrolledWindow = g_type_name(typeScrolledWindow);
+      // //          const_char_pointer  type_nameScrolledWindow = g_type_name(typeScrolledWindow);
       // //
       // //          if(g_strcmp0(type_nameScrolledWindow, "GtkScrolledWindow") == 0)
       // //          {
@@ -684,7 +684,7 @@ namespace windowing_kde5
       // //
       // //             GObject *objectViewPort = G_OBJECT(pmenuViewPort);
       // //             GType typeViewPort = G_OBJECT_TYPE (objectViewPort);
-      // //             const_char_pointer type_nameViewPort = g_type_name(typeViewPort);
+      // //             const_char_pointer  type_nameViewPort = g_type_name(typeViewPort);
       // //
       // //             if(g_strcmp0(type_nameViewPort, "GtkViewport") == 0)
       // //             {
@@ -693,7 +693,7 @@ namespace windowing_kde5
       // //
       // //                GObject *objectStack = G_OBJECT(pmenuStack);
       // //                GType typeStack = G_OBJECT_TYPE (objectStack);
-      // //                const_char_pointer type_nameStack = g_type_name(typeStack);
+      // //                const_char_pointer  type_nameStack = g_type_name(typeStack);
       // //
       // //                if(g_strcmp0(type_nameStack, "GtkStack") == 0)
       // //                {
@@ -702,7 +702,7 @@ namespace windowing_kde5
       // //
       // //                   GObject *objectMenuSectionBox = G_OBJECT(pmenuMenuSectionBox);
       // //                   GType typeMenuSectionBox = G_OBJECT_TYPE (objectMenuSectionBox);
-      // //                   const_char_pointer type_nameMenuSectionBox = g_type_name(typeMenuSectionBox);
+      // //                   const_char_pointer  type_nameMenuSectionBox = g_type_name(typeMenuSectionBox);
       // //
       // //                   if(g_strcmp0(type_nameMenuSectionBox, "GtkMenuSectionBox") == 0)
       // //                   {
@@ -710,7 +710,7 @@ namespace windowing_kde5
       // //
       // //                      GObject *objectBox = G_OBJECT(pmenuBox);
       // //                      GType typeBox = G_OBJECT_TYPE (objectBox);
-      // //                      const_char_pointer type_nameBox = g_type_name(typeBox);
+      // //                      const_char_pointer  type_nameBox = g_type_name(typeBox);
       // //
       // //                      if(g_strcmp0(type_nameBox, "GtkBox") == 0)
       // //                      {
@@ -719,7 +719,7 @@ namespace windowing_kde5
       // //
       // //                         GObject *objectMenuSectionBox = G_OBJECT(pmenuMenuSectionBox);
       // //                         GType typeMenuSectionBox = G_OBJECT_TYPE (objectMenuSectionBox);
-      // //                         const_char_pointer type_nameMenuSectionBox = g_type_name(typeMenuSectionBox);
+      // //                         const_char_pointer  type_nameMenuSectionBox = g_type_name(typeMenuSectionBox);
       // //
       // //                         if(g_strcmp0(type_nameMenuSectionBox, "GtkMenuSectionBox") == 0)
       // //                         {
@@ -734,7 +734,7 @@ namespace windowing_kde5
       // //
       // //                               GObject *objectItem = G_OBJECT(pmenuItem);
       // //                               GType typeItem = G_OBJECT_TYPE (objectItem);
-      // //                               const_char_pointer type_nameItem = g_type_name(typeItem);
+      // //                               const_char_pointer  type_nameItem = g_type_name(typeItem);
       // //
       // //                               if(g_strcmp0(type_nameItem, "GtkModelButton") == 0)
       // //                               {
@@ -876,14 +876,14 @@ namespace windowing_kde5
       // //
       // //
       // //              auto ppTemplate = gtk_widget_get_css_classes(abuttontemplate);
-      // //              gtk_widget_set_css_classes(GTK_WIDGET(pbutton), (const_char_pointer *) ppTemplate);
+      // //              gtk_widget_set_css_classes(GTK_WIDGET(pbutton), (const_char_pointer  *) ppTemplate);
       // //              // auto ppT = gtk_widget_get_css_name(abuttontemplate);
       // //              // auto pOld = gtk_widget_get_css_name(GTK_WIDGET(pbutton));
       // //              // g_object_set(pbutton, "css-name", ppT, NULL);
       // //              // auto pNew = gtk_widget_get_css_name(GTK_WIDGET(pbutton));
       // //
       // //              auto ppTemplateChild = gtk_widget_get_css_classes(abuttontemplatechild);
-      // //              gtk_widget_set_css_classes(plabel, (const_char_pointer *) ppTemplateChild);
+      // //              gtk_widget_set_css_classes(plabel, (const_char_pointer  *) ppTemplateChild);
       // //              // auto ppTC = gtk_widget_get_css_name(abuttontemplatechild);
       // //              // auto pLOld = gtk_widget_get_css_name(plabel);
       // //              // g_object_set(plabel, "css-name", ppTC, NULL);
@@ -1912,7 +1912,7 @@ namespace windowing_kde5
    //
    // }
 
-   // void window::_on_window_simple_action(const_char_pointer pszActionName)
+   // void window::_on_window_simple_action(const_char_pointer  pszActionName)
    // {
    //
    //    ::string strActionName(scopedstrActionName);
@@ -2587,9 +2587,9 @@ namespace windowing_kde5
          //            //
          //            //         string strApplicationServerName = psystem->get_application_server_name();
          //            //
-         //            //         pupdate->res_class = (char *) (const_char_pointer ) strApplicationServerName;
+         //            //         pupdate->res_class = (char *) (const_char_pointer  ) strApplicationServerName;
          //            //
-         //            //         pupdate->res_name = (char *) (const_char_pointer ) strApplicationServerName;
+         //            //         pupdate->res_name = (char *) (const_char_pointer  ) strApplicationServerName;
          //            //
          //            //         XSetClassHint(display, window, pupdate);
          //            //
@@ -3297,7 +3297,7 @@ namespace windowing_kde5
    //   }
 
 
-   // void window::set_wm_class(const_char_pointer psz)
+   // void window::set_wm_class(const_char_pointer  psz)
    // {
    //    synchronous_lock synchronouslock(user_synchronization());
    //
@@ -3307,9 +3307,9 @@ namespace windowing_kde5
    //    //
    //    //      XClassHint classHint;
    //    //
-   //    //      classHint.res_name = (char *) (const_char_pointer ) m_strWMClass;
+   //    //      classHint.res_name = (char *) (const_char_pointer  ) m_strWMClass;
    //    //
-   //    //      classHint.res_class = (char *) (const_char_pointer ) m_strWMClass;
+   //    //      classHint.res_class = (char *) (const_char_pointer  ) m_strWMClass;
    //    //
    //    //      XSetClassHint(Display(), Window(), &classHint);
    // }
@@ -3688,7 +3688,7 @@ namespace windowing_kde5
    //    //         XA_STRING,
    //    //         8,
    //    //         PropModeReplace,
-   //    //         (const unsigned char *) (const_char_pointer ) path,
+   //    //         (const unsigned char *) (const_char_pointer  ) path,
    //    //         path.length());
    //    //
    //    //      informationf("windowing_kde5::window::bamf_set_icon END");
@@ -3912,7 +3912,7 @@ namespace windowing_kde5
    // }
    //
    //
-   // int window::store_name(const_char_pointer psz)
+   // int window::store_name(const_char_pointer  psz)
    // {
    //    windowing_output_debug_string("\nwindow::store_name");
    //
@@ -4930,7 +4930,7 @@ namespace windowing_kde5
 //       //         ixa,
 //       //         8,
 //       //         PropModeReplace,
-//       //         (const unsigned char *) (const_char_pointer ) path,
+//       //         (const unsigned char *) (const_char_pointer  ) path,
 //       //         path.length());
 //       //
 //       //      informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
@@ -5364,7 +5364,7 @@ namespace windowing_kde5
 //       //         ixa,
 //       //         8,
 //       //         PropModeReplace,
-//       //         (const unsigned char *) (const_char_pointer ) path,
+//       //         (const unsigned char *) (const_char_pointer  ) path,
 //       //         path.length());
 //       //
 //       //      informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
@@ -6213,7 +6213,7 @@ namespace windowing_kde5
    // //   }
    // //
    // //
-   // //   int window::_wm_test_state_unlocked(const_char_pointer pszNetStateFlag)
+   // //   int window::_wm_test_state_unlocked(const_char_pointer  pszNetStateFlag)
    // //   {
    // //
    // //      //synchronous_lock synchronouslock(user_synchronization());
@@ -6245,7 +6245,7 @@ namespace windowing_kde5
    // //   }
    // //
    // //
-   // //   int window::wm_test_state(const_char_pointer pszNetStateFlag)
+   // //   int window::wm_test_state(const_char_pointer  pszNetStateFlag)
    // //   {
    // //
    // //      synchronous_lock synchronouslock(user_synchronization());
@@ -6437,7 +6437,7 @@ namespace windowing_kde5
    //
    //
    //   /// should be run in user thread
-   //   ::e_status window::x11_store_name(const_char_pointer pszName)
+   //   ::e_status window::x11_store_name(const_char_pointer  pszName)
    //   {
    //
    //      synchronous_lock synchronouslock(user_synchronization());
@@ -8058,7 +8058,7 @@ namespace windowing_kde5
    //
    // string _gtk_get_resize_cursor_name(enum_window_edge eedge)
    // {
-   //    const_char_pointer pszCursorName;
+   //    const_char_pointer  pszCursorName;
    //    switch (eedge)
    //    {
    //       case e_window_edge_south: pszCursorName = "s-resize";

@@ -29,7 +29,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <unistd.h>
-static void *ad_sun_init(const_char_pointer );
+static void *ad_sun_init(const_char_pointer  );
 static void ad_sun_close(void *);
 static int ad_sun_config(void *, int, int, int lowat, int hiwat);
 static ssize_t ad_sun_output(void *, void *, size_t);
@@ -60,7 +60,7 @@ struct sun_ctx {
 };
 
 static void *
-ad_sun_init(const_char_pointer dev)
+ad_sun_init(const_char_pointer  dev)
 {
 	struct sun_ctx *sc;
 	int retry, fd = -1;

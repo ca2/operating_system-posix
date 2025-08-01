@@ -46,7 +46,7 @@ bool is_using_x11() {
     }
 
     // Check the backend type
-    const_char_pointer backend = gdk_display_get_name(display);
+    const_char_pointer  backend = gdk_display_get_name(display);
 ::information()<< "GDK display name: " << backend;
     // Return true if it's X11
     return g_strcmp0(backend, "GdkX11Display") == 0;
@@ -1181,7 +1181,7 @@ on_text(scopedstr, scopedstr.size());
    }
 
 
-   void window::_on_gtk_im_context_commit(const_char_pointer psz)
+   void window::_on_gtk_im_context_commit(const_char_pointer  psz)
    {
 
          on_text(scopedstr, ::string_get_length(scopedstr));
@@ -1439,7 +1439,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   void window::set_wm_class(const_char_pointer psz)
+   void window::set_wm_class(const_char_pointer  psz)
    {
 
 
@@ -1482,7 +1482,7 @@ m_pimcontext = gtk_im_multicontext_new();
    }
 
 
-   int window::store_name(const_char_pointer psz)
+   int window::store_name(const_char_pointer  psz)
    {
 
       windowing_output_debug_string("\nwindow::store_name");

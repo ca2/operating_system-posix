@@ -25,7 +25,7 @@ namespace aura_posix
         ~appindicator() override;
 
 
-        virtual bool create(const_char_pointer pszId, const_char_pointer pszIcon, const_char_pointer pszFolder, application_menu * papplicationmenu, command_handler * pcommandhandler) = 0;
+        virtual bool create(const_char_pointer  pszId, const_char_pointer  pszIcon, const_char_pointer  pszFolder, application_menu * papplicationmenu, command_handler * pcommandhandler) = 0;
 
         virtual void close();
 

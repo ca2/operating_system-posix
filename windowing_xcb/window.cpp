@@ -881,7 +881,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_store_name(const_char_pointer psz)
+   ::e_status window::_store_name(const_char_pointer  psz)
    {
 
       information() << "windowing_xcb::window _store_name : " << psz;
@@ -3641,7 +3641,7 @@ namespace windowing_xcb
 
    }
 
-   ::e_status window::_set_class_hint(const_char_pointer pszName, const_char_pointer pszClass)
+   ::e_status window::_set_class_hint(const_char_pointer  pszName, const_char_pointer  pszClass)
    {
 
       memory memory;

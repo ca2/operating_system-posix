@@ -377,7 +377,7 @@ namespace gdk
    }
 
 
-   const_char_pointer g_get_file_icon_path(const_char_pointer pszPath, int iSize)
+   const_char_pointer  g_get_file_icon_path(const_char_pointer  pszPath, int iSize)
    {
 
       GFile * pfile = g_file_new_for_path (scopedstrPath);
@@ -488,7 +488,7 @@ namespace gdk
    }
 
 
-   const_char_pointer g_get_file_content_type(const_char_pointer pszPath)
+   const_char_pointer  g_get_file_content_type(const_char_pointer  pszPath)
    {
 
       GFile * pfile = g_file_new_for_path (scopedstrPath);
@@ -511,9 +511,9 @@ namespace gdk
 
       }
 
-      const_char_pointer pszContentType = g_file_info_get_content_type (pfileinfo);
+      const_char_pointer  pszContentType = g_file_info_get_content_type (pfileinfo);
 
-      const_char_pointer point = nullptr;
+      const_char_pointer  point = nullptr;
 
       if(scopedstrContentType != nullptr)
       {
@@ -528,7 +528,7 @@ namespace gdk
 
 
 
-   int gdk_launch_uri(const_char_pointer pszUri, char * pszError, int iBufferSize)
+   int gdk_launch_uri(const_char_pointer  pszUri, char * pszError, int iBufferSize)
    {
 
       gboolean ret;

@@ -69,7 +69,7 @@ namespace acme_posix
 
       void open(const ::file::path & lpszFileName, ::file::e_open eopen, ::pointer < ::file::exception > * ppfileexception) override;
 
-      //virtual bool PASCAL GetStatus(const_char_pointer lpszFileName, ::file::file_status& rStatus);
+      //virtual bool PASCAL GetStatus(const_char_pointer  lpszFileName, ::file::file_status& rStatus);
 
       //unsigned long long ReadHuge(void * lpBuffer, unsigned long long dwCount);
       //void WriteHuge(const void * lpBuffer, unsigned long long dwCount);

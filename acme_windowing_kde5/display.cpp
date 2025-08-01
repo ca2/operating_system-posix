@@ -82,7 +82,7 @@ namespace kde5
          }
 
 
-         //         Atom display::intern_atom(const_char_pointer pszAtomName, bool bCreate)
+         //         Atom display::intern_atom(const_char_pointer  pszAtomName, bool bCreate)
          //         {
          //
          //            return _intern_atom_unlocked(scopedstrAtomName, bCreate);
@@ -139,7 +139,7 @@ namespace kde5
          //
          //
          //
-         //         Atom display::_intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate)
+         //         Atom display::_intern_atom_unlocked(const_char_pointer  pszAtomName, bool bCreate)
          //         {
          //
          //            if (m_pdisplay == nullptr)
@@ -757,7 +757,7 @@ namespace kde5
          //int _c_XErrorHandler(Display * display, XErrorEvent * perrorevent)
          //{
          //
-         //   const_char_pointer pszError;
+         //   const_char_pointer  pszError;
          //
          //   if(perrorevent->error_code == BadRequest)
          //   {
@@ -868,7 +868,7 @@ namespace kde5
          //
          //   }
          //
-         //const_char_pointer pszRequest;
+         //const_char_pointer  pszRequest;
          //   if(perrorevent->request_code == 1)
          //   {
          //
@@ -1489,7 +1489,7 @@ namespace kde5
          // string node::get_file_icon_path(const ::scoped_string & scopedstrPath, int iSize)
          // {
          //
-         //    QUrl url((const_char_pointer ) ("file://"+strPath));
+         //    QUrl url((const_char_pointer  ) ("file://"+strPath));
          //
          //    KFileItem fileitem(url, KFileItem::NormalMimeTypeDetermination);
          //
@@ -1508,7 +1508,7 @@ namespace kde5
          //
          //    QByteArray bytea = path.toUtf8();
          //
-         //    const_char_pointer pathData = bytea.constData();
+         //    const_char_pointer  pathData = bytea.constData();
          //
          //    return pathData;
          //

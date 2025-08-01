@@ -30,7 +30,7 @@
 
 #include "audio_dev.h"
 
-static void *ad_arts_init(const_char_pointer );
+static void *ad_arts_init(const_char_pointer  );
 static void ad_arts_close(void *);
 static int ad_arts_config(void *, int, int);
 static ssize_t ad_arts_output(void *, void *, size_t);
@@ -46,13 +46,13 @@ const struct audio_dev_backend audio_dev_arts = {
 
 struct arts_ctx {
 	arts_stream_t sc_as;
-	const_char_pointer sc_dev;
+	const_char_pointer  sc_dev;
 	int sc_rate;
 	int sc_channels;
 };
 
 static void *
-ad_arts_init(const_char_pointer dev)
+ad_arts_init(const_char_pointer  dev)
 {
 	struct arts_ctx *sc;
 	int rv;

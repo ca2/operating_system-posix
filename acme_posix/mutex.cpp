@@ -140,7 +140,7 @@ namespace acme_posix
    }
 
 
-   mutex::mutex(::particle * pparticle, bool bInitiallyOwn, const_char_pointer pstrName)
+   mutex::mutex(::particle * pparticle, bool bInitiallyOwn, const_char_pointer  pstrName)
    {
 
    #ifdef ACME_MUTEX_DEBUG
@@ -346,7 +346,7 @@ namespace acme_posix
 
             auto cerrornumber = c_error_number();
 
-            //const_char_pointer pszError = strerror(iErr);
+            //const_char_pointer  pszError = strerror(iErr);
             
             auto estatus = cerrornumber.estatus();
             
@@ -507,7 +507,7 @@ namespace acme_posix
 
    #ifdef WINDOWS
 
-   mutex::mutex(enum_create_new, const_char_pointer pstrName, void * h, bool bOwner)
+   mutex::mutex(enum_create_new, const_char_pointer  pstrName, void * h, bool bOwner)
    {
 
    #ifdef _DEBUG
@@ -531,7 +531,7 @@ namespace acme_posix
 
    #if defined(MUTEX_NAMED_POSIX)
 
-   mutexmutex(const_char_pointer pstrName, sem_t * psem, bool bOwner) :
+   mutexmutex(const_char_pointer  pstrName, sem_t * psem, bool bOwner) :
       ::matter(pparticle),
       synchronization(pstrName)
    {
@@ -569,7 +569,7 @@ namespace acme_posix
    #elif defined(MUTEX_NAMED_FD)
 
 
-   mutex::mutex(enum_create_new, const_char_pointer lpszName, int iFd, bool bOwner)
+   mutex::mutex(enum_create_new, const_char_pointer  lpszName, int iFd, bool bOwner)
    {
 
    #ifdef ACME_MUTEX_DEBUG
@@ -597,7 +597,7 @@ namespace acme_posix
 
    #elif defined(MUTEX_NAMED_VSEM)
 
-   mutexmutex(e_create_new enew, const_char_pointer pstrName, key_t key, int semid, bool bOwner):
+   mutexmutex(e_create_new enew, const_char_pointer  pstrName, key_t key, int semid, bool bOwner):
       ::matter(pparticle),
       synchronization(pstrName)
    {
@@ -1644,7 +1644,7 @@ namespace acme_posix
 
 
 
-   ::pointer<mutex>open_mutex(::matter * pmatter, const_char_pointer lpszName)
+   ::pointer<mutex>open_mutex(::matter * pmatter, const_char_pointer  lpszName)
    {
 
    #ifdef WINDOWS
@@ -1796,7 +1796,7 @@ namespace acme_posix
    }
 
 
-   void wait_until_mutex_does_not_exist(::particle * pparticle,  const_char_pointer lpszName)
+   void wait_until_mutex_does_not_exist(::particle * pparticle,  const_char_pointer  lpszName)
    {
 
       ::pointer<mutex>pmutex = __allocate mutex(pparticle, false, "Global\\::ca::account::ca2_spa::7807e510-5579-11dd-ae16-0800200c7784");

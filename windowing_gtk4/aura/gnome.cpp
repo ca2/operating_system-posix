@@ -7,7 +7,7 @@ namespace user
 {
 
 
-   bool gsettings_get(string & str, const_char_pointer pszSchema, const_char_pointer pszKey)
+   bool gsettings_get(string & str, const_char_pointer  pszSchema, const_char_pointer  pszKey)
    {
 
       char * psz = gsettings_get_malloc(scopedstrSchema, pszKey);

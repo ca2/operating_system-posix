@@ -13,7 +13,7 @@
 
 // Function to replace environment variable expressions ($ENV_VAR) in a string
 // by chat gpt on 2024-12-22.
-char *c_expand_environment_variables(const_char_pointer input) {
+char *c_expand_environment_variables(const_char_pointer  input) {
     size_t len = strlen(input);
     char *result = (char *)malloc(len + 1); // Allocate memory for the result string
     if (!result) {

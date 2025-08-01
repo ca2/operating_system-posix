@@ -45,7 +45,7 @@ namespace acme_posix
 //static string read_line(const string& file);
    string usb_sysfs_hw_string(::particle *pparticle, const string &sysfs_path);
 
-   string format(const_char_pointer format, ...);
+   string format(const_char_pointer  format, ...);
 
 #if !defined(__ANDROID__)
    string_array
@@ -268,7 +268,7 @@ namespace acme_posix
    }
 
 
-   string format(const_char_pointer format, ...)
+   string format(const_char_pointer  format, ...)
    {
 
       va_list ap;

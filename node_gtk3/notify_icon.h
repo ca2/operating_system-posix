@@ -85,21 +85,21 @@ namespace node_gtk3
       bool notify_icon_step() override;
 
 //#if defined(APPLE_IOS) || defined(WINDOWS_DESKTOP) || defined(__ANDROID__) || defined(UNIVERSAL_WINDOWS)
-//      virtual void notify_icon_play(const_char_pointer action);
+//      virtual void notify_icon_play(const_char_pointer  action);
 //#else
 //#if defined(LINUX)
-//      virtual void notify_icon_play(const_char_pointer action);
+//      virtual void notify_icon_play(const_char_pointer  action);
 //#else
-//      virtual void notify_icon_play(const_char_pointer action) override;
+//      virtual void notify_icon_play(const_char_pointer  action) override;
 //#endif
 //#ifndef WINDOWS_DESKTOP
 //      virtual int _get_notification_area_action_count() override;
-//      virtual const_char_pointer _get_notification_area_action_name(int iIndex) override;
-//      virtual const_char_pointer _get_notification_area_action_id(int iIndex) override;
-//      virtual const_char_pointer _get_notification_area_action_label(int iIndex) override;
-//      virtual const_char_pointer _get_notification_area_action_accelerator(int iIndex) override;
-//      virtual const_char_pointer _get_notification_area_action_description(int iIndex) override;
-//      virtual void call_notification_area_action(const_char_pointer pszId) override;
+//      virtual const_char_pointer  _get_notification_area_action_name(int iIndex) override;
+//      virtual const_char_pointer  _get_notification_area_action_id(int iIndex) override;
+//      virtual const_char_pointer  _get_notification_area_action_label(int iIndex) override;
+//      virtual const_char_pointer  _get_notification_area_action_accelerator(int iIndex) override;
+//      virtual const_char_pointer  _get_notification_area_action_description(int iIndex) override;
+//      virtual void call_notification_area_action(const_char_pointer  pszId) override;
 //#endif
 
 

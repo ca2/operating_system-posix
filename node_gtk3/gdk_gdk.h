@@ -7,7 +7,7 @@ namespace node_gtk3
 {
 
 
-//   char * gsettings_get_malloc(const_char_pointer pszSchema, const_char_pointer pszKey);
+//   char * gsettings_get_malloc(const_char_pointer  pszSchema, const_char_pointer  pszKey);
 //
 //
 //   void g_defer_init();
@@ -40,16 +40,16 @@ namespace node_gtk3
 //   ::e_status node_enable_wallpaper_change_notification(::node_gtk3::node * pnode, const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey);
 //
 //
-//   const_char_pointer g_get_file_icon_path(const_char_pointer pszPath, int iSize);
+//   const_char_pointer  g_get_file_icon_path(const_char_pointer  pszPath, int iSize);
 //
 //
-//   const_char_pointer g_get_file_content_type(const_char_pointer pszPath);
+//   const_char_pointer  g_get_file_content_type(const_char_pointer  pszPath);
 //
 //
 //   void gdk_branch(const ::procedure & procedure);
 //
 //
-//   int gdk_launch_uri(const_char_pointer pszUri, char * pszError, int iBufferSize);
+//   int gdk_launch_uri(const_char_pointer  pszUri, char * pszError, int iBufferSize);
 
 
 } // namespace node_gtk3

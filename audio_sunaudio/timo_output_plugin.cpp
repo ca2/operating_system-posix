@@ -55,7 +55,7 @@ struct output_plugin {
 	unsigned int mixer_open : 1;
 };
 
-static const_char_pointer plugin_dir;
+static const_char_pointer  plugin_dir;
 static LIST_HEAD(op_head);
 static struct output_plugin *op = NULL;
 
@@ -225,7 +225,7 @@ static int select_plugin(struct output_plugin *o)
 	return 0;
 }
 
-int op_select(const_char_pointer name)
+int op_select(const_char_pointer  name)
 {
 	struct output_plugin *o;
 
@@ -274,7 +274,7 @@ int op_close(void)
 	return op->pcm_ops->close();
 }
 
-int op_write(const_char_pointer buffer, int count)
+int op_write(const_char_pointer  buffer, int count)
 {
 	return op->pcm_ops->write(buffer, count);
 }
@@ -345,7 +345,7 @@ static void option_error(int rc)
 	free(msg);
 }
 
-static void set_dsp_option(void *data, const_char_pointer val)
+static void set_dsp_option(void *data, const_char_pointer  val)
 {
 	const struct output_plugin_opt *o = data;
 	int rc;
@@ -368,7 +368,7 @@ static bool option_of_current_mixer(const struct mixer_plugin_opt *opt)
 	return false;
 }
 
-static void set_mixer_option(void *data, const_char_pointer val)
+static void set_mixer_option(void *data, const_char_pointer  val)
 {
 	const struct mixer_plugin_opt *o = data;
 	int rc;
@@ -432,7 +432,7 @@ void op_add_options(void)
 	}
 }
 
-char *op_get_error_msg(int rc, const_char_pointer arg)
+char *op_get_error_msg(int rc, const_char_pointer  arg)
 {
 	char buffer[1024];
 
@@ -487,7 +487,7 @@ void op_dump_plugins(void)
 	}
 }
 
-const_char_pointer op_get_current(void)
+const_char_pointer  op_get_current(void)
 {
 	if (op)
 		return op->name;

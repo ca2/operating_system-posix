@@ -726,7 +726,7 @@ namespace multimedia
                   else if (iFrameFreeCount < 0)
                   {
 
-                     const_char_pointer pszError = snd_strerror(iFrameFreeCount);
+                     const_char_pointer  pszError = snd_strerror(iFrameFreeCount);
 
                      informationf("ALSA wave_out snd_pcm_avail error: %s (%d)\n", pszError, iFrameFreeCount);
 

@@ -138,11 +138,11 @@ namespace windowing_q5
 //       //void release_mouse_capture() override;
 //
 //
-// //      Atom intern_atom(const_char_pointer pszAtomName, bool bCreate);
+// //      Atom intern_atom(const_char_pointer  pszAtomName, bool bCreate);
 // //
 // //      Atom intern_atom(::x11::enuid() eatom, bool bCreate);
 // //
-// //      Atom _intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate);
+// //      Atom _intern_atom_unlocked(const_char_pointer  pszAtomName, bool bCreate);
 // //
 // //      Atom _intern_atom_unlocked(::x11::enuid() eatom, bool bCreate);
 // //

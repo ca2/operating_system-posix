@@ -405,7 +405,7 @@ namespace windowing_x11
    //   m_playout->process_escape(pnode, set);
    //}
 
-//   bool keyboard::load_layout(const_char_pointer pszPath, const ::action_context & context)
+//   bool keyboard::load_layout(const_char_pointer  pszPath, const ::action_context & context)
 //   {
 //
 //      auto playout = __allocate ::user::keyboard_layout();
@@ -494,7 +494,7 @@ namespace windowing_x11
 
    //}
 
-   //string keyboard::process_char(const_char_pointer pszKey)
+   //string keyboard::process_char(const_char_pointer  pszKey)
    //{
    //   if(m_playout == nullptr)
    //   {
@@ -503,7 +503,7 @@ namespace windowing_x11
    //   return m_playout->process_char(scopedstrKey);
    //}
 
-   //string keyboard::process_escape(const_char_pointer pszEscape)
+   //string keyboard::process_escape(const_char_pointer  pszEscape)
    //{
    //   if(m_playout == nullptr)
    //   {
@@ -642,7 +642,7 @@ namespace windowing_x11
 //   }
 
 
-//   bool keyboard::initialize(keyboard_layout_id * playoutid, const_char_pointer pszPath)
+//   bool keyboard::initialize(keyboard_layout_id * playoutid, const_char_pointer  pszPath)
 //   {
 //
 //      if(!Context.file()->exists(scopedstrPath))

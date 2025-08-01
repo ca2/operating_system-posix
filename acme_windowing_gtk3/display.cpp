@@ -79,7 +79,7 @@ namespace gtk3
          }
 
 
-         //         Atom display::intern_atom(const_char_pointer pszAtomName, bool bCreate)
+         //         Atom display::intern_atom(const_char_pointer  pszAtomName, bool bCreate)
          //         {
          //
          //            return _intern_atom_unlocked(scopedstrAtomName, bCreate);
@@ -136,7 +136,7 @@ namespace gtk3
          //
          //
          //
-         //         Atom display::_intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate)
+         //         Atom display::_intern_atom_unlocked(const_char_pointer  pszAtomName, bool bCreate)
          //         {
          //
          //            if (m_pdisplay == nullptr)
@@ -738,7 +738,7 @@ namespace gtk3
          //int _c_XErrorHandler(Display * display, XErrorEvent * perrorevent)
          //{
          //
-         //   const_char_pointer pszError;
+         //   const_char_pointer  pszError;
          //
          //   if(perrorevent->error_code == BadRequest)
          //   {
@@ -849,7 +849,7 @@ namespace gtk3
          //
          //   }
          //
-         //const_char_pointer pszRequest;
+         //const_char_pointer  pszRequest;
          //   if(perrorevent->request_code == 1)
          //   {
          //

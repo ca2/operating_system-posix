@@ -484,9 +484,9 @@ namespace windowing_wayland
 //            //
 //            //         string strApplicationServerName = psystem->get_application_server_name();
 //            //
-//            //         pupdate->res_class = (char *) (const_char_pointer ) strApplicationServerName;
+//            //         pupdate->res_class = (char *) (const_char_pointer  ) strApplicationServerName;
 //            //
-//            //         pupdate->res_name = (char *) (const_char_pointer ) strApplicationServerName;
+//            //         pupdate->res_name = (char *) (const_char_pointer  ) strApplicationServerName;
 //            //
 //            //         XSetClassHint(display, window, pupdate);
 //            //
@@ -1210,7 +1210,7 @@ namespace windowing_wayland
 //   }
 
 
-   void window::set_wm_class(const_char_pointer psz)
+   void window::set_wm_class(const_char_pointer  psz)
    {
 
       synchronous_lock synchronouslock(user_synchronization());
@@ -1221,9 +1221,9 @@ namespace windowing_wayland
 //
 //      XClassHint classHint;
 //
-//      classHint.res_name = (char *) (const_char_pointer ) m_strWMClass;
+//      classHint.res_name = (char *) (const_char_pointer  ) m_strWMClass;
 //
-//      classHint.res_class = (char *) (const_char_pointer ) m_strWMClass;
+//      classHint.res_class = (char *) (const_char_pointer  ) m_strWMClass;
 //
 //      XSetClassHint(Display(), Window(), &classHint);
 
@@ -1605,7 +1605,7 @@ namespace windowing_wayland
 //         XA_STRING,
 //         8,
 //         PropModeReplace,
-//         (const unsigned char *) (const_char_pointer ) path,
+//         (const unsigned char *) (const_char_pointer  ) path,
 //         path.length());
 //
 //      informationf("windowing_wayland::window::bamf_set_icon END");
@@ -1831,7 +1831,7 @@ namespace windowing_wayland
    }
 
 
-   int window::store_name(const_char_pointer psz)
+   int window::store_name(const_char_pointer  psz)
    {
 
       windowing_output_debug_string("\nwindow::store_name");
@@ -2861,7 +2861,7 @@ namespace windowing_wayland
 //         ixa,
 //         8,
 //         PropModeReplace,
-//         (const unsigned char *) (const_char_pointer ) path,
+//         (const unsigned char *) (const_char_pointer  ) path,
 //         path.length());
 //
 //      informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
@@ -4373,7 +4373,7 @@ namespace windowing_wayland
 //         ixa,
 //         8,
 //         PropModeReplace,
-//         (const unsigned char *) (const_char_pointer ) path,
+//         (const unsigned char *) (const_char_pointer  ) path,
 //         path.length());
 //
 //      informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
@@ -5086,7 +5086,7 @@ namespace windowing_wayland
 //   }
 //
 //
-//   int window::_wm_test_state_unlocked(const_char_pointer pszNetStateFlag)
+//   int window::_wm_test_state_unlocked(const_char_pointer  pszNetStateFlag)
 //   {
 //
 //      //synchronous_lock synchronouslock(user_synchronization());
@@ -5118,7 +5118,7 @@ namespace windowing_wayland
 //   }
 //
 //
-//   int window::wm_test_state(const_char_pointer pszNetStateFlag)
+//   int window::wm_test_state(const_char_pointer  pszNetStateFlag)
 //   {
 //
 //      synchronous_lock synchronouslock(user_synchronization());
@@ -5307,7 +5307,7 @@ namespace windowing_wayland
 //
 //
 //   /// should be run in user thread
-//   ::e_status window::x11_store_name(const_char_pointer pszName)
+//   ::e_status window::x11_store_name(const_char_pointer  pszName)
 //   {
 //
 //      synchronous_lock synchronouslock(user_synchronization());

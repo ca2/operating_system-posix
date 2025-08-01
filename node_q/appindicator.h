@@ -21,7 +21,7 @@ namespace node_lxq2
       ~appindicator() override;
 
 
-      bool create(const_char_pointer pszId, const_char_pointer pszIcon, const_char_pointer pszFolder, application_menu * papplicationmenu, ::command_handler * pcallback) override;
+      bool create(const_char_pointer  pszId, const_char_pointer  pszIcon, const_char_pointer  pszFolder, application_menu * papplicationmenu, ::command_handler * pcallback) override;
 
 
    };

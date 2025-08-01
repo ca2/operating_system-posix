@@ -279,7 +279,7 @@ namespace music
             return thread::pre_translate_message(pobj);
          }
 
-//         void player::SaveFile(const_char_pointer lpszPathName)
+//         void player::SaveFile(const_char_pointer  lpszPathName)
 //         {
 //            ::e_status            mmrc;
 //            if(::failed(mmrc = get_sequence()->SaveFile(lpszPathName)) )

@@ -31,9 +31,9 @@
 //CLASS_DECL_ACME_WINDOWS void windows_registry_initialize();
 //
 //
-//CLASS_DECL_ACME_WINDOWS string read_resource_as_string(hinstance hinst, unsigned int nID, const_char_pointer pcszType, character_count iReadAtMostByteCount = -1);
-//CLASS_DECL_ACME_WINDOWS const void * get_resource_pointer(HINSTANCE hinst, DWORD nID, const_char_pointer pcszType, memsize & memsize);
-//CLASS_DECL_ACME_WINDOWS bool read_resource_as_memory(memory & m, HINSTANCE hinst, DWORD nID, const_char_pointer pcszType, character_count iReadAtMostByteCount = -1);
+//CLASS_DECL_ACME_WINDOWS string read_resource_as_string(hinstance hinst, unsigned int nID, const_char_pointer  pcszType, character_count iReadAtMostByteCount = -1);
+//CLASS_DECL_ACME_WINDOWS const void * get_resource_pointer(HINSTANCE hinst, DWORD nID, const_char_pointer  pcszType, memsize & memsize);
+//CLASS_DECL_ACME_WINDOWS bool read_resource_as_memory(memory & m, HINSTANCE hinst, DWORD nID, const_char_pointer  pcszType, character_count iReadAtMostByteCount = -1);
 
 //
 //
@@ -52,7 +52,7 @@
 //
 //
 //CLASS_DECL_ACME_WINDOWS HANDLE hfile_create(
-//   const_char_pointer pFileName,
+//   const_char_pointer  pFileName,
 //   unsigned int                   dwDesiredAccess,
 //   unsigned int                   dwShareMode,
 //   void * pSecurityAttributes,

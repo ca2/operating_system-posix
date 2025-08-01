@@ -719,7 +719,7 @@ namespace acme_posix
 
 
    //
-   //int_bool file_is_equal_path_dup(const_char_pointer psz1, const_char_pointer psz2)
+   //int_bool file_is_equal_path_dup(const_char_pointer  psz1, const_char_pointer  psz2)
    //{
    //      if (case_insensitive_ansi_compare(scopedstr1, psz2) == 0)
    //         return true;
@@ -752,7 +752,7 @@ namespace acme_posix
 
    //
    //
-   //int_bool file_path_is_equal(const_char_pointer psz1, const_char_pointer psz2)
+   //int_bool file_path_is_equal(const_char_pointer  psz1, const_char_pointer  psz2)
    //{
    //
    //      const int iBufSize = MAX_PATH * 8;
@@ -787,7 +787,7 @@ namespace acme_posix
 
 
 
-   int ansi_open(const_char_pointer psz, int i)
+   int ansi_open(const_char_pointer  psz, int i)
    {
 
          return open(scopedstr, i | O_CLOEXEC);
@@ -799,7 +799,7 @@ namespace acme_posix
          *perrno = errno;
    }
 
-   FILE * ansi_fopen(const_char_pointer psz, const_char_pointer pszMode)
+   FILE * ansi_fopen(const_char_pointer  psz, const_char_pointer  pszMode)
    {
 
          return fopen(scopedstr, pszMode);
@@ -852,7 +852,7 @@ namespace acme_posix
    }
 
 
-   void ansi_unlink(const_char_pointer psz)
+   void ansi_unlink(const_char_pointer  psz)
    {
 
          unlink(scopedstr);

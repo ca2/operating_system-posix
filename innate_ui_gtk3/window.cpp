@@ -63,7 +63,7 @@ namespace innate_ui_gtk3
    //
    // }
 
-   // const_char_pointer window::__get_class_name()
+   // const_char_pointer  window::__get_class_name()
    // {
    //
    //    return typeid(*this).name();

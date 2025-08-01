@@ -14,7 +14,7 @@ public:
     X11Exception() : _reason("unknown") {}
     X11Exception(const string& what) : _reason(what) {}
     virtual ~X11Exception() throw () {};
-    virtual const_char_pointer what() const throw () { return _reason.c_str(); }
+    virtual const_char_pointer  what() const throw () { return _reason.c_str(); }
 
 private:
     string _reason;

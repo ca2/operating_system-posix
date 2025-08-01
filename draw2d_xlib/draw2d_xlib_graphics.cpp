@@ -4,7 +4,7 @@
 
 HDC CreateCompatibleDC(HDC hdc);
 
-array < XChar2b > utf8toXChar2b(const_char_pointer input, int inlen);
+array < XChar2b > utf8toXChar2b(const_char_pointer  input, int inlen);
 
 namespace draw2d_xlib
 {
@@ -124,13 +124,13 @@ namespace draw2d_xlib
       return m_bPrinting;
    }
 
-   bool graphics::CreateDC(const_char_pointer lpszDriverName, const_char_pointer lpszDeviceName, const_char_pointer lpszOutput, const void * lpInitData)
+   bool graphics::CreateDC(const_char_pointer  lpszDriverName, const_char_pointer  lpszDeviceName, const_char_pointer  lpszOutput, const void * lpInitData)
    {
       throw ::exception(error_not_supported);
       //return Attach(::CreateDC(lpszDriverName, lpszDeviceName, lpszOutput, (const DEVMODE*)lpInitData));
    }
 
-   bool graphics::CreateIC(const_char_pointer lpszDriverName, const_char_pointer lpszDeviceName, const_char_pointer lpszOutput, const void * lpInitData)
+   bool graphics::CreateIC(const_char_pointer  lpszDriverName, const_char_pointer  lpszDeviceName, const_char_pointer  lpszOutput, const void * lpInitData)
    {
       throw ::exception(error_not_supported);
       //return Attach(::CreateIC(lpszDriverName, lpszDeviceName, lpszOutput, (const DEVMODE*) lpInitData));
@@ -897,7 +897,7 @@ namespace draw2d_xlib
 //
 //      }*/
 //
-//   bool graphics::DrawState(const ::int_point & point, const ::int_size & size, const_char_pointer lpszText, unsigned int nFlags, bool bPrefixText, int nTextLen, HBRUSH hBrush)
+//   bool graphics::DrawState(const ::int_point & point, const ::int_size & size, const_char_pointer  lpszText, unsigned int nFlags, bool bPrefixText, int nTextLen, HBRUSH hBrush)
 //   {
 //
 //      throw ::not_implemented();
@@ -907,7 +907,7 @@ namespace draw2d_xlib
 //
 //   }
 //
-//   bool graphics::DrawState(const ::int_point & point, const ::int_size & size, const_char_pointer lpszText, unsigned int nFlags, bool bPrefixText, int nTextLen, ::draw2d::brush* pBrush)
+//   bool graphics::DrawState(const ::int_point & point, const ::int_size & size, const_char_pointer  lpszText, unsigned int nFlags, bool bPrefixText, int nTextLen, ::draw2d::brush* pBrush)
 //   {
 //
 //      throw ::not_implemented();
@@ -1775,7 +1775,7 @@ namespace draw2d_xlib
 
    } // call virtual
 
-   bool graphics::ExtTextOut(int x, int y, unsigned int nOptions, const ::int_rectangle & rectangle, const_char_pointer lpszString, unsigned int nCount, LPINT lpDxWidths)
+   bool graphics::ExtTextOut(int x, int y, unsigned int nOptions, const ::int_rectangle & rectangle, const_char_pointer  lpszString, unsigned int nCount, LPINT lpDxWidths)
    {
 
       throw ::not_implemented();
@@ -1797,7 +1797,7 @@ namespace draw2d_xlib
 
    }
 
-   int_size graphics::TabbedTextOut(int x, int y, const_char_pointer lpszString, int nCount, int nTabPositions, LPINT lpnTabStopPositions, int nTabOrigin)
+   int_size graphics::TabbedTextOut(int x, int y, const_char_pointer  lpszString, int nCount, int nTabPositions, LPINT lpnTabStopPositions, int nTabOrigin)
    {
 
       throw ::not_implemented();
@@ -1820,7 +1820,7 @@ namespace draw2d_xlib
    }
 
 
-   int_size graphics::GetTabbedTextExtent(const_char_pointer lpszString, character_count nCount, int nTabPositions, LPINT lpnTabStopPositions) const
+   int_size graphics::GetTabbedTextExtent(const_char_pointer  lpszString, character_count nCount, int nTabPositions, LPINT lpnTabStopPositions) const
    {
 
       throw ::not_implemented();
@@ -1842,7 +1842,7 @@ namespace draw2d_xlib
 
    }
 
-   int_size graphics::GetOutputTabbedTextExtent(const_char_pointer lpszString, character_count nCount, int nTabPositions, LPINT lpnTabStopPositions) const
+   int_size graphics::GetOutputTabbedTextExtent(const_char_pointer  lpszString, character_count nCount, int nTabPositions, LPINT lpnTabStopPositions) const
    {
 
       throw ::not_implemented();
@@ -2024,7 +2024,7 @@ namespace draw2d_xlib
 
    /*
 
-      unsigned int graphics::GetCharacterPlacement(const_char_pointer lpString, int nCount, int nMaxExtent, LPGCP_RESULTS lpResults, unsigned int dwFlags) const
+      unsigned int graphics::GetCharacterPlacement(const_char_pointer  lpString, int nCount, int nMaxExtent, LPGCP_RESULTS lpResults, unsigned int dwFlags) const
       {
 
          throw ::not_implemented();
@@ -2042,7 +2042,7 @@ namespace draw2d_xlib
          return 0;
 
    //      ASSERT(get_handle1() != nullptr);
-   //      return ::GetCharacterPlacement(get_handle1(), (const_char_pointer )str, (int) str.length(), nMaxExtent, lpResults, dwFlags);
+   //      return ::GetCharacterPlacement(get_handle1(), (const_char_pointer  )str, (int) str.length(), nMaxExtent, lpResults, dwFlags);
 
       }
 
@@ -2074,7 +2074,7 @@ namespace draw2d_xlib
    }
 
    // Printer Escape Functions
-   int graphics::Escape(int nEscape, int nCount, const_char_pointer lpszInData, LPVOID lpOutData)
+   int graphics::Escape(int nEscape, int nCount, const_char_pointer  lpszInData, LPVOID lpOutData)
    {
 
       throw ::not_implemented();
@@ -2403,7 +2403,7 @@ namespace draw2d_xlib
 
    }
 
-   int graphics::DrawEscape(int nEscape, int nInputSize, const_char_pointer lpszInputData)
+   int graphics::DrawEscape(int nEscape, int nInputSize, const_char_pointer  lpszInputData)
    {
 
       throw ::not_implemented();
@@ -2414,7 +2414,7 @@ namespace draw2d_xlib
 
    }
 
-   int graphics::Escape(int nEscape, int nInputSize, const_char_pointer lpszInputData,  int nOutputSize, char * lpszOutputData)
+   int graphics::Escape(int nEscape, int nInputSize, const_char_pointer  lpszInputData,  int nOutputSize, char * lpszOutputData)
    {
 
       throw ::not_implemented();
@@ -3330,7 +3330,7 @@ namespace draw2d_xlib
 
 
 
-   int graphics::StartDoc(const_char_pointer lpszDocName)
+   int graphics::StartDoc(const_char_pointer  lpszDocName)
    {
 
       throw ::not_implemented();
@@ -4388,7 +4388,7 @@ namespace draw2d_xlib
 
 
 
-   int graphics::draw_text(const_char_pointer lpszString, int nCount, ::int_rectangle * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext)
+   int graphics::draw_text(const_char_pointer  lpszString, int nCount, ::int_rectangle * prectangle, const ::e_align & ealign, const ::e_draw_text & edrawtext)
    {
       /*if(get_handle1() == nullptr)
          return -1;
@@ -4491,7 +4491,7 @@ namespace draw2d_xlib
 
       XftDrawStringUtf8(pdraw, &ftc, pfont->m_pft,
                         rectangle.left() + Δx + m_pdc->m_pointOffset.x,
-                        rectangle.top() + h + Δy + m_pdc->m_pointOffset.y, (const FcChar8 *) (const_char_pointer ) str);
+                        rectangle.top() + h + Δy + m_pdc->m_pointOffset.y, (const FcChar8 *) (const_char_pointer  ) str);
 
 //      XftColorFree(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &ftc);
 
@@ -4539,7 +4539,7 @@ namespace draw2d_xlib
     * Computes the text rectangle.
     * \return C::u322dRectangle.
     */
-   int_size graphics::get_text_extent(const_char_pointer lpszString, character_count nCount, int iIndex) const
+   int_size graphics::get_text_extent(const_char_pointer  lpszString, character_count nCount, int iIndex) const
    {
 
       synchronous_lock ml(&xlib_mutex());
@@ -4562,7 +4562,7 @@ namespace draw2d_xlib
 
 //      wstring wstr(lpszString, nCount);
 
-      XftTextExtentsUtf8 (m_pdc->m_pdisplay, pfont->m_pft, (const FcChar8 *) (const_char_pointer ) lpszString, nCount, &extents);
+      XftTextExtentsUtf8 (m_pdc->m_pdisplay, pfont->m_pft, (const FcChar8 *) (const_char_pointer  ) lpszString, nCount, &extents);
 
       //XGCValues v;
 
@@ -4584,7 +4584,7 @@ namespace draw2d_xlib
    }
 
 
-   int_size graphics::get_text_extent(const_char_pointer lpszString, character_count nCount) const
+   int_size graphics::get_text_extent(const_char_pointer  lpszString, character_count nCount) const
    {
 
       return get_text_extent(lpszString, nCount, 0);
@@ -4600,7 +4600,7 @@ namespace draw2d_xlib
    }
 
 
-   int_size graphics::GetOutputTextExtent(const_char_pointer lpszString, character_count nCount) const
+   int_size graphics::GetOutputTextExtent(const_char_pointer  lpszString, character_count nCount) const
    {
 
       throw ::not_implemented();
@@ -4633,7 +4633,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::get_text_extent(double_size & size, const_char_pointer lpszString, character_count nCount, int iIndex) const
+   bool graphics::get_text_extent(double_size & size, const_char_pointer  lpszString, character_count nCount, int iIndex) const
    {
 
       synchronous_lock ml(&xlib_mutex());
@@ -4649,7 +4649,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::get_text_extent(double_size & size, const_char_pointer lpszString, character_count nCount) const
+   bool graphics::get_text_extent(double_size & size, const_char_pointer  lpszString, character_count nCount) const
    {
 
       return get_text_extent(size, lpszString, nCount, 0);
@@ -4820,7 +4820,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::text_out(int x, int y, const_char_pointer lpszString, int nCount)
+   bool graphics::text_out(int x, int y, const_char_pointer  lpszString, int nCount)
    {
 
       synchronous_lock ml(&xlib_mutex());
@@ -4879,7 +4879,7 @@ namespace draw2d_xlib
 
       XftDrawStringUtf8(pdraw, &ftc, pfont->m_pft,
                         x + m_pdc->m_pointOffset.x,
-                        y + h + m_pdc->m_pointOffset.y, (const FcChar8 *) (const_char_pointer ) lpszString, nCount);
+                        y + h + m_pdc->m_pointOffset.y, (const FcChar8 *) (const_char_pointer  ) lpszString, nCount);
 
 //      XftColorFree(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &ftc);
 
@@ -4891,7 +4891,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::text_out(double x, double y, const_char_pointer lpszString, int nCount)
+   bool graphics::text_out(double x, double y, const_char_pointer  lpszString, int nCount)
    {
 
       return text_out(int(x), int(y), lpszString, nCount);
@@ -5609,7 +5609,7 @@ ok:
 
             XftDrawString8(pdraw, &ftc, pfont->m_pft,
             rectangle.left() + Δx + m_pdc->m_pointOffset.x,
-            rectangle.top() + h + Δy + m_pdc->m_pointOffset.y, (FcChar8 *) (const_char_pointer ) str);
+            rectangle.top() + h + Δy + m_pdc->m_pointOffset.y, (FcChar8 *) (const_char_pointer  ) str);
 
             XftColorFree(m_pdc->m_pdisplay, pbitmap->m_ui.m_window->draw2d(), pbitmap->m_ui.m_window->m_colormap, &ftc);
 
@@ -5646,7 +5646,7 @@ ok:
 
 
 
-array < XChar2b > utf8toXChar2b(const_char_pointer input, int inlen)
+array < XChar2b > utf8toXChar2b(const_char_pointer  input, int inlen)
 {
 
    array < XChar2b > output_r;

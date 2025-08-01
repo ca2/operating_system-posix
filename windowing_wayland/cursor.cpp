@@ -93,7 +93,7 @@ namespace windowing_wayland
 //
 //   void
 //   global_registry_handler(void *data, struct wl_registry *registry, uint32_t id,
-//                           const_char_pointer interface, uint32_t version)
+//                           const_char_pointer  interface, uint32_t version)
 //   {
 //      printf("Got a registry happening for %s id %d\n", interface, id);
 //      if (strcmp(interface, "wl_compositor") == 0) {
@@ -385,7 +385,7 @@ namespace windowing_wayland
 
       ::pointer < ::windowing_wayland::display> pwaylanddisplay =  pdisplay;
 
-      const_char_pointer cursor_name = "left_ptr";
+      const_char_pointer  cursor_name = "left_ptr";
 
       switch(ecursor)
       {

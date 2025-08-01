@@ -18,7 +18,7 @@ G_DEFINE_TYPE (NodeGtkApplication, node_gtk_application, GTK_TYPE_APPLICATION)
 NodeGtkApplication * g_pnodegtkapplication = nullptr;
 
 
-NodeGtkApplication * node_gtk_application_new (const_char_pointer pszAppName, const_char_pointer pszProgName)
+NodeGtkApplication * node_gtk_application_new (const_char_pointer  pszAppName, const_char_pointer  pszProgName)
 {
 
    NodeGtkApplication * pnodegtkapplication;
@@ -280,7 +280,7 @@ void node_gtk_application_class_init (NodeGtkApplicationClass * pclass)
 }
 
 
-//void apex_application_run(const_char_pointer pszAppName, const_char_pointer pszProgName)
+//void apex_application_run(const_char_pointer  pszAppName, const_char_pointer  pszProgName)
 //{
 //
 //   g_papexapplication = apex_application_new(scopedstrAppName, pszProgName);

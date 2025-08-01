@@ -200,7 +200,7 @@ void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString)
 ////   }
 //
 //
-////   Atom display::intern_atom(const_char_pointer pszAtomName, bool bCreate)
+////   Atom display::intern_atom(const_char_pointer  pszAtomName, bool bCreate)
 ////   {
 ////
 ////      if (m_pdisplay == nullptr)

@@ -19,13 +19,13 @@
 //   };
 //
 //
-//   bool gsettings_set(const_char_pointer pszSchema, const_char_pointer pszKey, const_char_pointer pszValue);
+//   bool gsettings_set(const_char_pointer  pszSchema, const_char_pointer  pszKey, const_char_pointer  pszValue);
 //
 //   bool gsettings_sync();
 //
-//   char * gsettings_get_malloc(const_char_pointer pszSchema, const_char_pointer pszKey);
+//   char * gsettings_get_malloc(const_char_pointer  pszSchema, const_char_pointer  pszKey);
 //
-//   bool g_enable_wallpaper_change_notification(const_char_pointer pszSchema, const_char_pointer pszKey);
+//   bool g_enable_wallpaper_change_notification(const_char_pointer  pszSchema, const_char_pointer  pszKey);
 //
 //   void g_defer_init();
 //

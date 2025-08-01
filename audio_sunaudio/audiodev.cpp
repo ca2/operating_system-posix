@@ -104,7 +104,7 @@ audiodev_getinfo(struct audiodev *adev)
 }
 
 static int
-audiodev_add(const_char_pointer pdev, const_char_pointer dev, unsigned int unit)
+audiodev_add(const_char_pointer  pdev, const_char_pointer  dev, unsigned int unit)
 {
 	struct audiodev *adev;
 
@@ -143,7 +143,7 @@ audiodev_add(const_char_pointer pdev, const_char_pointer dev, unsigned int unit)
 }
 
 static void
-audiodev_cb(void *args, const_char_pointer pdev, const_char_pointer dev, unsigned int unit)
+audiodev_cb(void *args, const_char_pointer  pdev, const_char_pointer  dev, unsigned int unit)
 {
 	audiodev_add(pdev, dev, unit);
 }
@@ -252,7 +252,7 @@ audiodev_set_default(struct audiodev *adev)
 
 int
 audiodev_set_param(struct audiodev *adev, int mode,
-	const_char_pointer encname, unsigned int prec, unsigned int ch, unsigned int freq)
+	const_char_pointer  encname, unsigned int prec, unsigned int ch, unsigned int freq)
 {
 	audio_info_t ai;
 	int setmode;
@@ -393,7 +393,7 @@ done:
 
 
 
-const_char_pointer encoding_names[] = {
+const_char_pointer  encoding_names[] = {
 	"none",
 	AudioEmulaw,
 	AudioEalaw,

@@ -1705,7 +1705,7 @@ xdg_toplevel_set_parent(struct xdg_toplevel *xdg_toplevel, struct xdg_toplevel *
  * The string must be encoded in UTF-8.
  */
 static inline void
-xdg_toplevel_set_title(struct xdg_toplevel *xdg_toplevel, const_char_pointer title)
+xdg_toplevel_set_title(struct xdg_toplevel *xdg_toplevel, const_char_pointer  title)
 {
 	wl_proxy_marshal_flags((struct wl_proxy *) xdg_toplevel,
 			 XDG_TOPLEVEL_SET_TITLE, NULL, wl_proxy_get_version((struct wl_proxy *) xdg_toplevel), 0, title);
@@ -1739,7 +1739,7 @@ xdg_toplevel_set_title(struct xdg_toplevel *xdg_toplevel, const_char_pointer tit
  * [0] https://standards.freedesktop.org/desktop-entry-spec/
  */
 static inline void
-xdg_toplevel_set_app_id(struct xdg_toplevel *xdg_toplevel, const_char_pointer app_id)
+xdg_toplevel_set_app_id(struct xdg_toplevel *xdg_toplevel, const_char_pointer  app_id)
 {
 	wl_proxy_marshal_flags((struct wl_proxy *) xdg_toplevel,
 			 XDG_TOPLEVEL_SET_APP_ID, NULL, wl_proxy_get_version((struct wl_proxy *) xdg_toplevel), 0, app_id);

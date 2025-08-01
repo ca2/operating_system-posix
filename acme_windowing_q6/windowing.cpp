@@ -483,7 +483,7 @@ namespace q6
 //          {
 //
 //
-//             QByteArray imageData = QByteArray::fromRawData((const_char_pointer ) psourceFile,
+//             QByteArray imageData = QByteArray::fromRawData((const_char_pointer  ) psourceFile,
 //                                                            sizeSourceFile);  // Replace with actual image bytes and size
 //
 //             // Create a QImage object

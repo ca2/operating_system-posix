@@ -58,7 +58,7 @@ namespace windowing_gtk4
 
 //      // Callback for registry listener to bind global Wayland objects
 //      static void
-//      s_registry_handler(void *data, struct wl_registry *wl_registry, uint32_t id, const_char_pointer interface, uint32_t version)
+//      s_registry_handler(void *data, struct wl_registry *wl_registry, uint32_t id, const_char_pointer  interface, uint32_t version)
 //      {
 //         auto pdisplay = (::windowing_gtk4::display *) data;
 //         if (strcmp(interface, wl_compositor_interface.name) == 0) {
@@ -543,7 +543,7 @@ namespace windowing_gtk4
 
 
 
-//   Atom display::intern_atom(const_char_pointer pszAtomName, bool bCreate)
+//   Atom display::intern_atom(const_char_pointer  pszAtomName, bool bCreate)
 //   {
 //
 //      if (m_px11display == nullptr)
@@ -586,7 +586,7 @@ namespace windowing_gtk4
 //   }
 //
 //
-//   Atom display::_intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate)
+//   Atom display::_intern_atom_unlocked(const_char_pointer  pszAtomName, bool bCreate)
 //   {
 //
 //      if (m_px11display == nullptr)

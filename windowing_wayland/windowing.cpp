@@ -640,7 +640,7 @@ namespace windowing_wayland
    }
 
 
-//   static int open_restricted(const_char_pointer path, int flags, void *user_data)
+//   static int open_restricted(const_char_pointer  path, int flags, void *user_data)
 //   {
 //      int fd = ::open(path, flags);
 //      return fd < 0 ? -errno : fd;

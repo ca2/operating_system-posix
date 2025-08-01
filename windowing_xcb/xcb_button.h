@@ -19,7 +19,7 @@ public:
    enum_dialog_result   m_edialogresult;
 
 
-   xcb_button(const_char_pointer psz, enum_dialog_result edialogresult);
+   xcb_button(const_char_pointer  psz, enum_dialog_result edialogresult);
 
    virtual ~xcb_button();
 

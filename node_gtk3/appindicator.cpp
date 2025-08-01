@@ -120,9 +120,9 @@ GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, ::
       auto pitem = papplicationmenu->element_at(i);
 
       auto strName = pitem->m_strName;
-      //const_char_pointer pszLabel = pbridge->_get_notification_area_action_label(i);
-      //const_char_pointer pszAccelerator = pbridge->_get_notification_area_action_accelerator(i);
-      //const_char_pointer pszDescription = pbridge->_get_notification_area_action_description(i);
+      //const_char_pointer  pszLabel = pbridge->_get_notification_area_action_label(i);
+      //const_char_pointer  pszAccelerator = pbridge->_get_notification_area_action_accelerator(i);
+      //const_char_pointer  pszDescription = pbridge->_get_notification_area_action_description(i);
 
       GtkWidget * pgtkwidget = nullptr;
 
@@ -226,7 +226,7 @@ namespace node_gtk3
    }
 
 
-   bool appindicator::create(const_char_pointer pszId, const_char_pointer pszIcon, const_char_pointer pszFolder, application_menu * papplicationmenu, command_handler * pcommandhandler)
+   bool appindicator::create(const_char_pointer  pszId, const_char_pointer  pszIcon, const_char_pointer  pszFolder, application_menu * papplicationmenu, command_handler * pcommandhandler)
    {
 
 //#if defined(HAS_GTK4)
@@ -282,11 +282,11 @@ namespace node_gtk3
 //      for(int i = 0; i < iCount; i++)
 //      {
 //
-//         const_char_pointer pszName = pbridge->_get_notification_area_action_name(i);
-//         const_char_pointer pszId = pbridge->_get_notification_area_action_id(i);
-//         const_char_pointer pszLabel = pbridge->_get_notification_area_action_label(i);
-//         const_char_pointer pszAccelerator = pbridge->_get_notification_area_action_accelerator(i);
-//         const_char_pointer pszDescription = pbridge->_get_notification_area_action_description(i);
+//         const_char_pointer  pszName = pbridge->_get_notification_area_action_name(i);
+//         const_char_pointer  pszId = pbridge->_get_notification_area_action_id(i);
+//         const_char_pointer  pszLabel = pbridge->_get_notification_area_action_label(i);
+//         const_char_pointer  pszAccelerator = pbridge->_get_notification_area_action_accelerator(i);
+//         const_char_pointer  pszDescription = pbridge->_get_notification_area_action_description(i);
 //
 //         GtkWidget * pgtkwidget = nullptr;
 //

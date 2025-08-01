@@ -44,7 +44,7 @@ namespace nano
        */
       void xdg_activation_token_v1_done(void * data,
                                         ::xdg_activation_token_v1 * pxdgactivationtokenv1,
-                                        const_char_pointer token)
+                                        const_char_pointer  token)
       {
 
          auto pwaylandwindow = (window_base *) data;

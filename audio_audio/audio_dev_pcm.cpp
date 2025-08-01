@@ -28,7 +28,7 @@
 
 //#include "audio_dev.h"
 
-static void *ad_pcm_init(const_char_pointer );
+static void *ad_pcm_init(const_char_pointer  );
 static void ad_pcm_close(void *);
 static int ad_pcm_config(void *, int, int, int lowat, int hiwat);
 static ssize_t ad_pcm_output(void *, void *, size_t);
@@ -52,7 +52,7 @@ struct pcm_ctx {
 };
 
 static void *
-ad_pcm_init(const_char_pointer dev)
+ad_pcm_init(const_char_pointer  dev)
 {
 	struct pcm_ctx *sc;
 

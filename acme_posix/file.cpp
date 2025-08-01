@@ -426,7 +426,7 @@ namespace acme_posix
          
          int amountToWriteNow = (int) minimum(INT_MAX, amountToWrite);
 
-         auto p = ((const_char_pointer ) dataToWrite) + writePosition;
+         auto p = ((const_char_pointer  ) dataToWrite) + writePosition;
 
 //#ifdef _DEBUG
 //         
@@ -710,13 +710,13 @@ namespace acme_posix
    //}
 
    /*
-   void PASCAL file::Rename(const_char_pointer lpszOldName, const_char_pointer lpszNewName)
+   void PASCAL file::Rename(const_char_pointer  lpszOldName, const_char_pointer  lpszNewName)
    {
    if (!::MoveFile((char *)lpszOldName, (char *)lpszNewName))
    ::win::file::throw_os_error( (int)::get_last_error());
    }
 
-   void PASCAL file::erase(const_char_pointer lpszFileName)
+   void PASCAL file::erase(const_char_pointer  lpszFileName)
    {
    if (!::DeleteFile((char *)lpszFileName))
    ::win::file::throw_os_error( (int)::get_last_error());
@@ -786,13 +786,13 @@ namespace acme_posix
 
 
 
-   //void PASCAL ::file::throw_os_error(::matter * pobject, int lOsError, const_char_pointer lpszFileName /* = nullptr */)
+   //void PASCAL ::file::throw_os_error(::matter * pobject, int lOsError, const_char_pointer  lpszFileName /* = nullptr */)
    //{
    //   if (lOsError != 0)
    //      vfxThrowFileexception(file_exception::os_error_to_exception(lOsError), lOsError, lpszFileName);
    //}
 
-   //void PASCAL file_exception::ThrowErrno(::matter * pobject, int nErrno, const_char_pointer lpszFileName /* = nullptr */)
+   //void PASCAL file_exception::ThrowErrno(::matter * pobject, int nErrno, const_char_pointer  lpszFileName /* = nullptr */)
    //{
    //   if (nErrno != 0)
    //      vfxThrowFileexception(file_exception::errno_status(nErrno), errno, lpszFileName);
