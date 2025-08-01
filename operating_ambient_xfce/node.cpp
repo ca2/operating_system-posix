@@ -373,7 +373,7 @@ namespace node_xfce
 //   }
 
 
-//   bool node::os_set_user_theme(const ::string &strUserTheme)
+//   bool node::os_set_user_theme(const ::scoped_string & scopedstrUserTheme)
 //   {
 //
 //      return ::node_gtk::node::os_set_user_theme(strUserTheme);

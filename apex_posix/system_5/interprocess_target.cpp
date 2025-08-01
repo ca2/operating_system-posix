@@ -35,7 +35,7 @@ namespace system_5
    }
 
 
-   void interprocess_target::create(const ::string &strChannel)
+   void interprocess_target::create(const ::scoped_string & scopedstrChannel)
    {
 
       information() << "interprocess_target::create";

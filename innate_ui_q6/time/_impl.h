@@ -6,7 +6,7 @@
 template < typename TYPE_CHAR >
 void __cdecl string_base < TYPE_CHAR >::FormatMessage(const CHAR_TYPE * pszFormat, ...)
 {
-   if (scopedstrFormat == nullptr)
+   if (pszFormat == nullptr)
    {
 
       throw ::exception(error_bad_argument);
@@ -17,7 +17,7 @@ void __cdecl string_base < TYPE_CHAR >::FormatMessage(const CHAR_TYPE * pszForma
 
    va_start(argList, pszFormat);
 
-   FormatMessageV(scopedstrFormat, argList);
+   FormatMessageV(pszFormat, argList);
 
    va_end(argList);
 
@@ -52,7 +52,7 @@ void string_base < TYPE_CHAR >::FormatMessageV(const CHAR_TYPE * pszFormat, va_l
 
 #else
 
-   FormatV(scopedstrFormat, argList);
+   FormatV(pszFormat, argList);
 
 #endif
 

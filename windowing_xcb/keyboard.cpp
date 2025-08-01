@@ -270,7 +270,7 @@ namespace windowing_xcb
    }
 
 
-   bool keyboard::load_os_layout(const ::file::path & pszPath)
+   bool keyboard::load_os_layout(const ::file::path & path)
    {
 
       //int iCode;

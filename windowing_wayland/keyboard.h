@@ -64,7 +64,7 @@ namespace windowing_wayland
 
       void translate_os_key_message(::user::key * pkey) override;
 
-      bool load_os_layout(const ::file::path & pszPath) override;
+      bool load_os_layout(const ::file::path & path) override;
 
       void show_software_keyboard(::user::interaction_base * pprimitive, string str, character_count iBeg, character_count iEnd);
 

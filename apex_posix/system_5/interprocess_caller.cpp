@@ -29,7 +29,7 @@ namespace system_5
    }
 
 
-   void interprocess_caller::open(const ::string &strChannel, launcher *plauncher)
+   void interprocess_caller::open(const ::scoped_string & scopedstrChannel, launcher *plauncher)
    {
 
       if (m_iQueue >= 0)

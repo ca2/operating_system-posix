@@ -1079,7 +1079,7 @@ namespace node_gtk3
 //   }
 //
 //
-//   void node::os_set_user_theme(const ::string &strUserTheme)
+//   void node::os_set_user_theme(const ::scoped_string & scopedstrUserTheme)
 //   {
 //
 //      //auto estatus =
@@ -1099,7 +1099,7 @@ namespace node_gtk3
 //   }
 //
 //
-//   ::e_status node::_os_set_user_theme(const ::string &strUserTheme)
+//   ::e_status node::_os_set_user_theme(const ::scoped_string & scopedstrUserTheme)
 //   {
 //
 //      // https://ubuntuforums.org/showthread.php?t=2140488
@@ -1173,7 +1173,7 @@ namespace node_gtk3
 //   }
 //
 //
-//   ::e_status node::_os_set_user_icon_theme(const ::string &strUserIconTheme)
+//   ::e_status node::_os_set_user_icon_theme(const ::scoped_string & scopedstrUserIconTheme)
 //   {
 //
 //      // https://ubuntuforums.org/showthread.php?t=2140488
@@ -1381,7 +1381,7 @@ namespace node_gtk3
 //   }
 //
 //
-//   string node::get_file_icon_path(const ::string &strPath, int iSize)
+//   string node::get_file_icon_path(const ::scoped_string & scopedstrPath, int iSize)
 //   {
 //
 //      return ::node_gtk3::g_get_file_icon_path(strPath, iSize);
@@ -1389,7 +1389,7 @@ namespace node_gtk3
 //   }
 //
 //
-//   string node::get_file_content_type(const ::string &strPath)
+//   string node::get_file_content_type(const ::scoped_string & scopedstrPath)
 //   {
 //
 //      return ::node_gtk3::g_get_file_content_type(strPath);
@@ -2149,7 +2149,7 @@ namespace node_gtk3
 //   }
 
 
-//   int node::os_launch_uri(const ::string &strUri, char *pszError, int iBufferSize)
+//   int node::os_launch_uri(const ::scoped_string & scopedstrUri, char *pszError, int iBufferSize)
 //   {
 //
 //      int iRet = gdk_launch_uri(strUri, pszError, iBufferSize);
@@ -2159,7 +2159,7 @@ namespace node_gtk3
 //   }
 
 
-   void node::shell_launch(const ::string &strAppId)
+   void node::shell_launch(const ::scoped_string & scopedstrAppId)
    {
 
       string strDesktopFileTitle(strAppId);
@@ -2208,7 +2208,7 @@ namespace node_gtk3
    }
 
 
-   void node::open_internet_link_in_system_browser(const ::string &strUrl, const ::scoped_string & scopedstrProfile)
+   void node::open_internet_link_in_system_browser(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile)
    {
       
       _main_post([strUrl]()

@@ -499,7 +499,7 @@ namespace node_lxq1
 //    // }
 //    //
 //    //
-//    // void node::os_set_user_theme(const ::string &strUserTheme)
+//    // void node::os_set_user_theme(const ::scoped_string & scopedstrUserTheme)
 //    // {
 //    //
 //    //    command_system("lookandfeeltool -a " + strUserTheme);

@@ -519,7 +519,7 @@ void directory_system::erase_recursively(const ::file::path &path)
    //   }
 
 
-   ::file::path directory_system::pathfind(const string& pszEnv, const string& pszTopic, const string& pszMode)
+   ::file::path directory_system::pathfind(const ::scoped_string & scopedstrEnv, const ::scoped_string & scopedstrTopic, const ::scoped_string & scopedstrMode)
    {
 
       string_array stra;
