@@ -39,7 +39,7 @@ namespace system_5
 
       }
 
-      if (!file_exists(strChannel))
+      if (!file_exists(scopedstrChannel))
       {
 
          file_system()->put_contents(strChannel, strChannel);

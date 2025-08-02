@@ -58,7 +58,7 @@ namespace ansios
    bool process::create_child_process(const ::scoped_string & scopedstrCmdLine,bool bPiped,const ::scoped_string & scopedstrDir, ::enum_priority epriority)
    {
 
-      if(!::operating_system::process::create_child_process(scopedstrCmdLine, bPiped, pszDir, epriority))
+      if(!::operating_system::process::create_child_process(scopedstrCmdLine, bPiped, scopedstrDir, epriority))
       {
 
          return false;
@@ -69,7 +69,7 @@ namespace ansios
 
       address_array < char * > argv;
 
-      explode_command_line(straParam, pszCmdLine, &argv);
+      explode_command_line(straParam, scopedstrCmdLine, &argv);
 
       posix_spawnattr_t attr;
 
