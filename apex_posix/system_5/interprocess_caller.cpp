@@ -42,11 +42,11 @@ namespace system_5
       if (!file_exists(scopedstrChannel))
       {
 
-         file_system()->put_contents(strChannel, strChannel);
+         file_system()->put_contents(scopedstrChannel, scopedstrChannel);
 
       }
 
-      m_key = ftok(strChannel, 'c');
+      m_key = ftok(scopedstrChannel, 'c');
 
       if (m_key == 0)
       {
@@ -62,7 +62,7 @@ namespace system_5
 
       }
 
-      m_strBaseChannel = strChannel;
+      m_strBaseChannel = scopedstrChannel;
 
       //return true;
 
@@ -105,7 +105,7 @@ namespace system_5
 
       pdata->size = iLen;
 
-      ::memory_copy(pdata->data, pszMessage, iLen);
+      ::memory_copy(pdata->data, scopedstrMessage, iLen);
 
       int result = 0;
 

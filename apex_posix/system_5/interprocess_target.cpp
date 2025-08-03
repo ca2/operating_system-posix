@@ -40,18 +40,18 @@ namespace system_5
 
       information() << "interprocess_target::create";
 
-      if (!file_exists(strChannel))
+      if (!file_exists(scopedstrChannel))
       {
 
-         information() << "interprocess_target::create file doesnt exist, going to create : " << strChannel;
+         information() << "interprocess_target::create file doesnt exist, going to create : " << scopedstrChannel;
 
-         file_system()->put_contents(strChannel, strChannel);
+         file_system()->put_contents(scopedstrChannel, scopedstrChannel);
 
-         m_strCreatedFile = strChannel;
+         m_strCreatedFile = scopedstrChannel;
 
       }
 
-      m_key = ftok(strChannel, 'c');
+      m_key = ftok(scopedstrChannel, 'c');
 
       if (m_key == -1)
       {
@@ -62,7 +62,7 @@ namespace system_5
 
          auto estatus = cerrornumber.estatus();
 
-         throw ::exception(estatus, "ftok(\"" + strChannel + "\", 'c') has failed");
+         throw ::exception(estatus, "ftok(\"" + scopedstrChannel + "\", 'c') has failed");
 
       }
 
@@ -88,7 +88,7 @@ namespace system_5
 
                auto estatus = cerrornumber.estatus();
 
-               throw ::exception(estatus, "msgget has failed (2) channel : " + strChannel);
+               throw ::exception(estatus, "msgget has failed (2) channel : " + scopedstrChannel);
 
             }
 
@@ -111,7 +111,7 @@ namespace system_5
 
             auto estatus = cerrornumber.estatus();
 
-            throw ::exception(estatus, {cerrornumber},  "msgget has failed (3) channel : " + strChannel);
+            throw ::exception(estatus, {cerrornumber},  "msgget has failed (3) channel : " + scopedstrChannel);
 
          }
 

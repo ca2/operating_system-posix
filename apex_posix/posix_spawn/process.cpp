@@ -126,7 +126,7 @@ namespace ansios
 
          const_char_pointer psz;
 
-         while((scopedstr = e[i]) != nullptr)
+         while((psz = e[i]) != nullptr)
          {
             if(i <= iPrevious)
                break;

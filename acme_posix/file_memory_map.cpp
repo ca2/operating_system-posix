@@ -171,7 +171,7 @@ namespace acme_posix
 
       strPath = "/var/tmp/ca2/";
 
-      strPath += strName;
+      strPath += scopedstrName;
 
       return strPath;
 

@@ -69,16 +69,16 @@ namespace acme_posix
 
       char * pszRealPath = ::realpath(path.c_str(), NULL);
 
-      if (::is_null(scopedstrRealPath))
+      if (::is_null(pszRealPath))
       {
 
          return path;
 
       }
 
-      ::file::path filepath(scopedstrRealPath);
+      ::file::path filepath(pszRealPath);
 
-      ::free(scopedstrRealPath);
+      ::free(pszRealPath);
 
       return filepath;
 

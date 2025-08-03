@@ -20,7 +20,7 @@
 
    auto straLines = pmatter->file_system()->lines(path);
 
-   string strPrefix = str + "=";
+   string strPrefix = scopedstr + "=";
 
    straLines.case_insensitive_filter_begins(strPrefix);
 

@@ -269,7 +269,7 @@ cy
 
             double y = rectangleText.top();
 
-            cairo_text_extents(m_pdc, str, &textextents);
+            cairo_text_extents(m_pdc, scopedstr, &textextents);
 
             if(ealign & e_align_horizontal_center)
             {
@@ -301,7 +301,7 @@ cy
 
             cairo_move_to(m_pdc, x, y + textextents.height);
 
-            cairo_show_text(m_pdc, str);
+            cairo_show_text(m_pdc, scopedstr);
 
          }
 
@@ -317,7 +317,7 @@ cy
 
             cairo_text_extents_t textextents = {};
 
-            cairo_text_extents(m_pdc, str, &textextents);
+            cairo_text_extents(m_pdc, scopedstr, &textextents);
 
             return { (int) textextents.width, (int) textextents.height };
 

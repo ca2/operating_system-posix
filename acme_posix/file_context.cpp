@@ -78,12 +78,12 @@ namespace acme_posix
    }
 
 
-   bool file_context::is_read_only(const ::file::path &psz)
+   bool file_context::is_read_only(const ::file::path &path)
    {
 
       struct stat st;
 
-      if (stat(scopedstr, &st) != 0)
+      if (stat(path, &st) != 0)
          return true;
 
       return !(st.st_mode & S_IWUSR);
@@ -91,10 +91,10 @@ namespace acme_posix
    }
 
 
-   void file_context::erase(const ::file::path &psz)
+   void file_context::erase(const ::file::path &path)
    {
 
-      if (unlink(scopedstr) != 0)
+      if (unlink(path) != 0)
       {
       
          auto cerrornumber = c_error_number();

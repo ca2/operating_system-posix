@@ -370,7 +370,7 @@ namespace acme_posix
    ::pointer < ::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
-      return __allocate mutex(pparticleContext, bInitialOwner, "Local\\" + strName);
+      return __allocate mutex(pparticleContext, bInitialOwner, "Local\\" + scopedstrName);
 
    }
 
@@ -378,7 +378,7 @@ namespace acme_posix
    ::pointer < ::mutex > node::create_global_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
-      return __allocate mutex(pparticleContext, bInitialOwner, "Global\\" + strName);
+      return __allocate mutex(pparticleContext, bInitialOwner, "Global\\" + scopedstrName);
 
    }
 
@@ -492,7 +492,7 @@ namespace acme_posix
 //
 //   }
 
-   int iFd = open(path, O_RDWR | O_CLOEXEC, S_IRWXU);
+   int iFd = open(path, O_RDWR | O_CLOEXEC);
 
    if (iFd < 0)
    {
@@ -549,7 +549,7 @@ namespace acme_posix
    ::pointer < ::mutex > node::open_local_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName)
    {
 
-      return open_named_mutex(pparticleContext, "Local/" + strName);
+      return open_named_mutex(pparticleContext, "Local/" + scopedstrName);
 
    }
 
@@ -557,7 +557,7 @@ namespace acme_posix
    ::pointer < ::mutex > node::open_global_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName)
    {
 
-      return open_named_mutex(pparticleContext, "Global/" + strName);
+      return open_named_mutex(pparticleContext, "Global/" + scopedstrName);
 
    }
 
@@ -565,7 +565,7 @@ namespace acme_posix
    ::pointer < ::acme::exclusive > node::get_exclusive(::particle * pparticleContext, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
-      return __allocate exclusive(pparticleContext, strName);
+      return __allocate exclusive(pparticleContext, scopedstrName);
 
    }
 
@@ -585,7 +585,7 @@ namespace acme_posix
    bool node::process_contains_module(string& strImage, ::process_identifier processID, const ::scoped_string & scopedstrLibrary)
    {
 
-      return ::platform::node::process_contains_module(strImage, processID, strLibrary);
+      return ::platform::node::process_contains_module(strImage, processID, scopedstrLibrary);
 
    }
 
@@ -735,14 +735,14 @@ namespace acme_posix
 
       string strCmdLine;
 
-      strCmdLine = pszPath;
+      strCmdLine = scopedstrParam;
 
       if (ansi_length(scopedstrParam) > 0)
       {
 
          strCmdLine += " ";
 
-         strCmdLine += pszParam;
+         strCmdLine += scopedstrParam;
 
       }
 
@@ -764,14 +764,14 @@ namespace acme_posix
 
       string strCmdLine;
 
-      strCmdLine = pszPath;
+      strCmdLine = scopedstrPath;
 
       if (ansi_length(scopedstrParam) > 0)
       {
 
          strCmdLine += " ";
 
-         strCmdLine += pszParam;
+         strCmdLine += scopedstrParam;
 
       }
 
@@ -1023,14 +1023,14 @@ namespace acme_posix
 
       string strCmdLine;
 
-      strCmdLine = strFunct;
+      strCmdLine = scopedstrFunct;
 
-      if (ansi_length(strstrParams) > 0)
+      if (scopedstrstrParams.has_character())
       {
 
          strCmdLine += " ";
 
-         strCmdLine += strstrParams;
+         strCmdLine += scopedstrstrParams;
 
       }
 
@@ -1246,7 +1246,7 @@ namespace acme_posix
 
             //if (strTitle == strApp ||
                //  strTitle == strApp2)
-            if (strPath == psz)
+            if (strPath == scopedstr)
             {
 
                ia.add(iPid);
@@ -1999,7 +1999,7 @@ namespace acme_posix
 
       int iErrNo = 0;
   
-      auto stra = command_arguments_from_command_line(scopedstrCommandLine);
+      auto stra = command_arguments_from_command_line(pszCommandLine);
 
 //         glob_t gl{};
 
@@ -2778,7 +2778,7 @@ namespace acme_posix
 
       ::string strEnvironmentVariable;
 
-      if(::is_null(scopedstrPath))
+      if(::is_null(pszPath))
       {
 
          strEnvironmentVariable = get_environment_variable("PATH");

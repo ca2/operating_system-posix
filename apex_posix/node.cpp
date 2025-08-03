@@ -391,7 +391,7 @@ namespace apex_posix
 
 #else
 
-      ::acme_posix::node::register_user_auto_start(papplication, strArguments, bRegister);
+      ::acme_posix::node::register_user_auto_start(papplication, scopedstrArguments, bRegister);
 
 #endif
 
@@ -411,7 +411,7 @@ namespace apex_posix
 
 #else
 
-      return ::acme_posix::node::is_user_auto_start(strAppId);
+      return ::acme_posix::node::is_user_auto_start(scopedstrAppId);
 
 #endif
 

@@ -539,17 +539,17 @@ namespace aura_posix
    shell::enum_folder shell::get_folder_type(::particle * pparticle, const ::scoped_string & scopedstr)
    {
 
-      return get_folder_type(pparticle, utf8_to_unicode(str));
+//      return get_folder_type(pparticle, utf8_to_unicode(scopedstr));
+//
+//   }
+//
+//
+//   shell::enum_folder shell::get_folder_type(::particle * pparticle, const ::wstring & wstrPath)
+//   {
 
-   }
+      string strPath(scopedstr);
 
-
-   shell::enum_folder shell::get_folder_type(::particle * pparticle, const ::wstring & wstrPath)
-   {
-
-      string strPath;
-
-      unicode_to_utf8(strPath, wstrPath);
+      //unicode_to_utf8(strPath, wstrPath);
 
       if (directory_system()->is(strPath))
       {

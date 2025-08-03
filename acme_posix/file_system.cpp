@@ -341,7 +341,7 @@ namespace acme_posix
 
       char * psz = str.get_buffer(iToRead);
 
-      auto iRead = pfile->read(scopedstr, iToRead);
+      auto iRead = pfile->read(psz, iToRead);
 
       psz[iRead] = '\0';
 
@@ -519,7 +519,7 @@ namespace acme_posix
       pszModule = _android_get_executable_path_dup();
       path = pszModule;
 
-      ::free(scopedstrModule);
+      ::free(pszModule);
 
       return path;
 
@@ -790,7 +790,7 @@ namespace acme_posix
    int ansi_open(const_char_pointer psz, int i)
    {
 
-         return open(scopedstr, i | O_CLOEXEC);
+         return open(psz, i | O_CLOEXEC);
 
    }
 
@@ -802,7 +802,7 @@ namespace acme_posix
    FILE * ansi_fopen(const_char_pointer psz, const_char_pointer pszMode)
    {
 
-         return fopen(scopedstr, pszMode);
+         return fopen(psz, pszMode);
 
    }
 
@@ -855,7 +855,7 @@ namespace acme_posix
    void ansi_unlink(const_char_pointer psz)
    {
 
-         unlink(scopedstr);
+         unlink(psz);
 
    }
 

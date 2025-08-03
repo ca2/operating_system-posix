@@ -358,6 +358,8 @@ int create_process2(const ::scoped_string & scopedstrCommandLine, int * pprocess
 CLASS_DECL_ACME::file::path core_app_path(const ::scoped_string & scopedstrApp)
 {
 
+   ::string strApp(scopedstrApp);
+
    strApp.find_replace("-", "_");
 
    strApp.find_replace("/", "_");
