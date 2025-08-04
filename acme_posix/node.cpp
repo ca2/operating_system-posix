@@ -1577,7 +1577,7 @@ namespace acme_posix
 
          int iErrNo = 0;
          
-	auto stra = command_arguments_from_command_line(scopedstrCommandLine);
+	auto stra = command_arguments_from_command_line(pszCommandLine);
 
 //         glob_t gl{};
 

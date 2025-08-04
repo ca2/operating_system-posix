@@ -28,7 +28,7 @@ namespace gdk
 
       GSettingsSchema * pschema = g_settings_schema_source_lookup (
          g_settings_schema_source_get_default(), 
-         strSchema, FALSE);                                 
+         scopedstrSchema, FALSE);
   
       if (::is_null(pschema))
       {
@@ -75,9 +75,9 @@ namespace gdk
    bool gsettings_schema_contains_key(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey)
    {
 
-      auto stra = gsettings_schema_keys(strSchema);
+      auto stra = gsettings_schema_keys(scopedstrSchema);
 
-      return stra.contains(strKey);
+      return stra.contains(scopedstrKey);
 
    }
 
@@ -87,7 +87,7 @@ namespace gdk
   
       GSettingsSchema * pschema = g_settings_schema_source_lookup (
          g_settings_schema_source_get_default(), 
-         strSchema, FALSE);                                 
+         scopedstrSchema, FALSE);
   
       if (::is_null(pschema))
       {
