@@ -40,25 +40,21 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 list(APPEND library_references
 acme)
 
-if(${ANDROID})
-   list(APPEND library_references
-           cairo)
-endif()
-
 
 if (MSVC)
+
    target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
    target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(${PROJECT_NAME} PRIVATE "/IMPLIB:${LIBRARY_OUTPUT_PATH}/${PROJECT_NAME}.lib")
    target_link_options(${PROJECT_NAME} PRIVATE "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.def")
    target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
+
 elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
    if (${USE_PKGCONFIG})
       pkg_check_modules(${PROJECT_NAME}_PKGCONFIG cairo)
    else()
-      list(APPEND library_references
-         cairo)
+      list(APPEND library_references cairo)
    endif()
 
    target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
@@ -68,6 +64,7 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${this_system_libraries} ${global_library_references})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    message("PKGCONFIG_LIBRARIES is " ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
+
 endif ()
 
 #add_dependencies(${PROJECT_NAME} acme windowing_system_x11)
