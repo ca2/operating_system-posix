@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace base
+namespace berg
 {
 
 
@@ -25,7 +25,7 @@ namespace base
    } // namespace windows
 
 
-} // namespace base
+} // namespace berg
 
 
 
