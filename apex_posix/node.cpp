@@ -331,7 +331,7 @@ namespace apex_posix
 
       auto pathHome = directory_system()->home();
 
-      string strDesktopFileName(strAppId);
+      string strDesktopFileName(scopedstrAppId);
 
       strDesktopFileName.find_replace("/", ".");
 
@@ -405,7 +405,7 @@ namespace apex_posix
 
 //#error "error that is good if occurs temporarily (for testing if this portion of code is included in compilation)"
 
-      ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(strAppId);
+      ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(scopedstrAppId);
 
       return pathAutoStartDesktopFilePath.has_character() && file_system()->exists(pathAutoStartDesktopFilePath);
 

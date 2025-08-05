@@ -13,7 +13,7 @@ namespace music
       {
 
 
-         window::window(sp(::base::application) papp) :
+         window::window(sp(::berg::application) papp) :
             element(papp)
          {
             m_pcallback = NULL;

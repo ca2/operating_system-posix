@@ -21,7 +21,7 @@ namespace music
          public:
 
 
-            player_interface(sp(::base::application) papp);
+            player_interface(sp(::berg::application) papp);
             virtual ~player_interface();
 
          };

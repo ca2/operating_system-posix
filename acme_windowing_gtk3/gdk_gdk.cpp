@@ -43,7 +43,7 @@ namespace gdk
 
       GSettingsSchema * pschema = g_settings_schema_source_lookup (
          g_settings_schema_source_get_default(), 
-         strSchema, FALSE);                                 
+         scopedstrSchema, FALSE);
   
       if (::is_null(pschema))
       {
@@ -90,9 +90,9 @@ namespace gdk
    bool gsettings_schema_contains_key(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey)
    {
 
-      auto stra = gsettings_schema_keys(strSchema);
+      auto stra = gsettings_schema_keys(scopedstrSchema);
 
-      return stra.contains(strKey);
+      return stra.contains(scopedstrKey);
 
    }
 
@@ -102,7 +102,7 @@ namespace gdk
   
       GSettingsSchema * pschema = g_settings_schema_source_lookup (
          g_settings_schema_source_get_default(), 
-         strSchema, FALSE);                                 
+         scopedstrSchema, FALSE);
   
       if (::is_null(pschema))
       {
@@ -121,9 +121,9 @@ namespace gdk
    ::e_status gsettings_get(string &str, const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey)
    {
 
-      char *psz = gsettings_get_malloc(strSchema, strKey);
+      char *psz = gsettings_get_malloc(scopedstrSchema, scopedstrKey);
 
-      if (scopedstr == nullptr)
+      if (::is_null(psz))
       {
 
          return ::error_failed;
@@ -144,7 +144,7 @@ namespace gdk
       try
       {
 
-         ::free(scopedstr);
+         ::free(psz);
 
       }
       catch (...)
@@ -166,14 +166,14 @@ namespace gdk
    ::e_status gsettings_set(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey, const ::scoped_string & scopedstrValue)
    {
 
-      if (strSchema.is_empty())
+      if (scopedstrSchema.is_empty())
       {
 
          return error_bad_argument;
 
       }
 
-      if (strKey.is_empty())
+      if (scopedstrKey.is_empty())
       {
 
          return error_bad_argument;
@@ -189,7 +189,7 @@ namespace gdk
       //
       // }
 
-      GSettings *settings = g_settings_new(strSchema);
+      GSettings *settings = g_settings_new(scopedstrSchema);
 
       if (settings == nullptr)
       {
@@ -198,7 +198,7 @@ namespace gdk
 
       }
 
-      gboolean bOk = g_settings_set_string(settings, strKey, strValue);
+      gboolean bOk = g_settings_set_string(settings, scopedstrKey, scopedstrValue);
 
       g_object_unref(settings);
 
@@ -236,14 +236,14 @@ namespace gdk
    char * gsettings_get_malloc(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey)
    {
 
-      if (strSchema.is_empty())
+      if (scopedstrSchema.is_empty())
       {
 
          return nullptr;
 
       }
 
-      if (strKey.is_empty())
+      if (scopedstrKey.is_empty())
       {
 
          return nullptr;
@@ -259,7 +259,7 @@ namespace gdk
       //
       // }
 
-      GSettings *settings = g_settings_new(strSchema);
+      GSettings *settings = g_settings_new(scopedstrSchema);
 
       if (settings == nullptr)
       {
@@ -268,7 +268,7 @@ namespace gdk
 
       }
 
-      gchar *pgchar = g_settings_get_string(settings, strKey);
+      gchar *pgchar = g_settings_get_string(settings, scopedstrKey);
 
       if (pgchar == nullptr)
       {
@@ -322,7 +322,7 @@ namespace gdk
 
       }
 
-      GSettings *settings = g_settings_new(strSchema);
+      GSettings *settings = g_settings_new(scopedstrSchema);
 
       if (settings == nullptr)
       {
@@ -331,7 +331,7 @@ namespace gdk
 
       }
 
-      g_pactionWallpaper = g_settings_create_action(settings, strKey);
+      g_pactionWallpaper = g_settings_create_action(settings, scopedstrKey);
 
       g_object_unref(settings);
 
@@ -388,7 +388,7 @@ namespace gdk
    const_char_pointer g_get_file_icon_path(const_char_pointer pszPath, int iSize)
    {
 
-      GFile * pfile = g_file_new_for_path (scopedstrPath);
+      GFile * pfile = g_file_new_for_path (pszPath);
 
       if(pfile == nullptr)
       {
@@ -494,7 +494,7 @@ namespace gdk
    const_char_pointer g_get_file_content_type(const_char_pointer pszPath)
    {
 
-      GFile * pfile = g_file_new_for_path (scopedstrPath);
+      GFile * pfile = g_file_new_for_path (pszPath);
 
       if(pfile == nullptr)
       {
@@ -516,16 +516,16 @@ namespace gdk
 
       const_char_pointer pszContentType = g_file_info_get_content_type (pfileinfo);
 
-      const_char_pointer point = nullptr;
+      const_char_pointer p = nullptr;
 
-      if(scopedstrContentType != nullptr)
+      if(pszContentType != nullptr)
       {
 
-         point = strdup(scopedstrContentType);
+         p = strdup(pszContentType);
 
       }
 
-      return point;
+      return p;
 
    }
 
@@ -540,7 +540,7 @@ namespace gdk
 
       //g_type_init();
 
-      ret = g_app_info_launch_default_for_uri(scopedstrUri, nullptr, &error);
+      ret = g_app_info_launch_default_for_uri(pszUri, nullptr, &error);
 
       if(ret)
       {
@@ -549,10 +549,10 @@ namespace gdk
 
       }
 
-      if(scopedstrError != nullptr)
+      if(::is_set(pszError))
       {
 
-         strncpy(scopedstrError, error->message, iBufferSize);
+         strncpy(pszError, error->message, iBufferSize);
 
       }
 

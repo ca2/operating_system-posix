@@ -1606,7 +1606,7 @@ namespace acme_posix
 
 //         ::globfree(&gl);
 
-         free(scopedstrCommandLine);
+         free(pszCommandLine);
 
          //_exit(iErrNo);
          
@@ -2187,7 +2187,7 @@ namespace acme_posix
    
 //}
 
-         int iChildExitCode = execvp(scopedstrExecutable, (char **) p->data());
+         int iChildExitCode = execvp(pszExecutable, (char **) p->data());
 
          if (iChildExitCode == -1)
          {
@@ -2210,9 +2210,9 @@ namespace acme_posix
 
 #endif
 */
-         free(scopedstrCommandLine);
+         free(pszCommandLine);
       
-         free(scopedstrExecutable);
+         free(pszExecutable);
 
          //_exit(iErrNo);
          
@@ -2611,7 +2611,7 @@ namespace acme_posix
 
          setsid();
 
-         int iChildExitCode = execvp(scopedstrExecutable, (char **) p->data());
+         int iChildExitCode = execvp(pszExecutable, (char **) p->data());
 
          if (iChildExitCode == -1)
          {
@@ -2622,7 +2622,7 @@ namespace acme_posix
          
          p.release();
          
-         free(scopedstrExecutable);
+         free(pszExecutable);
 
          //_exit(iChildExitCode);
          
