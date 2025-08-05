@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace base
+namespace berg
 {
 
 
@@ -9,7 +9,7 @@ namespace base
    {
 
 
-      class CLASS_DECL_BASE factory_exchange:
+      class CLASS_DECL_BERG factory_exchange:
          virtual public ::matter
       {
       public:
@@ -25,7 +25,7 @@ namespace base
    } // namespace windows
 
 
-} // namespace base
+} // namespace berg
 
 
 

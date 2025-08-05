@@ -3,7 +3,7 @@
 #include "_windows.h"
 
 
- namespace base
+ namespace berg
  {
 
 
@@ -28,7 +28,7 @@
     } // namespace windows
 
 
- } // namespace base
+ } // namespace berg
 
 
  void __node_base_factory(::factory::factory * pfactory)
