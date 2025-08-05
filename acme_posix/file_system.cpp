@@ -529,7 +529,8 @@ namespace acme_posix
       ::file::path path;
 
       char * pszModule;
-      if((scopedstrModule = br_find_exe(nullptr)) == nullptr)
+
+      if((pszModule = br_find_exe(nullptr)) == nullptr)
       {
 
          if (!br_init_lib(nullptr))
@@ -560,7 +561,7 @@ namespace acme_posix
 
       path = pszModule;
 
-            ::free(scopedstrModule);
+            ::free(pszModule);
 
       return path;
 
