@@ -33,7 +33,7 @@ namespace draw2d_xlib
 {
 
 
-   class CLASS_DECL_BASE color
+   class CLASS_DECL_BERG color
    {
    public:
 

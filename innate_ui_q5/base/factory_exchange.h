@@ -9,7 +9,7 @@ namespace berg
    {
 
 
-      class CLASS_DECL_BASE factory_exchange:
+      class CLASS_DECL_BERG factory_exchange:
          virtual public ::matter
       {
       public:
