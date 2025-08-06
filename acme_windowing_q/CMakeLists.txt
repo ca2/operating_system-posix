@@ -84,7 +84,7 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    #set_target_properties(${PROJECT_NAME} PROPERTIES CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 
-   #if(USE_PKGCONFIG)
+   #if(${USE_PKGCONFIG})
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0)
    #   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
    #endif()

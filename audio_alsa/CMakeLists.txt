@@ -55,7 +55,7 @@ if (MSVC)
 elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
-   if(USE_PKGCONFIG)
+   if(${USE_PKGCONFIG})
       pkg_check_modules(${PROJECT_NAME}_PKGCONFIG alsa)
    endif()
 

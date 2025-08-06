@@ -1601,7 +1601,7 @@ namespace node_gtk3
 
       }
 
-      GtkCssProvider *pprovider = gtk_css_provider_get_named(scopedstrTheme, pszVariant);
+      GtkCssProvider *pprovider = gtk_css_provider_get_named(pszTheme, pszVariant);
 
       gtk_style_context_add_provider(pstylecontext, GTK_STYLE_PROVIDER(pprovider), GTK_STYLE_PROVIDER_PRIORITY_USER);
 
@@ -2162,7 +2162,7 @@ namespace node_gtk3
    void node::shell_launch(const ::scoped_string & scopedstrAppId)
    {
 
-      string strDesktopFileTitle(strAppId);
+      string strDesktopFileTitle(scopedstrAppId);
 
       strDesktopFileTitle.find_replace("/", ".");
 
@@ -2208,8 +2208,10 @@ namespace node_gtk3
    }
 
 
-   void node::open_internet_link_in_system_browser(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile)
+   void node::open_internet_link(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile, const ::scoped_string & scopedstrTarget)
    {
+
+      ::string strUrl(scopedstrUrl);
       
       _main_post([strUrl]()
       {
@@ -2243,7 +2245,7 @@ namespace node_gtk3
 
          GError *perror = nullptr;
       
-         if (!g_app_info_launch_default_for_uri(scopedstrUrl, nullptr, &perror))
+         if (!g_app_info_launch_default_for_uri(strUrl, nullptr, &perror))
          {
 
             ::errf_line("Unable to read file: %s\n", perror->message);

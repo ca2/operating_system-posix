@@ -130,12 +130,12 @@ namespace node_gtk3
 
                            //gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(widget), TRUE);
 
-                           if(pdialog->m_filedialogfiltera.has_element())
+                           if(pdialog->m_filedialogfilter.has_element())
                            {
 
                               GtkFileFilter *filter = gtk_file_filter_new();
 
-                              for (auto &filetype: pdialog->m_filedialogfiltera)
+                              for (auto &filetype: pdialog->m_filedialogfilter)
                               {
 
                                  auto ppattern = filetype.m_strPatternList.c_str();

@@ -15,7 +15,7 @@
 //#include <X11/extensions/XShm.h>
 //#include <X11/extensions/Xrender.h>
 
-//#include "app/base/graphics/graphics_window_buffer.h"
+//#include "berg/graphics/graphics_window_buffer.h"
 namespace windowing_wayland
 {
 

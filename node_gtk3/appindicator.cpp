@@ -226,7 +226,12 @@ namespace node_gtk3
    }
 
 
-   bool appindicator::create(const_char_pointer pszId, const_char_pointer pszIcon, const_char_pointer pszFolder, application_menu * papplicationmenu, command_handler * pcommandhandler)
+   bool appindicator::create(
+      const ::scoped_string & scopedstrId,
+      const ::scoped_string & scopedstrIcon,
+      const ::scoped_string & scopedstrFolder,
+      application_menu * papplicationmenu,
+      command_handler * pcommandhandler)
    {
 
 //#if defined(HAS_GTK4)
@@ -242,7 +247,7 @@ namespace node_gtk3
 //
 //      }
 
-      m_pindicator = app_indicator_new_with_path(scopedstrId, pszIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, pszFolder);
+      m_pindicator = app_indicator_new_with_path(scopedstrId, scopedstrIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, scopedstrFolder);
 
       if(m_pindicator == nullptr)
       {
