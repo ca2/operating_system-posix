@@ -24,18 +24,7 @@ namespace write_text_pango
    void fonts::initialize(::particle * pparticle)
    {
 
-      //auto estatus =
-      //
       ::write_text::fonts::initialize(pparticle);
-
-//      if (!estatus)
-//      {
-//
-//         return estatus;
-//
-//      }
-//
-//      return estatus;
 
    }
 
