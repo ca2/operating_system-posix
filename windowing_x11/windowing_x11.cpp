@@ -1522,7 +1522,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               }
 
-               ::pointer<buffer> pbuffer = px11window->m_pwindow->m_pgraphicsgraphics;
+               auto pbuffer = px11window->m_pwindow->m_pgraphicsgraphics;
 
                auto pbufferitem = pbuffer->get_buffer_item();
 

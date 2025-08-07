@@ -3,7 +3,7 @@
 
 
 #include "apex/innate_ui/dialog.h"
-#include "window.h"
+#include "innate_ui_q/window.h"
 
 
 namespace innate_ui_q

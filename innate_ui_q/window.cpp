@@ -11,6 +11,7 @@
 #include "acme/prototype/geometry2d/size.h"
 #include "acme/platform/node.h"
 #include "acme/windowing/windowing.h"
+#include <QMainWindow>
 
 
 namespace innate_ui_q

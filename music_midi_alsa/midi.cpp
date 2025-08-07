@@ -274,18 +274,18 @@ namespace music
          {
 
 
-            string strEngine = device_engine(strDevice);
+            string strEngine = device_engine(scopedstrDevice);
 
             if (strEngine.case_insensitive_order("rtmidi") == 0)
             {
 
-               return m_pmidiRealTime->get_message_out(strDevice);
+               return m_pmidiRealTime->get_message_out(scopedstrDevice);
 
             }
 
             auto pout = __allocate class out();
 
-            pout->initialize_message_out(this, strDevice);
+            pout->initialize_message_out(this, scopedstrDevice);
 
             pout->open(false);
 
@@ -298,14 +298,14 @@ namespace music
          {
 
 
-            if (strDevice.case_insensitive_order("alsa") == 0)
+            if (scopedstrDevice.case_insensitive_order("alsa") == 0)
             {
 
-               return __allocate ::music::midi::sequencer(psequence, get_message_out(strDevice));
+               return __allocate ::music::midi::sequencer(psequence, get_message_out(scopedstrDevice));
 
             }
 
-            auto psequencer = ::music::midi::midi::create_midi_sequencer(psequence, strDevice);
+            auto psequencer = ::music::midi::midi::create_midi_sequencer(psequence, scopedstrDevice);
 
             if(psequencer)
             {
@@ -314,7 +314,7 @@ namespace music
 
             }
 
-            auto pmessageout = get_message_out(strDevice);
+            auto pmessageout = get_message_out(scopedstrDevice);
 
             return __allocate ::music::midi::sequencer(psequence, pmessageout);
 

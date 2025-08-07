@@ -122,7 +122,7 @@ namespace music
 
             //auto estatus =
             //
-            ::music::midi::message_out::initialize_message_out(pmidi, strDevice);
+            ::music::midi::message_out::initialize_message_out(pmidi, scopedstrDevice);
 
 //            if(!estatus)
 //            {

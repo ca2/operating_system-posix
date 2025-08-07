@@ -23,7 +23,12 @@ namespace node_lxq2
    }
 
 
-   bool appindicator::create(const_char_pointer pszId, const_char_pointer pszIcon, const_char_pointer pszFolder, application_menu * papplicationmenu, ::command_handler * pcallback)
+   bool appindicator::create(
+       const ::scoped_string & scopedstrId,
+       const ::scoped_string & scopedstrIcon,
+       const ::scoped_string & scopedstrFolder,
+       application_menu * papplicationmenu,
+       command_handler * pcommandhandler)
    {
 
       return true;

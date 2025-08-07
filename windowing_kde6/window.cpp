@@ -1019,121 +1019,6 @@ namespace windowing_kde6
 //   // }
 //
 //
-//   // void GtkDrawingAreaDrawFunc(
-//   //    GtkDrawingArea* drawing_area,
-//   //    cairo_t* cr,
-//   //    int width,
-//   //    int height,
-//   //    gpointer p
-//   // )
-//   // {
-//   //    auto pwindow = (::windowing_kde5::window *)p;
-//   //    pwindow->_on_cairo_draw(GTK_WIDGET(drawing_area), cr);
-//   // }
-//   //
-//   // void window::_on_cairo_draw(GtkWidget* widget, cairo_t* cr)
-//   // {
-//   //
-//   //    _synchronous_lock slGraphics(m_pgraphicsgraphics->synchronization());
-//   //
-//   //    auto pitem = m_pgraphicsgraphics->get_screen_item();
-//   //
-//   //    _synchronous_lock slImage(pitem->m_pmutex);
-//   //
-//   //
-//   //    //pitem->m_pimage2;
-//   //
-//   //    if(pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
-//   //    {
-//   //       // cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
-//   //       // cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
-//   //       // cairo_paint(cr);
-//   //       //
-//   //       // cairo_set_source_rgba(cr, 0, 0, 0, 0.5); // Fully transparent background
-//   //       // cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-//   //       // cairo_paint(cr);
-//   //       //
-//   //       // cairo_set_source_rgba(cr, 0.1, 0.5, 0.8, 0.7);
-//   //       // //
-//   //       // // // Draw rectangle
-//   //       // cairo_rectangle(cr, 50, 50, 200, 100); // x, y, width, height
-//   //       // cairo_fill(cr);
-//   //       //
-//   //       // return;
-//   //
-//   //       auto pgraphics = __øcreate<::draw2d::graphics>();
-//   //
-//   //       pgraphics->attach(cr);
-//   //       //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-//   //       ::double_rectangle r;
-//   //       int width = gtk_widget_get_width(widget);
-//   //       int height = gtk_widget_get_height(widget);
-//   //       r.left() = 0;
-//   //       r.top() = 0;
-//   //       r.right() = width;
-//   //       r.bottom() = height;
-//   //       //r.set_size(m_sizeOnSize);
-//   //       ///pgraphics->fill_solid_rectangle(r, argb(0, 0, 0, 0));
-//   //       pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-//   //       ::image::image_source imagesource(pitem->m_pimage2, r);
-//   //       ::image::image_drawing_options imagedrawingoptions(r);
-//   //       ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
-//   //       pgraphics->draw(imagedrawing);
-//   //       pgraphics->set_text_color(::color::white);
-//   //       ::string strSize;
-//   //       strSize.formatf("Size: %d, %d\nSizeOnSize: %d, %d", width, height, m_sizeOnSize.cx(), m_sizeOnSize.cy());
-//   //       pgraphics->text_out({10, 10}, strSize);
-//   //       pgraphics->detach();
-//   //       m_pgraphicsgraphics->on_end_draw();
-//   //    }
-//   //
-//   //
-//   //    // ::double_rectangle r;
-//   //    //
-//   //    // r.left() = 10;
-//   //    // r.top() = 10;
-//   //    // r.right() = 80;
-//   //    // r.bottom() = 80;
-//   //    //
-//   //    // pgraphics->fill_solid_rectangle(r, argb(1.0,0.1, 0.5, 0.8 ));
-//   //
-//   //
-//   //    // cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
-//   //    // cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-//   //    // cairo_paint(cr);
-//   //    // // Set color for drawing (RGB)
-//   //    // cairo_set_source_rgb(cr, 0.1, 0.5, 0.8);
-//   //    //
-//   //    // // Draw rectangle
-//   //    // cairo_rectangle(cr, 50, 50, 200, 100); // x, y, width, height
-//   //    // cairo_fill(cr);
-//   //    //
-//   //    // // Set color for ellipse
-//   //    // cairo_set_source_rgb(cr, 0.8, 0.1, 0.5);
-//   //    //
-//   //    // // Draw ellipse
-//   //    // cairo_save(cr);
-//   //    // cairo_translate(cr, 150, 250); // Move to center of the ellipse
-//   //    // cairo_scale(cr, 1.5, 1.0);     // Scale to make an ellipse
-//   //    // cairo_arc(cr, 0, 0, 50, 0, 2 * G_PI); // Draw a circle, but scaled
-//   //    // cairo_restore(cr);
-//   //    //
-//   //    // cairo_fill(cr);
-//   //
-//   //    //return FALSE;
-//   // }
-//   //
-//   // // Callback function to handle window resize happenings
-//   // static void on_size_allocate(GtkWidget* widget, GdkRectangle* allocation, gpointer p)
-//   // {
-//   //    // Print the ___new size of the window
-//   //    auto pwindow = (::windowing_kde5::window *)p;
-//   //    pwindow->_on_size(allocation->width, allocation->height);
-//   //    //g_print("Window resized: width=%d, height=%d\n", allocation->width, allocation->height);
-//   //    //return false;
-//   // }
-//
-//
 //   //    static void on_window_configure_event(GdkWindow *window, GdkEventConfigure *happening, gpointer user_data) {
 //   //       // Handle window resize happening here
 //   // //      g_print("Window resized to %dx%d\n", happening->width, happening->height);
@@ -1756,17 +1641,18 @@ namespace windowing_kde6
 //
 //   void window::_on_qimage_draw(QImage* pqimage)
 //   {
+//      auto pbuffer = m_pgraphicsgraphics;
 //
-//      if (!m_pgraphicsgraphics)
+//      if (!pbuffer)
 //      {
 //
 //         return;
 //
 //      }
 //
-//      _synchronous_lock slGraphics(m_pgraphicsgraphics->synchronization());
+//      _synchronous_lock slGraphics(pbuffer->synchronization());
 //
-//      auto pitem = m_pgraphicsgraphics->get_screen_item();
+//      auto pitem = pbuffer->get_screen_item();
 //
 //      _synchronous_lock slImage(pitem->m_pmutex);
 //
@@ -1831,7 +1717,7 @@ namespace windowing_kde6
 //            // strSize.formatf("Size: %d, %d\nSizeOnSize: %d, %d", width, height, m_sizeOnSize.cx(), m_sizeOnSize.cy());
 //            // pgraphics->text_out({10, 10}, strSize);
 //            // pgraphics->detach();
-//            m_pgraphicsgraphics->on_end_draw();
+//            pbuffer->on_end_draw();
 //         }
 //      }
 //
@@ -6305,10 +6191,11 @@ namespace windowing_kde6
 //      user_post([this]()
 //      {
 //         //auto pimpl = m_pwindow;
+//         auto pbuffer = m_pgraphicsgraphics;
 //
-//         if (::is_set(m_pgraphicsgraphics))
+//         if (::is_set(pbuffer))
 //         {
-//            m_pgraphicsgraphics->update_screen();
+//            pbuffer->update_screen();
 //         }
 //      });
 //

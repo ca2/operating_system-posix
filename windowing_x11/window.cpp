@@ -5332,7 +5332,14 @@ namespace windowing_x11
                    if (::is_set(pimpl))
                    {
 
-                      pimpl->m_pgraphicsgraphics->update_screen();
+                     auto pbuffer = pimpl->m_pgraphicsgraphics;
+
+                     if(::is_set(pbuffer))
+                     {
+
+                      pbuffer->update_screen();
+
+                     }
 
                    }
 

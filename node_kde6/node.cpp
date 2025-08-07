@@ -477,7 +477,7 @@ namespace node_kde6
    string node::get_file_icon_path(const ::scoped_string & scopedstrPath, int iSize)
    {
 
-      QUrl url((const_char_pointer )("file://"+strPath));
+      QUrl url((const_char_pointer )("file://"+scopedstrPath));
 
       KFileItem fileitem(url, KFileItem::NormalMimeTypeDetermination);
 
@@ -632,7 +632,7 @@ namespace node_kde6
    int node::os_launch_uri(const ::scoped_string & scopedstrUri, char * pszError, int iBufferSize)
    {
 
-      QDesktopServices::openUrl(QUrl((const_char_pointer )strUri));
+      QDesktopServices::openUrl(QUrl(scopedstrUri.c_str()));
 
       return 0;
 
@@ -726,7 +726,7 @@ namespace node_kde6
    void node::shell_launch(const ::scoped_string & scopedstrAppId)
    {
 
-      string strDesktopFileTitle(strAppId);
+      string strDesktopFileTitle(scopedstrAppId);
 
       strDesktopFileTitle.find_replace("/", ".");
 
@@ -741,10 +741,10 @@ namespace node_kde6
    }
 
 
-   void node::open_internet_link_in_system_browser(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile)
+   void node::open_internet_link(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile, const ::scoped_string & scopedstrTarget)
    {
 
-      QUrl url(strUrl.c_str());
+      QUrl url(scopedstrUrl.c_str());
 
       QDesktopServices::openUrl(url);
 

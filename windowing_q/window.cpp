@@ -1019,120 +1019,6 @@ namespace windowing_q
    // }
 
 
-   // void GtkDrawingAreaDrawFunc(
-   //    GtkDrawingArea* drawing_area,
-   //    cairo_t* cr,
-   //    int width,
-   //    int height,
-   //    gpointer p
-   // )
-   // {
-   //    auto pwindow = (::windowing_q::window *)p;
-   //    pwindow->_on_cairo_draw(GTK_WIDGET(drawing_area), cr);
-   // }
-   //
-   // void window::_on_cairo_draw(GtkWidget* widget, cairo_t* cr)
-   // {
-   //
-   //    _synchronous_lock slGraphics(m_pwindow->m_pgraphicsgraphics->synchronization());
-   //
-   //    auto pitem = m_pwindow->m_pgraphicsgraphics->get_screen_item();
-   //
-   //    _synchronous_lock slImage(pitem->m_pmutex);
-   //
-   //
-   //    //pitem->m_pimage2;
-   //
-   //    if(pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
-   //    {
-   //       // cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
-   //       // cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
-   //       // cairo_paint(cr);
-   //       //
-   //       // cairo_set_source_rgba(cr, 0, 0, 0, 0.5); // Fully transparent background
-   //       // cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-   //       // cairo_paint(cr);
-   //       //
-   //       // cairo_set_source_rgba(cr, 0.1, 0.5, 0.8, 0.7);
-   //       // //
-   //       // // // Draw rectangle
-   //       // cairo_rectangle(cr, 50, 50, 200, 100); // x, y, width, height
-   //       // cairo_fill(cr);
-   //       //
-   //       // return;
-   //
-   //       auto pgraphics = __øcreate<::draw2d::graphics>();
-   //
-   //       pgraphics->attach(cr);
-   //       //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-   //       ::double_rectangle r;
-   //       int width = gtk_widget_get_width(widget);
-   //       int height = gtk_widget_get_height(widget);
-   //       r.left() = 0;
-   //       r.top() = 0;
-   //       r.right() = width;
-   //       r.bottom() = height;
-   //       //r.set_size(m_sizeOnSize);
-   //       ///pgraphics->fill_solid_rectangle(r, argb(0, 0, 0, 0));
-   //       pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-   //       ::image::image_source imagesource(pitem->m_pimage2, r);
-   //       ::image::image_drawing_options imagedrawingoptions(r);
-   //       ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
-   //       pgraphics->draw(imagedrawing);
-   //       pgraphics->set_text_color(::color::white);
-   //       ::string strSize;
-   //       strSize.formatf("Size: %d, %d\nSizeOnSize: %d, %d", width, height, m_sizeOnSize.cx(), m_sizeOnSize.cy());
-   //       pgraphics->text_out({10, 10}, strSize);
-   //       pgraphics->detach();
-   //       m_pwindow->m_pgraphicsgraphics->on_end_draw();
-   //    }
-   //
-   //
-   //    // ::double_rectangle r;
-   //    //
-   //    // r.left() = 10;
-   //    // r.top() = 10;
-   //    // r.right() = 80;
-   //    // r.bottom() = 80;
-   //    //
-   //    // pgraphics->fill_solid_rectangle(r, argb(1.0,0.1, 0.5, 0.8 ));
-   //
-   //
-   //    // cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
-   //    // cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-   //    // cairo_paint(cr);
-   //    // // Set color for drawing (RGB)
-   //    // cairo_set_source_rgb(cr, 0.1, 0.5, 0.8);
-   //    //
-   //    // // Draw rectangle
-   //    // cairo_rectangle(cr, 50, 50, 200, 100); // x, y, width, height
-   //    // cairo_fill(cr);
-   //    //
-   //    // // Set color for ellipse
-   //    // cairo_set_source_rgb(cr, 0.8, 0.1, 0.5);
-   //    //
-   //    // // Draw ellipse
-   //    // cairo_save(cr);
-   //    // cairo_translate(cr, 150, 250); // Move to center of the ellipse
-   //    // cairo_scale(cr, 1.5, 1.0);     // Scale to make an ellipse
-   //    // cairo_arc(cr, 0, 0, 50, 0, 2 * G_PI); // Draw a circle, but scaled
-   //    // cairo_restore(cr);
-   //    //
-   //    // cairo_fill(cr);
-   //
-   //    //return FALSE;
-   // }
-   //
-   // // Callback function to handle window resize happenings
-   // static void on_size_allocate(GtkWidget* widget, GdkRectangle* allocation, gpointer p)
-   // {
-   //    // Print the ___new size of the window
-   //    auto pwindow = (::windowing_q::window *)p;
-   //    pwindow->_on_size(allocation->width, allocation->height);
-   //    //g_print("Window resized: width=%d, height=%d\n", allocation->width, allocation->height);
-   //    //return false;
-   // }
-
 
    //    static void on_window_configure_event(GdkWindow *window, GdkEventConfigure *happening, gpointer user_data) {
    //       // Handle window resize happening here
@@ -2033,134 +1919,48 @@ namespace windowing_q
 
    }
 
-   // void window::_on_window_simple_action(const_char_pointer pszActionName)
-   // {
-   //
-   //    ::string strActionName(scopedstrActionName);
-   //
-   //    if (strActionName == "minimize")
-   //    {
-   //
-   //       window_minimize();
-   //
-   //    }
-   //    else if (strActionName == "maximize")
-   //    {
-   //
-   //       window_maximize();
-   //
-   //    }
-   //    else if (strActionName == "about_box")
-   //    {
-   //
-   //       application()->show_about_box();
-   //
-   //    }
-   //    else if (strActionName == "close")
-   //    {
-   //
-   //       puserinteraction->post_message(e_message_close);
-   //
-   //    }
-   //    else if (strActionName == "")
-   //    {
-   //
-   //       print_line("reaching here?!");
-   //       //defer_perform_entire_reposition_process(nullptr);
-   //
-   //    }
-   //    else if (strActionName == "")
-   //    {
-   //
-   //       print_line("also here");
-   //
-   //       //defer_perform_entire_resizing_process(::experience::e_frame_sizing_top_left, nullptr);
-   //
-   //    }
-   //
-   // }
-
-
-   // void window::_on_a_system_menu_item_action_triggered(::operating_system::a_system_menu_item * pitem)
-   // {
-   //
-   //    _on_window_simple_action(pitem->m_strAtom);
-   //
-   // }
-
-
-   // static void on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size, gpointer p)
-   // {
-   //
-   //    auto pwindow = (::windowing_q::window *)p;
-   //
-   //    pwindow->_on_toplevel_compute_size(self, size);
-   //
-   // }
-   //
-   //
-   // void window::_on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size)
-   // {
-   //
-   //    gboolean bIsMaximized = gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget));
-   //
-   //    if(bIsMaximized)
-   //    {
-   //
-   //       int w = 0;
-   //
-   //       int h = 0;
-   //
-   //       gdk_toplevel_size_get_bounds(size, &w, &h);
-   //
-   //       gdk_toplevel_size_set_size(size, w, h);
-   //
-   //    }
-   //
-   // }
-
 
    void window::_on_qimage_draw(QImage* pqimage)
    {
 
-      if (!m_pgraphicsgraphics)
+      auto pbuffer = m_pgraphicsgraphics;
+
+      if (!pbuffer)
       {
+
+         auto colorLightBlue = argb(0.5, 0.35, 0.7, 0.95);
+
+         auto w = pqimage->width();
+
+         auto h = pqimage->height();
+
+         auto p = (image32_t *)pqimage->bits();
+
+         auto s = pqimage->bytesPerLine();
+
+         image32_t image32Source(colorLightBlue, ::color_indexes());
+
+         p->set_rectangle(0, 0, w, h, s, image32Source);
+
+         p->blend_rectangle(2, 2, w - 4, 32, s, image32Source);
 
          return;
 
       }
 
-      _synchronous_lock slGraphics(m_pgraphicsgraphics->synchronization());
+      _synchronous_lock slGraphics(pbuffer->synchronization());
 
-      auto pitem = m_pgraphicsgraphics->get_screen_item();
+      auto pitem = pbuffer->get_screen_item();
 
       _synchronous_lock slImage(pitem->m_pmutex);
 
-
-      //pitem->m_pimage2;
-
       if (pitem && pitem->m_pimage2)
       {
+
          pitem->m_pimage2->map();
+
          if (pitem->m_pimage2.ok())
          {
-            // cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
-            // cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
-            // cairo_paint(cr);
-            //
-            // cairo_set_source_rgba(cr, 0, 0, 0, 0.5); // Fully transparent background
-            // cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-            // cairo_paint(cr);
-            //
-            // cairo_set_source_rgba(cr, 0.1, 0.5, 0.8, 0.7);
-            // //
-            // // // Draw rectangle
-            // cairo_rectangle(cr, 50, 50, 200, 100); // x, y, width, height
-            // cairo_fill(cr);
-            //
-            // return;
-
-            //auto pgraphics = __øcreate<::draw2d::graphics>();
 
             int w = minimum(pitem->m_pimage2->width(), pqimage->width());
 
@@ -2176,65 +1976,12 @@ namespace windowing_q
 
             pimageTarget->copy(w, h, iTargetScan, pimageSource, iSourceScan);
 
-            // pgraphics->attach(cr);
-            // //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-            // ::double_rectangle r;
-            // int width = gtk_widget_get_width(widget);
-            // int height = gtk_widget_get_height(widget);
-            // r.left() = 0;
-            // r.top() = 0;
-            // r.right() = width;
-            // r.bottom() = height;
-            // //r.set_size(m_sizeOnSize);
-            // ///pgraphics->fill_solid_rectangle(r, argb(0, 0, 0, 0));
-            // pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-            // ::image::image_source imagesource(pitem->m_pimage2, r);
-            // ::image::image_drawing_options imagedrawingoptions(r);
-            // ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
-            // pgraphics->draw(imagedrawing);
-            // pgraphics->set_text_color(::color::white);
-            // ::string strSize;
-            // strSize.formatf("Size: %d, %d\nSizeOnSize: %d, %d", width, height, m_sizeOnSize.cx(), m_sizeOnSize.cy());
-            // pgraphics->text_out({10, 10}, strSize);
-            // pgraphics->detach();
             m_pgraphicsgraphics->on_end_draw();
+
          }
+
       }
 
-
-      // ::double_rectangle r;
-      //
-      // r.left() = 10;
-      // r.top() = 10;
-      // r.right() = 80;
-      // r.bottom() = 80;
-      //
-      // pgraphics->fill_solid_rectangle(r, argb(1.0,0.1, 0.5, 0.8 ));
-
-
-      // cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
-      // cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-      // cairo_paint(cr);
-      // // Set color for drawing (RGB)
-      // cairo_set_source_rgb(cr, 0.1, 0.5, 0.8);
-      //
-      // // Draw rectangle
-      // cairo_rectangle(cr, 50, 50, 200, 100); // x, y, width, height
-      // cairo_fill(cr);
-      //
-      // // Set color for ellipse
-      // cairo_set_source_rgb(cr, 0.8, 0.1, 0.5);
-      //
-      // // Draw ellipse
-      // cairo_save(cr);
-      // cairo_translate(cr, 150, 250); // Move to center of the ellipse
-      // cairo_scale(cr, 1.5, 1.0);     // Scale to make an ellipse
-      // cairo_arc(cr, 0, 0, 50, 0, 2 * G_PI); // Draw a circle, but scaled
-      // cairo_restore(cr);
-      //
-      // cairo_fill(cr);
-
-      //return FALSE;
    }
 
 
@@ -2278,7 +2025,7 @@ namespace windowing_q
 
          auto pusersystem = puserinteraction->m_pusersystem;
 
-         puserinteraction->m_bMessageWindow = false;
+         puserinteraction->m_bMessageOnlyWindow = false;
 
          auto pqwindowing = q_windowing();
 
@@ -6729,7 +6476,20 @@ namespace windowing_q
 
          //m_pqwidget->repaint();
 
-         m_pqwidget->update();
+         //bool bVisible = m_pqwidget->isVisible();
+
+         //if (!bVisible)
+         //{
+
+         //   information() << "widget isn't visible";
+
+         //}
+
+         //auto size = m_pqwidget->size();
+
+         //information() << "widget size is w,h : " << size.width() << ", " << size.height();
+
+         m_pqwidget->repaint();
 
       });
 

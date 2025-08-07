@@ -5429,10 +5429,12 @@ namespace windowing_wayland
 
                    auto pimpl = m_pwindow;
 
-                   if (::is_set(pimpl))
+                   auto pbuffer = pimpl->m_pgraphicsgraphics;
+
+                   if (::is_set(pbuffer))
                    {
 
-                      pimpl->m_pgraphicsgraphics->update_screen();
+                      pbuffer->update_screen();
 
                    }
 
@@ -5478,7 +5480,9 @@ namespace windowing_wayland
 //
 //         }
 
-         pimpl->m_pgraphicsgraphics->update_screen();
+         auto pbuffer = pimpl->m_pgraphicsgraphics;
+
+         pbuffer->update_screen();
 
          //pbuffer->update_screen();
 

@@ -61,7 +61,7 @@ namespace music
 //hw:1,2    Virtual Raw MIDI (16 subdevices)
 //hw:1,3    Virtual Raw MIDI (16 subdevices)
 
-            string strDriver(strDevice);
+            string strDriver(scopedstrDevice);
 
             strDriver.case_insensitive_begins_eat("alsa:");
 

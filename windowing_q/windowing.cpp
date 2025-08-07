@@ -1381,22 +1381,22 @@ namespace windowing_q
    {
 
       informationf(
-              "os_process_user_theme: is strTheme(" + strOsTheme + ") same as m_strTheme(" + node()->m_strTheme + ")\n");
+              "os_process_user_theme: is strTheme(" + scopedstrOsTheme + ") same as m_strTheme(" + node()->m_strTheme + ")\n");
 
-      if (strOsTheme == node()->m_strTheme)
+      if (scopedstrOsTheme == node()->m_strTheme)
       {
 
          informationf(
-                 "os_process_user_theme: same theme as before [___new(" + strOsTheme + ") - old(" + node()->m_strTheme + ")]\n");
+                 "os_process_user_theme: same theme as before [___new(" + scopedstrOsTheme + ") - old(" + node()->m_strTheme + ")]\n");
 
          return;
 
       }
 
       informationf(
-              "os_process_user_theme: different theme [___new(" + strOsTheme + ") - old(" +node()-> m_strTheme + ")]\n");
+              "os_process_user_theme: different theme [___new(" + scopedstrOsTheme + ") - old(" +node()-> m_strTheme + ")]\n");
 
-      node()->m_strTheme = strOsTheme;
+      node()->m_strTheme = scopedstrOsTheme;
 
       informationf("os_process_user_theme m_strTheme = \"" +node()-> m_strTheme + "\"\n");
 
@@ -1439,22 +1439,22 @@ namespace windowing_q
    {
 
       informationf(
-              "os_process_user_icon_theme: is strIconTheme(" + strOsUserIconTheme + ") same as m_strIconTheme(" + m_strOsUserIconTheme + ")\n");
+              "os_process_user_icon_theme: is strIconTheme(" + scopedstrOsUserIconTheme + ") same as m_strIconTheme(" + m_strOsUserIconTheme + ")\n");
 
-      if (strOsUserIconTheme == m_strOsUserIconTheme)
+      if (scopedstrOsUserIconTheme == m_strOsUserIconTheme)
       {
 
          informationf(
-                 "os_process_user_icon_theme: same theme as before [___new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
+                 "os_process_user_icon_theme: same theme as before [___new(" + scopedstrOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
 
          return;
 
       }
 
       informationf(
-              "os_process_user_icon_theme: different theme [___new(" + strOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
+              "os_process_user_icon_theme: different theme [___new(" + scopedstrOsUserIconTheme + ") - old(" + m_strOsUserIconTheme + ")]\n");
 
-      m_strOsUserIconTheme = strOsUserIconTheme;
+      m_strOsUserIconTheme = scopedstrOsUserIconTheme;
 
       informationf("os_process_user_icon_theme m_strIconTheme = \"" + m_strOsUserIconTheme + "\"\n");
 

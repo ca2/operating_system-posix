@@ -7,12 +7,12 @@
 //#include <gtk/gtk.h>
 
 
-namespace innate_ui_android
+namespace innate_ui_q
 {
 
 
-   class CLASS_DECL_INNATE_UI_ANDROID button :
-    virtual public ::innate_ui_android::window,
+   class CLASS_DECL_INNATE_UI_Q button :
+    virtual public ::innate_ui_q::window,
       virtual public ::innate_ui::button
    {
    public:
@@ -35,7 +35,7 @@ namespace innate_ui_android
    };
 
 
-} // namespace innate_ui_win32
+} // namespace innate_ui_q
 
 
 

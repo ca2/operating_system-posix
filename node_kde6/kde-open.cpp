@@ -17,6 +17,10 @@
 #include <KIO/OpenUrlJob>
 #include <QUrlQuery>
 
+
+typedef const char * const_char_pointer;
+
+
 //
 //
 //class kde_open_app_client : public QObject
@@ -45,9 +49,9 @@
 void kde_open_local_file(QApplication * papplication, const_char_pointer pszUrl, const_char_pointer pszMimeType)
 {
 
-   QString strUrl(scopedstrUrl);
+   QString strUrl(pszUrl);
 
-   QString strMimeType(scopedstrMimeType);
+   QString strMimeType(pszMimeType);
 
    QUrl url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(strUrl));
 

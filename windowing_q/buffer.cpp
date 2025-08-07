@@ -1280,10 +1280,6 @@ namespace windowing_q
    bool buffer::_on_begin_draw(::graphics::buffer_item * pbufferitem)
    {
 
-//      auto pbufferitem = get_buffer_item();
-//
-//      buffer_size_and_position(pbufferitem);
-
       auto pimageBuffer = pbufferitem->m_pimage2;
 
       if (pimageBuffer->m_size != pbufferitem->m_sizeBufferItemWindow)

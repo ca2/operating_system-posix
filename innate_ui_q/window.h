@@ -3,23 +3,23 @@
 
 
 #include "apex/innate_ui/window.h"
-//#include <QMainWindow>
+#include <QWidget>
 
 
-namespace innate_ui_android
+namespace innate_ui_q
 {
 
 
    class innate_ui;
 
 
-   class CLASS_DECL_INNATE_UI_ANDROID window :
+   class CLASS_DECL_INNATE_UI_Q window :
       virtual public ::innate_ui::window
    {
    public:
 
 
-      //QWidget * m_pqwidget;
+      QWidget * m_pqwidget;
 
 
       window();
@@ -43,7 +43,7 @@ namespace innate_ui_android
       void set_size(const ::int_size & size) override;
       void adjust_for_client_size(const ::int_size & size) override;
 
-      ::innate_ui_android::innate_ui * innate_ui();
+      ::innate_ui_q::innate_ui * innate_ui();
 
 
       void defer_show_system_menu(::user::mouse * pmouse) override;
@@ -52,7 +52,7 @@ namespace innate_ui_android
    };
 
 
-} // namespace innate_ui_kde5
+} // namespace innate_ui_q
 
 
 

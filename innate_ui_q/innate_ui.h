@@ -3,7 +3,7 @@
 
 
 #include "apex/innate_ui/innate_ui.h"
-//#include <gtk/gtk.h>
+#include <QWidget>
 
 
 namespace innate_ui_q
