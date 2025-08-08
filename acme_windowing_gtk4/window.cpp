@@ -1113,10 +1113,10 @@ namespace gtk4
                   pmenuSection = g_menu_new();
                   pitemSection = g_menu_item_new_section(NULL, G_MENU_MODEL(pmenuSection));
 
-                  if (scopedstrDisplayHint)
+                  if (pszDisplayHint)
                   {
 
-                     GVariant* variant2 = g_variant_new_string(scopedstrDisplayHint);
+                     GVariant* variant2 = g_variant_new_string(pszDisplayHint);
 
                      g_menu_item_set_attribute_value(pitemSection, "display-hint", variant2);
 

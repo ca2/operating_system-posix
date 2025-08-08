@@ -876,14 +876,14 @@ namespace node_gtk4
       if (edesktop == ::windowing::e_operating_ambient_gnome)
       {
 
-         bool bOk1 = ::gdk::gsettings_set("org.gnome.desktop.interface", "gtk-theme", strUserTheme).ok();
+         bool bOk1 = ::gdk::gsettings_set("org.gnome.desktop.interface", "gtk-theme",scopedstrUserTheme).ok();
 
          bool bOk2 = true;
 
          //if(::file::system_short_name().case_insensitive_contains("manjaro"))
          {
 
-            bOk2 =::gdk:: gsettings_set("org.gnome.desktop.wm.preferences", "theme", strUserTheme).ok();
+            bOk2 =::gdk:: gsettings_set("org.gnome.desktop.wm.preferences", "theme", scopedstrUserTheme).ok();
 
          }
 
@@ -950,7 +950,7 @@ namespace node_gtk4
       if (edesktop & ::windowing::e_operating_ambient_gnome)
       {
 
-         bool bOk1 = ::gdk::gsettings_set("org.gnome.desktop.interface", "icon-theme", strUserIconTheme).ok();
+         bool bOk1 = ::gdk::gsettings_set("org.gnome.desktop.interface", "icon-theme", scopedstrUserIconTheme).ok();
 
          //bool bOk2 = true;
 
@@ -1148,7 +1148,7 @@ namespace node_gtk4
    string node::get_file_icon_path(const ::scoped_string & scopedstrPath, int iSize)
    {
 
-      return ::gdk::g_get_file_icon_path(strPath, iSize);
+      return ::gdk::g_get_file_icon_path(scopedstrPath, iSize);
 
    }
 
@@ -1156,7 +1156,7 @@ namespace node_gtk4
    string node::get_file_content_type(const ::scoped_string & scopedstrPath)
    {
 
-      return ::gdk::g_get_file_content_type(strPath);
+      return ::gdk::g_get_file_content_type(scopedstrPath);
 
    }
 
@@ -1845,7 +1845,7 @@ namespace node_gtk4
    int node::os_launch_uri(const ::scoped_string & scopedstrUri, char *pszError, int iBufferSize)
    {
 
-      int iRet = ::gdk::gdk_launch_uri(strUri, pszError, iBufferSize);
+      int iRet = ::gdk::gdk_launch_uri(scopedstrUri, pszError, iBufferSize);
 
       return iRet;
 
@@ -1855,7 +1855,7 @@ namespace node_gtk4
    void node::shell_launch(const ::scoped_string & scopedstrAppId)
    {
 
-      string strDesktopFileTitle(strAppId);
+      string strDesktopFileTitle(scopedstrAppId);
 
       strDesktopFileTitle.find_replace("/", ".");
 
@@ -1901,10 +1901,10 @@ namespace node_gtk4
    }
 
 
-   void node::open_internet_link_in_system_browser(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile)
+   void node::open_internet_link(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile, const ::scoped_string & scopedstrTarget)
    {
 
-      const_char_pointer pszUrl = strUrl;
+      const_char_pointer pszUrl = scopedstrUrl;
 
       GError *perror = nullptr;
 

@@ -1184,7 +1184,7 @@ on_text(scopedstr, scopedstr.size());
    void window::_on_gtk_im_context_commit(const_char_pointer psz)
    {
 
-         on_text(scopedstr, ::string_get_length(scopedstr));
+         on_text(psz, ::string_get_length(psz));
 
    }
 
@@ -1267,7 +1267,7 @@ on_text(scopedstr, scopedstr.size());
 
           auto pusersystem = puserinteraction->m_pusersystem;
 
-          puserinteraction->m_bMessageWindow = false;
+          puserinteraction->m_bMessageOnlyWindow = false;
 
           auto pgtk4windowing = gtk4_windowing();
 

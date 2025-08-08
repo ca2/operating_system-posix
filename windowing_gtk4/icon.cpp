@@ -39,7 +39,7 @@ namespace windowing_gtk4
       //auto estatus =
       //
       //
-      ::windowing::icon::set_tray_icon_name(strTrayIconName);
+      ::windowing::icon::set_tray_icon_name(scopedstrTrayIconName);
 
 //      if(!estatus)
 //      {
@@ -76,7 +76,7 @@ namespace windowing_gtk4
 
       auto pcontext = m_papplication;
 
-      string strPath = pcontext->directory()->matter(strMatter);
+      string strPath = pcontext->directory()->matter(scopedstrMatter);
 
       load_file(strPath);
 
@@ -99,7 +99,7 @@ namespace windowing_gtk4
 
       //auto estatus =
       //
-      set_tray_icon_name(strAppId);
+      set_tray_icon_name(scopedstrAppId);
 
 //      if(!estatus)
 //      {
