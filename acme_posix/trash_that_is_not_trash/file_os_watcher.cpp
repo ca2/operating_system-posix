@@ -100,7 +100,7 @@ namespace file
 
          pwatch->m_bRecursive = true;
 
-         ::file::path_array stra;
+         ::file::path_array_base stra;
 
          ::dir::rls_dir(stra, pathFolder);
 

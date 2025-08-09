@@ -102,7 +102,7 @@ namespace inotify
 //
 //         pwatch->m_bRecursive = true;
 //
-//         ::file::listing listing;
+//         ::file::listing_base listing;
 //
 //         listing.set_folder_listing(pathFolder, ::e_depth_recursively);
 //

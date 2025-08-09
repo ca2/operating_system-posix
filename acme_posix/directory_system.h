@@ -45,17 +45,17 @@ namespace acme_posix
 
       //string name(const ::scoped_string & scopedstrPath) override;
 
-      //void rls(::file::path_array & stra, const_char_pointer psz) override;
+      //void rls(::file::path_array_base & stra, const_char_pointer psz) override;
 
-      //void rls_dir(::file::path_array & stra, const_char_pointer psz) override;
-      //void ls(::file::path_array & stra, const_char_pointer psz) override;
+      //void rls_dir(::file::path_array_base & stra, const_char_pointer psz) override;
+      //void ls(::file::path_array_base & stra, const_char_pointer psz) override;
 
-      //void ls_dir(::file::path_array & stra, const_char_pointer psz) override;
-      //void ls_file(::file::path_array & stra, const_char_pointer psz) override;
+      //void ls_dir(::file::path_array_base & stra, const_char_pointer psz) override;
+      //void ls_file(::file::path_array_base & stra, const_char_pointer psz) override;
       
       void erase_recursively(const ::file::path & path) override;
 
-      bool enumerate(::file::listing & listing) override;
+      bool enumerate(::file::listing_base & listing) override;
 
       bool list(::string_array & stra, const ::scoped_string & scopedstr, ::file::e_flag eflag = ::file::e_flag_file_or_folder) override;
 
@@ -74,7 +74,7 @@ namespace acme_posix
       bool is_accessible(const ::file::path & path) override;
 
 
-void _defer_add(::file::listing& listing, const dirent* dp);
+void _defer_add(::file::listing_base& listing, const dirent* dp);
       ::file::path ___fonts() override;
 
 

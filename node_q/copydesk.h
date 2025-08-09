@@ -21,8 +21,8 @@ namespace node_q
       void initialize(::particle * pparticle) override;
       void destroy() override;
 
-      bool _set_filea(const ::file::path_array & patha, enum_op eop) override;
-      bool _get_filea(::file::path_array & patha, enum_op & eop) override;
+      bool _set_filea(const ::file::path_array_base & patha, enum_op eop) override;
+      bool _get_filea(::file::path_array_base & patha, enum_op & eop) override;
       bool _has_filea() override;
 
 

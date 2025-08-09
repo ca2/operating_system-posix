@@ -20,8 +20,8 @@ namespace node_gtk4
       virtual ::e_status initialize(::particle * pparticle) override;
       virtual ::e_status finalize() override;
 
-      virtual bool _set_filea(const ::file::path_array & patha, e_op eop) override;
-      virtual bool _get_filea(::file::path_array & patha, e_op & eop) override;
+      virtual bool _set_filea(const ::file::path_array_base & patha, e_op eop) override;
+      virtual bool _get_filea(::file::path_array_base & patha, e_op & eop) override;
       virtual bool _has_filea() override;
 
 

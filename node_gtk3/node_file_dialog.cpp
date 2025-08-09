@@ -171,7 +171,7 @@ namespace node_gtk3
 //      if (gtk_dialog_run(GTK_DIALOG(pfilechooserdialog)) == GTK_RESPONSE_OK)
 //      {
 //
-//         ::file::path_array patha;
+//         ::file::path_array_base patha;
 //
 //         patha.add(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(pfilechooserdialog)));
 //

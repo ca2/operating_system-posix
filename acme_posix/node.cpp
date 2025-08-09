@@ -325,7 +325,7 @@ namespace acme_posix
    }
 
 
-   ::file::path_array node::process_identifier_modules_paths(::process_identifier processidentifier)
+   ::file::path_array_base node::process_identifier_modules_paths(::process_identifier processidentifier)
    {
 
       printf_line("node::process_identifier_modules_paths THROW INTERFACE ONLY");
@@ -1160,7 +1160,7 @@ namespace acme_posix
    //
    //         ::int_array ia;
    //
-   //         ::file::path_array stra;
+   //         ::file::path_array_base stra;
    //
    //         ::dir::ls_dir(stra, "/proc/");
    //
@@ -1197,7 +1197,7 @@ namespace acme_posix
 
    ::process_identifier_array ia;
 
-      ::file::listing listing;
+      ::file::listing_base listing;
 
       listing.set_folder_listing("/proc");
 
@@ -2853,7 +2853,7 @@ namespace acme_posix
    bool node::_is_jetbrains_clion_installed()
    {
 
-      ::file::listing listing;
+      ::file::listing_base listing;
 
       auto pathJetbrains = directory_system()->home() / ".config/JetBrains";
 
@@ -2896,7 +2896,7 @@ namespace acme_posix
    bool node::_is_smart_git_installed()
    {
 
-      ::file::listing listing;
+      ::file::listing_base listing;
 
       auto pathJetbrains = directory_system()->home() / ".config/smartgit";
 

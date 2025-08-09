@@ -517,7 +517,7 @@ namespace windowing_x11
 //
 //      keyboard_layout_ida layoutida;
 //
-//      ::file::path_array patha;
+//      ::file::path_array_base patha;
 //
 //      Context.directory()->matter_ls_file("keyboard layout", patha);
 //

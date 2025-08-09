@@ -170,7 +170,7 @@ namespace node_q
    }
 
 
-   bool copydesk::_get_filea(::file::path_array& patha, enum_op& eop)
+   bool copydesk::_get_filea(::file::path_array_base& patha, enum_op& eop)
    {
 
       //      ::pointer<clipboard_data>pdata = __allocate clipboard_data(get_context_application(), e_clipboard_get_patha);
@@ -201,7 +201,7 @@ namespace node_q
    }
 
 
-   bool copydesk::_set_filea(const ::file::path_array& patha, enum_op eop)
+   bool copydesk::_set_filea(const ::file::path_array_base& patha, enum_op eop)
    {
 
       //      ::pointer<clipboard_data>pdata = __allocate clipboard_data(get_context_application(), e_clipboard_set_patha);

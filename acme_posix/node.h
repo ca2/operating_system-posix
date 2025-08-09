@@ -56,7 +56,7 @@ namespace acme_posix
 
       bool is_process_running(process_identifier pid) override;
 
-      ::file::path_array process_identifier_modules_paths(process_identifier processidentifier) override;
+      ::file::path_array_base process_identifier_modules_paths(process_identifier processidentifier) override;
 
       bool load_modules_diff(string_array& straOld, string_array& straNew, const ::scoped_string & scopedstrExceptDir) override;
 

@@ -160,7 +160,7 @@ namespace acme_posix
 //   }
 
 
-   //   void directory_system::rls(::file::path_array & stra, const_char_pointer psz)
+   //   void directory_system::rls(::file::path_array_base & stra, const_char_pointer psz)
    //   {
    //
    //      ::collection::count start = stra.get_count();
@@ -184,7 +184,7 @@ namespace acme_posix
    //   }
 
 
-   //   void directory_system::rls_dir(::file::path_array & stra, const_char_pointer psz)
+   //   void directory_system::rls_dir(::file::path_array_base & stra, const_char_pointer psz)
    //   {
    //
    //      ::collection::count start = stra.get_count();
@@ -205,7 +205,7 @@ namespace acme_posix
    //   }
 
 
-   void directory_system::_defer_add(::file::listing & listing, const dirent * dp)
+   void directory_system::_defer_add(::file::listing_base & listing, const dirent * dp)
    {
 
       if (file_path_is_dots(dp->d_name)) {
@@ -318,7 +318,7 @@ namespace acme_posix
       }
    }
 
-   bool directory_system::enumerate(::file::listing & listing)
+   bool directory_system::enumerate(::file::listing_base & listing)
    {
 
       if (listing.m_pathFinal.is_empty()) {
@@ -415,7 +415,7 @@ namespace acme_posix
    }
 
 
-   //   void directory_system::ls_dir(::file::path_array & stra, const_char_pointer psz)
+   //   void directory_system::ls_dir(::file::path_array_base & stra, const_char_pointer psz)
    //   {
    //
    //      DIR * dirp = opendir(scopedstr);
@@ -455,7 +455,7 @@ namespace acme_posix
    //   }
    //
    //
-   //   void directory_system::ls_file(::file::path_array & stra, const_char_pointer psz)
+   //   void directory_system::ls_file(::file::path_array_base & stra, const_char_pointer psz)
    //   {
    //
    //      DIR * dirp = opendir(scopedstr);
