@@ -110,7 +110,7 @@ m_strUserAgent = "curl/" + strVersion + "/nano_http_command_line";
 //              //pasynchronoushttpresponse->m_function(pasynchronoushttpresponse);
 //            });
 //
-//            //nano_asynchronous_http_memory(scopedstrUrl.c_str(), s_http_response, pasynchronoushttpresponse.detach_particle());
+//            //nano_asynchronous_http_memory(scopedstrUrl.as_string().c_str(), s_http_response, pasynchronoushttpresponse.detach_particle());
 
          }
 

@@ -2677,7 +2677,7 @@ namespace acme_posix
 
          ::string strCommandInner;
 
-         strCommandInner = scopedstrCommand.c_str();
+         strCommandInner = scopedstrCommand.as_string().c_str();
 
          strCommandInner.find_replace("\\", "\\\\");
 

@@ -520,7 +520,7 @@ namespace node_q
    {
 
 
-      auto path = getFileIconPath(scopedstrPath.c_str(), iSize);
+      auto path = getFileIconPath(scopedstrPath.as_string().c_str(), iSize);
 
       return path.toUtf8().data();
 
@@ -710,7 +710,7 @@ namespace node_q
    int node::os_launch_uri(const ::scoped_string & scopedstrUri, char * pszError, int iBufferSize)
    {
 
-      QDesktopServices::openUrl(QUrl(scopedstrUri.c_str()));
+      QDesktopServices::openUrl(QUrl(scopedstrUri.as_string().c_str()));
 
       return 0;
 
@@ -822,7 +822,7 @@ namespace node_q
    void node::open_internet_link(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile, const ::scoped_string & scopedstrTarget)
    {
 
-      QUrl url(scopedstrUrl.c_str());
+      QUrl url(scopedstrUrl.as_string().c_str());
 
       QDesktopServices::openUrl(url);
 

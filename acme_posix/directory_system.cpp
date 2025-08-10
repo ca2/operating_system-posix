@@ -374,7 +374,7 @@ namespace acme_posix
                                ::file::e_flag eflag)
    {
 
-      DIR * dirp = opendir(scopedstr.c_str());
+      DIR * dirp = opendir(scopedstr.as_string().c_str());
 
       if (dirp == nullptr) {
 

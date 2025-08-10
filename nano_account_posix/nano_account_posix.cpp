@@ -53,7 +53,7 @@ namespace posix
 
             puser->m_strName = ppasswd->pw_name;
 
-            return dlsym(plibrary, scopedstrEntryName.c_str());
+            return dlsym(plibrary, scopedstrEntryName.as_string().c_str());
 
          }
 

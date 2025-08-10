@@ -632,7 +632,7 @@ namespace node_kde6
    int node::os_launch_uri(const ::scoped_string & scopedstrUri, char * pszError, int iBufferSize)
    {
 
-      QDesktopServices::openUrl(QUrl(scopedstrUri.c_str()));
+      QDesktopServices::openUrl(QUrl(scopedstrUri.as_string().c_str()));
 
       return 0;
 
@@ -744,7 +744,7 @@ namespace node_kde6
    void node::open_internet_link(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile, const ::scoped_string & scopedstrTarget)
    {
 
-      QUrl url(scopedstrUrl.c_str());
+      QUrl url(scopedstrUrl.as_string().c_str());
 
       QDesktopServices::openUrl(url);
 

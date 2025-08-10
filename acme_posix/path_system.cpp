@@ -137,19 +137,19 @@ namespace acme_posix
 
    /// Test if the given path can be executed.
    /// \return 0 on success, an errno value on failure.
-   ::file::e_type path_system::executable_type(const ::file::path & scopedstrCommand)
+   ::file::e_type path_system::executable_type(const ::file::path & pathCommandExecutable)
    {
 
       struct stat buff;
 
-      if (stat(scopedstrCommand.c_str(), &buff))
+      if (stat(pathCommandExecutable.c_str(), &buff))
       {
 
          return ::file::e_type_doesnt_exist;
 
       }
 
-      if(access(scopedstrCommand.c_str(), X_OK))
+      if(access(pathCommandExecutable.c_str(), X_OK))
       {
 
          return ::file::e_type_non_executable;
@@ -166,7 +166,7 @@ namespace acme_posix
 
       ::file::path path(scopedstr);
 
-      char* full_path = realpath(scopedstr.c_str(), nullptr);
+      char* full_path = realpath(scopedstr.as_string().c_str(), nullptr);
 
       if (full_path)
       {
