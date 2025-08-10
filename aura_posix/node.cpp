@@ -227,14 +227,14 @@ namespace aura_posix
    //}
 
 
-   //bool node::process_modules(string_array & stra, unsigned int processID)
+   //bool node::process_modules(string_array_base & stra, unsigned int processID)
    //{
 
    //   return ::apex::posix::node::process_modules(stra, processID);
 
    //}
    //   
-   //bool node::load_modules_diff(string_array & straOld, string_array & straNew, const ::scoped_string & scopedstrExceptDir)
+   //bool node::load_modules_diff(string_array_base & straOld, string_array_base & straNew, const ::scoped_string & scopedstrExceptDir)
 
    //{
 
@@ -271,14 +271,14 @@ namespace aura_posix
    //   return ::apex::posix::node::command_line_from_pid(pid);
 
    //}
-   //   bool node::is_shared_library_busy(unsigned int processid, const string_array & stra)
+   //   bool node::is_shared_library_busy(unsigned int processid, const string_array_base & stra)
    //{
 
    //   return ::apex::posix::node::is_shared_library_busy(processid, stra);
 
    //}
 
-   //   bool node::is_shared_library_busy(const string_array & stra)
+   //   bool node::is_shared_library_busy(const string_array_base & stra)
    //{
 
    //   return ::apex::posix::node::is_shared_library_busy(stra);
@@ -291,7 +291,7 @@ namespace aura_posix
 
    //}
 
-   //void node::shared_library_process(dword_array & dwa, string_array & straProcesses, const ::scoped_string & scopedstrLibrary)
+   //void node::shared_library_process(dword_array & dwa, string_array_base & straProcesses, const ::scoped_string & scopedstrLibrary)
    //{
 
    //   ::apex::posix::node::shared_library_process(dwa, straProcesses, pszLibrary);

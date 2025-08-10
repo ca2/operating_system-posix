@@ -49,7 +49,7 @@ namespace command_line
 
             debugf("command_line::http::curl check : %s", strOutput.c_str());
 
-            ::string_array stra;
+            ::string_array_base stra;
 
             stra.add_lines(strOutput);
 

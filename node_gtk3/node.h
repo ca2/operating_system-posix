@@ -151,7 +151,7 @@ namespace node_gtk3
       void launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion) override;
 
 
-      void set_file_extension_mime_type(string_array & straExtension, string_array & straMimeType) override;
+      void set_file_extension_mime_type(string_array_base & straExtension, string_array_base & straMimeType) override;
 
       void _set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType);
 

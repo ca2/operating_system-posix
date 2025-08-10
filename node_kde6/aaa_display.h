@@ -144,7 +144,7 @@
 //
 //      ::collection::count get_monitor_count() override;
 //
-//      void set_wallpaper(const string_array & strWallpaper) override;
+//      void set_wallpaper(const string_array_base & strWallpaper) override;
 //
 //
 //};

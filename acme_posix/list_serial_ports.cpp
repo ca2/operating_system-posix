@@ -28,7 +28,7 @@ namespace acme_posix
 {
 
 
-   string_array glob(const string_array &patterns);
+   string_array_base glob(const string_array_base &patterns);
 
    string basename(const string &path);
 
@@ -40,7 +40,7 @@ namespace acme_posix
 
    string usb_sysfs_friendly_name(::particle *pparticle, const string &sys_usb_path);
 
-   string_array get_sysfs_info(::particle *pparticle, const string &device_path);
+   string_array_base get_sysfs_info(::particle *pparticle, const string &device_path);
 
 //static string read_line(const string& file);
    string usb_sysfs_hw_string(::particle *pparticle, const string &sysfs_path);
@@ -48,10 +48,10 @@ namespace acme_posix
    string format(const_char_pointer format, ...);
 
 #if !defined(__ANDROID__)
-   string_array
-   glob(const string_array &patterns)
+   string_array_base
+   glob(const string_array_base &patterns)
    {
-      string_array paths_found;
+      string_array_base paths_found;
 
       if (patterns.size() == 0)
          return paths_found;
@@ -187,7 +187,7 @@ namespace acme_posix
    }
 
 
-   string_array get_sysfs_info(particle *pparticle, const string &device_path)
+   string_array_base get_sysfs_info(particle *pparticle, const string &device_path)
    {
 
       string device_name = basename(device_path);
@@ -257,7 +257,7 @@ namespace acme_posix
 
       }
 
-      string_array result;
+      string_array_base result;
 
       result.add(friendly_name);
 
@@ -385,7 +385,7 @@ namespace acme_posix
 
 #ifdef LINUX
 
-      string_array search_globs;
+      string_array_base search_globs;
 
       search_globs.add("/dev/ttyACM*");
       search_globs.add("/dev/ttyS*");
@@ -393,12 +393,12 @@ namespace acme_posix
       search_globs.add("/dev/tty.*");
       search_globs.add("/dev/cu.*");
 
-      string_array devices_found = glob(search_globs);
+      string_array_base devices_found = glob(search_globs);
 
       for (auto device: devices_found)
       {
 
-         string_array sysfs_info = get_sysfs_info(this, device);
+         string_array_base sysfs_info = get_sysfs_info(this, device);
 
          string friendly_name = sysfs_info[0];
 

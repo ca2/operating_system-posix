@@ -9,7 +9,7 @@ public:
 
    bool                             m_bOsUserThemeColorModified;
    bool                             m_bInvalidated;
-   string_array                     m_stra;
+   string_array_base                     m_stra;
    string                           m_strTitle;
    string                           m_strFontName;
 

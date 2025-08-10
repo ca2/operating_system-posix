@@ -42,7 +42,7 @@ m_eapp = e_app_not_initialized;
                   m_eapp = e_app_curl;
 
 ::string strVersion = node()->get_posix_shell_command_output("curl --version");
-::string_array stra;
+::string_array_base stra;
 stra.explode(" ", strVersion);
 if(stra.size() >= 2)
 {

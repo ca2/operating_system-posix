@@ -2184,7 +2184,7 @@ namespace node_gtk4
 
 
 
-   void node::set_file_extension_mime_type(string_array & straExtension, string_array & straMimeType)
+   void node::set_file_extension_mime_type(string_array_base & straExtension, string_array_base & straMimeType)
    {
 
       auto c = minimum(straExtension.size(), straMimeType.size());
@@ -2273,7 +2273,7 @@ namespace node_gtk4
    bool node::_system_is_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType)
    {
 
-      ::string_array straMimeTypes;
+      ::string_array_base straMimeTypes;
 
       straMimeTypes = file()->lines("/etc/mime.types");
 
@@ -2295,7 +2295,7 @@ namespace node_gtk4
 
          information() << "strExtensions : \"" << strExtensions << "\"";
 
-         ::string_array straExtensions;
+         ::string_array_base straExtensions;
 
          straExtensions.add_words(strExtensions);
 

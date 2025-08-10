@@ -65,7 +65,7 @@ namespace ansios
 
       }
 
-      string_array straParam;
+      string_array_base straParam;
 
       address_array < char * > argv;
 
@@ -265,7 +265,7 @@ namespace ansios
    bool process::synch_elevated(const ::scoped_string & scopedstrCmdLineParam,int iShow,const class time & timeTimeOut,bool * pbTimeOut)
    {
 
-      string_array straParam;
+      string_array_base straParam;
 
       address_array < char * > argv;
 

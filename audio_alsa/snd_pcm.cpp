@@ -104,8 +104,8 @@ namespace multimedia
          int subDevNum = -1;
          int subDevCount = 0;
          string strFormat;
-         string_array straName;
-         string_array straDevice;
+         string_array_base straName;
+         string_array_base straDevice;
 
          // Start with first card
          cardNum = -1;

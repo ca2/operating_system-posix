@@ -154,7 +154,7 @@ bool m_bFetchingDarkMode;
       void launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion) override;
 
 
-      void set_file_extension_mime_type(string_array & straExtension, string_array & straMimeType) override;
+      void set_file_extension_mime_type(string_array_base & straExtension, string_array_base & straMimeType) override;
 
       void _set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType);
 
@@ -190,7 +190,7 @@ bool m_bFetchingDarkMode;
    virtual bool _gsettings_schema_exists(const ::scoped_string & scopedstrSchema);
 
 
-   virtual ::string_array _gsettings_schema_keys(const ::scoped_string & scopedstrSchema);
+   virtual ::string_array_base _gsettings_schema_keys(const ::scoped_string & scopedstrSchema);
 
 
    virtual bool _gsettings_schema_contains_key(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey);

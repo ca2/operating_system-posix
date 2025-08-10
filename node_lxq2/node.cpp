@@ -851,7 +851,7 @@ namespace node_lxq2
 
       }
 
-      string_array straBrowsers{ "firefox", "chromium", "brave", "google-chrome", "opera" };
+      string_array_base straBrowsers{ "firefox", "chromium", "brave", "google-chrome", "opera" };
 
       posix_try_open_internet_link(strUrl, strProfile, straBrowsers);
 

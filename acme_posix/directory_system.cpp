@@ -370,7 +370,7 @@ namespace acme_posix
    }
 
 
-   bool directory_system::list(string_array & stra, const ::scoped_string & scopedstr,
+   bool directory_system::list(string_array_base & stra, const ::scoped_string & scopedstr,
                                ::file::e_flag eflag)
    {
 
@@ -500,7 +500,7 @@ namespace acme_posix
                                            const ::scoped_string & scopedstrMode)
    {
 
-      string_array stra;
+      string_array_base stra;
 
       stra.add_tokens(scopedstrEnv, ":");
 

@@ -60,7 +60,7 @@ virtual public ::numeric_array < POINTER_TYPE >
 
 ::string __expand_environment_variables(const ::scoped_string & scopedstr);
 	
-::pointer < ::array_of_malloced_pointer < char * > > strdupa_from_command_arguments(const ::string_array & stra)
+::pointer < ::array_of_malloced_pointer < char * > > strdupa_from_command_arguments(const ::string_array_base & stra)
 {
 
 	::pointer < ::array_of_malloced_pointer < char * > > p;
@@ -194,7 +194,7 @@ void apex_application_run(const_char_pointer pszAppName, const_char_pointer pszP
 
 // int create_process6(const ::string & _cmd_line, int * pprocessId);
 
-CLASS_DECL_ACME void dll_processes(unsigned_int_array & dwa, string_array & straProcesses, const ::scoped_string & scopedstrDll)
+CLASS_DECL_ACME void dll_processes(unsigned_int_array & dwa, string_array_base & straProcesses, const ::scoped_string & scopedstrDll)
 {
 
    __UNREFERENCED_PARAMETER(dwa);
@@ -337,7 +337,7 @@ namespace acme_posix
    }
 
 
-   bool node::load_modules_diff(string_array& straOld, string_array& straNew, const ::scoped_string & scopedstrExceptDir)
+   bool node::load_modules_diff(string_array_base& straOld, string_array_base& straNew, const ::scoped_string & scopedstrExceptDir)
    {
 
       throw ::interface_only();
@@ -590,7 +590,7 @@ namespace acme_posix
    }
 
 
-::process_identifier_array node::shared_library_process(string_array& straProcesses, const ::scoped_string & scopedstrLibrary)
+::process_identifier_array node::shared_library_process(string_array_base& straProcesses, const ::scoped_string & scopedstrLibrary)
    {
 
       throw ::interface_only();
@@ -709,7 +709,7 @@ namespace acme_posix
 
       string str = file_system()->as_string("/proc/stat");
 
-      string_array stra;
+      string_array_base stra;
 
       stra.add_lines(str);
 
@@ -808,7 +808,7 @@ namespace acme_posix
 ::process_identifier node::create_process(const ::scoped_string & scopedstrCommandLine)
    {
 
-      string_array stra;
+      string_array_base stra;
 
       stra = get_c_args_for_c(scopedstrCommandLine);
 
@@ -1155,10 +1155,10 @@ namespace acme_posix
    }
 
 
-   //      ::int_array node::module_path_get_pid(const ::scoped_string & scopedstrPath)
+   //      ::int_array_base node::module_path_get_pid(const ::scoped_string & scopedstrPath)
    //      {
    //
-   //         ::int_array ia;
+   //         ::int_array_base ia;
    //
    //         ::file::path_array_base stra;
    //
@@ -1280,7 +1280,7 @@ namespace acme_posix
    string node::process_identifier_command_line(::process_identifier iPid)
    {
 
-      string_array stra;
+      string_array_base stra;
 
       string str;
 
@@ -1371,7 +1371,7 @@ namespace acme_posix
    }
 
 
-//   bool node::is_shared_library_busy(::process_identifier processid, const string_array & stra)
+//   bool node::is_shared_library_busy(::process_identifier processid, const string_array_base & stra)
 //   {
 //
 //      return false;
@@ -1379,7 +1379,7 @@ namespace acme_posix
 //   }
 //
 //
-//   bool node::is_shared_library_busy(const string_array & stra)
+//   bool node::is_shared_library_busy(const string_array_base & stra)
 //   {
 //
 //      return false;
@@ -1472,7 +1472,7 @@ namespace acme_posix
 //   }
 
 
-   //void node::command_system(string_array & straOutput, int& iExitCode, const scoped_string & scopedstr, enum_command_system ecommandsystem, const class time & timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog)
+   //void node::command_system(string_array_base & straOutput, int& iExitCode, const scoped_string & scopedstr, enum_command_system ecommandsystem, const class time & timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog)
    int node::__command_system(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrPipe, const ::trace_function & functionTrace)
    {
 
@@ -2805,7 +2805,7 @@ namespace acme_posix
 
 // #endif
 
-      ::string_array straPath;
+      ::string_array_base straPath;
 
       straPath.explode(":", pszPath);
 
@@ -3205,7 +3205,7 @@ return{};
    }
 
 
-   bool node::posix_try_open_internet_link(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile, const ::string_array & straBrowsers)
+   bool node::posix_try_open_internet_link(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile, const ::string_array_base & straBrowsers)
    {
 
       ::string strUrl(scopedstrUrl);

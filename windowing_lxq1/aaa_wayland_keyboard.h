@@ -21,7 +21,7 @@ string x11_keyboard_get_current_group_name();
 string x11_keyboard_get_current_group_symbol();
 
 
-typedef string_array StringVector;
+typedef string_array_base StringVector;
 
 
 // XKeyboard -----------------------------------------------------------
@@ -70,7 +70,7 @@ public:
 
     XkbSymbolParser();
     ~XkbSymbolParser();
-    void parse(const string& symbols, string_array& symbolList);
+    void parse(const string& symbols, string_array_base& symbolList);
 
 private:
     bool isXkbLayoutSymbol(const string& symbol);

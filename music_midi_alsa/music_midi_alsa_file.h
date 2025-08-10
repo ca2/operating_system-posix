@@ -69,7 +69,7 @@ namespace music
 
          int32_t SetKeyShift(int32_t iKeyShift);
 
-         bool IsSoftKaraokeFile(bool bWork = false, string_array * pstra = NULL);
+         bool IsSoftKaraokeFile(bool bWork = false, string_array_base * pstra = NULL);
 
          bool IsXFFile();
 
@@ -89,11 +89,11 @@ namespace music
 
          ::e_status SaveFile(const_char_pointer lpFilePath);
 
-         ::e_status WorkWriteXFTracks(string_array & tokena, imedia::position_array & positiona, ::music::xf::info_header & xfinfoheader);
+         ::e_status WorkWriteXFTracks(string_array_base & tokena, imedia::position_array & positiona, ::music::xf::info_header & xfinfoheader);
 
          int32_t CalcMelodyTrack(::music::midi::happenings ** ppEvents, imedia::position_array & ticka);
 
-         int32_t WorkCalcMelodyTrack(::music::midi::happenings ** ppEvents, imedia::position_array & positiona, ::int_array & iaTokenLine);
+         int32_t WorkCalcMelodyTrack(::music::midi::happenings ** ppEvents, imedia::position_array & positiona, ::int_array_base & iaTokenLine);
 
          int32_t GetFormat();
 
@@ -137,13 +137,13 @@ namespace music
 
          int_ptr TicksToMillisecs(imedia::position tickOffset);
 
-         void TicksToMillisecs(imedia::time_array *pMillisArray, imedia::position_array *pTickArray, int_ptr tickOffset);
+         void TicksToMillisecs(imedia::time_array_base *pMillisArray, imedia::position_array *pTickArray, int_ptr tickOffset);
 
-         void TicksToMillisecs(imedia::time_array_array *ptimeaaArray, imedia::position_2darray & tickaaArray, int_ptr tickOffset);
+         void TicksToMillisecs(imedia::time_array_array_base *ptimeaaArray, imedia::position_2darray & tickaaArray, int_ptr tickOffset);
 
-         void PositionToTime(imedia::time_array_array  & timea, imedia::position_2darray  & positiona, int_ptr tickOffset);
+         void PositionToTime(imedia::time_array_array_base  & timea, imedia::position_2darray  & positiona, int_ptr tickOffset);
 
-         void PositionToTime(imedia::time_array  & timea, imedia::position_array  & positiona, int_ptr tickOffset);
+         void PositionToTime(imedia::time_array_base  & timea, imedia::position_array  & positiona, int_ptr tickOffset);
 
          imedia::position MillisecsToTicks(imediaclass ::time msOffset);
 
@@ -151,9 +151,9 @@ namespace music
 
          imedia::position TimeToPosition(imediaclass ::time msOffset);
 
-         void MillisecsToTicks(imedia::position_array * pTickArray, imedia::time_array *pMillisArray, imediaclass ::time msOffset);
+         void MillisecsToTicks(imedia::position_array * pTickArray, imedia::time_array_base *pMillisArray, imediaclass ::time msOffset);
 
-         void TimeToPosition(imedia::position_array & positiona, imedia::time_array & timea, imediaclass ::time msOffset);
+         void TimeToPosition(imedia::position_array & positiona, imedia::time_array_base & timea, imediaclass ::time msOffset);
 
          ::e_status StreamRender(LPMIDIHDR lpmh, imedia::position tickMax, unsigned int cbPrerollNomimalMax);
 

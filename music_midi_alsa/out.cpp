@@ -131,7 +131,7 @@ namespace music
 //
 //            }
 
-            string_array stra;
+            string_array_base stra;
 
             stra.explode(",", m_strDeviceId);
 

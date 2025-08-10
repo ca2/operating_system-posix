@@ -227,7 +227,7 @@ namespace multimedia
                
             }
             
-            //::string_array straLines;
+            //::string_array_base straLines;
             
             //straLines.add_lines(strAudioCfgListOutput);
             

@@ -18,7 +18,7 @@
 
 // int create_process6(const ::string & _cmd_line, int * pprocessId);
 
-CLASS_DECL_ACME void dll_processes(unsigned_int_array & dwa, string_array & straProcesses, const ::scoped_string & scopedstrDll)
+CLASS_DECL_ACME void dll_processes(unsigned_int_array & dwa, string_array_base & straProcesses, const ::scoped_string & scopedstrDll)
 {
 
    __UNREFERENCED_PARAMETER(dwa);
@@ -110,7 +110,7 @@ namespace acme
       void node::create_process(const ::scoped_string & scopedstrCommandLine, unsigned int * pprocessId)
       {
 
-         string_array stra;
+         string_array_base stra;
 
          stra = get_c_args_for_c(scopedstrCommandLine);
 
@@ -560,7 +560,7 @@ namespace acme
       string node::command_line_from_pid(unsigned int iPid)
       {
 
-         string_array stra;
+         string_array_base stra;
 
          string str;
 
@@ -641,7 +641,7 @@ namespace acme
       }
 
 
-      bool node::is_shared_library_busy(unsigned int processid, const string_array & stra)
+      bool node::is_shared_library_busy(unsigned int processid, const string_array_base & stra)
       {
 
          return false;
@@ -649,7 +649,7 @@ namespace acme
       }
 
 
-      bool node::is_shared_library_busy(const string_array & stra)
+      bool node::is_shared_library_busy(const string_array_base & stra)
       {
 
          return false;
@@ -668,7 +668,7 @@ namespace acme
 int daemonize_process(const ::scoped_string & scopedstrCommandLine, int * pprocessId)
 {
 
-   string_array stra;
+   string_array_base stra;
 
    stra = get_c_args_for_c(scopedstrCommandLine);
 
@@ -777,7 +777,7 @@ int daemonize_process(const ::scoped_string & scopedstrCommandLine, int * pproce
 int create_process4(const ::scoped_string & scopedstrCommandLine, int * pprocessId)
 {
 
-   string_array stra;
+   string_array_base stra;
 
    stra = get_c_args_for_c(scopedstrCommandLine);
 
@@ -873,7 +873,7 @@ CLASS_DECL_ACME int ca2_main();
 int create_process2(const ::scoped_string & scopedstrCommandLine, int * pprocessId)
 {
 
-   string_array stra;
+   string_array_base stra;
 
    stra = get_c_args_for_c(scopedstrCommandLine);
 

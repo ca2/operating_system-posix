@@ -523,7 +523,7 @@ namespace music
 //         return MillisecsToTicks(time);
 //      }
 //
-//      void  file::PositionToTime(imedia::time_array & timea, imedia::position_array  & positiona, int_ptr tickOffset)
+//      void  file::PositionToTime(imedia::time_array_base & timea, imedia::position_array  & positiona, int_ptr tickOffset)
 //      {
 //         if(tickOffset < 0)
 //         {
@@ -553,7 +553,7 @@ namespace music
 //         }
 //      }
 //
-//      void file::TicksToMillisecs(imedia::time_array_array * ptimeaa, imedia::position_2darray & tickaa, int_ptr tickOffset)
+//      void file::TicksToMillisecs(imedia::time_array_array_base * ptimeaa, imedia::position_2darray & tickaa, int_ptr tickOffset)
 //      {
 //         ASSERT(ptimeaa->get_size() == 0);
 //         ptimeaa->set_app(get_app());
@@ -569,7 +569,7 @@ namespace music
 //
 //      }
 //
-//      void file::PositionToTime(imedia::time_array_array  & timea, imedia::position_2darray  & positiona, int_ptr tickOffset)
+//      void file::PositionToTime(imedia::time_array_array_base  & timea, imedia::position_2darray  & positiona, int_ptr tickOffset)
 //      {
 //         ASSERT(timea.get_size() == 0);
 //         timea.set_app(get_app());
@@ -585,7 +585,7 @@ namespace music
 //
 //      }
 //
-//      void  file::TicksToMillisecs(imedia::time_array *pMillisArray, imedia::position_array *pTickArray, int_ptr tickOffset)
+//      void  file::TicksToMillisecs(imedia::time_array_base *pMillisArray, imedia::position_array *pTickArray, int_ptr tickOffset)
 //      {
 //         if(tickOffset < 0)
 //         {
@@ -621,7 +621,7 @@ namespace music
 //
 //      void  file::MillisecsToTicks(
 //         imedia::position_array *pTickArray,
-//         imedia::time_array *pMillisArray,
+//         imedia::time_array_base *pMillisArray,
 //         imedia::time msOffset)
 //      {
 //         if(msOffset < 0)
@@ -657,7 +657,7 @@ namespace music
 //
 //      void  file::TimeToPosition(
 //         imedia::position_array & positiona,
-//         imedia::time_array  & timea,
+//         imedia::time_array_base  & timea,
 //         imedia::time msOffset)
 //      {
 //         if(msOffset < 0)
@@ -2212,7 +2212,7 @@ namespace music
 //         return m_ptracks->IsTune1000File();
 //      }
 //
-//      bool file::IsSoftKaraokeFile(bool bWork, string_array * pstra)
+//      bool file::IsSoftKaraokeFile(bool bWork, string_array_base * pstra)
 //      {
 //         return m_ptracks->IsSoftKaraokeFile(bWork, pstra);
 //      }
@@ -3307,7 +3307,7 @@ namespace music
 //
 //
 //      ::e_status file::WorkWriteXFTracks(
-//         string_array &  tokena,
+//         string_array_base &  tokena,
 //         imedia::position_array & positiona,
 //         ::music::xf::info_header & xfinfoheader)
 //      {

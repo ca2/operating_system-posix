@@ -28,7 +28,7 @@ namespace acme_posix
 //      ::file::path m_pathOperatingSystemIncludeFolder;
 //      ::file::path m_pathOperatingSystemStorageFolder;
 //      ::file::path m_pathDownloadURL;
-//      ::string_array m_straOutput;
+//      ::string_array_base m_straOutput;
 //      ::file::path m_pathFolder;
 //      ::file::path m_path;
 //      ::file::path m_pathSource2;

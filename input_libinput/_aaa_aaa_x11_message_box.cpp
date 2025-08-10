@@ -121,7 +121,7 @@ void setWindowTitle(const_char_pointer title, const Window *win, Display *dpy){
 ////    split(text, L"\n" , &text_splitted, &textLines);
 ////    //------------------------------------------------------------------------------------------------------------------
 //
-//   string_array stra;
+//   string_array_base stra;
 //
 //   stra.add_lines(text);
 //

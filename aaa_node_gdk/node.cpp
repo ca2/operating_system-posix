@@ -2408,7 +2408,7 @@ m_bFetchingDarkMode = false;
 
 
 
-   void node::set_file_extension_mime_type(string_array & straExtension, string_array & straMimeType)
+   void node::set_file_extension_mime_type(string_array_base & straExtension, string_array_base & straMimeType)
    {
 
       auto c = minimum(straExtension.size(), straMimeType.size());
@@ -2497,7 +2497,7 @@ m_bFetchingDarkMode = false;
    bool node::_system_is_set_file_extension_mime_type(const scoped_string & scopedstrExtension, const scoped_string & scopedstrMimeType)
    {
 
-      ::string_array straMimeTypes;
+      ::string_array_base straMimeTypes;
 
       straMimeTypes = file()->lines("/etc/mime.types");
 
@@ -2519,7 +2519,7 @@ m_bFetchingDarkMode = false;
 
          information() << "strExtensions : \"" << strExtensions << "\"";
 
-         ::string_array straExtensions;
+         ::string_array_base straExtensions;
 
          straExtensions.add_words(strExtensions);
 
@@ -2908,7 +2908,7 @@ m_bFetchingDarkMode = false;
 
 
 
-   ::string_array node::_gsettings_schema_keys(const ::scoped_string & scopedstrSchema)
+   ::string_array_base node::_gsettings_schema_keys(const ::scoped_string & scopedstrSchema)
    {
 
       GSettingsSchema * pschema = g_settings_schema_source_lookup (
@@ -2933,7 +2933,7 @@ m_bFetchingDarkMode = false;
 
       }
 
-      ::string_array stra;
+      ::string_array_base stra;
 
       auto pp = ppchar;
 

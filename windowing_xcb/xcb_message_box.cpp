@@ -121,7 +121,7 @@ void setWindowTitle(const_char_pointer title, const xcb_window_t *win, xcb_conne
 ////    split(text, L"\n" , &text_splitted, &textLines);
 ////    //------------------------------------------------------------------------------------------------------------------
 //
-//   string_array stra;
+//   string_array_base stra;
 //
 //   stra.add_lines(text);
 //

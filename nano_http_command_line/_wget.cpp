@@ -63,7 +63,7 @@ namespace command_line
 
             }
 
-            ::string_array stra;
+            ::string_array_base stra;
 
             stra.add_lines(strOutput);
 
@@ -140,7 +140,7 @@ namespace command_line
 
             }
 
-            ::string_array stra;
+            ::string_array_base stra;
 
             stra.add_lines(strOutput);
 

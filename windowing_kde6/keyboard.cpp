@@ -693,7 +693,7 @@ namespace windowing_kde6
 ////
 ////      playoutid->m_keylayout = doc.root()->attribute("kl");
 ////
-////      string_array straHkl;
+////      string_array_base straHkl;
 ////
 ////      straHkl.explode(";", doc.root()->attribute("hkla"));
 ////

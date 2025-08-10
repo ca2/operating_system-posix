@@ -38,7 +38,7 @@ namespace gdk
 
    //CLASS_DECL_ACME void _os_process_user_theme_color(const ::scoped_string & scopedstrTheme);
 
-   ::string_array gsettings_schema_keys(const ::scoped_string & scopedstrSchema)
+   ::string_array_base gsettings_schema_keys(const ::scoped_string & scopedstrSchema)
    {
 
       GSettingsSchema * pschema = g_settings_schema_source_lookup (
@@ -63,7 +63,7 @@ namespace gdk
 
       }
 
-      ::string_array stra;
+      ::string_array_base stra;
 
       auto pp = ppchar;
 

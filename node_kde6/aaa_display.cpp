@@ -295,7 +295,7 @@
 //   }
 //
 //
-//   void display::set_wallpaper(const string_array & strWallpaper)
+//   void display::set_wallpaper(const string_array_base & strWallpaper)
 //   {
 //
 //      if(strWallpaper.has_element())

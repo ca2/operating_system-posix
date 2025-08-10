@@ -2824,7 +2824,7 @@ namespace g
 
             ::string strOutput = node()->get_posix_shell_command_output("xfconf-query -c xfce4-desktop -p /backdrop -l");
 
-            ::string_array stra;
+            ::string_array_base stra;
 
             stra.add_lines(strOutput);
 
@@ -2934,7 +2934,7 @@ namespace g
 
             ::string strOutput = node()->get_posix_shell_command_output("xrandr --listmonitors");
 
-            ::string_array stra;
+            ::string_array_base stra;
 
             stra.add_lines(strOutput);
 

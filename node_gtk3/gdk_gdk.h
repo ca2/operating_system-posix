@@ -25,7 +25,7 @@ namespace node_gtk3
 //   bool gsettings_schema_exists(const ::scoped_string & scopedstrSchema);
 //
 //
-//   ::string_array gsettings_schema_keys(const ::scoped_string & scopedstrSchema);
+//   ::string_array_base gsettings_schema_keys(const ::scoped_string & scopedstrSchema);
 //
 //
 //   bool gsettings_schema_contains_key(const ::scoped_string & scopedstrSchema, const ::scoped_string & scopedstrKey);

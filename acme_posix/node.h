@@ -50,15 +50,15 @@ namespace acme_posix
       ::file::path process_identifier_module_path(::process_identifier pid) override;
       ::process_identifier_array module_path_processes_identifiers(const ::scoped_string & scopedstrModulePath, bool bModuleNameIsPropertyFormatted) override;
       string process_identifier_command_line(process_identifier pid) override;
-      //bool is_shared_library_busy(process_identifier processid, const string_array & stra) override;
-      //bool is_shared_library_busy(const string_array & stra) override;
+      //bool is_shared_library_busy(process_identifier processid, const string_array_base & stra) override;
+      //bool is_shared_library_busy(const string_array_base & stra) override;
 
 
       bool is_process_running(process_identifier pid) override;
 
       ::file::path_array_base process_identifier_modules_paths(process_identifier processidentifier) override;
 
-      bool load_modules_diff(string_array& straOld, string_array& straNew, const ::scoped_string & scopedstrExceptDir) override;
+      bool load_modules_diff(string_array_base& straOld, string_array_base& straNew, const ::scoped_string & scopedstrExceptDir) override;
 
       ::process_identifier_array processes_identifiers() override;
 
@@ -76,7 +76,7 @@ namespace acme_posix
 
       bool process_contains_module(string& strImage, ::process_identifier processID, const ::scoped_string & scopedstrLibrary) override;
 
-      ::process_identifier_array shared_library_process(string_array& straProcesses, const ::scoped_string & scopedstrLibrary) override;
+      ::process_identifier_array shared_library_process(string_array_base& straProcesses, const ::scoped_string & scopedstrLibrary) override;
 
       string get_environment_variable(const ::scoped_string & scopedstrEnvironmentVariable) override;
 
@@ -87,7 +87,7 @@ namespace acme_posix
       string expand_environment_variables(const ::scoped_string & scopedstr) override;
 
 
-      virtual bool posix_try_open_internet_link(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile, const ::string_array & straBrowsers);
+      virtual bool posix_try_open_internet_link(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile, const ::string_array_base & straBrowsers);
 
 
       bool stdin_has_input_events() override;
@@ -113,7 +113,7 @@ namespace acme_posix
       bool set_process_priority(::enum_priority epriority) override;
 
 
-      //void command_system(string_array & straOutput, int& iExitCode, const ::scoped_string & scopedstr, enum_command_system ecommandsystem, const class ::time& timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog) override;
+      //void command_system(string_array_base & straOutput, int& iExitCode, const ::scoped_string & scopedstr, enum_command_system ecommandsystem, const class ::time& timeTimeout, ::particle * pparticleSynchronization, ::file::file * pfileLog) override;
       virtual int __command_system(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrPipe, const trace_function & tracefunction = nullptr);
       int command_system(const ::scoped_string & scopedstr, const trace_function & tracefunction = nullptr, const ::file::path & pathWorkingDirectory ={}, ::e_display edisplay = e_display_none) override;
 
