@@ -360,6 +360,23 @@ namespace gtk3
          }
 
 
+         void windowing::_main_send(const ::procedure & procedure)
+         {
+
+            _user_send(procedure);
+
+         }
+
+
+         void windowing::_main_post(const ::procedure & procedure)
+         {
+
+            _user_post(procedure);
+
+         }
+
+
+
          void windowing::run()
          {
 
