@@ -29,15 +29,15 @@
 #define DEEP_LOG_HERE 0
 
 template < typename POINTER_TYPE >
-class array_of_malloced_pointer :
-virtual public ::numeric_array < POINTER_TYPE >
+class array_of_malloced_pointer_base :
+virtual public ::numeric_array_base < POINTER_TYPE >
 	{
 	public:
 	
-	array_of_malloced_pointer()
+	array_of_malloced_pointer_base()
 	{
 	}
-	~array_of_malloced_pointer() override
+	~array_of_malloced_pointer_base()
 	{
 	deallocate();
 	}
@@ -56,7 +56,11 @@ virtual public ::numeric_array < POINTER_TYPE >
 	
 	
 	};
-	
+
+
+template < typename POINTER_TYPE >
+using array_of_malloced_pointer = ::array_particle < array_of_malloced_pointer_base< POINTER_TYPE > >;
+
 
 ::string __expand_environment_variables(const ::scoped_string & scopedstr);
 	
@@ -812,7 +816,7 @@ namespace acme_posix
 
       stra = get_c_args_for_c(scopedstrCommandLine);
 
-      address_array < char * > argv;
+      address_array_base < char * > argv;
 
       for (auto & str : stra)
       {

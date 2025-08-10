@@ -67,7 +67,7 @@ namespace ansios
 
       string_array_base straParam;
 
-      address_array < char * > argv;
+      address_array_base < char * > argv;
 
       explode_command_line(straParam, scopedstrCmdLine, &argv);
 
@@ -111,7 +111,7 @@ namespace ansios
 
       }
 
-      address_array < char * > env;
+      address_array_base < char * > env;
 
       char * const * e = ::system()->m_envp;
 
@@ -267,7 +267,7 @@ namespace ansios
 
       string_array_base straParam;
 
-      address_array < char * > argv;
+      address_array_base < char * > argv;
 
       if (access("/usr/bin/gksu", X_OK) != 0)
       {
