@@ -378,7 +378,7 @@ namespace q
             // psystem->defer_post_initial_request();
 
             system()->post_application_start();
-            system()->defer_post_file_open();
+            system()->defer_post_application_start_file_open_request();
             system()->post_application_started();
 
          }
