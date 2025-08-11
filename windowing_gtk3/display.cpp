@@ -369,7 +369,7 @@ namespace windowing_gtk3
 	   
 	  //information() << node()->get_call_stack_trace();
 	   
-	  information() << "windowing_gtk3::display::open_display (1) current thread task_index(): " << ::current_task_index();
+	  information() << "windowing_gtk3::display::open_display (1) current thread current_task_index(): " << ::current_task_index();
 	  
 	  if(::get_task())
 	  {

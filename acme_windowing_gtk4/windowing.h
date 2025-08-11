@@ -70,13 +70,16 @@ namespace gtk4
             ::color::color get_operating_system_background_color() override;
 
 
+            void _user_post(const ::procedure& procedure) override;
+
+            void _user_send(const ::procedure& procedure) override;
+
             void _main_send(const ::procedure& procedure) override;
 
 
             void _main_post(const ::procedure& procedure) override;
 
 
-            void _user_post(const ::procedure& procedure) override;
 
 
             //void _post(const ::procedure& procedure) override;

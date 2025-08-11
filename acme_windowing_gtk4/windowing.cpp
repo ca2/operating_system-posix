@@ -18,7 +18,9 @@
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
 //#include <X11/Xutil.h>
+bool wouldnt_create_gl_context();
 
+CLASS_DECL_ACME void set_main_thread();
 
 //#include "acme/graphics/image/pixmap.h"
 //#include <gtk/gtk.h>
@@ -124,6 +126,13 @@ namespace gtk4
 
 m_bMessageThread=true;
             //m_pGtkSettingsDefault = nullptr;
+gtk_init();
+            if (wouldnt_create_gl_context())
+            {
+
+               g_setenv("GDK_GL", "disable", TRUE);
+
+            }
 
          }
 
@@ -259,7 +268,7 @@ m_bMessageThread=true;
          }
 
 
-         void windowing::_main_send(const ::procedure& procedure)
+         void windowing::_user_send(const ::procedure& procedure)
          {
 
             if (::is_main_thread())
@@ -278,7 +287,7 @@ m_bMessageThread=true;
 
             auto pevent = __allocate manual_reset_happening();
 
-            user_post([ procedure, pevent ]
+            _user_post([ procedure, pevent ]
             {
 
                procedure();
@@ -328,7 +337,7 @@ m_bMessageThread=true;
          }
 
 
-         void windowing::_main_post(const ::procedure& procedure)
+         void windowing::_user_post(const ::procedure& procedure)
          {
 
             // Safely update the GTK label in the main thread
@@ -337,11 +346,18 @@ m_bMessageThread=true;
          }
 
 
-
-         void windowing::_user_post(const ::procedure& procedure)
+         void windowing::_main_send(const ::procedure& procedure)
          {
 
-            _main_post(procedure);
+            _user_send(procedure);
+
+         }
+
+
+         void windowing::_main_post(const ::procedure& procedure)
+         {
+
+            _user_post(procedure);
 
          }
 
@@ -491,6 +507,8 @@ m_bMessageThread=true;
             //gtk_init();
             
             information() << "application id: " << strId;
+
+            ::set_main_thread();
 
 #if GLIB_CHECK_VERSION(2,74,0)
 

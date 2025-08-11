@@ -37,6 +37,7 @@ list(APPEND library_source
         window.h
         windowing.cpp
         windowing.h
+   would_likely_create_gl_context.cpp
 )
 
 
@@ -68,7 +69,7 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
 
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG cairo xkbcommon wayland-client wayland-server wayland-cursor)
-   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4)
+   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4 x11 egl glx)
    target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
