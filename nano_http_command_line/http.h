@@ -47,7 +47,7 @@ namespace command_line
 
             //void asynchronous_memory(const ::scoped_string & scopedstrUrl, ::pointer < ::nano::httasynchronous_http_response > pasynchronoushttpresponse) override;
 
-            void perform(::nano::http::get * pget) override;
+            void perform(::nano::http::get * defer_get) override;
 
             ::url::url get_effective_url(const ::url::url & url) override;
 

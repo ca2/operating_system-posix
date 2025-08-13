@@ -87,10 +87,10 @@ m_strUserAgent = "curl/" + strVersion + "/nano_http_command_line";
          //   }
 
 
-         void http::perform(::nano::http::get * pget)
+         void http::perform(::nano::http::get * defer_get)
          {
 
-            auto pgetHold = ::as_pointer(pget);
+            auto pgetHold = ::as_pointer(defer_get);
 
 //               pasynchronoushttpresponse->m_function = [](::pointer < ::nano::asynchronous_http_response > pasynchronoushttpresponse)
 //          //      {                                s_http_response(pasynchronoushttpresponse);

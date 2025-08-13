@@ -136,7 +136,7 @@ namespace aura_posix
 //
 //            synchronous_lock synchronouslock(this->synchronization());
 //
-//            if (m_imagemap.lookup(imagekey, iImage))
+//            if (m_imagemap.find(imagekey, iImage))
 //            {
 //
 //               return iImage;
@@ -706,7 +706,7 @@ namespace aura_posix
 //
 //               synchronous_lock synchronouslock(this->synchronization());
 //
-//               if (m_imagemap.lookup(imagekey, iImage))
+//               if (m_imagemap.find(imagekey, iImage))
 //               {
 //
 //                  return iImage;
@@ -784,7 +784,7 @@ namespace aura_posix
 
             synchronous_lock synchronouslock(this->synchronization());
 
-            if (m_imagemap.lookup(getfileimage.m_imagekey, getfileimage.m_iImage))
+            if (m_imagemap.find(getfileimage.m_imagekey, getfileimage.m_iImage))
             {
 
                return getfileimage.m_iImage;

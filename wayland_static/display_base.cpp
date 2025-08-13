@@ -1173,7 +1173,7 @@ namespace wayland
 
             critical_section_lock synchronouslock(&m_criticalsectionWindowMap);
 
-            auto passociation = m_windowmap.plookup(pwlsurface);
+            auto passociation = m_windowmap.find(pwlsurface);
 
             if (passociation.is_null())
             {

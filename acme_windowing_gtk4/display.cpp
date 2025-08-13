@@ -1993,7 +1993,7 @@ namespace gtk4
          //
          //    critical_section_lock synchronouslock(&m_criticalsectionWindowMap);
          //
-         //    auto passociation = m_windowmap.plookup(pgtkwidget);
+         //    auto passociation = m_windowmap.find(pgtkwidget);
          //
          //    if (passociation.is_null())
          //    {

@@ -299,7 +299,7 @@ namespace windowing_x11
 
       critical_section_lock synchronouslock(&m_criticalsectionWindowMap);
 
-      auto passociation = m_windowmap.plookup(window);
+      auto passociation = m_windowmap.find(window);
 
       if (passociation.is_null())
       {
