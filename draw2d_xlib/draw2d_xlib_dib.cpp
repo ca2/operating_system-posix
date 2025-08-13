@@ -286,7 +286,7 @@ namespace draw2d_xlib
    //void image::set_rgb(int R, int G, int B)
    //{
 
-   //   map();
+   //   map_base();
 
    //   int size = scan*cy;
 
@@ -386,7 +386,7 @@ namespace draw2d_xlib
    //}
 
 
-   void image::map(bool bApplyAlphaTransform)
+   void image::map_base(bool bApplyAlphaTransform)
    {
 
       if(m_bMapped)
@@ -2105,7 +2105,7 @@ namespace draw2d_xlib
 
    //void image::Fill (int A, int R, int G, int B )
    //{
-   //   map();
+   //   map_base();
 
    //   color32_t color = rgb ( B, G, R ) | (A << 24);
    //   int size=cx*cy;
@@ -2569,7 +2569,7 @@ namespace draw2d_xlib
 
       m_spgraphics->set_origin(0, 0);
 
-      map(true);
+      map_base(true);
 
       ::int_rectangle rectangle(rectangleWindow);
 
@@ -2674,7 +2674,7 @@ namespace draw2d_xlib
 //
 //      m_spgraphics->set_origin(0, 0);
 //
-//      map(true);
+//      map_base(true);
 //
 //      ::int_rectangle rectangle(rectangleWindow);
 //

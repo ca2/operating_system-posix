@@ -290,7 +290,7 @@ namespace windowing_q
    void display::_enumerate_monitor()
    {
 
-      // Get the list of all screens
+      // Get the list_base of all screens
       QList<QScreen *> screens = QGuiApplication::screens();
 
       auto iMonitorCount = screens.size();
@@ -811,7 +811,7 @@ namespace windowing_q
 //   XImage * display::_x11_create_image(::image::image_pointer pimage)
 //   {
 //
-//      pimage->map();
+//      pimage->map_base();
 //
 //      char * image32 = (char *) pimage->get_data();
 //
@@ -921,7 +921,7 @@ namespace windowing_q
 //      Atom type;
 //      int form;
 //      unsigned long remain;
-//      unsigned char * list;
+//      unsigned char * list_base;
 //      unsigned long ulBytesReturned = 0;
 //      //errno = 0;
 //
@@ -1204,7 +1204,7 @@ namespace windowing_q
 //
 //      update_wayland_buffer(waylandbuffer, pimage->size());
 //
-//      pimage->map();
+//      pimage->map_base();
 //
 //      copy_image32((::image32_t*)waylandbuffer.m_pdata,
 //                   waylandbuffer.m_size,

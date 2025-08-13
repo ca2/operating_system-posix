@@ -116,14 +116,14 @@ namespace x11
             //
             //      }
             //
-            //      Atom atom = id()map[eatom];
+            //      Atom atom = id()map_base[eatom];
             //
             //      if (atom == None)
             //      {
             //
             //         atom = intern_atom(atom_name(eatom), bCreate);
             //
-            //         id()map[eatom] = atom;
+            //         id()map_base[eatom] = atom;
             //
             //      }
             //
@@ -169,14 +169,14 @@ namespace x11
 
             }
 
-            Atom atom = id()map[eatom];
+            Atom atom = id()map_base[eatom];
 
             if (atom == None)
             {
 
                atom = _intern_atom_unlocked(atom_name(eatom), bCreate);
 
-               id()map[eatom] = atom;
+               id()map_base[eatom] = atom;
 
             }
 

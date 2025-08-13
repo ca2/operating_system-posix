@@ -79,7 +79,7 @@ namespace draw2d_xlib
 //
 //   void brush::construct(::draw2d::bitmap* pBitmap)
 //   {
-//      //ASSERT_VALID(pBitmap);
+//      //ASSERT_OK(pBitmap);
 //
 //      //if (!Attach(::CreatePatternBrush((HBITMAP)pBitmap->get_os_data())))
 //        // throw ::exception(error_resource);

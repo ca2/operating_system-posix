@@ -41,7 +41,7 @@ cairo_surface_t * as_cairo_surface(::pixmap & pixmap)
    pixmap.m_sizeRaw.cy() = cairo_image_surface_get_height(psurface);
    pixmap.m_iScan = cairo_image_surface_get_stride(psurface);
 
-   pixmap.map(pixmap.m_sizeRaw);
+   pixmap.map_base(pixmap.m_sizeRaw);
 
    return pixmap;
 

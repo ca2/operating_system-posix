@@ -789,7 +789,7 @@ namespace windowing_x11
    XImage * display::_x11_create_image(::image::image_pointer pimage)
    {
 
-      pimage->map();
+      pimage->map_base();
 
       char * image32 = (char *) pimage->get_data();
 
@@ -899,7 +899,7 @@ namespace windowing_x11
       Atom type;
       int form;
       unsigned long remain;
-      unsigned char * list;
+      unsigned char * list_base;
       unsigned long ulBytesReturned = 0;
       //errno = 0;
 

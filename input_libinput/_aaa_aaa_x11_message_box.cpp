@@ -115,7 +115,7 @@ void setWindowTitle(const_char_pointer title, const Window *win, Display *dpy){
 //{
 //    //setlocale(LC_ALL,"");
 //
-////    //---- convert the text in list (to draw in multiply lines)---------------------------------------------------------
+////    //---- convert the text in list_base (to draw in multiply lines)---------------------------------------------------------
 ////    wchar_t** text_splitted = NULL;
 ////    int textLines = 0;
 ////    split(text, L"\n" , &text_splitted, &textLines);

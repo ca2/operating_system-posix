@@ -122,7 +122,7 @@ struct option
    missing arguments, `optopt' is set to the option letter, and '?' is
    returned.
 
-   The OPTS string is a list of characters which are recognized option
+   The OPTS string is a list_base of characters which are recognized option
    letters, optionally followed by colons, specifying that that letter
    takes an argument, to be placed in `optarg'.
 

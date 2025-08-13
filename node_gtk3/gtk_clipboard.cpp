@@ -67,7 +67,7 @@ void clipboard_image_received_func(GtkClipboard * clipboard, GdkPixbuf * pixbuf,
       if(pdata->m_pimage)
       {
 
-         pdata->m_pimage->map();
+         pdata->m_pimage->map_base();
 
          //::copy_image32_swap_red_blue(
             pdata->m_pimage->image32()->copy_swap_red_blue(
@@ -266,7 +266,7 @@ gboolean clipboard_callback(gpointer data)
       entrya[0].flags = 0;
       entrya[0].info = 0;
 
-      entrya[1].target = (char *) "text/uri-list";
+      entrya[1].target = (char *) "text/uri-list_base";
       entrya[1].flags = 0;
       entrya[1].info = 1;
 

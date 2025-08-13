@@ -1459,7 +1459,7 @@ namespace nano
 
          //auto & pimage = pitem->m_pimage2;
 
-         //pimage->map();
+         //pimage->map_base();
 
          ::copy_image32((::image32_t *) m_buffer.m_pdata,
                         m_buffer.m_size,

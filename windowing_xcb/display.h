@@ -47,7 +47,7 @@ namespace windowing_xcb
       Atom                                                     m_atomWmState;
       Display *                                                m_pX11Display;
       //xcb_connection_t *                                       m_pconnection;
-      map < xcb_atom_t, ::string >                             m_mapAtomName;
+      map_base < xcb_atom_t, ::string >                             m_mapAtomName;
       bool                                                     m_bHasXSync;
 
       ::pointer<class window>                                  m_pwindowRoot;

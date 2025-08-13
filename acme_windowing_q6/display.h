@@ -25,7 +25,7 @@ namespace q6
 
          //class window;
 
-         //using window_map = map<::QWidget *, ::pointer<window> >;
+         //using window_map = map_base<::QWidget *, ::pointer<window> >;
 
          class CLASS_DECL_ACME_WINDOWING_Q6 display :
             virtual public ::q::acme::windowing::display //,     virtual public event_listener
@@ -38,7 +38,7 @@ namespace q6
 //             //pointer_array < event_listener >             m_happeninglistenera;
 //             //pointer_array < ::x11::micro::elemental >  m_windowa;
 //             //Window                                       m_windowActive;
-//             //map < enuid(), Atom >                      id()map;
+//             //map_base < enuid(), Atom >                      id()map_base;
 //
 // window_map                                               m_windowmap;
 //             //static display *                             g_p;

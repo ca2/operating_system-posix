@@ -20,8 +20,8 @@ namespace innate_ui_gtk3
       bool m_bRunning;
 
 
-      map < GtkWidget *, ::pointer < window > >     m_windowmap;
-      //string_map < ATOM >                    m_classmap;
+      map_base < GtkWidget *, ::pointer < window > >     m_windowmap;
+      //string_map_base < ATOM >                    m_classmap;
 
       innate_ui();
       ~innate_ui() override;

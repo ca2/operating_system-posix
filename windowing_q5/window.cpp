@@ -451,7 +451,7 @@ namespace windowing_q5
    //    // //    }
    //    //
    //    //    static void clear_controllers(GtkWidget *widget) {
-   //    //       // Retrieve the list of all controllers attached to the widget
+   //    //       // Retrieve the list_base of all controllers attached to the widget
    //    //       GListModel *controllers = gtk_widget_observe_controllers(widget);
    //    //
    //    //       guint n_items = g_list_model_get_n_items(controllers);
@@ -469,7 +469,7 @@ namespace windowing_q5
    //    //          g_object_unref(item); // Unreference the item after retrieving it
    //    //       }
    //    //
-   //    //       // Free the list after use
+   //    //       // Free the list_base after use
    //    //       g_object_unref(controllers);
    //    //    }
    //    //

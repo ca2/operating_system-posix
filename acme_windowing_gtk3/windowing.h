@@ -28,7 +28,7 @@ namespace gtk3
       ::procedure             m_callbackOnActivateGtkApplication;
       GtkApplication *        m_pgtkapplication;
 
-      map < GtkWindow * , ::pointer < ::gtk3::acme::windowing::window> > m_windowmap;
+      map_base < GtkWindow * , ::pointer < ::gtk3::acme::windowing::window> > m_windowmap;
 
 
       windowing();

@@ -29,7 +29,7 @@ namespace node_gtk4
 
 
       //GdkAppLaunchContext * m_pgdkapplaunchcontext;
-      //string_map < GDesktopAppInfo * > m_mapGDesktopAppInfo;
+      //string_map_base < GDesktopAppInfo * > m_mapGDesktopAppInfo;
 
 
       //::task_pointer       m_ptaskOsUserTheme;

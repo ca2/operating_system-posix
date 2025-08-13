@@ -1354,7 +1354,7 @@ namespace wayland
 
             update_wayland_buffer(waylandbuffer, ppixmap->size());
 
-            ppixmap->map();
+            ppixmap->map_base();
 
             copy_image32((::image32_t *) waylandbuffer.m_pdata,
                          waylandbuffer.m_size,

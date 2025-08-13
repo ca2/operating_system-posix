@@ -488,7 +488,7 @@ namespace music
          }
 
          /*
-          * list subscribers of specified type
+          * list_base subscribers of specified type
           */
          void midi::list_each_subs(snd_seq_t *seq, snd_seq_query_subscribe_t *subs, snd_seq_query_subs_type_t type, const_char_pointer msg)
          {
@@ -516,7 +516,7 @@ namespace music
          }
 
          /*
- * list subscribers
+ * list_base subscribers
  */
          void midi::list_subscribers(snd_seq_t *seq, const snd_seq_addr_t *addr)
          {

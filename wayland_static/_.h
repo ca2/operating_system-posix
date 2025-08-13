@@ -107,7 +107,7 @@ namespace wayland
 
 
 
-         using window_map = map<::wl_surface *, ::pointer<window_base> >;
+         using window_map = map_base<::wl_surface *, ::pointer<window_base> >;
       }//namespace user
    } // namespace nano
 

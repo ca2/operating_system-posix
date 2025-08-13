@@ -370,7 +370,7 @@ namespace acme_posix
    }
 
 
-   bool directory_system::list(string_array_base & stra, const ::scoped_string & scopedstr,
+   bool directory_system::list_base(string_array_base & stra, const ::scoped_string & scopedstr,
                                ::file::e_flag eflag)
    {
 

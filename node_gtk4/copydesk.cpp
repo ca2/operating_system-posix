@@ -368,7 +368,7 @@ namespace node_gtk4
 //      if(pdata->m_pimage)
 //      {
 //
-//         pdata->m_pimage->map();
+//         pdata->m_pimage->map_base();
 //
 //         ::copy_image32_swap_red_blue(
 //         pdata->m_pimage->image32(),
@@ -567,7 +567,7 @@ namespace node_gtk4
 //      entrya[0].flags = 0;
 //      entrya[0].info = 0;
 //
-//      entrya[1].target = (char *) "text/uri-list";
+//      entrya[1].target = (char *) "text/uri-list_base";
 //      entrya[1].flags = 0;
 //      entrya[1].info = 1;
 //

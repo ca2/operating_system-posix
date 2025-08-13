@@ -591,7 +591,7 @@ namespace windowing_xcb
    xcb_image_t * display::_create_image(const ::image::image *pimage)
    {
 
-      pimage->map();
+      pimage->map_base();
 
       int width = pimage->width();
 
@@ -747,7 +747,7 @@ namespace windowing_xcb
 
       unsigned long remain;
 
-      unsigned char * list;
+      unsigned char * list_base;
 
       //int errno = 0;
 
@@ -1201,17 +1201,17 @@ namespace windowing_xcb
 //      xcb_atom_t type;
 //      int form;
 //      unsigned long remain;
-//      unsigned char *list;
+//      unsigned char *list_base;
 //
 //      errno = 0;
 //      auto cookie = (xcb_get_property(xcb_connection(), 0,  m_windowRoot, prop, 0, 1024, False, XA_WINDOW,
-//                                      &type, &form, len, &remain, &list) != Success)
+//                                      &type, &form, len, &remain, &list_base) != Success)
 //      {
 //         informationf("winlist() -- GetWinProp");
 //         return nullptr;
 //      }
 //
-//      return (xcb_window_t *) list;
+//      return (xcb_window_t *) list_base;
 //
 //   }
 
@@ -1221,10 +1221,10 @@ namespace windowing_xcb
 //
 //      unsigned long len = 0;
 //
-//      xcb_window_t *list = (xcb_window_t *) xcb_window_list(&len);
+//      xcb_window_t *list_base = (xcb_window_t *) xcb_window_list(&len);
 //
 //
-//      if (list == nullptr)
+//      if (list_base == nullptr)
 //      {
 //
 //         return false;
@@ -1234,11 +1234,11 @@ namespace windowing_xcb
 //      for (int i = 0; i < (int) len; i++)
 //      {
 //
-//         windowa.add(list[i]);
+//         windowa.add(list_base[i]);
 //
 //      }
 //
-//      XFree(list);
+//      XFree(list_base);
 //
 //      return true;
 //

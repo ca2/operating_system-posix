@@ -143,7 +143,7 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const in
 
 // Tutor Exilius Q(t)List streaming contribution
 //::pointer< ::mutex > g_pmutexXcbRunnable = nullptr;
-//list < ::pointer<::matter >>* g_prunnableptrlXcb = nullptr;
+//list_base < ::pointer<::matter >>* g_prunnableptrlXcb = nullptr;
 //::pointer< ::mutex > g_pmutexXcbSync = nullptr;
 //manual_reset_happening * g_peventXcbSync = nullptr;
 //::pointer<::matter>g_prunnableXcbSync;
@@ -155,7 +155,7 @@ int_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::int_point * ppointCursor);
 
 
 //extern ::pointer< ::mutex >g_pmutexXcbRunnable;
-//extern list<::pointer<::matter >>*g_prunnableptrlXcb;
+//extern list_base<::pointer<::matter >>*g_prunnableptrlXcb;
 //extern ::pointer< ::mutex >g_pmutexXcbSync;
 //extern manual_reset_happening *g_peventXcbSync;
 //extern ::pointer<::matter>g_prunnableXcbSync;
@@ -786,7 +786,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       //g_pmutexXcbRunnable = ___new ::pointer < ::mutex >();
 
-      //g_prunnableptrlXcb = aaa_memory_new list<::pointer<::matter >>);
+      //g_prunnableptrlXcb = aaa_memory_new list_base<::pointer<::matter >>);
 
 //      g_pmutexXcbSync = ___new ::pointer < ::mutex >();
 

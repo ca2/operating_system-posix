@@ -20,8 +20,8 @@ namespace innate_ui_q
       bool m_bRunning;
 
 
-      map < QWidget *, ::pointer < window > >     m_windowmap;
-      //string_map < ATOM >                    m_classmap;
+      map_base < QWidget *, ::pointer < window > >     m_windowmap;
+      //string_map_base < ATOM >                    m_classmap;
 
       innate_ui();
       ~innate_ui() override;

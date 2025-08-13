@@ -25,7 +25,7 @@ namespace windowing_xcb
    using XCB_WINDOW_T = long;
 
 
-   using window_map = map < XCB_WINDOW_T , ::pointer<window > >;
+   using window_map = map_base < XCB_WINDOW_T , ::pointer<window > >;
 
 
 } // namespace windowing_xcb

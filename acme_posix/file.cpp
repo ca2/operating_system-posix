@@ -126,7 +126,7 @@ namespace acme_posix
 
       }
 
-      ASSERT_VALID(this);
+      ASSERT_OK(this);
       ASSERT(is_string_ok(path));
       ASSERT(!(eopen & ::file::e_open_text));   // text mode not supported
 
@@ -142,7 +142,7 @@ namespace acme_posix
 
       ASSERT(::file::e_open_share_compat == 0);
 
-      // ::collection::map read/write mode
+      // ::collection::map_base read/write mode
       ASSERT((::file::e_open_read | ::file::e_open_write | ::file::e_open_read_write) == 3);
       unsigned int dwFlags =  0;
       switch (eopen & 3)
@@ -161,9 +161,9 @@ namespace acme_posix
          break;
       }
 
-      // ::collection::map share mode
+      // ::collection::map_base share mode
       //unsigned int dwShareMode = 0;
-      switch (eopen & 0x70)    // ::collection::map compatibility mode to exclusive
+      switch (eopen & 0x70)    // ::collection::map_base compatibility mode to exclusive
       {
       default:
          ASSERT(false);  // invalid share mode?
@@ -326,7 +326,7 @@ namespace acme_posix
 
    memsize file::read(void * readData, memsize amountToRead)
    {
-      ASSERT_VALID(this);
+      ASSERT_OK(this);
       ASSERT(m_iFile != hFileNull);
 
       if (amountToRead <= 0)
@@ -402,7 +402,7 @@ namespace acme_posix
    memsize file::defer_write(const void * dataToWrite, memsize amountToWrite)
    {
 
-      ASSERT_VALID(this);
+      ASSERT_OK(this);
 
       ASSERT(m_iFile != hFileNull);
 
@@ -503,7 +503,7 @@ namespace acme_posix
 
       }
 
-      ASSERT_VALID(this);
+      ASSERT_OK(this);
       ASSERT(m_iFile != hFileNull);
       ASSERT(eseek == ::e_seek_set || eseek == ::e_seek_from_end || eseek == ::e_seek_current);
       ASSERT(::e_seek_set == SEEK_SET && ::e_seek_from_end == SEEK_END && ::e_seek_current == SEEK_CUR);
@@ -535,7 +535,7 @@ namespace acme_posix
    filesize file::get_position() const
    {
       
-      ASSERT_VALID(this);
+      ASSERT_OK(this);
       ASSERT(m_iFile != hFileNull);
 
       int lLoOffset = 0;
@@ -572,7 +572,7 @@ namespace acme_posix
    void file::flush()
    {
 
-//      ASSERT_VALID(this);
+//      ASSERT_OK(this);
 //
 //      if (m_iFile == hFileNull)
 //         return;
@@ -584,7 +584,7 @@ namespace acme_posix
 
    void file::close()
    {
-      ASSERT_VALID(this);
+      ASSERT_OK(this);
       ASSERT(m_iFile != hFileNull);
 
       bool bError = false;
@@ -622,7 +622,7 @@ namespace acme_posix
 
    //void file::Abort()
    //{
-   //   ASSERT_VALID(this);
+   //   ASSERT_OK(this);
    //   if (m_iFile != hFileNull)
    //   {
    //      // close but ignore errors
@@ -634,7 +634,7 @@ namespace acme_posix
 
    void file::lock(filesize dwPos, filesize dwCount)
    {
-      ASSERT_VALID(this);
+      ASSERT_OK(this);
       ASSERT(m_iFile != hFileNull);
 
       /*if (!::LockFile((HANDLE)m_iFile, lower_unsigned_int(dwPos), upper_unsigned_int(dwPos), lower_unsigned_int(dwCount), upper_unsigned_int(dwCount)))
@@ -643,7 +643,7 @@ namespace acme_posix
 
    void file::unlock(filesize dwPos, filesize dwCount)
    {
-      ASSERT_VALID(this);
+      ASSERT_OK(this);
       ASSERT(m_iFile != hFileNull);
 
       /*      if (!::UnlockFile((HANDLE)m_iFile,  lower_unsigned_int(dwPos), upper_unsigned_int(dwPos), lower_unsigned_int(dwCount), upper_unsigned_int(dwCount)))
@@ -652,7 +652,7 @@ namespace acme_posix
 
    void file::set_size(filesize dwNewLen)
    {
-      ASSERT_VALID(this);
+      ASSERT_OK(this);
       ASSERT(m_iFile != hFileNull);
 
       set_position((int)dwNewLen);
@@ -685,7 +685,7 @@ namespace acme_posix
 
    filesize file::size() const
    {
-      ASSERT_VALID(this);
+      ASSERT_OK(this);
 
       filesize dwLen, dwCur;
 
@@ -752,7 +752,7 @@ namespace acme_posix
 
    //string file::GetFileName() const
    //{
-   //   ASSERT_VALID(this);
+   //   ASSERT_OK(this);
 
    //   ::file::file_status status;
    //   GetStatus(status);
@@ -761,7 +761,7 @@ namespace acme_posix
 
    //string file::GetFileTitle() const
    //{
-   //   ASSERT_VALID(this);
+   //   ASSERT_OK(this);
 
    //   ::file::file_status status;
    //   GetStatus(status);
@@ -771,7 +771,7 @@ namespace acme_posix
    ::file::path file::get_file_path() const
    {
       
-      ASSERT_VALID(this);
+      ASSERT_OK(this);
       
       auto status = get_status();
       
@@ -815,7 +815,7 @@ namespace acme_posix
    ::file::file_status file::get_status() const
    {
 
-      ASSERT_VALID(this);
+      ASSERT_OK(this);
 
       ::file::file_status filestatus;
 

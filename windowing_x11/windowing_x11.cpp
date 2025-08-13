@@ -58,7 +58,7 @@ void on_sn_launch_complete(void *pSnContext);
 
 
 //::pointer< ::mutex > g_pmutexX11Runnable = nullptr;
-//list < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
+//list_base < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
 
 
 //::int_point g_pointX11Cursor;
@@ -75,7 +75,7 @@ CLASS_DECL_AURA void update_application_session_cursor(void *pvoidApp, const int
 
 // Tutor Exilius Q(t)List streaming contribution
 //::pointer< ::mutex > g_pmutexX11Runnable = nullptr;
-//list < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
+//list_base < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
 //::pointer< ::mutex > g_pmutexX11Sync = nullptr;
 //manual_reset_happening * g_peventX11Sync = nullptr;
 //::pointer<::matter>g_prunnableX11Sync;
@@ -86,7 +86,7 @@ int_bool _x11_get_cursor_pos(Display *d, ::int_point *ppointCursor);
 
 
 //extern ::pointer< ::mutex >g_pmutexX11Runnable;
-//extern list<::pointer<::matter >>*g_prunnableptrlX11;
+//extern list_base<::pointer<::matter >>*g_prunnableptrlX11;
 //extern ::pointer< ::mutex >g_pmutexX11Sync;
 //extern manual_reset_happening *g_peventX11Sync;
 //extern ::pointer<::matter>g_prunnableX11Sync;
@@ -420,17 +420,17 @@ namespace windowing_x11
 //      Atom type;
 //      int form;
 //      unsigned long remain;
-//      unsigned char *list;
+//      unsigned char *list_base;
 //
 //      errno = 0;
 //      if (XGetWindowProperty(Display(), DefaultRootWindow(Display()), prop, 0, 1024, False, XA_WINDOW,
-//                             &type, &form, len, &remain, &list) != Success)
+//                             &type, &form, len, &remain, &list_base) != Success)
 //      {
 //         informationf("winlist() -- GetWinProp");
 //         return nullptr;
 //      }
 //
-//      return (Window *) list;
+//      return (Window *) list_base;
 //
 //   }
 
@@ -440,9 +440,9 @@ namespace windowing_x11
 //
 //      unsigned long len = 0;
 //
-//      Window *list = (Window *) x11_window_list(&len);
+//      Window *list_base = (Window *) x11_window_list(&len);
 //
-//      if (list == nullptr)
+//      if (list_base == nullptr)
 //      {
 //
 //         return false;
@@ -452,11 +452,11 @@ namespace windowing_x11
 //      for (int i = 0; i < (int) len; i++)
 //      {
 //
-//         windowa.add(list[i]);
+//         windowa.add(list_base[i]);
 //
 //      }
 //
-//      XFree(list);
+//      XFree(list_base);
 //
 //      return true;
 //

@@ -837,7 +837,7 @@ namespace windowing_gtk4
 //
 //                auto & pimage = pitem->m_pimage2;
 //
-//                pimage->map();
+//                pimage->map_base();
 //
 //
 //                ::copy_image32((::image32_t *) pwaylandwindow->m_buffer.m_pdata,

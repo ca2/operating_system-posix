@@ -3074,18 +3074,18 @@ namespace draw2d_xlib
             int nMapMode;
             if (this != nullptr && (nMapMode = GetMapMode()) < MM_ISOTROPIC && nMapMode != MM_TEXT)
             {
-               // when using a constrained ::collection::map mode, ::collection::map against physical inch
+               // when using a constrained ::collection::map_base mode, ::collection::map_base against physical inch
                ((::draw2d::graphics *)this)->SetMapMode(MM_HIMETRIC);
                DPtoLP(LPSIZE32);
                ((::draw2d::graphics *)this)->SetMapMode(nMapMode);
             }
             else
             {
-               // ::collection::map against logical inch for non-constrained mapping modes
+               // ::collection::map_base against logical inch for non-constrained mapping modes
                int cxPerInch, cyPerInch;
                if (this != nullptr)
                {
-                  ASSERT_VALID(this);
+                  ASSERT_OK(this);
                   ASSERT(get_handle1() != nullptr);  // no HDC attached or created?
                   cxPerInch = GetDevicecaps(LOGPIXELSX);
                   cyPerInch = GetDevicecaps(LOGPIXELSY);
@@ -3113,18 +3113,18 @@ namespace draw2d_xlib
             if (this != nullptr && (nMapMode = GetMapMode()) < MM_ISOTROPIC &&
                nMapMode != MM_TEXT)
             {
-               // when using a constrained ::collection::map mode, ::collection::map against physical inch
+               // when using a constrained ::collection::map_base mode, ::collection::map_base against physical inch
                ((::draw2d::graphics *)this)->SetMapMode(MM_HIMETRIC);
                LPtoDP(LPSIZE32);
                ((::draw2d::graphics *)this)->SetMapMode(nMapMode);
             }
             else
             {
-               // ::collection::map against logical inch for non-constrained mapping modes
+               // ::collection::map_base against logical inch for non-constrained mapping modes
                int cxPerInch, cyPerInch;
                if (this != nullptr)
                {
-                  ASSERT_VALID(this);
+                  ASSERT_OK(this);
                   ASSERT(get_handle1() != nullptr);  // no HDC attached or created?
                   cxPerInch = GetDevicecaps(LOGPIXELSX);
                   cyPerInch = GetDevicecaps(LOGPIXELSY);
@@ -4233,7 +4233,7 @@ namespace draw2d_xlib
          HANDLETABLE* pHandleTable, METARECORD* pMetaRec, int nHandles, LPARAM lParam)
       {
          ::draw2d::graphics * pgraphics = (::draw2d::graphics *)lParam;
-         ASSERT_VALID(pgraphics);
+         ASSERT_OK(pgraphics);
 
          switch (pMetaRec->rdFunction)
          {
@@ -4753,7 +4753,7 @@ namespace draw2d_xlib
 
       CPaintDC::CPaintDC(window * pWnd)
       {
-         ASSERT_VALID(pWnd);
+         ASSERT_OK(pWnd);
          ASSERT(::IsWindow(WIN_WINDOW(pWnd)->get_handle1()));
 
          if (!Attach(::BeginPaint(m_hWnd = WIN_WINDOW(pWnd)->get_handle1(), &m_ps)))

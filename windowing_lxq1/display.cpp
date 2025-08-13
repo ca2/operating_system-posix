@@ -290,7 +290,7 @@ namespace windowing_lxq1
 //    void display::_enumerate_monitor()
 //    {
 //
-//       // Get the list of all screens
+//       // Get the list_base of all screens
 //       QList<QScreen *> screens = QGuiApplication::screens();
 //
 //       auto iMonitorCount = screens.size();
@@ -465,7 +465,7 @@ namespace windowing_lxq1
 //    bool display::get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
 //    {
 //
-//       // Get a list of all screens
+//       // Get a list_base of all screens
 //       const QList<QScreen *> screens = QGuiApplication::screens();
 //
 //       if (screens.isEmpty()) {
@@ -862,7 +862,7 @@ namespace windowing_lxq1
 // //   XImage * display::_x11_create_image(::image::image_pointer pimage)
 // //   {
 // //
-// //      pimage->map();
+// //      pimage->map_base();
 // //
 // //      char * image32 = (char *) pimage->get_data();
 // //
@@ -972,7 +972,7 @@ namespace windowing_lxq1
 // //      Atom type;
 // //      int form;
 // //      unsigned long remain;
-// //      unsigned char * list;
+// //      unsigned char * list_base;
 // //      unsigned long ulBytesReturned = 0;
 // //      //errno = 0;
 // //
@@ -1255,7 +1255,7 @@ namespace windowing_lxq1
 // //
 // //      update_wayland_buffer(waylandbuffer, pimage->size());
 // //
-// //      pimage->map();
+// //      pimage->map_base();
 // //
 // //      copy_image32((::image32_t*)waylandbuffer.m_pdata,
 // //                   waylandbuffer.m_size,
@@ -1649,7 +1649,7 @@ namespace windowing_lxq1
 //          return 0;
 //       }
 //
-//       // Get a list of all screens
+//       // Get a list_base of all screens
 //       const QList<QScreen *> screens = QGuiApplication::screens();
 //
 //       if (screens.isEmpty()) {

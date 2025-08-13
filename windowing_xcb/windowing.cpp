@@ -1145,7 +1145,7 @@ namespace windowing_xcb
             else
             {
 
-               auto list = m_pdisplay->_window_enumerate();
+               auto list_base = m_pdisplay->_window_enumerate();
 
                ::collection::index iFind = -1;
 
@@ -1157,10 +1157,10 @@ namespace windowing_xcb
 
                ::int_rectangle rectangleFoundFrameExtents;
 
-               for (int i = list.get_upper_bound(); i >= 0; i--)
+               for (int i = list_base.get_upper_bound(); i >= 0; i--)
                {
 
-                  auto w = list[i];
+                  auto w = list_base[i];
 
                   if (w == pmotion->happening)
                   {
@@ -2171,15 +2171,15 @@ if(bSentResponse)
             else
             {
 
-               auto list = m_pdisplay->_window_enumerate();
+               auto list_base = m_pdisplay->_window_enumerate();
 
                ::collection::index iFind = -1;
 
                xcb_window_t wFound = 0;
 
-               for (int i = list.get_upper_bound(); i >= 0; i--)
+               for (int i = list_base.get_upper_bound(); i >= 0; i--)
                {
-                  auto w = list[i];
+                  auto w = list_base[i];
 
                   if (w == pbutton->happening)
                   {

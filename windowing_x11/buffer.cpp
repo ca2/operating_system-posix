@@ -447,7 +447,7 @@ namespace windowing_x11
 
       auto & pimage = pitem->m_pimage2;
 
-      pimage->map();
+      pimage->map_base();
 
 //      try
 //      {

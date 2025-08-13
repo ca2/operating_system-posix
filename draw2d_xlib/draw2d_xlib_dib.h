@@ -38,7 +38,7 @@ namespace draw2d_xlib
       virtual ~image();
 
 
-      void map(bool bApplyAlphaTransform = true);
+      void map_base(bool bApplyAlphaTransform = true);
       void unmap();
 
 

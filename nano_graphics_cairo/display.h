@@ -32,7 +32,7 @@ namespace x11
             pointer_array < event_listener >             m_happeninglistenera;
             pointer_array < ::x11::micro::elemental >  m_windowa;
             Window                                       m_windowActive;
-            map < enuid(), Atom >                      id()map;
+            map_base < enuid(), Atom >                      id()map_base;
 
 
             static display *                             g_p;

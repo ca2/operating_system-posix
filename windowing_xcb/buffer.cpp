@@ -623,7 +623,7 @@ namespace windowing_xcb
 //
 //      slGraphics.unlock();
 //
-//      pimage->map();
+//      pimage->map_base();
 
       //    synchronous_lock synchronouslock(user_synchronization());
 

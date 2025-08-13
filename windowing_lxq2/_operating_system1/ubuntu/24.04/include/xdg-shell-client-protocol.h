@@ -151,7 +151,7 @@ extern const struct wl_interface xdg_positioner_interface;
  * xdg_surface roles.
  *
  * Creating an xdg_surface does not set the role for a wl_surface. In order
- * to map an xdg_surface, the client must create a role-specific object
+ * to map_base an xdg_surface, the client must create a role-specific object
  * using, e.g., get_toplevel, get_popup. The wl_surface for any given
  * xdg_surface can have at most one role, and may not be assigned any role
  * not based on xdg_surface.
@@ -172,7 +172,7 @@ extern const struct wl_interface xdg_positioner_interface;
  * will reply with initial wl_surface state such as
  * wl_surface.preferred_buffer_scale followed by an xdg_surface.configure
  * happening. The client must acknowledge it and is then allowed to attach a
- * buffer to map the surface.
+ * buffer to map_base the surface.
  *
  * Mapping an xdg_surface-based role surface is defined as making it
  * possible for the surface to be shown by the compositor. Note that
@@ -204,7 +204,7 @@ extern const struct wl_interface xdg_positioner_interface;
  * xdg_surface roles.
  *
  * Creating an xdg_surface does not set the role for a wl_surface. In order
- * to map an xdg_surface, the client must create a role-specific object
+ * to map_base an xdg_surface, the client must create a role-specific object
  * using, e.g., get_toplevel, get_popup. The wl_surface for any given
  * xdg_surface can have at most one role, and may not be assigned any role
  * not based on xdg_surface.
@@ -225,7 +225,7 @@ extern const struct wl_interface xdg_positioner_interface;
  * will reply with initial wl_surface state such as
  * wl_surface.preferred_buffer_scale followed by an xdg_surface.configure
  * happening. The client must acknowledge it and is then allowed to attach a
- * buffer to map the surface.
+ * buffer to map_base the surface.
  *
  * Mapping an xdg_surface-based role surface is defined as making it
  * possible for the surface to be shown by the compositor. Note that
@@ -267,7 +267,7 @@ extern const struct wl_interface xdg_surface_interface;
  * attributes (e.g. title, state, stacking, ...) are discarded for
  * an xdg_toplevel surface when it is unmapped. The xdg_toplevel returns to
  * the state it had right after xdg_surface.get_toplevel. The client
- * can re-map the toplevel by perfoming a commit without any buffer
+ * can re-map_base the toplevel by perfoming a commit without any buffer
  * attached, waiting for a configure happening and handling it as usual (see
  * xdg_surface description).
  *
@@ -294,7 +294,7 @@ extern const struct wl_interface xdg_surface_interface;
  * attributes (e.g. title, state, stacking, ...) are discarded for
  * an xdg_toplevel surface when it is unmapped. The xdg_toplevel returns to
  * the state it had right after xdg_surface.get_toplevel. The client
- * can re-map the toplevel by perfoming a commit without any buffer
+ * can re-map_base the toplevel by perfoming a commit without any buffer
  * attached, waiting for a configure happening and handling it as usual (see
  * xdg_surface description).
  *
@@ -378,7 +378,7 @@ enum xdg_wm_base_error {
 	 */
 	XDG_WM_BASE_ERROR_DEFUNCT_SURFACES = 1,
 	/**
-	 * the client tried to map or destroy a non-topmost popup
+	 * the client tried to map_base or destroy a non-topmost popup
 	 */
 	XDG_WM_BASE_ERROR_NOT_THE_TOPMOST_POPUP = 2,
 	/**
@@ -1699,7 +1699,7 @@ xdg_toplevel_set_parent(struct xdg_toplevel *xdg_toplevel, struct xdg_toplevel *
  * Set a short title for the surface.
  *
  * This string may be used to identify the surface in a task bar,
- * window list, or other user interface elements provided by the
+ * window list_base, or other user interface elements provided by the
  * compositor.
  *
  * The string must be encoded in UTF-8.
@@ -2002,7 +2002,7 @@ xdg_toplevel_unset_maximized(struct xdg_toplevel *xdg_toplevel)
  *
  * The output passed by the request indicates the client's preference as
  * to which display it should be set fullscreen on. If this value is NULL,
- * it's up to the compositor to choose which display will be used to map
+ * it's up to the compositor to choose which display will be used to map_base
  * this surface.
  *
  * If the surface doesn't cover the whole output, the compositor will

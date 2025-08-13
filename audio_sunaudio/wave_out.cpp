@@ -208,9 +208,9 @@ namespace multimedia
          if(strDevice.is_empty())
          {
             
-            information() << "going to try to run command \"audiocfg list\".";
+            information() << "going to try to run command \"audiocfg list_base\".";
             
-            //string strAudioCfgListOutput = node()->get_posix_shell_command_output("audiocfg list");
+            //string strAudioCfgListOutput = node()->get_posix_shell_command_output("audiocfg list_base");
             audiodev_refresh();
             int iAudioDevCount = audiodev_count();
             

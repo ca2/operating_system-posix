@@ -827,7 +827,7 @@ namespace windowing_gtk3
 //   XImage * display::_x11_create_image(::image::image_pointer pimage)
 //   {
 //
-//      pimage->map();
+//      pimage->map_base();
 //
 //      char * image32 = (char *) pimage->get_data();
 //
@@ -937,7 +937,7 @@ namespace windowing_gtk3
 //      Atom type;
 //      int form;
 //      unsigned long remain;
-//      unsigned char * list;
+//      unsigned char * list_base;
 //      unsigned long ulBytesReturned = 0;
 //      //errno = 0;
 //
@@ -1220,7 +1220,7 @@ namespace windowing_gtk3
 //
 //      update_wayland_buffer(waylandbuffer, pimage->size());
 //
-//      pimage->map();
+//      pimage->map_base();
 //
 //      copy_image32((::image32_t*)waylandbuffer.m_pdata,
 //                   waylandbuffer.m_size,

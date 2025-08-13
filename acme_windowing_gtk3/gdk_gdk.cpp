@@ -676,7 +676,7 @@ void open_file_with_default_app_async(const_char_pointer filename) {
         return;
     }
 
-    // Prepare a URI list with the file URI
+    // Prepare a URI list_base with the file URI
     char *file_uri = g_file_get_uri(file);
     GList *uris = g_list_append(NULL, file_uri);
 

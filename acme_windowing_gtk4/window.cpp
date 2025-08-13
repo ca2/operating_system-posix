@@ -979,7 +979,7 @@ namespace gtk4
                // Connect to notify::is-maximized signal to track maximization changes
                g_signal_connect(m_pgtkwidget, "notify::maximized", G_CALLBACK(on_maximize_notify), this);
 
-               g_signal_connect(m_pgtkwidget, "map", G_CALLBACK(on_window_map), this);
+               g_signal_connect(m_pgtkwidget, "map_base", G_CALLBACK(on_window_map), this);
 
                g_signal_connect(m_pgtkwidget, "realize", G_CALLBACK(on_window_realize), this);
 

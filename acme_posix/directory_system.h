@@ -57,7 +57,7 @@ namespace acme_posix
 
       bool enumerate(::file::listing_base & listing) override;
 
-      bool list(::string_array_base & stra, const ::scoped_string & scopedstr, ::file::e_flag eflag = ::file::e_flag_file_or_folder) override;
+      bool list_base(::string_array_base & stra, const ::scoped_string & scopedstr, ::file::e_flag eflag = ::file::e_flag_file_or_folder) override;
 
       ::file::path pathfind(const ::scoped_string & scopedstrEnv, const ::scoped_string & scopedstrTopic, const ::scoped_string & scopedstrMode) override;
 

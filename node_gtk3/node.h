@@ -30,7 +30,7 @@ namespace node_gtk3
       GtkSettings *     m_pGtkSettingsDefault;
 
 //      GdkAppLaunchContext * m_pgdkapplaunchcontext;
-//      string_map < GDesktopAppInfo * > m_mapGDesktopAppInfo;
+//      string_map_base < GDesktopAppInfo * > m_mapGDesktopAppInfo;
 //
 //      ::string       m_strOsUserTheme;
 //      ::string       m_strOsUserIconTheme;

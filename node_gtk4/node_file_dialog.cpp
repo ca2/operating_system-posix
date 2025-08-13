@@ -203,7 +203,7 @@ namespace node_gtk4
 
                                  gtk_file_filter_set_name(filter, pname);
 
-                                 g_list_store_append(filter_list, filter);  // Add filter to the list
+                                 g_list_store_append(filter_list, filter);  // Add filter to the list_base
                                  // Create a filter for text files
 //gtk_file_filter_set_name(text_filter, "Text Files (*.txt)");
 //gtk_file_filter_add_pattern(text_filter, "*.txt");

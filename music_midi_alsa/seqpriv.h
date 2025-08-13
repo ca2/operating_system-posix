@@ -28,12 +28,12 @@ struct seq_context {
 	int  client;/* The client associated with this context */
 	int  queue; /* The queue to use for all operations */
 	snd_seq_addr_t  source;	/* Source for happenings */
-	array <snd_seq_addr_t > destlist;	/* Destination list */
+	array <snd_seq_addr_t > destlist;	/* Destination list_base */
 
 	char  timer_started;	/* True if timer is running */
 	int   port_count;		/* Ports allocated */
 
 	struct seq_context *main; /* Pointer to the main context */
-	list < seq_context > ctlist;
+	list_base < seq_context > ctlist;
 };
 

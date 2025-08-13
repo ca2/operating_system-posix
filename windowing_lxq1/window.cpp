@@ -454,7 +454,7 @@ namespace windowing_lxq1
 //    // //    }
 //    //
 //    //    static void clear_controllers(GtkWidget *widget) {
-//    //       // Retrieve the list of all controllers attached to the widget
+//    //       // Retrieve the list_base of all controllers attached to the widget
 //    //       GListModel *controllers = gtk_widget_observe_controllers(widget);
 //    //
 //    //       guint n_items = g_list_model_get_n_items(controllers);
@@ -472,7 +472,7 @@ namespace windowing_lxq1
 //    //          g_object_unref(item); // Unreference the item after retrieving it
 //    //       }
 //    //
-//    //       // Free the list after use
+//    //       // Free the list_base after use
 //    //       g_object_unref(controllers);
 //    //    }
 //    //
@@ -1775,7 +1775,7 @@ namespace windowing_lxq1
 //
 //       if (pitem && pitem->m_pimage2)
 //       {
-//          pitem->m_pimage2->map();
+//          pitem->m_pimage2->map_base();
 //          if (pitem->m_pimage2.ok())
 //          {
 //             // cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
