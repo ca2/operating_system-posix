@@ -120,7 +120,7 @@ namespace windowing_q
    //   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
    //   {
    //
-   //      ::pointer<::windowing_q::window> pwindow = pimpl->__øcreate<::windowing::window>();
+   //      ::pointer<::windowing_q::window> pwindow = pimpl->øcreate<::windowing::window>();
    //
    //      if (!pwindow)
    //      {
@@ -174,7 +174,7 @@ namespace windowing_q
    //
    //      auto & pfactory = ::system()->factory("input", "libinput");
    //
-   //      auto pinput = __øcreate<::input::input>(pfactory);
+   //      auto pinput = øcreate<::input::input>(pfactory);
    //
    //      return pinput;
    //
@@ -388,7 +388,7 @@ namespace windowing_q
          //auto estatus =
          //
          //
-         __construct_new(m_pcursormanager);
+         øconstruct_new(m_pcursormanager);
 
          //         if (!estatus)
          //         {
@@ -480,7 +480,7 @@ namespace windowing_q
 
       //      auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
       //
-      //      auto pcursorX11 = __øcreate < ::windowing_q::cursor >();
+      //      auto pcursorX11 = øcreate < ::windowing_q::cursor >();
       //
       //      pcursor = pcursorX11;
       //
@@ -750,7 +750,7 @@ namespace windowing_q
    //      if(emessage != e_message_undefined)
    //      {
    //
-   //         auto pmouse = __create_new < ::message::mouse >();
+   //         auto pmouse = øcreate_new < ::message::mouse >();
    //
    //         pmouse->m_emessage = emessage;
    //
@@ -799,7 +799,7 @@ namespace windowing_q
    //      if(emessage != e_message_undefined)
    //      {
    //
-   //         auto pkey = __create_new < ::message::key >();
+   //         auto pkey = øcreate_new < ::message::key >();
    //
    //         pkey->m_emessage = emessage;
    //
@@ -1025,7 +1025,7 @@ namespace windowing_q
    //
    //    //g_object_ref(m_pgtkapplication);
    //
-   //    //auto pdisplay = __øcreate<::acme::windowing::display>();
+   //    //auto pdisplay = øcreate<::acme::windowing::display>();
    //
    //    auto pdisplay = this->display();
    //

@@ -65,7 +65,7 @@ namespace windowing_x11
 //   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
 //   {
 //
-//      ::pointer<::windowing_x11::window> pwindow = pimpl->__øcreate<::windowing::window>();
+//      ::pointer<::windowing_x11::window> pwindow = pimpl->øcreate<::windowing::window>();
 //
 //      if (!pwindow)
 //      {
@@ -108,7 +108,7 @@ namespace windowing_x11
 
       ::windowing_posix::windowing::initialize_windowing(puser);
 
-      auto pdisplay = __øcreate<::windowing::display>();
+      auto pdisplay = øcreate<::windowing::display>();
 
       pdisplay->initialize_display(this);
 
@@ -284,7 +284,7 @@ namespace windowing_x11
          //auto estatus =
          //
          //
-         __construct_new(m_pcursormanager);
+         øconstruct_new(m_pcursormanager);
 
 //         if (!estatus)
 //         {
@@ -376,7 +376,7 @@ namespace windowing_x11
 
       auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
 
-      auto pcursorX11 = __øcreate < ::windowing_x11::cursor >();
+      auto pcursorX11 = øcreate < ::windowing_x11::cursor >();
 
       pcursor = pcursorX11;
 

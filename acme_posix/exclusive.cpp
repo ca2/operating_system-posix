@@ -44,7 +44,7 @@ namespace acme_posix
 //
 //      //   m_pmutex = pparticle->node()->create_global_named_mutex(pparticle, false, strId);
 //
-//      //   //m_pmutex = //__allocate ::pointer < ::mutex >(pparticle, false, strId ADD_PARAM_SEC_ATTRS);
+//      //   //m_pmutex = //øallocate ::pointer < ::mutex >(pparticle, false, strId ADD_PARAM_SEC_ATTRS);
 //
 //      //   //m_dwLastError = ::GetLastError();
 //
@@ -57,7 +57,7 @@ namespace acme_posix
 //      //   //try
 //      //   //{
 //
-//      //   //   m_pmutex = __allocate ::pointer < ::mutex >(pparticle, false, strId);
+//      //   //   m_pmutex = øallocate ::pointer < ::mutex >(pparticle, false, strId);
 //
 //      //   //   m_dwLastError = ::GetLastError();
 //

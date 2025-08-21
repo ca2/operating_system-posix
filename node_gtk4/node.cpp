@@ -2000,7 +2000,7 @@ namespace node_gtk4
 
       auto & pfactory = ::system()->factory("input", "libinput");
 
-      auto pinput = __øcreate<::input::input>(pfactory);
+      auto pinput = øcreate<::input::input>(pfactory);
 
       return pinput;
 

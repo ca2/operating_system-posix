@@ -155,7 +155,7 @@ namespace input_xinput
 //      if (!m_pobjectaExtendedEventListener)
 //      {
 //
-//         __construct_new(m_pobjectaExtendedEventListener);
+//         øconstruct_new(m_pobjectaExtendedEventListener);
 //
 //      }
 //
@@ -400,7 +400,7 @@ namespace input_xinput
 //      if(emessage != e_message_undefined)
 //      {
 //
-//         auto pmouse = __create_new < ::message::mouse >();
+//         auto pmouse = øcreate_new < ::message::mouse >();
 //
 //         pmouse->m_emessage = emessage;
 //
@@ -449,7 +449,7 @@ namespace input_xinput
 //      if(emessage != e_message_undefined)
 //      {
 //
-//         auto pkey = __create_new < ::message::key >();
+//         auto pkey = øcreate_new < ::message::key >();
 //
 //         pkey->m_emessage = emessage;
 //
@@ -668,7 +668,7 @@ namespace input_xinput
 
                   }
 
-                  auto pkey = __create_new<::message::key>();
+                  auto pkey = øcreate_new<::message::key>();
 
                   pkey->m_emessage = emessage;
 
@@ -692,7 +692,7 @@ namespace input_xinput
                   )
                {
 
-                  auto pmouse = __create_new<::message::mouse>();
+                  auto pmouse = øcreate_new<::message::mouse>();
 
                   pmouse->m_emessage = emessage;
 
@@ -734,7 +734,7 @@ namespace input_xinput
 //
 //                  }
 //
-//                  auto pkey = __create_new < ::message::key >();
+//                  auto pkey = øcreate_new < ::message::key >();
 //
 //                  pkey->m_emessage = emessage;
 //

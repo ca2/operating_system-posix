@@ -276,7 +276,7 @@ namespace node_kde5
 
       ///::windowing::get_ewindowing() = calculate_ewindowing();
 
-      //system()->__øconstruct(system()->m_pwindowingsystem);
+      //system()->øconstruct(system()->m_pwindowingsystem);
 
       // ::pointer < ::node_gdk::windowing_system> pnodegdkwindowingsystem = system()->m_pwindowingsystem;
       //

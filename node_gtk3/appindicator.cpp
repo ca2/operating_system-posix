@@ -54,7 +54,7 @@ extern "C"
 
       atom = gtk_widget_get_name(GTK_WIDGET(pgtkmenuitem));
 
-      //auto pactivationtoken= __allocate ::gtk3::acme::windowing::activation_token();
+      //auto pactivationtoken= øallocate ::gtk3::acme::windowing::activation_token();
 
       //pcallback->on_application_menu_command(atom, puseractivationtoken);
 
@@ -75,7 +75,7 @@ extern "C"
 //
 //       atom = gtk_widget_get_name(GTK_WIDGET(widget));
 //
-//       auto puseractivationtoken= __allocate ::common_gtk::activation_token(happening->time);
+//       auto puseractivationtoken= øallocate ::common_gtk::activation_token(happening->time);
 //
 //       pcommandhandler->handle_command(atom, puseractivationtoken);
 //

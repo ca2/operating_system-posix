@@ -87,7 +87,7 @@ namespace inotify
 
 //      auto watchid = ::file::watcher::add_watch(pathFolder, plistenerParam, bRecursive);
 //
-//      auto pwatch = __create_new < watch >();
+//      auto pwatch = øcreate_new < watch >();
 //
 //      pwatch->add_listener(plistener);
 
@@ -135,7 +135,7 @@ namespace inotify
 //            else
 //            {
 //
-//               auto pwatch  = __create_new < watch > ();
+//               auto pwatch  = øcreate_new < watch > ();
 //
 //               pwatch->add_listener(plistener);
 //

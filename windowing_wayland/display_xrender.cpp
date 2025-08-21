@@ -29,7 +29,7 @@ namespace windowing_wayland
 //
 //      auto cursor = XRenderCreateCursor(Display(), picture, xHotSpot, yHotSpot);
 
-   auto pcursor = __create_new< ::windowing_wayland::cursor>();
+   auto pcursor = øcreate_new< ::windowing_wayland::cursor>();
 
    pcursor->m_szHotspotOffset.cx() = xHotSpot;
    pcursor->m_szHotspotOffset.cy() = yHotSpot;

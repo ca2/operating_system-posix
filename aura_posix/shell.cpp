@@ -86,7 +86,7 @@ namespace aura_posix
 
       //estatus =
       //
-      //__øconstruct(m_pimagecontext);
+      //øconstruct(m_pimagecontext);
 
 //         if(!estatus)
 //         {
@@ -874,7 +874,7 @@ namespace aura_posix
 //         if (!m_pshell)
 //         {
 //
-//            estatus = __øconstruct(m_pshell, __allocate ::freebsd::shell());
+//            estatus = øconstruct(m_pshell, øallocate ::freebsd::shell());
 //
 //            if (!estatus)
 //            {

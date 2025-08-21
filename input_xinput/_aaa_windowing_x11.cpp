@@ -1977,7 +1977,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                //post_ui_message(msg);
 
-               auto pmouse = px11window->__create_new<::message::mouse>();
+               auto pmouse = px11window->øcreate_new<::message::mouse>();
 
                pmouse->m_oswindow = px11window;
 
@@ -2750,7 +2750,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if (Δ != 0)
                {
 
-                  auto pmousewheel = px11window->__create_new<::message::mouse_wheel>();
+                  auto pmousewheel = px11window->øcreate_new<::message::mouse_wheel>();
 
                   pmousewheel->m_oswindow = px11window;
 
@@ -2783,7 +2783,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                else if (bRet)
                {
 
-                  auto pmouse = px11window->__create_new<::message::mouse>();
+                  auto pmouse = px11window->øcreate_new<::message::mouse>();
 
                   pmouse->m_oswindow = px11window;
 
@@ -2845,7 +2845,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   if (!pwindow->m_pximkeyboard)
                   {
 
-                     pwindow->m_pximkeyboard = __allocate< ::xim::keyboard(m_pdisplay->Display >(), e.xkey.window);
+                     pwindow->m_pximkeyboard = øallocate< ::xim::keyboard(m_pdisplay->Display >(), e.xkey.window);
 
                      pwindow->m_pximkeyboard->initialize(pwindow);
 
@@ -2907,7 +2907,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if (strText.has_character() && !(e.xkey.state & ControlMask))
                {
 
-                  auto pkey = __create_new<::message::key>();
+                  auto pkey = øcreate_new<::message::key>();
 
                   pkey->m_oswindow = px11window;
 

@@ -285,7 +285,7 @@ gtk_init();
             //      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
             //      {
 
-            auto pevent = __allocate manual_reset_happening();
+            auto pevent = øallocate manual_reset_happening();
 
             _user_post([ procedure, pevent ]
             {
@@ -1455,7 +1455,7 @@ gtk_init();
          //    else if (!m_pacmedisplay)
          //    {
          //
-         //       m_phappeningCreatingWGtk4Display = __allocate manual_reset_happening();
+         //       m_phappeningCreatingWGtk4Display = øallocate manual_reset_happening();
          //
          //       m_phappeningCreatingWGtk4Display->reset_happening();
          //

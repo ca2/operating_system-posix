@@ -144,7 +144,7 @@ namespace windowing_xcb
       if (!m_pparticleaExtendedEventListener)
       {
 
-         __construct_new(m_pparticleaExtendedEventListener);
+         øconstruct_new(m_pparticleaExtendedEventListener);
 
 //         if(!estatus)
 //         {

@@ -76,7 +76,7 @@ namespace windowing_wayland
 //   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
 //   {
 //
-//      ::pointer<::windowing_wayland::window> pwindow = pimpl->__øcreate<::windowing::window>();
+//      ::pointer<::windowing_wayland::window> pwindow = pimpl->øcreate<::windowing::window>();
 //
 //      if (!pwindow)
 //      {
@@ -130,7 +130,7 @@ namespace windowing_wayland
 //
 //      auto & pfactory = ::system()->factory("input", "libinput");
 //
-//      auto pinput = __øcreate<::input::input>(pfactory);
+//      auto pinput = øcreate<::input::input>(pfactory);
 //
 //      return pinput;
 //
@@ -144,7 +144,7 @@ namespace windowing_wayland
 
       information() << "windowing_wayland::windowing::initialize_windowing";
 
-      auto pdisplay = __øcreate<::windowing::display>();
+      auto pdisplay = øcreate<::windowing::display>();
 
       pdisplay->initialize_display(this);
 
@@ -318,7 +318,7 @@ namespace windowing_wayland
          //auto estatus =
          //
          //
-         __construct_new(m_pcursormanager);
+         øconstruct_new(m_pcursormanager);
 
 //         if (!estatus)
 //         {
@@ -410,7 +410,7 @@ namespace windowing_wayland
 
 //      auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
 //
-//      auto pcursorX11 = __øcreate < ::windowing_wayland::cursor >();
+//      auto pcursorX11 = øcreate < ::windowing_wayland::cursor >();
 //
 //      pcursor = pcursorX11;
 //
@@ -687,7 +687,7 @@ namespace windowing_wayland
 //      if(emessage != e_message_undefined)
 //      {
 //
-//         auto pmouse = __create_new < ::message::mouse >();
+//         auto pmouse = øcreate_new < ::message::mouse >();
 //
 //         pmouse->m_emessage = emessage;
 //
@@ -736,7 +736,7 @@ namespace windowing_wayland
 //      if(emessage != e_message_undefined)
 //      {
 //
-//         auto pkey = __create_new < ::message::key >();
+//         auto pkey = øcreate_new < ::message::key >();
 //
 //         pkey->m_emessage = emessage;
 //

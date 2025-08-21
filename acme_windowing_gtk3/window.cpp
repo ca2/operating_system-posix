@@ -448,7 +448,7 @@ return FALSE;
             if (!m_pdisplay)
             {
 
-               __øconstruct(m_pdisplay);
+               øconstruct(m_pdisplay);
 
                m_pdisplay->open_display();
 
@@ -907,7 +907,7 @@ return FALSE;
 
             {
 
-               auto pmouse = __create_new<::user::mouse>();
+               auto pmouse = øcreate_new<::user::mouse>();
 
 //               pmouse->m_oswindow = this;
 //
@@ -1034,7 +1034,7 @@ m_phappeningLastMouseUp = pevent;
             //if(::is_set(pwindow))
             {
 
-               auto pmouse = __create_new<::user::mouse>();
+               auto pmouse = øcreate_new<::user::mouse>();
 
                //pmouse->m_oswindow = this;
 
@@ -1192,7 +1192,7 @@ m_phappeningLastMouseUp = pevent;
             //if(::is_set(pwindow))
             {
 
-               auto pmouse = __create_new<::user::mouse>();
+               auto pmouse = øcreate_new<::user::mouse>();
 
 //               pmouse->m_oswindow = this;
 //
@@ -1475,7 +1475,7 @@ m_phappeningLastMouseUp = pevent;
 
             nano()->graphics();
 
-            __øconstruct(m_pnanodevice);
+            øconstruct(m_pnanodevice);
 
             m_pnanodevice->create(w, h);
 
@@ -1697,7 +1697,7 @@ m_phappeningLastMouseUp = pevent;
 //
 //                  auto pdc = cairo_create(m_psurface);
 //
-//                  m_pnanodevice = __allocate ::cairo::nano::graphics::device(pdc);
+//                  m_pnanodevice = øallocate ::cairo::nano::graphics::device(pdc);
 //
 //               }
 //
@@ -1736,7 +1736,7 @@ m_phappeningLastMouseUp = pevent;
 //               if (pevent->xbutton.button == Button1)
 //               {
 //
-//                  auto pmouse = __create_new < ::user::mouse >();
+//                  auto pmouse = øcreate_new < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //
@@ -1748,7 +1748,7 @@ m_phappeningLastMouseUp = pevent;
 //               else if (pevent->xbutton.button == Button3)
 //               {
 //
-//                  auto pmouse = __create_new < ::user::mouse >();
+//                  auto pmouse = øcreate_new < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //
@@ -1765,7 +1765,7 @@ m_phappeningLastMouseUp = pevent;
 //               if (pevent->xbutton.button == Button1)
 //               {
 //
-//                  auto pmouse = __create_new < ::user::mouse >();
+//                  auto pmouse = øcreate_new < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //
@@ -1777,7 +1777,7 @@ m_phappeningLastMouseUp = pevent;
 //               else if (pevent->xbutton.button == Button3)
 //               {
 //
-//                  auto pmouse = __create_new < ::user::mouse >();
+//                  auto pmouse = øcreate_new < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //
@@ -1791,7 +1791,7 @@ m_phappeningLastMouseUp = pevent;
 //            else if (pevent->type == MotionNotify)
 //            {
 //
-//               auto pmouse = __create_new < ::user::mouse >();
+//               auto pmouse = øcreate_new < ::user::mouse >();
 //
 //               pmouse->m_pointHost = {pevent->xmotion.x, pevent->xmotion.y};
 //
@@ -1806,7 +1806,7 @@ m_phappeningLastMouseUp = pevent;
 //               if (m_pinterface->m_pchildHover)
 //               {
 //
-//                  auto pmouse = __create_new < ::user::mouse >();
+//                  auto pmouse = øcreate_new < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {I32_MINIMUM, I32_MINIMUM};
 //

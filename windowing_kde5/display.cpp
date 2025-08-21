@@ -307,7 +307,7 @@ namespace windowing_kde5
    //
    //       auto & pmonitor = m_monitora[iMonitor];
    //
-   //       __defer_construct(pmonitor);
+   //       ødefer_construct(pmonitor);
    //
    //       pmonitor->m_pdisplay = this;
    //
@@ -682,7 +682,7 @@ namespace windowing_kde5
 // //   ::windowing_kde5::window * display::_get_keyboard_focus()
 // //   {
 // //
-// ////      auto ppropertyobject = __allocate ::property_object();
+// ////      auto ppropertyobject = øallocate ::property_object();
 // ////
 // ////      auto predicate = [this, ppropertyobject]()
 // ////      {

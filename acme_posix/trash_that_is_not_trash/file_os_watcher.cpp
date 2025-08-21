@@ -85,7 +85,7 @@ namespace file
 
       }
 
-      auto pwatch = __create_new < os_watch >();
+      auto pwatch = øcreate_new < os_watch >();
 
       pwatch->add_listener(plistener);
 
@@ -131,7 +131,7 @@ namespace file
             else
             {
 
-               auto pwatch  = __create_new < os_watch > ();
+               auto pwatch  = øcreate_new < os_watch > ();
 
                pwatch->add_listener(plistener);
 

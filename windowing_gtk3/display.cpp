@@ -425,7 +425,7 @@ namespace windowing_gtk3
 
          GdkMonitor *pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, i);
 
-         auto pmonitor = __create_new< ::windowing::monitor>();
+         auto pmonitor = øcreate_new< ::windowing::monitor>();
 
          pmonitor->m_pdisplay = this;
 
@@ -698,7 +698,7 @@ namespace windowing_gtk3
 //   ::windowing_gtk3::window * display::_get_keyboard_focus()
 //   {
 //
-////      auto ppropertyobject = __allocate ::property_object();
+////      auto ppropertyobject = øallocate ::property_object();
 ////
 ////      auto predicate = [this, ppropertyobject]()
 ////      {

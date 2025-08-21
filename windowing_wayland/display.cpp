@@ -582,7 +582,7 @@ namespace windowing_wayland
 //   ::windowing_wayland::window * display::_get_keyboard_focus()
 //   {
 //
-////      auto ppropertyobject = __allocate ::property_object();
+////      auto ppropertyobject = øallocate ::property_object();
 ////
 ////      auto predicate = [this, ppropertyobject]()
 ////      {

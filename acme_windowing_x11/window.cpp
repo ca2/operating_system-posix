@@ -487,10 +487,10 @@ namespace x11
 
                   auto h = rectangleWindow.height();
 
-                  __øconstruct(m_pnanodevice);
+                  øconstruct(m_pnanodevice);
 
                   m_pnanodevice->create_for_x11(_x11_handle(), w, h);
-                  //m_pnanodevice = __allocate ::cairo::nano::graphics::device(pdc);
+                  //m_pnanodevice = øallocate ::cairo::nano::graphics::device(pdc);
 
                }
 
@@ -529,7 +529,7 @@ namespace x11
                if (pevent->xbutton.button == Button1)
                {
 
-                  auto pmouse = __create_new < ::user::mouse >();
+                  auto pmouse = øcreate_new < ::user::mouse >();
 
                   pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 
@@ -541,7 +541,7 @@ namespace x11
                else if (pevent->xbutton.button == Button3)
                {
 
-                  auto pmouse = __create_new < ::user::mouse >();
+                  auto pmouse = øcreate_new < ::user::mouse >();
 
                   pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 
@@ -558,7 +558,7 @@ namespace x11
                if (pevent->xbutton.button == Button1)
                {
 
-                  auto pmouse = __create_new < ::user::mouse >();
+                  auto pmouse = øcreate_new < ::user::mouse >();
 
                   pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 
@@ -570,7 +570,7 @@ namespace x11
                else if (pevent->xbutton.button == Button3)
                {
 
-                  auto pmouse = __create_new < ::user::mouse >();
+                  auto pmouse = øcreate_new < ::user::mouse >();
 
                   pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 
@@ -584,7 +584,7 @@ namespace x11
             else if (pevent->type == MotionNotify)
             {
 
-               auto pmouse = __create_new < ::user::mouse >();
+               auto pmouse = øcreate_new < ::user::mouse >();
 
                pmouse->m_pointHost = {pevent->xmotion.x, pevent->xmotion.y};
 
@@ -599,7 +599,7 @@ namespace x11
 //               if (m_puserinteractionbase->m_pchildHover)
 //               {
 //
-//                  auto pmouse = __create_new < ::user::mouse >();
+//                  auto pmouse = øcreate_new < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {I32_MINIMUM, I32_MINIMUM};
 //

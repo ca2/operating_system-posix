@@ -80,7 +80,7 @@ namespace windowing_gtk4
    //   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
    //   {
    //
-   //      ::pointer<::windowing_gtk4::window> pwindow = pimpl->__øcreate<::windowing::window>();
+   //      ::pointer<::windowing_gtk4::window> pwindow = pimpl->øcreate<::windowing::window>();
    //
    //      if (!pwindow)
    //      {
@@ -136,7 +136,7 @@ namespace windowing_gtk4
    //
    //      auto & pfactory = ::system()->factory("input", "libinput");
    //
-   //      auto pinput = __øcreate<::input::input>(pfactory);
+   //      auto pinput = øcreate<::input::input>(pfactory);
    //
    //      return pinput;
    //
@@ -335,7 +335,7 @@ namespace windowing_gtk4
          //auto estatus =
          //
          //
-         __construct_new(m_pcursormanager);
+         øconstruct_new(m_pcursormanager);
 
          //         if (!estatus)
          //         {
@@ -427,7 +427,7 @@ namespace windowing_gtk4
 
       //      auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
       //
-      //      auto pcursorX11 = __øcreate < ::windowing_gtk4::cursor >();
+      //      auto pcursorX11 = øcreate < ::windowing_gtk4::cursor >();
       //
       //      pcursor = pcursorX11;
       //
@@ -712,7 +712,7 @@ namespace windowing_gtk4
    //      if(emessage != e_message_undefined)
    //      {
    //
-   //         auto pmouse = __create_new < ::message::mouse >();
+   //         auto pmouse = øcreate_new < ::message::mouse >();
    //
    //         pmouse->m_emessage = emessage;
    //
@@ -761,7 +761,7 @@ namespace windowing_gtk4
    //      if(emessage != e_message_undefined)
    //      {
    //
-   //         auto pkey = __create_new < ::message::key >();
+   //         auto pkey = øcreate_new < ::message::key >();
    //
    //         pkey->m_emessage = emessage;
    //
@@ -957,7 +957,7 @@ namespace windowing_gtk4
 
       //g_object_ref(m_pgtkapplication);
 
-      // auto pdisplay = __øcreate<::windowing::display>();
+      // auto pdisplay = øcreate<::windowing::display>();
       //
       // pdisplay->initialize_display(this);
       //

@@ -97,7 +97,7 @@ namespace q6
 //             {
 //
 //
-//                __øconstruct(m_pacmedisplay);
+//                øconstruct(m_pacmedisplay);
 //
 //
 //             }
@@ -171,7 +171,7 @@ namespace q6
 // //      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
 // //      {
 //
-//             auto pevent = __allocate manual_reset_happening();
+//             auto pevent = øallocate manual_reset_happening();
 //
 //             user_post([procedure, pevent]
 //                       {
@@ -278,7 +278,7 @@ namespace q6
 //
 //             //g_object_ref(m_pgtkapplication);
 //
-//             // auto pdisplay = __øcreate<::windowing::display>();
+//             // auto pdisplay = øcreate<::windowing::display>();
 //             //
 //             //
 //             //

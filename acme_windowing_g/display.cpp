@@ -1901,7 +1901,7 @@ namespace g
     // for (guint i = 0; i < n_monitors; i++) {
     //    GdkMonitor *monitor = GDK_MONITOR(g_list_model_get_item(monitors, i));
     //
-    //    //auto pmonitor = __create_new < ::windowing::monitor >();
+    //    //auto pmonitor = øcreate_new < ::windowing::monitor >();
     //
     //    //pmonitor->m_pdisplay = this;
     //

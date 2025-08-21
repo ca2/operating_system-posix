@@ -175,7 +175,7 @@ namespace node_xfce
                                          {
 
 
-                                            auto estatus = __øconstruct(m_pindicator);
+                                            auto estatus = øconstruct(m_pindicator);
 
                                             m_pindicator->create(m_strId, "notify_icon_128", pathFolder, this);
 

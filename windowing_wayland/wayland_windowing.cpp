@@ -66,7 +66,7 @@ extern ::particle * user_synchronization();
 ////
 ////   //deferx_initializex_x11();
 ////
-////   auto pdisplay = __allocate simple_ui_display(str, strTitle, emessagebox);
+////   auto pdisplay = øallocate simple_ui_display(str, strTitle, emessagebox);
 ////
 ////   return pdisplay->show();
 ////

@@ -2658,7 +2658,7 @@ namespace draw2d_xlib
    {
       Graphics graphics(hdc);
       // Create a Metafile object from an existing disk metafile.
-      Metafile* pMeta = __allocate< Metafile >(L"SampleMetafile.emf", hdc);
+      Metafile* pMeta = øallocate< Metafile >(L"SampleMetafile.emf", hdc);
       {
          // Fill a int_rectangle and an ellipse in pMeta.
          Graphics metaGraphics(pMeta);

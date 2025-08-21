@@ -467,7 +467,7 @@ namespace gtk3
             else
             {
 
-               //auto prequest = __create_new<::request>();
+               //auto prequest = øcreate_new<::request>();
 
                //application()->post_request(prequest);
 
@@ -493,7 +493,7 @@ namespace gtk3
             if (!m_pacmedisplay)
             {
 
-               __øconstruct(m_pacmedisplay);
+               øconstruct(m_pacmedisplay);
 
 
                // !!! I have removed this call from here:
@@ -571,7 +571,7 @@ namespace gtk3
             //      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
             //      {
 
-            auto pevent = __allocate manual_reset_happening();
+            auto pevent = øallocate manual_reset_happening();
 
             user_post([ procedure, pevent ]
             {

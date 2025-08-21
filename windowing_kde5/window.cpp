@@ -1288,7 +1288,7 @@ namespace windowing_kde5
       //if (::is_set(puserinteraction))
       {
 
-         auto pmouse = __create_new<::message::mouse>();
+         auto pmouse = øcreate_new<::message::mouse>();
 
          pmouse->m_oswindow = this;
 
@@ -1368,7 +1368,7 @@ namespace windowing_kde5
          //if (::is_set(puserinteraction))
          {
 
-            auto pmouse = __create_new<::message::mouse>();
+            auto pmouse = øcreate_new<::message::mouse>();
 
             pmouse->m_oswindow = this;
 
@@ -1461,7 +1461,7 @@ namespace windowing_kde5
 
          __check_refdbg;
 
-         auto pmouse = __create_new < ::message::mouse >();
+         auto pmouse = øcreate_new < ::message::mouse >();
 
          __check_refdbg;
 
@@ -1585,7 +1585,7 @@ namespace windowing_kde5
 
           //if (::is_set(pelemental))
           {
-             auto pkey = __create_new<::message::key>();
+             auto pkey = øcreate_new<::message::key>();
 
              pkey->m_emessage = e_message_key_down;
 
@@ -1696,7 +1696,7 @@ namespace windowing_kde5
 
           //if (::is_set(pelemental))
           {
-             auto pkey = __create_new<::message::key>();
+             auto pkey = øcreate_new<::message::key>();
 
              pkey->m_emessage = e_message_key_up;
 
@@ -1926,7 +1926,7 @@ namespace windowing_kde5
             //
             // return;
 
-            //auto pgraphics = __øcreate<::draw2d::graphics>();
+            //auto pgraphics = øcreate<::draw2d::graphics>();
 
             int w = minimum(pitem->m_pimage2->width(), pqimage->width());
 
@@ -6721,7 +6721,7 @@ namespace windowing_kde5
    //       if(::is_set(pwindow))
    //       {
    //
-   //          auto pmouse = __create_new<::message::mouse>();
+   //          auto pmouse = øcreate_new<::message::mouse>();
    //
    //          pmouse->m_oswindow = this;
    //
@@ -6806,7 +6806,7 @@ namespace windowing_kde5
    // //
    // //      wayland_windowing()->post_ui_message(msg);
    //
-   //       auto pmouse = __create_new<::message::mouse>();
+   //       auto pmouse = øcreate_new<::message::mouse>();
    //
    //       pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
    //
@@ -6966,7 +6966,7 @@ namespace windowing_kde5
    //       if (Δ != 0)
    //       {
    //
-   //          auto pmousewheel = __create_new<::message::mouse_wheel>();
+   //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
    //
    //          pmousewheel->m_oswindow = this;
    //
@@ -6996,7 +6996,7 @@ namespace windowing_kde5
    //       else if (bRet)
    //       {
    //
-   //          auto pmouse = __create_new<::message::mouse>();
+   //          auto pmouse = øcreate_new<::message::mouse>();
    //
    //          pmouse->m_oswindow = this;
    //
@@ -7229,7 +7229,7 @@ namespace windowing_kde5
    //       if (ekey != ::user::e_key_none)
    //       {
    //
-   //          auto pkey = __create_new<::message::key>();
+   //          auto pkey = øcreate_new<::message::key>();
    //
    //          pkey->
    //             m_oswindow = this;
@@ -7278,7 +7278,7 @@ namespace windowing_kde5
    //
    //    //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //    auto pkey = __create_new<::message::key>();
+   //    auto pkey = øcreate_new<::message::key>();
    //
    //    pkey->
    //    m_oswindow = this;
@@ -7707,7 +7707,7 @@ namespace windowing_kde5
    //         if (ekey != ::user::e_key_none)
    //         {
    //
-   //            auto pkey = __create_new<::message::key>();
+   //            auto pkey = øcreate_new<::message::key>();
    //
    //            pkey->m_oswindow = this;
    //
@@ -7773,7 +7773,7 @@ namespace windowing_kde5
    //
    //            //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //            auto pkey = __create_new<::message::key>();
+   //            auto pkey = øcreate_new<::message::key>();
    //
    //            pkey->m_oswindow = this;
    //

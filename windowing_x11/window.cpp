@@ -268,7 +268,7 @@ namespace windowing_x11
                      if (m_px11data.is_null())
                      {
 
-                        m_px11data = __allocate x11data();
+                        m_px11data = øallocate x11data();
 
                      }
 

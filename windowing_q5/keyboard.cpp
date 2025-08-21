@@ -434,7 +434,7 @@ namespace windowing_q5
 // //   bool keyboard::load_layout(const_char_pointer pszPath, const ::action_context & context)
 // //   {
 // //
-// //      auto playout = __allocate ::user::keyboard_layout();
+// //      auto playout = øallocate ::user::keyboard_layout();
 // //
 // //      string strPath;
 // //      if(scopedstrPath == nullptr)

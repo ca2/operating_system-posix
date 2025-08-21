@@ -285,7 +285,7 @@ namespace windowing_gtk4
       for (guint i = 0; i < n_monitors; i++) {
          GdkMonitor *monitor = GDK_MONITOR(g_list_model_get_item(monitors, i));
 
-         auto pmonitor = __create_new < ::windowing::monitor >();
+         auto pmonitor = øcreate_new < ::windowing::monitor >();
          __check_refdbg
          pmonitor->m_pdisplay = this;
 
@@ -712,7 +712,7 @@ namespace windowing_gtk4
 //   ::windowing_gtk4::window * display::_get_keyboard_focus()
 //   {
 //
-////      auto ppropertyobject = __allocate ::property_object();
+////      auto ppropertyobject = øallocate ::property_object();
 ////
 ////      auto predicate = [this, ppropertyobject]()
 ////      {

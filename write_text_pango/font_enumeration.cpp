@@ -29,7 +29,7 @@ namespace write_text_pango
 
       //synchronous_lock ml(::draw2d_cairo::mutex());
 
-      __defer_construct_new(m_pfontenumerationitema);
+      ødefer_construct_new(m_pfontenumerationitema);
 
       m_pfontenumerationitema->erase_all();
 
@@ -46,7 +46,7 @@ namespace write_text_pango
       for (int i = 0; i < n_families; i++)
       {
 
-         auto pitem = __allocate ::write_text::font_enumeration_item();
+         auto pitem = øallocate ::write_text::font_enumeration_item();
 
          PangoFontFamily * pfamily = families[i];
 

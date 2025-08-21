@@ -294,7 +294,7 @@ namespace acme_posix
 
       string str;
 
-      auto pfile = __create_new <stdio_file >();
+      auto pfile = øcreate_new <stdio_file >();
 
       pfile->open(path, ::file::e_open_read | ::file::e_open_binary
       | (bNoExceptionOnFail ? ::file::e_open_no_exception_on_open : 0));
@@ -369,7 +369,7 @@ namespace acme_posix
    void file_system::as_memory(memory_base & memory, const ::file::path & path, character_count iReadAtMostByteCount, bool bNoExceptioOnOpen)
    {
 
-      auto pfile = __create_new <stdio_file >();
+      auto pfile = øcreate_new <stdio_file >();
 
       pfile->open(path, ::file::e_open_read | ::file::e_open_binary);
 

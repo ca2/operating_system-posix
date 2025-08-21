@@ -100,7 +100,7 @@ m_strUserAgent = "curl/" + strVersion + "/nano_http_command_line";
 ////            fork([this,pgetHold]()
 ////            {
 //
-//               auto pcurleasy = __create_new < curl_easy >();
+//               auto pcurleasy = øcreate_new < curl_easy >();
 //
 //               pcurleasy->get(pgetHold);
 //

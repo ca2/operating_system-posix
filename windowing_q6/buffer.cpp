@@ -679,7 +679,7 @@ namespace windowing_q6
 //
 //       }
 //
-//       auto pevent = __create_new < manual_reset_happening >();
+//       auto pevent = øcreate_new < manual_reset_happening >();
 //
 //       pevent->reset_happening();
 //

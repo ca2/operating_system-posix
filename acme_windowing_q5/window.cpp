@@ -830,7 +830,7 @@ namespace q5
       //
       //          auto pdc = cairo_create(m_psurface);
       //
-      //          m_pnanodevice = __allocate ::cairo::nano::graphics::device(pdc);
+      //          m_pnanodevice = øallocate ::cairo::nano::graphics::device(pdc);
       //
       //       }
       //
@@ -900,7 +900,7 @@ namespace q5
       //       if (pbutton->detail == XCB_BUTTON_INDEX_1)
       //       {
       //
-      //          auto pmouse = __create_new < ::user::mouse >();
+      //          auto pmouse = øcreate_new < ::user::mouse >();
       //
       //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
       //
@@ -912,7 +912,7 @@ namespace q5
       //       else if (pbutton->detail == XCB_BUTTON_INDEX_3)
       //       {
       //
-      //          auto pmouse = __create_new < ::user::mouse >();
+      //          auto pmouse = øcreate_new < ::user::mouse >();
       //
       //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
       //
@@ -939,7 +939,7 @@ namespace q5
       //       if (pbutton->detail == XCB_BUTTON_INDEX_1)
       //       {
       //
-      //          auto pmouse = __create_new < ::user::mouse >();
+      //          auto pmouse = øcreate_new < ::user::mouse >();
       //
       //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
       //
@@ -951,7 +951,7 @@ namespace q5
       //       else if (pbutton->detail == XCB_BUTTON_INDEX_3)
       //       {
       //
-      //          auto pmouse = __create_new < ::user::mouse >();
+      //          auto pmouse = øcreate_new < ::user::mouse >();
       //
       //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
       //
@@ -974,7 +974,7 @@ namespace q5
       //
       //       }
       //
-      //       auto pmouse = __create_new < ::user::mouse >();
+      //       auto pmouse = øcreate_new < ::user::mouse >();
       //
       //       pmouse->m_pointHost = {pmotion->event_x, pmotion->event_y};
       //
@@ -998,7 +998,7 @@ namespace q5
       //       if (m_pacmeuserinteraction->m_pchildHover)
       //       {
       //
-      //          auto pmouse = __create_new < ::user::mouse >();
+      //          auto pmouse = øcreate_new < ::user::mouse >();
       //
       //          pmouse->m_pointHost = {I32_MINIMUM, I32_MINIMUM};
       //
@@ -1400,7 +1400,7 @@ namespace q5
 
           if (::is_set(pelemental))
           {
-             auto pmouse = __create_new<::user::mouse>();
+             auto pmouse = øcreate_new<::user::mouse>();
 
              // pmouse->m_oswindow = this;
              //
@@ -1508,7 +1508,7 @@ namespace q5
           if (::is_set(pelemental))
           {
 
-             auto pmouse = __create_new<::user::mouse>();
+             auto pmouse = øcreate_new<::user::mouse>();
 
              // pmouse->m_oswindow = this;
              //
@@ -1690,7 +1690,7 @@ m_pqwidget->move(p);
        if(::is_set(pelemental))
        {
 
-          auto pmouse = __create_new<::user::mouse>();
+          auto pmouse = øcreate_new<::user::mouse>();
 
           // pmouse->m_oswindow = this;
           //
@@ -1728,7 +1728,7 @@ m_pqwidget->move(p);
           //    //    gdk_event_unref(happening);  // Free the happening object after use
           //    // }
           //
-          //    auto pmouse = __create_new<::message::mouse>();
+          //    auto pmouse = øcreate_new<::message::mouse>();
           //
           //    pmouse->m_iTimestamp = timestamp;
           //
@@ -1807,7 +1807,7 @@ m_pqwidget->move(p);
 
           if (::is_set(pelemental))
           {
-             auto pkey = __create_new<::user::key>();
+             auto pkey = øcreate_new<::user::key>();
 
              pkey->m_emessage = ::e_message_key_down;
 
@@ -1908,7 +1908,7 @@ m_pqwidget->move(p);
 
           if (::is_set(pelemental))
           {
-             auto pkey = __create_new<::user::key>();
+             auto pkey = øcreate_new<::user::key>();
 
              pkey->m_emessage = ::e_message_key_up;
 
@@ -2064,7 +2064,7 @@ m_pqwidget->move(p);
 
          nano()->graphics();
 
-         __øconstruct(m_pnanodevice);
+         øconstruct(m_pnanodevice);
 
          m_pnanodevice->create(w, h);
 

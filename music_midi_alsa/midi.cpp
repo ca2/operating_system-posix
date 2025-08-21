@@ -283,7 +283,7 @@ namespace music
 
             }
 
-            auto pout = __allocate class out();
+            auto pout = øallocate class out();
 
             pout->initialize_message_out(this, scopedstrDevice);
 
@@ -301,7 +301,7 @@ namespace music
             if (scopedstrDevice.case_insensitive_order("alsa") == 0)
             {
 
-               return __allocate ::music::midi::sequencer(psequence, get_message_out(scopedstrDevice));
+               return øallocate ::music::midi::sequencer(psequence, get_message_out(scopedstrDevice));
 
             }
 
@@ -316,7 +316,7 @@ namespace music
 
             auto pmessageout = get_message_out(scopedstrDevice);
 
-            return __allocate ::music::midi::sequencer(psequence, pmessageout);
+            return øallocate ::music::midi::sequencer(psequence, pmessageout);
 
          }
 

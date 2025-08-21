@@ -1206,7 +1206,7 @@ namespace windowing_q6
 //    void window::_on_show(bool bShow)
 //    {
 //
-//       auto pshowwindow = __create_new<::message::show_window>();
+//       auto pshowwindow = øcreate_new<::message::show_window>();
 //
 //       pshowwindow->m_oswindow = this;
 //
@@ -1226,7 +1226,7 @@ namespace windowing_q6
 //
 //       m_bKeyboardFocus = true;
 //
-//       auto psetkeyboardfocus = __create_new<::message::set_keyboard_focus>();
+//       auto psetkeyboardfocus = øcreate_new<::message::set_keyboard_focus>();
 //
 //       psetkeyboardfocus->m_oswindow = this;
 //
@@ -1244,7 +1244,7 @@ namespace windowing_q6
 //
 //       m_bKeyboardFocus = false;
 //
-//       auto pkillkeyboardfocus = __create_new<::message::kill_keyboard_focus>();
+//       auto pkillkeyboardfocus = øcreate_new<::message::kill_keyboard_focus>();
 //
 //       pkillkeyboardfocus->m_oswindow = this;
 //
@@ -1276,7 +1276,7 @@ namespace windowing_q6
 //       if (::is_set(puserinteraction))
 //       {
 //
-//          auto pmouse = __create_new<::message::mouse>();
+//          auto pmouse = øcreate_new<::message::mouse>();
 //
 //          pmouse->m_oswindow = this;
 //
@@ -1354,7 +1354,7 @@ namespace windowing_q6
 //          //if (::is_set(pwindow))
 //          {
 //
-//             auto pmouse = __create_new<::message::mouse>();
+//             auto pmouse = øcreate_new<::message::mouse>();
 //
 //             pmouse->m_oswindow = this;
 //
@@ -1447,7 +1447,7 @@ namespace windowing_q6
 //       //if (::is_set(pwindow))
 //       {
 //
-//          auto pmouse = __create_new<::message::mouse>();
+//          auto pmouse = øcreate_new<::message::mouse>();
 //
 //          pmouse->m_oswindow = this;
 //
@@ -6333,7 +6333,7 @@ namespace windowing_q6
 //    //       if(::is_set(pwindow))
 //    //       {
 //    //
-//    //          auto pmouse = __create_new<::message::mouse>();
+//    //          auto pmouse = øcreate_new<::message::mouse>();
 //    //
 //    //          pmouse->m_oswindow = this;
 //    //
@@ -6418,7 +6418,7 @@ namespace windowing_q6
 //    // //
 //    // //      wayland_windowing()->post_ui_message(msg);
 //    //
-//    //       auto pmouse = __create_new<::message::mouse>();
+//    //       auto pmouse = øcreate_new<::message::mouse>();
 //    //
 //    //       pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
 //    //
@@ -6578,7 +6578,7 @@ namespace windowing_q6
 //    //       if (Δ != 0)
 //    //       {
 //    //
-//    //          auto pmousewheel = __create_new<::message::mouse_wheel>();
+//    //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
 //    //
 //    //          pmousewheel->m_oswindow = this;
 //    //
@@ -6608,7 +6608,7 @@ namespace windowing_q6
 //    //       else if (bRet)
 //    //       {
 //    //
-//    //          auto pmouse = __create_new<::message::mouse>();
+//    //          auto pmouse = øcreate_new<::message::mouse>();
 //    //
 //    //          pmouse->m_oswindow = this;
 //    //
@@ -6841,7 +6841,7 @@ namespace windowing_q6
 //    //       if (ekey != ::user::e_key_none)
 //    //       {
 //    //
-//    //          auto pkey = __create_new<::message::key>();
+//    //          auto pkey = øcreate_new<::message::key>();
 //    //
 //    //          pkey->
 //    //             m_oswindow = this;
@@ -6890,7 +6890,7 @@ namespace windowing_q6
 //    //
 //    //    //Wayland_data_device_set_serial(input->data_device, serial);
 //    //
-//    //    auto pkey = __create_new<::message::key>();
+//    //    auto pkey = øcreate_new<::message::key>();
 //    //
 //    //    pkey->
 //    //    m_oswindow = this;
@@ -7318,7 +7318,7 @@ namespace windowing_q6
 //    //         if (ekey != ::user::e_key_none)
 //    //         {
 //    //
-//    //            auto pkey = __create_new<::message::key>();
+//    //            auto pkey = øcreate_new<::message::key>();
 //    //
 //    //            pkey->m_oswindow = this;
 //    //
@@ -7384,7 +7384,7 @@ namespace windowing_q6
 //    //
 //    //            //Wayland_data_device_set_serial(input->data_device, serial);
 //    //
-//    //            auto pkey = __create_new<::message::key>();
+//    //            auto pkey = øcreate_new<::message::key>();
 //    //
 //    //            pkey->m_oswindow = this;
 //    //
