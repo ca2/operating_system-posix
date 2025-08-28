@@ -199,9 +199,9 @@ gtk_init();
          void windowing::destroy()
          {
 
-            m_procedurelist.destroy();
+            m_procedurelist.clear();
 
-            m_procedurelistPriority.destroy();
+            m_procedurelistPriority.clear();
 
             m_callbackOnActivateGtkApplication.clear();
 
