@@ -1006,7 +1006,7 @@ namespace wayland
             //
             //      pmouse->m_pwindow = this;
             //
-            //      pmouse->m_emessage = e_message_mouse_move;
+            //      pmouse->m_emessage = ::user::e_message_mouse_move;
             //
             pmouse->m_pointHost = m_pointCursor2;
 
@@ -1060,7 +1060,7 @@ namespace wayland
             ////  //             MESSAGE msgCaptureChanged;
             ////
             //////               msgCaptureChanged.oswindow = m_pwindowCapture;
-            ////               msg.id() = e_message_capture_changed;
+            ////               msg.id() = ::user::e_message_capture_changed;
             ////               msg.wParam = 0;
             ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
             ////               msg.time = e.xcrossing.time;
@@ -1078,7 +1078,7 @@ namespace wayland
             //
             ////      MESSAGE msg;
             ////      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
-            ////      msg.id() = e_message_mouse_leave;
+            ////      msg.id() = ::user::e_message_mouse_leave;
             ////      msg.wParam = 0;
             ////      msg.lParam = 0;
             ////      //   msg.time = e.xcrossing.time;
@@ -1092,7 +1092,7 @@ namespace wayland
             //
             //      pmouse->m_pwindow = pmouse->m_oswindow;
             //
-            //      pmouse->m_emessage = e_message_mouse_leave;
+            //      pmouse->m_emessage = ::user::e_message_mouse_leave;
             //
             //      pmouse->m_pointHost = m_pointCursor2;
             //
@@ -1128,14 +1128,14 @@ namespace wayland
             //
             //      pmouse->m_pwindow = this;
             //
-            //      pmouse->m_emessage = e_message_mouse_move;
+            //      pmouse->m_emessage = ::user::e_message_mouse_move;
             //
             pmouse->m_pointHost = m_pointCursor2;
 
             pmouse->m_pointAbsolute = m_pointCursor2;
 
-            //      enum_message emessage = e_message_undefined;
-            //      //msg.id() = e_message_mouse_wheel;
+            //      enum_message emessage = ::user::e_message_undefined;
+            //      //msg.id() = ::user::e_message_mouse_wheel;
             //
             //      //post_ui_message(pmouse);
             //
@@ -1158,7 +1158,7 @@ namespace wayland
                   information()
                      << "LeftButtonDown";
 
-                  //            emessage = e_message_left_button_down;
+                  //            emessage = ::user::e_message_left_button_down;
 
                   on_left_button_down(pmouse);
                   //
@@ -1166,7 +1166,7 @@ namespace wayland
                //         else if (linux_button == BTN_MIDDLE)
                //         {
                //
-               //            emessage = e_message_middle_button_down;
+               //            emessage = ::user::e_message_middle_button_down;
                //
                //         }
                else if (linux_button == BTN_RIGHT)
@@ -1174,7 +1174,7 @@ namespace wayland
 
 
                   //
-                  //            emessage = e_message_right_button_down;
+                  //            emessage = ::user::e_message_right_button_down;
 
                   on_right_button_down(pmouse);
 
@@ -1208,7 +1208,7 @@ namespace wayland
                   information()
                      << "LeftButtonUp";
 
-                  //            emessage = e_message_left_button_up;
+                  //            emessage = ::user::e_message_left_button_up;
 
                   on_left_button_up(pmouse);
 
@@ -1216,13 +1216,13 @@ namespace wayland
                //         else if (linux_button == BTN_MIDDLE)
                //         {
                //
-               //            emessage = e_message_middle_button_up;
+               //            emessage = ::user::e_message_middle_button_up;
                //
                //         }
                else if (linux_button == BTN_RIGHT)
                {
                   //
-                  //            emessage = e_message_right_button_up;
+                  //            emessage = ::user::e_message_right_button_up;
 
                   on_right_button_up(pmouse);
 
@@ -1275,7 +1275,7 @@ namespace wayland
             //
             //         pmousewheel->m_pwindow = this;
             //
-            //         pmousewheel->id() = e_message_mouse_wheel;
+            //         pmousewheel->id() = ::user::e_message_mouse_wheel;
             //
             //         //msg.wParam = make_int(0, iDelta);
             //

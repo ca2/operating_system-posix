@@ -64,7 +64,7 @@ namespace node_xfce
       ::user::interaction::install_message_routing(pchannel);
 
       MESSAGE_LINK(MessageNotifyIcon, pchannel, this, &notify_icon::_001OnNotifyIconMessage);
-      MESSAGE_LINK(e_message_destroy, pchannel, this, &notify_icon::_001OnDestroy);
+      MESSAGE_LINK(::user::e_message_destroy, pchannel, this, &notify_icon::_001OnDestroy);
 
 #endif
 
@@ -422,7 +422,7 @@ namespace node_xfce
 
    //   ::pointer<::user::message>pusermessage(pmessage);
 
-   //   if (pusermessage->m_lparam == e_message_left_button_down)
+   //   if (pusermessage->m_lparam == ::user::e_message_left_button_down)
    //   {
 
    //      while (m_wndptraHidden.get_size() > 0)

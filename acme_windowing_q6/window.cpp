@@ -1371,7 +1371,7 @@ namespace q6
 //                if (pevent->button() == Qt::MouseButton::LeftButton)
 //                {
 //
-//                   pmouse->m_emessage = e_message_left_button_down;
+//                   pmouse->m_emessage = ::user::e_message_left_button_down;
 //
 //                   pelemental->fore_on_left_button_down(pmouse);
 //
@@ -1386,7 +1386,7 @@ namespace q6
 //                else if (pevent->button() == Qt::MouseButton::RightButton)
 //                {
 //
-//                   pmouse->m_emessage = e_message_right_button_down;
+//                   pmouse->m_emessage = ::user::e_message_right_button_down;
 //
 //                   pelemental->fore_on_right_button_down(pmouse);
 //
@@ -1401,7 +1401,7 @@ namespace q6
 //                else if (pevent->button() == Qt::MouseButton::MiddleButton)
 //                {
 //
-//                   pmouse->m_emessage = e_message_middle_button_down;
+//                   pmouse->m_emessage = ::user::e_message_middle_button_down;
 //
 //                }
 //
@@ -1476,7 +1476,7 @@ namespace q6
 //                   if (pevent->button() == Qt::MouseButton::LeftButton)
 //                   {
 //
-//                      pmouse->m_emessage = e_message_left_button_up;
+//                      pmouse->m_emessage = ::user::e_message_left_button_up;
 //
 //                      pelemental->fore_on_left_button_up(pmouse);
 //
@@ -1491,7 +1491,7 @@ namespace q6
 //                   else if (pevent->button() == Qt::MouseButton::RightButton)
 //                   {
 //
-//                      pmouse->m_emessage = e_message_right_button_up;
+//                      pmouse->m_emessage = ::user::e_message_right_button_up;
 //
 //                      pelemental->fore_on_right_button_up(pmouse);
 //
@@ -1506,7 +1506,7 @@ namespace q6
 //                   else if (pevent->button() == Qt::MouseButton::MiddleButton)
 //                   {
 //
-//                      pmouse->m_emessage = e_message_middle_button_up;
+//                      pmouse->m_emessage = ::user::e_message_middle_button_up;
 //
 //                   }
 //
@@ -1694,7 +1694,7 @@ namespace q6
 //                //
 //                // pmouse->m_pwindow = this;
 //
-//                pmouse->m_emessage = e_message_mouse_move;
+//                pmouse->m_emessage = ::user::e_message_mouse_move;
 //
 //
 //                //pmouse->m_time.m_iSecond = millis / 1_k;

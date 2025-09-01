@@ -686,7 +686,7 @@ namespace windowing_x11
       if (bOk)
       {
 
-         //auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, (lparam) &pusersystem->m_createstruct);
+         //auto lresult = pimpl->m_puserinteraction->send_message(::user::e_message_create, 0, (lparam) &pusersystem->m_createstruct);
 
          // if(::is_null(pimpl->m_puserinteraction->m_pwindow))
          // {
@@ -773,7 +773,7 @@ namespace windowing_x11
 
 #endif
 
-         auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, 0);
+         auto lresult = pimpl->m_puserinteraction->send_message(::user::e_message_create, 0, 0);
 
          if (lresult == -1)
          {
@@ -2595,7 +2595,7 @@ namespace windowing_x11
       if (pmessagequeue == nullptr)
       {
 
-         if (message.m_emessage == e_message_quit)
+         if (message.m_emessage == ::user::e_message_quit)
          {
 
             return ::error_failed;
@@ -2615,22 +2615,22 @@ namespace windowing_x11
 
       synchronous_lock ml(pmessagequeue->synchronization());
 
-      if (message.m_emessage == e_message_quit)
+      if (message.m_emessage == ::user::e_message_quit)
       {
 
-         informationf("e_message_quit thread");
+         informationf("::user::e_message_quit thread");
 
       }
 
-      if (message.m_emessage == e_message_left_button_down)
+      if (message.m_emessage == ::user::e_message_left_button_down)
       {
 
-         informationf("post_ui_message::e_message_left_button_down\n");
+         informationf("post_ui_message::::user::e_message_left_button_down\n");
 
-      } else if (message.m_emessage == e_message_left_button_up)
+      } else if (message.m_emessage == ::user::e_message_left_button_up)
       {
 
-         informationf("post_ui_message::e_message_left_button_up\n");
+         informationf("post_ui_message::::user::e_message_left_button_up\n");
 
       }
 
@@ -4304,11 +4304,11 @@ namespace windowing_x11
          if (pinteraction.is_set())
          {
 
-            pinteraction->send_message(e_message_destroy, 0, 0);
+            pinteraction->send_message(::user::e_message_destroy, 0, 0);
 
             mq_remove_window_from_all_queues();
 
-            pinteraction->send_message(e_message_non_client_destroy, 0, 0);
+            pinteraction->send_message(::user::e_message_non_client_destroy, 0, 0);
 
          } else
          {

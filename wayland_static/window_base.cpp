@@ -336,7 +336,7 @@ namespace nano
       static void handle_done_xdg_popup(void * data, struct xdg_popup * xdg_popup)
       {
          auto pwindow = (window_base *) data;
-         //pwindow->m_pwindow->m_puserinteraction->post_message(e_message_close);
+         //pwindow->m_pwindow->m_puserinteraction->post_message(::user::e_message_close);
          pwindow->_on_windowing_close_window();
          //SDL_SendWindowEvent(window->sdlwindow, SDL_WINDOWEVENT_CLOSE, 0, 0);
       }
@@ -933,7 +933,7 @@ namespace nano
          //
          //      pmouse->m_pwindow = this;
          //
-         //      pmouse->m_emessage = e_message_mouse_move;
+         //      pmouse->m_emessage = ::user::e_message_mouse_move;
          //
          //      pmouse->m_pointHost = m_pointCursor2;
          //
@@ -990,7 +990,7 @@ namespace nano
          ////  //             MESSAGE msgCaptureChanged;
          ////
          //////               msgCaptureChanged.oswindow = m_pwindowCapture;
-         ////               msg.id() = e_message_capture_changed;
+         ////               msg.id() = ::user::e_message_capture_changed;
          ////               msg.wParam = 0;
          ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
          ////               msg.time = e.xcrossing.time;
@@ -1008,7 +1008,7 @@ namespace nano
          //
          ////      MESSAGE msg;
          ////      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
-         ////      msg.id() = e_message_mouse_leave;
+         ////      msg.id() = ::user::e_message_mouse_leave;
          ////      msg.wParam = 0;
          ////      msg.lParam = 0;
          ////      //   msg.time = e.xcrossing.time;
@@ -1022,7 +1022,7 @@ namespace nano
          //
          //      pmouse->m_pwindow = pmouse->m_oswindow;
          //
-         //      pmouse->m_emessage = e_message_mouse_leave;
+         //      pmouse->m_emessage = ::user::e_message_mouse_leave;
          //
          //      pmouse->m_pointHost = m_pointCursor2;
          //
@@ -1055,8 +1055,8 @@ namespace nano
 
          m_pwlpointer = pwlpointer;
 
-         //      enum_message emessage = e_message_undefined;
-         //      //msg.id() = e_message_mouse_wheel;
+         //      enum_message emessage = ::user::e_message_undefined;
+         //      //msg.id() = ::user::e_message_mouse_wheel;
          //
          //      //post_ui_message(pmouse);
          //
@@ -1079,19 +1079,19 @@ namespace nano
          //            information()
          //               << "LeftButtonDown";
          //
-         //            emessage = e_message_left_button_down;
+         //            emessage = ::user::e_message_left_button_down;
          //
          //         }
          //         else if (linux_button == BTN_MIDDLE)
          //         {
          //
-         //            emessage = e_message_middle_button_down;
+         //            emessage = ::user::e_message_middle_button_down;
          //
          //         }
          //         else if (linux_button == BTN_RIGHT)
          //         {
          //
-         //            emessage = e_message_right_button_down;
+         //            emessage = ::user::e_message_right_button_down;
          //
          //         }
          //         else if (linux_button == BTN_GEAR_DOWN)
@@ -1123,19 +1123,19 @@ namespace nano
          //            information()
          //               << "LeftButtonUp";
          //
-         //            emessage = e_message_left_button_up;
+         //            emessage = ::user::e_message_left_button_up;
          //
          //         }
          //         else if (linux_button == BTN_MIDDLE)
          //         {
          //
-         //            emessage = e_message_middle_button_up;
+         //            emessage = ::user::e_message_middle_button_up;
          //
          //         }
          //         else if (linux_button == BTN_RIGHT)
          //         {
          //
-         //            emessage = e_message_right_button_up;
+         //            emessage = ::user::e_message_right_button_up;
          //
          //         }
          //         else
@@ -1186,7 +1186,7 @@ namespace nano
          //
          //         pmousewheel->m_pwindow = this;
          //
-         //         pmousewheel->id() = e_message_mouse_wheel;
+         //         pmousewheel->id() = ::user::e_message_mouse_wheel;
          //
          //         //msg.wParam = make_int(0, iDelta);
          //
@@ -1586,17 +1586,17 @@ namespace nano
             if(pressed == WL_KEYBOARD_KEY_STATE_PRESSED)
             {
 
-               information() << "_on_simple_key_message e_message_key_down : " << ::as_string(ekey);
+               information() << "_on_simple_key_message ::user::e_message_key_down : " << ::as_string(ekey);
 
-               _on_simple_key_message(ekey, e_message_key_down);
+               _on_simple_key_message(ekey, ::user::e_message_key_down);
 
             }
             else
             {
 
-               information() << "_on_simple_key_message e_message_key_up : " << ::as_string(ekey);
+               information() << "_on_simple_key_message ::user::e_message_key_up : " << ::as_string(ekey);
 
-               _on_simple_key_message(ekey, e_message_key_up);
+               _on_simple_key_message(ekey, ::user::e_message_key_up);
 
             }
 
@@ -1662,11 +1662,11 @@ namespace nano
                //
                //            pkey->m_pwindow = this;
                //
-               //            pkey->m_emessage = e_message_text_composition;
+               //            pkey->m_emessage = ::user::e_message_text_composition;
                //
                //            pkey->m_strText = text;
                //
-               //            information() << "e_message_text_composition";
+               //            information() << "::user::e_message_text_composition";
                //
                //            m_pwindow->message_handler(pkey);
 

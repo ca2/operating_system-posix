@@ -333,7 +333,7 @@ namespace windowing_xcb
 //
 //                  g_oswindowActive->m_pimpl->m_puserinteraction->m_ewindowflag -= ::e_window_flag_active;
 //
-//                  g_oswindowActive->m_pimpl->m_puserinteraction->post_message(e_message_activate, 0);
+//                  g_oswindowActive->m_pimpl->m_puserinteraction->post_message(::user::e_message_activate, 0);
 //
 //               }
 //
@@ -363,7 +363,7 @@ namespace windowing_xcb
 //
 //                  g_oswindowActive->m_pimpl->m_puserinteraction->m_ewindowflag += ::e_window_flag_active;
 //
-//                  g_oswindowActive->m_pimpl->m_puserinteraction->post_message(e_message_activate, 1);
+//                  g_oswindowActive->m_pimpl->m_puserinteraction->post_message(::user::e_message_activate, 1);
 //
 //               }
 //
@@ -998,7 +998,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       if (pmessagequeue == nullptr)
       {
 
-         if (message.m_emessage == e_message_quit)
+         if (message.m_emessage == ::user::e_message_quit)
          {
 
             return false;
@@ -1018,23 +1018,23 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       synchronous_lock ml(pmessagequeue->synchronization());
 
-      if (message.m_emessage == e_message_quit)
+      if (message.m_emessage == ::user::e_message_quit)
       {
 
-         informationf("e_message_quit thread");
+         informationf("::user::e_message_quit thread");
 
       }
 
-      if (message.m_emessage == e_message_left_button_down)
+      if (message.m_emessage == ::user::e_message_left_button_down)
       {
 
-         informationf("post_ui_message::e_message_left_button_down\n");
+         informationf("post_ui_message::::user::e_message_left_button_down\n");
 
       }
-      else if (message.m_emessage == e_message_left_button_up)
+      else if (message.m_emessage == ::user::e_message_left_button_up)
       {
 
-         informationf("post_ui_message::e_message_left_button_up\n");
+         informationf("post_ui_message::::user::e_message_left_button_up\n");
 
       }
 

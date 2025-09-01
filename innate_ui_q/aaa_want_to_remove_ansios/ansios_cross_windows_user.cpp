@@ -84,7 +84,7 @@ int_bool MessageBoxAForConsole(oswindow interaction_impl, const scoped_string & 
 
 repeat:
 
-   if(uFlags & e_message_box_icon_exclamation || uFlags & e_message_box_icon_stop)
+   if(uFlags & ::user::e_message_box_icon_exclamation || uFlags & ::user::e_message_box_icon_stop)
    {
 
       fputs(strLine, stderr);

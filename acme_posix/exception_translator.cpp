@@ -155,7 +155,7 @@ namespace acme_posix
 
          auto pmessagebox = message_box("failed to install segmentation fault signal handler",
                                                "failed to install segmentation fault signal handler",
-                                               e_message_box_ok);
+                                               ::user::e_message_box_ok);
 
          pmessagebox->async();
 

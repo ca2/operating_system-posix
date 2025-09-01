@@ -474,7 +474,7 @@ namespace windowing_xcb
       if (bOk)
       {
 
-         auto lresult = pimpl->m_puserinteraction->send_message(e_message_create, 0, (lparam) pusersystem.m_p);
+         auto lresult = pimpl->m_puserinteraction->send_message(::user::e_message_create, 0, (lparam) pusersystem.m_p);
 
          if (lresult == -1)
          {
@@ -482,7 +482,7 @@ namespace windowing_xcb
             //return false;
 
             information()
-               << "send_message e_message_create handling returned failure status just after creating window (5)";
+               << "send_message ::user::e_message_create handling returned failure status just after creating window (5)";
 
             throw ::exception(error_failed);
 
@@ -492,7 +492,7 @@ namespace windowing_xcb
 
          pimpl->m_puserinteraction->set_flag(e_flag_task_started);
 
-         //auto lresult2 = pimpl->m_puserinteraction->send_message(e_message_after_create, 0, 0);
+         //auto lresult2 = pimpl->m_puserinteraction->send_message(::user::e_message_after_create, 0, 0);
 
       }
 
@@ -1654,7 +1654,7 @@ namespace windowing_xcb
       if (pmessagequeue == nullptr)
       {
 
-//         if(message.m_emessage == e_message_quit)
+//         if(message.m_emessage == ::user::e_message_quit)
 //         {
 //
 //            //return false;
@@ -1674,23 +1674,23 @@ namespace windowing_xcb
 
       synchronous_lock ml(pmessagequeue->synchronization());
 
-      if (message.m_emessage == e_message_quit)
+      if (message.m_emessage == ::user::e_message_quit)
       {
 
-         informationf("e_message_quit thread");
+         informationf("::user::e_message_quit thread");
 
       }
 
-      if (message.m_emessage == e_message_left_button_down)
+      if (message.m_emessage == ::user::e_message_left_button_down)
       {
 
-         informationf("post_ui_message::e_message_left_button_down");
+         informationf("post_ui_message::::user::e_message_left_button_down");
 
       }
-      else if (message.m_emessage == e_message_left_button_up)
+      else if (message.m_emessage == ::user::e_message_left_button_up)
       {
 
-         informationf("post_ui_message::e_message_left_button_up");
+         informationf("post_ui_message::::user::e_message_left_button_up");
 
       }
 
@@ -3080,7 +3080,7 @@ namespace windowing_xcb
          if (pinteraction.is_set())
          {
 
-            pinteraction->send_message(e_message_destroy, 0, 0);
+            pinteraction->send_message(::user::e_message_destroy, 0, 0);
 
             mq_erase_window_from_all_queues();
 
@@ -3090,7 +3090,7 @@ namespace windowing_xcb
 
             windowing_output_debug_string("::DestroyWindow 2");
 
-            pinteraction->send_message(e_message_non_client_destroy, 0, 0);
+            pinteraction->send_message(::user::e_message_non_client_destroy, 0, 0);
 
          }
 

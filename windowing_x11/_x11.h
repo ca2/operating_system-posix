@@ -45,7 +45,7 @@ void __x11_hook_on_idle(Display * pdisplay);
 
 void x11_handle_just_hooks();
 void x11_defer_handle_just_hooks();
-int x11_message_box(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrTitle, const ::e_message_box & emessagebox);
+int x11_message_box(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrTitle, const ::::user::e_message_box & emessagebox);
 bool __x11_hook_process_event(Display * pdisplay, XEvent * pevent, XGenericEventCookie * cookie);
 
 

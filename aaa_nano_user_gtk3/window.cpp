@@ -640,17 +640,17 @@ namespace gtk3
 
                if (happening->button == GDK_BUTTON_PRIMARY)
                {
-                  pmouse->m_emessage = e_message_left_button_down;
+                  pmouse->m_emessage = ::user::e_message_left_button_down;
                   m_puserinteractionbase->on_left_button_down(pmouse);
                }
                else if (happening->button == GDK_BUTTON_SECONDARY)
                {
-                  pmouse->m_emessage = e_message_right_button_down;
+                  pmouse->m_emessage = ::user::e_message_right_button_down;
                   m_puserinteractionbase->on_right_button_down(pmouse);
                }
                else if (happening->button == GDK_BUTTON_MIDDLE)
                {
-                  pmouse->m_emessage = e_message_middle_button_down;
+                  pmouse->m_emessage = ::user::e_message_middle_button_down;
                }
 
 
@@ -710,7 +710,7 @@ namespace gtk3
                if (happening->button == GDK_BUTTON_PRIMARY)
                {
 
-                  pmouse->m_emessage = e_message_left_button_up;
+                  pmouse->m_emessage = ::user::e_message_left_button_up;
 
                   puserinteractionbaseHold->on_left_button_up(pmouse);
 
@@ -718,7 +718,7 @@ namespace gtk3
                else if (happening->button == GDK_BUTTON_SECONDARY)
                {
 
-                  pmouse->m_emessage = e_message_right_button_up;
+                  pmouse->m_emessage = ::user::e_message_right_button_up;
 
                   puserinteractionbaseHold->on_right_button_up(pmouse);
 
@@ -726,7 +726,7 @@ namespace gtk3
                else if (happening->button == GDK_BUTTON_MIDDLE)
                {
 
-                  pmouse->m_emessage = e_message_middle_button_up;
+                  pmouse->m_emessage = ::user::e_message_middle_button_up;
 
                }
 
@@ -793,7 +793,7 @@ namespace gtk3
 //
 //               pmouse->m_pwindow = this;
 
-               pmouse->m_emessage = e_message_mouse_move;
+               pmouse->m_emessage = ::user::e_message_mouse_move;
 
                m_pointCursor2.x() = happening->x;
 

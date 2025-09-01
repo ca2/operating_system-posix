@@ -377,7 +377,7 @@ namespace input_xinput
 //      auto button = libinput_event_pointer_get_button(ppointer);
 //      auto state = libinput_event_pointer_get_button_state(ppointer);
 //
-//      enum_message emessage = e_message_undefined;
+//      enum_message emessage = ::user::e_message_undefined;
 //
 //      if(button == BTN_LEFT)
 //      {
@@ -385,19 +385,19 @@ namespace input_xinput
 //         if(state == LIBINPUT_BUTTON_STATE_PRESSED)
 //         {
 //
-//            emessage = e_message_left_button_down;
+//            emessage = ::user::e_message_left_button_down;
 //
 //         }
 //         else if(state == LIBINPUT_BUTTON_STATE_PRESSED)
 //         {
 //
-//            emessage = e_message_left_button_up;
+//            emessage = ::user::e_message_left_button_up;
 //
 //         }
 //
 //      }
 //
-//      if(emessage != e_message_undefined)
+//      if(emessage != ::user::e_message_undefined)
 //      {
 //
 //         auto pmouse = øcreate_new < ::message::mouse >();
@@ -426,7 +426,7 @@ namespace input_xinput
 //      auto key = libinput_event_keyboard_get_key(pkeyboard);
 //      auto state = libinput_event_keyboard_get_key_state(pkeyboard);
 //
-//      enum_message emessage = e_message_undefined;
+//      enum_message emessage = ::user::e_message_undefined;
 //
 //      //if(button == BTN_LEFT)
 //      {
@@ -434,19 +434,19 @@ namespace input_xinput
 //         if(state == LIBINPUT_BUTTON_STATE_PRESSED)
 //         {
 //
-//            emessage = e_message_key_down;
+//            emessage = ::user::e_message_key_down;
 //
 //         }
 //         else if(state == LIBINPUT_BUTTON_STATE_PRESSED)
 //         {
 //
-//            emessage = e_message_key_up;
+//            emessage = ::user::e_message_key_up;
 //
 //         }
 //
 //      }
 //
-//      if(emessage != e_message_undefined)
+//      if(emessage != ::user::e_message_undefined)
 //      {
 //
 //         auto pkey = øcreate_new < ::message::key >();
@@ -571,7 +571,7 @@ namespace input_xinput
              cookie->extension == m_xi_opcode)
          {
 
-            enum_message emessage = e_message_null;
+            enum_message emessage = ::user::e_message_null;
 
             auto prawevent = (XIRawEvent *) cookie->data;
 
@@ -590,25 +590,25 @@ namespace input_xinput
             {
 
                case XI_RawKeyPress:
-                  emessage = e_message_key_down;
+                  emessage = ::user::e_message_key_down;
                   break;
                case XI_RawKeyRelease:
-                  emessage = e_message_key_up;
+                  emessage = ::user::e_message_key_up;
                   break;
                case XI_RawButtonPress:
                {
                   if (detail == 1)
                   {
-                     emessage = e_message_left_button_down;
+                     emessage = ::user::e_message_left_button_down;
                   }
                   else if (detail == 2)
                   {
-                     emessage = e_message_middle_button_down;
+                     emessage = ::user::e_message_middle_button_down;
 
                   }
                   else if (detail == 3)
                   {
-                     emessage = e_message_right_button_down;
+                     emessage = ::user::e_message_right_button_down;
                   }
 //eid = detail == 5 || detail == 4 ? id_none : id_raw_buttondown;
 
@@ -619,16 +619,16 @@ namespace input_xinput
 
                   if (detail == 1)
                   {
-                     emessage = e_message_left_button_up;
+                     emessage = ::user::e_message_left_button_up;
                   }
                   else if (detail == 2)
                   {
-                     emessage = e_message_middle_button_up;
+                     emessage = ::user::e_message_middle_button_up;
 
                   }
                   else if (detail == 3)
                   {
-                     emessage = e_message_right_button_up;
+                     emessage = ::user::e_message_right_button_up;
                   }
 
                   break;
@@ -637,14 +637,14 @@ namespace input_xinput
 
             informationf("\ndetail:" + ::as_string(prawevent->detail));
 
-            if (emessage != e_message_null)
+            if (emessage != ::user::e_message_null)
             {
 
 //               long long iWparam = 'a';
 //
                //long long iLparam = XK_a;
 
-               if (emessage == e_message_key_down || emessage == e_message_key_up)
+               if (emessage == ::user::e_message_key_down || emessage == ::user::e_message_key_up)
                {
 
                   ::user::e_key ekey;
@@ -686,9 +686,9 @@ namespace input_xinput
 //ptopic->payload("space") = is_space_key(pgehappening);
 
                }
-               else if (emessage == e_message_left_button_down || emessage == e_message_left_button_up
-                        || emessage == e_message_right_button_down || emessage == e_message_right_button_up
-                        || emessage == e_message_middle_button_down || emessage == e_message_middle_button_up
+               else if (emessage == ::user::e_message_left_button_down || emessage == ::user::e_message_left_button_up
+                        || emessage == ::user::e_message_right_button_down || emessage == ::user::e_message_right_button_up
+                        || emessage == ::user::e_message_middle_button_down || emessage == ::user::e_message_middle_button_up
                   )
                {
 
@@ -710,7 +710,7 @@ namespace input_xinput
             }
 
 
-//               if (emessage == e_message_key_down || emessage == e_message_key_up)
+//               if (emessage == ::user::e_message_key_down || emessage == ::user::e_message_key_up)
 //               {
 //
 //                  ::user::e_key ekey;
@@ -764,7 +764,7 @@ namespace input_xinput
 //
 //               }
 
-//                  if(emessage != e_message_null)
+//                  if(emessage != ::user::e_message_null)
 //               {
 ////                  auto ptopic = psystem->topic(eid);
 //

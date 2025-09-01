@@ -337,7 +337,7 @@ namespace windowing_kde5
 //
 //                  g_oswindowActive->m_pimpl->m_puserinteraction->m_ewindowflag -= ::e_window_flag_active;
 //
-//                  g_oswindowActive->m_pimpl->m_puserinteraction->post_message(e_message_activate, 0);
+//                  g_oswindowActive->m_pimpl->m_puserinteraction->post_message(::user::e_message_activate, 0);
 //
 //               }
 //
@@ -367,7 +367,7 @@ namespace windowing_kde5
 //
 //                  g_oswindowActive->m_pimpl->m_puserinteraction->m_ewindowflag += ::e_window_flag_active;
 //
-//                  g_oswindowActive->m_pimpl->m_puserinteraction->post_message(e_message_activate, 1);
+//                  g_oswindowActive->m_pimpl->m_puserinteraction->post_message(::user::e_message_activate, 1);
 //
 //               }
 //
@@ -1592,7 +1592,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //            if (m_pobjectaExtendedEventListener && m_pobjectaExtendedEventListener->get_count() > 0)
 //            {
 //
-//               enum_message emessage = e_message_null;
+//               enum_message emessage = ::user::e_message_null;
 //
 //               auto prawevent = (XIRawEvent *) cookie->data;
 //
@@ -1611,25 +1611,25 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //               {
 //
 //                  case XI_RawKeyPress:
-//                     emessage = e_message_key_down;
+//                     emessage = ::user::e_message_key_down;
 //                     break;
 //                  case XI_RawKeyRelease:
-//                     emessage = e_message_key_up;
+//                     emessage = ::user::e_message_key_up;
 //                     break;
 //                  case XI_RawButtonPress:
 //                  {
 //                     if (detail == 1)
 //                     {
-//                        emessage = e_message_left_button_down;
+//                        emessage = ::user::e_message_left_button_down;
 //                     }
 //                     else if (detail == 2)
 //                     {
-//                        emessage = e_message_middle_button_down;
+//                        emessage = ::user::e_message_middle_button_down;
 //
 //                     }
 //                     else if (detail == 3)
 //                     {
-//                        emessage = e_message_right_button_down;
+//                        emessage = ::user::e_message_right_button_down;
 //                     }
 //                     //eid = detail == 5 || detail == 4 ? id_none : id_raw_buttondown;
 //
@@ -1640,16 +1640,16 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                     if (detail == 1)
 //                     {
-//                        emessage = e_message_left_button_up;
+//                        emessage = ::user::e_message_left_button_up;
 //                     }
 //                     else if (detail == 2)
 //                     {
-//                        emessage = e_message_middle_button_up;
+//                        emessage = ::user::e_message_middle_button_up;
 //
 //                     }
 //                     else if (detail == 3)
 //                     {
-//                        emessage = e_message_right_button_up;
+//                        emessage = ::user::e_message_right_button_up;
 //                     }
 //
 //                     break;
@@ -1659,14 +1659,14 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //               informationf("\ndetail:" + ::as_string(prawevent->detail));
 //
 //
-//               if (emessage != e_message_null)
+//               if (emessage != ::user::e_message_null)
 //               {
 //
 //                  long long iWparam = 'a';
 //
 //                  long long iLparam = XK_a;
 //
-//                  if (emessage == e_message_key_down || emessage == e_message_key_up)
+//                  if (emessage == ::user::e_message_key_down || emessage == ::user::e_message_key_up)
 //                  {
 //
 //                     if (is_return_key((XIRawEvent *) cookie->data))
@@ -1703,7 +1703,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  }
 //
-////                  if(emessage != e_message_null)
+////                  if(emessage != ::user::e_message_null)
 ////               {
 //////                  auto ptopic = psystem->topic(eid);
 ////
@@ -1809,7 +1809,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////  //             MESSAGE msgCaptureChanged;
 ////
 //////               msgCaptureChanged.oswindow = m_pwindowCapture;
-////               msg.id() = e_message_capture_changed;
+////               msg.id() = ::user::e_message_capture_changed;
 ////               msg.wParam = 0;
 ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
 ////               msg.time = e.xcrossing.time;
@@ -1818,7 +1818,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////
 ////            }
 //
-//               msg.id() = e_message_mouse_leave;
+//               msg.id() = ::user::e_message_mouse_leave;
 //               msg.wParam = 0;
 //               msg.lParam = 0;
 //               msg.time = e.xcrossing.time;
@@ -1964,7 +1964,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               }
 //
-//               //msg.id() = e_message_mouse_move;
+//               //msg.id() = ::user::e_message_mouse_move;
 //               //msg.wParam = wparam;
 //               //msg.lParam = make_int(e.xmotion.x_root, e.xmotion.y_root);
 //               //msg.time = e.xmotion.time;
@@ -1977,7 +1977,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               pmouse->m_pwindow = px11window;
 //
-//               pmouse->m_emessage = e_message_mouse_move;
+//               pmouse->m_emessage = ::user::e_message_mouse_move;
 //
 //               pmouse->m_point.x() = e.xmotion.x_root;
 //
@@ -2040,7 +2040,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////                        else
 ////                        {
 ////
-////                           msg.id() = e_message_paint;
+////                           msg.id() = ::user::e_message_paint;
 ////                           msg.lParam = 0;
 ////                           msg.wParam = 0;
 ////
@@ -2416,7 +2416,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               }
 //
-//               msg.id() = e_message_show_window;
+//               msg.id() = ::user::e_message_show_window;
 //               msg.wParam = 1;
 //               msg.lParam = 0;
 //
@@ -2444,7 +2444,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //               }
 //
 //
-//               msg.id() = e_message_show_window;
+//               msg.id() = ::user::e_message_show_window;
 //               msg.wParam = 0;
 //               msg.lParam = 0;
 //
@@ -2483,7 +2483,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                           try
 //                           {
 //
-//                              puserinteractionFrame->post_message(e_message_display_change);
+//                              puserinteractionFrame->post_message(::user::e_message_display_change);
 //
 //                           }
 //                           catch (...)
@@ -2613,8 +2613,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //            {
 //
 //
-//               enum_message emessage = e_message_undefined;
-//               //msg.id() = e_message_mouse_wheel;
+//               enum_message emessage = ::user::e_message_undefined;
+//               //msg.id() = ::user::e_message_mouse_wheel;
 //
 //               //post_ui_message(pmouse);
 //
@@ -2632,19 +2632,19 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                     informationf("ButtonPress::Button1\n");
 //
-//                     emessage = e_message_left_button_down;
+//                     emessage = ::user::e_message_left_button_down;
 //
 //                  }
 //                  else if (e.xbutton.button == Button2)
 //                  {
 //
-//                     emessage = e_message_middle_button_down;
+//                     emessage = ::user::e_message_middle_button_down;
 //
 //                  }
 //                  else if (e.xbutton.button == Button3)
 //                  {
 //
-//                     emessage = e_message_right_button_down;
+//                     emessage = ::user::e_message_right_button_down;
 //
 //                  }
 //                  else if (e.xbutton.button == Button4)
@@ -2675,19 +2675,19 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                     informationf("ButtonRelease::Button1\n");
 //
-//                     emessage = e_message_left_button_up;
+//                     emessage = ::user::e_message_left_button_up;
 //
 //                  }
 //                  else if (e.xbutton.button == Button2)
 //                  {
 //
-//                     emessage = e_message_middle_button_up;
+//                     emessage = ::user::e_message_middle_button_up;
 //
 //                  }
 //                  else if (e.xbutton.button == Button3)
 //                  {
 //
-//                     emessage = e_message_right_button_up;
+//                     emessage = ::user::e_message_right_button_up;
 //
 //                  }
 //                  else
@@ -2740,7 +2740,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  pmousewheel->m_pwindow = px11window;
 //
-//                  pmousewheel->id() = e_message_mouse_wheel;
+//                  pmousewheel->id() = ::user::e_message_mouse_wheel;
 //
 //                  //msg.wParam = make_int(0, iDelta);
 //
@@ -2814,7 +2814,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //               if (e.xkey.type == KeyPress)
 //               {
 //
-//                  msg.id() = e_message_key_down;
+//                  msg.id() = ::user::e_message_key_down;
 //
 //                  ::pointer<::windowing_kde5::window> pwindow = msg.oswindow;
 //
@@ -2859,7 +2859,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                  keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0,
 //                                              e.xkey.state & ShiftMask ? 1 : 0);
 //
-//                  msg.id() = e_message_key_up;
+//                  msg.id() = ::user::e_message_key_up;
 //
 //               }
 //               else
@@ -2889,15 +2889,15 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  pkey->m_pwindow = px11window;
 //
-//                  //pkey->set(oswindow, oswindow, e_message_text_composition, 0, 0);
+//                  //pkey->set(oswindow, oswindow, ::user::e_message_text_composition, 0, 0);
 //
-//                  pkey->m_emessage = e_message_text_composition;
+//                  pkey->m_emessage = ::user::e_message_text_composition;
 //
 //                  pkey->m_strText = strText;
 //
 ////               MESSAGE msgText(msg);
 ////
-////               msgText.id() = e_message_text_composition;
+////               msgText.id() = ::user::e_message_text_composition;
 ////
 ////               msgText.wParam = 0;
 ////
@@ -2905,7 +2905,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////
 ////               msgText.lParam = (lparam) (iptr) (string *) (pstringText);
 //
-//                  printf("x11_process_message e_message_text_composition\n");
+//                  printf("x11_process_message ::user::e_message_text_composition\n");
 //
 //                  //post_ui_message(msgText);
 //                  post_ui_message(pkey);
@@ -2922,7 +2922,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //            informationf("FocusIn\n");
 //
-//            msg.id() = e_message_set_focus;
+//            msg.id() = ::user::e_message_set_focus;
 //
 //            if (::is_set(px11window))
 //            {
@@ -2939,7 +2939,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                  if (::is_set(pinteraction))
 //                  {
 //
-//                     msg.id() = e_message_set_focus;
+//                     msg.id() = ::user::e_message_set_focus;
 //
 //                     pinteraction->m_ewindowflag |= ::e_window_flag_focus;
 //
@@ -3027,7 +3027,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                  if (::is_set(pinteraction))
 //                  {
 //
-//                     msg.id() = e_message_kill_focus;
+//                     msg.id() = ::user::e_message_kill_focus;
 //
 //                     pinteraction->m_ewindowflag -= ::e_window_flag_focus;
 //
@@ -3056,7 +3056,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //            if (msg.oswindow)
 //            {
 //               msg.oswindow = m_pdisplay->_window(e.xdestroywindow.window);
-//               msg.id() = e_message_destroy;
+//               msg.id() = ::user::e_message_destroy;
 //
 //               post_ui_message(msg);
 //
@@ -3235,7 +3235,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    //    if (pmessagequeue == nullptr)
    //    {
    //
-   //       if (message.m_emessage == e_message_quit)
+   //       if (message.m_emessage == ::user::e_message_quit)
    //       {
    //
    //          return;
@@ -3257,22 +3257,22 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    //
    //    pmessagequeue->m_messagea.add(message);
    //
-   //    if (message.m_emessage == e_message_quit)
+   //    if (message.m_emessage == ::user::e_message_quit)
    //    {
    //
-   //       informationf("e_message_quit thread");
+   //       informationf("::user::e_message_quit thread");
    //
    //    }
-   //    else if (message.m_emessage == e_message_left_button_down)
+   //    else if (message.m_emessage == ::user::e_message_left_button_down)
    //    {
    //
-   //       informationf("post_ui_message::e_message_left_button_down");
+   //       informationf("post_ui_message::::user::e_message_left_button_down");
    //
    //    }
-   //    else if (message.m_emessage == e_message_left_button_up)
+   //    else if (message.m_emessage == ::user::e_message_left_button_up)
    //    {
    //
-   //       informationf("post_ui_message::e_message_left_button_up");
+   //       informationf("post_ui_message::::user::e_message_left_button_up");
    //
    //    }
    //

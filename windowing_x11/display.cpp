@@ -474,7 +474,7 @@ namespace windowing_x11
          MESSAGE msg;
 
          msg.oswindow = pwindowMouseCaptureOld;
-         msg.id() = e_message_capture_changed;
+         msg.id() = ::user::e_message_capture_changed;
          msg.wParam = 0;
          msg.lParam = pwindowMouseCaptureNew;
 

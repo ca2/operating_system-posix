@@ -1280,15 +1280,15 @@ namespace windowing_q5
 //
 //          if (pevent->button() == Qt::MouseButton::LeftButton)
 //          {
-//             pmouse->m_emessage = e_message_left_button_down;
+//             pmouse->m_emessage = ::user::e_message_left_button_down;
 //          }
 //          else if (pevent->button() == Qt::MouseButton::RightButton)
 //          {
-//             pmouse->m_emessage = e_message_right_button_down;
+//             pmouse->m_emessage = ::user::e_message_right_button_down;
 //          }
 //          else if (pevent->button() == Qt::MouseButton::MiddleButton)
 //          {
-//             pmouse->m_emessage = e_message_middle_button_down;
+//             pmouse->m_emessage = ::user::e_message_middle_button_down;
 //          }
 //
 //          m_pointCursor2.x() = pevent->globalX();
@@ -1363,15 +1363,15 @@ namespace windowing_q5
 //
 //             if (pevent->button() == Qt::MouseButton::LeftButton)
 //             {
-//                pmouse->m_emessage = e_message_left_button_up;
+//                pmouse->m_emessage = ::user::e_message_left_button_up;
 //             }
 //             else if (pevent->button() == Qt::MouseButton::RightButton)
 //             {
-//                pmouse->m_emessage = e_message_right_button_up;
+//                pmouse->m_emessage = ::user::e_message_right_button_up;
 //             }
 //             else if (pevent->button() == Qt::MouseButton::MiddleButton)
 //             {
-//                pmouse->m_emessage = e_message_middle_button_up;
+//                pmouse->m_emessage = ::user::e_message_middle_button_up;
 //             }
 //
 //             m_pointCursor2.x() = pevent->globalX();
@@ -1465,7 +1465,7 @@ namespace windowing_q5
 //
 //          __check_refdbg;
 //
-//          pmouse->m_emessage = e_message_mouse_move;
+//          pmouse->m_emessage = ::user::e_message_mouse_move;
 //
 //          __check_refdbg;
 //
@@ -1584,7 +1584,7 @@ namespace windowing_q5
 //           {
 //              auto pkey = øcreate_new<::message::key>();
 //
-//              pkey->m_emessage = e_message_key_down;
+//              pkey->m_emessage = ::user::e_message_key_down;
 //
 //               pkey->m_oswindow = this;
 //              //
@@ -1625,7 +1625,7 @@ namespace windowing_q5
 //
 //              //if (pevent->button() == Qt::MouseButton::LeftButton)
 //              // {
-//              //    pmouse->m_emessage = e_message_left_button_down;
+//              //    pmouse->m_emessage = ::user::e_message_left_button_down;
 //              //    pelemental->fore_on_left_button_down(pmouse);
 //              //    if (!pmouse->m_bRet)
 //              //    {
@@ -1636,7 +1636,7 @@ namespace windowing_q5
 //              // }
 //              // else if (pevent->button() == Qt::MouseButton::RightButton)
 //              // {
-//              //    pmouse->m_emessage = e_message_right_button_down;
+//              //    pmouse->m_emessage = ::user::e_message_right_button_down;
 //              //    pelemental->fore_on_right_button_down(pmouse);
 //              //    if (!pmouse->m_bRet)
 //              //    {
@@ -1648,7 +1648,7 @@ namespace windowing_q5
 //              // }
 //              // else if (pevent->button() == Qt::MouseButton::MiddleButton)
 //              // {
-//              //    pmouse->m_emessage = e_message_middle_button_down;
+//              //    pmouse->m_emessage = ::user::e_message_middle_button_down;
 //              // }
 //
 //
@@ -1702,7 +1702,7 @@ namespace windowing_q5
 //           {
 //              auto pkey = øcreate_new<::message::key>();
 //
-//              pkey->m_emessage = e_message_key_up;
+//              pkey->m_emessage = ::user::e_message_key_up;
 //
 //               pkey->m_oswindow = this;
 //              //
@@ -1733,7 +1733,7 @@ namespace windowing_q5
 //
 //              //if (pevent->button() == Qt::MouseButton::LeftButton)
 //              // {
-//              //    pmouse->m_emessage = e_message_left_button_down;
+//              //    pmouse->m_emessage = ::user::e_message_left_button_down;
 //              //    pelemental->fore_on_left_button_down(pmouse);
 //              //    if (!pmouse->m_bRet)
 //              //    {
@@ -1744,7 +1744,7 @@ namespace windowing_q5
 //              // }
 //              // else if (pevent->button() == Qt::MouseButton::RightButton)
 //              // {
-//              //    pmouse->m_emessage = e_message_right_button_down;
+//              //    pmouse->m_emessage = ::user::e_message_right_button_down;
 //              //    pelemental->fore_on_right_button_down(pmouse);
 //              //    if (!pmouse->m_bRet)
 //              //    {
@@ -1756,7 +1756,7 @@ namespace windowing_q5
 //              // }
 //              // else if (pevent->button() == Qt::MouseButton::MiddleButton)
 //              // {
-//              //    pmouse->m_emessage = e_message_middle_button_down;
+//              //    pmouse->m_emessage = ::user::e_message_middle_button_down;
 //              // }
 //
 //
@@ -1827,7 +1827,7 @@ namespace windowing_q5
 //    //    else if (strActionName == "close")
 //    //    {
 //    //
-//    //       puserinteraction->post_message(e_message_close);
+//    //       puserinteraction->post_message(::user::e_message_close);
 //    //
 //    //    }
 //    //    else if (strActionName == "")
@@ -2621,7 +2621,7 @@ namespace windowing_q5
 
       if (bOk)
       {
-         //auto lresult = puserinteraction->send_message(e_message_create, 0, (lparam) &pusersystem->m_createstruct);
+         //auto lresult = puserinteraction->send_message(::user::e_message_create, 0, (lparam) &pusersystem->m_createstruct);
 
          // if(::is_null(puserinteraction->m_pwindow))
          // {
@@ -2710,7 +2710,7 @@ namespace windowing_q5
 
          ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
 
-         auto lresult = puserinteraction->send_message(e_message_create, 0, 0);
+         auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
 
          if (lresult == -1)
          {
@@ -2721,7 +2721,7 @@ namespace windowing_q5
 
          puserinteraction->set_flag(e_flag_task_started);
 
-         //auto lresult2 = puserinteraction->send_message(e_message_after_create, 0, 0);
+         //auto lresult2 = puserinteraction->send_message(::user::e_message_after_create, 0, 0);
       }
 
    }
@@ -4876,7 +4876,7 @@ namespace windowing_q5
 //    //      if (pmessagequeue == nullptr)
 //    //      {
 //    //
-//    //         if (message.m_emessage == e_message_quit)
+//    //         if (message.m_emessage == ::user::e_message_quit)
 //    //         {
 //    //
 //    //            return ::error_failed;
@@ -4896,22 +4896,22 @@ namespace windowing_q5
 //    //
 //    //      synchronous_lock ml(pmessagequeue->synchronization());
 //    //
-//    //      if (message.m_emessage == e_message_quit)
+//    //      if (message.m_emessage == ::user::e_message_quit)
 //    //      {
 //    //
-//    //         informationf("e_message_quit thread");
+//    //         informationf("::user::e_message_quit thread");
 //    //
 //    //      }
 //    //
-//    //      if (message.m_emessage == e_message_left_button_down)
+//    //      if (message.m_emessage == ::user::e_message_left_button_down)
 //    //      {
 //    //
-//    //         informationf("post_ui_message::e_message_left_button_down\n");
+//    //         informationf("post_ui_message::::user::e_message_left_button_down\n");
 //    //
-//    //      } else if (message.m_emessage == e_message_left_button_up)
+//    //      } else if (message.m_emessage == ::user::e_message_left_button_up)
 //    //      {
 //    //
-//    //         informationf("post_ui_message::e_message_left_button_up\n");
+//    //         informationf("post_ui_message::::user::e_message_left_button_up\n");
 //    //
 //    //      }
 //    //
@@ -5866,7 +5866,7 @@ namespace windowing_q5
 //
 //          //if (pinteraction.is_set())
 //          {
-//             puserinteraction->send_message(e_message_destroy, 0, 0);
+//             puserinteraction->send_message(::user::e_message_destroy, 0, 0);
 //          }
 //       }
 //
@@ -5894,7 +5894,7 @@ namespace windowing_q5
 //
 //          //if (pinteraction.is_set())
 //          {
-//             puserinteraction->send_message(e_message_non_client_destroy, 0, 0);
+//             puserinteraction->send_message(::user::e_message_non_client_destroy, 0, 0);
 //          }
 //       }
 //    }
@@ -6623,7 +6623,7 @@ return false;
 //    //
 //    //          pmouse->m_pwindow = this;
 //    //
-//    //          pmouse->m_emessage = e_message_mouse_move;
+//    //          pmouse->m_emessage = ::user::e_message_mouse_move;
 //    //
 //    //          pmouse->m_pointHost = m_pointCursor2;
 //    //
@@ -6676,7 +6676,7 @@ return false;
 //    // ////  //             MESSAGE msgCaptureChanged;
 //    // ////
 //    // //////               msgCaptureChanged.oswindow = m_pwindowCapture;
-//    // ////               msg.id() = e_message_capture_changed;
+//    // ////               msg.id() = ::user::e_message_capture_changed;
 //    // ////               msg.wParam = 0;
 //    // ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
 //    // ////               msg.time = e.xcrossing.time;
@@ -6694,7 +6694,7 @@ return false;
 //    //
 //    // //      MESSAGE msg;
 //    // //      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
-//    // //      msg.id() = e_message_mouse_leave;
+//    // //      msg.id() = ::user::e_message_mouse_leave;
 //    // //      msg.wParam = 0;
 //    // //      msg.lParam = 0;
 //    // //      //   msg.time = e.xcrossing.time;
@@ -6708,7 +6708,7 @@ return false;
 //    //
 //    //       pmouse->m_pwindow = pmouse->m_oswindow;
 //    //
-//    //       pmouse->m_emessage = e_message_mouse_leave;
+//    //       pmouse->m_emessage = ::user::e_message_mouse_leave;
 //    //
 //    //       pmouse->m_pointHost = m_pointCursor2;
 //    //
@@ -6739,9 +6739,9 @@ return false;
 //    //
 //    //       //m_pwlpointer = pwlpointer;
 //    //
-//    //       enum_message emessage = e_message_undefined;
+//    //       enum_message emessage = ::user::e_message_undefined;
 //    //
-//    //       //msg.id() = e_message_mouse_wheel;
+//    //       //msg.id() = ::user::e_message_mouse_wheel;
 //    //
 //    //       //post_ui_message(pmouse);
 //    //
@@ -6761,19 +6761,19 @@ return false;
 //    //
 //    //             information() << "LeftButtonDown";
 //    //
-//    //             emessage = e_message_left_button_down;
+//    //             emessage = ::user::e_message_left_button_down;
 //    //
 //    //          }
 //    //          else if (linux_button == BTN_MIDDLE)
 //    //          {
 //    //
-//    //             emessage = e_message_middle_button_down;
+//    //             emessage = ::user::e_message_middle_button_down;
 //    //
 //    //          }
 //    //          else if (linux_button == BTN_RIGHT)
 //    //          {
 //    //
-//    //             emessage = e_message_right_button_down;
+//    //             emessage = ::user::e_message_right_button_down;
 //    //
 //    //          }
 //    //          else if (linux_button == BTN_GEAR_DOWN)
@@ -6805,19 +6805,19 @@ return false;
 //    //             information()
 //    //                << "LeftButtonUp";
 //    //
-//    //             emessage = e_message_left_button_up;
+//    //             emessage = ::user::e_message_left_button_up;
 //    //
 //    //          }
 //    //          else if (linux_button == BTN_MIDDLE)
 //    //          {
 //    //
-//    //             emessage = e_message_middle_button_up;
+//    //             emessage = ::user::e_message_middle_button_up;
 //    //
 //    //          }
 //    //          else if (linux_button == BTN_RIGHT)
 //    //          {
 //    //
-//    //             emessage = e_message_right_button_up;
+//    //             emessage = ::user::e_message_right_button_up;
 //    //
 //    //          }
 //    //          else
@@ -6868,7 +6868,7 @@ return false;
 //    //
 //    //          pmousewheel->m_pwindow = this;
 //    //
-//    //          pmousewheel->id() = e_message_mouse_wheel;
+//    //          pmousewheel->id() = ::user::e_message_mouse_wheel;
 //    //
 //    //          //msg.wParam = make_int(0, iDelta);
 //    //
@@ -7136,28 +7136,28 @@ return false;
 //    //          pkey->
 //    //             m_ekey = ekey;
 //    //
-//    //          if (emessage == e_message_key_down)
+//    //          if (emessage == ::user::e_message_key_down)
 //    //          {
 //    //
 //    //             pkey->
-//    //                id() = e_message_key_down;
+//    //                id() = ::user::e_message_key_down;
 //    //
 //    //             information()
 //    //
-//    //                << "e_message_key_down";
+//    //                << "::user::e_message_key_down";
 //    //
 //    //          }
 //    //          else
 //    //          {
 //    //
 //    //             pkey->
-//    //                id() = e_message_key_up;
+//    //                id() = ::user::e_message_key_up;
 //    //
-//    // //information() << "e_message_key_up : " << (iptr) ekey;
+//    // //information() << "::user::e_message_key_up : " << (iptr) ekey;
 //    //
 //    //             information()
 //    //
-//    //                << "e_message_key_up";
+//    //                << "::user::e_message_key_up";
 //    //
 //    //          }
 //    //
@@ -7183,14 +7183,14 @@ return false;
 //    //    m_pwindow = this;
 //    //
 //    //    pkey->
-//    //    id() = e_message_text_composition;
+//    //    id() = ::user::e_message_text_composition;
 //    //
 //    //    pkey->
 //    //    m_strText = scopedstrText;
 //    //
 //    //    information()
 //    //
-//    //    << "e_message_text_composition";
+//    //    << "::user::e_message_text_composition";
 //    //
 //    //    m_pwindow->
 //    //    message_handler(pkey);
@@ -7629,19 +7629,19 @@ return false;
 //    //            if(pressed == WL_KEYBOARD_KEY_STATE_PRESSED)
 //    //            {
 //    //
-//    //               pkey->m_emessage = e_message_key_down;
+//    //               pkey->m_emessage = ::user::e_message_key_down;
 //    //
-//    //               information() << "e_message_key_down";
+//    //               information() << "::user::e_message_key_down";
 //    //
 //    //            }
 //    //            else
 //    //            {
 //    //
-//    //               pkey->m_emessage = e_message_key_up;
+//    //               pkey->m_emessage = ::user::e_message_key_up;
 //    //
-//    //               //information() << "e_message_key_up : " << (iptr) ekey;
+//    //               //information() << "::user::e_message_key_up : " << (iptr) ekey;
 //    //
-//    //               information() << "e_message_key_up";
+//    //               information() << "::user::e_message_key_up";
 //    //
 //    //            }
 //    //
@@ -7690,11 +7690,11 @@ return false;
 //    //
 //    //            pkey->m_pwindow = this;
 //    //
-//    //            pkey->m_emessage = e_message_text_composition;
+//    //            pkey->m_emessage = ::user::e_message_text_composition;
 //    //
 //    //            pkey->m_strText = text;
 //    //
-//    //            information() << "e_message_text_composition";
+//    //            information() << "::user::e_message_text_composition";
 //    //
 //    //            m_pwindow->message_handler(pkey);
 //    //

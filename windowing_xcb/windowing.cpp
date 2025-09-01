@@ -494,7 +494,7 @@ namespace windowing_xcb
 
          pmessage->m_pwindow = pwindowMouseCaptureOld;
          pmessage->m_oswindow = pwindowMouseCaptureOld;
-         pmessage->m_emessage = e_message_capture_changed;
+         pmessage->m_emessage = ::user::e_message_capture_changed;
          pmessage->m_wparam = 0;
          pmessage->m_lparam = pwindowMouseCaptureNew;
 
@@ -939,7 +939,7 @@ namespace windowing_xcb
 
             auto pmessage = øcreate_new<::user::message>();
 
-            pmessage->m_emessage = e_message_mouse_leave;
+            pmessage->m_emessage = ::user::e_message_mouse_leave;
             pmessage->m_pwindow = pxcbwindow;
             pmessage->m_oswindow = pxcbwindow;
             pmessage->m_wparam = 0;
@@ -1128,7 +1128,7 @@ namespace windowing_xcb
                //msg.oswindow = m_pdisplay->_window(pmotion->happening);
                pmouse->m_pwindow = pxcbwindow;
                pmouse->m_oswindow = pxcbwindow;
-               pmouse->m_emessage = e_message_mouse_move;
+               pmouse->m_emessage = ::user::e_message_mouse_move;
                //pmessage->.wParam = wparam;
                pmouse->m_ebuttonstate = ebuttonstate;
                pmouse->m_pointAbsolute = {pmotion->root_x, pmotion->root_y};
@@ -1311,7 +1311,7 @@ namespace windowing_xcb
                            auto pmessage = øcreate_new<::user::message>();
                            pmessage->m_pwindow = pxcbwindow;
                            pmessage->m_oswindow = pxcbwindow;
-                           pmessage->m_emessage = e_message_paint;
+                           pmessage->m_emessage = ::user::e_message_paint;
                            pmessage->m_lparam = 0;
                            pmessage->m_wparam = 0;
 
@@ -1761,7 +1761,7 @@ namespace windowing_xcb
 
             pmessage->m_pwindow = pxcbwindow;
             pmessage->m_oswindow = pxcbwindow;
-            pmessage->m_emessage = e_message_show_window;
+            pmessage->m_emessage = ::user::e_message_show_window;
             pmessage->m_bShow = uResponseType == XCB_MAP_NOTIFY;
             //msg.lParam = 0;
 
@@ -1804,7 +1804,7 @@ namespace windowing_xcb
                            try
                            {
 
-                              pframe->post_message(e_message_display_change);
+                              pframe->post_message(::user::e_message_display_change);
 
                            }
                            catch (...)
@@ -1997,7 +1997,7 @@ if(bSentResponse)
 
             int Δ = 0;
 
-            ::enum_message emessage = e_message_null;
+            ::enum_message emessage = ::user::e_message_null;
 
             if (uResponseType == XCB_BUTTON_PRESS)
             {
@@ -2010,19 +2010,19 @@ if(bSentResponse)
 
                   g_i135++;
 
-                  emessage = e_message_left_button_down;
+                  emessage = ::user::e_message_left_button_down;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_2)
                {
 
-                  emessage = e_message_middle_button_down;
+                  emessage = ::user::e_message_middle_button_down;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_3)
                {
 
-                  emessage = e_message_right_button_down;
+                  emessage = ::user::e_message_right_button_down;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_4)
@@ -2059,19 +2059,19 @@ if(bSentResponse)
 
                   //informationf("ButtonRelease::Button1\n");
 
-                  emessage = e_message_left_button_up;
+                  emessage = ::user::e_message_left_button_up;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_2)
                {
 
-                  emessage = e_message_middle_button_up;
+                  emessage = ::user::e_message_middle_button_up;
 
                }
                else if (pbutton->detail == XCB_BUTTON_INDEX_3)
                {
 
-                  emessage = e_message_right_button_up;
+                  emessage = ::user::e_message_right_button_up;
 
                }
                else
@@ -2135,7 +2135,7 @@ if(bSentResponse)
                   pmessage->m_oswindow = pxcbwindow;
 
 
-                  pmessage->m_emessage = e_message_mouse_wheel;
+                  pmessage->m_emessage = ::user::e_message_mouse_wheel;
 
                   pmessage->m_Δ = Δ;
 
@@ -2295,14 +2295,14 @@ if(bSentResponse)
 
             KeySym keysym = 0;
 
-            ::enum_message emessage = ::e_message_null;
+            ::enum_message emessage = ::::user::e_message_null;
 
             if (uResponseType == XCB_KEY_PRESS)
             {
 
                strText = pxcbwindow->_on_key_down(code, state, &keysym);
 
-               emessage = e_message_key_down;
+               emessage = ::user::e_message_key_down;
 
             }
             else if (uResponseType == XCB_KEY_RELEASE)
@@ -2310,7 +2310,7 @@ if(bSentResponse)
 
                keysym = pxcbwindow->keycode_to_keysym(code);
 
-               emessage = e_message_key_up;
+               emessage = ::user::e_message_key_up;
 
             }
             else
@@ -2342,13 +2342,13 @@ if(bSentResponse)
                auto pmessage = øcreate_new<::message::key>();
                pmessage->m_oswindow = pxcbwindow;
                pmessage->m_pwindow = pxcbwindow;
-               pmessage->m_emessage = e_message_text_composition;
+               pmessage->m_emessage = ::user::e_message_text_composition;
 
-               //pkey->set(pwindow, pwindow, e_message_text_composition, 0, 0);
+               //pkey->set(pwindow, pwindow, ::user::e_message_text_composition, 0, 0);
 
                pmessage->m_strText = strText;
 
-               printf("xcb_process_message e_message_text_composition\n");
+               printf("xcb_process_message ::user::e_message_text_composition\n");
 
                post_ui_message(pmessage);
 
@@ -2393,7 +2393,7 @@ if(bSentResponse)
 
                      pmessage->m_pwindow = pxcbwindow;
                      pmessage->m_oswindow = pxcbwindow;
-                     pmessage->m_emessage = e_message_set_focus;
+                     pmessage->m_emessage = ::user::e_message_set_focus;
 
                      pinteraction->m_ewindowflag |= ::e_window_flag_focus;
 
@@ -2448,7 +2448,7 @@ if(bSentResponse)
                      pmessage->m_pwindow = pxcbwindow;
                      pmessage->m_oswindow = pxcbwindow;
 
-                     pmessage->m_emessage = e_message_kill_focus;
+                     pmessage->m_emessage = ::user::e_message_kill_focus;
 
                      pinteraction->m_ewindowflag -= ::e_window_flag_focus;
 
@@ -2501,7 +2501,7 @@ if(bSentResponse)
 
             pmessage->m_oswindow = pxcbwindow;
 
-            pmessage->m_emessage = e_message_destroy;
+            pmessage->m_emessage = ::user::e_message_destroy;
 
             post_ui_message(pmessage);
 
@@ -2665,7 +2665,7 @@ if(bSentResponse)
 //
 //            oswindow->m_pointWindow = pointWindow;
 //
-//            pmessage->m_emessage = e_message_reposition;
+//            pmessage->m_emessage = ::user::e_message_reposition;
 //            pmessage->m_wparam = 0;
 //            pmessage->m_point = pointWindow;
 //
@@ -2685,7 +2685,7 @@ if(bSentResponse)
 //
 //            oswindow->m_size = sizeWindow;
 //
-//            pmessage->m_emessage = e_message_size;
+//            pmessage->m_emessage = ::user::e_message_size;
 //            pmessage->m_wparam = 0;
 //            pmessage->m_size = sizeWindow;
 //

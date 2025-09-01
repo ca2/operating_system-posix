@@ -354,15 +354,15 @@ namespace windowing_xcb
    bool windowing::xcb_process_ge_event(xcb_ge_event_t * pgehappening)
    {
 
-      enum_message emessage = e_message_null;
+      enum_message emessage = ::user::e_message_null;
 
       switch (pgehappening->event_type)
       {
          case XCB_INPUT_RAW_KEY_PRESS:
-            emessage = e_message_key_down;
+            emessage = ::user::e_message_key_down;
             break;
          case XCB_INPUT_RAW_KEY_RELEASE:
-            emessage = e_message_key_up;
+            emessage = ::user::e_message_key_up;
             break;
          case XCB_INPUT_RAW_BUTTON_PRESS:
             {
@@ -372,17 +372,17 @@ namespace windowing_xcb
                 if(prawevent->detail == 1)
                 {
                    //left_button
-                   emessage = e_message_left_button_down;
+                   emessage = ::user::e_message_left_button_down;
                 }
                 else if(prawevent->detail == 2)
                 {
                    //middle_button
-                   emessage = e_message_middle_button_down;
+                   emessage = ::user::e_message_middle_button_down;
                 }
                 else if(prawevent->detail == 3)
                 {
                    //right_button
-                   emessage = e_message_right_button_down;
+                   emessage = ::user::e_message_right_button_down;
                 }
                 else if(prawevent->detail == 4)
                 {
@@ -405,17 +405,17 @@ namespace windowing_xcb
                if(prawevent->detail == 1)
                {
                   //left_button
-                  emessage = e_message_left_button_up;
+                  emessage = ::user::e_message_left_button_up;
                }
                else if(prawevent->detail == 2)
                {
                   //middle_button
-                  emessage = e_message_middle_button_up;
+                  emessage = ::user::e_message_middle_button_up;
                }
                else if(prawevent->detail == 3)
                {
                   //right_button
-                  emessage = e_message_right_button_up;
+                  emessage = ::user::e_message_right_button_up;
                }
                else if(prawevent->detail == 4)
                {
@@ -437,14 +437,14 @@ namespace windowing_xcb
 
       //auto ptopic = psystem->topic(eid);
 
-      if(emessage != e_message_null)
+      if(emessage != ::user::e_message_null)
       {
 
          long long iWparam = 'a';
 
          long long iLparam = XK_a;
 
-         if (emessage == e_message_key_down || emessage == e_message_key_up)
+         if (emessage == ::user::e_message_key_down || emessage == ::user::e_message_key_up)
          {
 
             if(is_return_key(pgehappening))

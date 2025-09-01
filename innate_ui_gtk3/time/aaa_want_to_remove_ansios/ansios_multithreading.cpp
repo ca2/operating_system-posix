@@ -362,7 +362,7 @@ CLASS_DECL_ACME int_bool WINAPI PostThreadMessage(itask iThreadId,unsigned int M
 
    MESSAGE msg;
 
-   if(Msg == e_message_quit)
+   if(Msg == ::user::e_message_quit)
    {
 
       ::output_debug_string("\n\n\nWM_QUIT posted to thread " + ::as_string((uint64_t)iThreadId) + "\n\n\n");

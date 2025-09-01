@@ -363,7 +363,7 @@ namespace node_gtk4
 
    //   ::pointer<::user::message>pusermessage(pmessage);
 
-   //   if (pusermessage->m_lparam == e_message_left_button_down)
+   //   if (pusermessage->m_lparam == ::user::e_message_left_button_down)
    //   {
 
    //      while (m_wndptraHidden.get_size() > 0)

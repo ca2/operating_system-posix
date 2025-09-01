@@ -727,7 +727,7 @@ namespace windowing_q
    //      auto button = libinput_event_pointer_get_button(ppointer);
    //      auto state = libinput_event_pointer_get_button_state(ppointer);
    //
-   //      enum_message emessage = e_message_undefined;
+   //      enum_message emessage = ::user::e_message_undefined;
    //
    //      if(button == BTN_LEFT)
    //      {
@@ -735,19 +735,19 @@ namespace windowing_q
    //         if(state == LIBINPUT_BUTTON_STATE_PRESSED)
    //         {
    //
-   //            emessage = e_message_left_button_down;
+   //            emessage = ::user::e_message_left_button_down;
    //
    //         }
    //         else if(state == LIBINPUT_BUTTON_STATE_PRESSED)
    //         {
    //
-   //            emessage = e_message_left_button_up;
+   //            emessage = ::user::e_message_left_button_up;
    //
    //         }
    //
    //      }
    //
-   //      if(emessage != e_message_undefined)
+   //      if(emessage != ::user::e_message_undefined)
    //      {
    //
    //         auto pmouse = øcreate_new < ::message::mouse >();
@@ -776,7 +776,7 @@ namespace windowing_q
    //      auto key = libinput_event_keyboard_get_key(pkeyboard);
    //      auto state = libinput_event_keyboard_get_key_state(pkeyboard);
    //
-   //      enum_message emessage = e_message_undefined;
+   //      enum_message emessage = ::user::e_message_undefined;
    //
    //      //if(button == BTN_LEFT)
    //      {
@@ -784,19 +784,19 @@ namespace windowing_q
    //         if(state == LIBINPUT_BUTTON_STATE_PRESSED)
    //         {
    //
-   //            emessage = e_message_key_down;
+   //            emessage = ::user::e_message_key_down;
    //
    //         }
    //         else if(state == LIBINPUT_BUTTON_STATE_PRESSED)
    //         {
    //
-   //            emessage = e_message_key_up;
+   //            emessage = ::user::e_message_key_up;
    //
    //         }
    //
    //      }
    //
-   //      if(emessage != e_message_undefined)
+   //      if(emessage != ::user::e_message_undefined)
    //      {
    //
    //         auto pkey = øcreate_new < ::message::key >();
