@@ -8,7 +8,7 @@
 #include "window.h"
 #include "windowing.h"
 #include "windowing_wayland.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
 #include "apex/platform/node.h"

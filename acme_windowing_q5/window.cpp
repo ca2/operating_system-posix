@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "window.h"
 #include "display.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 #include "acme/integrate/qt.h"
 #include "acme/nano/graphics/device.h"
 #include "acme/nano/nano.h"
@@ -1809,7 +1809,7 @@ m_pqwidget->move(p);
           {
              auto pkey = øcreate_new<::user::key>();
 
-             pkey->m_emessage = ::::user::e_message_key_down;
+             pkey->m_emessage = ::user::e_message_key_down;
 
              // pmouse->m_oswindow = this;
              //
@@ -1910,7 +1910,7 @@ m_pqwidget->move(p);
           {
              auto pkey = øcreate_new<::user::key>();
 
-             pkey->m_emessage = ::::user::e_message_key_up;
+             pkey->m_emessage = ::user::e_message_key_up;
 
              // pmouse->m_oswindow = this;
              //

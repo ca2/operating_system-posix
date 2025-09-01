@@ -9,7 +9,7 @@
 #include "windowing.h"
 #include "display.h"
 #include "cursor.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 #include "acme/operating_system/a_system_menu.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
@@ -5014,12 +5014,12 @@ namespace windowing_kde5
 //    //      if (message.m_emessage == ::user::e_message_left_button_down)
 //    //      {
 //    //
-//    //         informationf("post_ui_message::::user::e_message_left_button_down\n");
+//    //         informationf("post_ui_message::user::e_message_left_button_down\n");
 //    //
 //    //      } else if (message.m_emessage == ::user::e_message_left_button_up)
 //    //      {
 //    //
-//    //         informationf("post_ui_message::::user::e_message_left_button_up\n");
+//    //         informationf("post_ui_message::user::e_message_left_button_up\n");
 //    //
 //    //      }
 //    //
@@ -7222,7 +7222,7 @@ namespace windowing_kde5
    //    }
    //
    //
-   //    void window::_on_simple_key_message(::user::e_key ekey, ::enum_message emessage)
+   //    void window::_on_simple_key_message(::user::e_key ekey, ::user::enum_message eusermessage)
    //    {
    //
    //       // TODO when do we get WL_KEYBOARD_KEY_STATE_REPEAT?

@@ -10,7 +10,7 @@
 #include "windowing_system_xcb/_xcb.h"
 //#include "aura/user/user/interaction_impl.h"
 #include "acme/constant/id.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 ////#include "sn/sn.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
@@ -1028,13 +1028,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       if (message.m_emessage == ::user::e_message_left_button_down)
       {
 
-         informationf("post_ui_message::::user::e_message_left_button_down\n");
+         informationf("post_ui_message::user::e_message_left_button_down\n");
 
       }
       else if (message.m_emessage == ::user::e_message_left_button_up)
       {
 
-         informationf("post_ui_message::::user::e_message_left_button_up\n");
+         informationf("post_ui_message::user::e_message_left_button_up\n");
 
       }
 

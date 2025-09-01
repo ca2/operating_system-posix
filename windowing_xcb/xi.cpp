@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "windowing.h"
 #include "display.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 #include "nano_user_xcb/display.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "apex/platform/system.h"

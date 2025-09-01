@@ -7,7 +7,7 @@
 //#include "aura/operating_system/x11/_x11.h"
 #include "_wayland.h"
 #include "acme/constant/id.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/system.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
@@ -3266,13 +3266,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
       else if (message.m_emessage == ::user::e_message_left_button_down)
       {
 
-         informationf("post_ui_message::::user::e_message_left_button_down");
+         informationf("post_ui_message::user::e_message_left_button_down");
 
       }
       else if (message.m_emessage == ::user::e_message_left_button_up)
       {
 
-         informationf("post_ui_message::::user::e_message_left_button_up");
+         informationf("post_ui_message::user::e_message_left_button_up");
 
       }
 

@@ -16,7 +16,7 @@
 #include <acme/platform/scoped_restore.h>
 
 #include "SubclassedModelButton.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 #include "acme/graphics/image/pixmap.h"
 #include "acme/integrate/cairo.h"
 #include "acme/nano/graphics/device.h"
@@ -2055,7 +2055,7 @@ namespace gtk4
    }
 
 
-   void window::_on_simple_key_message(::user::e_key ekey, ::enum_message emesssage)
+   void window::_on_simple_key_message(::user::e_key ekey, ::user::enum_message emesssage)
    {
 
 

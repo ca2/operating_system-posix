@@ -7,7 +7,7 @@
 #include "window.h"
 #include "display.h"
 #include "cursor.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 #include "acme/graphics/draw2d/_text_stream.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
@@ -1997,7 +1997,7 @@ if(bSentResponse)
 
             int Δ = 0;
 
-            ::enum_message emessage = ::user::e_message_null;
+            ::user::enum_message eusermessage = ::user::e_message_null;
 
             if (uResponseType == XCB_BUTTON_PRESS)
             {
@@ -2295,7 +2295,7 @@ if(bSentResponse)
 
             KeySym keysym = 0;
 
-            ::enum_message emessage = ::::user::e_message_null;
+            ::user::enum_message eusermessage = ::user::e_message_null;
 
             if (uResponseType == XCB_KEY_PRESS)
             {

@@ -61,7 +61,7 @@ extern ::particle * user_synchronization();
 //}
 //
 //
-////int x11_message_box(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrTitle, const ::::user::e_message_box & emessagebox)
+////int x11_message_box(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrTitle, const ::user::e_message_box & emessagebox)
 ////{
 ////
 ////   //deferx_initializex_x11();
@@ -76,9 +76,9 @@ extern ::particle * user_synchronization();
 
 CLASS_DECL_ACME string message_box_result_to_string(int iResult);
 
-//CLASS_DECL_ACME void x11_message_box(const ::scoped_string & scopedstrMessage, const ::scoped_string & scopedstrTitle, const ::::user::e_message_box & emessagebox, const ::promise::process & process);
+//CLASS_DECL_ACME void x11_message_box(const ::scoped_string & scopedstrMessage, const ::scoped_string & scopedstrTitle, const ::user::e_message_box & emessagebox, const ::promise::process & process);
 
-//::e_status message_box_synchronous(oswindow oswindow, const_char_pointer pszMessage, const_char_pointer pszTitle, const ::::user::e_message_box & emessagebox, ::future future)
+//::e_status message_box_synchronous(oswindow oswindow, const_char_pointer pszMessage, const_char_pointer pszTitle, const ::user::e_message_box & emessagebox, ::future future)
 //{
 //
 //   x11_message_box(scopedstrMessage, pszTitle, emessagebox, future);

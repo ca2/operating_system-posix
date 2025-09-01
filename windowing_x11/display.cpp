@@ -6,7 +6,7 @@
 #include "window.h"
 #include "windowing.h"
 #include "windowing_x11.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "apex/platform/node.h"
 #include "apex/platform/system.h"

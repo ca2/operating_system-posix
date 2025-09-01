@@ -112,7 +112,7 @@ namespace wayland
             virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
 
 
-            virtual void _on_simple_key_message(::user::e_key ekey, ::enum_message emesssage);
+            virtual void _on_simple_key_message(::user::e_key ekey, ::user::enum_message emesssage);
             virtual void _on_text_composition(const ::scoped_string & scopedstrText);
             void _on_windowing_close_window() override;
 

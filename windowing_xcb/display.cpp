@@ -5,7 +5,7 @@
 #include "display.h"
 #include "windowing.h"
 #include "window.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "nano_user_xcb/display.h"
 #include "acme/platform/node.h"

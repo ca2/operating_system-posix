@@ -8,7 +8,7 @@
 void acme_defer_os_init_windowing();
 
 
-simple_ui_display::simple_ui_display(const ::scoped_string & scopedstrMessageParam, const ::scoped_string & scopedstrTitle, const ::::user::e_message_box & emessagebox):
+simple_ui_display::simple_ui_display(const ::scoped_string & scopedstrMessageParam, const ::scoped_string & scopedstrTitle, const ::user::e_message_box & emessagebox):
    m_strTitle(strTitle),
    m_strFontName("serif"),
    m_size(100, 40),

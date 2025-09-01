@@ -6,7 +6,7 @@
 #include "window.h"
 #include "display.h"
 #include "cursor.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "apex/input/input.h"
 #include "aura/windowing/cursor_manager.h"

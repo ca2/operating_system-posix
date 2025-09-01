@@ -370,7 +370,7 @@ namespace windowing_wayland
 //      virtual void __defer_xdg_surface_ack_configure();
 
 
-      void _on_simple_key_message(::user::e_key ekey, ::enum_message emesssage) override;
+      void _on_simple_key_message(::user::e_key ekey, ::user::enum_message emesssage) override;
       void _on_text_composition(const ::scoped_string & scopedstrText) override;
 
       bool defer_perform_entire_reposition_process(::user::mouse * pmouse) override;

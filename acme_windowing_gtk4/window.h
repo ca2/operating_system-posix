@@ -250,7 +250,7 @@ virtual void _on_focus_changed(bool bHasFocus);
 
             ::gtk4::acme::windowing::display * gtk4_display();
 
-            virtual void _on_simple_key_message(::user::e_key ekey, ::enum_message emesssage);
+            virtual void _on_simple_key_message(::user::e_key ekey, ::user::enum_message emesssage);
             virtual void _on_text_composition(const ::scoped_string & scopedstrText);
             void _on_windowing_close_window() override;
 

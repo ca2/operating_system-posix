@@ -5,7 +5,7 @@
 #include "window.h"
 #include "display.h"
 #include "windowing.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 #include "acme/graphics/image/pixmap.h"
 #include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"

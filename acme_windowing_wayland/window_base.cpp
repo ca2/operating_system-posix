@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "display_base.h"
 #include "window_base.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 #include "acme/graphics/image/pixmap.h"
 #include "windowing_system_wayland/xfree86_key.h"
 #include "acme/platform/system.h"
@@ -1675,7 +1675,7 @@ namespace nano
       }
 
 
-      void window_base::_on_simple_key_message(::user::e_key ekey, ::enum_message emesssage)
+      void window_base::_on_simple_key_message(::user::e_key ekey, ::user::enum_message emesssage)
       {
 
       }

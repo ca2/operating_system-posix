@@ -7,7 +7,7 @@
 #include "windowing.h"
 #include "display.h"
 #include "cursor.h"
-#include "acme/constant/message.h"
+#include "acme/constant/user_message.h"
 #include "nano_user_xcb/display.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/parallelization/task_message_queue.h"
@@ -1684,13 +1684,13 @@ namespace windowing_xcb
       if (message.m_emessage == ::user::e_message_left_button_down)
       {
 
-         informationf("post_ui_message::::user::e_message_left_button_down");
+         informationf("post_ui_message::user::e_message_left_button_down");
 
       }
       else if (message.m_emessage == ::user::e_message_left_button_up)
       {
 
-         informationf("post_ui_message::::user::e_message_left_button_up");
+         informationf("post_ui_message::user::e_message_left_button_up");
 
       }
 
