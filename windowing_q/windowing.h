@@ -49,8 +49,8 @@ namespace windowing_q
       //
       //#endif
 
-      ::procedure_list m_procedurelist;
-      ::procedure_list m_procedurelistPriority;
+      ::procedure_list_base m_procedurelist;
+      ::procedure_list_base m_procedurelistPriority;
 
 
       ::string       m_strOsUserTheme;

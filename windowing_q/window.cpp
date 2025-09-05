@@ -1320,15 +1320,15 @@ namespace windowing_q
 
          if (pevent->button() == Qt::MouseButton::LeftButton)
          {
-            pmouse->m_emessage = ::user::e_message_left_button_down;
+            pmouse->m_eusermessage = ::user::e_message_left_button_down;
          }
          else if (pevent->button() == Qt::MouseButton::RightButton)
          {
-            pmouse->m_emessage = ::user::e_message_right_button_down;
+            pmouse->m_eusermessage = ::user::e_message_right_button_down;
          }
          else if (pevent->button() == Qt::MouseButton::MiddleButton)
          {
-            pmouse->m_emessage = ::user::e_message_middle_button_down;
+            pmouse->m_eusermessage = ::user::e_message_middle_button_down;
          }
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
@@ -1409,15 +1409,15 @@ namespace windowing_q
 
             if (pevent->button() == Qt::MouseButton::LeftButton)
             {
-               pmouse->m_emessage = ::user::e_message_left_button_up;
+               pmouse->m_eusermessage = ::user::e_message_left_button_up;
             }
             else if (pevent->button() == Qt::MouseButton::RightButton)
             {
-               pmouse->m_emessage = ::user::e_message_right_button_up;
+               pmouse->m_eusermessage = ::user::e_message_right_button_up;
             }
             else if (pevent->button() == Qt::MouseButton::MiddleButton)
             {
-               pmouse->m_emessage = ::user::e_message_middle_button_up;
+               pmouse->m_eusermessage = ::user::e_message_middle_button_up;
             }
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
@@ -1534,7 +1534,7 @@ namespace windowing_q
 
          __check_refdbg;
 
-         pmouse->m_emessage = ::user::e_message_mouse_move;
+         pmouse->m_eusermessage = ::user::e_message_mouse_move;
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
@@ -1585,7 +1585,7 @@ namespace windowing_q
 
       __check_refdbg;
 
-      pmouse->m_emessage = ::user::e_message_mouse_wheel;
+      pmouse->m_eusermessage = ::user::e_message_mouse_wheel;
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 8)
 
@@ -1709,7 +1709,7 @@ namespace windowing_q
           {
              auto pkey = øcreate_new<::message::key>();
 
-             pkey->m_emessage = ::user::e_message_key_down;
+             pkey->m_eusermessage = ::user::e_message_key_down;
 
               pkey->m_oswindow = this;
              //
@@ -1820,7 +1820,7 @@ namespace windowing_q
           {
              auto pkey = øcreate_new<::message::key>();
 
-             pkey->m_emessage = ::user::e_message_key_up;
+             pkey->m_eusermessage = ::user::e_message_key_up;
 
               pkey->m_oswindow = this;
              //
@@ -1957,7 +1957,7 @@ namespace windowing_q
       if (pitem && pitem->m_pimage2)
       {
 
-         pitem->m_pimage2->map_base();
+         pitem->m_pimage2->map();
 
          if (pitem->m_pimage2.ok())
          {

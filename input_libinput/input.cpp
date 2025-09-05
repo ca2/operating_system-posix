@@ -210,7 +210,7 @@ namespace input_libinput
 
       auto state = libinput_event_pointer_get_button_state(ppointer);
 
-      enum_message emessage = ::user::e_message_undefined;
+      ::user::enum_message eusermessage = ::user::e_message_undefined;
 
       if(button == BTN_LEFT)
       {
@@ -218,13 +218,13 @@ namespace input_libinput
          if(state == LIBINPUT_BUTTON_STATE_PRESSED)
          {
 
-            emessage = ::user::e_message_left_button_down;
+            eusermessage = ::user::e_message_left_button_down;
 
          }
          else if(state == LIBINPUT_BUTTON_STATE_RELEASED)
          {
 
-            emessage = ::user::e_message_left_button_up;
+            eusermessage = ::user::e_message_left_button_up;
 
          }
 
@@ -235,13 +235,13 @@ namespace input_libinput
          if(state == LIBINPUT_BUTTON_STATE_PRESSED)
          {
 
-            emessage = ::user::e_message_right_button_down;
+            eusermessage = ::user::e_message_right_button_down;
 
          }
          else if(state == LIBINPUT_BUTTON_STATE_RELEASED)
          {
 
-            emessage = ::user::e_message_right_button_up;
+            eusermessage = ::user::e_message_right_button_up;
 
          }
 
@@ -252,24 +252,24 @@ namespace input_libinput
          if(state == LIBINPUT_BUTTON_STATE_PRESSED)
          {
 
-            emessage = ::user::e_message_middle_button_down;
+            eusermessage = ::user::e_message_middle_button_down;
 
          }
          else if(state == LIBINPUT_BUTTON_STATE_RELEASED)
          {
 
-            emessage = ::user::e_message_middle_button_up;
+            eusermessage = ::user::e_message_middle_button_up;
 
          }
 
       }
 
-      if(emessage != ::user::e_message_undefined)
+      if(eusermessage != ::user::e_message_undefined)
       {
 
          auto pmouse = øcreate_new < ::message::mouse >();
 
-         pmouse->m_emessage = emessage;
+         pmouse->m_eusermessage = eusermessage;
 
          for(auto & pparticle : m_particleaMouseHandler)
          {
@@ -364,27 +364,27 @@ namespace input_libinput
 
       }
 
-      enum_message emessage = ::user::e_message_undefined;
+      ::user::enum_message eusermessage = ::user::e_message_undefined;
 
       if(state == LIBINPUT_KEY_STATE_PRESSED)
       {
 
-         emessage = ::user::e_message_key_down;
+         eusermessage = ::user::e_message_key_down;
 
       }
       else if(state == LIBINPUT_KEY_STATE_RELEASED)
       {
 
-         emessage = ::user::e_message_key_up;
+         eusermessage = ::user::e_message_key_up;
 
       }
 
-      if(emessage != ::user::e_message_undefined)
+      if(eusermessage != ::user::e_message_undefined)
       {
 
          auto pkey = øcreate_new < ::message::key >();
 
-         pkey->m_emessage = emessage;
+         pkey->m_eusermessage = eusermessage;
 
          pkey->m_ekey = ekey;
 
