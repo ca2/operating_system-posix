@@ -913,19 +913,19 @@ gtk_im_context_commit (
             if (button == 1)
             {
 
-               pmouse->m_emessage = ::user::e_message_left_button_down;
+               pmouse->m_eusermessage = ::user::e_message_left_button_down;
 
             }
             else if (button == 3)
             {
 
-               pmouse->m_emessage = ::user::e_message_right_button_down;
+               pmouse->m_eusermessage = ::user::e_message_right_button_down;
 
             }
             else if (button == 2)
             {
 
-               pmouse->m_emessage = ::user::e_message_middle_button_down;
+               pmouse->m_eusermessage = ::user::e_message_middle_button_down;
 
             }
 
@@ -972,19 +972,19 @@ gtk_im_context_commit (
             if (button == 1)
             {
 
-               pmouse->m_emessage = ::user::e_message_left_button_up;
+               pmouse->m_eusermessage = ::user::e_message_left_button_up;
 
             }
             else if (button == 3)
             {
 
-               pmouse->m_emessage = ::user::e_message_right_button_up;
+               pmouse->m_eusermessage = ::user::e_message_right_button_up;
 
             }
             else if (button == 2)
             {
 
-               pmouse->m_emessage = ::user::e_message_middle_button_up;
+               pmouse->m_eusermessage = ::user::e_message_middle_button_up;
 
             }
 
@@ -1030,7 +1030,7 @@ gtk_im_context_commit (
 
          pmouse->m_pwindow = this;
 
-         pmouse->m_emessage = ::user::e_message_mouse_move;
+         pmouse->m_eusermessage = ::user::e_message_mouse_move;
 
 //         if (m_bPendingStartMove)
 //         {
@@ -1122,7 +1122,7 @@ gtk_im_context_commit (
 
          auto pkey = øcreate_new < ::message::key>();
 
-         pkey->m_emessage = ::user::e_message_key_down;
+         pkey->m_eusermessage = ::user::e_message_key_down;
 
          pkey->m_oswindow = this;
 
@@ -1153,7 +1153,7 @@ gtk_im_context_commit (
 
          auto pkey = øcreate_new < ::message::key>();
 
-         pkey->m_emessage = ::user::e_message_key_up;
+         pkey->m_eusermessage = ::user::e_message_key_up;
 
          pkey->m_oswindow = this;
 
@@ -2291,7 +2291,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
       auto pshowwindow = øcreate_new < ::message::show_window >();
 
-      pshowwindow->m_emessage = ::user::e_message_show_window;
+      pshowwindow->m_eusermessage = ::user::e_message_show_window;
 
       auto puserinteraction = user_interaction();
 
@@ -2313,7 +2313,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
       auto pshowwindow = øcreate_new < ::message::show_window >();
 
-      pshowwindow->m_emessage = ::user::e_message_show_window;
+      pshowwindow->m_eusermessage = ::user::e_message_show_window;
 
       auto puserinteraction = user_interaction();
 
@@ -2613,7 +2613,7 @@ return false;
       //
       // pmouse->m_iTimestamp = timestamp;
 
-      pmouse->m_emessage = ::user::e_message_mouse_wheel;
+      pmouse->m_eusermessage = ::user::e_message_mouse_wheel;
 
       informationf("_on_gtk_scroll(%0.2f, %0.2f)", dx, dy);
 
