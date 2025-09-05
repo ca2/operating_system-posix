@@ -42,8 +42,8 @@ namespace windowing_gtk3
 //
 //#endif
 
-      ::procedure_list                                m_procedurelist;
-      ::procedure_list                                m_procedurelistPriority;
+      ::procedure_list_base                                m_procedurelist;
+      ::procedure_list_base                                m_procedurelistPriority;
       //::pointer < ::windowing_gtk3::window >       m_pwindowMouseCapture;
 
 

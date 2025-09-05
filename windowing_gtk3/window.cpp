@@ -612,15 +612,15 @@ namespace windowing_gtk3
 
          if (happening->button == GDK_BUTTON_PRIMARY)
          {
-            pmouse->m_emessage = ::user::e_message_left_button_down;
+            pmouse->m_eusermessage = ::user::e_message_left_button_down;
          }
          else if (happening->button == GDK_BUTTON_SECONDARY)
          {
-            pmouse->m_emessage = ::user::e_message_right_button_down;
+            pmouse->m_eusermessage = ::user::e_message_right_button_down;
          }
          else if (happening->button == GDK_BUTTON_MIDDLE)
          {
-            pmouse->m_emessage = ::user::e_message_middle_button_down;
+            pmouse->m_eusermessage = ::user::e_message_middle_button_down;
          }
 
          m_pointCursor2.x() = happening->x;
@@ -674,19 +674,19 @@ namespace windowing_gtk3
          if (happening->button == GDK_BUTTON_PRIMARY)
          {
 
-            pmouse->m_emessage = ::user::e_message_left_button_up;
+            pmouse->m_eusermessage = ::user::e_message_left_button_up;
 
          }
          else if (happening->button == GDK_BUTTON_SECONDARY)
          {
 
-            pmouse->m_emessage = ::user::e_message_right_button_up;
+            pmouse->m_eusermessage = ::user::e_message_right_button_up;
 
          }
          else if (happening->button == GDK_BUTTON_MIDDLE)
          {
 
-            pmouse->m_emessage = ::user::e_message_middle_button_up;
+            pmouse->m_eusermessage = ::user::e_message_middle_button_up;
 
          }
 
@@ -764,7 +764,7 @@ namespace windowing_gtk3
 
          pmouse->m_pwindow = this;
 
-         pmouse->m_emessage = ::user::e_message_mouse_move;
+         pmouse->m_eusermessage = ::user::e_message_mouse_move;
 
          m_pointCursor2.x() = happening->x;
 
@@ -1085,7 +1085,7 @@ namespace windowing_gtk3
 
          auto pkey = øcreate_new<::message::key>();
 
-         pkey->m_emessage = ::user::e_message_key_down;
+         pkey->m_eusermessage = ::user::e_message_key_down;
 
          pkey->m_oswindow = this;
 
@@ -1116,7 +1116,7 @@ namespace windowing_gtk3
 
          auto pkey = øcreate_new<::message::key>();
 
-         pkey->m_emessage = ::user::e_message_key_up;
+         pkey->m_eusermessage = ::user::e_message_key_up;
 
          pkey->m_oswindow = this;
 
@@ -1153,7 +1153,7 @@ namespace windowing_gtk3
       //
       // pmouse->m_iTimestamp = timestamp;
 
-      pmouse->m_emessage = ::user::e_message_mouse_wheel;
+      pmouse->m_eusermessage = ::user::e_message_mouse_wheel;
 
       informationf("_on_gtk_scroll(%0.2f, %0.2f)", pscroll->delta_x, pscroll->delta_y);
 

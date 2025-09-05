@@ -3237,19 +3237,19 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       pmessagequeue->m_messagea.add(message);
 
-      if (message.m_emessage == ::user::e_message_quit)
+      if (message.m_eusermessage == ::user::e_message_quit)
       {
 
          informationf("::user::e_message_quit thread");
 
       }
-      else if (message.m_emessage == ::user::e_message_left_button_down)
+      else if (message.m_eusermessage == ::user::e_message_left_button_down)
       {
 
          informationf("post_ui_message::user::e_message_left_button_down");
 
       }
-      else if (message.m_emessage == ::user::e_message_left_button_up)
+      else if (message.m_eusermessage == ::user::e_message_left_button_up)
       {
 
          informationf("post_ui_message::user::e_message_left_button_up");
