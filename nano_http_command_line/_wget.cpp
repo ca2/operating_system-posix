@@ -94,11 +94,11 @@ namespace command_line
 
                   }
 
-                  auto nonSpace = strspn(scopedstrSpace, " \t");
+                  auto nonSpace = strspn(pszSpace, " \t");
 
                   auto pszNonSpace = pszSpace + nonSpace;
 
-                  auto pszNextSpace = strpbrk(scopedstrNonSpace, " \t");
+                  auto pszNextSpace = strpbrk(pszNonSpace, " \t");
 
                   if (!pszNextSpace) {
 
@@ -106,7 +106,7 @@ namespace command_line
 
                   }
 
-                  if (!strncmp(scopedstrNonSpace, "200", pszNextSpace - pszNonSpace)) {
+                  if (!strncmp(pszNonSpace, "200", pszNextSpace - pszNonSpace)) {
 
                      return true;
 

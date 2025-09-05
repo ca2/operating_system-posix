@@ -83,7 +83,7 @@ namespace command_line
 
                   ///printf_line("Found space after HTTP/");
 
-                  auto nonSpace = strspn(scopedstrSpace + 1, " \t");
+                  auto nonSpace = strspn(pszSpace + 1, " \t");
 
                   auto pszNonSpace = pszSpace + nonSpace;
 
