@@ -82,7 +82,7 @@ namespace node_gtk3
    ::e_status monitor::_get_monitor_rectangle()
    {
 
-//      _synchronous_lock sl(user_synchronization());
+//      _synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       information() << "::node_gtk3::monitor::_get_monitor_rectangle : " << m_iIndex;
 
@@ -124,7 +124,7 @@ namespace node_gtk3
 //   ::e_status monitor::_get_workspace_rectangle()
 //   {
 //
-//      synchronous_lock sl(user_synchronization());
+//      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      ::pointer auto pdisplay = m_pdisplay->
 //
@@ -165,7 +165,7 @@ namespace node_gtk3
 //                 {
 // //      //   {
 // //
-// //            synchronous_lock sl(user_synchronization());
+// //            synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //             _get_monitor_rectangle();
 //
@@ -184,7 +184,7 @@ namespace node_gtk3
 //      //auto predicate = [this]()
 //        // {
 //
-//            synchronous_lock sl(user_synchronization());
+//            synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //            _get_workspace_rectangle();
 //

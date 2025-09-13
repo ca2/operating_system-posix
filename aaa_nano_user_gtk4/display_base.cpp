@@ -1132,7 +1132,7 @@ namespace gtk4
             //      auto predicate = [this, ppropertyobject]()
             //      {
             //
-            //         synchronous_lock synchronouslock(user_synchronization());
+            //         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
             //
             //         oswindow oswindow = nullptr;
             //
@@ -1698,7 +1698,7 @@ namespace gtk4
          //
          //    }
          //
-         //    synchronous_lock synchronouslock(this->synchronization());
+         //    synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
          //
          //    //      ::pointer < ::xkb_input::xkb_input > pxkbinput = system()->m_pinput;
          //    //

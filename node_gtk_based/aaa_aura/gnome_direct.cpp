@@ -815,7 +815,7 @@
 ////////
 ////////      g_bInitX11Thread = true;
 ////////
-////////      synchronous_lock sl(user_synchronization());
+////////      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////////
 ////////      xdisplay d(pdisplay);
 ////////
@@ -837,7 +837,7 @@
 //////   try
 //////   {
 //////
-//////      synchronous_lock sl(user_synchronization());
+//////      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //////
 //////      xdisplay d(pdisplay);
 //////

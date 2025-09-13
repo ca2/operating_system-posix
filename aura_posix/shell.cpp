@@ -134,7 +134,7 @@ namespace aura_posix
 //
 //         {
 //
-//            synchronous_lock synchronouslock(this->synchronization());
+//            synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //            if (m_imagemap.find(imagekey, iImage))
 //            {
@@ -209,7 +209,7 @@ namespace aura_posix
 ////         if (!b48 && shfi48.hIcon != nullptr)
 ////         {
 ////            ::DestroyIcon(shfi48.hIcon);
-////         }         synchronous_lock synchronouslock(this->synchronization());
+////         }         synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
 ////         m_imagemap.set_at(imagekey, iImage);
 ////
@@ -570,7 +570,7 @@ namespace aura_posix
    void shell::on_update_sizes_interest()
    {
 
-      synchronous_lock synchronouslock(this->synchronization());
+      synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       m_iaSize.erase_all();
 
@@ -625,7 +625,7 @@ namespace aura_posix
 //
 //
 //
-//         synchronous_lock synchronouslock(m_pmutexQueue);
+//         synchronous_lock synchronouslock(m_pmutexQueue, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //         while (task_get_run())
 //         {
@@ -651,7 +651,7 @@ namespace aura_posix
 //
 //               {
 //
-//                  synchronous_lock s(synchronization());
+//                  synchronous_lock s(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //                  m_imagemap.set_at(*pkey, iImage);
 //
@@ -704,7 +704,7 @@ namespace aura_posix
 //
 //            {
 //
-//               synchronous_lock synchronouslock(this->synchronization());
+//               synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //               if (m_imagemap.find(imagekey, iImage))
 //               {
@@ -719,7 +719,7 @@ namespace aura_posix
 //
 //            {
 //
-//               synchronous_lock synchronouslock(m_pmutexQueue);
+//               synchronous_lock synchronouslock(m_pmutexQueue, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //               m_keyptra.add(pstore);
 //
@@ -729,7 +729,7 @@ namespace aura_posix
 //
 //            iImage = get_foo_image(nullptr, oswindow, imagekey, imagekey.m_cr);
 //
-//            synchronous_lock synchronouslock(this->synchronization());
+//            synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //            m_imagemap.set_at(imagekey, iImage);
 //
@@ -782,7 +782,7 @@ namespace aura_posix
 
          {
 
-            synchronous_lock synchronouslock(this->synchronization());
+            synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             if (m_imagemap.find(getfileimage.m_imagekey, getfileimage.m_iImage))
             {
@@ -795,7 +795,7 @@ namespace aura_posix
 
          getfileimage.m_iImage = get_file_image(getfileimage.m_imagekey);
 
-         synchronous_lock synchronouslock(this->synchronization());
+         synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          m_imagemap.set_at(getfileimage.m_imagekey, getfileimage.m_iImage);
 

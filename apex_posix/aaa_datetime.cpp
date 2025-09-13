@@ -338,7 +338,7 @@
 
 //    utc = time( nullptr );
 
-//    synchronous_lock ml(g_pmutexTz);
+//    synchronous_lock ml(g_pmutexTz, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 // //    RtlEnterCriticalSection( &TIME_tz_section );
 //    if (utc != last_utc)
 //    {
@@ -767,7 +767,7 @@
 //    posix_time year_start, year_end, tmp, dlt = 0, iStandard = 0;
 //    int is_dst, current_is_dst;
 
-//    synchronous_lock ml(g_pmutexTz);
+//    synchronous_lock ml(g_pmutexTz, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 // //    RtlEnterCriticalSection( &TIME_tz_section );
 
 //    year_start = time(nullptr);

@@ -105,7 +105,7 @@ namespace windowing_x11
 
       double_buffer::initialize_graphics_graphics(pimpl);
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       ::x11::display_lock displaylock(x11_window()->x11_display()->Display());
 
@@ -126,7 +126,7 @@ namespace windowing_x11
 
       }
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       ::x11::display_lock displaylock(x11_window()->x11_display()->Display());
 
@@ -206,7 +206,7 @@ namespace windowing_x11
    bool buffer::create_os_buffer(const ::int_size & size, int iStrideParam)
    {
 
-//      synchronous_lock sl(synchronization());
+//      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      destroy_os_buffer();
 //
@@ -249,7 +249,7 @@ namespace windowing_x11
    void buffer::destroy_os_buffer()
    {
 
-//      synchronous_lock sl(synchronization());
+//      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      xdisplay d(m_oswindow->display());
 //
@@ -294,7 +294,7 @@ namespace windowing_x11
 //   bool buffer::create_os_buffer(::image::image *pimage)
 //   {
 //
-//      //synchronous_lock sl(synchronization());
+//      //synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 ////      if(!pimage)
 ////      {
@@ -404,7 +404,7 @@ namespace windowing_x11
 
       }
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       ::x11::display_lock displayLock(x11_window()->x11_display()->Display());
 
@@ -416,13 +416,13 @@ namespace windowing_x11
    bool buffer::_update_screen_lesser_lock()
    {
 
-      _synchronous_lock slGraphics(synchronization());
+      _synchronous_lock slGraphics(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       auto pitem = get_screen_item();
 
       slGraphics.unlock();
 
-      _synchronous_lock slImage(pitem->m_pmutex);
+      _synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       return _update_screen_unlocked(pitem);
 

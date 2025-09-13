@@ -40,7 +40,7 @@ namespace windowing_q
 //      windowing_post([this, bMouse, bKeyboard]()
 //                          {
 //
-//                             synchronous_lock synchronouslock(user_synchronization());
+//                             synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //                             //::windowing_q::display_lock lock(m_pdisplay->Display());
 //

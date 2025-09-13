@@ -38,7 +38,7 @@ namespace node_gtk4
 //   ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
 //   {
 //
-//      synchronous_lock sl(user_synchronization());
+//      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      auto screens = QGuiApplication::screens();
 //
@@ -81,7 +81,7 @@ namespace node_gtk4
 // //      if(m_bX11)
 // //      {
 // //
-// //         synchronous_lock sl(user_synchronization());
+// //         synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 // //
 // //         _get_workspace_rectangle(iIndex, prectangle);
 // //
@@ -101,7 +101,7 @@ namespace node_gtk4
    ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
    {
 
-      //synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       GdkDisplay * pdisplay = gdk_display_get_default();
 

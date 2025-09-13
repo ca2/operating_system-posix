@@ -1601,7 +1601,7 @@ namespace gtk4
          //
          //    }
          //
-         //    synchronous_lock synchronouslock(this->synchronization());
+         //    synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
          //
          //    //      ::pointer < ::xkb_input::xkb_input > pxkbinput = system()->m_pinput;
          //    //

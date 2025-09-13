@@ -128,7 +128,7 @@ namespace windowing_q
 
       double_buffer::initialize_graphics_graphics(pimpl);
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //display_lock displaylock(q_window()->x11_display()->Display());
 
@@ -149,7 +149,7 @@ namespace windowing_q
 
       }
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //display_lock displaylock(q_window()->x11_display()->Display());
 
@@ -225,7 +225,7 @@ namespace windowing_q
    bool buffer::create_os_buffer(const ::int_size & size, int iStrideParam)
    {
 
-//      synchronous_lock sl(synchronization());
+//      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      destroy_os_buffer();
 //
@@ -268,7 +268,7 @@ namespace windowing_q
    void buffer::destroy_os_buffer()
    {
 
-//      synchronous_lock sl(synchronization());
+//      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      xdisplay d(m_oswindow->display());
 //
@@ -313,7 +313,7 @@ namespace windowing_q
 //   bool buffer::create_os_buffer(::image::image *pimage)
 //   {
 //
-//      //synchronous_lock sl(synchronization());
+//      //synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 ////      if(!pimage)
 ////      {
@@ -421,7 +421,7 @@ namespace windowing_q
 //
 //      }
 //
-//      //synchronous_lock synchronouslock(user_synchronization());
+//      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      //display_lock displayLock(q_window()->x11_display()->Display());
 //
@@ -434,11 +434,11 @@ namespace windowing_q
 //   bool buffer::_update_screen_lesser_lock()
 //   {
 //
-////      synchronous_lock slGraphics(synchronization());
+////      synchronous_lock slGraphics(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
 ////      auto pitem = get_screen_item();
 ////
-////      synchronous_lock slImage(pitem->m_pmutex);
+////      synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
 ////      slGraphics.unlock();
 ////
@@ -477,11 +477,11 @@ namespace windowing_q
 // //      //frame_callback = wl_surface_frame(surface);
 // //
 // //      {
-// //         synchronous_lock slGraphics(synchronization());
+// //         synchronous_lock slGraphics(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 // //
 // //         auto pitem = get_screen_item();
 // //
-// //         synchronous_lock slImage(pitem->m_pmutex);
+// //         synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 // //
 // //         slGraphics.unlock();
 // //         wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(), pitem->m_size.cy());
@@ -776,11 +776,11 @@ namespace windowing_q
 //
 //             //}
 //
-//             _synchronous_lock slGraphics(synchronization());
+//             _synchronous_lock slGraphics(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //             auto pitem = get_screen_item();
 //
-//             _synchronous_lock slImage(pitem->m_pmutex);
+//             _synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //             slGraphics.unlock();
 //

@@ -51,7 +51,7 @@ namespace node_gtk_based
 //   ::e_status monitor::_get_monitor_rectangle()
 //   {
 //
-//      synchronous_lock sl(user_synchronization());
+//      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      GdkDisplay * pdisplay = gdk_display_get_default();
 //
@@ -87,7 +87,7 @@ namespace node_gtk_based
 //   ::e_status monitor::_get_workspace_rectangle()
 //   {
 //
-//      synchronous_lock sl(user_synchronization());
+//      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      GdkDisplay * pdisplay = gdk_display_get_default();
 //
@@ -173,7 +173,7 @@ namespace node_gtk_based
    //      node_fork(__routine([psession]
 //                           {
 //
-//                              synchronous_lock sl(user_synchronization());
+//                              synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //                              //xdisplay d(x11_get_display());
 //
@@ -186,7 +186,7 @@ namespace node_gtk_based
 //
 //                              }
 //
-//                              synchronous_lock slSession(psession->synchronization());
+//                              synchronous_lock slSession(psession->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //                              ::collection::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
 //

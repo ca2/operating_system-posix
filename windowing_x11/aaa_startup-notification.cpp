@@ -43,7 +43,7 @@ void on_sn_launch_complete(void * pSnContext)
 //void x_display_error_trap_pop(SnDisplay * sndisplay, Display * display)
 //{
 //
-//   synchronous_lock sl(user_synchronization());
+//   synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //   g_iIgnoreXDisplayError--;
 //

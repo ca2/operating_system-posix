@@ -384,7 +384,7 @@ namespace windowing_xcb
 //oswindow windowing::get_active_window()
 //{
 //
-//   synchronous_lock synchronouslock(user_synchronization());
+//   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //   oswindow oswindow = nullptr;
 //
@@ -430,7 +430,7 @@ namespace windowing_xcb
 // int_bool is_window_occluded(oswindow oswindow)
 // {
 
-//    synchronous_lock synchronouslock(user_synchronization());
+//    synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
 //    windowing_output_debug_string("::GetFocus 1");
 
@@ -592,7 +592,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //void message_box_paint(::draw2d::graphics_pointer & pgraphics, string_array_base & stra, bool_array  & baTab, ::int_array_base  & ya,::int_size * psize)
 //{
 //
-//   synchronous_lock synchronouslock(user_synchronization());
+//   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //   pgraphics->fill_rectangle(::int_rectangle(*psize), rgb(84, 90, 80));
 //
@@ -628,7 +628,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //int_bool IsWindowVisibleRaw(oswindow w)
 //{
 //
-//   synchronous_lock synchronouslock(user_synchronization());
+//   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //   xcb_connection_t * display = w->display();
 //
@@ -669,7 +669,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //::e_status xcb_hook::hook()
 //{
 //
-//   synchronous_lock synchronouslock(user_synchronization());
+//   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //   g_xcbhooka.add(this);
 //
@@ -680,7 +680,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //::e_status xcb_hook::unhook()
 //{
 //
-//   synchronous_lock synchronouslock(user_synchronization());
+//   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //   g_xcbhooka.remove(this);
 //
@@ -821,7 +821,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 //      {
 //
-//         synchronous_lock synchronouslock(g_pmutexXcbRunnable);
+//         synchronous_lock synchronouslock(g_pmutexXcbRunnable, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //         ::acme::del(g_prunnableptrlXcb);
 //
@@ -878,7 +878,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 ////      {
 ////
-////         synchronous_lock synchronouslock(g_pmutexXcbRunnable);
+////         synchronous_lock synchronouslock(g_pmutexXcbRunnable, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
 ////         g_prunnableptrlXcb->add_tail(prunnable);
 ////
@@ -900,7 +900,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   void defer_term_ui()
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      g_iXcbRef--;
 //
@@ -1016,7 +1016,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       }
 
-      synchronous_lock ml(pmessagequeue->synchronization());
+      synchronous_lock ml(pmessagequeue->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       if (message.m_emessage == ::user::e_message_quit)
       {
@@ -1344,7 +1344,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //bool xcb_get_client_rect(xcb_connection_t * pdisplay, xcb_window_t window, ::int_rectangle *prectangle)
 //{
 //
-//   synchronous_lock synchronouslock(user_synchronization());
+//   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //   XWindowAttributes attr;
 //
@@ -1426,7 +1426,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 ////   {
 ////
-////      synchronous_lock synchronouslock(g_pmutexXcbSync);
+////      synchronous_lock synchronouslock(g_pmutexXcbSync, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
 ////      if (g_prunnableXcbSync)
 ////      {
@@ -1445,7 +1445,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   {
 //
-//      synchronous_lock synchronouslock(g_pmutexXcbRunnable);
+//      synchronous_lock synchronouslock(g_pmutexXcbRunnable, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      while (g_prunnableptrlXcb->has_elements() && ::thread_get_run())
 //      {

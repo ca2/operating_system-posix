@@ -480,7 +480,7 @@ namespace windowing_q
 // //      auto predicate = [this]()
 // //      {
 // //
-// //         synchronous_lock synchronouslock(user_synchronization());
+// //         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 // //
 // //         //display_lock displaylock(Display());
 // //
@@ -687,7 +687,7 @@ namespace windowing_q
 ////      auto predicate = [this, ppropertyobject]()
 ////      {
 ////
-////         synchronous_lock synchronouslock(user_synchronization());
+////         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
 ////         oswindow oswindow = nullptr;
 ////
@@ -786,7 +786,7 @@ namespace windowing_q
 
 #endif
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       windowing_output_debug_string("::GetCursorPos 1");
 
@@ -836,7 +836,7 @@ namespace windowing_q
 //   XImage * display::x11_create_image(::image::image_pointer pimage)
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      windowing_output_debug_string("::x11_create_image 1");
 //
@@ -886,7 +886,7 @@ namespace windowing_q
 //   Pixmap display::x11_create_pixmap(::image::image_pointer pimage)
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      windowing_output_debug_string("::x11_create_pixmap 1");
 //
@@ -981,7 +981,7 @@ namespace windowing_q
 //
 //                          }
 //
-//                          synchronous_lock synchronouslock(user_synchronization());
+//                          synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //                          windowing_output_debug_string("::GetFocus 1");
 //

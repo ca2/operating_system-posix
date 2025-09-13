@@ -53,7 +53,7 @@
 //   ::e_status monitor::_get_monitor_rectangle()
 //   {
 //
-//      synchronous_lock sl(user_synchronization());
+//      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      auto screens = QGuiApplication::screens();
 //
@@ -93,7 +93,7 @@
 //   ::e_status monitor::_get_workspace_rectangle()
 //   {
 //
-//      synchronous_lock sl(user_synchronization());
+//      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      auto screens = QGuiApplication::screens();
 //
@@ -193,7 +193,7 @@
 //   //      node_fork(__routine([psession]
 ////                           {
 ////
-////                              synchronous_lock sl(user_synchronization());
+////                              synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
 ////                              //xdisplay d(x11_get_display());
 ////
@@ -206,7 +206,7 @@
 ////
 ////                              }
 ////
-////                              synchronous_lock slSession(psession->synchronization());
+////                              synchronous_lock slSession(psession->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
 ////                              ::collection::count iMonitorCount = gdk_display_get_n_monitors(pdisplay);
 ////

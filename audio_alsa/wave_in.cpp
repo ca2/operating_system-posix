@@ -338,7 +338,7 @@ Opened:
       void wave_in::in_stop()
       {
 
-         synchronous_lock sl(synchronization());
+         synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          if(m_einstate != ::wave::e_in_state_recording)
          {
@@ -458,7 +458,7 @@ Opened:
       void wave_in::in_reset()
       {
 
-         synchronous_lock sl(synchronization());
+         synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          m_bResetting = true;
 

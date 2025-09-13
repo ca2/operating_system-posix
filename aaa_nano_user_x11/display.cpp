@@ -354,7 +354,7 @@ namespace x11
          void display::add_listener(event_listener * plistener)
          {
 
-            _synchronous_lock synchronouslock(this->synchronization());
+            _synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             m_happeninglistenera.add(plistener);
 
@@ -364,7 +364,7 @@ namespace x11
          void display::add_window(micro::window * pwindow)
          {
 
-            _synchronous_lock synchronouslock(this->synchronization());
+            _synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             m_windowa.add(pwindow);
 
@@ -374,7 +374,7 @@ namespace x11
          void display::erase_listener(event_listener * plistener)
          {
 
-            _synchronous_lock synchronouslock(this->synchronization());
+            _synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             m_happeninglistenera.erase(plistener);
 
@@ -384,7 +384,7 @@ namespace x11
          void display::erase_window(::x11::micro::window * pwindow)
          {
 
-            _synchronous_lock synchronouslock(this->synchronization());
+            _synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             m_windowa.erase(pwindow);
 
@@ -437,7 +437,7 @@ namespace x11
 
             ::collection::index i = 0;
 
-            _synchronous_lock synchronouslock(this->synchronization());
+            _synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             for (; i < m_happeninglistenera.get_count(); i++)
             {

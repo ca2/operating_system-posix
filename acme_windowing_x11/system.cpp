@@ -24,7 +24,7 @@ namespace acme
          ::particle* system::x11_synchronization()
          {
 
-            _synchronous_lock sl(this->synchronization());
+            _synchronous_lock sl(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             auto psynchronization = m_pmutexXlib;
 

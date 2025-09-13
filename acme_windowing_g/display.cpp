@@ -533,7 +533,7 @@ namespace g
 //          //   void display::add_listener(event_listener * plistener)
 //          //   {
 //          //
-//          //      synchronous_lock synchronouslock(this->synchronization());
+//          //      synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //          //
 //          //      m_happeninglistenera.add(plistener);
 //          //
@@ -543,7 +543,7 @@ namespace g
 //          //   void display::add_window(micro::interchange * pwindow)
 //          //   {
 //          //
-//          //      synchronous_lock synchronouslock(this->synchronization());
+//          //      synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //          //
 //          //      m_windowa.add(pwindow);
 //          //
@@ -553,7 +553,7 @@ namespace g
 //          //   void display::erase_listener(event_listener * plistener)
 //          //   {
 //          //
-//          //      synchronous_lock synchronouslock(this->synchronization());
+//          //      synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //          //
 //          //      m_happeninglistenera.erase(plistener);
 //          //
@@ -563,7 +563,7 @@ namespace g
 //          //   void display::erase_window(micro::interchange * pwindow)
 //          //   {
 //          //
-//          //      synchronous_lock synchronouslock(this->synchronization());
+//          //      synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //          //
 //          //      m_windowa.erase(pwindow);
 //          //
@@ -612,7 +612,7 @@ namespace g
          //
          //      ::collection::index i = 0;
          //
-         //      synchronous_lock synchronouslock(this->synchronization());
+         //      synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
          //
          //      for (; i < m_happeninglistenera.get_count(); i++)
          //      {
@@ -2463,7 +2463,7 @@ namespace g
          //
          //    }
          //
-         //    synchronous_lock synchronouslock(this->synchronization());
+         //    synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
          //
          //    //      ::pointer < ::xkb_input::xkb_input > pxkbinput = system()->m_pinput;
          //    //

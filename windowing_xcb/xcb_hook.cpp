@@ -34,7 +34,7 @@ pointer_array < xcb_hook > g_xcbhooka;
 ::e_status xcb_hook::hook()
 {
 
-   synchronous_lock sl(user_synchronization());
+   synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
    g_xcbhooka.add(this);
 
@@ -46,7 +46,7 @@ pointer_array < xcb_hook > g_xcbhooka;
 ::e_status xcb_hook::unhook()
 {
 
-   synchronous_lock sl(user_synchronization());
+   synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
    g_xcbhooka.remove(this);
 

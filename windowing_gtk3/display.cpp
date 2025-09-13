@@ -703,7 +703,7 @@ namespace windowing_gtk3
 ////      auto predicate = [this, ppropertyobject]()
 ////      {
 ////
-////         synchronous_lock synchronouslock(user_synchronization());
+////         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
 ////         oswindow oswindow = nullptr;
 ////
@@ -802,7 +802,7 @@ namespace windowing_gtk3
 
 #endif
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       windowing_output_debug_string("::GetCursorPos 1");
 
@@ -852,7 +852,7 @@ namespace windowing_gtk3
 //   XImage * display::x11_create_image(::image::image_pointer pimage)
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      windowing_output_debug_string("::x11_create_image 1");
 //
@@ -902,7 +902,7 @@ namespace windowing_gtk3
 //   Pixmap display::x11_create_pixmap(::image::image_pointer pimage)
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      windowing_output_debug_string("::x11_create_pixmap 1");
 //
@@ -997,7 +997,7 @@ namespace windowing_gtk3
 //
 //                          }
 //
-//                          synchronous_lock synchronouslock(user_synchronization());
+//                          synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //                          windowing_output_debug_string("::GetFocus 1");
 //

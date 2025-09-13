@@ -72,7 +72,7 @@ void x_display_error_trap_push(SnDisplay * sndisplay, Display * display)
 void x_display_error_trap_pop(SnDisplay * sndisplay, Display * display)
 {
 
-   //synchronous_lock sl(user_synchronization());
+   //synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
    g_iIgnoreXDisplayError--;
 

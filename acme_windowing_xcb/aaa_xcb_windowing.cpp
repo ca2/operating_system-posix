@@ -55,7 +55,7 @@ bool __xcb_hook_list_is_empty();
 //      try
 //      {
 //
-//         synchronous_lock synchronouslock(x11_mutex());
+//         synchronous_lock synchronouslock(x11_mutex(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //         XLockDisplay(pdisplay);
 //

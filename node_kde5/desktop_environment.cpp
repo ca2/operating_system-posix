@@ -45,7 +45,7 @@ namespace node_kde5
    // ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::int_rectangle & rectangle)
    // {
    //
-   //    //synchronous_lock sl(user_synchronization());
+   //    //synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //    auto screens = QGuiApplication::screens();
    //
@@ -85,7 +85,7 @@ namespace node_kde5
    // ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::int_rectangle & rectangle)
    // {
    //
-   //    //synchronous_lock sl(user_synchronization());
+   //    //synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //    auto screens = QGuiApplication::screens();
    //
@@ -128,7 +128,7 @@ namespace node_kde5
    //    if(m_bX11)
    //    {
    //
-   //       //synchronous_lock sl(user_synchronization());
+   //       //synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //       if(_get_monitor_rectangle(iIndex, rectangle).failed())
    //       {
@@ -163,7 +163,7 @@ namespace node_kde5
    //    if(m_bX11)
    //    {
    //
-   //       //synchronous_lock sl(user_synchronization());
+   //       //synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //       if(_get_workspace_rectangle(iIndex, rectangle).failed())
    //       {

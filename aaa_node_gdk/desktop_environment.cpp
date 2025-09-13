@@ -53,7 +53,7 @@ namespace node_gdk
    ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::int_rectangle & rectangle)
    {
 
-      //synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       debug() << "node_gtk3::desktop_environment::_get_monitor_rectangle : " << iIndex;
 
@@ -95,7 +95,7 @@ namespace node_gdk
 //      if(m_bX11)
 //      {
 //
-//         synchronous_lock sl(user_synchronization());
+//         synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //         _get_workspace_rectangle(iIndex, prectangle);
 //
@@ -122,7 +122,7 @@ namespace node_gdk
    ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::int_rectangle & rectangle)
    {
 
-      //synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       information() << "node_gtk3::desktop_environment::_get_workspace_rectangle : " << iIndex;
 

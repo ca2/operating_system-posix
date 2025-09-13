@@ -1622,7 +1622,7 @@ namespace  windows
 
       const scoped_string & str;
 
-      //synchronous_lock synchronouslock(::callstack().mutex());
+      //synchronous_lock synchronouslock(::callstack().mutex(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
    #if defined(LINUX)
 

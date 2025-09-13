@@ -9,7 +9,7 @@
 #include "windowing.h"
 #include "display.h"
 #include "cursor.h"
-#include "acme/constant/user_message.h"
+#include "acme/constant/message.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
 #include "acme/user/user/_text_stream.h"
@@ -424,23 +424,25 @@ namespace windowing_gtk3
       try
       {
 
-         if (!m_pgraphicsgraphics)
+         auto pbuffer = m_pgraphicsgraphics;
+
+         if (!pbuffer)
          {
 
             return;
 
          }
 
-         synchronous_lock slGraphics(m_pgraphicsgraphics->synchronization());
+         synchronous_lock slGraphics(pbuffer->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-         auto pitem = m_pgraphicsgraphics->get_screen_item();
+         auto pitem = pbuffer->get_screen_item();
 
-         synchronous_lock slImage(pitem->m_pmutex);
+         synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
          {
 
-            auto pgraphics = øcreate<::draw2d::graphics>();
+            auto pgraphics = __øcreate<::draw2d::graphics>();
             //         cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
             //         cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
             //         cairo_paint(cr);
@@ -457,7 +459,7 @@ namespace windowing_gtk3
             //
             //         return;
 
-            //auto pgraphics = øcreate<::draw2d::graphics>();
+            //auto pgraphics = __øcreate<::draw2d::graphics>();
 
             pgraphics->attach(cr);
             //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
@@ -478,7 +480,7 @@ namespace windowing_gtk3
             pgraphics->draw(imagedrawing);
             pgraphics->detach();
 
-            m_pgraphicsgraphics->on_end_draw();
+            pbuffer->on_end_draw();
 
          }
 
@@ -530,7 +532,7 @@ namespace windowing_gtk3
    //   ::pointer < ::operating_system::a_system_menu > window::create_system_menu()
    //   {
    //
-   //      auto psystemmenu = øallocate ::operating_system::a_system_menu();
+   //      auto psystemmenu = __allocate ::operating_system::a_system_menu();
    //
    //      psystemmenu->add_item("Minimize", "minimize");
    //      psystemmenu->add_item("Maximize", "maximize");
@@ -602,7 +604,7 @@ namespace windowing_gtk3
       //if(::is_set(pwindow))
       {
 
-         auto pmouse = øcreate_new<::message::mouse>();
+         auto pmouse = __create_new<::message::mouse>();
 
          pmouse->m_oswindow = this;
 
@@ -612,15 +614,15 @@ namespace windowing_gtk3
 
          if (happening->button == GDK_BUTTON_PRIMARY)
          {
-            pmouse->m_eusermessage = ::user::e_message_left_button_down;
+            pmouse->m_emessage = e_message_left_button_down;
          }
          else if (happening->button == GDK_BUTTON_SECONDARY)
          {
-            pmouse->m_eusermessage = ::user::e_message_right_button_down;
+            pmouse->m_emessage = e_message_right_button_down;
          }
          else if (happening->button == GDK_BUTTON_MIDDLE)
          {
-            pmouse->m_eusermessage = ::user::e_message_middle_button_down;
+            pmouse->m_emessage = e_message_middle_button_down;
          }
 
          m_pointCursor2.x() = happening->x;
@@ -665,7 +667,7 @@ namespace windowing_gtk3
       //if(::is_set(pwindow))
       {
 
-         auto pmouse = øcreate_new<::message::mouse>();
+         auto pmouse = __create_new<::message::mouse>();
 
          pmouse->m_oswindow = this;
 
@@ -674,19 +676,19 @@ namespace windowing_gtk3
          if (happening->button == GDK_BUTTON_PRIMARY)
          {
 
-            pmouse->m_eusermessage = ::user::e_message_left_button_up;
+            pmouse->m_emessage = e_message_left_button_up;
 
          }
          else if (happening->button == GDK_BUTTON_SECONDARY)
          {
 
-            pmouse->m_eusermessage = ::user::e_message_right_button_up;
+            pmouse->m_emessage = e_message_right_button_up;
 
          }
          else if (happening->button == GDK_BUTTON_MIDDLE)
          {
 
-            pmouse->m_eusermessage = ::user::e_message_middle_button_up;
+            pmouse->m_emessage = e_message_middle_button_up;
 
          }
 
@@ -758,13 +760,13 @@ namespace windowing_gtk3
       //if(::is_set(pwindow))
       {
 
-         auto pmouse = øcreate_new<::message::mouse>();
+         auto pmouse = __create_new<::message::mouse>();
 
          pmouse->m_oswindow = this;
 
          pmouse->m_pwindow = this;
 
-         pmouse->m_eusermessage = ::user::e_message_mouse_move;
+         pmouse->m_emessage = e_message_mouse_move;
 
          m_pointCursor2.x() = happening->x;
 
@@ -1083,9 +1085,9 @@ namespace windowing_gtk3
       if (ekey != ::user::e_key_none)
       {
 
-         auto pkey = øcreate_new<::message::key>();
+         auto pkey = __create_new<::message::key>();
 
-         pkey->m_eusermessage = ::user::e_message_key_down;
+         pkey->m_emessage = e_message_key_down;
 
          pkey->m_oswindow = this;
 
@@ -1114,9 +1116,9 @@ namespace windowing_gtk3
       if (ekey != ::user::e_key_none)
       {
 
-         auto pkey = øcreate_new<::message::key>();
+         auto pkey = __create_new<::message::key>();
 
-         pkey->m_eusermessage = ::user::e_message_key_up;
+         pkey->m_emessage = e_message_key_up;
 
          pkey->m_oswindow = this;
 
@@ -1138,7 +1140,7 @@ namespace windowing_gtk3
    bool window::_on_gtk_scroll(GtkWidget * pwidget, GdkEventScroll * pscroll)
    {
 
-      auto pmouse = øcreate_new<::message::mouse_wheel>();
+      auto pmouse = __create_new<::message::mouse_wheel>();
 
       pmouse->m_oswindow = this;
 
@@ -1153,7 +1155,7 @@ namespace windowing_gtk3
       //
       // pmouse->m_iTimestamp = timestamp;
 
-      pmouse->m_eusermessage = ::user::e_message_mouse_wheel;
+      pmouse->m_emessage = e_message_mouse_wheel;
 
       informationf("_on_gtk_scroll(%0.2f, %0.2f)", pscroll->delta_x, pscroll->delta_y);
 
@@ -1254,7 +1256,7 @@ namespace windowing_gtk3
       //                   ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
       //
       //{
-      //_synchronous_lock synchronouslock(user_synchronization());
+      //_synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       //
       //auto pusersystem = puserinteraction->m_pusersystem;
       //
@@ -1755,7 +1757,7 @@ namespace windowing_gtk3
       //      if (bOk)
       //      {
       //
-      //         //auto lresult = puserinteraction->send_message(::user::e_message_create, 0, (lparam) &pusersystem->m_createstruct);
+      //         //auto lresult = puserinteraction->send_message(e_message_create, 0, (lparam) &pusersystem->m_createstruct);
       //
       //         // if(::is_null(puserinteraction->m_pwindow))
       //         // {
@@ -1844,7 +1846,7 @@ namespace windowing_gtk3
       //
       //         ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
       //
-      //         auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
+      //         auto lresult = puserinteraction->send_message(e_message_create, 0, 0);
       //
       //         if (lresult == -1)
       //         {
@@ -1857,7 +1859,7 @@ namespace windowing_gtk3
       //
       //         puserinteraction->set_flag(e_flag_task_started);
       //
-      //         //auto lresult2 = puserinteraction->send_message(::user::e_message_after_create, 0, 0);
+      //         //auto lresult2 = puserinteraction->send_message(e_message_after_create, 0, 0);
       //
       //      }
       //
@@ -2001,7 +2003,7 @@ namespace windowing_gtk3
 
          ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-         auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
+         auto lresult = puserinteraction->send_message(e_message_create, 0, 0);
 
          if (lresult == -1)
          {
@@ -2014,7 +2016,7 @@ namespace windowing_gtk3
 
          puserinteraction->set_flag(e_flag_task_started);
 
-         //auto lresult2 = puserinteraction->send_message(::user::e_message_after_create, 0, 0);
+         //auto lresult2 = puserinteraction->send_message(e_message_after_create, 0, 0);
 
       }
 
@@ -2375,7 +2377,7 @@ namespace windowing_gtk3
    void window::set_wm_class(const_char_pointer psz)
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      m_strWMClass = psz;
       //
@@ -2397,7 +2399,7 @@ namespace windowing_gtk3
 
       int i = 0;
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       gtk_widget_show_all(m_pgtkwidget);
       //      {
       //
@@ -2443,7 +2445,7 @@ namespace windowing_gtk3
    int window::unmap_window(bool bWithdraw)
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       windowing_output_debug_string("\nwindow::unmap_window");
 
@@ -2740,7 +2742,7 @@ namespace windowing_gtk3
    bool window::bamf_set_icon()
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      auto psystem = system();
       //
@@ -2882,7 +2884,7 @@ namespace windowing_gtk3
       //
       //      windowing_output_debug_string("\nwindow::set_icon");
       //
-      //      synchronous_lock synchronouslock(user_synchronization());
+      //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       //
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -2999,7 +3001,7 @@ namespace windowing_gtk3
 
       windowing_output_debug_string("\nwindow::store_name");
 
-      //      synchronous_lock synchronouslock(user_synchronization());
+      //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       //
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3017,7 +3019,7 @@ namespace windowing_gtk3
 
       windowing_output_debug_string("\nwindow::select_input");
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3035,7 +3037,7 @@ namespace windowing_gtk3
 
       windowing_output_debug_string("\nwindow::select_all_input");
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3232,7 +3234,7 @@ namespace windowing_gtk3
 
       }
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3252,7 +3254,7 @@ namespace windowing_gtk3
 
       windowing_output_debug_string("::window::full_screen 1");
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3321,7 +3323,7 @@ namespace windowing_gtk3
    void window::exit_iconify()
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3354,7 +3356,7 @@ namespace windowing_gtk3
    void window::exit_full_screen()
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3386,7 +3388,7 @@ namespace windowing_gtk3
    void window::exit_zoomed()
    {
 
-      //      synchronous_lock sl(user_synchronization());
+      //      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       //
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3472,7 +3474,7 @@ namespace windowing_gtk3
    //
    //      windowing_output_debug_string("::window::get_state 1");
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      display_lock displaylock(x11_display()->Display());
    //
@@ -3576,7 +3578,7 @@ namespace windowing_gtk3
 
       windowing_output_debug_string("::window::is_window_visible 1");
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3616,7 +3618,7 @@ namespace windowing_gtk3
 
       //      windowing_output_debug_string("::window::is_window_visible 1");
       //
-      //      synchronous_lock synchronouslock(user_synchronization());
+      //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       //
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3898,7 +3900,7 @@ namespace windowing_gtk3
    //      if (pmessagequeue == nullptr)
    //      {
    //
-   //         if (message.m_emessage == ::user::e_message_quit)
+   //         if (message.m_emessage == e_message_quit)
    //         {
    //
    //            return ::error_failed;
@@ -3916,24 +3918,24 @@ namespace windowing_gtk3
    //
    //      }
    //
-   //      synchronous_lock ml(pmessagequeue->synchronization());
+   //      synchronous_lock ml(pmessagequeue->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
-   //      if (message.m_emessage == ::user::e_message_quit)
+   //      if (message.m_emessage == e_message_quit)
    //      {
    //
-   //         informationf("::user::e_message_quit thread");
+   //         informationf("e_message_quit thread");
    //
    //      }
    //
-   //      if (message.m_emessage == ::user::e_message_left_button_down)
+   //      if (message.m_emessage == e_message_left_button_down)
    //      {
    //
-   //         informationf("post_ui_message::user::e_message_left_button_down\n");
+   //         informationf("post_ui_message::e_message_left_button_down\n");
    //
-   //      } else if (message.m_emessage == ::user::e_message_left_button_up)
+   //      } else if (message.m_emessage == e_message_left_button_up)
    //      {
    //
-   //         informationf("post_ui_message::user::e_message_left_button_up\n");
+   //         informationf("post_ui_message::e_message_left_button_up\n");
    //
    //      }
    //
@@ -3976,7 +3978,7 @@ namespace windowing_gtk3
    //
    //      }
    //
-   //      synchronous_lock ml(pmq->synchronization());
+   //      synchronous_lock ml(pmq->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      pmq->m_messagea.predicate_erase([this](MESSAGE & item)
    //                                      {
@@ -3996,7 +3998,7 @@ namespace windowing_gtk3
                                     ::e_display edisplay)
    {
 
-      synchronous_lock sl(user_synchronization());
+      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //display_lock displaylock(x11_display()->Display());
 
@@ -4440,7 +4442,7 @@ namespace windowing_gtk3
    void window::set_mouse_cursor2(::windowing::cursor* pcursor)
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -4562,7 +4564,7 @@ namespace windowing_gtk3
    //   void window::upper_window_rects(int_rectangle_array & ra)
    //   {
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    ////      ra.erase_all();
    ////
@@ -4628,7 +4630,7 @@ namespace windowing_gtk3
    void window::set_active_window()
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       information() << "::windowing_gtk3::window::set_active_window";
 
@@ -4704,7 +4706,7 @@ namespace windowing_gtk3
       }
 
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       {
 
@@ -4764,7 +4766,7 @@ namespace windowing_gtk3
    void window::set_foreground_window(::user::activation_token* puseractivationtoken)
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //display_lock displaylock(x11_display()->Display());
 
@@ -4783,7 +4785,7 @@ namespace windowing_gtk3
    void window::_set_foreground_window_unlocked(::user::activation_token* puseractivationtoken)
    {
 
-      ////      synchronous_lock synchronouslock(user_synchronization());
+      ////      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       ////
       ////      display_lock displaylock(x11_display()->Display());
       //
@@ -4930,7 +4932,7 @@ namespace windowing_gtk3
    //   ::windowing::window * window::get_window(enum_relative erelative)
    //   {
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      ::Window window = 0;
    //
@@ -5093,11 +5095,11 @@ namespace windowing_gtk3
       main_send([this, strType, pinteraction]()
       {
 
-         pinteraction->message_handler(::user::e_message_destroy, 0, 0);
+         pinteraction->message_handler(e_message_destroy, 0, 0);
 
          _destroy_window();
 
-         pinteraction->message_handler(::user::e_message_non_client_destroy, 0, 0);
+         pinteraction->message_handler(e_message_non_client_destroy, 0, 0);
 
          destroy();
 
@@ -5116,7 +5118,7 @@ namespace windowing_gtk3
       //    if (pinteraction.is_set())
       //    {
       //
-      //       pinteraction->send_message(::user::e_message_destroy, 0, 0);
+      //       pinteraction->send_message(e_message_destroy, 0, 0);
       //
       //    }
       //
@@ -5148,7 +5150,7 @@ namespace windowing_gtk3
       //    if (pinteraction.is_set())
       //    {
       //
-      //       pinteraction->send_message(::user::e_message_non_client_destroy, 0, 0);
+      //       pinteraction->send_message(e_message_non_client_destroy, 0, 0);
       //
       //    }
       //
@@ -5232,7 +5234,7 @@ namespace windowing_gtk3
    //   int window::_wm_test_list_unlocked(Atom atomList, Atom atomFlag)
    //   {
    //
-   ////      synchronous_lock synchronouslock(user_synchronization());
+   ////      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      Atom actual_type;
    //
@@ -5259,7 +5261,7 @@ namespace windowing_gtk3
    //   int window::_wm_test_state_unlocked(const_char_pointer pszNetStateFlag)
    //   {
    //
-   //      //synchronous_lock synchronouslock(user_synchronization());
+   //      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      Atom atomFlag = x11_display()->_intern_atom_unlocked(scopedstrNetStateFlag, 1);
    //
@@ -5291,7 +5293,7 @@ namespace windowing_gtk3
    //   int window::wm_test_state(const_char_pointer pszNetStateFlag)
    //   {
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      windowing_output_debug_string("::wm_test_state 1");
    //
@@ -5483,7 +5485,7 @@ namespace windowing_gtk3
    //   ::e_status window::x11_store_name(const_char_pointer pszName)
    //   {
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      display_lock displaylock(x11_display()->Display());
    //
@@ -5555,7 +5557,7 @@ namespace windowing_gtk3
    //   int_bool window::this->rectangle(::int_rectangle *prectangle)
    //   {
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      display_lock displaylock(x11_display()->Display());
    //
@@ -5600,12 +5602,15 @@ namespace windowing_gtk3
       main_post([this]()
       {
 
+
+         auto pbuffer = m_pgraphicsgraphics;
+         
          //::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
 
          //if (::is_set(pimpl))
          {
 
-            m_pgraphicsgraphics->update_screen();
+            pbuffer->update_screen();
 
          }
 
@@ -5664,7 +5669,7 @@ namespace windowing_gtk3
 
       {
 
-         //         synchronous_lock synchronouslock(user_synchronization());
+         //         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          //display_lock displayLock(x11_display()->Display());
 
@@ -5697,7 +5702,7 @@ namespace windowing_gtk3
    //   void window::_window_request_presentation_locked()
    //   {
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      display_lock displayLock(x11_display()->Display());
    //
@@ -5746,7 +5751,7 @@ namespace windowing_gtk3
    ////      m_pwindowing->windowing_post([this]()
    ////                                   {
    ////
-   ////                                      synchronous_lock synchronouslock(user_synchronization());
+   ////                                      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    ////
    //////                                      display_lock displaylock(x11_display()->Display());
    ////
@@ -5798,7 +5803,7 @@ namespace windowing_gtk3
    void window::set_keyboard_focus()
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       // if (m_pwlsurface == nullptr)
       // {
@@ -5843,7 +5848,7 @@ namespace windowing_gtk3
    void window::_set_keyboard_focus_unlocked()
    {
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //       if (m_pwlsurface == 0)
       //       {
@@ -5917,7 +5922,7 @@ namespace windowing_gtk3
    //    void window::bring_to_front()
    //    {
    //
-   // //       synchronous_lock synchronouslock(user_synchronization());
+   // //       synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    // //
    // //       if (m_pwlsurface == 0)
    // //       {
@@ -6043,13 +6048,13 @@ namespace windowing_gtk3
    //       if(::is_set(pwindow))
    //       {
    //
-   //          auto pmouse = øcreate_new<::message::mouse>();
+   //          auto pmouse = __create_new<::message::mouse>();
    //
    //          pmouse->m_oswindow = this;
    //
    //          pmouse->m_pwindow = this;
    //
-   //          pmouse->m_emessage = ::user::e_message_mouse_move;
+   //          pmouse->m_emessage = e_message_mouse_move;
    //
    //          pmouse->m_pointHost = m_pointCursor2;
    //
@@ -6102,7 +6107,7 @@ namespace windowing_gtk3
    // ////  //             MESSAGE msgCaptureChanged;
    // ////
    // //////               msgCaptureChanged.oswindow = m_pwindowCapture;
-   // ////               msg.id() = ::user::e_message_capture_changed;
+   // ////               msg.id() = e_message_capture_changed;
    // ////               msg.wParam = 0;
    // ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
    // ////               msg.time = e.xcrossing.time;
@@ -6120,7 +6125,7 @@ namespace windowing_gtk3
    //
    // //      MESSAGE msg;
    // //      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
-   // //      msg.id() = ::user::e_message_mouse_leave;
+   // //      msg.id() = e_message_mouse_leave;
    // //      msg.wParam = 0;
    // //      msg.lParam = 0;
    // //      //   msg.time = e.xcrossing.time;
@@ -6128,13 +6133,13 @@ namespace windowing_gtk3
    // //
    // //      wayland_windowing()->post_ui_message(msg);
    //
-   //       auto pmouse = øcreate_new<::message::mouse>();
+   //       auto pmouse = __create_new<::message::mouse>();
    //
    //       pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
    //
    //       pmouse->m_pwindow = pmouse->m_oswindow;
    //
-   //       pmouse->m_emessage = ::user::e_message_mouse_leave;
+   //       pmouse->m_emessage = e_message_mouse_leave;
    //
    //       pmouse->m_pointHost = m_pointCursor2;
    //
@@ -6165,9 +6170,9 @@ namespace windowing_gtk3
    //
    //       //m_pwlpointer = pwlpointer;
    //
-   //       enum_message emessage = ::user::e_message_undefined;
+   //       enum_message emessage = e_message_undefined;
    //
-   //       //msg.id() = ::user::e_message_mouse_wheel;
+   //       //msg.id() = e_message_mouse_wheel;
    //
    //       //post_ui_message(pmouse);
    //
@@ -6187,19 +6192,19 @@ namespace windowing_gtk3
    //
    //             information() << "LeftButtonDown";
    //
-   //             emessage = ::user::e_message_left_button_down;
+   //             emessage = e_message_left_button_down;
    //
    //          }
    //          else if (linux_button == BTN_MIDDLE)
    //          {
    //
-   //             emessage = ::user::e_message_middle_button_down;
+   //             emessage = e_message_middle_button_down;
    //
    //          }
    //          else if (linux_button == BTN_RIGHT)
    //          {
    //
-   //             emessage = ::user::e_message_right_button_down;
+   //             emessage = e_message_right_button_down;
    //
    //          }
    //          else if (linux_button == BTN_GEAR_DOWN)
@@ -6231,19 +6236,19 @@ namespace windowing_gtk3
    //             information()
    //                << "LeftButtonUp";
    //
-   //             emessage = ::user::e_message_left_button_up;
+   //             emessage = e_message_left_button_up;
    //
    //          }
    //          else if (linux_button == BTN_MIDDLE)
    //          {
    //
-   //             emessage = ::user::e_message_middle_button_up;
+   //             emessage = e_message_middle_button_up;
    //
    //          }
    //          else if (linux_button == BTN_RIGHT)
    //          {
    //
-   //             emessage = ::user::e_message_right_button_up;
+   //             emessage = e_message_right_button_up;
    //
    //          }
    //          else
@@ -6288,13 +6293,13 @@ namespace windowing_gtk3
    //       if (Δ != 0)
    //       {
    //
-   //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
+   //          auto pmousewheel = __create_new<::message::mouse_wheel>();
    //
    //          pmousewheel->m_oswindow = this;
    //
    //          pmousewheel->m_pwindow = this;
    //
-   //          pmousewheel->id() = ::user::e_message_mouse_wheel;
+   //          pmousewheel->id() = e_message_mouse_wheel;
    //
    //          //msg.wParam = make_int(0, iDelta);
    //
@@ -6318,7 +6323,7 @@ namespace windowing_gtk3
    //       else if (bRet)
    //       {
    //
-   //          auto pmouse = øcreate_new<::message::mouse>();
+   //          auto pmouse = __create_new<::message::mouse>();
    //
    //          pmouse->m_oswindow = this;
    //
@@ -6544,14 +6549,14 @@ namespace windowing_gtk3
    //    }
    //
    //
-   //    void window::_on_simple_key_message(::user::e_key ekey, ::user::enum_message eusermessage)
+   //    void window::_on_simple_key_message(::user::e_key ekey, ::enum_message emessage)
    //    {
    //
    //       // TODO when do we get WL_KEYBOARD_KEY_STATE_REPEAT?
    //       if (ekey != ::user::e_key_none)
    //       {
    //
-   //          auto pkey = øcreate_new<::message::key>();
+   //          auto pkey = __create_new<::message::key>();
    //
    //          pkey->
    //             m_oswindow = this;
@@ -6562,28 +6567,28 @@ namespace windowing_gtk3
    //          pkey->
    //             m_ekey = ekey;
    //
-   //          if (emessage == ::user::e_message_key_down)
+   //          if (emessage == e_message_key_down)
    //          {
    //
    //             pkey->
-   //                id() = ::user::e_message_key_down;
+   //                id() = e_message_key_down;
    //
    //             information()
    //
-   //                << "::user::e_message_key_down";
+   //                << "e_message_key_down";
    //
    //          }
    //          else
    //          {
    //
    //             pkey->
-   //                id() = ::user::e_message_key_up;
+   //                id() = e_message_key_up;
    //
-   // //information() << "::user::e_message_key_up : " << (iptr) ekey;
+   // //information() << "e_message_key_up : " << (iptr) ekey;
    //
    //             information()
    //
-   //                << "::user::e_message_key_up";
+   //                << "e_message_key_up";
    //
    //          }
    //
@@ -6600,7 +6605,7 @@ namespace windowing_gtk3
    //
    //    //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //    auto pkey = øcreate_new<::message::key>();
+   //    auto pkey = __create_new<::message::key>();
    //
    //    pkey->
    //    m_oswindow = this;
@@ -6609,14 +6614,14 @@ namespace windowing_gtk3
    //    m_pwindow = this;
    //
    //    pkey->
-   //    id() = ::user::e_message_text_composition;
+   //    id() = e_message_text_composition;
    //
    //    pkey->
    //    m_strText = scopedstrText;
    //
    //    information()
    //
-   //    << "::user::e_message_text_composition";
+   //    << "e_message_text_composition";
    //
    //    m_pwindow->
    //    message_handler(pkey);
@@ -6775,7 +6780,7 @@ namespace windowing_gtk3
    //         if (ekey != ::user::e_key_none)
    //         {
    //
-   //            auto pkey = øcreate_new<::message::key>();
+   //            auto pkey = __create_new<::message::key>();
    //
    //            pkey->m_oswindow = this;
    //
@@ -6786,19 +6791,19 @@ namespace windowing_gtk3
    //            if(pressed == WL_KEYBOARD_KEY_STATE_PRESSED)
    //            {
    //
-   //               pkey->m_emessage = ::user::e_message_key_down;
+   //               pkey->m_emessage = e_message_key_down;
    //
-   //               information() << "::user::e_message_key_down";
+   //               information() << "e_message_key_down";
    //
    //            }
    //            else
    //            {
    //
-   //               pkey->m_emessage = ::user::e_message_key_up;
+   //               pkey->m_emessage = e_message_key_up;
    //
-   //               //information() << "::user::e_message_key_up : " << (iptr) ekey;
+   //               //information() << "e_message_key_up : " << (iptr) ekey;
    //
-   //               information() << "::user::e_message_key_up";
+   //               information() << "e_message_key_up";
    //
    //            }
    //
@@ -6841,17 +6846,17 @@ namespace windowing_gtk3
    //
    //            //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //            auto pkey = øcreate_new<::message::key>();
+   //            auto pkey = __create_new<::message::key>();
    //
    //            pkey->m_oswindow = this;
    //
    //            pkey->m_pwindow = this;
    //
-   //            pkey->m_emessage = ::user::e_message_text_composition;
+   //            pkey->m_emessage = e_message_text_composition;
    //
    //            pkey->m_strText = text;
    //
-   //            information() << "::user::e_message_text_composition";
+   //            information() << "e_message_text_composition";
    //
    //            m_pwindow->message_handler(pkey);
    //
@@ -7100,7 +7105,7 @@ namespace windowing_gtk3
 
       ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-      puserinteraction->call_route_message(::user::e_message_show_window, 1);
+      puserinteraction->call_route_message(e_message_show_window, 1);
 
    }
 
@@ -7110,7 +7115,7 @@ namespace windowing_gtk3
 
       ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-      puserinteraction->post_message(::user::e_message_show_window, 0);
+      puserinteraction->post_message(e_message_show_window, 0);
 
    }
 

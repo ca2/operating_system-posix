@@ -19,7 +19,7 @@ extern ::particle * user_synchronization();
 //void x_display_error_trap_pop(SnDisplay * sndisplay, xcb_connection_t * display)
 //{
 //
-//   synchronous_lock sl(user_synchronization());
+//   synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //   g_iIgnoreXDisplayError--;
 //

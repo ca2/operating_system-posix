@@ -377,7 +377,7 @@ namespace music
          ::e_status sequence::CloseFile()
          {
 
-            synchronous_lock sl(m_pmutex);
+            synchronous_lock sl(m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
    //         if (m_pseq)
    //         {
@@ -808,7 +808,7 @@ namespace music
          ::e_status sequence::Pause()
          {
 
-            synchronous_lock sl(m_pmutex);
+            synchronous_lock sl(m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             if (e_state_playing != get_state())
             {
@@ -897,7 +897,7 @@ namespace music
          ::e_status sequence::Stop()
          {
 
-            synchronous_lock sl(m_pmutex);
+            synchronous_lock sl(m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             if(get_state() == e_state_stopping)
             {
@@ -995,7 +995,7 @@ namespace music
    //
    //      return ::music::midi::sequence::get_ticks(pTicks);
    //
-   //         synchronous_lock sl(m_pmutex);
+   //         synchronous_lock sl(m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //         ::e_status                mmr;
    //

@@ -36,7 +36,7 @@ namespace node_gtk_based
 //   ::e_status desktop_environment::_get_monitor_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
 //   {
 //
-//      synchronous_lock sl(user_synchronization());
+//      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      auto screens = QGuiApplication::screens();
 //
@@ -76,7 +76,7 @@ namespace node_gtk_based
 //   ::e_status desktop_environment::_get_workspace_rectangle(::collection::index iIndex, ::int_rectangle *prectangle)
 //   {
 //
-//      synchronous_lock sl(user_synchronization());
+//      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      auto screens = QGuiApplication::screens();
 //

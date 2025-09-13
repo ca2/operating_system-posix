@@ -17,7 +17,7 @@ pointer_array < xcb_hook > g_xcbhooka;
 void xcb_hook::hook()
 {
 
-   _synchronous_lock synchronouslock(x11_mutex());
+   _synchronous_lock synchronouslock(x11_mutex(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
    g_xcbhooka.add(this);
 
@@ -29,7 +29,7 @@ void xcb_hook::hook()
 void xcb_hook::unhook()
 {
 
-   _synchronous_lock synchronouslock(x11_mutex());
+   _synchronous_lock synchronouslock(x11_mutex(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
    g_xcbhooka.erase(this);
 

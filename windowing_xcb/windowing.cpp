@@ -238,7 +238,7 @@ namespace windowing_xcb
 //
 //      //}
 //
-//      //synchronous_lock synchronouslock(this->synchronization());
+//      //synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      //m_procedurelist.add_tail(procedure);
 //
@@ -284,7 +284,7 @@ namespace windowing_xcb
    ::pointer<::windowing::cursor> windowing::load_default_cursor(enum_cursor ecursor)
    {
 
-      synchronous_lock synchronouslock(this->synchronization());
+      synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       if (!m_pcursormanager)
       {
@@ -373,7 +373,7 @@ namespace windowing_xcb
 
       }
 
-      //synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       windowing_output_debug_string("::xcb_GetWindowRect 1");
 
@@ -410,7 +410,7 @@ namespace windowing_xcb
 
       }
 
-      ///synchronous_lock synchronouslock(user_synchronization());
+      ///synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //display_lock lock(m_pdisplay);
 
@@ -439,7 +439,7 @@ namespace windowing_xcb
    void windowing::release_mouse_capture(::thread * pthread)
    {
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       _on_capture_changed_to(nullptr);
 
@@ -612,7 +612,7 @@ namespace windowing_xcb
 //      try
 //      {
 //
-//         synchronous_lock synchronouslock(user_synchronization());
+//         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //         //display_lock displaylock(m_pdisplay);
 //
@@ -688,7 +688,7 @@ namespace windowing_xcb
 //      try
 //      {
 //
-//         synchronous_lock synchronouslock(user_synchronization());
+//         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //         //display_lock displayLock(m_pdisplay);
 //

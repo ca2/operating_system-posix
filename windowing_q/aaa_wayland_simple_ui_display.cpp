@@ -108,7 +108,7 @@ void simple_ui_display::common_construct()
 simple_ui_display::~ simple_ui_display()
 {
 
-   synchronous_lock sl(user_synchronization());
+   synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
    Display * pdisplay = x11_get_display();
 
@@ -463,7 +463,7 @@ int simple_ui_display::show()
 
    {
 
-      synchronous_lock sl(user_synchronization());
+      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       Display * pdisplay = x11_get_display();
 

@@ -114,7 +114,7 @@ namespace multimedia
                             ::wave::enum_purpose epurpose)
       {
 
-         synchronous_lock sl(synchronization());
+         synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          if (m_hdl != NULL && m_eoutstate != ::wave::e_out_state_initial)
          {
@@ -357,7 +357,7 @@ namespace multimedia
       void wave_out::out_close()
       {
 
-         synchronous_lock sl(synchronization());
+         synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          informationf("multimedia::audio_alsa::out_close");
 
@@ -395,7 +395,7 @@ namespace multimedia
       void wave_out::out_stop()
       {
 
-         synchronous_lock sl(synchronization());
+         synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          informationf("multimedia::audio_alsa::out_stop");
 
@@ -437,7 +437,7 @@ namespace multimedia
       void wave_out::out_pause()
       {
 
-         synchronous_lock sl(synchronization());
+         synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          ASSERT(m_eoutstate == ::wave::e_out_state_playing);
 
@@ -479,7 +479,7 @@ namespace multimedia
       void wave_out::out_restart()
       {
 
-         synchronous_lock sl(synchronization());
+         synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          ASSERT(m_eoutstate == ::wave::e_out_state_paused);
 
@@ -521,7 +521,7 @@ namespace multimedia
       class ::time wave_out::out_get_position()
       {
 
-         synchronous_lock sl(synchronization());
+         synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          class ::time time;
 
@@ -664,7 +664,7 @@ namespace multimedia
 //
 //         {
 //
-//            synchronous_lock sl(synchronization());
+//            synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //            if(m_iaSent.has_element())
 //            {
@@ -708,7 +708,7 @@ namespace multimedia
 
          {
 
-            synchronous_lock sl(synchronization());
+            synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             if (m_hdl == NULL)
             {
@@ -726,7 +726,7 @@ namespace multimedia
 
 ////             {
 ////
-////                synchronous_lock sl(synchronization());
+////                synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
 ////                //print_snd_pcm_status();
 ////
@@ -815,7 +815,7 @@ namespace multimedia
 
          }
 
-         synchronous_lock sl(synchronization());
+         synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          //m_iaSent.insert_at(0, iBuffer);
 
@@ -1002,7 +1002,7 @@ namespace multimedia
       void wave_out::out_start(const class time &time)
       {
 
-         synchronous_lock sl(synchronization());
+         synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          if (m_eoutstate == ::wave::e_out_state_playing)
          {

@@ -700,7 +700,7 @@ namespace windowing_xcb
 //   void keyboard::show_software_keyboard(::user::interaction_base* pprimitive, const ::scoped_string & scopedstr, character_count iBeg, character_count iEnd)
 //   {
 //
-//      synchronous_lock synchronouslock(this->synchronization());
+//      synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      m_iSoftwareKeyboardEventId++;
 //
@@ -713,7 +713,7 @@ namespace windowing_xcb
 //
 //              sleep(400_ms);
 //
-//              synchronous_lock synchronouslock(this->synchronization());
+//              synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //              if (iEventId == m_iSoftwareKeyboardEventId)
 //              {
@@ -745,7 +745,7 @@ namespace windowing_xcb
 //
 //      }
 //
-//      synchronous_lock synchronouslock(this->synchronization());
+//      synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      m_iSoftwareKeyboardEventId++;
 //
@@ -758,7 +758,7 @@ namespace windowing_xcb
 //
 //              sleep(400_ms);
 //
-//              synchronous_lock synchronouslock(this->synchronization());
+//              synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //              if (iEventId == m_iSoftwareKeyboardEventId)
 //              {

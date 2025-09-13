@@ -131,7 +131,7 @@ namespace windowing_x11
 
                   {
 
-                     //synchronous_lock synchronouslock(user_synchronization());
+                     //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                      auto pusersystem = pimpl->m_puserinteraction->m_pusersystem;
 
@@ -978,7 +978,7 @@ namespace windowing_x11
    void window::set_wm_class(const_char_pointer psz)
    {
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       m_strWMClass = psz;
 
@@ -1034,7 +1034,7 @@ namespace windowing_x11
 
 
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   {
 
@@ -1092,7 +1092,7 @@ namespace windowing_x11
    int window::unmap_window(bool bWithdraw)
    {
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       int i = 0;
 
       system()->acme_windowing()->sync([this, &i, bWithdraw]()
@@ -1400,7 +1400,7 @@ namespace windowing_x11
 
       //int status = -1;
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //x11_sync([this, &status]()
       //{
@@ -1576,7 +1576,7 @@ namespace windowing_x11
 
                   windowing_output_debug_string("\nwindow::set_icon");
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   ::x11::display_lock displaylock(x11_display()->Display());
 
@@ -1711,7 +1711,7 @@ namespace windowing_x11
 
                   windowing_output_debug_string("\nwindow::store_name");
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   ::x11::display_lock displaylock(x11_display()->Display());
 
@@ -1737,7 +1737,7 @@ namespace windowing_x11
 
                   windowing_output_debug_string("\nwindow::select_input");
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   ::x11::display_lock displaylock(x11_display()->Display());
 
@@ -1763,7 +1763,7 @@ namespace windowing_x11
 
                   windowing_output_debug_string("\nwindow::select_all_input");
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   ::x11::display_lock displaylock(x11_display()->Display());
 
@@ -1946,7 +1946,7 @@ namespace windowing_x11
                {
 
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   ::x11::display_lock displaylock(x11_display()->Display());
 
@@ -2016,7 +2016,7 @@ namespace windowing_x11
    void window::_mapped_net_state_unlocked(bool add, int iScreen, Atom state1, Atom state2)
    {
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       if (add)
       {
@@ -2080,7 +2080,7 @@ namespace windowing_x11
    void window::unmapped_net_state_raw(Atom atom1, ...)
    {
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       XEvent xevent;
 
@@ -2149,7 +2149,7 @@ namespace windowing_x11
 //
 //                                         windowing_output_debug_string("::window::show_window 1");
 //
-//                                         synchronous_lock synchronouslock(user_synchronization());
+//                                         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //                                         ::x11::display_lock displaylock(x11_display()->Display());
 //
@@ -2242,7 +2242,7 @@ namespace windowing_x11
 //
 //      windowing_output_debug_string("::window::show_window 1");
 //
-////      synchronous_lock synchronouslock(user_synchronization());
+////      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
 ////      ::x11::display_lock displaylock(x11_display()->Display());
 //
@@ -2335,7 +2335,7 @@ namespace windowing_x11
 
                   windowing_output_debug_string("::window::full_screen 1");
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   ::x11::display_lock displaylock(x11_display()->Display());
 
@@ -2413,7 +2413,7 @@ namespace windowing_x11
                {
 
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   ::x11::display_lock displaylock(x11_display()->Display());
 
@@ -2453,7 +2453,7 @@ namespace windowing_x11
       system()->acme_windowing()->sync([this]()
                {
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   ::x11::display_lock displaylock(x11_display()->Display());
 
@@ -2488,7 +2488,7 @@ namespace windowing_x11
    void window::exit_zoomed()
    {
 
-//      synchronous_lock sl(user_synchronization());
+//      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      ::x11::display_lock displaylock(x11_display()->Display());
 //
@@ -2580,7 +2580,7 @@ namespace windowing_x11
 
                   windowing_output_debug_string("::window::get_state 1");
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   ::x11::display_lock displaylock(x11_display()->Display());
 
@@ -2693,7 +2693,7 @@ namespace windowing_x11
 
                   windowing_output_debug_string("::window::is_window_visible 1");
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   ::x11::display_lock displaylock(x11_display()->Display());
 
@@ -2737,7 +2737,7 @@ namespace windowing_x11
 
 //      windowing_output_debug_string("::window::is_window_visible 1");
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      ::x11::display_lock displaylock(x11_display()->Display());
 //
@@ -3028,7 +3028,7 @@ namespace windowing_x11
 
       }
 
-      synchronous_lock ml(pmessagequeue->synchronization());
+      synchronous_lock ml(pmessagequeue->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       if (message.m_emessage == ::user::e_message_quit)
       {
@@ -3088,7 +3088,7 @@ namespace windowing_x11
 
       }
 
-      synchronous_lock ml(pmessagequeue->synchronization());
+      synchronous_lock ml(pmessagequeue->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       pmessagequeue->m_messagea.predicate_erase([this](MESSAGE &item)
                                                 {
@@ -3117,7 +3117,7 @@ namespace windowing_x11
                {
 
 
-                  //synchronous_lock sl(user_synchronization());
+                  //synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   ::x11::display_lock displaylock(x11_display()->Display());
 
@@ -4132,7 +4132,7 @@ namespace windowing_x11
       // x11_sync([this, pcursorTransport]()
       // {
       //
-      // //synchronous_lock synchronouslock(user_synchronization());
+      // //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       //
       // // ::x11::display_lock displaylock(x11_display()->Display());
       // //
@@ -4261,7 +4261,7 @@ namespace windowing_x11
    void window::_x11_set_mouse_cursor(::Cursor cursor)
    {
 
-      //synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       windowing_output_debug_string("::SetCursor 1");
 
@@ -4317,7 +4317,7 @@ namespace windowing_x11
    void window::upper_window_rects(int_rectangle_array &ra)
    {
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       ra.erase_all();
 
@@ -4612,7 +4612,7 @@ namespace windowing_x11
       system()->acme_windowing()->sync([this, erelative, &window]()
                {
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   windowing_output_debug_string("::get_window 1");
 
@@ -4793,7 +4793,7 @@ namespace windowing_x11
 //      x11_fork([window]()
 //               {
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   //Display *Display() = Display();
 
@@ -4941,7 +4941,7 @@ namespace windowing_x11
    int window::_wm_test_list_unlocked(Atom atomList, Atom atomFlag)
    {
 
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       Atom actual_type;
 
@@ -4968,7 +4968,7 @@ namespace windowing_x11
    int window::_wm_test_state_unlocked(const_char_pointer pszNetStateFlag)
    {
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       Atom atomFlag = x11_display()->_intern_atom_unlocked(scopedstrNetStateFlag, 1);
 
@@ -5007,7 +5007,7 @@ namespace windowing_x11
       system()->acme_windowing()->sync([this, &i, strNetStateFlag]()
                {
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   windowing_output_debug_string("::wm_test_state 1");
 
@@ -5206,7 +5206,7 @@ namespace windowing_x11
 
                   informationf("::windowing_x11::window::x11_store_name : %s", strName.c_str());
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   ::x11::display_lock displaylock(x11_display()->Display());
 
@@ -5282,7 +5282,7 @@ namespace windowing_x11
 //   int_bool window::this->rectangle(::int_rectangle *prectangle)
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      ::x11::display_lock displaylock(x11_display()->Display());
 //
@@ -5368,7 +5368,7 @@ namespace windowing_x11
       user_post([this]()
       {
 
-         //synchronous_lock synchronouslock(user_synchronization());
+         //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          ::x11::display_lock displayLock(x11_display()->Display());
 
@@ -5401,7 +5401,7 @@ namespace windowing_x11
 //   void window::_window_request_presentation_locked()
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      ::x11::display_lock displayLock(x11_display()->Display());
 //
@@ -5429,7 +5429,7 @@ namespace windowing_x11
       system()->acme_windowing()->sync([this]()
                {
 
-                  //synchronous_lock synchronouslock(user_synchronization());
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                   ::x11::display_lock displaylock(x11_display()->Display());
 

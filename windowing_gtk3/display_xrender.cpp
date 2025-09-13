@@ -19,7 +19,7 @@ namespace windowing_gtk3
 //    ::wl_cursor * display::create_alpha_cursor(::image::image *pimage, int xHotSpot, int yHotSpot)
 //    {
 //
-//       //synchronous_lock synchronouslock(user_synchronization());
+//       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 // //      windowing_output_debug_string("::CreateAlphaCursor 1");
 // //

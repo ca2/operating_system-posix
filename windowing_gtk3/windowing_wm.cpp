@@ -20,7 +20,7 @@ namespace windowing_gtk3
 //   void window::_wm_add_remove_state_mapped_unlocked(::x11::enuid() eatomNetWmState, bool bSet)
 //   {
 //
-//      //synchronous_lock synchronouslock(user_synchronization());
+//      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      int iStateIndex = eatomNetWmState - ::x11::e_atom_net_wm_state_first;
 //
@@ -86,7 +86,7 @@ namespace windowing_gtk3
 //   void window::wm_add_remove_state_mapped(::x11::enuid() eatomNetWmState, bool bSet)
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      windowing_output_debug_string("::wm_add_remove_state_mapped 1");
 //
@@ -103,7 +103,7 @@ namespace windowing_gtk3
 //   void window::_wm_add_remove_state_unmapped_unlocked(::x11::enuid() eatomNetWmState, bool bSet)
 //   {
 //
-//      //synchronous_lock synchronouslock(user_synchronization());
+//      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      int iStateIndex = eatomNetWmState - ::x11::e_atom_net_wm_state_first;
 //
@@ -133,7 +133,7 @@ namespace windowing_gtk3
 //   void window::wm_add_remove_state_unmapped(::x11::enuid() eatomNetWmState, bool bSet)
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      windowing_output_debug_string("::wm_add_remove_state_unmapped 1");
 //
@@ -170,7 +170,7 @@ namespace windowing_gtk3
 //   void window::wm_add_remove_state(::x11::enuid() eatomNetWmState, bool bSet)
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      windowing_output_debug_string("::wm_add_remove_state 1");
 //
@@ -187,7 +187,7 @@ namespace windowing_gtk3
 //   void window::_wm_state_clear_unlocked(bool bSet)
 //   {
 //
-//      //synchronous_lock synchronouslock(user_synchronization());
+//      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      _wm_add_remove_state_unlocked(::x11::e_atom_net_wm_state_above, false);
 //      _wm_add_remove_state_unlocked(::x11::e_atom_net_wm_state_below, false);
@@ -255,7 +255,7 @@ namespace windowing_gtk3
 ////void wm_state_hidden(oswindow w, bool bSet)
 ////{
 ////
-////   synchronous_lock synchronouslock(user_synchronization());
+////   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
 ////   windowing_output_debug_string("::wm_state_above 1");
 ////
@@ -270,7 +270,7 @@ namespace windowing_gtk3
 //   void window::wm_state_above(bool bSet)
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      windowing_output_debug_string("::wm_state_above 1");
 //
@@ -287,7 +287,7 @@ namespace windowing_gtk3
 //   void window::wm_state_below(bool bSet)
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      windowing_output_debug_string("::wm_state_below 1");
 //
@@ -304,7 +304,7 @@ namespace windowing_gtk3
 //   void window::wm_state_hidden(bool bSet)
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      windowing_output_debug_string("::wm_state_hidden 1");
 //
@@ -326,7 +326,7 @@ namespace windowing_gtk3
 //
 //         windowing_output_debug_string("::wm_toolwindow 1");
 //
-//         synchronous_lock synchronouslock(user_synchronization());
+//         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //         //display_lock displaylock(x11_display()->Display());
 //
@@ -387,7 +387,7 @@ namespace windowing_gtk3
 //
 //      windowing_output_debug_string("::wm_hidden_state 1");
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      //display_lock displaylock(x11_display()->Display());
 //
@@ -417,7 +417,7 @@ namespace windowing_gtk3
 ////
 ////               windowing_output_debug_string("::wm_arbitrarypositionwindow 1");
 ////
-////               synchronous_lock synchronouslock(user_synchronization());
+////               synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
 ////               //display_lock displaylock(x11_display()->Display());
 ////
@@ -478,7 +478,7 @@ namespace windowing_gtk3
 //
 //      windowing_output_debug_string("::wm_desktopwindow 1");
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      //display_lock displaylock(x11_display()->Display());
 //
@@ -536,7 +536,7 @@ namespace windowing_gtk3
 //
 //      windowing_output_debug_string("::wm_centerwindow 1");
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      //display_lock displaylock(x11_display()->Display());
 //
@@ -594,7 +594,7 @@ namespace windowing_gtk3
 //
 //      windowing_output_debug_string("::wm_centerwindow 1");
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      //display_lock displaylock(x11_display()->Display());
 //
@@ -652,7 +652,7 @@ namespace windowing_gtk3
 //
 //      windowing_output_debug_string("::wm_dockwindow 1");
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      //display_lock displaylock(x11_display()->Display());
 //
@@ -712,7 +712,7 @@ namespace windowing_gtk3
 //
 //      windowing_output_debug_string("::wm_nodecorations 1");
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      //display_lock displaylock(x11_display()->Display());
 //
@@ -774,7 +774,7 @@ namespace windowing_gtk3
 //   void window::wm_iconify_window()
 //   {
 //
-//      synchronous_lock synchronouslock(user_synchronization());
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      //display_lock displaylock(x11_display()->Display());
 //
@@ -822,7 +822,7 @@ namespace windowing_gtk3
 //   int_bool window::_wm_is_window_visible_unlocked()
 //   {
 //
-//      //synchronous_lock synchronouslock(user_synchronization());
+//      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      XWindowAttributes attr;
 //

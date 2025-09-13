@@ -524,7 +524,7 @@ namespace gtk3
          ::gtk3::acme::windowing::window* windowing::_window(GtkWindow* pgtkwindow)
          {
 
-            _synchronous_lock synchronouslock(this->synchronization());
+            _synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             auto pgtk3acmewindowingwindow = m_windowmap[pgtkwindow];
 
@@ -543,7 +543,7 @@ namespace gtk3
          void windowing::_set_window(GtkWindow* pgtkwindow, ::gtk3::acme::windowing::window* pgtk3acmewindowingwindow)
          {
 
-            _synchronous_lock synchronouslock(this->synchronization());
+            _synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             m_windowmap[pgtkwindow] = pgtk3acmewindowingwindow;
 

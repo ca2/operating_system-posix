@@ -164,7 +164,7 @@ namespace windowing_xcb
 
                                     auto pdisplay = _get_Display();
 
-                                    //synchronous_lock synchronouslock(user_synchronization());
+                                    //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                                     ::x11::display_lock lock(pdisplay);
 

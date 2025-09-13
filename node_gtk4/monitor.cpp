@@ -74,7 +74,7 @@ namespace node_gtk4
    ::e_status monitor::_get_monitor_rectangle()
    {
 
-      //synchronous_lock sl(user_synchronization());
+      //synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       GdkDisplay * pdisplay = gdk_display_get_default();
 
@@ -123,7 +123,7 @@ namespace node_gtk4
 //   ::e_status monitor::_get_workspace_rectangle()
 //   {
 //
-//      synchronous_lock sl(user_synchronization());
+//      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //      ::pointer auto pdisplay = m_pdisplay->
 //
@@ -164,7 +164,7 @@ namespace node_gtk4
                 {
 //      //   {
 //
-//            synchronous_lock sl(user_synchronization());
+//            synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             _get_monitor_rectangle();
 
@@ -183,7 +183,7 @@ namespace node_gtk4
 //      //auto predicate = [this]()
 //        // {
 //
-//            synchronous_lock sl(user_synchronization());
+//            synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //            _get_workspace_rectangle();
 //

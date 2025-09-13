@@ -445,7 +445,7 @@ namespace windowing_xcb
    xcb_cursor_t display::_create_font_cursor(uint16_t glyph)
    {
 
-      synchronous_lock synchronouslock(this->synchronization());
+      synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       xcb_cursor_t & cursor = m_mapGlyphCursor[glyph];
 
@@ -515,7 +515,7 @@ namespace windowing_xcb
    ::windowing_xcb::window * display::_get_keyboard_focus()
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       oswindow oswindow = nullptr;
 
@@ -558,7 +558,7 @@ namespace windowing_xcb
       int win_y_return;
       unsigned int mask_return;
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       windowing_output_debug_string("::GetCursorPos 1");
 
@@ -791,7 +791,7 @@ namespace windowing_xcb
    bool display::_window_has_atom_list_atom(xcb_window_t window, xcb_atom_t propertyList, xcb_atom_t propertyItem)
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       array<xcb_atom_t> atoma;
 
@@ -843,7 +843,7 @@ namespace windowing_xcb
    comparable_array<xcb_atom_t> display::_window_get_atom_array(xcb_window_t window, xcb_atom_t property)
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       comparable_array<xcb_atom_t> atoma;
 
@@ -985,7 +985,7 @@ namespace windowing_xcb
    ::int_rectangle display::_window_get_frame_extents(xcb_window_t window)
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       ::int_rectangle r;
 
@@ -1100,7 +1100,7 @@ namespace windowing_xcb
 
                           }
 
-                          synchronous_lock synchronouslock(user_synchronization());
+                          synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
                           windowing_output_debug_string("::GetFocus 1");
 

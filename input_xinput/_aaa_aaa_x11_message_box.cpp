@@ -125,7 +125,7 @@ void setWindowTitle(const_char_pointer title, const Window *win, Display *dpy){
 //
 //   stra.add_lines(text);
 //
-//   synchronous_lock sl(user_synchronization());
+//   synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //    xdisplay d(x11_get_display());
 //    if(!d.display()){

@@ -39,7 +39,7 @@ namespace input_xinput
         aaa_user_post([this, bMouse, bKeyboard]()
          {
 
-            synchronous_lock synchronouslock(this->synchronization());
+            synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
             auto pDisplay = x11_get_display();
 

@@ -240,7 +240,7 @@ namespace windowing_q6
 //    //
 //    //      }
 //    //
-//    //      synchronous_lock synchronouslock(this->synchronization());
+//    //      synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //    //
 //    //      m_procedurelist.add_tail(procedure);
 //    //
@@ -305,7 +305,7 @@ namespace windowing_q6
 //    //   void windowing::process_procedure_list(::procedure_list & procedurelist, bool & bHandled)
 //    //   {
 //    //
-//    //      synchronous_lock synchronouslock(this->synchronization());
+//    //      synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //    //
 //    //      if(procedurelist.is_empty())
 //    //      {
@@ -375,7 +375,7 @@ namespace windowing_q6
 //    ::pointer<::windowing::cursor> windowing::load_default_cursor(enum_cursor ecursor)
 //    {
 //
-//       synchronous_lock synchronouslock(this->synchronization());
+//       synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //       if (!m_pcursormanager)
 //       {
@@ -467,7 +467,7 @@ namespace windowing_q6
 //
 //       }
 //
-//       //synchronous_lock sl(user_synchronization());
+//       //synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //       windowing_output_debug_string("::x11_GetWindowRect 1");
 //
@@ -699,7 +699,7 @@ namespace windowing_q6
 //       //
 //       //                                      }
 //       //
-//       //                                      synchronous_lock sl(user_synchronization());
+//       //                                      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //       //
 //       //                                      windowing_output_debug_string("::SetCursor 1");
 //       //
@@ -944,7 +944,7 @@ namespace windowing_q6
 //    //
 //    //      {
 //    //
-//    //         synchronous_lock synchronouslock(this->synchronization());
+//    //         synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //    //
 //    //         m_particleaMouseHandler.add(pparticle);
 //    //
@@ -960,7 +960,7 @@ namespace windowing_q6
 //    //
 //    //      {
 //    //
-//    //         synchronous_lock synchronouslock(this->synchronization());
+//    //         synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //    //
 //    //         m_particleaKeyboardHandler.add(pparticle);
 //    //
@@ -976,7 +976,7 @@ namespace windowing_q6
 //    //
 //    //      {
 //    //
-//    //         synchronous_lock synchronouslock(this->synchronization());
+//    //         synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //    //
 //    //         m_particleaMouseHandler.erase(pparticle);
 //    //
@@ -992,7 +992,7 @@ namespace windowing_q6
 //    //
 //    //      {
 //    //
-//    //         synchronous_lock synchronouslock(this->synchronization());
+//    //         synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //    //
 //    //         m_particleaKeyboardHandler.erase(pparticle);
 //    //

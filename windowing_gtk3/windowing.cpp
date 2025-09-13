@@ -259,7 +259,7 @@ namespace windowing_gtk3
    ::pointer<::windowing::cursor> windowing::load_default_cursor(enum_cursor ecursor)
    {
 
-      synchronous_lock synchronouslock(this->synchronization());
+      synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       if (!m_pcursormanager)
       {

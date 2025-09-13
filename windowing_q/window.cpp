@@ -9,7 +9,7 @@
 #include "windowing.h"
 #include "display.h"
 #include "cursor.h"
-#include "acme/constant/user_message.h"
+#include "acme/constant/message.h"
 #include "acme/operating_system/a_system_menu.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
@@ -454,7 +454,7 @@ namespace windowing_q
    // //    }
    //
    //    static void clear_controllers(GtkWidget *widget) {
-   //       // Retrieve the list_base of all controllers attached to the widget
+   //       // Retrieve the list of all controllers attached to the widget
    //       GListModel *controllers = gtk_widget_observe_controllers(widget);
    //
    //       guint n_items = g_list_model_get_n_items(controllers);
@@ -472,7 +472,7 @@ namespace windowing_q
    //          g_object_unref(item); // Unreference the item after retrieving it
    //       }
    //
-   //       // Free the list_base after use
+   //       // Free the list after use
    //       g_object_unref(controllers);
    //    }
    //
@@ -1750,7 +1750,7 @@ namespace windowing_q
 
              //if (pevent->button() == Qt::MouseButton::LeftButton)
              // {
-             //    pmouse->m_emessage = ::user::e_message_left_button_down;
+             //    pmouse->m_emessage = e_message_left_button_down;
              //    pelemental->fore_on_left_button_down(pmouse);
              //    if (!pmouse->m_bRet)
              //    {
@@ -1761,7 +1761,7 @@ namespace windowing_q
              // }
              // else if (pevent->button() == Qt::MouseButton::RightButton)
              // {
-             //    pmouse->m_emessage = ::user::e_message_right_button_down;
+             //    pmouse->m_emessage = e_message_right_button_down;
              //    pelemental->fore_on_right_button_down(pmouse);
              //    if (!pmouse->m_bRet)
              //    {
@@ -1773,7 +1773,7 @@ namespace windowing_q
              // }
              // else if (pevent->button() == Qt::MouseButton::MiddleButton)
              // {
-             //    pmouse->m_emessage = ::user::e_message_middle_button_down;
+             //    pmouse->m_emessage = e_message_middle_button_down;
              // }
 
 
@@ -1851,7 +1851,7 @@ namespace windowing_q
 
              //if (pevent->button() == Qt::MouseButton::LeftButton)
              // {
-             //    pmouse->m_emessage = ::user::e_message_left_button_down;
+             //    pmouse->m_emessage = e_message_left_button_down;
              //    pelemental->fore_on_left_button_down(pmouse);
              //    if (!pmouse->m_bRet)
              //    {
@@ -1862,7 +1862,7 @@ namespace windowing_q
              // }
              // else if (pevent->button() == Qt::MouseButton::RightButton)
              // {
-             //    pmouse->m_emessage = ::user::e_message_right_button_down;
+             //    pmouse->m_emessage = e_message_right_button_down;
              //    pelemental->fore_on_right_button_down(pmouse);
              //    if (!pmouse->m_bRet)
              //    {
@@ -1874,7 +1874,7 @@ namespace windowing_q
              // }
              // else if (pevent->button() == Qt::MouseButton::MiddleButton)
              // {
-             //    pmouse->m_emessage = ::user::e_message_middle_button_down;
+             //    pmouse->m_emessage = e_message_middle_button_down;
              // }
 
 
@@ -1919,6 +1919,92 @@ namespace windowing_q
 
    }
 
+   // void window::_on_window_simple_action(const_char_pointer pszActionName)
+   // {
+   //
+   //    ::string strActionName(scopedstrActionName);
+   //
+   //    if (strActionName == "minimize")
+   //    {
+   //
+   //       window_minimize();
+   //
+   //    }
+   //    else if (strActionName == "maximize")
+   //    {
+   //
+   //       window_maximize();
+   //
+   //    }
+   //    else if (strActionName == "about_box")
+   //    {
+   //
+   //       application()->show_about_box();
+   //
+   //    }
+   //    else if (strActionName == "close")
+   //    {
+   //
+   //       puserinteraction->post_message(e_message_close);
+   //
+   //    }
+   //    else if (strActionName == "")
+   //    {
+   //
+   //       print_line("reaching here?!");
+   //       //defer_perform_entire_reposition_process(nullptr);
+   //
+   //    }
+   //    else if (strActionName == "")
+   //    {
+   //
+   //       print_line("also here");
+   //
+   //       //defer_perform_entire_resizing_process(::experience::e_frame_sizing_top_left, nullptr);
+   //
+   //    }
+   //
+   // }
+
+
+   // void window::_on_a_system_menu_item_action_triggered(::operating_system::a_system_menu_item * pitem)
+   // {
+   //
+   //    _on_window_simple_action(pitem->m_strAtom);
+   //
+   // }
+
+
+   // static void on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size, gpointer p)
+   // {
+   //
+   //    auto pwindow = (::windowing_q::window *)p;
+   //
+   //    pwindow->_on_toplevel_compute_size(self, size);
+   //
+   // }
+   //
+   //
+   // void window::_on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size)
+   // {
+   //
+   //    gboolean bIsMaximized = gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget));
+   //
+   //    if(bIsMaximized)
+   //    {
+   //
+   //       int w = 0;
+   //
+   //       int h = 0;
+   //
+   //       gdk_toplevel_size_get_bounds(size, &w, &h);
+   //
+   //       gdk_toplevel_size_set_size(size, w, h);
+   //
+   //    }
+   //
+   // }
+
 
    void window::_on_qimage_draw(QImage* pqimage)
    {
@@ -1948,11 +2034,11 @@ namespace windowing_q
 
       }
 
-      _synchronous_lock slGraphics(pbuffer->synchronization());
+      _synchronous_lock slGraphics(pbuffer->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       auto pitem = pbuffer->get_screen_item();
 
-      _synchronous_lock slImage(pitem->m_pmutex);
+      _synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       if (pitem && pitem->m_pimage2)
       {
@@ -1976,7 +2062,7 @@ namespace windowing_q
 
             pimageTarget->copy(w, h, iTargetScan, pimageSource, iSourceScan);
 
-            m_pgraphicsgraphics->on_end_draw();
+            pbuffer->on_end_draw();
 
          }
 
@@ -2019,7 +2105,7 @@ namespace windowing_q
 
       {
 
-         _synchronous_lock synchronouslock(user_synchronization());
+         _synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
 
@@ -2710,7 +2796,7 @@ namespace windowing_q
 
       if (bOk)
       {
-         //auto lresult = puserinteraction->send_message(::user::e_message_create, 0, (lparam) &pusersystem->m_createstruct);
+         //auto lresult = puserinteraction->send_message(e_message_create, 0, (lparam) &pusersystem->m_createstruct);
 
          // if(::is_null(puserinteraction->m_pwindow))
          // {
@@ -2810,7 +2896,7 @@ namespace windowing_q
 
          puserinteraction->set_flag(e_flag_task_started);
 
-         //auto lresult2 = puserinteraction->send_message(::user::e_message_after_create, 0, 0);
+         //auto lresult2 = puserinteraction->send_message(e_message_after_create, 0, 0);
       }
 
    }
@@ -3167,7 +3253,7 @@ namespace windowing_q
 
    void window::set_wm_class(const_char_pointer psz)
    {
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      m_strWMClass = psz;
       //
@@ -3187,7 +3273,7 @@ namespace windowing_q
    {
       int i = 0;
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       //gtk_widget_set_visible(m_pgtkwidget, true);
 
       m_pqwidget->show();
@@ -3234,7 +3320,7 @@ namespace windowing_q
 
    int window::unmap_window(bool bWithdraw)
    {
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       windowing_output_debug_string("\nwindow::unmap_window");
 
@@ -3529,7 +3615,7 @@ namespace windowing_q
 
    bool window::bamf_set_icon()
    {
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      auto psystem = system();
       //
@@ -3669,7 +3755,7 @@ namespace windowing_q
       //
       //      windowing_output_debug_string("\nwindow::set_icon");
       //
-      //      synchronous_lock synchronouslock(user_synchronization());
+      //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       //
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3784,7 +3870,7 @@ namespace windowing_q
    {
       windowing_output_debug_string("\nwindow::store_name");
 
-      //      synchronous_lock synchronouslock(user_synchronization());
+      //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       //
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3800,7 +3886,7 @@ namespace windowing_q
    {
       windowing_output_debug_string("\nwindow::select_input");
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3816,7 +3902,7 @@ namespace windowing_q
    {
       windowing_output_debug_string("\nwindow::select_all_input");
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -3981,7 +4067,7 @@ namespace windowing_q
          throw ::exception(error_null_pointer);
       }
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -4034,7 +4120,7 @@ namespace windowing_q
    //   void window::_mapped_net_state_unlocked(bool add, int iScreen, Atom state1, Atom state2)
    //   {
    //
-   //      //synchronous_lock synchronouslock(user_synchronization());
+   //      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      XClientMessageEvent xclient;
    //
@@ -4092,7 +4178,7 @@ namespace windowing_q
    //   void window::unmapped_net_state_raw(Atom atom1, ...)
    //   {
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      XEvent xevent;
    //
@@ -4151,7 +4237,7 @@ namespace windowing_q
    //
    //                                         windowing_output_debug_string("::window::show_window 1");
    //
-   //                                         synchronous_lock synchronouslock(user_synchronization());
+   //                                         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //                                         display_lock displaylock(x11_display()->Display());
    //
@@ -4245,7 +4331,7 @@ namespace windowing_q
    //
    //      windowing_output_debug_string("::window::show_window 1");
    //
-   ////      synchronous_lock synchronouslock(user_synchronization());
+   ////      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    ////
    ////      display_lock displaylock(x11_display()->Display());
    //
@@ -4339,7 +4425,7 @@ namespace windowing_q
 
       windowing_output_debug_string("::window::full_screen 1");
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -4406,7 +4492,7 @@ namespace windowing_q
 
    void window::exit_iconify()
    {
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -4437,7 +4523,7 @@ namespace windowing_q
 
    void window::exit_full_screen()
    {
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -4467,7 +4553,7 @@ namespace windowing_q
 
    void window::exit_zoomed()
    {
-      //      synchronous_lock sl(user_synchronization());
+      //      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       //
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -4571,7 +4657,7 @@ namespace windowing_q
    //
    //      windowing_output_debug_string("::window::get_state 1");
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      display_lock displaylock(x11_display()->Display());
    //
@@ -4672,7 +4758,7 @@ namespace windowing_q
    {
       windowing_output_debug_string("::window::is_window_visible 1");
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -4710,7 +4796,7 @@ namespace windowing_q
    {
       //      windowing_output_debug_string("::window::is_window_visible 1");
       //
-      //      synchronous_lock synchronouslock(user_synchronization());
+      //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       //
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -4965,7 +5051,7 @@ namespace windowing_q
    //      if (pmessagequeue == nullptr)
    //      {
    //
-   //         if (message.m_emessage == ::user::e_message_quit)
+   //         if (message.m_emessage == e_message_quit)
    //         {
    //
    //            return ::error_failed;
@@ -4983,24 +5069,24 @@ namespace windowing_q
    //
    //      }
    //
-   //      synchronous_lock ml(pmessagequeue->synchronization());
+   //      synchronous_lock ml(pmessagequeue->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
-   //      if (message.m_emessage == ::user::e_message_quit)
+   //      if (message.m_emessage == e_message_quit)
    //      {
    //
-   //         informationf("::user::e_message_quit thread");
+   //         informationf("e_message_quit thread");
    //
    //      }
    //
-   //      if (message.m_emessage == ::user::e_message_left_button_down)
+   //      if (message.m_emessage == e_message_left_button_down)
    //      {
    //
-   //         informationf("post_ui_message::user::e_message_left_button_down\n");
+   //         informationf("post_ui_message::e_message_left_button_down\n");
    //
-   //      } else if (message.m_emessage == ::user::e_message_left_button_up)
+   //      } else if (message.m_emessage == e_message_left_button_up)
    //      {
    //
-   //         informationf("post_ui_message::user::e_message_left_button_up\n");
+   //         informationf("post_ui_message::e_message_left_button_up\n");
    //
    //      }
    //
@@ -5043,7 +5129,7 @@ namespace windowing_q
    //
    //      }
    //
-   //      synchronous_lock ml(pmq->synchronization());
+   //      synchronous_lock ml(pmq->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      pmq->m_messagea.predicate_erase([this](MESSAGE & item)
    //                                      {
@@ -5061,7 +5147,7 @@ namespace windowing_q
                                     const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
                                     ::e_display edisplay)
    {
-      synchronous_lock sl(user_synchronization());
+      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //display_lock displaylock(x11_display()->Display());
 
@@ -5213,7 +5299,7 @@ namespace windowing_q
 
    void window::set_mouse_cursor2(::windowing::cursor* pcursor)
    {
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //      display_lock displaylock(x11_display()->Display());
       //
@@ -5365,7 +5451,7 @@ namespace windowing_q
    //   void window::upper_window_rects(int_rectangle_array & ra)
    //   {
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    ////      ra.erase_all();
    ////
@@ -5451,7 +5537,7 @@ namespace windowing_q
    ////      m_pwindowing->windowing_post([this]()
    ////                                   {
    ////
-   ////                                      synchronous_lock synchronouslock(user_synchronization());
+   ////                                      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    ////
    //////                                      display_lock displaylock(x11_display()->Display());
    ////
@@ -5541,7 +5627,7 @@ namespace windowing_q
    void window::set_active_window()
    {
 
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       information() << "::windowing_q::window::set_active_window";
 
@@ -5609,7 +5695,7 @@ namespace windowing_q
       }
 
 
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       {
          windowing_output_debug_string("::set_active_window 1");
@@ -5665,7 +5751,7 @@ namespace windowing_q
    /// should be run at user_thread
    void window::set_foreground_window(::user::activation_token * puseractivationtoken)
    {
-      synchronous_lock synchronouslock(user_synchronization());
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //display_lock displaylock(x11_display()->Display());
 
@@ -5682,7 +5768,7 @@ namespace windowing_q
    /// should be run at user_thread
    void window::_set_foreground_window_unlocked(::user::activation_token * puseractivactiontoken)
    {
-      ////      synchronous_lock synchronouslock(user_synchronization());
+      ////      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       ////
       ////      display_lock displaylock(x11_display()->Display());
       //
@@ -5803,7 +5889,7 @@ namespace windowing_q
    //   ::windowing::window * window::get_window(enum_relative erelative)
    //   {
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      ::Window window = 0;
    //
@@ -6057,7 +6143,7 @@ namespace windowing_q
    //   int window::_wm_test_list_unlocked(Atom atomList, Atom atomFlag)
    //   {
    //
-   ////      synchronous_lock synchronouslock(user_synchronization());
+   ////      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      Atom actual_type;
    //
@@ -6084,7 +6170,7 @@ namespace windowing_q
    //   int window::_wm_test_state_unlocked(const_char_pointer pszNetStateFlag)
    //   {
    //
-   //      //synchronous_lock synchronouslock(user_synchronization());
+   //      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      Atom atomFlag = x11_display()->_intern_atom_unlocked(scopedstrNetStateFlag, 1);
    //
@@ -6116,7 +6202,7 @@ namespace windowing_q
    //   int window::wm_test_state(const_char_pointer pszNetStateFlag)
    //   {
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      windowing_output_debug_string("::wm_test_state 1");
    //
@@ -6324,7 +6410,7 @@ namespace windowing_q
    //   ::e_status window::x11_store_name(const_char_pointer pszName)
    //   {
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      display_lock displaylock(x11_display()->Display());
    //
@@ -6396,7 +6482,7 @@ namespace windowing_q
    //   int_bool window::this->rectangle(::int_rectangle *prectangle)
    //   {
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      display_lock displaylock(x11_display()->Display());
    //
@@ -6441,9 +6527,13 @@ namespace windowing_q
       {
          //auto pimpl = m_pwindow;
 
-         if (::is_set(m_pgraphicsgraphics))
+         auto pbuffer = m_pgraphicsgraphics;
+
+         if (::is_set(pbuffer))
          {
-            m_pgraphicsgraphics->update_screen();
+            
+            pbuffer->update_screen();
+
          }
       });
 
@@ -6476,20 +6566,7 @@ namespace windowing_q
 
          //m_pqwidget->repaint();
 
-         //bool bVisible = m_pqwidget->isVisible();
-
-         //if (!bVisible)
-         //{
-
-         //   information() << "widget isn't visible";
-
-         //}
-
-         //auto size = m_pqwidget->size();
-
-         //information() << "widget size is w,h : " << size.width() << ", " << size.height();
-
-         m_pqwidget->repaint();
+         m_pqwidget->update();
 
       });
 
@@ -6506,7 +6583,7 @@ namespace windowing_q
    //   void window::_window_request_presentation_locked()
    //   {
    //
-   //      synchronous_lock synchronouslock(user_synchronization());
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
    //
    //      display_lock displayLock(x11_display()->Display());
    //
@@ -6539,7 +6616,7 @@ namespace windowing_q
       });
 
       //::q::acme::windowing::window::set_keyboard_focus();
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       // if (m_pwlsurface == nullptr)
       // {
@@ -6582,7 +6659,7 @@ namespace windowing_q
 
    void window::_set_keyboard_focus_unlocked()
    {
-      //synchronous_lock synchronouslock(user_synchronization());
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       //       if (m_pwlsurface == 0)
       //       {
@@ -6629,7 +6706,7 @@ namespace windowing_q
 
    void window::bring_to_front()
    {
-      //       synchronous_lock synchronouslock(user_synchronization());
+      //       synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
       //
       //       if (m_pwlsurface == 0)
       //       {
@@ -6751,13 +6828,13 @@ namespace windowing_q
    //       if(::is_set(pwindow))
    //       {
    //
-   //          auto pmouse = øcreate_new<::message::mouse>();
+   //          auto pmouse = __create_new<::message::mouse>();
    //
    //          pmouse->m_oswindow = this;
    //
    //          pmouse->m_pwindow = this;
    //
-   //          pmouse->m_emessage = ::user::e_message_mouse_move;
+   //          pmouse->m_emessage = e_message_mouse_move;
    //
    //          pmouse->m_pointHost = m_pointCursor2;
    //
@@ -6810,7 +6887,7 @@ namespace windowing_q
    // ////  //             MESSAGE msgCaptureChanged;
    // ////
    // //////               msgCaptureChanged.oswindow = m_pwindowCapture;
-   // ////               msg.id() = ::user::e_message_capture_changed;
+   // ////               msg.id() = e_message_capture_changed;
    // ////               msg.wParam = 0;
    // ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
    // ////               msg.time = e.xcrossing.time;
@@ -6828,7 +6905,7 @@ namespace windowing_q
    //
    // //      MESSAGE msg;
    // //      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
-   // //      msg.id() = ::user::e_message_mouse_leave;
+   // //      msg.id() = e_message_mouse_leave;
    // //      msg.wParam = 0;
    // //      msg.lParam = 0;
    // //      //   msg.time = e.xcrossing.time;
@@ -6836,13 +6913,13 @@ namespace windowing_q
    // //
    // //      wayland_windowing()->post_ui_message(msg);
    //
-   //       auto pmouse = øcreate_new<::message::mouse>();
+   //       auto pmouse = __create_new<::message::mouse>();
    //
    //       pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
    //
    //       pmouse->m_pwindow = pmouse->m_oswindow;
    //
-   //       pmouse->m_emessage = ::user::e_message_mouse_leave;
+   //       pmouse->m_emessage = e_message_mouse_leave;
    //
    //       pmouse->m_pointHost = m_pointCursor2;
    //
@@ -6873,9 +6950,9 @@ namespace windowing_q
    //
    //       //m_pwlpointer = pwlpointer;
    //
-   //       enum_message emessage = ::user::e_message_undefined;
+   //       enum_message emessage = e_message_undefined;
    //
-   //       //msg.id() = ::user::e_message_mouse_wheel;
+   //       //msg.id() = e_message_mouse_wheel;
    //
    //       //post_ui_message(pmouse);
    //
@@ -6895,19 +6972,19 @@ namespace windowing_q
    //
    //             information() << "LeftButtonDown";
    //
-   //             emessage = ::user::e_message_left_button_down;
+   //             emessage = e_message_left_button_down;
    //
    //          }
    //          else if (linux_button == BTN_MIDDLE)
    //          {
    //
-   //             emessage = ::user::e_message_middle_button_down;
+   //             emessage = e_message_middle_button_down;
    //
    //          }
    //          else if (linux_button == BTN_RIGHT)
    //          {
    //
-   //             emessage = ::user::e_message_right_button_down;
+   //             emessage = e_message_right_button_down;
    //
    //          }
    //          else if (linux_button == BTN_GEAR_DOWN)
@@ -6939,19 +7016,19 @@ namespace windowing_q
    //             information()
    //                << "LeftButtonUp";
    //
-   //             emessage = ::user::e_message_left_button_up;
+   //             emessage = e_message_left_button_up;
    //
    //          }
    //          else if (linux_button == BTN_MIDDLE)
    //          {
    //
-   //             emessage = ::user::e_message_middle_button_up;
+   //             emessage = e_message_middle_button_up;
    //
    //          }
    //          else if (linux_button == BTN_RIGHT)
    //          {
    //
-   //             emessage = ::user::e_message_right_button_up;
+   //             emessage = e_message_right_button_up;
    //
    //          }
    //          else
@@ -6996,13 +7073,13 @@ namespace windowing_q
    //       if (Δ != 0)
    //       {
    //
-   //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
+   //          auto pmousewheel = __create_new<::message::mouse_wheel>();
    //
    //          pmousewheel->m_oswindow = this;
    //
    //          pmousewheel->m_pwindow = this;
    //
-   //          pmousewheel->id() = ::user::e_message_mouse_wheel;
+   //          pmousewheel->id() = e_message_mouse_wheel;
    //
    //          //msg.wParam = make_int(0, iDelta);
    //
@@ -7026,7 +7103,7 @@ namespace windowing_q
    //       else if (bRet)
    //       {
    //
-   //          auto pmouse = øcreate_new<::message::mouse>();
+   //          auto pmouse = __create_new<::message::mouse>();
    //
    //          pmouse->m_oswindow = this;
    //
@@ -7252,14 +7329,14 @@ namespace windowing_q
    //    }
    //
    //
-   //    void window::_on_simple_key_message(::user::e_key ekey, ::user::enum_message eusermessage)
+   //    void window::_on_simple_key_message(::user::e_key ekey, ::enum_message emessage)
    //    {
    //
    //       // TODO when do we get WL_KEYBOARD_KEY_STATE_REPEAT?
    //       if (ekey != ::user::e_key_none)
    //       {
    //
-   //          auto pkey = øcreate_new<::message::key>();
+   //          auto pkey = __create_new<::message::key>();
    //
    //          pkey->
    //             m_oswindow = this;
@@ -7270,28 +7347,28 @@ namespace windowing_q
    //          pkey->
    //             m_ekey = ekey;
    //
-   //          if (emessage == ::user::e_message_key_down)
+   //          if (emessage == e_message_key_down)
    //          {
    //
    //             pkey->
-   //                id() = ::user::e_message_key_down;
+   //                id() = e_message_key_down;
    //
    //             information()
    //
-   //                << "::user::e_message_key_down";
+   //                << "e_message_key_down";
    //
    //          }
    //          else
    //          {
    //
    //             pkey->
-   //                id() = ::user::e_message_key_up;
+   //                id() = e_message_key_up;
    //
-   // //information() << "::user::e_message_key_up : " << (iptr) ekey;
+   // //information() << "e_message_key_up : " << (iptr) ekey;
    //
    //             information()
    //
-   //                << "::user::e_message_key_up";
+   //                << "e_message_key_up";
    //
    //          }
    //
@@ -7308,7 +7385,7 @@ namespace windowing_q
    //
    //    //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //    auto pkey = øcreate_new<::message::key>();
+   //    auto pkey = __create_new<::message::key>();
    //
    //    pkey->
    //    m_oswindow = this;
@@ -7317,14 +7394,14 @@ namespace windowing_q
    //    m_pwindow = this;
    //
    //    pkey->
-   //    id() = ::user::e_message_text_composition;
+   //    id() = e_message_text_composition;
    //
    //    pkey->
    //    m_strText = scopedstrText;
    //
    //    information()
    //
-   //    << "::user::e_message_text_composition";
+   //    << "e_message_text_composition";
    //
    //    m_pwindow->
    //    message_handler(pkey);
@@ -7737,7 +7814,7 @@ namespace windowing_q
    //         if (ekey != ::user::e_key_none)
    //         {
    //
-   //            auto pkey = øcreate_new<::message::key>();
+   //            auto pkey = __create_new<::message::key>();
    //
    //            pkey->m_oswindow = this;
    //
@@ -7748,19 +7825,19 @@ namespace windowing_q
    //            if(pressed == WL_KEYBOARD_KEY_STATE_PRESSED)
    //            {
    //
-   //               pkey->m_emessage = ::user::e_message_key_down;
+   //               pkey->m_emessage = e_message_key_down;
    //
-   //               information() << "::user::e_message_key_down";
+   //               information() << "e_message_key_down";
    //
    //            }
    //            else
    //            {
    //
-   //               pkey->m_emessage = ::user::e_message_key_up;
+   //               pkey->m_emessage = e_message_key_up;
    //
-   //               //information() << "::user::e_message_key_up : " << (iptr) ekey;
+   //               //information() << "e_message_key_up : " << (iptr) ekey;
    //
-   //               information() << "::user::e_message_key_up";
+   //               information() << "e_message_key_up";
    //
    //            }
    //
@@ -7803,17 +7880,17 @@ namespace windowing_q
    //
    //            //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //            auto pkey = øcreate_new<::message::key>();
+   //            auto pkey = __create_new<::message::key>();
    //
    //            pkey->m_oswindow = this;
    //
    //            pkey->m_pwindow = this;
    //
-   //            pkey->m_emessage = ::user::e_message_text_composition;
+   //            pkey->m_emessage = e_message_text_composition;
    //
    //            pkey->m_strText = text;
    //
-   //            information() << "::user::e_message_text_composition";
+   //            information() << "e_message_text_composition";
    //
    //            m_pwindow->message_handler(pkey);
    //

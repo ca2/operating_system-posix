@@ -169,7 +169,7 @@ void x11_kick_idle()
 //      try
 //      {
 //
-//         synchronous_lock sl(user_synchronization());
+//         synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //         XLockDisplay(pdisplay);
 //

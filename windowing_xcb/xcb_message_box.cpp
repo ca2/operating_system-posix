@@ -125,7 +125,7 @@ void setWindowTitle(const_char_pointer title, const xcb_window_t *win, xcb_conne
 //
 //   stra.add_lines(text);
 //
-//   synchronous_lock sl(user_synchronization());
+//   synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
 //    xdisplay d(xcb_get_display());
 //    if(!d.display()){

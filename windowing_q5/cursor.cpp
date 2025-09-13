@@ -522,7 +522,7 @@ namespace windowing_q5
 // ////
 // ////      }
 // //
-// //      synchronous_lock sl(user_synchronization());
+// //      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 // //
 // //      windowing_output_debug_string("::x11_GetWindowRect 1");
 // //
