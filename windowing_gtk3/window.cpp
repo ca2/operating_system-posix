@@ -442,7 +442,7 @@ namespace windowing_gtk3
          if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
          {
 
-            auto pgraphics = __øcreate<::draw2d::graphics>();
+            auto pgraphics = øcreate<::draw2d::graphics>();
             //         cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
             //         cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
             //         cairo_paint(cr);
@@ -604,7 +604,7 @@ namespace windowing_gtk3
       //if(::is_set(pwindow))
       {
 
-         auto pmouse = __create_new<::message::mouse>();
+         auto pmouse = øcreate_new<::message::mouse>();
 
          pmouse->m_oswindow = this;
 
@@ -614,15 +614,15 @@ namespace windowing_gtk3
 
          if (happening->button == GDK_BUTTON_PRIMARY)
          {
-            pmouse->m_emessage = e_message_left_button_down;
+            pmouse->m_eusermessage = ::user::e_message_left_button_down;
          }
          else if (happening->button == GDK_BUTTON_SECONDARY)
          {
-            pmouse->m_emessage = e_message_right_button_down;
+            pmouse->m_eusermessage = ::user::e_message_right_button_down;
          }
          else if (happening->button == GDK_BUTTON_MIDDLE)
          {
-            pmouse->m_emessage = e_message_middle_button_down;
+            pmouse->m_eusermessage = ::user::e_message_middle_button_down;
          }
 
          m_pointCursor2.x() = happening->x;
@@ -667,7 +667,7 @@ namespace windowing_gtk3
       //if(::is_set(pwindow))
       {
 
-         auto pmouse = __create_new<::message::mouse>();
+         auto pmouse = øcreate_new<::message::mouse>();
 
          pmouse->m_oswindow = this;
 
@@ -676,19 +676,19 @@ namespace windowing_gtk3
          if (happening->button == GDK_BUTTON_PRIMARY)
          {
 
-            pmouse->m_emessage = e_message_left_button_up;
+            pmouse->m_eusermessage = ::user::e_message_left_button_up;
 
          }
          else if (happening->button == GDK_BUTTON_SECONDARY)
          {
 
-            pmouse->m_emessage = e_message_right_button_up;
+            pmouse->m_eusermessage = ::user::e_message_right_button_up;
 
          }
          else if (happening->button == GDK_BUTTON_MIDDLE)
          {
 
-            pmouse->m_emessage = e_message_middle_button_up;
+            pmouse->m_eusermessage = ::user::e_message_middle_button_up;
 
          }
 
@@ -760,13 +760,13 @@ namespace windowing_gtk3
       //if(::is_set(pwindow))
       {
 
-         auto pmouse = __create_new<::message::mouse>();
+         auto pmouse = øcreate_new<::message::mouse>();
 
          pmouse->m_oswindow = this;
 
          pmouse->m_pwindow = this;
 
-         pmouse->m_emessage = e_message_mouse_move;
+         pmouse->m_eusermessage = ::user::e_message_mouse_move;
 
          m_pointCursor2.x() = happening->x;
 
@@ -1085,9 +1085,9 @@ namespace windowing_gtk3
       if (ekey != ::user::e_key_none)
       {
 
-         auto pkey = __create_new<::message::key>();
+         auto pkey = øcreate_new<::message::key>();
 
-         pkey->m_emessage = e_message_key_down;
+         pkey->m_eusermessage = ::user::e_message_key_down;
 
          pkey->m_oswindow = this;
 
@@ -1116,9 +1116,9 @@ namespace windowing_gtk3
       if (ekey != ::user::e_key_none)
       {
 
-         auto pkey = __create_new<::message::key>();
+         auto pkey = øcreate_new<::message::key>();
 
-         pkey->m_emessage = e_message_key_up;
+         pkey->m_eusermessage = ::user::e_message_key_up;
 
          pkey->m_oswindow = this;
 
@@ -1140,7 +1140,7 @@ namespace windowing_gtk3
    bool window::_on_gtk_scroll(GtkWidget * pwidget, GdkEventScroll * pscroll)
    {
 
-      auto pmouse = __create_new<::message::mouse_wheel>();
+      auto pmouse = øcreate_new<::message::mouse_wheel>();
 
       pmouse->m_oswindow = this;
 
@@ -1155,7 +1155,7 @@ namespace windowing_gtk3
       //
       // pmouse->m_iTimestamp = timestamp;
 
-      pmouse->m_emessage = e_message_mouse_wheel;
+      pmouse->m_eusermessage = ::user::e_message_mouse_wheel;
 
       informationf("_on_gtk_scroll(%0.2f, %0.2f)", pscroll->delta_x, pscroll->delta_y);
 
@@ -2003,7 +2003,7 @@ namespace windowing_gtk3
 
          ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-         auto lresult = puserinteraction->send_message(e_message_create, 0, 0);
+         auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
 
          if (lresult == -1)
          {
@@ -5095,11 +5095,11 @@ namespace windowing_gtk3
       main_send([this, strType, pinteraction]()
       {
 
-         pinteraction->message_handler(e_message_destroy, 0, 0);
+         pinteraction->message_handler(::user::e_message_destroy, 0, 0);
 
          _destroy_window();
 
-         pinteraction->message_handler(e_message_non_client_destroy, 0, 0);
+         pinteraction->message_handler(::user::e_message_non_client_destroy, 0, 0);
 
          destroy();
 
@@ -7105,7 +7105,7 @@ namespace windowing_gtk3
 
       ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-      puserinteraction->call_route_message(e_message_show_window, 1);
+      puserinteraction->call_route_message(::user::e_message_show_window, 1);
 
    }
 
@@ -7115,7 +7115,7 @@ namespace windowing_gtk3
 
       ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-      puserinteraction->post_message(e_message_show_window, 0);
+      puserinteraction->post_message(::user::e_message_show_window, 0);
 
    }
 
