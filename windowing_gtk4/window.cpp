@@ -371,7 +371,7 @@ gtk_im_context_commit (
       if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
       {
 
-         auto pgraphics = __øcreate<::draw2d::graphics>();
+         auto pgraphics = øcreate<::draw2d::graphics>();
 
          pgraphics->attach(cr);
 
@@ -897,7 +897,7 @@ gtk_im_context_commit (
          if (::is_set(pwindow))
          {
 
-            auto pmouse = __create_new<::message::mouse>();
+            auto pmouse = øcreate_new<::message::mouse>();
 
             pmouse->m_oswindow = this;
 
@@ -915,19 +915,19 @@ gtk_im_context_commit (
             if (button == 1)
             {
 
-               pmouse->m_emessage = e_message_left_button_down;
+               pmouse->m_eusermessage = ::user::e_message_left_button_down;
 
             }
             else if (button == 3)
             {
 
-               pmouse->m_emessage = e_message_right_button_down;
+               pmouse->m_eusermessage = ::user::e_message_right_button_down;
 
             }
             else if (button == 2)
             {
 
-               pmouse->m_emessage = e_message_middle_button_down;
+               pmouse->m_eusermessage = ::user::e_message_middle_button_down;
 
             }
 
@@ -965,7 +965,7 @@ gtk_im_context_commit (
          if (::is_set(pwindow))
          {
 
-            auto pmouse = __create_new<::message::mouse>();
+            auto pmouse = øcreate_new<::message::mouse>();
 
             pmouse->m_oswindow = this;
 
@@ -974,19 +974,19 @@ gtk_im_context_commit (
             if (button == 1)
             {
 
-               pmouse->m_emessage = e_message_left_button_up;
+               pmouse->m_eusermessage = ::user::e_message_left_button_up;
 
             }
             else if (button == 3)
             {
 
-               pmouse->m_emessage = e_message_right_button_up;
+               pmouse->m_eusermessage = ::user::e_message_right_button_up;
 
             }
             else if (button == 2)
             {
 
-               pmouse->m_emessage = e_message_middle_button_up;
+               pmouse->m_eusermessage = ::user::e_message_middle_button_up;
 
             }
 
@@ -1026,13 +1026,13 @@ gtk_im_context_commit (
       if (::is_set(pwindow))
       {
 
-         auto pmouse = __create_new<::message::mouse>();
+         auto pmouse = øcreate_new<::message::mouse>();
 
          pmouse->m_oswindow = this;
 
          pmouse->m_pwindow = this;
 
-         pmouse->m_emessage = e_message_mouse_move;
+         pmouse->m_eusermessage = ::user::e_message_mouse_move;
 
 //         if (m_bPendingStartMove)
 //         {
@@ -1122,9 +1122,9 @@ gtk_im_context_commit (
       if(ekey != ::user::e_key_none)
       {
 
-         auto pkey = __create_new < ::message::key>();
+         auto pkey = øcreate_new < ::message::key>();
 
-         pkey->m_emessage = e_message_key_down;
+         pkey->m_eusermessage = ::user::e_message_key_down;
 
          pkey->m_oswindow = this;
 
@@ -1153,9 +1153,9 @@ gtk_im_context_commit (
       if(ekey != ::user::e_key_none)
       {
 
-         auto pkey = __create_new < ::message::key>();
+         auto pkey = øcreate_new < ::message::key>();
 
-         pkey->m_emessage = e_message_key_up;
+         pkey->m_eusermessage = ::user::e_message_key_up;
 
          pkey->m_oswindow = this;
 
@@ -1186,7 +1186,7 @@ on_text(scopedstr, scopedstr.size());
    void window::_on_gtk_im_context_commit(const_char_pointer psz)
    {
 
-         on_text(scopedstr, ::string_get_length(scopedstr));
+         on_text(psz, ::string_safe_length(psz));
 
    }
 
@@ -1269,7 +1269,7 @@ on_text(scopedstr, scopedstr.size());
 
           auto pusersystem = puserinteraction->m_pusersystem;
 
-          puserinteraction->m_bMessageWindow = false;
+          puserinteraction->m_bMessageOnlyWindow = false;
 
           auto pgtk4windowing = gtk4_windowing();
 
@@ -1394,7 +1394,7 @@ m_pimcontext = gtk_im_multicontext_new();
 
          auto puserinteraction = user_interaction();
 
-         auto lresult = puserinteraction->send_message(e_message_create, 0, 0);
+         auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
 
          if (lresult == -1)
          {
@@ -2001,11 +2001,11 @@ m_pimcontext = gtk_im_multicontext_new();
       main_send([this, strType, puserinteraction]()
       {
 
-         puserinteraction->message_handler(e_message_destroy, 0, 0);
+         puserinteraction->message_handler(::user::e_message_destroy, 0, 0);
 
          _destroy_window();
 
-         puserinteraction->message_handler(e_message_non_client_destroy, 0, 0);
+         puserinteraction->message_handler(::user::e_message_non_client_destroy, 0, 0);
 
          destroy();
 
@@ -2293,9 +2293,9 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::on_window_shown()
    {
 
-      auto pshowwindow = __create_new < ::message::show_window >();
+      auto pshowwindow = øcreate_new < ::message::show_window >();
 
-      pshowwindow->m_emessage = e_message_show_window;
+      pshowwindow->m_eusermessage = ::user::e_message_show_window;
 
       auto puserinteraction = user_interaction();
 
@@ -2315,9 +2315,9 @@ m_pimcontext = gtk_im_multicontext_new();
    void window::on_window_hidden()
    {
 
-      auto pshowwindow = __create_new < ::message::show_window >();
+      auto pshowwindow = øcreate_new < ::message::show_window >();
 
-      pshowwindow->m_emessage = e_message_show_window;
+      pshowwindow->m_eusermessage = ::user::e_message_show_window;
 
       auto puserinteraction = user_interaction();
 
@@ -2602,7 +2602,7 @@ return false;
    bool window::_on_gtk_scroll(GtkEventControllerScroll * peventcontrollerScroll, double dx, double dy)
    {
 
-      auto pmouse = __create_new<::message::mouse_wheel>();
+      auto pmouse = øcreate_new<::message::mouse_wheel>();
 
       pmouse->m_oswindow = this;
 
@@ -2617,7 +2617,7 @@ return false;
       //
       // pmouse->m_iTimestamp = timestamp;
 
-      pmouse->m_emessage = e_message_mouse_wheel;
+      pmouse->m_eusermessage = ::user::e_message_mouse_wheel;
 
       informationf("_on_gtk_scroll(%0.2f, %0.2f)", dx, dy);
 
