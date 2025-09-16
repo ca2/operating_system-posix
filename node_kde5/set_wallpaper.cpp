@@ -7,9 +7,9 @@
 #include <QDBusConnection>
 #include <QDBusMessage>
 
-bool kde_plasma_set_wallpaper(const_char_pointer psz)
+bool kde_plasma_set_wallpaper(const char * psz)
 {
-   QString wallpaperFile(scopedstr);
+   QString wallpaperFile(psz);
 
 
    QString script;

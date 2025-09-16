@@ -140,7 +140,7 @@ namespace innate_ui_kde5
 
       pinnateui->m_windowa.erase(this);
 
-      pinnateui->m_windowmap.erase_item(m_pqwidget);
+      pinnateui->m_windowmap.erase(m_pqwidget);
 
    }
 

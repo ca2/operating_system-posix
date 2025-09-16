@@ -117,7 +117,7 @@ namespace node_kde5
       void shell_launch(const ::scoped_string & scopedstrAppId) override;
 
 
-      void open_internet_link_in_system_browser(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile) override;
+      void open_internet_link(const ::scoped_string & scopedstrUrl, const ::scoped_string & scopedstrProfile, const ::scoped_string & scopedstrTargetName) override;
 
 
       void _node_file_dialog(::file::file_dialog * pdialog) override;

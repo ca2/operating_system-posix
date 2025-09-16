@@ -1936,7 +1936,7 @@ namespace windowing_q5
 
          auto pusersystem = puserinteraction->m_pusersystem;
 
-         puserinteraction->m_bMessageWindow = false;
+         puserinteraction->m_bMessageOnlyWindow = false;
 
          auto pkde5windowing = q5_windowing();
 

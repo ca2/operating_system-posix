@@ -42,12 +42,12 @@
 //};
 
 
-void kde_open_local_file(QApplication * papplication, const_char_pointer pszUrl, const_char_pointer pszMimeType)
+void kde_open_local_file(QApplication * papplication, const char * pszUrl, const char * pszMimeType)
 {
 
-   QString strUrl(scopedstrUrl);
+   QString strUrl(pszUrl);
 
-   QString strMimeType(scopedstrMimeType);
+   QString strMimeType(pszMimeType);
 
    QUrl url = QUrl::fromLocalFile(QDir::current().absoluteFilePath(strUrl));
 

@@ -1288,7 +1288,7 @@ namespace windowing_kde5
       //if (::is_set(puserinteraction))
       {
 
-         auto pmouse = __create_new<::message::mouse>();
+         auto pmouse = øcreate_new<::message::mouse>();
 
          pmouse->m_oswindow = this;
 
@@ -1298,15 +1298,15 @@ namespace windowing_kde5
 
          if (pevent->button() == Qt::MouseButton::LeftButton)
          {
-            pmouse->m_emessage = e_message_left_button_down;
+            pmouse->m_eusermessage = ::user::e_message_left_button_down;
          }
          else if (pevent->button() == Qt::MouseButton::RightButton)
          {
-            pmouse->m_emessage = e_message_right_button_down;
+            pmouse->m_eusermessage = ::user::e_message_right_button_down;
          }
          else if (pevent->button() == Qt::MouseButton::MiddleButton)
          {
-            pmouse->m_emessage = e_message_middle_button_down;
+            pmouse->m_eusermessage = ::user::e_message_middle_button_down;
          }
 
          m_pointCursor2.x() = pevent->globalX();
@@ -1368,7 +1368,7 @@ namespace windowing_kde5
          //if (::is_set(puserinteraction))
          {
 
-            auto pmouse = __create_new<::message::mouse>();
+            auto pmouse = øcreate_new<::message::mouse>();
 
             pmouse->m_oswindow = this;
 
@@ -1376,15 +1376,15 @@ namespace windowing_kde5
 
             if (pevent->button() == Qt::MouseButton::LeftButton)
             {
-               pmouse->m_emessage = e_message_left_button_up;
+               pmouse->m_eusermessage = ::user::e_message_left_button_up;
             }
             else if (pevent->button() == Qt::MouseButton::RightButton)
             {
-               pmouse->m_emessage = e_message_right_button_up;
+               pmouse->m_eusermessage = ::user::e_message_right_button_up;
             }
             else if (pevent->button() == Qt::MouseButton::MiddleButton)
             {
-               pmouse->m_emessage = e_message_middle_button_up;
+               pmouse->m_eusermessage = ::user::e_message_middle_button_up;
             }
 
             m_pointCursor2.x() = pevent->globalX();
@@ -1461,7 +1461,7 @@ namespace windowing_kde5
 
          __check_refdbg;
 
-         auto pmouse = __create_new < ::message::mouse >();
+         auto pmouse = øcreate_new < ::message::mouse >();
 
          __check_refdbg;
 
@@ -1473,7 +1473,7 @@ namespace windowing_kde5
 
          __check_refdbg;
 
-         pmouse->m_emessage = e_message_mouse_move;
+         pmouse->m_eusermessage = ::user::e_message_mouse_move;
 
          __check_refdbg;
 
@@ -1585,9 +1585,9 @@ namespace windowing_kde5
 
           //if (::is_set(pelemental))
           {
-             auto pkey = __create_new<::message::key>();
+             auto pkey = øcreate_new<::message::key>();
 
-             pkey->m_emessage = e_message_key_down;
+             pkey->m_eusermessage = ::user::e_message_key_down;
 
               pkey->m_oswindow = this;
              //
@@ -1696,9 +1696,9 @@ namespace windowing_kde5
 
           //if (::is_set(pelemental))
           {
-             auto pkey = __create_new<::message::key>();
+             auto pkey = øcreate_new<::message::key>();
 
-             pkey->m_emessage = e_message_key_up;
+             pkey->m_eusermessage = ::user::e_message_key_up;
 
               pkey->m_oswindow = this;
              //
@@ -1887,7 +1887,7 @@ namespace windowing_kde5
    void window::_on_qimage_draw(QImage* pqimage)
    {
 
-      auto pbuffer = m_pgraphicsgraphics1;
+      auto pbuffer = m_pgraphicsgraphics;
 
       if (!pbuffer)
       {
@@ -2044,7 +2044,7 @@ namespace windowing_kde5
 
          auto pusersystem = puserinteraction->m_pusersystem;
 
-         puserinteraction->m_bMessageWindow = false;
+         puserinteraction->m_bMessageOnlyWindow = false;
 
          auto pkde5windowing = kde5_windowing();
 
@@ -2818,7 +2818,7 @@ namespace windowing_kde5
 
          ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
 
-         auto lresult = puserinteraction->send_message(e_message_create, 0, 0);
+         auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
 
          if (lresult == -1)
          {
