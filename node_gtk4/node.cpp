@@ -922,7 +922,7 @@ namespace node_gtk4
          //      }
          //}
 
-         warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+         warning() <<"Failed to set operating system os user theme. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
 
          return error_failed;
 
@@ -997,7 +997,7 @@ namespace node_gtk4
          //      }
          //}
 
-         warning() <<"Failed to set operating system theme wallpaper. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
+         warning() <<"Failed to set operating system icon theme. If your Desktop Environment is not listed at \"Preferences->Integration-> Current Desktop Environment\", then it is not supported.";
 
          return error_failed;
 
