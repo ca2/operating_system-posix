@@ -40,9 +40,11 @@ list(TRANSFORM static_library_references PREPEND static_)
 
 if(${HAS_Q6})
 
+message(STATUS "acme_windowing_q HAS Q6")
    list(APPEND this_system_libraries
       Qt6::Core
       Qt6::Widgets
+      Qt6::Gui
    )
 
 elseif(${HAS_Q5})
