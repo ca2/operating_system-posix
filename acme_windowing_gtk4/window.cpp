@@ -39,7 +39,7 @@ void             gtk_css_provider_load_from_string (GtkCssProvider  *css_provide
                                                   const char      *psz)
 {
 
-   gtk_css_provider_load_from_data(css_provider, psz, string_safe_length(scopedstr));
+   gtk_css_provider_load_from_data(css_provider, psz, string_safe_length(psz));
 
                   }
 

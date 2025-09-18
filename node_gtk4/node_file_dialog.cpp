@@ -185,12 +185,12 @@ namespace node_gtk4
 
                            //gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(widget), TRUE);
 
-                           if(pdialog->m_filedialogfiltera.has_element())
+                           if(pdialog->m_filedialogfilter.has_element())
                            {
 
                               GListStore *filter_list = g_list_store_new(GTK_TYPE_FILE_FILTER);
 
-                              for (auto &filetype: pdialog->m_filedialogfiltera)
+                              for (auto &filetype: pdialog->m_filedialogfilter)
                               {
 
                                  GtkFileFilter *filter = gtk_file_filter_new();
