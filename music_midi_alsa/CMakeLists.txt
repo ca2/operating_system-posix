@@ -45,7 +45,7 @@ if (MSVC)
    target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references})
-elseif (LINUX)
+elseif(${LINUX} OR ${__BSD__})
 
 
    pkg_check_modules(${PROJECT_NAME}_PKGCONFIG alsa)

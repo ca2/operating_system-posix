@@ -265,7 +265,7 @@ namespace windowing_gtk3
       virtual void _on_preedit_changed();
       //virtual ::pointer < ::operating_system::a_system_menu > create_system_menu();
 
-      virtual void _on_a_system_menu_item_button_press(::operating_system::a_system_menu_item * pitem, GtkWidget * pwidget, GdkEventButton * peventbutton);
+      void _on_a_system_menu_item_button_press(::operating_system::a_system_menu_item * pitem, GtkWidget * pwidget, GdkEventButton * peventbutton) override;
 
       void defer_show_system_menu(::user::mouse * pmouse) override;
       //void set_mouse_capture() override;
@@ -458,7 +458,7 @@ namespace windowing_gtk3
          void window_maximize() override;
 //virtual void _set_configure_unlocked_timer();
 //bool on_window_configure_unlocked() override;
-         virtual void _on_configure();
+         void _on_configure() override;
          virtual void __on_configure_linux_mint_x_cinnamon();
          virtual void __on_configure_default();
          //virtual void _on_get_configuration();

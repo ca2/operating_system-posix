@@ -73,7 +73,7 @@ namespace gtk3
       //void main_post(const ::procedure & procedure) override;
 
 
-      ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile);
+      ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile) override;
 
 
    };

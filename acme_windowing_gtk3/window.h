@@ -188,7 +188,7 @@ namespace gtk3
             void defer_show_system_menu(::user::mouse * pmouse) override;
 
 
-            void set_interface_client_size(const ::int_size & sizeWindow) ;// set_size
+            void set_interface_client_size(const ::int_size & sizeWindow) override;// set_size
             //::int_size get_main_screen_size() override;
 
             //void on_a_system_menu_item(::operating_system::a_system_menu_item * psystemmenuitem);
