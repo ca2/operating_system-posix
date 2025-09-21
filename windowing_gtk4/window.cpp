@@ -610,7 +610,7 @@ gtk_im_context_commit (
       //
       //    guint32 timestamp = gdk_event_get_time (happening);
       //
-      //    auto pmouse = __create_new<::message::mouse>();
+      //    auto pmouse = øcreate_new<::message::mouse>();
       //
       //    pmouse->m_oswindow = this;
       //
@@ -803,7 +803,7 @@ gtk_im_context_commit (
       //
       //    guint32 timestamp = gdk_event_get_time (happening);
       //
-      //    auto pmouse = __create_new<::message::mouse>();
+      //    auto pmouse = øcreate_new<::message::mouse>();
       //
       //    pmouse->m_oswindow = this;
       //
@@ -1055,7 +1055,7 @@ gtk_im_context_commit (
 //            //    gdk_event_unref(happening);  // Free the happening object after use
 //            // }
 //
-//            auto pmouse = __create_new<::message::mouse>();
+//            auto pmouse = øcreate_new<::message::mouse>();
 //
 //            pmouse->m_iTimestamp = timestamp;
 //

@@ -1072,7 +1072,7 @@ namespace wayland
          ::wayland::micro::window_base * display_base::_get_keyboard_focus()
          {
 
-            //      auto ppropertyobject = __allocate ::property_object();
+            //      auto ppropertyobject = øallocate ::property_object();
             //
             //      auto predicate = [this, ppropertyobject]()
             //      {
@@ -1947,7 +1947,7 @@ namespace wayland
             else if (s_pdisplaybase == nullptr)
             {
 
-               g_peventCreatingWaylandDisplay = __allocate manual_reset_happening();
+               g_peventCreatingWaylandDisplay = øallocate manual_reset_happening();
 
                g_peventCreatingWaylandDisplay->reset_happening();
 

@@ -762,7 +762,7 @@ namespace kde5
       //
       //          auto pdc = cairo_create(m_psurface);
       //
-      //          m_pnanodevice = __allocate ::cairo::nano::graphics::device(pdc);
+      //          m_pnanodevice = øallocate ::cairo::nano::graphics::device(pdc);
       //
       //       }
       //
@@ -832,7 +832,7 @@ namespace kde5
       //       if (pbutton->detail == XCB_BUTTON_INDEX_1)
       //       {
       //
-      //          auto pmouse = __create_new < ::user::mouse >();
+      //          auto pmouse = øcreate_new < ::user::mouse >();
       //
       //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
       //
@@ -844,7 +844,7 @@ namespace kde5
       //       else if (pbutton->detail == XCB_BUTTON_INDEX_3)
       //       {
       //
-      //          auto pmouse = __create_new < ::user::mouse >();
+      //          auto pmouse = øcreate_new < ::user::mouse >();
       //
       //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
       //
@@ -871,7 +871,7 @@ namespace kde5
       //       if (pbutton->detail == XCB_BUTTON_INDEX_1)
       //       {
       //
-      //          auto pmouse = __create_new < ::user::mouse >();
+      //          auto pmouse = øcreate_new < ::user::mouse >();
       //
       //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
       //
@@ -883,7 +883,7 @@ namespace kde5
       //       else if (pbutton->detail == XCB_BUTTON_INDEX_3)
       //       {
       //
-      //          auto pmouse = __create_new < ::user::mouse >();
+      //          auto pmouse = øcreate_new < ::user::mouse >();
       //
       //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
       //
@@ -906,7 +906,7 @@ namespace kde5
       //
       //       }
       //
-      //       auto pmouse = __create_new < ::user::mouse >();
+      //       auto pmouse = øcreate_new < ::user::mouse >();
       //
       //       pmouse->m_pointHost = {pmotion->event_x, pmotion->event_y};
       //
@@ -930,7 +930,7 @@ namespace kde5
       //       if (m_puserinteractionbase->m_pchildHover)
       //       {
       //
-      //          auto pmouse = __create_new < ::user::mouse >();
+      //          auto pmouse = øcreate_new < ::user::mouse >();
       //
       //          pmouse->m_pointHost = {I32_MINIMUM, I32_MINIMUM};
       //
@@ -1269,7 +1269,7 @@ namespace kde5
 
           if (::is_set(pwindow))
           {
-             auto pmouse = __create_new<::user::mouse>();
+             auto pmouse = øcreate_new<::user::mouse>();
 
              // pmouse->m_oswindow = this;
              //
@@ -1366,7 +1366,7 @@ namespace kde5
           if (::is_set(pwindow))
           {
 
-             auto pmouse = __create_new<::user::mouse>();
+             auto pmouse = øcreate_new<::user::mouse>();
 
              // pmouse->m_oswindow = this;
              //
@@ -1535,7 +1535,7 @@ m_pqwidget->move(p);
        if(::is_set(pwindow))
        {
 
-          auto pmouse = __create_new<::user::mouse>();
+          auto pmouse = øcreate_new<::user::mouse>();
 
           // pmouse->m_oswindow = this;
           //
@@ -1573,7 +1573,7 @@ m_pqwidget->move(p);
           //    //    gdk_event_unref(happening);  // Free the happening object after use
           //    // }
           //
-          //    auto pmouse = __create_new<::message::mouse>();
+          //    auto pmouse = øcreate_new<::message::mouse>();
           //
           //    pmouse->m_iTimestamp = timestamp;
           //
@@ -1699,7 +1699,7 @@ m_pqwidget->move(p);
 
          nano()->graphics();
 
-         __øconstruct(m_pnanodevice);
+         øconstruct(m_pnanodevice);
 
          m_pnanodevice->create(w, h);
 

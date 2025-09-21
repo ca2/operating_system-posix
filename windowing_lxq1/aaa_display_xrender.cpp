@@ -29,7 +29,7 @@ namespace windowing_kde5
 // //
 // //      auto cursor = XRenderCreateCursor(Display(), picture, xHotSpot, yHotSpot);
 //
-//    auto pcursor = __create_new< ::windowing_kde5::cursor>();
+//    auto pcursor = øcreate_new< ::windowing_kde5::cursor>();
 //
 //    pcursor->m_szHotspotOffset.cx() = xHotSpot;
 //    pcursor->m_szHotspotOffset.cy() = yHotSpot;

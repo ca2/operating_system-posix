@@ -157,7 +157,7 @@ namespace wayland
 
             auto pcairo = cairo_create(m_pcairosurface);
 
-            m_pnanodevice = __allocate ::cairo::nano::graphics::device(pcairo);
+            m_pnanodevice = øallocate ::cairo::nano::graphics::device(pcairo);
 
 
          }
@@ -612,7 +612,7 @@ namespace wayland
          //
          //            auto pdc = cairo_create(m_psurface);
          //
-         //            m_pnanodevice = __allocate ::cairo::nano::graphics::device(pdc);
+         //            m_pnanodevice = øallocate ::cairo::nano::graphics::device(pdc);
          //
          //         }
          //
@@ -651,7 +651,7 @@ namespace wayland
          //         if (pevent->xbutton.button == Button1)
          //         {
          //
-         //            auto pmouse = __create_new < ::user::mouse >();
+         //            auto pmouse = øcreate_new < ::user::mouse >();
          //
          //            pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
          //
@@ -663,7 +663,7 @@ namespace wayland
          //         else if (pevent->xbutton.button == Button3)
          //         {
          //
-         //            auto pmouse = __create_new < ::user::mouse >();
+         //            auto pmouse = øcreate_new < ::user::mouse >();
          //
          //            pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
          //
@@ -680,7 +680,7 @@ namespace wayland
          //         if (pevent->xbutton.button == Button1)
          //         {
          //
-         //            auto pmouse = __create_new < ::user::mouse >();
+         //            auto pmouse = øcreate_new < ::user::mouse >();
          //
          //            pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
          //
@@ -692,7 +692,7 @@ namespace wayland
          //         else if (pevent->xbutton.button == Button3)
          //         {
          //
-         //            auto pmouse = __create_new < ::user::mouse >();
+         //            auto pmouse = øcreate_new < ::user::mouse >();
          //
          //            pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
          //
@@ -706,7 +706,7 @@ namespace wayland
          //      else if (pevent->type == MotionNotify)
          //      {
          //
-         //         auto pmouse = __create_new < ::user::mouse >();
+         //         auto pmouse = øcreate_new < ::user::mouse >();
          //
          //         pmouse->m_pointHost = {pevent->xmotion.x, pevent->xmotion.y};
          //
@@ -721,7 +721,7 @@ namespace wayland
          //         if (m_pinterface->m_pchildHover)
          //         {
          //
-         //            auto pmouse = __create_new < ::user::mouse >();
+         //            auto pmouse = øcreate_new < ::user::mouse >();
          //
          //            pmouse->m_pointHost = {I32_MINIMUM, I32_MINIMUM};
          //
@@ -1000,7 +1000,7 @@ namespace wayland
 
             //m_pointCursor2 = m_pointPointer;
 
-            auto pmouse = __create_new<::user::mouse>();
+            auto pmouse = øcreate_new<::user::mouse>();
             //
             //      pmouse->m_oswindow = this;
             //
@@ -1086,7 +1086,7 @@ namespace wayland
             ////
             ////      wayland_windowing()->post_ui_message(msg);
             //
-            //      auto pmouse = __create_new<::message::mouse>();
+            //      auto pmouse = øcreate_new<::message::mouse>();
             //
             //      pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
             //
@@ -1122,7 +1122,7 @@ namespace wayland
             window_base::__handle_pointer_button(pwlpointer, linux_button, pressed, millis);
 
 
-            auto pmouse = __create_new<::user::mouse>();
+            auto pmouse = øcreate_new<::user::mouse>();
             //
             //      pmouse->m_oswindow = this;
             //
@@ -1269,7 +1269,7 @@ namespace wayland
             //      if (Δ != 0)
             //      {
             //
-            //         auto pmousewheel = __create_new<::message::mouse_wheel>();
+            //         auto pmousewheel = øcreate_new<::message::mouse_wheel>();
             //
             //         pmousewheel->m_oswindow = this;
             //
@@ -1299,7 +1299,7 @@ namespace wayland
             //      else if (bRet)
             //      {
             //
-            //         auto pmouse = __create_new<::message::mouse>();
+            //         auto pmouse = øcreate_new<::message::mouse>();
             //
             //         pmouse->m_oswindow = this;
             //

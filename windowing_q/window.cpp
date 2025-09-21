@@ -6828,7 +6828,7 @@ namespace windowing_q
    //       if(::is_set(pwindow))
    //       {
    //
-   //          auto pmouse = __create_new<::message::mouse>();
+   //          auto pmouse = øcreate_new<::message::mouse>();
    //
    //          pmouse->m_oswindow = this;
    //
@@ -6913,7 +6913,7 @@ namespace windowing_q
    // //
    // //      wayland_windowing()->post_ui_message(msg);
    //
-   //       auto pmouse = __create_new<::message::mouse>();
+   //       auto pmouse = øcreate_new<::message::mouse>();
    //
    //       pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
    //
@@ -7073,7 +7073,7 @@ namespace windowing_q
    //       if (Δ != 0)
    //       {
    //
-   //          auto pmousewheel = __create_new<::message::mouse_wheel>();
+   //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
    //
    //          pmousewheel->m_oswindow = this;
    //
@@ -7103,7 +7103,7 @@ namespace windowing_q
    //       else if (bRet)
    //       {
    //
-   //          auto pmouse = __create_new<::message::mouse>();
+   //          auto pmouse = øcreate_new<::message::mouse>();
    //
    //          pmouse->m_oswindow = this;
    //
@@ -7336,7 +7336,7 @@ namespace windowing_q
    //       if (ekey != ::user::e_key_none)
    //       {
    //
-   //          auto pkey = __create_new<::message::key>();
+   //          auto pkey = øcreate_new<::message::key>();
    //
    //          pkey->
    //             m_oswindow = this;
@@ -7385,7 +7385,7 @@ namespace windowing_q
    //
    //    //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //    auto pkey = __create_new<::message::key>();
+   //    auto pkey = øcreate_new<::message::key>();
    //
    //    pkey->
    //    m_oswindow = this;
@@ -7814,7 +7814,7 @@ namespace windowing_q
    //         if (ekey != ::user::e_key_none)
    //         {
    //
-   //            auto pkey = __create_new<::message::key>();
+   //            auto pkey = øcreate_new<::message::key>();
    //
    //            pkey->m_oswindow = this;
    //
@@ -7880,7 +7880,7 @@ namespace windowing_q
    //
    //            //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //            auto pkey = __create_new<::message::key>();
+   //            auto pkey = øcreate_new<::message::key>();
    //
    //            pkey->m_oswindow = this;
    //

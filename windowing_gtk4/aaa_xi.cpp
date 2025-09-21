@@ -31,7 +31,7 @@ namespace windowing_gtk4
 //      if (!m_pobjectaExtendedEventListener)
 //      {
 //
-//         __construct_new(m_pobjectaExtendedEventListener);
+//         øconstruct_new(m_pobjectaExtendedEventListener);
 //
 //      }
 //

@@ -29,7 +29,7 @@ namespace windowing_q
 // //
 // //      auto cursor = XRenderCreateCursor(Display(), picture, xHotSpot, yHotSpot);
 //
-//    auto pcursor = __create_new< ::windowing_q::cursor>();
+//    auto pcursor = øcreate_new< ::windowing_q::cursor>();
 //
 //    pcursor->m_szHotspotOffset.cx() = xHotSpot;
 //    pcursor->m_szHotspotOffset.cy() = yHotSpot;

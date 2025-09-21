@@ -1034,7 +1034,7 @@ namespace gtk4
     for (guint i = 0; i < n_monitors; i++) {
        GdkMonitor *monitor = GDK_MONITOR(g_list_model_get_item(monitors, i));
 
-       //auto pmonitor = __create_new < ::windowing::monitor >();
+       //auto pmonitor = øcreate_new < ::windowing::monitor >();
 
        //pmonitor->m_pdisplay = this;
 
@@ -1127,7 +1127,7 @@ namespace gtk4
          ::gtk4::acme::windowing::window * display_base::_get_keyboard_focus()
          {
 
-            //      auto ppropertyobject = __allocate ::property_object();
+            //      auto ppropertyobject = øallocate ::property_object();
             //
             //      auto predicate = [this, ppropertyobject]()
             //      {
@@ -2002,7 +2002,7 @@ namespace gtk4
             else if (s_pdisplaybase == nullptr)
             {
 
-               g_peventCreatingWaylandDisplay = __allocate manual_reset_happening();
+               g_peventCreatingWaylandDisplay = øallocate manual_reset_happening();
 
                g_peventCreatingWaylandDisplay->reset_happening();
 

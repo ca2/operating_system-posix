@@ -927,7 +927,7 @@ namespace nano
 
          //m_pointCursor2 = m_pointPointer;
 
-         //      auto pmouse = __create_new<::message::mouse>();
+         //      auto pmouse = øcreate_new<::message::mouse>();
          //
          //      pmouse->m_oswindow = this;
          //
@@ -1016,7 +1016,7 @@ namespace nano
          ////
          ////      wayland_windowing()->post_ui_message(msg);
          //
-         //      auto pmouse = __create_new<::message::mouse>();
+         //      auto pmouse = øcreate_new<::message::mouse>();
          //
          //      pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
          //
@@ -1180,7 +1180,7 @@ namespace nano
          //      if (Δ != 0)
          //      {
          //
-         //         auto pmousewheel = __create_new<::message::mouse_wheel>();
+         //         auto pmousewheel = øcreate_new<::message::mouse_wheel>();
          //
          //         pmousewheel->m_oswindow = this;
          //
@@ -1210,7 +1210,7 @@ namespace nano
          //      else if (bRet)
          //      {
          //
-         //         auto pmouse = __create_new<::message::mouse>();
+         //         auto pmouse = øcreate_new<::message::mouse>();
          //
          //         pmouse->m_oswindow = this;
          //
@@ -1654,7 +1654,7 @@ namespace nano
 
                //            //Wayland_data_device_set_serial(input->data_device, serial);
                //
-               //            auto pkey = __create_new<::message::key>();
+               //            auto pkey = øcreate_new<::message::key>();
                //
                //            pkey->m_oswindow = this;
                //

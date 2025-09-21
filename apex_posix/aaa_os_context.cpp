@@ -105,7 +105,7 @@ namespace apex_posix
       if(bRegister)
       {
 
-         auto pfile = __create_new < ::freedesktop::desktop_file >();
+         auto pfile = øcreate_new < ::freedesktop::desktop_file >();
 
          pfile->set_app_id(strAppId);
 

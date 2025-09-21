@@ -459,7 +459,7 @@ namespace windowing_gtk3
             //
             //         return;
 
-            //auto pgraphics = __øcreate<::draw2d::graphics>();
+            //auto pgraphics = øcreate<::draw2d::graphics>();
 
             pgraphics->attach(cr);
             //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
@@ -532,7 +532,7 @@ namespace windowing_gtk3
    //   ::pointer < ::operating_system::a_system_menu > window::create_system_menu()
    //   {
    //
-   //      auto psystemmenu = __allocate ::operating_system::a_system_menu();
+   //      auto psystemmenu = øallocate ::operating_system::a_system_menu();
    //
    //      psystemmenu->add_item("Minimize", "minimize");
    //      psystemmenu->add_item("Maximize", "maximize");
@@ -6048,7 +6048,7 @@ namespace windowing_gtk3
    //       if(::is_set(pwindow))
    //       {
    //
-   //          auto pmouse = __create_new<::message::mouse>();
+   //          auto pmouse = øcreate_new<::message::mouse>();
    //
    //          pmouse->m_oswindow = this;
    //
@@ -6133,7 +6133,7 @@ namespace windowing_gtk3
    // //
    // //      wayland_windowing()->post_ui_message(msg);
    //
-   //       auto pmouse = __create_new<::message::mouse>();
+   //       auto pmouse = øcreate_new<::message::mouse>();
    //
    //       pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
    //
@@ -6293,7 +6293,7 @@ namespace windowing_gtk3
    //       if (Δ != 0)
    //       {
    //
-   //          auto pmousewheel = __create_new<::message::mouse_wheel>();
+   //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
    //
    //          pmousewheel->m_oswindow = this;
    //
@@ -6323,7 +6323,7 @@ namespace windowing_gtk3
    //       else if (bRet)
    //       {
    //
-   //          auto pmouse = __create_new<::message::mouse>();
+   //          auto pmouse = øcreate_new<::message::mouse>();
    //
    //          pmouse->m_oswindow = this;
    //
@@ -6556,7 +6556,7 @@ namespace windowing_gtk3
    //       if (ekey != ::user::e_key_none)
    //       {
    //
-   //          auto pkey = __create_new<::message::key>();
+   //          auto pkey = øcreate_new<::message::key>();
    //
    //          pkey->
    //             m_oswindow = this;
@@ -6605,7 +6605,7 @@ namespace windowing_gtk3
    //
    //    //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //    auto pkey = __create_new<::message::key>();
+   //    auto pkey = øcreate_new<::message::key>();
    //
    //    pkey->
    //    m_oswindow = this;
@@ -6780,7 +6780,7 @@ namespace windowing_gtk3
    //         if (ekey != ::user::e_key_none)
    //         {
    //
-   //            auto pkey = __create_new<::message::key>();
+   //            auto pkey = øcreate_new<::message::key>();
    //
    //            pkey->m_oswindow = this;
    //
@@ -6846,7 +6846,7 @@ namespace windowing_gtk3
    //
    //            //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //            auto pkey = __create_new<::message::key>();
+   //            auto pkey = øcreate_new<::message::key>();
    //
    //            pkey->m_oswindow = this;
    //
