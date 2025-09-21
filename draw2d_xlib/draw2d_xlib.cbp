@@ -71,7 +71,7 @@
 			<Add option="-lXmu" />
 			<Add option="-laura" />
 			<Add option="-laxis" />
-			<Add option="-lbase" />
+			<Add option="-lberg" />
 			<Add option="-Wl,-z,defs" />
 			<Add directory="$(WORKSPACEDIR)/../../../time-$(#platform_modifier)/x64/$(TARGET_NAME)" />
 		</Linker>
