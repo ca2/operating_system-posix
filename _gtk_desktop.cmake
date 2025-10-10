@@ -3,7 +3,13 @@ if(NOT ${GTK_BASED_DESKTOP})
 message(ERROR error)
 endif()
 
-if(${XFCE_DESKTOP})
+if(${LABWC_DESKTOP})
+
+set(GNOME_RELEASE_MAJOR "4")
+set(GTK_RELEASE_MAJOR 4)
+add_compile_definitions(__LABWC)
+
+elseif(${XFCE_DESKTOP})
 
 set(GNOME_RELEASE_MAJOR "3")
 set(GTK_RELEASE_MAJOR 3)
