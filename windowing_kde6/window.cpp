@@ -31,7 +31,7 @@
 #include <linux/input.h> // for BTN_LEFT,...
 #include <xkbcommon/xkbcommon.h>
 //#include <gio/gio.h>
-//#include "app-core/gcom/backimpact/visual_effect.h"
+//#include "app-graphics/gcom/backimpact/visual_effect.h"
 #include <QAction>
 #include <QMainWindow>
 //#include <QApplication>
