@@ -21,6 +21,7 @@
 #include "acme/prototype/string/str.h"
 #include "acme/prototype/prototype/memory.h"
 #include "acme/windowing/windowing.h"
+#include "acme/constant/windowing2.h"
 
 #include "acme/_operating_system.h"
 #include "acme/operating_system/ansi/_pthread.h"
