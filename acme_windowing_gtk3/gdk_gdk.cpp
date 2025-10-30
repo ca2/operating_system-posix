@@ -4,6 +4,7 @@
 #include "gdk_gdk.h"
 #include "windowing.h"
 #include "acme/constant/id.h"
+#include "acme/constant/windowing2.h"
 #include "acme/operating_system/ansi/pmutex_lock.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/acme.h"

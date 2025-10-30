@@ -22,6 +22,7 @@
 //#include "aura/user/user/interaction_impl.h"
 #include "acme/constant/timer.h"
 #include "acme/constant/user_key.h"
+#include "acme/constant/windowing2.h"
 #include "aura/platform/message_queue.h"
 #include "aura_posix/node.h"
 #include "aura/graphics/image/context.h"

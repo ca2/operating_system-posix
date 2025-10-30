@@ -5,6 +5,7 @@
 #include "display.h"
 #include "window.h"
 #include "windowing.h"
+#include "acme/constant/windowing2.h"
 #include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"
 #include "acme/user/micro/user.h"
