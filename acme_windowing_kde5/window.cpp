@@ -5,6 +5,7 @@
 #include "window.h"
 #include "display.h"
 #include "acme/constant/user_message.h"
+#include "acme/constant/windowing2.h"
 #include "acme/integrate/qt.h"
 #include "acme/nano/graphics/device.h"
 #include "acme/nano/nano.h"
