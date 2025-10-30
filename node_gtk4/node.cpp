@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "node.h"
 #include "acme/constant/id.h"
+#include "acme/constant/windowing2.h"
 #include "acme/operating_system/ansi/pmutex_lock.h"
 #include "acme/operating_system/parallelization.h"
 #include "acme/filesystem/filesystem/directory_system.h"

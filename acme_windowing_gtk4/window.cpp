@@ -17,6 +17,7 @@
 
 #include "SubclassedModelButton.h"
 #include "acme/constant/user_message.h"
+#include "acme/constant/windowing2.h"
 #include "acme/graphics/image/pixmap.h"
 #include "acme/integrate/cairo.h"
 #include "acme/nano/graphics/device.h"
