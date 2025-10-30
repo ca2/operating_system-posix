@@ -3,6 +3,7 @@
 #include "dialog.h"
 #include "innate_ui.h"
 #include "window.h"
+#include "acme/constant/windowing2.h"
 #include "acme/nano/nano.h"
 #include "acme/platform/platform.h"
 #include "acme/platform/application.h"

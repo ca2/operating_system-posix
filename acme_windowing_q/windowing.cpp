@@ -3,6 +3,7 @@
 //
 #include "framework.h"
 #include "windowing.h"
+#include "acme/constant/windowing2.h"
 #include "acme/integrate/qt/image.h"
 #include "acme/nano/nano.h"
 #include "acme/windowing/display.h"

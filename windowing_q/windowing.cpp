@@ -9,12 +9,12 @@
 #include "gdk_gdk.h"
 #include "acme/constant/id.h"
 #include "acme/constant/user_message.h"
+#include "acme/constant/windowing2.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/node.h"
 #include "apex/input/input.h"
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
-
 //#include "acme/windowing/windowing_base.h"
 #include "aura/platform/session.h"
 #include "aura/platform/system.h"

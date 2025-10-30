@@ -5,6 +5,7 @@
 #include "framework.h"
 #include "display.h"
 #include "window.h"
+#include "acme/constant/windowing2.h"
 #include "acme/parallelization/mutex.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/acme.h"
