@@ -816,7 +816,7 @@ return FALSE;
             g_signal_connect(G_OBJECT(m_pgtkwidget), "destroy", G_CALLBACK(on_window_destroy), this);
 
             // Connect signals for map_base and unmap events
-            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "map_base-event", G_CALLBACK(on_map), this);
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "map-event", G_CALLBACK(on_map), this);
             g_signal_connect(GTK_WINDOW(m_pgtkwidget), "unmap-event", G_CALLBACK(on_unmap), this);
 
             g_signal_connect(GTK_WINDOW(m_pgtkwidget), "focus-in-event", G_CALLBACK(on_focus_in), this);
