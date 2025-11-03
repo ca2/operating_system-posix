@@ -2423,25 +2423,35 @@ namespace acme_posix
             if(iWaitPid == -1)
             {
                
+               int iErrorNo = errno;
+
    #if DEEP_LOG_HERE > 6
                
-               informationf("waitpid -1 error");
+               information("waitpid -1 error errno={} (\"{}\")", iErrorNo, strerror(iErrorNo));
                
    #endif
 
-               int iErrorNo = errno;
-
-               if(iErrorNo != ECHILD)
-               {
+               //if(iErrorNo != ECHILD)
+               //{
 
                   //break;
 
                   bExit = true;
 
-               }
+               //}
 
             }
-            else if(iWaitPid == pid)
+            else if(iWaitPid == 0)
+            {
+				
+	#if DEEP_LOG_HERE > 6
+               
+               information("waitpid 0  child didn't exit yet");
+               
+   #endif
+			
+			}
+            else
             {
                
    #if DEEP_LOG_HERE > 6
@@ -2465,21 +2475,11 @@ namespace acme_posix
 
                   //break;
 
-                  bExit = true;
-
                }
 
-            }
-            else
-            {
-               
-   #if DEEP_LOG_HERE > 6
+               bExit = true;
 
-               informationf("waitpid (2): iWaitPid=%d, pid=%d", iWaitPid, pid);
-               
-   #endif
-            
-            }            
+            }
 
          }
 
