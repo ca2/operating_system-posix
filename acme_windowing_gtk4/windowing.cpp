@@ -5,6 +5,7 @@
 #include "display.h"
 #include "windowing.h"
 #include "acme/constant/windowing2.h"
+#include "acme/filesystem/filesystem/file_context.h"
 #include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"
 #include "acme/user/micro/user.h"
@@ -20,9 +21,41 @@
 //#include <X11/XKBlib.h>
 //#include <X11/Xutil.h>
 bool wouldnt_create_gl_context();
+//extern "C" int jail_getid(const char *name);
+#include <stdio.h>
+#include <unistd.h>
+//#include <sys/param.h>
+//#include <sys/jail.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int is_dbus_session_running(void)
+{
+    //FILE *fp = popen("ps -axo comm", "r");
+    FILE *fp = popen("ps -aux comm", "r");
+    if (!fp) return 0;
+
+    char buf[256];
+    int found = 0;
+    while (fgets(buf, sizeof(buf), fp))
+    {
+        // Remove trailing newline
+        buf[strcspn(buf, "\n")] = 0;
+        if (strcmp(buf, "dbus-daemon") == 0)
+        {
+            found = 1;
+            break;
+        }
+    }
+    pclose(fp);
+    return found;
+}
+
 
 CLASS_DECL_ACME void set_main_thread();
-
+//extern int __argc;
+//extern char ** __argv;
 //#include "acme/graphics/image/pixmap.h"
 //#include <gtk/gtk.h>
 //
@@ -438,7 +471,7 @@ gtk_init();
          //    }
 
 
-         static void on_activate_gtk_application(GtkApplication*, gpointer p)
+         extern "C" void on_activate_gtk_application(GtkApplication*, gpointer p)
          {
 
             auto* pgtk4windowingsystem = (::gtk4::acme::windowing::windowing*)p;
@@ -454,7 +487,13 @@ gtk_init();
          }
 
 
-         static void on_open_gtk_application(GtkApplication*, gpointer p)
+         extern "C" void on_open_gtk_application(
+                                              GApplication* self,
+                                              gpointer files,
+                                              gint n_files,
+                                              gchar* hint,
+                                              gpointer p
+                                            )
          {
 
             auto* pgtk4windowingsystem = (::gtk4::acme::windowing::windowing*)p;
@@ -496,7 +535,22 @@ gtk_init();
 
          void windowing::run()
          {
-			 
+
+
+
+             //int main(void) {
+                 //int jid = jail_getid(".");
+                 //if (jid < 0) {
+                   //  //perror("jail_getid");
+                    // information() << "Process is not in a jail?!?";
+                 //} else {
+                   //  informationf("Process is in jail ID: %d\n", jid);
+                 //}
+               //  return 0;
+             //}
+
+
+
 			   information() << "gtk4::acme::windowing::windowing::run";
 
             ::string strId = application()->m_strAppId;
@@ -511,13 +565,46 @@ gtk_init();
 
             ::set_main_thread();
 
+            //if (!g_dbus_is_address("unix:path=/tmp")) // or more properly:
+            int iExtraFlags = 0;
+            ::string strDbusSessionBusAddress(node()->get_environment_variable("DBUS_SESSION_BUS_ADDRESS"));
+            ::string strDbusFile;
+            if(strDbusSessionBusAddress.begins_eat("unix:path="))
+            {
+                strDbusFile = strDbusSessionBusAddress.get_word(",");
+                warning() <<  "D-Bus file should be: " << strDbusFile;
+            }
+            bool bDbusFileExists = file()->exists(strDbusFile);
+            if(bDbusFileExists)
+            {
+               information("D-Bus file exists (path=\"{}\")", strDbusFile);
+            }
+            else
+            {
+                warning("D-Bus file doesn't exist (path=\"{}\")", strDbusFile);
+            }
+            bool bDbusSessionRunning =is_dbus_session_running();
+            if(bDbusSessionRunning)
+            {
+               information("D-Bus session is running (dbus-daemon process found)");
+            }
+            else
+            {
+                warning("D-Bus session isn't running (dbus-daemon process not found)");
+            }
+            if(!bDbusFileExists || !bDbusSessionRunning)
+            {
+                warning() <<  "No D-Bus session detected — falling back to non-unique mode";
+                iExtraFlags = G_APPLICATION_NON_UNIQUE;
+            }
+
 #if GLIB_CHECK_VERSION(2,74,0)
 
-            m_pgtkapplication = gtk_application_new(strId, G_APPLICATION_FLAGS_NONE);
+            m_pgtkapplication = gtk_application_new(strId,(GApplicationFlags)( iExtraFlags|G_APPLICATION_HANDLES_OPEN));
 
 #else
 
-            m_pgtkapplication = gtk_application_new(strId, 0);
+            m_pgtkapplication = gtk_application_new(strId, (GApplicationFlags)( iExtraFlags|G_APPLICATION_HANDLES_OPEN));
 
 #endif
 
@@ -559,7 +646,34 @@ gtk_init();
 
             auto args = pplatform->get_args();
 
+            information() << "gtk4::acme::windowing::windowing::run argc " << argc;
+
+            for(int i = 0; i <= argc; i++)
+            {
+
+                if(!args[i])
+                {
+                    information("gtk4::acme::windowing::windowing::run args[{}] = (nullptr) ", i);
+                    }
+                    else
+                    {
+                    information("gtk4::acme::windowing::windowing::run args[{}] = ({}){} ", i, (iptr)args[i], args[i]);
+                    }
+
+            }
+
+            //information() << "gtk4::acme::windowing::windowing::run __argc " << __argc;
+
+            //for(int i = 0; i < __argc; i++)
+            //{
+
+            //    information("gtk4::acme::windowing::windowing::run args[{}] = ({}){} ", i, (iptr)__argv[i],__argv[i]);
+
+            //}
+
             g_application_run(G_APPLICATION(m_pgtkapplication), argc, args);
+
+            //g_application_run(G_APPLICATION(m_pgtkapplication), __argc, __argv);
 
             // //g_application_run (G_APPLICATION(m_pgtkapplication), ::system()->get_argc(), ::system()->get_args());
             // //aaa_x11_main();
@@ -603,6 +717,8 @@ gtk_init();
             }
 
             //system()->defer_post_initial_request();
+
+            ::information() << "gtk4::acme::windowing::_on_activate_gtk_application";
 
             system()->post_application_start();
             system()->defer_post_application_start_file_open_request();
