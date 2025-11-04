@@ -86,7 +86,7 @@ list(APPEND this_system_libraries
    Qt6::GuiPrivate
 )
 
-if (${FREEBSD} OR ${DEBIAN} OR ${SUSE} OR ${FEDORA} OR ${UBUNTU} OR ${MANJARO})
+if (${__BSD__} OR ${DEBIAN} OR ${SUSE} OR ${FEDORA} OR ${UBUNTU} OR ${MANJARO})
    list(APPEND this_system_libraries
       KF6Package
    )
