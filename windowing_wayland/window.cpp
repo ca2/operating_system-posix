@@ -2864,7 +2864,7 @@ namespace windowing_wayland
 //         (const unsigned char *) (const_char_pointer )path,
 //         path.length());
 //
-//      informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
+//      informationf("----> freebsd::interaction_impl::bamf_set_icon END");
 //
 //      fflush(stdout);
 //
@@ -4376,7 +4376,7 @@ namespace windowing_wayland
 //         (const unsigned char *) (const_char_pointer )path,
 //         path.length());
 //
-//      informationf("\nfreebsd::interaction_impl::bamf_set_icon END");
+//      informationf("----> freebsd::interaction_impl::bamf_set_icon END");
 //
 //      fflush(stdout);
 //

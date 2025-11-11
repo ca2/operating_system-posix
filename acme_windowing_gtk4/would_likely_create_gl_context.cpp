@@ -91,20 +91,39 @@ static bool probe_egl(void) {
 
 
 static gboolean gdk_can_use_gl(void) {
-    GError *error = NULL;
+    GError * pgerror = NULL;
     GdkDisplay *display = gdk_display_get_default();
     if (!display) return FALSE;
 
-    GdkGLContext *ctx = gdk_display_create_gl_context(display, &error);
+    GdkGLContext *ctx = gdk_display_create_gl_context(display, &pgerror);
     if (!ctx) {
-        if (error) g_error_free(error);
+        if (pgerror)
+        {
+            g_error_free(pgerror);
+            pgerror = nullptr;
+        }
         return FALSE;
     }
+    if (pgerror)
+    {
+        g_error_free(pgerror);
+        pgerror = nullptr;
+    }
 
-    if (!gdk_gl_context_realize(ctx, &error)) {
+
+    if (!gdk_gl_context_realize(ctx, &pgerror)) {
         g_object_unref(ctx);
-        if (error) g_error_free(error);
+        if (pgerror)
+        {
+            g_error_free(pgerror);
+            pgerror = nullptr;
+        }
         return FALSE;
+    }
+    if (pgerror)
+    {
+        g_error_free(pgerror);
+        pgerror = nullptr;
     }
 
     g_object_unref(ctx);

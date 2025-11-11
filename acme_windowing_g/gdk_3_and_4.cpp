@@ -382,15 +382,23 @@ namespace gdk
 
       }
 
-      GError * perror = nullptr;
+      GError * pgerror = nullptr;
 
-      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
+      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &pgerror);
 
       if(pfileinfo == nullptr)
       {
+         if (pgerror)
+         {
+            g_clear_error(&pgerror);
+         }
 
          return nullptr;
 
+      }
+      if (pgerror)
+      {
+         g_clear_error(&pgerror);
       }
 
       /* you'd have to use g_loadable_icon_load to get the actual icon */
@@ -498,16 +506,28 @@ namespace gdk
 
       }
 
-      GError * perror = nullptr;
+      GError * pgerror = nullptr;
 
-      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
+      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &pgerror);
 
       if(pfileinfo == nullptr)
       {
 
+         if (pgerror)
+         {
+            g_clear_error(&pgerror);
+         }
+
+
          return nullptr;
 
       }
+
+      if (pgerror)
+      {
+         g_clear_error(&pgerror);
+      }
+
 
       const_char_pointer pszContentType = g_file_info_get_content_type (pfileinfo);
 
@@ -531,24 +551,40 @@ namespace gdk
 
       gboolean ret;
 
-      GError * error = nullptr;
+      GError * pgerror = nullptr;
 
       //g_type_init();
 
-      ret = g_app_info_launch_default_for_uri(pszUri, nullptr, &error);
+      ret = g_app_info_launch_default_for_uri(pszUri, nullptr, &pgerror);
 
       if(ret)
       {
+
+         if (pgerror)
+         {
+            if(::is_set(pszError))
+            {
+
+               strncpy(pszError, pgerror->message, iBufferSize);
+
+            }
+            g_clear_error(&pgerror);
+         }
+
 
          return true;
 
       }
 
-      if(::is_set(pszError))
+      if (pgerror)
       {
+         if(::is_set(pszError))
+         {
 
-         strncpy(pszError, error->message, iBufferSize);
+            strncpy(pszError, pgerror->message, iBufferSize);
 
+         }
+         g_clear_error(&pgerror);
       }
 
       return 0;

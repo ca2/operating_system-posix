@@ -389,7 +389,7 @@ namespace gdk
 
       }
 
-      GError * perror = nullptr;
+      GError * pgerror = nullptr;
 
       GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 
@@ -500,7 +500,7 @@ namespace gdk
 
       }
 
-      GError * perror = nullptr;
+      GError * pgerror = nullptr;
 
       GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 
@@ -533,7 +533,7 @@ namespace gdk
 
       gboolean ret;
 
-      GError * error = nullptr;
+      GError * pgerror = nullptr;
 
       //g_type_init();
 

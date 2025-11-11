@@ -197,7 +197,7 @@ namespace g
 //                int cx = geometry.width;
 //                int cy = geometry.height;
 //                // Print monitor geometry details
-//                printf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
+//                informationf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
 //                       i, geometry.x, geometry.y, geometry.width, geometry.height);
 //                g_object_unref(monitor);
 //
@@ -1914,7 +1914,7 @@ namespace g
     //
     //    // Print monitor geometry details
     //    ::int_rectangle r;
-    //    printf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
+    //    informationf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
     //           i, geometry.x, geometry.y, geometry.width, geometry.height);
     //    ::copy(r, geometry);
     //    //::copy(pmonitor->m_rectangleWorkspace, geometry);

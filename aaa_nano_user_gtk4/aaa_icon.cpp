@@ -113,7 +113,7 @@ namespace user {
 
       // Load JPEG image from memory into GdkPixbuf
       GdkPixbufLoader *loader = gdk_pixbuf_loader_new();
-      GError *error = NULL;
+      GError * pgerror = NULL;
 
       if (!gdk_pixbuf_loader_write(loader, (const guchar *) p, size, &error)) {
          g_printerr("Error loading image: %s\n", error->message);

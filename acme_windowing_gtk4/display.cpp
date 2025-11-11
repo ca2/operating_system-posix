@@ -150,7 +150,7 @@ namespace gtk4
 
                m_bOwnDisplay = false;
 
-               printf("disconnected from display\n");
+               informationf("disconnected from display\n");
 
             }
 
@@ -195,7 +195,7 @@ namespace gtk4
                int cx = geometry.width;
                int cy = geometry.height;
                // Print monitor geometry details
-               printf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
+               informationf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
                       i, geometry.x, geometry.y, geometry.width, geometry.height);
                g_object_unref(monitor);
 
@@ -487,7 +487,7 @@ namespace gtk4
             information() << "connected to display\n";
             m_bOwnDisplay = true;
             //wl_display_disconnect(display);
-            //printf("disconnected from display\n");
+            //informationf("disconnected from display\n");
 
             return m_pgdkdisplay;
 
@@ -752,8 +752,8 @@ namespace gtk4
             //      int wScreen = WidthOfScreen(pscreen);
             //      int hScreen = HeightOfScreen(pscreen);
 
-            //printf("::x11::display::init_task pscreen=%" PRIxPTR "\n", pscreen);
-            //printf("::x11::display::init_task (wScreen,hScreen)=%d,%d\n", wScreen, hScreen);
+            //informationf("::x11::display::init_task pscreen=%" PRIxPTR "\n", pscreen);
+            //informationf("::x11::display::init_task (wScreen,hScreen)=%d,%d\n", wScreen, hScreen);
 
             //rectangleMainScreen.left() = 0;
             //rectangleMainScreen.top() = 0;
@@ -1277,14 +1277,14 @@ namespace gtk4
       //
       //       auto y = wl_fixed_to_double(sy);
       //
-      //       //printf("Pointer moved at %0.0f %0.0f\n", x, y);
+      //       //informationf("Pointer moved at %0.0f %0.0f\n", x, y);
       //
       //       auto pdisplay = (display *) data;
       //
       //       //      if(pdisplay->m_bMouseCaptured)
       //       //      {
       //       //
-      //       //         printf("Mouse Capture motion at %0.0f %0.0f!!\n", x, y);
+      //       //         informationf("Mouse Capture motion at %0.0f %0.0f!!\n", x, y);
       //       //
       //       //         ///pdisplay->__handle_pointer_enter(x, y, pwaylandwindow);
       //       //
@@ -1349,7 +1349,7 @@ namespace gtk4
       //    pointer_handle_axis(void * data, struct wl_pointer * wl_pointer,
       //                        uint32_t time, uint32_t axis, wl_fixed_t value)
       //    {
-      //       printf("Pointer handle axis\n");
+      //       informationf("Pointer handle axis\n");
       //    }
       //
       //    static const struct wl_pointer_listener g_wl_pointer_listener = {
@@ -1607,7 +1607,7 @@ namespace gtk4
       //    void global_registry_remover(void * data, struct wl_registry * registry, uint32_t id)
       //    {
       //
-      //       printf("Got a registry losing happening for %d\n", id);
+      //       informationf("Got a registry losing happening for %d\n", id);
       //
       //    }
       //
@@ -1750,7 +1750,7 @@ namespace gtk4
       // //              }
       // //
       // //              wl_display_disconnect(m_pwldisplay);
-      // //              //printf("disconnected from display\n");
+      // //              //informationf("disconnected from display\n");
       // //
       // //
       // //           });
@@ -1912,7 +1912,7 @@ namespace gtk4
 
        // Print monitor geometry details
        ::int_rectangle r;
-       printf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
+       informationf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
               i, geometry.x, geometry.y, geometry.width, geometry.height);
        ::copy(r, geometry);
        //::copy(pmonitor->m_rectangleWorkspace, geometry);

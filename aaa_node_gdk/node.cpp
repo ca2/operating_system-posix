@@ -2280,14 +2280,30 @@ m_bFetchingDarkMode = false;
 
       const char *pszUrl = strUrl;
 
-      GError *perror = nullptr;
+      GError * pgerror = nullptr;
 
-      if (!g_app_info_launch_default_for_uri(scopedstrUrl, nullptr, &perror))
+      if (!g_app_info_launch_default_for_uri(scopedstrUrl, nullptr, &pgerror))
       {
 
-         fprintf(stderr, "Unable to read file: %s\n", perror->message);
+         if(pgerror)
+         {
 
-         g_error_free(perror);
+            fprintf(stderr, "Unable to read file: %s\n", pgerror->message);
+
+            g_error_free(perror);
+
+         }
+
+      }
+      else
+      {
+
+         if (pgerror)
+         {
+
+            g_clear_error(&pgerror);
+
+         }
 
       }
 
@@ -2667,9 +2683,9 @@ m_bFetchingDarkMode = false;
 
       gboolean ret;
 
-      GError * error = NULL;
+      GError * pgerror = nullptr;
 
-      ret = g_app_info_launch_default_for_uri(scopedstrUri, NULL, &error);
+      ret = g_app_info_launch_default_for_uri(scopedstrUri, NULL, &pgerror);
 
       if(ret)
       {
@@ -2710,7 +2726,7 @@ m_bFetchingDarkMode = false;
 
       }
 
-      GError * perror = nullptr;
+      GError * pgerror = nullptr;
 
       GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 
@@ -2749,7 +2765,7 @@ m_bFetchingDarkMode = false;
 
       }
 
-      GError * perror = nullptr;
+      GError * pgerror = nullptr;
 
       GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 

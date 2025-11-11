@@ -133,7 +133,7 @@ namespace windowing_xcb
 ////      if(!pdisplay)
 ////      {
 ////
-////         informationf("\nFailed to øcreate < ::windowing::display > at windowing_xcb::windowing::initialize");
+////         informationf("----> Failed to øcreate < ::windowing::display > at windowing_xcb::windowing::initialize");
 ////
 ////         //return ::error_no_factory;
 ////
@@ -148,7 +148,7 @@ namespace windowing_xcb
 ////      if(!estatus)
 ////      {
 ////
-////         informationf("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
+////         informationf("----> Failed to initialize_display at windowing_xcb::windowing::initialize");
 ////
 ////         return estatus;
 ////
@@ -159,7 +159,7 @@ namespace windowing_xcb
 ////      if(!pdisplay)
 ////      {
 ////
-////         informationf("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
+////         informationf("----> Failed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
 ////
 ////         return error_no_interface;
 ////
@@ -176,7 +176,7 @@ namespace windowing_xcb
 //      if(!estatus)
 //      {
 //
-//         informationf("\nFailed to m_pdisplay->open at windowing_xcb::windowing::initialize");
+//         informationf("----> Failed to m_pdisplay->open at windowing_xcb::windowing::initialize");
 //
 //         return estatus;
 //
@@ -1049,19 +1049,19 @@ namespace windowing_xcb
 //                              if (throttling.m_iMouseMoveSkipCount == 2)
 //                              {
 //
-//                                 //informationf("\nmmv>skip 2!");
+//                                 //informationf("----> mmv>skip 2!");
 //
 //                              }
 //                              else if (throttling.m_iMouseMoveSkipCount == 5)
 //                              {
 //
-//                                 //informationf("\nmmv>Skip 5!!!");
+//                                 //informationf("----> mmv>Skip 5!!!");
 //
 //                              }
 //                              else if (throttling.m_iMouseMoveSkipCount == 10)
 //                              {
 //
-//                                 //informationf("\nmmv>SKIP 10 !!!!!!!!!");
+//                                 //informationf("----> mmv>SKIP 10 !!!!!!!!!");
 //
 //                              }
 //
@@ -1987,11 +1987,11 @@ if(bSentResponse)
             //auto & screeny_origin = window.screen_origin();
 
             //informationf("");
-            //informationf("\nwindow(origin=" + as_string(origin.x) + ", " + as_string(origin.y));
-            //informationf("\nwindow.screen_origin=" + as_string(screen_origin.x) + ", " + as_string(screen_origin.y));
-            //informationf("\nbutton.root_x=" + as_string(pbutton->root_x));
-            //informationf("\nbutton.root_y=" + as_string(pbutton->root_y));
-            //informationf("\n");
+            //informationf("----> window(origin=" + as_string(origin.x) + ", " + as_string(origin.y));
+            //informationf("----> window.screen_origin=" + as_string(screen_origin.x) + ", " + as_string(screen_origin.y));
+            //informationf("----> button.root_x=" + as_string(pbutton->root_x));
+            //informationf("----> button.root_y=" + as_string(pbutton->root_y));
+            //informationf("----> ");
 
             //msg.time = pbutton->time;
 

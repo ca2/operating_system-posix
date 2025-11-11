@@ -435,7 +435,7 @@ namespace windowing_gtk3
          gdk_monitor_get_geometry(pgdkmonitor, &geometry);
 
          // Print monitor geometry details
-         printf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
+         informationf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
                 i, geometry.x, geometry.y, geometry.width, geometry.height);
          ::copy(pmonitor->m_rectangle, geometry);
          ::copy(pmonitor->m_rectangleWorkspace, geometry);

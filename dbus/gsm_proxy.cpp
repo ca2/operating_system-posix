@@ -22,14 +22,23 @@ static DBusGConnection *
 get_session_bus (void)
 {
    DBusGConnection *bus;
-   GError *error = NULL;
+   GError * pgerror = NULL;
 
-   bus = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
+   bus = dbus_g_bus_get (DBUS_BUS_SESSION, &pgerror);
 
    if (bus == NULL) {
-      g_warning ("Couldn't connect to session bus: %s", error->message);
-      g_error_free (error);
+      if(pgerror)
+      {
+         g_warning ("Couldn't connect to session bus: %s", pgerror->message);
+         g_error_free (pgerror);
+      }
    }
+         if (pgerror)
+         {
+
+            g_clear_error(&pgerror);
+
+         }
 
    return bus;
 }
@@ -64,7 +73,7 @@ get_sm_proxy (void)
 void dbus_do_power_off (const_char_pointer action)
 {
    DBusGProxy *sm_proxy;
-   GError     *error;
+   GError * pgerror = nullptr;
    gboolean    res;
 
    sm_proxy = get_sm_proxy ();
@@ -75,19 +84,25 @@ void dbus_do_power_off (const_char_pointer action)
    error = NULL;
    res = dbus_g_proxy_call (sm_proxy,
                             action,
-                            &error,
+                            &pgerror,
                             G_TYPE_INVALID,
                             G_TYPE_INVALID);
 
    if (!res) {
-      if (error != NULL) {
+      if (pgerror != NULL) {
          g_warning ("Failed to call %s: %s",
-                    action, error->message);
+                    action, pgerror->message);
          g_error_free (error);
       } else {
          g_warning ("Failed to call %s", action);
       }
    }
+         if (pgerror)
+         {
+
+            g_clear_error(&pgerror);
+
+         }
 
    g_clear_object (&sm_proxy);
 }

@@ -398,7 +398,7 @@ namespace gdk
 
       }
 
-      GError * perror = nullptr;
+      GError * pgerror = nullptr;
 
       GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 
@@ -504,7 +504,7 @@ namespace gdk
 
       }
 
-      GError * perror = nullptr;
+      GError * pgerror = nullptr;
 
       GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 
@@ -537,7 +537,7 @@ namespace gdk
 
       gboolean ret;
 
-      GError * error = nullptr;
+      GError * pgerror = nullptr;
 
       //g_type_init();
 
@@ -621,7 +621,7 @@ namespace gdk
 
 
 void open_file_with_default_app(const_char_pointer filename) {
-    GError *error = NULL;
+    GError * pgerror = NULL;
     GFile *file = g_file_new_for_path(filename);
     
     // Get the default application for the file type
@@ -652,7 +652,7 @@ void open_file_with_default_app(const_char_pointer filename) {
 
 // Callback function for handling the result of the asynchronous launch
 void on_file_opened(GObject *source_object, GAsyncResult *res, gpointer user_data) {
-    GError *error = NULL;
+    GError * pgerror = NULL;
     gboolean success = g_app_info_launch_uris_finish(G_APP_INFO(source_object), res, &error);
 
     if (!success) {
@@ -665,7 +665,7 @@ void on_file_opened(GObject *source_object, GAsyncResult *res, gpointer user_dat
 
 // Function to open the file asynchronously with the default application
 void open_file_with_default_app_async(const_char_pointer filename) {
-    GError *error = NULL;
+    GError * pgerror = NULL;
     GFile *file = g_file_new_for_path(filename);
 
     // Get the default application for the file type

@@ -2243,7 +2243,7 @@ namespace node_gtk3
 
          const_char_pointer pszUrl = strUrl;
 
-         GError *perror = nullptr;
+         GError * pgerror = nullptr;
       
          if (!g_app_info_launch_default_for_uri(strUrl, nullptr, &perror))
          {
@@ -3040,7 +3040,7 @@ namespace node_gtk3
 //
 //      }
 //
-//      GError * perror = nullptr;
+//      GError * pgerror = nullptr;
 //
 //      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 //
@@ -3126,7 +3126,7 @@ namespace node_gtk3
 //
 //      }
 //
-//      GError * perror = nullptr;
+//      GError * pgerror = nullptr;
 //
 //      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 //
@@ -3159,7 +3159,7 @@ namespace node_gtk3
 //
 //      gboolean ret;
 //
-//      GError * error = nullptr;
+//      GError * pgerror = nullptr;
 //
 //      //g_type_init();
 //
@@ -3494,7 +3494,7 @@ log_handler(const gchar *log_domain,
 //
 //   gboolean ret;
 //
-//   GError * error = NULL;
+//   GError * pgerror = NULL;
 //
 //   ret = g_app_info_launch_default_for_uri(scopedstrUri, NULL, &error);
 //

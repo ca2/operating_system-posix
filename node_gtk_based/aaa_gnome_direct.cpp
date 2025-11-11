@@ -145,7 +145,7 @@
 //
 //   }
 //
-//   GError * perror = nullptr;
+//   GError * pgerror = nullptr;
 //
 //   GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 //
@@ -247,7 +247,7 @@
 //
 //   }
 //
-//   GError * perror = nullptr;
+//   GError * pgerror = nullptr;
 //
 //   GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 //
@@ -279,7 +279,7 @@
 //
 //   gboolean ret;
 //
-//   GError * error = NULL;
+//   GError * pgerror = NULL;
 //
 //   g_type_init();
 //

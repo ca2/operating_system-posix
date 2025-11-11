@@ -111,7 +111,7 @@ namespace node_gtk3
       {
 
 
-         GError * error = nullptr;
+         GError * pgerror = nullptr;
 
          GtkActionGroup * action_group = gtk_action_group_new ("AppActions");
 

@@ -175,7 +175,7 @@ namespace multimedia
 
                   subDevCount = snd_pcm_info_get_subdevices_count(pcmInfo);
 
-                  informationf("\nFound %i wave output subdevices on card %i, %i : %s \n", subDevCount, cardNum, devNum, snd_strerror(err));
+                  informationf("----> Found %i wave output subdevices on card %i, %i : %s \n", subDevCount, cardNum, devNum, snd_strerror(err));
 
                   if (subDevCount <= 0)
                   {

@@ -27,7 +27,7 @@
 #include "windowing_gtk4/windowing.h"
 //#include "acme_windowing_gtk4/windowing_system_gtk4/_.h"
 #include "acme_windowing_gtk4/windowing.h"
-#include "node_gtk/gdk_3_and_4.h"
+#include "acme_windowing_g/gdk_3_and_4.h"
 //#include "aura/windowing/windowing.h"
 //#include "aura_posix/x11/windowing.h"
 
@@ -1907,14 +1907,32 @@ namespace node_gtk4
 
       const_char_pointer pszUrl = scopedstrUrl;
 
-      GError *perror = nullptr;
+      GError * pgerror = nullptr;
 
-      if (!g_app_info_launch_default_for_uri(scopedstrUrl, nullptr, &perror))
+      if (!g_app_info_launch_default_for_uri(scopedstrUrl, nullptr, &pgerror))
       {
 
-         fprintf(stderr, "Unable to read file: %s\n", perror->message);
+         if (pgerror)
+         {
 
-         g_error_free(perror);
+            fprintf(stderr, "Unable to read file: %s\n", pgerror->message);
+
+            g_clear_error(&pgerror);
+
+         }
+
+      }
+      else
+      {
+
+         if (pgerror)
+         {
+
+            g_clear_error(&pgerror);
+
+         }
+
+
 
       }
 
@@ -2546,7 +2564,7 @@ gboolean x11_source_func(gpointer p)
 //
 //   gboolean ret;
 //
-//   GError * error = NULL;
+//   GError * pgerror = NULL;
 //
 //   ret = g_app_info_launch_default_for_uri(scopedstrUri, NULL, &error);
 //

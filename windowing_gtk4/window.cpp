@@ -34,22 +34,38 @@
 #include <X11/Xlib.h>
 
 
-#include "../node_gtk/gtk_3_and_4.cpp"
-bool is_using_x11() {
-    // Get the default GdkDisplay
-    GdkDisplay *display = gdk_display_get_default();
+//#include "../node_gtk/gtk_3_and_4.cpp"
 
-    // Ensure the display object is valid
-    if (!display) {
-        ::information()<< "Error: No GDK display available.\n";
-        return false;
-    }
 
-    // Check the backend type
-    const_char_pointer backend = gdk_display_get_name(display);
-::information()<< "GDK display name: " << backend;
-    // Return true if it's X11
-    return g_strcmp0(backend, "GdkX11Display") == 0;
+CLASS_DECL_ACME_WINDOWING_G ::user::e_key gtk_key_as_user_ekey(unsigned long long uGtkKey);
+
+
+bool is_using_x11()
+{
+
+   ::information() << "is_using_x11()";
+
+   // Get the default GdkDisplay
+   GdkDisplay *display = gdk_display_get_default();
+
+   // Ensure the display object is valid
+   if (!display)
+   {
+
+      ::information()<< "Error: No GDK display available.\n";
+
+      return false;
+
+   }
+
+   // Check the backend type
+   const_char_pointer backend = gdk_display_get_name(display);
+
+   ::information()<< "GDK display name: " << backend;
+
+   // Return true if it's X11
+   return g_strcmp0(backend, "GdkX11Display") == 0;
+
 }
 
 
@@ -431,7 +447,7 @@ gtk_im_context_commit (
 
 #ifdef DEEP_DEBUGGING
 
-         printf_line("cairo w,h(%d,%d)", width, height);
+         informationf("cairo w,h(%d,%d)", width, height);
 
 #endif
 
@@ -442,7 +458,7 @@ gtk_im_context_commit (
       {
 
 
-         printf_line("It didn't draw by any change?");
+         informationf("It didn't draw by any change?");
 
       }
 
@@ -578,7 +594,7 @@ gtk_im_context_commit (
 
          }
 
-         printf_line("puserinteraction->set_size (gtk4 CT25) %d, %d", cx, cy);
+         informationf("puserinteraction->set_size (gtk4 CT25) %d, %d", cx, cy);
 
          puserinteraction->set_size(s);
 
@@ -1205,7 +1221,7 @@ on_text(scopedstr, scopedstr.size());
       else
       {
 
-         g_print("Window has been restored.\n");
+         informationf("Window has been restored.");
 
          auto puserinteraction = user_interaction();
 
@@ -1315,20 +1331,20 @@ on_text(scopedstr, scopedstr.size());
 //          }
 
 
-          ::gtk4::acme::windowing::window::_create_window();
+         ::gtk4::acme::windowing::window::_create_window();
 
+         information() << "Going to call gtk_im_multicontext_new()";
          /* Create an input method context for pre-edit handling */
-m_pimcontext = gtk_im_multicontext_new();
+         m_pimcontext = gtk_im_multicontext_new();
 
-/* Connect the preedit-changed signal to capture intermediate results */
-
-
+         information() << "Going to connect preedit-changed";
+         /* Connect the preedit-changed signal to capture intermediate results */
          g_signal_connect(m_pimcontext, "preedit-changed", G_CALLBACK(on_preedit_changed), this);
+         information() << "Going to connect commit";
          g_signal_connect(m_pimcontext, "commit", G_CALLBACK(gtk_im_context_commit), this);
 
-
          /* Set up the key press happening handler for the window */
-   //g_signal_connect(m_pdrawingarea, "key-press-happening", G_CALLBACK(on_key_press), im_context);
+         //g_signal_connect(m_pdrawingarea, "key-press-happening", G_CALLBACK(on_key_press), im_context);
 
          /* Connect the preedit-changed signal to capture intermediate results */
          
@@ -1336,11 +1352,12 @@ m_pimcontext = gtk_im_multicontext_new();
          
          if(!is_using_x11())
          {
-         g_signal_connect(m_pdrawingarea, "state-flags-changed", G_CALLBACK(drawing_area_state_flags_changed), this);
 
-         g_signal_connect(m_pgtkwidget, "state-flags-changed", G_CALLBACK(window_state_flags_changed), this);
+            g_signal_connect(m_pdrawingarea, "state-flags-changed", G_CALLBACK(drawing_area_state_flags_changed), this);
+
+            g_signal_connect(m_pgtkwidget, "state-flags-changed", G_CALLBACK(window_state_flags_changed), this);
          
-	 }
+	      }
 
          g_signal_connect(m_pgtkwidget, "show", G_CALLBACK(window_show), this);
 

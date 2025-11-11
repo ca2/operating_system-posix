@@ -107,14 +107,23 @@ cairo_surface_t* cairo_surface_from_file_in_memory(const void* p, memsize size)
 {
    // Load JPEG image from memory into GdkPixbuf
    GdkPixbufLoader* loader = gdk_pixbuf_loader_new();
-   GError* error = NULL;
+   GError * pgerror = NULL;
 
-   if (!gdk_pixbuf_loader_write(loader, (const guchar*)p, size, &error))
+   if (!gdk_pixbuf_loader_write(loader, (const guchar*)p, size, &pgerror))
    {
-      g_printerr("Error loading image: %s\n", error->message);
-      g_error_free(error);
+      if (pgerror)
+      {
+         g_printerr("Error loading image: %s\n", pgerror->message);
+         g_error_free(pgerror);
+         pgerror = nullptr;
+      }
       g_object_unref(loader);
       throw ::exception(error_failed);
+   }
+   if (pgerror)
+   {
+      g_error_free(pgerror);
+      pgerror = nullptr;
    }
 
    gdk_pixbuf_loader_close(loader, NULL);

@@ -389,14 +389,28 @@ namespace gdk
 
       }
 
-      GError * perror = nullptr;
+      GError * pgerror = nullptr;
 
-      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
+      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &pgerror);
 
       if(pfileinfo == nullptr)
       {
 
+         if (pgerror)
+         {
+
+            g_clear_error(&pgerror);
+
+         }
+
          return nullptr;
+
+      }
+
+      if (pgerror)
+      {
+
+         g_clear_error(&pgerror);
 
       }
 
@@ -500,14 +514,28 @@ namespace gdk
 
       }
 
-      GError * perror = nullptr;
+      GError * pgerror = nullptr;
 
-      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
+      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &pgerror);
 
       if(pfileinfo == nullptr)
       {
 
+         if (pgerror)
+         {
+
+            g_clear_error(&pgerror);
+
+         }
+
          return nullptr;
+
+      }
+
+      if (pgerror)
+      {
+
+         g_clear_error(&pgerror);
 
       }
 
@@ -533,23 +561,44 @@ namespace gdk
 
       gboolean ret;
 
-      GError * error = nullptr;
+      GError * pgerror = nullptr;
 
       //g_type_init();
 
-      ret = g_app_info_launch_default_for_uri(scopedstrUri, nullptr, &error);
+      ret = g_app_info_launch_default_for_uri(scopedstrUri, nullptr, &pgerror);
 
       if(ret)
       {
+
+         if (pgerror)
+         {
+
+            if(pszError != nullptr)
+            {
+
+               strncpy(pszError, pgerror->message, iBufferSize);
+
+            }
+
+            g_clear_error(&pgerror);
+
+         }
 
          return true;
 
       }
 
-      if(scopedstrError != nullptr)
+      if (pgerror)
       {
 
-         strncpy(scopedstrError, error->message, iBufferSize);
+         if(pszError != nullptr)
+         {
+
+            strncpy(pszError, pgerror->message, iBufferSize);
+
+         }
+
+         g_clear_error(&pgerror);
 
       }
 

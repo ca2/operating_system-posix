@@ -635,6 +635,8 @@ namespace gtk4
          void window::_create_window()
          {
 
+            information() << "gtk4::acme::windowing::window::_create_window()";
+
             m_pacmeuserinteraction->on_before_create_window(this);
 
             bool bOk = true;
@@ -665,6 +667,8 @@ namespace gtk4
 
             //auto pwindowOwner = owner_window();
 
+            information() << "Checking if has owner window...";
+
             //if (pacmeuserinteractionOwner)
             {
 
@@ -672,6 +676,8 @@ namespace gtk4
 
                if (pwindowOwner)
                {
+
+                  information() << "It has owner window...";
 
                   m_pgtkwidget = gtk_popover_new();
 
@@ -734,17 +740,19 @@ namespace gtk4
             if (!m_pgtkwidget)
             {
 
+               information() << "Going to call gtk_application_window_new";
+
                m_pgtkwidget = gtk_application_window_new(pgtk4windowingsystem->m_pgtkapplication);
                
-                           ::string strId = application()->m_strAppId;
+               ::string strId = application()->m_strAppId;
 
-                           printf_line("acme_windowing_gtk4 gtk_application_window_new");
+               informationf("acme_windowing_gtk4 gtk_application_window_new");
 
-            strId.find_replace("/", ".");
+               strId.find_replace("/", ".");
 
-            strId.find_replace("_", "-");
+               strId.find_replace("_", "-");
 
-            //gtk_window_set_startup_id(GTK_WINDOW(m_pgtkwidget), strId);
+               //gtk_window_set_startup_id(GTK_WINDOW(m_pgtkwidget), strId);
 
                gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
 
@@ -955,7 +963,9 @@ namespace gtk4
             if (GTK_IS_WINDOW(m_pgtkwidget))
             {
 
+               information() << "Going to connect notify::default-width";
                g_signal_connect(GTK_WINDOW(m_pgtkwidget), "notify::default-width", G_CALLBACK(on_window_sizing), this);
+               information() << "Going to connect notify::default-height";
                g_signal_connect(GTK_WINDOW(m_pgtkwidget), "notify::default-height", G_CALLBACK(on_window_sizing), this);
 
             }
@@ -975,13 +985,17 @@ namespace gtk4
             //if(GTK_IS_WINDOW(m_pgtkwidget))
             {
 
+               information() << "Going to connect notify::visible";
                g_signal_connect(m_pgtkwidget, "notify::visible", G_CALLBACK(on_window_visibility_changed), this);
 
                // Connect to notify::is-maximized signal to track maximization changes
+               information() << "Going to connect notify::maximized";
                g_signal_connect(m_pgtkwidget, "notify::maximized", G_CALLBACK(on_maximize_notify), this);
 
+               information() << "Going to connect map";
                g_signal_connect(m_pgtkwidget, "map", G_CALLBACK(on_window_map), this);
 
+               information() << "Going to connect realize";
                g_signal_connect(m_pgtkwidget, "realize", G_CALLBACK(on_window_realize), this);
 
             }
@@ -996,6 +1010,7 @@ namespace gtk4
             if (GTK_IS_WINDOW(m_pgtkwidget))
             {
 
+               information() << "Going to create_system_menu";
                auto psystemmenu = m_pacmeuserinteraction->create_system_menu(false);
 
                if (psystemmenu)
@@ -1009,8 +1024,10 @@ namespace gtk4
 
                         auto action = g_simple_action_new(pitem->m_strAtom, NULL);
 
+                        information() << "Going to connect activate for \"" << pitem->m_strAtom << "\".";
                         g_signal_connect(action, "activate", G_CALLBACK(on_window_simple_action), this);
 
+                        information() << "Going to g_action_map_add_action for \"" << pitem->m_strAtom << "\".";
                         g_action_map_add_action(G_ACTION_MAP(m_pgtkwidget), G_ACTION(action));
 
                      }
@@ -1024,9 +1041,13 @@ namespace gtk4
             //if(GTK_IS_WINDOW_HANDLE(m_pgtkwidget))
             {
 
+               information() << "Going to gtk_widget_realize";
+
                gtk_widget_realize(m_pgtkwidget);
 
             }
+
+            information() << "Going to call on_create_window";
 
             m_pacmeuserinteraction->on_create_window();
 
@@ -2112,7 +2133,7 @@ namespace gtk4
    void window::_on_size(int cx, int cy)
    {
 
-      printf_line("set_interface_client_size %d, %d", cx, cy);
+      informationf("set_interface_client_size %d, %d", cx, cy);
 
       set_interface_client_size({cx, cy});
 

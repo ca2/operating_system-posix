@@ -106,7 +106,7 @@ void apex_application_activate(GApplication * application)
 
    //GCancellable * pc = g_cancellable_new();
 
-   //GError * perror = nullptr;
+   //GError * pgerror = nullptr;
 
    //g_application_register(application, pc, &perror);
    //new_window(application, nullptr);

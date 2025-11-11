@@ -1613,7 +1613,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
           && e.xclient.message_type == g_atomKickIdle)
       {
 
-         informationf("\nkick idle received\n");
+         informationf("----> kick idle received\n");
 
          return true;
 
@@ -1768,19 +1768,19 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                                 if (pinteraction->m_iMouseMoveSkipCount == 2)
 //                                 {
 //
-//                                    //informationf("\nmmv>skip 2!");
+//                                    //informationf("----> mmv>skip 2!");
 //
 //                                 }
 //                                 else if (pinteraction->m_iMouseMoveSkipCount == 5)
 //                                 {
 //
-//                                    //informationf("\nmmv>Skip 5!!!");
+//                                    //informationf("----> mmv>Skip 5!!!");
 //
 //                                 }
 //                                 else if (pinteraction->m_iMouseMoveSkipCount == 10)
 //                                 {
 //
-//                                    //informationf("\nmmv>SKIP 10 !!!!!!!!!");
+//                                    //informationf("----> mmv>SKIP 10 !!!!!!!!!");
 //
 //                                 }
 //

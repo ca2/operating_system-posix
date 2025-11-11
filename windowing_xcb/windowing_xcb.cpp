@@ -738,7 +738,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //      if(!pdisplay)
 //      {
 //
-//         informationf("\nFailed to øcreate < ::windowing::display > at windowing_xcb::windowing::initialize");
+//         informationf("----> Failed to øcreate < ::windowing::display > at windowing_xcb::windowing::initialize");
 //
 //         //return ::error_no_factory;
 //
@@ -755,7 +755,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //      if(!estatus)
 //      {
 //
-//         informationf("\nFailed to initialize_display at windowing_xcb::windowing::initialize");
+//         informationf("----> Failed to initialize_display at windowing_xcb::windowing::initialize");
 //
 //         return estatus;
 //
@@ -766,7 +766,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //      if(!pdisplay)
 //      {
 //
-//         informationf("\nFailed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
+//         informationf("----> Failed to cast pdisplay to m_pdisplay at windowing_xcb::windowing::initialize");
 //
 //         return error_no_interface;
 //

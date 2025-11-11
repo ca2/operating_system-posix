@@ -29,24 +29,39 @@ namespace innate_ui_gtk4
       gsize jpeg_size = m_memory.size();
 
       // Create a GdkPixbufLoader to load the image from the memory buffer
-      GError *error = NULL;
+      GError * pgerror = NULL;
       GdkPixbufLoader *loader = gdk_pixbuf_loader_new();
 
       // Write the JPEG memory buffer into the loader
-      if (!gdk_pixbuf_loader_write(loader, jpeg_buffer, jpeg_size, &error)) {
-         g_printerr("Error loading image from buffer: %s\n", error->message);
-         g_clear_error(&error);
+      if (!gdk_pixbuf_loader_write(loader, jpeg_buffer, jpeg_size, &pgerror)) {
+         if (pgerror)
+         {
+            g_printerr("Error loading image from buffer: %s\n", pgerror->message);
+            g_clear_error(&pgerror);
+         }
          g_object_unref(loader);
          throw ::exception(error_failed);
+      }
+      if (pgerror)
+      {
+         g_clear_error(&pgerror);
       }
 
       // Finish the loading process
-      if (!gdk_pixbuf_loader_close(loader, &error)) {
-         g_printerr("Error finalizing image loading: %s\n", error->message);
-         g_clear_error(&error);
+      if (!gdk_pixbuf_loader_close(loader, &pgerror)) {
+         if (pgerror)
+         {
+            g_printerr("Error finalizing image loading: %s\n", pgerror->message);
+            g_clear_error(&pgerror);
+         }
          g_object_unref(loader);
          throw ::exception(error_failed);
       }
+      if (pgerror)
+      {
+         g_clear_error(&pgerror);
+      }
+
 
       // Get the GdkPixbuf from the loader
       GdkPixbuf *pixbuf = gdk_pixbuf_loader_get_pixbuf(loader);

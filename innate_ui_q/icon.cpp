@@ -42,7 +42,7 @@ namespace innate_ui_q
       // gsize jpeg_size = m_memory.size();
       //
       // // Create a GdkPixbufLoader to load the image from the memory buffer
-      // GError *error = NULL;
+      // GError * pgerror = NULL;
       // GdkPixbufLoader *loader = gdk_pixbuf_loader_new();
       //
       // // Write the JPEG memory buffer into the loader
