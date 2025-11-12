@@ -1271,6 +1271,12 @@ m_bFetchingDarkMode = false;
 
             break;
 
+         case ::user::e_operating_ambient_lxde:
+
+            call_async("pcmanfm", "-w " + strLocalImagePath, nullptr, e_display_none, false);
+
+            break;
+
          case ::user::e_operating_ambient_xfce:
          {
             //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){

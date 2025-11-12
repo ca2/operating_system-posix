@@ -2930,6 +2930,12 @@ namespace g
 
             break;
 
+         case ::windowing::e_operating_ambient_labwc:
+
+            node()->command_system("swaybg -i " + strLocalImagePath + " -m fill", 1_min);
+
+            break;
+
          case ::windowing::e_operating_ambient_xfce:
          {
 
