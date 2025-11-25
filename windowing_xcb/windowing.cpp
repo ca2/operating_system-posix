@@ -1219,9 +1219,9 @@ namespace windowing_xcb
                if (motion.same_screen)
                {
 
-                  //motion.event_x = motion.root_x - (geometryFound.x - rectangleFoundFrameExtents.left());
+                  //motion.event_x = motion.root_x - (geometryFound.x - rectangleFoundFrameExtents.left);
 
-                  //motion.event_y = motion.root_y - (geometryFound.y - rectangleFoundFrameExtents.top());
+                  //motion.event_y = motion.root_y - (geometryFound.y - rectangleFoundFrameExtents.top);
 
                   auto cookie = xcb_translate_coordinates(
                      m_pdisplay->m_pxcbdisplay->m_pconnection,
@@ -1904,10 +1904,10 @@ if(bSentResponse)
 
    ::int_rectangle rectangleWindow;
 
-   rectangleWindow.left() = pconfigure->x;
-   rectangleWindow.top() = pconfigure->y;
-   rectangleWindow.right() = pconfigure->x + pconfigure->width;
-   rectangleWindow.bottom() = pconfigure->y + pconfigure->height;
+   rectangleWindow.left = pconfigure->x;
+   rectangleWindow.top = pconfigure->y;
+   rectangleWindow.right = pconfigure->x + pconfigure->width;
+   rectangleWindow.bottom = pconfigure->y + pconfigure->height;
 
    pxcbwindow->_on_configure_notify_unlocked(rectangleWindow);
 

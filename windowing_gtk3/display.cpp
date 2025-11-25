@@ -1407,8 +1407,8 @@ namespace windowing_gtk3
 ////      m_pxdgsurfaceMouseCapture = xdg_wm_base_get_xdg_surface(m_pxdgwmbase, m_pwlsurfaceMouseCapture);
 ////
 ////      xdg_surface_set_window_geometry(m_pxdgsurfaceMouseCapture,
-////                                      m_rectangleMouseCapture.left(),
-////                                      m_rectangleMouseCapture.top(),
+////                                      m_rectangleMouseCapture.left,
+////                                      m_rectangleMouseCapture.top,
 ////                                      m_rectangleMouseCapture.width(),
 ////                                      m_rectangleMouseCapture.height());
 ////
@@ -1433,8 +1433,8 @@ namespace windowing_gtk3
 ////      }
 ////
 ////      xdg_surface_set_window_geometry(m_pxdgsurfaceMouseCapture,
-////         m_rectangleMouseCapture.left(),
-////         m_rectangleMouseCapture.top(),
+////         m_rectangleMouseCapture.left,
+////         m_rectangleMouseCapture.top,
 ////         m_rectangleMouseCapture.width(),
 ////         m_rectangleMouseCapture.height());
 ////

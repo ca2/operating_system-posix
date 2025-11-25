@@ -265,9 +265,9 @@ cy
 
             cairo_text_extents_t textextents = {};
 
-            double x = rectangleText.left();
+            double x = rectangleText.left;
 
-            double y = rectangleText.top();
+            double y = rectangleText.top;
 
             cairo_text_extents(m_pdc, scopedstr, &textextents);
 
@@ -333,8 +333,8 @@ cy
             {
 
                cairo_rectangle(m_pdc,
-                               rectangle.left(),
-                               rectangle.top(),
+                               rectangle.left,
+                               rectangle.top,
                                rectangle.width(),
                                rectangle.height());
 
@@ -352,8 +352,8 @@ cy
                double dAdjustment = dWidth * 0.5;
 
                cairo_rectangle(m_pdc,
-                   rectangle.left() + dAdjustment,
-                   rectangle.top() + dAdjustment,
+                   rectangle.left + dAdjustment,
+                   rectangle.top + dAdjustment,
                    rectangle.width() - 2.0 * dAdjustment,
                    rectangle.height() - 2.0 * dAdjustment);
 

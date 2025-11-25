@@ -22,10 +22,10 @@
 inline void copy(::int_rectangle * prectTarget, const GdkRectangle * prectSource)
 {
 
-   prectTarget->left() = prectSource->x;
-   prectTarget->top() = prectSource->y;
-   prectTarget->right() = prectSource->x + prectSource->width;
-   prectTarget->bottom() = prectSource->y + prectSource->height;
+   prectTarget->left = prectSource->x;
+   prectTarget->top = prectSource->y;
+   prectTarget->right = prectSource->x + prectSource->width;
+   prectTarget->bottom = prectSource->y + prectSource->height;
 
 }
 

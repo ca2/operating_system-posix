@@ -52,7 +52,7 @@ namespace draw2d_xlib
 
       void region::SetRectRgn(const ::int_rectangle & rectangle)
       {
-         ::SetRectRgn((HRGN)get_os_data(), rectangle.left(), rectangle.top(), rectangle.right(), rectangle.bottom());
+         ::SetRectRgn((HRGN)get_os_data(), rectangle.left, rectangle.top, rectangle.right, rectangle.bottom);
       }
 
       int region::CombineRgn(const ::draw2d::region* pRgn1, const ::draw2d::region* pRgn2, int nCombineMode)

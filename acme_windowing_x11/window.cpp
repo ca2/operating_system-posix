@@ -242,8 +242,8 @@ namespace x11
 
             auto r = m_puserinteractionbase->get_interaction_rectangle();
 
-            int x = r.left();
-            int y = r.top();
+            int x = r.left;
+            int y = r.top;
             int w = r.width();
             int h = r.height();
 
@@ -445,13 +445,13 @@ namespace x11
 
                ::int_rectangle r;
 
-               r.left() = pevent->xconfigure.x;
+               r.left = pevent->xconfigure.x;
 
-               r.top() = pevent->xconfigure.y;
+               r.top = pevent->xconfigure.y;
 
-               r.right() = pevent->xconfigure.x + pevent->xconfigure.width;
+               r.right = pevent->xconfigure.x + pevent->xconfigure.width;
 
-               r.bottom() = pevent->xconfigure.y + pevent->xconfigure.height;
+               r.bottom = pevent->xconfigure.y + pevent->xconfigure.height;
 
                m_puserinteractionbase->set_interaction_rectangle(r);
 
@@ -770,8 +770,8 @@ namespace x11
 //         void window::get_client_rectangle(::int_rectangle & rectangle)
 //         {
 //
-//            rectangle.left() = 0;
-//            rectangle.top() = 0;
+//            rectangle.left = 0;
+//            rectangle.top = 0;
 //
 //            Window windowRoot = 0;
 //            int x = 0;
@@ -791,8 +791,8 @@ namespace x11
 //
 //            }
 //
-//            rectangle.right() = w;
-//            rectangle.bottom() = h;
+//            rectangle.right = w;
+//            rectangle.bottom = h;
 //
 //
 //         }
@@ -823,10 +823,10 @@ namespace x11
 
             ::int_rectangle rectangle;
 
-            rectangle.left() = x;
-            rectangle.top() = y;
-            rectangle.right() = x + w;
-            rectangle.bottom() = y + h;
+            rectangle.left = x;
+            rectangle.top = y;
+            rectangle.right = x + w;
+            rectangle.bottom = y + h;
 
             return rectangle;
 

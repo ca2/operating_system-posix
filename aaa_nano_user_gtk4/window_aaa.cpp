@@ -374,13 +374,13 @@
 //      //
 //      //         attr.override_redirect = False;
 //      //
-//      //         int x = m_pinterface->m_rectangle.left();
-//      //         int y = m_pinterface->m_rectangle.top();
+//      //         int x = m_pinterface->m_rectangle.left;
+//      //         int y = m_pinterface->m_rectangle.top;
 //      //         int w = m_pinterface->m_rectangle.width();
 //      //         int h = m_pinterface->m_rectangle.height();
 //
-//                         //m_pointWindow.x() = m_pinterface->m_rectangle.left();
-//                         //m_pointWindow.y() = m_pinterface->m_rectangle.top();
+//                         //m_pointWindow.x() = m_pinterface->m_rectangle.left;
+//                         //m_pointWindow.y() = m_pinterface->m_rectangle.top;
 //                         //m_sizeWindow.cx() = m_pinterface->m_rectangle.width();
 //                         //m_sizeWindow.cy() = m_pinterface->m_rectangle.height();
 //
@@ -589,13 +589,13 @@
 //         //      if (event_type == ConfigureNotify)
 //         //      {
 //         //
-//         //         m_pinterface->m_rectangle.left() = pevent->xconfigure.x;
+//         //         m_pinterface->m_rectangle.left = pevent->xconfigure.x;
 //         //
-//         //         m_pinterface->m_rectangle.top() = pevent->xconfigure.y;
+//         //         m_pinterface->m_rectangle.top = pevent->xconfigure.y;
 //         //
-//         //         m_pinterface->m_rectangle.right() = pevent->xconfigure.x + pevent->xconfigure.width;
+//         //         m_pinterface->m_rectangle.right = pevent->xconfigure.x + pevent->xconfigure.width;
 //         //
-//         //         m_pinterface->m_rectangle.bottom() = pevent->xconfigure.y + pevent->xconfigure.height;
+//         //         m_pinterface->m_rectangle.bottom = pevent->xconfigure.y + pevent->xconfigure.height;
 //         //
 //         //         if (m_psurface)
 //         //         {
@@ -897,8 +897,8 @@
 //         void window::get_client_rectangle(::int_rectangle & rectangle)
 //         {
 //
-//            //      rectangle.left() = 0;
-//            //      rectangle.top() = 0;
+//            //      rectangle.left = 0;
+//            //      rectangle.top = 0;
 //            //
 //            //      Window windowRoot = 0;
 //            //      int x = 0;
@@ -918,8 +918,8 @@
 //            //
 //            //      }
 //            //
-//            //      rectangle.right() = w;
-//            //      rectangle.bottom() = h;
+//            //      rectangle.right = w;
+//            //      rectangle.bottom = h;
 //
 //
 //         }
@@ -946,10 +946,10 @@
 //            //
 //            //      }
 //            //
-//            //      rectangle.left() = x;
-//            //      rectangle.top() = y;
-//            //      rectangle.right() = x + w;
-//            //      rectangle.bottom() = y + h;
+//            //      rectangle.left = x;
+//            //      rectangle.top = y;
+//            //      rectangle.right = x + w;
+//            //      rectangle.bottom = y + h;
 //
 //
 //         }
@@ -1160,8 +1160,8 @@
 //         ////
 //         ////      window_rectangle(msg.oswindow, &r);
 //         ////
-//         ////      int l1 = r.left();
-//         ////      int t1 = r.top();
+//         ////      int l1 = r.left;
+//         ////      int t1 = r.top;
 //         ////      int w1 = r.width();
 //         ////      int h1 = r.height();
 //         //
@@ -1373,8 +1373,8 @@
 //         ////
 //         ////      window_rectangle(msg.oswindow, &r);
 //         ////
-//         ////      int l1 = r.left();
-//         ////      int t1 = r.top();
+//         ////      int l1 = r.left;
+//         ////      int t1 = r.top;
 //         ////      int w1 = r.width();
 //         ////      int h1 = r.height();
 //         //
@@ -1763,8 +1763,8 @@
 //         //    ////
 //         //    ////      window_rectangle(msg.oswindow, &r);
 //         //    ////
-//         //    ////      int l1 = r.left();
-//         //    ////      int t1 = r.top();
+//         //    ////      int l1 = r.left;
+//         //    ////      int t1 = r.top;
 //         //    ////      int w1 = r.width();
 //         //    ////      int h1 = r.height();
 //         //    //

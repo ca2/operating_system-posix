@@ -72,10 +72,10 @@ namespace node_kde5
    //
    //    pscreen->geometry().getCoords(&left, &top, &right, &bottom);
    //
-   //    rectangle.left()     = left;
-   //    rectangle.top()      = top;
-   //    rectangle.right()    = right + 1;
-   //    rectangle.bottom()   = bottom + 1;
+   //    rectangle.left     = left;
+   //    rectangle.top      = top;
+   //    rectangle.right    = right + 1;
+   //    rectangle.bottom   = bottom + 1;
    //
    //    return ::success;
    //
@@ -112,10 +112,10 @@ namespace node_kde5
    //
    //    pscreen->availableGeometry().getCoords(&left, &top, &right, &bottom);
    //
-   //    rectangle.left()     = left;
-   //    rectangle.top()      = top;
-   //    rectangle.right()    = right + 1;
-   //    rectangle.bottom()   = bottom + 1;
+   //    rectangle.left     = left;
+   //    rectangle.top      = top;
+   //    rectangle.right    = right + 1;
+   //    rectangle.bottom   = bottom + 1;
    //
    //    return ::success;
    //

@@ -397,10 +397,10 @@ gtk_im_context_commit (
 
          int height = gtk_widget_get_height(widget);
 
-         r.left() = 0;
-         r.top() = 0;
-         r.right() = width;
-         r.bottom() = height;
+         r.left = 0;
+         r.top = 0;
+         r.right = width;
+         r.bottom = height;
 
 // cairo_reset_clip(cr);
 //              // Set the fill color to blue (RGB: 0, 0, 1)
@@ -2428,10 +2428,10 @@ on_text(scopedstr, scopedstr.size());
 //
 //            ::int_rectangle r;
 //
-//            r.left() = attrs.x;
-//            r.top() = attrs.y;
-//            r.right() = attrs.x + attrs.width;
-//            r.bottom() = attrs.y + attrs.height;
+//            r.left = attrs.x;
+//            r.top = attrs.y;
+//            r.right = attrs.x + attrs.width;
+//            r.bottom = attrs.y + attrs.height;
 //
 //         }
 //

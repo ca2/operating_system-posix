@@ -69,8 +69,8 @@ namespace x11
 
             XMoveResizeWindow(
                __x11_handle(handle),
-               rectangle.left(),
-               rectangle.top(),
+               rectangle.left,
+               rectangle.top,
                rectangle.width(),
                rectangle.height());
 
@@ -129,10 +129,10 @@ namespace x11
 
             ::int_rectangle rectangle;
 
-            rectangle.left() = x;
-            rectangle.top() = y;
-            rectangle.right() = x + w;
-            rectangle.bottom() = y + h;
+            rectangle.left = x;
+            rectangle.top = y;
+            rectangle.right = x + w;
+            rectangle.bottom = y + h;
 
             return rectangle;
 

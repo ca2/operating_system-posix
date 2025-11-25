@@ -2021,8 +2021,8 @@ namespace draw2d_xlib
    //   int imin = - imax;
 
 
-   //   int joff = cy / 2 + rectangle.left();
-   //   int ioff = cx / 2 + rectangle.top();
+   //   int joff = cy / 2 + rectangle.left;
+   //   int ioff = cx / 2 + rectangle.top;
 
    //   //int iAngle = iStep % 360;
    //   //int iAngle = iStep;
@@ -2599,10 +2599,10 @@ namespace draw2d_xlib
       //      unsigned int dw = ::get_last_error();
       ::int_size size = pbitmap->get_size();
 
-      rectx.left() = 0;
-      rectx.top() = 0;
-      rectx.right() = size.cx();
-      rectx.bottom() = size.cy();
+      rectx.left = 0;
+      rectx.top = 0;
+      rectx.right = size.cx();
+      rectx.bottom = size.cy();
 
       try
       {
@@ -2639,14 +2639,14 @@ namespace draw2d_xlib
          m_spgraphics-> set_origin(::int_point());
          puserinteraction->_000OnDraw(pgraphics);
          m_spgraphics->set_origin(::int_point());
-         //(dynamic_cast<::win::graphics * >(pgraphics))->FillSolidRect(rectangleUpdate.left(), rectangleUpdate.top(), 100, 100, 255);
+         //(dynamic_cast<::win::graphics * >(pgraphics))->FillSolidRect(rectangleUpdate.left, rectangleUpdate.top, 100, 100, 255);
          m_spgraphics->SelectClipRgn(nullptr);
          m_spgraphics->set_origin(::int_point());
 
          m_spgraphics->SelectClipRgn( nullptr);
-         m_spgraphics->BitBlt(rectanglePaint.left(), rectanglePaint.top(),
+         m_spgraphics->BitBlt(rectanglePaint.left, rectanglePaint.top,
                               rectanglePaint.width(), rectanglePaint.height(),
-                              pgraphics, rectangleUpdate.left(), rectangleUpdate.top(),
+                              pgraphics, rectangleUpdate.left, rectangleUpdate.top,
                               SRCCOPY);
 
          m_spgraphics->text_out(0, 0, "Xlib Drawing!!", 11);

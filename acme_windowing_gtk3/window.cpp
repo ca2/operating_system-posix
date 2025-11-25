@@ -618,8 +618,8 @@ return FALSE;
 //
 //               attr.override_redirect = False;
 //
-//               int x = m_pinterface->m_rectangle.left();
-//               int y = m_pinterface->m_rectangle.top();
+//               int x = m_pinterface->m_rectangle.left;
+//               int y = m_pinterface->m_rectangle.top;
 //               int w = m_pinterface->m_rectangle.width();
 //               int h = m_pinterface->m_rectangle.height();
 //
@@ -1649,13 +1649,13 @@ m_phappeningLastMouseUp = pevent;
 //            if (event_type == ConfigureNotify)
 //            {
 //
-//               m_pinterface->m_rectangle.left() = pevent->xconfigure.x;
+//               m_pinterface->m_rectangle.left = pevent->xconfigure.x;
 //
-//               m_pinterface->m_rectangle.top() = pevent->xconfigure.y;
+//               m_pinterface->m_rectangle.top = pevent->xconfigure.y;
 //
-//               m_pinterface->m_rectangle.right() = pevent->xconfigure.x + pevent->xconfigure.width;
+//               m_pinterface->m_rectangle.right = pevent->xconfigure.x + pevent->xconfigure.width;
 //
-//               m_pinterface->m_rectangle.bottom() = pevent->xconfigure.y + pevent->xconfigure.height;
+//               m_pinterface->m_rectangle.bottom = pevent->xconfigure.y + pevent->xconfigure.height;
 //
 //               if (m_psurface)
 //               {
@@ -2076,8 +2076,8 @@ m_phappeningLastMouseUp = pevent;
 //         void window::get_client_rectangle(::int_rectangle & rectangle)
 //         {
 //
-//            rectangle.left() = 0;
-//            rectangle.top() = 0;
+//            rectangle.left = 0;
+//            rectangle.top = 0;
 //
 //            Window windowRoot = 0;
 //            int x = 0;
@@ -2097,8 +2097,8 @@ m_phappeningLastMouseUp = pevent;
 //
 //            }
 //
-//            rectangle.right() = w;
-//            rectangle.bottom() = h;
+//            rectangle.right = w;
+//            rectangle.bottom = h;
 //
 //
 //         }
@@ -2415,7 +2415,7 @@ m_phappeningLastMouseUp = pevent;
             //
             //       m_iAttemptToSetPosition++;
             //
-            //       gtk_window_move(GTK_WINDOW(m_pgtkwidget), m_rectangleRequest.left(), m_rectangleRequest.top());
+            //       gtk_window_move(GTK_WINDOW(m_pgtkwidget), m_rectangleRequest.left, m_rectangleRequest.top);
             //
             //       bStillTryingToSetGeometry = true;
             //
@@ -2426,7 +2426,7 @@ m_phappeningLastMouseUp = pevent;
             // if (!bStillTryingToSetGeometry)
             {
 
-               _on_configure(r.left(), r.top(), r.width(), r.height());
+               _on_configure(r.left, r.top, r.width(), r.height());
 
             }
 
@@ -2470,7 +2470,7 @@ m_phappeningLastMouseUp = pevent;
          //    //
          //    //       m_iAttemptToSetPosition++;
          //    //
-         //    //       gtk_window_move(GTK_WINDOW(m_pgtkwidget), m_rectangleRequest.left(), m_rectangleRequest.top());
+         //    //       gtk_window_move(GTK_WINDOW(m_pgtkwidget), m_rectangleRequest.left, m_rectangleRequest.top);
          //    //
          //    //       bStillTryingToSetGeometry = true;
          //    //
@@ -2481,7 +2481,7 @@ m_phappeningLastMouseUp = pevent;
          //    // if (!bStillTryingToSetGeometry)
          //    {
          //
-         //       _on_configure(r.left(), r.top(), r.width(), r.height());
+         //       _on_configure(r.left, r.top, r.width(), r.height());
          //
          //    }
          //

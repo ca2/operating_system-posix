@@ -1017,10 +1017,10 @@ namespace windowing_xcb
 
       auto pi = (int *) xcb_get_property_value(preply);
 
-      r.left() = pi[0];
-      r.right() = pi[1];
-      r.top() = pi[2];
-      r.bottom() = pi[3];
+      r.left = pi[0];
+      r.right = pi[1];
+      r.top = pi[2];
+      r.bottom = pi[3];
 
       return r;
 
@@ -1041,10 +1041,10 @@ namespace windowing_xcb
 
       auto pgeometry = &geometry;
 
-      prectangle->left() = pgeometry->x;
-      prectangle->top() = pgeometry->y;
-      prectangle->right() = pgeometry->x + pgeometry->width;
-      prectangle->top() = pgeometry->y + pgeometry->height;
+      prectangle->left = pgeometry->x;
+      prectangle->top = pgeometry->y;
+      prectangle->right = pgeometry->x + pgeometry->width;
+      prectangle->top = pgeometry->y + pgeometry->height;
 
       return geometry.estatus();
 
@@ -1065,10 +1065,10 @@ namespace windowing_xcb
 
       auto pgeometry = &geometry;
 
-      prectangle->left() = 0;
-      prectangle->top() = 0;
-      prectangle->right() = pgeometry->width;
-      prectangle->top() = pgeometry->height;
+      prectangle->left = 0;
+      prectangle->top = 0;
+      prectangle->right = pgeometry->width;
+      prectangle->top = pgeometry->height;
 
       return geometry.estatus();
 

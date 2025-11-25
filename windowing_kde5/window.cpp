@@ -1947,10 +1947,10 @@ namespace windowing_kde5
             // ::double_rectangle r;
             // int width = gtk_widget_get_width(widget);
             // int height = gtk_widget_get_height(widget);
-            // r.left() = 0;
-            // r.top() = 0;
-            // r.right() = width;
-            // r.bottom() = height;
+            // r.left = 0;
+            // r.top = 0;
+            // r.right = width;
+            // r.bottom = height;
             // //r.set_size(m_sizeOnSize);
             // ///pgraphics->fill_solid_rectangle(r, argb(0, 0, 0, 0));
             // pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
@@ -1970,10 +1970,10 @@ namespace windowing_kde5
 
       // ::double_rectangle r;
       //
-      // r.left() = 10;
-      // r.top() = 10;
-      // r.right() = 80;
-      // r.bottom() = 80;
+      // r.left = 10;
+      // r.top = 10;
+      // r.right = 80;
+      // r.bottom = 80;
       //
       // pgraphics->fill_solid_rectangle(r, argb(1.0,0.1, 0.5, 0.8 ));
 
@@ -4386,17 +4386,17 @@ namespace windowing_kde5
 //       //
 //       //      ::int_rectangle rWindow;
 //       //
-//       //      rWindow.left() = attr.x;
-//       //      rWindow.top() = attr.y;
-//       //      rWindow.right() = attr.x + attr.width;
-//       //      rWindow.bottom() = attr.y + attr.height;
+//       //      rWindow.left = attr.x;
+//       //      rWindow.top = attr.y;
+//       //      rWindow.right = attr.x + attr.width;
+//       //      rWindow.bottom = attr.y + attr.height;
 //       //
 //       //      if (rBest != rWindow)
 //       //      {
 //       //
 //       //         puserinteraction->place(rBest);
 //       //
-//       //         XMoveResizeWindow(Display(), Window(), rBest.left(), rBest.top(), rBest.width(), rBest.height());
+//       //         XMoveResizeWindow(Display(), Window(), rBest.left, rBest.top, rBest.width(), rBest.height());
 //       //
 //       //      }
 //       //
@@ -4878,17 +4878,17 @@ namespace windowing_kde5
 //    //
 //    //      ::int_rectangle rWindow;
 //    //
-//    //      rWindow.left()      = attr.x;
-//    //      rWindow.top()       = attr.y;
-//    //      rWindow.right()     = attr.x    + attr.width;
-//    //      rWindow.bottom()    = attr.y    + attr.height;
+//    //      rWindow.left      = attr.x;
+//    //      rWindow.top       = attr.y;
+//    //      rWindow.right     = attr.x    + attr.width;
+//    //      rWindow.bottom    = attr.y    + attr.height;
 //    //
 //    //      if(rBest != rWindow)
 //    //      {
 //    //
 //    //         puserinteraction->place(rBest);
 //    //
-//    //         XMoveResizeWindow(d, m_window, rBest.left(), rBest.top(), rBest.width(), rBest.height());
+//    //         XMoveResizeWindow(d, m_window, rBest.left, rBest.top, rBest.width(), rBest.height());
 //    //
 //    //      }
 //    //
@@ -6381,13 +6381,13 @@ namespace windowing_kde5
    //
    //      XTranslateCoordinates(Display(), window, windowRoot, 0, 0, &x, &y, &child);
    //
-   //      prectangle->left() = x + attrs.x;
+   //      prectangle->left = x + attrs.x;
    //
-   //      prectangle->top() = y + attrs.y;
+   //      prectangle->top = y + attrs.y;
    //
-   //      prectangle->right() = x + attrs.x + attrs.width;
+   //      prectangle->right = x + attrs.x + attrs.width;
    //
-   //      prectangle->bottom() = y + attrs.y + attrs.height;
+   //      prectangle->bottom = y + attrs.y + attrs.height;
    //
    //
    //      windowing_output_debug_string("::x11_get_window_rect 2");
@@ -6423,13 +6423,13 @@ namespace windowing_kde5
    //
    //      }
    //
-   //      prectangle->left() = 0;
+   //      prectangle->left = 0;
    //
-   //      prectangle->top() = 0;
+   //      prectangle->top = 0;
    //
-   //      prectangle->right() = prectangle->left() + attr.width;
+   //      prectangle->right = prectangle->left + attr.width;
    //
-   //      prectangle->bottom() = prectangle->top() + attr.height;
+   //      prectangle->bottom = prectangle->top + attr.height;
    //
    //      windowing_output_debug_string("::this->rectangle 2");
    //
@@ -6958,8 +6958,8 @@ namespace windowing_kde5
    // //
    // //      window_rectangle(msg.oswindow, &r);
    // //
-   // //      int l1 = r.left();
-   // //      int t1 = r.top();
+   // //      int l1 = r.left;
+   // //      int t1 = r.top;
    // //      int w1 = r.width();
    // //      int h1 = r.height();
    //
@@ -8024,10 +8024,10 @@ namespace windowing_kde5
    //    //
    //    //       ::int_rectangle r;
    //    //
-   //    //       r.left()  = attrs.x;
-   //    //       r.top()  = attrs.y;
-   //    //       r.right()  = attrs.x + attrs.width;
-   //    //       r.bottom()  = attrs.y + attrs.height;
+   //    //       r.left  = attrs.x;
+   //    //       r.top  = attrs.y;
+   //    //       r.right  = attrs.x + attrs.width;
+   //    //       r.bottom  = attrs.y + attrs.height;
    //    //
    //    //    }
    //    //

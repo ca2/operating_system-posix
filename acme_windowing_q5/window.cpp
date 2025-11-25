@@ -253,8 +253,8 @@ namespace q5
    //
    //          xcb_window_t window = xcb_generate_id(m_pdisplay->m_pconnection);
    //
-   //          int x = m_pacmeuserinteraction->m_rectangle.left();
-   //          int y = m_pacmeuserinteraction->m_rectangle.top();
+   //          int x = m_pacmeuserinteraction->m_rectangle.left;
+   //          int y = m_pacmeuserinteraction->m_rectangle.top;
    //          int cx = m_pacmeuserinteraction->m_rectangle.width();
    //          int cy = m_pacmeuserinteraction->m_rectangle.height();
    //
@@ -362,9 +362,9 @@ namespace q5
 
             auto r = m_pacmeuserinteraction->get_rectangle();
 
-            int x = r.left();
+            int x = r.left;
 
-            int y = r.top();
+            int y = r.top;
 
             int cx = r.width();
 
@@ -756,13 +756,13 @@ namespace q5
       //
       //       }
       //
-      //       m_pacmeuserinteraction->m_rectangle.left() = pconfigure->x;
+      //       m_pacmeuserinteraction->m_rectangle.left = pconfigure->x;
       //
-      //       m_pacmeuserinteraction->m_rectangle.top() = pconfigure->y;
+      //       m_pacmeuserinteraction->m_rectangle.top = pconfigure->y;
       //
-      //       m_pacmeuserinteraction->m_rectangle.right() = pconfigure->x + pconfigure->width;
+      //       m_pacmeuserinteraction->m_rectangle.right = pconfigure->x + pconfigure->width;
       //
-      //       m_pacmeuserinteraction->m_rectangle.bottom() = pconfigure->y + pconfigure->height;
+      //       m_pacmeuserinteraction->m_rectangle.bottom = pconfigure->y + pconfigure->height;
       //
       //       if (m_psurface)
       //       {
@@ -1338,10 +1338,10 @@ namespace q5
       //
       //    _get_geometry(&geometry);
       //
-      //    rectangle.left() = 0;
-      //    rectangle.top() = 0;
-      //    rectangle.right() = geometry.width;
-      //    rectangle.bottom() = geometry.height;
+      //    rectangle.left = 0;
+      //    rectangle.top = 0;
+      //    rectangle.right = geometry.width;
+      //    rectangle.bottom = geometry.height;
       //
       // }
 
@@ -1361,10 +1361,10 @@ namespace q5
          //
          // _get_geometry(&geometry);
          //
-         // rectangle.left() = geometry.x;
-         // rectangle.top() = geometry.y;
-         // rectangle.right() = geometry.x + geometry.width;
-         // rectangle.bottom() = geometry.y + geometry.height;
+         // rectangle.left = geometry.x;
+         // rectangle.top = geometry.y;
+         // rectangle.right = geometry.x + geometry.width;
+         // rectangle.bottom = geometry.y + geometry.height;
 
       }
 

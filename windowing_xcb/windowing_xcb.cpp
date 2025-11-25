@@ -1357,13 +1357,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   }
 //
-//   prectangle->left() = 0;
+//   prectangle->left = 0;
 //
-//   prectangle->top() = 0;
+//   prectangle->top = 0;
 //
-//   prectangle->right() = prectangle->left() + attr.width;
+//   prectangle->right = prectangle->left + attr.width;
 //
-//   prectangle->bottom() = prectangle->top() + attr.height;
+//   prectangle->bottom = prectangle->top + attr.height;
 //
 //   windowing_output_debug_string("::this->rectangle 2");
 //
@@ -1402,13 +1402,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   XTranslateCoordinates( d, window, windowRoot, 0, 0, &x, &y, &child );
 //
-//   prectangle->left()      = x + attrs.x;
+//   prectangle->left      = x + attrs.x;
 //
-//   prectangle->top()       = y + attrs.y;
+//   prectangle->top       = y + attrs.y;
 //
-//   prectangle->right()     = x + attrs.x    + attrs.width;
+//   prectangle->right     = x + attrs.x    + attrs.width;
 //
-//   prectangle->bottom()    = y + attrs.y    + attrs.height;
+//   prectangle->bottom    = y + attrs.y    + attrs.height;
 //
 //
 //

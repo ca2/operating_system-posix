@@ -425,8 +425,8 @@ namespace gtk3
 //
 //               attr.override_redirect = False;
 //
-//               int x = m_pinterface->m_rectangle.left();
-//               int y = m_pinterface->m_rectangle.top();
+//               int x = m_pinterface->m_rectangle.left;
+//               int y = m_pinterface->m_rectangle.top;
 //               int w = m_pinterface->m_rectangle.width();
 //               int h = m_pinterface->m_rectangle.height();
 //
@@ -1136,13 +1136,13 @@ namespace gtk3
 //            if (event_type == ConfigureNotify)
 //            {
 //
-//               m_pinterface->m_rectangle.left() = pevent->xconfigure.x;
+//               m_pinterface->m_rectangle.left = pevent->xconfigure.x;
 //
-//               m_pinterface->m_rectangle.top() = pevent->xconfigure.y;
+//               m_pinterface->m_rectangle.top = pevent->xconfigure.y;
 //
-//               m_pinterface->m_rectangle.right() = pevent->xconfigure.x + pevent->xconfigure.width;
+//               m_pinterface->m_rectangle.right = pevent->xconfigure.x + pevent->xconfigure.width;
 //
-//               m_pinterface->m_rectangle.bottom() = pevent->xconfigure.y + pevent->xconfigure.height;
+//               m_pinterface->m_rectangle.bottom = pevent->xconfigure.y + pevent->xconfigure.height;
 //
 //               if (m_psurface)
 //               {
@@ -1446,8 +1446,8 @@ namespace gtk3
 //         void window::get_client_rectangle(::int_rectangle & rectangle)
 //         {
 //
-//            rectangle.left() = 0;
-//            rectangle.top() = 0;
+//            rectangle.left = 0;
+//            rectangle.top = 0;
 //
 //            Window windowRoot = 0;
 //            int x = 0;
@@ -1467,8 +1467,8 @@ namespace gtk3
 //
 //            }
 //
-//            rectangle.right() = w;
-//            rectangle.bottom() = h;
+//            rectangle.right = w;
+//            rectangle.bottom = h;
 //
 //
 //         }

@@ -587,10 +587,10 @@ namespace kde5
          //            //printf("::x11::display::init_task pscreen=%" PRIxPTR "\n", pscreen);
          //            //printf("::x11::display::init_task (wScreen,hScreen)=%d,%d\n", wScreen, hScreen);
          //
-         //            //rectangleMainScreen.left() = 0;
-         //            //rectangleMainScreen.top() = 0;
-         //            //rectangleMainScreen.right() = wScreen;
-         //            //rectangleMainScreen.bottom() = hScreen;
+         //            //rectangleMainScreen.left = 0;
+         //            //rectangleMainScreen.top = 0;
+         //            //rectangleMainScreen.right = wScreen;
+         //            //rectangleMainScreen.bottom = hScreen;
          //
          //            //operating_system_set_main_screen_rectangle(rectangleMainScreen);
          //

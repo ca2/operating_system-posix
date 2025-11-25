@@ -675,8 +675,8 @@ namespace nano
             information() << "xdg_positioner_set_anchor_rect : " << rectangleAnchor;
 
             xdg_positioner_set_anchor_rect(m_pxdgpositioner,
-                                    rectangleAnchor.left(),
-                                    rectangleAnchor.top(),
+                                    rectangleAnchor.left,
+                                    rectangleAnchor.top,
                                     rectangleAnchor.width(),
                                     rectangleAnchor.height());
 
@@ -1172,8 +1172,8 @@ namespace nano
          ////
          ////      window_rectangle(msg.oswindow, &r);
          ////
-         ////      int l1 = r.left();
-         ////      int t1 = r.top();
+         ////      int l1 = r.left;
+         ////      int t1 = r.top;
          ////      int w1 = r.width();
          ////      int h1 = r.height();
          //

@@ -469,10 +469,10 @@ namespace windowing_gtk3
             //int height = gtk_widget_get_allocated_height(widget);
             int width = m_sizeWindow.cx();
             int height = m_sizeWindow.cy();
-            r.left() = 0;
-            r.top() = 0;
-            r.right() = width;
-            r.bottom() = height;
+            r.left = 0;
+            r.top = 0;
+            r.right = width;
+            r.bottom = height;
             ///pgraphics->fill_solid_rectangle(r, argb(0, 0, 0, 0));
             pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
             ::image::image_source imagesource(pitem->m_pimage2, r);
@@ -488,10 +488,10 @@ namespace windowing_gtk3
 
          // ::double_rectangle r;
          //
-         // r.left() = 10;
-         // r.top() = 10;
-         // r.right() = 80;
-         // r.bottom() = 80;
+         // r.left = 10;
+         // r.top = 10;
+         // r.right = 80;
+         // r.bottom = 80;
          //
          // pgraphics->fill_solid_rectangle(r, argb(1.0,0.1, 0.5, 0.8 ));
 
@@ -3283,17 +3283,17 @@ namespace windowing_gtk3
       //
       //      ::int_rectangle rWindow;
       //
-      //      rWindow.left() = attr.x;
-      //      rWindow.top() = attr.y;
-      //      rWindow.right() = attr.x + attr.width;
-      //      rWindow.bottom() = attr.y + attr.height;
+      //      rWindow.left = attr.x;
+      //      rWindow.top = attr.y;
+      //      rWindow.right = attr.x + attr.width;
+      //      rWindow.bottom = attr.y + attr.height;
       //
       //      if (rBest != rWindow)
       //      {
       //
       //         m_pwindow->puserinteraction->place(rBest);
       //
-      //         XMoveResizeWindow(Display(), Window(), rBest.left(), rBest.top(), rBest.width(), rBest.height());
+      //         XMoveResizeWindow(Display(), Window(), rBest.left, rBest.top, rBest.width(), rBest.height());
       //
       //      }
       //
@@ -3795,17 +3795,17 @@ namespace windowing_gtk3
    //
    //      ::int_rectangle rWindow;
    //
-   //      rWindow.left()      = attr.x;
-   //      rWindow.top()       = attr.y;
-   //      rWindow.right()     = attr.x    + attr.width;
-   //      rWindow.bottom()    = attr.y    + attr.height;
+   //      rWindow.left      = attr.x;
+   //      rWindow.top       = attr.y;
+   //      rWindow.right     = attr.x    + attr.width;
+   //      rWindow.bottom    = attr.y    + attr.height;
    //
    //      if(rBest != rWindow)
    //      {
    //
    //         m_pwindow->puserinteraction->place(rBest);
    //
-   //         XMoveResizeWindow(d, m_window, rBest.left(), rBest.top(), rBest.width(), rBest.height());
+   //         XMoveResizeWindow(d, m_window, rBest.left, rBest.top, rBest.width(), rBest.height());
    //
    //      }
    //
@@ -5540,13 +5540,13 @@ namespace windowing_gtk3
    //
    //      XTranslateCoordinates(Display(), window, windowRoot, 0, 0, &x, &y, &child);
    //
-   //      prectangle->left() = x + attrs.x;
+   //      prectangle->left = x + attrs.x;
    //
-   //      prectangle->top() = y + attrs.y;
+   //      prectangle->top = y + attrs.y;
    //
-   //      prectangle->right() = x + attrs.x + attrs.width;
+   //      prectangle->right = x + attrs.x + attrs.width;
    //
-   //      prectangle->bottom() = y + attrs.y + attrs.height;
+   //      prectangle->bottom = y + attrs.y + attrs.height;
    //
    //
    //      windowing_output_debug_string("::x11_get_window_rect 2");
@@ -5582,13 +5582,13 @@ namespace windowing_gtk3
    //
    //      }
    //
-   //      prectangle->left() = 0;
+   //      prectangle->left = 0;
    //
-   //      prectangle->top() = 0;
+   //      prectangle->top = 0;
    //
-   //      prectangle->right() = prectangle->left() + attr.width;
+   //      prectangle->right = prectangle->left + attr.width;
    //
-   //      prectangle->bottom() = prectangle->top() + attr.height;
+   //      prectangle->bottom = prectangle->top + attr.height;
    //
    //      windowing_output_debug_string("::this->rectangle 2");
    //
@@ -6286,8 +6286,8 @@ namespace windowing_gtk3
    // //
    // //      window_rectangle(msg.oswindow, &r);
    // //
-   // //      int l1 = r.left();
-   // //      int t1 = r.top();
+   // //      int l1 = r.left;
+   // //      int t1 = r.top;
    // //      int w1 = r.width();
    // //      int h1 = r.height();
    //
@@ -7032,11 +7032,11 @@ namespace windowing_gtk3
 
       information() << "gtk3::acme::windowing::window::_on_configure_default " << r;
 
-      _017_on_window_configure_immediate(r.left(), r.top(), r.width(), r.height());
+      _017_on_window_configure_immediate(r.left, r.top, r.width(), r.height());
 
       // _set_configure_unlocked_timer();
 
-      _017_on_window_configure_delayed(r.left(), r.top(), r.width(), r.height());
+      _017_on_window_configure_delayed(r.left, r.top, r.width(), r.height());
 
    }
 
@@ -7079,7 +7079,7 @@ namespace windowing_gtk3
 
             __m_iAttemptToSetPosition++;
 
-            gtk_window_move(GTK_WINDOW(m_pgtkwidget), __m_rectangleRequest.left(), __m_rectangleRequest.top());
+            gtk_window_move(GTK_WINDOW(m_pgtkwidget), __m_rectangleRequest.left, __m_rectangleRequest.top);
 
             __bStillTryingToSetGeometry = true;
 
@@ -7090,11 +7090,11 @@ namespace windowing_gtk3
       if (!__bStillTryingToSetGeometry)
       {
 
-         _017_on_window_configure_immediate(r.left(), r.top(), r.width(), r.height());
+         _017_on_window_configure_immediate(r.left, r.top, r.width(), r.height());
 
          // _set_configure_unlocked_timer();
 
-         _017_on_window_configure_delayed(r.left(), r.top(), r.width(), r.height());
+         _017_on_window_configure_delayed(r.left, r.top, r.width(), r.height());
 
       }
 

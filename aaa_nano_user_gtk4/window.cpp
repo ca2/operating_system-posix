@@ -674,8 +674,8 @@ namespace gtk4
 //            if (pinterchange)
 //            {
 //
-//               pinterchange->m_rectangle.left() = pconfigurehappening->x;
-//               pinterchange->m_rectangle.top() = pconfigurehappening->y;
+//               pinterchange->m_rectangle.left = pconfigurehappening->x;
+//               pinterchange->m_rectangle.top = pconfigurehappening->y;
 //               pinterchange->m_rectangle.set_size(
 //                  {(int) pconfigurehappening->width, (int) pconfigurehappening->height});
 //

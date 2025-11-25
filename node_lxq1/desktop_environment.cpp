@@ -97,10 +97,10 @@
 //
 //       pscreen->geometry().getCoords(&left, &top, &right, &bottom);
 //
-//       prectangle->left()     = left;
-//       prectangle->top()      = top;
-//       prectangle->right()    = right + 1;
-//       prectangle->bottom()   = bottom + 1;
+//       prectangle->left     = left;
+//       prectangle->top      = top;
+//       prectangle->right    = right + 1;
+//       prectangle->bottom   = bottom + 1;
 //
 //       return ::success;
 //
@@ -137,10 +137,10 @@
 //
 //       pscreen->availableGeometry().getCoords(&left, &top, &right, &bottom);
 //
-//       prectangle->left()     = left;
-//       prectangle->top()      = top;
-//       prectangle->right()    = right + 1;
-//       prectangle->bottom()   = bottom + 1;
+//       prectangle->left     = left;
+//       prectangle->top      = top;
+//       prectangle->right    = right + 1;
+//       prectangle->bottom   = bottom + 1;
 //
 //       return ::success;
 //
