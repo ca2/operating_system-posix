@@ -104,18 +104,18 @@
 //         }
 //
 //
-//         void window::set_window_width(int iWidth) // m_sizeWindow.cx()
+//         void window::set_window_width(int iWidth) // m_sizeWindow.cx
 //         {
 //
-//            m_sizeWindow.cx() = iWidth;
+//            m_sizeWindow.cx = iWidth;
 //
 //         }
 //
 //
-//         void window::set_window_height(int iHeight) // m_sizeWindow.cy()
+//         void window::set_window_height(int iHeight) // m_sizeWindow.cy
 //         {
 //
-//            m_sizeWindow.cy() = iHeight;
+//            m_sizeWindow.cy = iHeight;
 //
 //         }
 //
@@ -381,8 +381,8 @@
 //
 //                         //m_pointWindow.x() = m_pinterface->m_rectangle.left;
 //                         //m_pointWindow.y() = m_pinterface->m_rectangle.top;
-//                         //m_sizeWindow.cx() = m_pinterface->m_rectangle.width();
-//                         //m_sizeWindow.cy() = m_pinterface->m_rectangle.height();
+//                         //m_sizeWindow.cx = m_pinterface->m_rectangle.width();
+//                         //m_sizeWindow.cy = m_pinterface->m_rectangle.height();
 //
 //m_pointWindow = m_pinterface->m_rectangle.top_left();
 //                         m_sizeWindow = m_pinterface->m_rectangle.size();
@@ -1153,8 +1153,8 @@
 //         //
 //         ////      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
 //         ////      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
-//         ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
-//         ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
+//         ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
+//         ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
 //         ////
 //         ////      ::int_rectangle r;
 //         ////
@@ -1366,8 +1366,8 @@
 //         //
 //         ////      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
 //         ////      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
-//         ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
-//         ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
+//         ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
+//         ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
 //         ////
 //         ////      ::int_rectangle r;
 //         ////
@@ -1756,8 +1756,8 @@
 //         //    //
 //         //    ////      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
 //         //    ////      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
-//         //    ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
-//         //    ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
+//         //    ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
+//         //    ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
 //         //    ////
 //         //    ////      ::int_rectangle r;
 //         //    ////

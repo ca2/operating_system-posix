@@ -131,7 +131,7 @@ namespace windowing_xcb
 //
 //      //m_mem.m_bAligned = true;
 //
-//      m_mem.set_size((m_iGoodStride * size.cy()) * sizeof(color32_t));
+//      m_mem.set_size((m_iGoodStride * size.cy) * sizeof(color32_t));
 //
 //      m_pixmap.init(size, (color32_t *) m_mem.get_data(), m_iGoodStride);
 //
@@ -213,7 +213,7 @@ namespace windowing_xcb
 
       }
 
-      map_shared_memory(size.cx() * size.cy() * 4);
+      map_shared_memory(size.cx * size.cy * 4);
 
    }
 
@@ -227,36 +227,36 @@ namespace windowing_xcb
 
       auto sizeLargeInternalBitmap = pdisplay->get_monitor_union_rectangle().size();
 
-      if (pbufferitem->m_size.cx() > sizeLargeInternalBitmap.cx())
+      if (pbufferitem->m_size.cx > sizeLargeInternalBitmap.cx)
       {
 
-         sizeLargeInternalBitmap.cx() = pbufferitem->m_size.cx();
+         sizeLargeInternalBitmap.cx = pbufferitem->m_size.cx;
 
       }
 
-      if (pbufferitem->m_size.cy() > sizeLargeInternalBitmap.cy())
+      if (pbufferitem->m_size.cy > sizeLargeInternalBitmap.cy)
       {
 
-         sizeLargeInternalBitmap.cy() = pbufferitem->m_size.cy();
+         sizeLargeInternalBitmap.cy = pbufferitem->m_size.cy;
 
       }
 
-      if (pbufferitem->m_sizeInternal.cx() > sizeLargeInternalBitmap.cx())
+      if (pbufferitem->m_sizeInternal.cx > sizeLargeInternalBitmap.cx)
       {
 
-         sizeLargeInternalBitmap.cx() = pbufferitem->m_sizeInternal.cx();
+         sizeLargeInternalBitmap.cx = pbufferitem->m_sizeInternal.cx;
 
       }
 
-      if (pbufferitem->m_sizeInternal.cy() > sizeLargeInternalBitmap.cy())
+      if (pbufferitem->m_sizeInternal.cy > sizeLargeInternalBitmap.cy)
       {
 
-         sizeLargeInternalBitmap.cy() = pbufferitem->m_sizeInternal.cy();
+         sizeLargeInternalBitmap.cy = pbufferitem->m_sizeInternal.cy;
 
       }
 
-      if (pbufferitem->m_sizeInternal.cx() < sizeLargeInternalBitmap.cx()
-          || pbufferitem->m_sizeInternal.cy() < sizeLargeInternalBitmap.cy())
+      if (pbufferitem->m_sizeInternal.cx < sizeLargeInternalBitmap.cx
+          || pbufferitem->m_sizeInternal.cy < sizeLargeInternalBitmap.cy)
       {
 
          _map_shared_memory(sizeLargeInternalBitmap);
@@ -629,9 +629,9 @@ namespace windowing_xcb
 
 //      m_memoryImage.set_size(pimage->scan_area_in_bytes());
 //
-//      m_sizeImage.cx() = pimage->width();
+//      m_sizeImage.cx = pimage->width();
 //
-//      m_sizeImage.cy() = pimage->height();
+//      m_sizeImage.cy = pimage->height();
 //
 //      memory_copy(m_memoryImage.data(), pimage->data(), m_memoryImage.size());
 
@@ -718,10 +718,10 @@ namespace windowing_xcb
 
          auto sizeInternal = pitem->m_sizeInternal;
 
-         if (m_sizeXcbShm.cx() != sizeInternal.cx()
-             || m_sizeXcbShm.cy() != sizeInternal.cy())
-            //  || m_pximage->width != pitem->m_sizeInternal.cx()
-            //|| m_pximage->height != pitem->m_sizeInternal.cy())
+         if (m_sizeXcbShm.cx != sizeInternal.cx
+             || m_sizeXcbShm.cy != sizeInternal.cy)
+            //  || m_pximage->width != pitem->m_sizeInternal.cx
+            //|| m_pximage->height != pitem->m_sizeInternal.cy)
          {
 
             if (m_bShmAttached)
@@ -744,8 +744,8 @@ namespace windowing_xcb
 //               ZPixmap,
 //               NULL,
 //               &m_xshmsegmentinfo,
-//               pitem->m_sizeInternal.cx(),
-//               pitem->m_sizeInternal.cy());
+//               pitem->m_sizeInternal.cx,
+//               pitem->m_sizeInternal.cy);
 
 //            m_xshmsegmentinfo.shmid = m_shmid;
 //
@@ -762,7 +762,7 @@ namespace windowing_xcb
 
                m_sizeXcbShm = sizeInternal;
 
-               pitem->m_iScan = pitem->m_sizeInternal.cx() * 4;
+               pitem->m_iScan = pitem->m_sizeInternal.cx * 4;
 
                if (m_pdisplay->m_iXcbShmCompletionTypeId < 0)
                {
@@ -823,9 +823,9 @@ namespace windowing_xcb
 
 //       auto gc = XCreateGC(m_oswindow->display(), m_oswindow->window(), 0, &gcvalues);
 
-            //int iWidth = m_sizeImage.cx();
+            //int iWidth = m_sizeImage.cx;
 
-            //int iHeight = m_sizeImage.cy();
+            //int iHeight = m_sizeImage.cy;
 
 //            int iWidth = pimage->width();
 //
@@ -853,8 +853,8 @@ namespace windowing_xcb
                pxcbconnection,
                xcbwindow,
                m_gcontext,
-               pitem->m_sizeInternal.cx(),
-               pitem->m_sizeInternal.cy(),
+               pitem->m_sizeInternal.cx,
+               pitem->m_sizeInternal.cy,
                0, 0,
                sizeBitBlitting.width(),
                sizeBitBlitting.height(),
@@ -941,9 +941,9 @@ namespace windowing_xcb
 
 //       auto gc = XCreateGC(m_oswindow->display(), m_oswindow->window(), 0, &gcvalues);
 
-            //int iWidth = m_sizeImage.cx();
+            //int iWidth = m_sizeImage.cx;
 
-            //int iHeight = m_sizeImage.cy();
+            //int iHeight = m_sizeImage.cy;
 
             int iWidth = pimage->width();
 
@@ -1072,7 +1072,7 @@ namespace windowing_xcb
    bool buffer::_on_begin_draw(::graphics::buffer_item * pbufferitem)
    {
 
-////      m_iGoodStride = maximum(m_iGoodStride, window_size().cx());
+////      m_iGoodStride = maximum(m_iGoodStride, window_size().cx);
 //
 //      bitmap_source_buffer::on_begin_draw();
 //

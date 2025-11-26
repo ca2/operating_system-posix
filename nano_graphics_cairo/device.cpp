@@ -37,8 +37,8 @@ cairo_surface_t * as_cairo_surface(::pixmap & pixmap)
    ::pixmap pixmap;
 
    pixmap.m_pimage32 = (::image32_t *) cairo_image_surface_get_data(psurface);
-   pixmap.m_sizeRaw.cx() = cairo_image_surface_get_width(psurface);
-   pixmap.m_sizeRaw.cy() = cairo_image_surface_get_height(psurface);
+   pixmap.m_sizeRaw.cx = cairo_image_surface_get_width(psurface);
+   pixmap.m_sizeRaw.cy = cairo_image_surface_get_height(psurface);
    pixmap.m_iScan = cairo_image_surface_get_stride(psurface);
 
    pixmap.map(pixmap.m_sizeRaw);
@@ -178,7 +178,7 @@ namespace cairo
             if(cairo_surface_get_type(m_psurfaceMemory) == CAIRO_SURFACE_TYPE_XLIB)
             {
 
-               cairo_xlib_surface_set_size(m_psurfaceMemory, size.cx(), size.cy());
+               cairo_xlib_surface_set_size(m_psurfaceMemory, size.cx, size.cy);
 
             }
             else
@@ -191,7 +191,7 @@ namespace cairo
 
                auto psurfaceNew = cairo_image_surface_create(
                        CAIRO_FORMAT_ARGB32,
-                       size.cx(), size.cy());
+                       size.cx, size.cy);
 
                auto pdcNew = cairo_create(m_psurfaceMemory);
 
@@ -438,7 +438,7 @@ cy
                   cairo_set_operator(m_pdc, CAIRO_OPERATOR_OVER);
 
                   ::cairo::draw_scaled_part_of_image(m_pdc, pcairoicon->m_pcairosurface,
-                     0., 0., sizeSource.cx(), sizeSource.cy(),
+                     0., 0., sizeSource.cx, sizeSource.cy,
                      x, y, cx, cy);
 
                }

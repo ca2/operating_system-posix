@@ -279,7 +279,7 @@ namespace windowing_xcb
 
       //::user::enum_key ekey;
 
-      //::type typeinfoKey = ::type < ::user::enum_key >();
+      //::type typeinfoKey = ::as_type < ::user::enum_key >();
 
       string str = file()->as_string(scopedstrPath);
 

@@ -218,14 +218,14 @@ namespace windowing_wayland
          //
          //         }
          //
-         //         if (pusersystem->m_createstruct.cx() <= 0)
+         //         if (pusersystem->m_createstruct.cx <= 0)
          //         {
          //
          //            cx = 1;
          //
          //         }
          //
-         //         if (pusersystem->m_createstruct.cy() <= 0)
+         //         if (pusersystem->m_createstruct.cy <= 0)
          //         {
          //
          //            cy = 1;
@@ -343,9 +343,9 @@ namespace windowing_wayland
 
          //m_pointWindowBestEffort.y() = y;
 
-         m_sizeWindow.cx() = cx;
+         m_sizeWindow.cx = cx;
 
-         m_sizeWindow.cy() = cy;
+         m_sizeWindow.cy = cy;
 
          //auto rectangleWindow = ::int_rectangle_dimension(x, y, cx, cy);
 
@@ -670,7 +670,7 @@ namespace windowing_wayland
 //                  // so requesting the same change again in a effort to set the "docked/snapped" int_size and position.
 //
 //                  //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
-//                  //                  pusersystem->m_createstruct.cx(), pusersystem->m_createstruct.cy(), SWP_SHOWWINDOW);
+//                  //                  pusersystem->m_createstruct.cx, pusersystem->m_createstruct.cy, SWP_SHOWWINDOW);
 //
 //                  set_window_position(e_zorder_top, x, y, cx, cy, ::user::e_activation_set_active, false, false, false,
 //                                      edisplay);
@@ -881,9 +881,9 @@ namespace windowing_wayland
 //
 //      information() << "windowing_wayland::window::__map";
 //
-//      ::minimum(m_sizeConfigure.cx());
+//      ::minimum(m_sizeConfigure.cx);
 //
-//      ::minimum(m_sizeConfigure.cy());
+//      ::minimum(m_sizeConfigure.cy);
 //
 //      m_bDoneFirstMapping = false;
 //
@@ -1064,9 +1064,9 @@ namespace windowing_wayland
 //
 //      auto y = m_pointWindow.y();
 //
-//      auto cx = m_sizeWindow.cx();
+//      auto cx = m_sizeWindow.cx;
 //
-//      auto cy = m_sizeWindow.cy();
+//      auto cy = m_sizeWindow.cy;
 //
 //      if (m_pxdgsurface)
 //      {
@@ -4244,8 +4244,8 @@ namespace windowing_wayland
          if (bSize)
          {
 
-            m_sizeWindow.cx() = cx;
-            m_sizeWindow.cy() = cy;
+            m_sizeWindow.cx = cx;
+            m_sizeWindow.cy = cy;
 
          }
 
@@ -6041,8 +6041,8 @@ namespace windowing_wayland
 
 //      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
 //      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
-//      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
-//      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
+//      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
+//      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
 //
 //      ::int_rectangle r;
 //
@@ -6223,17 +6223,17 @@ namespace windowing_wayland
 //
 //         << "__handle_xdg_toplevel_configure input size : " << size;
 //
-//      if(size.cx() > 0)
+//      if(size.cx > 0)
 //      {
 //
-//         m_sizeWindow.cx() = size.cx();
+//         m_sizeWindow.cx = size.cx;
 //
 //      }
 //
-//      if(size.cy() > 0)
+//      if(size.cy > 0)
 //      {
 //
-//         m_sizeWindow.cy() = size.cy();
+//         m_sizeWindow.cy = size.cy;
 //
 //      }
 //
@@ -6665,8 +6665,8 @@ namespace windowing_wayland
       return m_pwindow->m_puserinteraction;
 
    }
-   //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx()
-   //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy()
+   //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx
+   //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy
    //virtual ::int_size get_window_size() = 0; // m_sizeWindow
    void window::set_interface_client_size(const ::int_size & sizeWindow) // set_size
    {

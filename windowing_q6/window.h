@@ -550,8 +550,8 @@ namespace windowing_q6
       // //      virtual void __handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t state);
       // //      virtual void __handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group);
       // //::particle * get_interface_client_particle() override; // m_pwindow->m_puserinteraction
-      // //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx()
-      // //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy()
+      // //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx
+      // //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy
       // //virtual ::int_size get_window_size() = 0; // m_sizeWindow
       // // virtual void set_interface_client_size(const ::int_size & sizeWindow) override; // set_size
       // //

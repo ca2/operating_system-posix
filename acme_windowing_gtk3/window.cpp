@@ -699,8 +699,8 @@ return FALSE;
 
             int x = m_pointWindow.x();
             int y = m_pointWindow.y();
-            int cx = m_sizeWindow.cx();
-            int cy = m_sizeWindow.cy();
+            int cx = m_sizeWindow.cx;
+            int cy = m_sizeWindow.cy;
 
             if(cx <= 0)
             {
@@ -737,8 +737,8 @@ return FALSE;
             // Enable transparency by setting the window as app-paintable
             gtk_widget_set_app_paintable(m_pgtkwidget, TRUE);
 
-            //int w = m_pwindow->m_puserinteraction->const_layout().sketch().size().cx();
-            //int h = m_pwindow->m_puserinteraction->const_layout().sketch().size().cy();
+            //int w = m_pwindow->m_puserinteraction->const_layout().sketch().size().cx;
+            //int h = m_pwindow->m_puserinteraction->const_layout().sketch().size().cy;
 
             //cx = maximum(cx, 300);
             //cy = maximum(cy, 300);
@@ -1996,7 +1996,7 @@ m_phappeningLastMouseUp = pevent;
 
             }
 
-            gtk_window_resize(GTK_WINDOW(m_pgtkwidget), size.cx(), size.cy());
+            gtk_window_resize(GTK_WINDOW(m_pgtkwidget), size.cx, size.cy);
 
          }
 

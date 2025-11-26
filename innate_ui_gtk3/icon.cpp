@@ -61,7 +61,7 @@ namespace innate_ui_gtk3
       // Convert GdkPixbuf to GdkPaintable
       //pixbuf;
 
-      m_pgdkpixbuf = gdk_pixbuf_scale_simple(pixbuf, m_size.cx(), m_size.cy(), GDK_INTERP_BILINEAR);
+      m_pgdkpixbuf = gdk_pixbuf_scale_simple(pixbuf, m_size.cx, m_size.cy, GDK_INTERP_BILINEAR);
 
       // Free the original GdkPixbuf since it's no longer needed
       g_object_unref(pixbuf);

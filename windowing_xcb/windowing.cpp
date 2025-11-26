@@ -1031,7 +1031,7 @@ namespace windowing_xcb
 //                              (throttling.m_pointMouseMoveSkip.y() - throttling.m_pointMouseMove.y()));
 //
 //                           if (!throttling.m_timeMouseMoveSkip.timeout(throttling.m_timeMouseMovePeriod)
-//                               && sizeDistance.cx() * sizeDistance.cx() + sizeDistance.cy() * sizeDistance.cy() <
+//                               && sizeDistance.cx * sizeDistance.cx + sizeDistance.cy * sizeDistance.cy <
 //                                                                    throttling.m_iMouseMoveSkipSquareDistance)
 //                           {
 //
@@ -2047,7 +2047,7 @@ if(bSentResponse)
                informationf("XCB_BUTTON_PRESS %d,%d window %d,%d %d,%d",
                            pbutton->root_x, pbutton->root_y,
                            origin.x(), origin.y(),
-                           origin.x() + size.cx(), origin.y() + size.cy());
+                           origin.x() + size.cx, origin.y() + size.cy);
 
 
             }
@@ -2084,7 +2084,7 @@ if(bSentResponse)
                informationf("XCB_BUTTON_RELEASE %d,%d window %d,%d %d,%d",
                            pbutton->root_x, pbutton->root_y,
                            origin.x(), origin.y(),
-                           origin.x() + size.cx(), origin.y() + size.cy());
+                           origin.x() + size.cx, origin.y() + size.cy);
 
 
             }

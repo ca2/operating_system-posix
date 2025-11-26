@@ -425,7 +425,7 @@ gtk_im_context_commit (
 
          //pgraphics->set_text_color(::color::white);
          //::string strSize;
-         //strSize.formatf("Size: %d, %d\nSizeOnSize: %d, %d", width, height, m_sizeOnSize.cx(), m_sizeOnSize.cy());
+         //strSize.formatf("Size: %d, %d\nSizeOnSize: %d, %d", width, height, m_sizeOnSize.cx, m_sizeOnSize.cy);
          //pgraphics->text_out({10, 10}, strSize);
 
          pgraphics->detach();
@@ -667,8 +667,8 @@ gtk_im_context_commit (
       //       // Get the default pointer device (e.g., mouse)
       //       GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
       //
-      //       m_pointCursor2.x() = m_sizeOnSize.cx()/2;
-      //       m_pointCursor2.y() = m_sizeOnSize.cy()/2;
+      //       m_pointCursor2.x() = m_sizeOnSize.cx/2;
+      //       m_pointCursor2.y() = m_sizeOnSize.cy/2;
       //
       //
       //       pmouse->m_pointHost = m_pointCursor2;
@@ -707,8 +707,8 @@ gtk_im_context_commit (
       //
       //
       //       // //m_bPendingStartMove = true;
-      //       // int a = m_sizeOnSize.cx()/2;
-      //       // int b = m_sizeOnSize.cy()/2;
+      //       // int a = m_sizeOnSize.cx/2;
+      //       // int b = m_sizeOnSize.cy/2;
       //       //
       //       // // Simulate a "pressed" signal on GtkGestureClick
       //       // g_signal_emit_by_name(m_pgtkgestureClick, "pressed", 1, a, b);  // Simulating a left-click at position (100, 100)
@@ -756,8 +756,8 @@ gtk_im_context_commit (
       //       // Get the default pointer device (e.g., mouse)
       //       GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
       //
-      //       m_pointCursor2.x() = m_sizeOnSize.cx()/2;
-      //       m_pointCursor2.y() = m_sizeOnSize.cy()/2;
+      //       m_pointCursor2.x() = m_sizeOnSize.cx/2;
+      //       m_pointCursor2.y() = m_sizeOnSize.cy/2;
       //
       //
       //       pmouse->m_pointHost = m_pointCursor2;
@@ -845,8 +845,8 @@ gtk_im_context_commit (
       //    {
       //
       //
-      //       m_pointCursor2.x() = m_sizeOnSize.cx()/2;
-      //       m_pointCursor2.y() = m_sizeOnSize.cy()/2;
+      //       m_pointCursor2.x() = m_sizeOnSize.cx/2;
+      //       m_pointCursor2.y() = m_sizeOnSize.cy/2;
       //
       //
       //       pmouse->m_pointHost = m_pointCursor2;
@@ -1059,8 +1059,8 @@ gtk_im_context_commit (
 //            gtk_gesture_set_state(GTK_GESTURE (pcontroller), GTK_EVENT_SEQUENCE_CLAIMED);
 //
 //
-//            m_pointCursor2.x() = m_sizeOnSize.cx() / 2;
-//            m_pointCursor2.y() = m_sizeOnSize.cy() / 2;
+//            m_pointCursor2.x() = m_sizeOnSize.cx / 2;
+//            m_pointCursor2.y() = m_sizeOnSize.cy / 2;
 //
 //            GdkEvent * happening = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(pcontroller));
 //            guint32 timestamp = gdk_event_get_time(happening);
@@ -2477,7 +2477,7 @@ on_text(scopedstr, scopedstr.size());
 //         if (xd)
 //         {
 //
-//            XMoveResizeWindow(xd, xw, (int) point.x(), (int) point.y(), (int) size.cx(), (int) size.cy());
+//            XMoveResizeWindow(xd, xw, (int) point.x(), (int) point.y(), (int) size.cx, (int) size.cy);
 //
 //         }
 //
@@ -2498,7 +2498,7 @@ on_text(scopedstr, scopedstr.size());
 //         if (xd)
 //         {
 //
-//            XResizeWindow(xd, xw, (int) size.cx(), (int) size.cy());
+//            XResizeWindow(xd, xw, (int) size.cx, (int) size.cy);
 //
 //         }
 //

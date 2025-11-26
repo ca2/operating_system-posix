@@ -31,8 +31,8 @@ namespace windowing_kde5
 //
 //    auto pcursor = øcreate_new< ::windowing_kde5::cursor>();
 //
-//    pcursor->m_szHotspotOffset.cx() = xHotSpot;
-//    pcursor->m_szHotspotOffset.cy() = yHotSpot;
+//    pcursor->m_szHotspotOffset.cx = xHotSpot;
+//    pcursor->m_szHotspotOffset.cy = yHotSpot;
 //    pcursor->m_pimage = pimage;
 //    //update_wayland_buffer(pcursor->m_waylandbuffer, pimage);
 //

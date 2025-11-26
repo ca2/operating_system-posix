@@ -1200,7 +1200,7 @@ namespace q5
          void window::set_size_unlocked(const ::int_size & size)
          {
 
-           m_pqwidget->resize(size.cx(), size.cy());
+           m_pqwidget->resize(size.cx, size.cy);
 
          }
 
@@ -1717,8 +1717,8 @@ m_pqwidget->move(p);
           //    gtk_gesture_set_state (GTK_GESTURE (pcontroller), GTK_EVENT_SEQUENCE_CLAIMED);
           //
           //
-          //    m_pointCursor2.x() = m_sizeOnSize.cx()/2;
-          //    m_pointCursor2.y() = m_sizeOnSize.cy()/2;
+          //    m_pointCursor2.x() = m_sizeOnSize.cx/2;
+          //    m_pointCursor2.y() = m_sizeOnSize.cy/2;
           //
           //    GdkEvent *happening = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(pcontroller));
           //    guint32 timestamp = gdk_event_get_time(happening);

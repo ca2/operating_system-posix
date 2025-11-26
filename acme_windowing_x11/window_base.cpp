@@ -92,7 +92,7 @@ namespace x11
 
             auto handle = _x11_handle();
 
-            XResizeWindow(__x11_handle(handle), size.cx(), size.cy());
+            XResizeWindow(__x11_handle(handle), size.cx, size.cy);
 
          }
 

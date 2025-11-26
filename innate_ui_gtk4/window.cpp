@@ -448,7 +448,7 @@ namespace innate_ui_gtk4
       main_send([this, size]()
       {
 
-         gtk_widget_set_size_request(m_pgtkwidget, size.cx(), size.cy());
+         gtk_widget_set_size_request(m_pgtkwidget, size.cx, size.cy);
 
       });
 
@@ -467,8 +467,8 @@ namespace innate_ui_gtk4
       //
       //       RECT r{};
       //
-      //       r.right = r.left + size.cx();
-      //       r.bottom = r.top + size.cy();
+      //       r.right = r.left + size.cx;
+      //       r.bottom = r.top + size.cy;
       //
       //
       //       AdjustWindowRect(&r, _get_style(), FALSE);

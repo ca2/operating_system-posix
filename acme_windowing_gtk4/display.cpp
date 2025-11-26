@@ -1221,8 +1221,8 @@ namespace gtk4
       //       ////
       //       ////         wl_pointer_set_cursor(pwlpointer, serial,
       //       ////                               pwlsurfaceCursor,
-      //       ////                               pwaylandcursor->m_szHotspotOffset.cx(),
-      //       ////                               pwaylandcursor->m_szHotspotOffset.cy());
+      //       ////                               pwaylandcursor->m_szHotspotOffset.cx,
+      //       ////                               pwaylandcursor->m_szHotspotOffset.cy);
       //       ////         wl_surface_attach(pwlsurfaceCursor, pwaylandcursor->m_waylandbuffer.m_pwlbuffer, 0, 0);
       //       ////         wl_surface_damage(pwlsurfaceCursor, 0, 0, pwaylandcursor->m_pimage->width(),
       //       ////                           pwaylandcursor->m_pimage->height());
@@ -2064,9 +2064,9 @@ namespace gtk4
          //
          //    }
          //
-         //    waylandbuffer.m_size.cx() = 0;
+         //    waylandbuffer.m_size.cx = 0;
          //
-         //    waylandbuffer.m_size.cy() = 0;
+         //    waylandbuffer.m_size.cy = 0;
          //
          //    waylandbuffer.m_stride = 0;
          //
@@ -2078,9 +2078,9 @@ namespace gtk4
          //
          //    //wayland_buffer waylandbuffer{};
          //
-         //    int iNewStride = size.cx() * 4; // 4 bytes per pixel;
+         //    int iNewStride = size.cx * 4; // 4 bytes per pixel;
          //
-         //    ::memsize memsizeNew = iNewStride * size.cy();
+         //    ::memsize memsizeNew = iNewStride * size.cy;
          //
          //    if (memsizeNew > waylandbuffer.m_memsizeStorage)
          //    {
@@ -2095,7 +2095,7 @@ namespace gtk4
          //
          //       //waylandbuffer.m_stride =
          //
-         //       //waylandbuffer.m_memsize = waylandbuffer.m_stride * size.cy();
+         //       //waylandbuffer.m_memsize = waylandbuffer.m_stride * size.cy;
          //
          //       waylandbuffer.m_unistdfile.create_anonymous_file(waylandbuffer.m_memsizeStorage);
          //
@@ -2156,7 +2156,7 @@ namespace gtk4
          //    }
          //
          //    waylandbuffer.m_pwlbuffer = wl_shm_pool_create_buffer(waylandbuffer.m_pwlshmpool, 0,
-         //                                                          size.cx(), size.cy(),
+         //                                                          size.cx, size.cy,
          //                                                          waylandbuffer.m_stride,
          //                                                          WL_SHM_FORMAT_ARGB8888);
          //
@@ -2272,8 +2272,8 @@ namespace gtk4
          //    //
          //    //         wl_pointer_set_cursor(pwlpointer, serial,
          //    //                               pwlsurfaceCursor,
-         //    //                               pwaylandcursor->m_szHotspotOffset.cx(),
-         //    //                               pwaylandcursor->m_szHotspotOffset.cy());
+         //    //                               pwaylandcursor->m_szHotspotOffset.cx,
+         //    //                               pwaylandcursor->m_szHotspotOffset.cy);
          //    //         wl_surface_attach(pwlsurfaceCursor, pwaylandcursor->m_waylandbuffer.m_pwlbuffer, 0, 0);
          //    //         wl_surface_damage(pwlsurfaceCursor, 0, 0, pwaylandcursor->m_pimage->width(),
          //    //                           pwaylandcursor->m_pimage->height());

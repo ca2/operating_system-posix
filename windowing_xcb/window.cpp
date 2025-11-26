@@ -184,9 +184,9 @@ namespace windowing_xcb
 
       m_pointWindow.y() = I32_MINIMUM;
 
-      m_sizeWindow.cx() = I32_MINIMUM;
+      m_sizeWindow.cx = I32_MINIMUM;
 
-      m_sizeWindow.cy() = I32_MINIMUM;
+      m_sizeWindow.cy = I32_MINIMUM;
 
       auto & windowOrigin = m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].origin();
 
@@ -3796,9 +3796,9 @@ namespace windowing_xcb
 
       m_pointWindow.y() = y;
 
-      m_sizeWindow.cx() = cx;
+      m_sizeWindow.cx = cx;
 
-      m_sizeWindow.cy() = cy;
+      m_sizeWindow.cy = cy;
 
       m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].origin() = m_pointWindow;
 
@@ -3873,9 +3873,9 @@ namespace windowing_xcb
 
       }
 
-      m_sizeWindow.cx() = cx;
+      m_sizeWindow.cx = cx;
 
-      m_sizeWindow.cy() = cy;
+      m_sizeWindow.cy = cy;
 
       m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].size() = m_sizeWindow;
 

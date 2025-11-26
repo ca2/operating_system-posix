@@ -419,9 +419,9 @@ namespace innate_ui_gtk3
       user_send([this, size]()
          {
 
-         gtk_widget_set_size_request(m_pgtkwidget, size.cx(), size.cy());
+         gtk_widget_set_size_request(m_pgtkwidget, size.cx, size.cy);
 
-            // ::SetWindowPos(m_hwnd, nullptr, 0, 0, size.cx(), size.cy(), SWP_NOMOVE);
+            // ::SetWindowPos(m_hwnd, nullptr, 0, 0, size.cx, size.cy, SWP_NOMOVE);
             //
             // RECT rThis2;
             // ::GetWindowRect(m_hwnd, &rThis2);
@@ -445,8 +445,8 @@ namespace innate_ui_gtk3
       //
       //       RECT r{};
       //
-      //       r.right = r.left + size.cx();
-      //       r.bottom = r.top + size.cy();
+      //       r.right = r.left + size.cx;
+      //       r.bottom = r.top + size.cy;
       //
       //
       //       AdjustWindowRect(&r, _get_style(), FALSE);

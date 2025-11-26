@@ -1125,8 +1125,8 @@ namespace windowing_kde6
 //   //       auto pwindow = (::windowing_kde5::window *)p;
 //   //       auto pgtkwindow = GTK_WINDOW(pgobject);
 //   //       // The default-width property has changed
-//   //       int iWidth = pwindow->m_sizeOnSize.cx();
-//   //       int iHeight = pwindow->m_sizeOnSize.cy();
+//   //       int iWidth = pwindow->m_sizeOnSize.cx;
+//   //       int iHeight = pwindow->m_sizeOnSize.cy;
 //   //       gtk_window_get_default_size(pgtkwindow, &iWidth, &iHeight);
 //   //       pwindow->_on_size(iWidth, iHeight);
 //   //       //g_print("Default width changed to: %d\n", width);
@@ -1714,7 +1714,7 @@ namespace windowing_kde6
 //            // pgraphics->draw(imagedrawing);
 //            // pgraphics->set_text_color(::color::white);
 //            // ::string strSize;
-//            // strSize.formatf("Size: %d, %d\nSizeOnSize: %d, %d", width, height, m_sizeOnSize.cx(), m_sizeOnSize.cy());
+//            // strSize.formatf("Size: %d, %d\nSizeOnSize: %d, %d", width, height, m_sizeOnSize.cx, m_sizeOnSize.cy);
 //            // pgraphics->text_out({10, 10}, strSize);
 //            // pgraphics->detach();
 //            pbuffer->on_end_draw();
@@ -1841,9 +1841,9 @@ namespace windowing_kde6
 ////
 ////         //m_pointWindowBestEffort.y() = y;
 ////
-////         m_sizeWindow.cx() = cx;
+////         m_sizeWindow.cx = cx;
 ////
-////         m_sizeWindow.cy() = cy;
+////         m_sizeWindow.cy = cy;
 ////
 ////         //auto rectangleWindow = ::int_rectangle_dimension(x, y, cx, cy);
 ////
@@ -1923,14 +1923,14 @@ namespace windowing_kde6
 ////         //    gtk_widget_set_visual(m_pgtkwidget, visual);
 ////         // }
 ////
-////         //int w = puserinteraction->const_layout().sketch().size().cx();
-////         //int h = puserinteraction->const_layout().sketch().size().cy();
+////         //int w = puserinteraction->const_layout().sketch().size().cx;
+////         //int h = puserinteraction->const_layout().sketch().size().cy;
 ////
 ////         cx = maximum(cx, 800);
 ////         cy = maximum(cy, 400);
 ////
-////         m_sizeOnSize.cx() = cx;
-////         m_sizeOnSize.cy() = cy;
+////         m_sizeOnSize.cx = cx;
+////         m_sizeOnSize.cy = cy;
 ////
 ////         // Set window size
 ////         //       gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
@@ -2389,7 +2389,7 @@ namespace windowing_kde6
 ////         //                  // so requesting the same change again in a effort to set the "docked/snapped" int_size and position.
 ////         //
 ////         //                  //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
-////         //                  //                  pusersystem->m_createstruct.cx(), pusersystem->m_createstruct.cy(), SWP_SHOWWINDOW);
+////         //                  //                  pusersystem->m_createstruct.cx, pusersystem->m_createstruct.cy, SWP_SHOWWINDOW);
 ////         //
 ////         //                  set_window_position(e_zorder_top, x, y, cx, cy, ::user::e_activation_set_active, false, false, false,
 ////         //                                      edisplay);
@@ -2609,9 +2609,9 @@ namespace windowing_kde6
 //   //
 //   //      information() << "windowing_kde5::window::__map";
 //   //
-//   //      ::minimum(m_sizeConfigure.cx());
+//   //      ::minimum(m_sizeConfigure.cx);
 //   //
-//   //      ::minimum(m_sizeConfigure.cy());
+//   //      ::minimum(m_sizeConfigure.cy);
 //   //
 //   //      m_bDoneFirstMapping = false;
 //   //
@@ -2792,9 +2792,9 @@ namespace windowing_kde6
 //   //
 //   //      auto y = m_pointWindow.y();
 //   //
-//   //      auto cx = m_sizeWindow.cx();
+//   //      auto cx = m_sizeWindow.cx;
 //   //
-//   //      auto cy = m_sizeWindow.cy();
+//   //      auto cy = m_sizeWindow.cy;
 //   //
 //   //      if (m_pxdgsurface)
 //   //      {
@@ -6697,8 +6697,8 @@ namespace windowing_kde6
 //   //
 //   // //      int l = msg.oswindow->puserinteraction->layout().sketch().m_point.x;
 //   // //      int t = msg.oswindow->puserinteraction->layout().sketch().m_point.y;
-//   // //      int w = msg.oswindow->puserinteraction->layout().sketch().m_size.cx();
-//   // //      int h = msg.oswindow->puserinteraction->layout().sketch().m_size.cy();
+//   // //      int w = msg.oswindow->puserinteraction->layout().sketch().m_size.cx;
+//   // //      int h = msg.oswindow->puserinteraction->layout().sketch().m_size.cy;
 //   // //
 //   // //      ::int_rectangle r;
 //   // //
@@ -6879,17 +6879,17 @@ namespace windowing_kde6
 //   // //
 //   // //         << "__handle_xdg_toplevel_configure input size : " << size;
 //   // //
-//   // //      if(size.cx() > 0)
+//   // //      if(size.cx > 0)
 //   // //      {
 //   // //
-//   // //         m_sizeWindow.cx() = size.cx();
+//   // //         m_sizeWindow.cx = size.cx;
 //   // //
 //   // //      }
 //   // //
-//   // //      if(size.cy() > 0)
+//   // //      if(size.cy > 0)
 //   // //      {
 //   // //
-//   // //         m_sizeWindow.cy() = size.cy();
+//   // //         m_sizeWindow.cy = size.cy;
 //   // //
 //   // //      }
 //   // //
@@ -7575,8 +7575,8 @@ namespace windowing_kde6
 //   //    return puserinteraction;
 //   //
 //   // }
-//   //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx()
-//   //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy()
+//   //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx
+//   //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy
 //   //virtual ::int_size get_window_size() = 0; // m_sizeWindow
 //   // void window::set_interface_client_size(const ::int_size & sizeWindow) // set_size
 //   // {
@@ -7818,7 +7818,7 @@ namespace windowing_kde6
 //      //    if(xd)
 //      //    {
 //      //
-//      //       XMoveResizeWindow(xd, xw, (int)point.x(), (int)point.y(), (int) size.cx(), (int) size.cy());
+//      //       XMoveResizeWindow(xd, xw, (int)point.x(), (int)point.y(), (int) size.cx, (int) size.cy);
 //      //
 //      //    }
 //      //
@@ -7838,7 +7838,7 @@ namespace windowing_kde6
 //      //
 //      //    if(xd)
 //      //    {
-//      //       XResizeWindow(xd, xw, (int)size.cx(), (int)size.cy());
+//      //       XResizeWindow(xd, xw, (int)size.cx, (int)size.cy);
 //      //    }
 //      // }
 //      //

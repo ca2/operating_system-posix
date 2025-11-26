@@ -143,8 +143,8 @@ virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
 
 
             //virtual ::particle * get_interface_client_particle() = 0; // m_pwindow->m_puserinteraction
-            //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx()
-            //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy()
+            //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx
+            //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy
             //virtual ::int_size get_window_size() = 0; // m_sizeWindow
             void set_interface_client_size(const ::int_size & sizeWindow) override; // m_sizeWindow
 
@@ -271,8 +271,8 @@ virtual void _on_focus_changed(bool bHasFocus);
 
 
             virtual ::particle * get_interface_client_particle(); // m_pwindow->m_puserinteraction
-            virtual void set_window_width(int iWidth); // m_sizeWindow.cx()
-            virtual void set_window_height(int iHeight); // m_sizeWindow.cy()
+            virtual void set_window_width(int iWidth); // m_sizeWindow.cx
+            virtual void set_window_height(int iHeight); // m_sizeWindow.cy
             virtual ::int_size get_window_size(); // m_sizeWindow
             // virtual void set_interface_client_size(const ::int_size & sizeWindow); // m_sizeWindow
             //

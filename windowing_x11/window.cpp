@@ -218,14 +218,14 @@ namespace windowing_x11
                      //
                      //         }
                      //
-                     //         if (pusersystem->m_createstruct.cx() <= 0)
+                     //         if (pusersystem->m_createstruct.cx <= 0)
                      //         {
                      //
                      //            cx = 1;
                      //
                      //         }
                      //
-                     //         if (pusersystem->m_createstruct.cy() <= 0)
+                     //         if (pusersystem->m_createstruct.cy <= 0)
                      //         {
                      //
                      //            cy = 1;
@@ -646,7 +646,7 @@ namespace windowing_x11
                               // so requesting the same change again in a effort to set the "docked/snapped" int_size and position.
 
                               //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
-                              //                  pusersystem->m_createstruct.cx(), pusersystem->m_createstruct.cy(), SWP_SHOWWINDOW);
+                              //                  pusersystem->m_createstruct.cx, pusersystem->m_createstruct.cy, SWP_SHOWWINDOW);
 
                               set_window_position(e_zorder_top, x, y, cx, cy, ::user::e_activation_set_active, false, false,
                                                   false,
@@ -3842,9 +3842,9 @@ namespace windowing_x11
 
       m_pointWindow.y() = y;
 
-      m_sizeWindow.cx() = cx;
+      m_sizeWindow.cx = cx;
 
-      m_sizeWindow.cy() = cy;
+      m_sizeWindow.cy = cy;
 
       if (bMove)
       {

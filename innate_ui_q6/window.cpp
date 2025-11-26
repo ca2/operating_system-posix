@@ -202,7 +202,7 @@ namespace innate_ui_q6
    //       _user_send([this, size]()
    //                  {
    //
-   //                     m_pqwidget->resize(size.cx(), size.cy());
+   //                     m_pqwidget->resize(size.cx, size.cy);
    //
    //                  });
    //

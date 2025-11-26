@@ -1909,7 +1909,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                              if (
 //                                 !pinteraction->m_timeMouseMoveSkip.timeout(pinteraction->m_timeMouseMovePeriod)
-//                                 && sizeDistance.cx() * sizeDistance.cx() + sizeDistance.cy() * sizeDistance.cy() <
+//                                 && sizeDistance.cx * sizeDistance.cx + sizeDistance.cy * sizeDistance.cy <
 //                                    pinteraction->m_iMouseMoveSkipSquareDistance)
 //                              {
 //
@@ -2735,8 +2735,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 //      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
 //      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
-//      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
-//      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
+//      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
+//      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
 //
 //      ::int_rectangle r;
 //

@@ -522,9 +522,9 @@ namespace nano
 
          information() << "windowing_wayland::window::__map sizeWindow : " << m_sizeWindow;
 
-         ::minimum(m_sizeConfigure.cx());
+         ::minimum(m_sizeConfigure.cx);
 
-         ::minimum(m_sizeConfigure.cy());
+         ::minimum(m_sizeConfigure.cy);
 
          m_bDoneFirstMapping = false;
 
@@ -635,9 +635,9 @@ namespace nano
 
          int y = m_pointWindow.y();
 
-         int cx = m_sizeWindow.cx();
+         int cx = m_sizeWindow.cx;
 
-         int cy = m_sizeWindow.cy();
+         int cy = m_sizeWindow.cy;
 
          if (is_windowing_popup())
          {
@@ -656,9 +656,9 @@ namespace nano
 
             y = 0;
 
-            cx = m_sizeWindow.cx();
+            cx = m_sizeWindow.cx;
 
-            cy = m_sizeWindow.cy();
+            cy = m_sizeWindow.cy;
 
             auto sizeScreen = m_pdisplaybase->get_main_screen_size();
 
@@ -667,10 +667,10 @@ namespace nano
             ::int_rectangle rectangleAnchor;
 
             rectangleAnchor.set_dimension(
-               -sizeScreen.cx(),
-               -sizeScreen.cy(),
-               sizeScreen.cx() * 3,
-               sizeScreen.cy() * 3);
+               -sizeScreen.cx,
+               -sizeScreen.cy,
+               sizeScreen.cx * 3,
+               sizeScreen.cy * 3);
 
             information() << "xdg_positioner_set_anchor_rect : " << rectangleAnchor;
 
@@ -683,14 +683,14 @@ namespace nano
             information() << "xdg_positioner_set_offset : " << m_pointWindow;
 
             xdg_positioner_set_offset(m_pxdgpositioner,
-                                      sizeScreen.cx() + m_pointWindow.x(),
-                                      sizeScreen.cy() + m_pointWindow.y());
+                                      sizeScreen.cx + m_pointWindow.x(),
+                                      sizeScreen.cy + m_pointWindow.y());
 
             information() << "xdg_positioner_set_size : " << m_sizeWindow;
 
             xdg_positioner_set_size(m_pxdgpositioner,
-                                    m_sizeWindow.cx(),
-                                    m_sizeWindow.cy());
+                                    m_sizeWindow.cx,
+                                    m_sizeWindow.cy);
 
             information() << "xdg_positioner_set_anchor XDG_POSITIONER_ANCHOR_TOP_LEFT";
 
@@ -1165,8 +1165,8 @@ namespace nano
          //
          ////      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
          ////      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
-         ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx();
-         ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy();
+         ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
+         ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
          ////
          ////      ::int_rectangle r;
          ////
@@ -1349,17 +1349,17 @@ namespace nano
 
             << "__handle_xdg_toplevel_configure input size : " << size;
 
-         if(size.cx() > 0)
+         if(size.cx > 0)
          {
 
-            m_sizeWindow.cx() = size.cx();
+            m_sizeWindow.cx = size.cx;
 
          }
 
-         if(size.cy() > 0)
+         if(size.cy > 0)
          {
 
-            m_sizeWindow.cy() = size.cy();
+            m_sizeWindow.cy = size.cy;
 
          }
 
@@ -1470,7 +1470,7 @@ namespace nano
 
             << "_update_screen_unlocked data : "
             << (::iptr) m_buffer.m_pdata;
-         //::memory_set(pwindow->m_buffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
+         //::memory_set(pwindow->m_buffer.m_pdata, 127,pitem->m_size.cx * 4 * pitem->m_size.cy);
          //      m_pwlcallbackFrame = wl_surface_frame(pwindow->m_pwlsurface);
          wl_surface_attach(m_pwlsurface,
                            m_buffer.m_pwlbuffer, 0, 0);

@@ -1094,9 +1094,9 @@ namespace windowing_q5
 // //
 // //      }
 // //
-// //      waylandbuffer.m_size.cx() = 0;
+// //      waylandbuffer.m_size.cx = 0;
 // //
-// //      waylandbuffer.m_size.cy() = 0;
+// //      waylandbuffer.m_size.cy = 0;
 // //
 // //      waylandbuffer.m_stride = 0;
 // //
@@ -1108,9 +1108,9 @@ namespace windowing_q5
 // //
 // //      //wayland_buffer waylandbuffer{};
 // //
-// //      int iNewStride = size.cx() * 4; // 4 bytes per pixel;
+// //      int iNewStride = size.cx * 4; // 4 bytes per pixel;
 // //
-// //      ::memsize memsizeNew = iNewStride * size.cy();
+// //      ::memsize memsizeNew = iNewStride * size.cy;
 // //
 // //      if(memsizeNew > waylandbuffer.m_memsizeStorage)
 // //      {
@@ -1125,7 +1125,7 @@ namespace windowing_q5
 // //
 // //         //waylandbuffer.m_stride =
 // //
-// //         //waylandbuffer.m_memsize = waylandbuffer.m_stride * size.cy();
+// //         //waylandbuffer.m_memsize = waylandbuffer.m_stride * size.cy;
 // //
 // //         waylandbuffer.m_iFd = os_create_anonymous_file(waylandbuffer.m_memsizeStorage);
 // //
@@ -1186,7 +1186,7 @@ namespace windowing_q5
 // //      }
 // //
 // //      waylandbuffer.m_pwlbuffer = wl_shm_pool_create_buffer(waylandbuffer.m_pwlshmpool, 0,
-// //                                       size.cx(), size.cy(),
+// //                                       size.cx, size.cy,
 // //                                       waylandbuffer.m_stride,
 // //                                       WL_SHM_FORMAT_ARGB8888);
 // //

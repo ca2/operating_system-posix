@@ -63,7 +63,7 @@ namespace windowing_x11
 
       }
 
-      map_shared_memory(size.cx() * size.cy() * 4);
+      map_shared_memory(size.cx * size.cy * 4);
 
    }
 
@@ -153,36 +153,36 @@ namespace windowing_x11
 
       auto sizeLargeInternalBitmap = pdisplay->get_monitor_union_rectangle().size();
 
-      if (pbufferitem->m_size.cx() > sizeLargeInternalBitmap.cx())
+      if (pbufferitem->m_size.cx > sizeLargeInternalBitmap.cx)
       {
 
-         sizeLargeInternalBitmap.cx() = pbufferitem->m_size.cx();
+         sizeLargeInternalBitmap.cx = pbufferitem->m_size.cx;
 
       }
 
-      if (pbufferitem->m_size.cy() > sizeLargeInternalBitmap.cy())
+      if (pbufferitem->m_size.cy > sizeLargeInternalBitmap.cy)
       {
 
-         sizeLargeInternalBitmap.cy() = pbufferitem->m_size.cy();
+         sizeLargeInternalBitmap.cy = pbufferitem->m_size.cy;
 
       }
 
-      if (pbufferitem->m_sizeInternal.cx() > sizeLargeInternalBitmap.cx())
+      if (pbufferitem->m_sizeInternal.cx > sizeLargeInternalBitmap.cx)
       {
 
-         sizeLargeInternalBitmap.cx() = pbufferitem->m_sizeInternal.cx();
+         sizeLargeInternalBitmap.cx = pbufferitem->m_sizeInternal.cx;
 
       }
 
-      if (pbufferitem->m_sizeInternal.cy() > sizeLargeInternalBitmap.cy())
+      if (pbufferitem->m_sizeInternal.cy > sizeLargeInternalBitmap.cy)
       {
 
-         sizeLargeInternalBitmap.cy() = pbufferitem->m_sizeInternal.cy();
+         sizeLargeInternalBitmap.cy = pbufferitem->m_sizeInternal.cy;
 
       }
 
-      if (pbufferitem->m_sizeInternal.cx() < sizeLargeInternalBitmap.cx()
-          || pbufferitem->m_sizeInternal.cy() < sizeLargeInternalBitmap.cy())
+      if (pbufferitem->m_sizeInternal.cx < sizeLargeInternalBitmap.cx
+          || pbufferitem->m_sizeInternal.cy < sizeLargeInternalBitmap.cy)
       {
 
          _map_shared_memory(sizeLargeInternalBitmap);
@@ -219,7 +219,7 @@ namespace windowing_x11
 //
 //      //m_mem.m_bAligned = true;
 //
-//      m_mem.set_size((m_iGoodStride * size.cy()) * sizeof(color32_t));
+//      m_mem.set_size((m_iGoodStride * size.cy) * sizeof(color32_t));
 //
 //      m_pixmap.init(size, (color32_t *) m_mem.get_data(), m_iGoodStride);
 //
@@ -484,8 +484,8 @@ namespace windowing_x11
       {
 
          if (!m_pximage
-             || m_pximage->width != pitem->m_sizeInternal.cx()
-             || m_pximage->height != pitem->m_sizeInternal.cy())
+             || m_pximage->width != pitem->m_sizeInternal.cx
+             || m_pximage->height != pitem->m_sizeInternal.cy)
          {
 
             if (m_pximage)
@@ -506,10 +506,10 @@ namespace windowing_x11
                ZPixmap,
                NULL,
                &m_xshmsegmentinfo,
-               pitem->m_sizeInternal.cx(),
-               pitem->m_sizeInternal.cy());
+               pitem->m_sizeInternal.cx,
+               pitem->m_sizeInternal.cy);
 
-            pitem->m_iScan = pitem->m_sizeInternal.cx() * 4;
+            pitem->m_iScan = pitem->m_sizeInternal.cx * 4;
 
             m_xshmsegmentinfo.shmid = m_shmid;
 
@@ -530,8 +530,8 @@ namespace windowing_x11
       {
 
          if (!m_pximage
-             || m_pximage->width != sizeBitBlitting.cx()
-             || m_pximage->height != sizeBitBlitting.cy()
+             || m_pximage->width != sizeBitBlitting.cx
+             || m_pximage->height != sizeBitBlitting.cy
              || m_pximage->data != (char *) pimage->get_data())
          {
 
@@ -552,8 +552,8 @@ namespace windowing_x11
                   ZPixmap,
                   0,
                   (char *) pimage->get_data(),
-                  sizeBitBlitting.cx(),
-                  sizeBitBlitting.cy(),
+                  sizeBitBlitting.cx,
+                  sizeBitBlitting.cy,
                   sizeof(color32_t) * 8,
                   pimage->scan_size());
 
@@ -646,8 +646,8 @@ namespace windowing_x11
                x11_window()->Window(),
                m_gc, m_pximage,
                0, 0, 0, 0,
-               sizeBitBlitting.cx(),
-               sizeBitBlitting.cy(), true);
+               sizeBitBlitting.cx,
+               sizeBitBlitting.cy, true);
 
             information() << "XShmPutImage : " << sizeBitBlitting;
 
@@ -682,8 +682,8 @@ namespace windowing_x11
                   x11_window()->Window(),
                   m_gc, m_pximage,
                   0, 0, 0, 0,
-                  sizeBitBlitting.cx(),
-                  sizeBitBlitting.cy());
+                  sizeBitBlitting.cx,
+                  sizeBitBlitting.cy);
 
                //information() << "XPutImage : " << sizeBitBlitting;
 

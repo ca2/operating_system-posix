@@ -122,9 +122,9 @@ CLASS_DECL_ACME HICON ExtractResourceIcon(const ::scoped_string & scopedstrPath,
 
    zero(i);
 
-   i.cx() = cx;
+   i.cx = cx;
 
-   i.cy() = cy;
+   i.cy = cy;
 
    i.iIcon = iIcon;
 

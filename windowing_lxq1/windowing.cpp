@@ -652,16 +652,16 @@ namespace windowing_lxq1
 //       //
 //       //    wl_pointer_set_cursor(pwlpointer, pwaylanddisplay->m_uLastPointerSerial,
 //       //                          pwlsurfaceCursor,
-//       //                          pwaylandcursor->m_szHotspotOffset.cx(),
-//       //                          pwaylandcursor->m_szHotspotOffset.cy()
+//       //                          pwaylandcursor->m_szHotspotOffset.cx,
+//       //                          pwaylandcursor->m_szHotspotOffset.cy
 //       //
 //       //    );
 //       //
 //       //    wl_surface_attach(pwlsurfaceCursor, pwaylandcursor->m_waylandbuffer.m_pwlbuffer, 0, 0);
 //       //
 //       //    wl_surface_damage(pwlsurfaceCursor, 0, 0,
-//       //                      pwaylandcursor->m_waylandbuffer.m_size.cx(),
-//       //                      pwaylandcursor->m_waylandbuffer.m_size.cy()
+//       //                      pwaylandcursor->m_waylandbuffer.m_size.cx,
+//       //                      pwaylandcursor->m_waylandbuffer.m_size.cy
 //       //
 //       //    );
 //       //

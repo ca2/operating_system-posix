@@ -84,7 +84,7 @@ namespace windowing_q6
 
       }
 
-      //map_shared_memory(size.cx() * size.cy() * 4);
+      //map_shared_memory(size.cx * size.cy * 4);
 
    }
 
@@ -181,36 +181,36 @@ namespace windowing_q6
 //
 //      auto sizeLargeInternalBitmap = pdisplay->get_monitor_union_size();
 //
-//      if (pbufferitem->m_size.cx() > sizeLargeInternalBitmap.cx())
+//      if (pbufferitem->m_size.cx > sizeLargeInternalBitmap.cx)
 //      {
 //
-//         sizeLargeInternalBitmap.cx() = pbufferitem->m_size.cx();
+//         sizeLargeInternalBitmap.cx = pbufferitem->m_size.cx;
 //
 //      }
 //
-//      if (pbufferitem->m_size.cy() > sizeLargeInternalBitmap.cy())
+//      if (pbufferitem->m_size.cy > sizeLargeInternalBitmap.cy)
 //      {
 //
-//         sizeLargeInternalBitmap.cy() = pbufferitem->m_size.cy();
+//         sizeLargeInternalBitmap.cy = pbufferitem->m_size.cy;
 //
 //      }
 //
-//      if (pbufferitem->m_sizeInternal.cx() > sizeLargeInternalBitmap.cx())
+//      if (pbufferitem->m_sizeInternal.cx > sizeLargeInternalBitmap.cx)
 //      {
 //
-//         sizeLargeInternalBitmap.cx() = pbufferitem->m_sizeInternal.cx();
+//         sizeLargeInternalBitmap.cx = pbufferitem->m_sizeInternal.cx;
 //
 //      }
 //
-//      if (pbufferitem->m_sizeInternal.cy() > sizeLargeInternalBitmap.cy())
+//      if (pbufferitem->m_sizeInternal.cy > sizeLargeInternalBitmap.cy)
 //      {
 //
-//         sizeLargeInternalBitmap.cy() = pbufferitem->m_sizeInternal.cy();
+//         sizeLargeInternalBitmap.cy = pbufferitem->m_sizeInternal.cy;
 //
 //      }
 //
-//      if (pbufferitem->m_sizeInternal.cx() < sizeLargeInternalBitmap.cx()
-//          || pbufferitem->m_sizeInternal.cy() < sizeLargeInternalBitmap.cy())
+//      if (pbufferitem->m_sizeInternal.cx < sizeLargeInternalBitmap.cx
+//          || pbufferitem->m_sizeInternal.cy < sizeLargeInternalBitmap.cy)
 //      {
 //
 //         _map_shared_memory(sizeLargeInternalBitmap);
@@ -245,7 +245,7 @@ namespace windowing_q6
 //
 //      //m_mem.m_bAligned = true;
 //
-//      m_mem.set_size((m_iGoodStride * size.cy()) * sizeof(color32_t));
+//      m_mem.set_size((m_iGoodStride * size.cy) * sizeof(color32_t));
 //
 //      m_pixmap.init(size, (color32_t *) m_mem.get_data(), m_iGoodStride);
 //
@@ -491,7 +491,7 @@ namespace windowing_q6
 // //         synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 // //
 // //         slGraphics.unlock();
-// //         wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(), pitem->m_size.cy());
+// //         wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx, pitem->m_size.cy);
 // //         ::copy_image32((::image32_t *) pwaylandwindow->m_waylandbuffer.m_pdata,
 // //                        pwaylandwindow->m_waylandbuffer.m_size,
 // //                        pwaylandwindow->m_waylandbuffer.m_stride,
@@ -505,7 +505,7 @@ namespace windowing_q6
 // //
 // //
 // //      information() << "_update_screen_unlocked data : " << (::iptr) pwaylandwindow->m_waylandbuffer.m_pdata;
-// //      //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
+// //      //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx * 4 * pitem->m_size.cy);
 // ////      m_pwlcallbackFrame = wl_surface_frame(pwindow->m_pwlsurface);
 // //      wl_surface_attach(pwaylandwindow->m_pwlsurface, pwaylandwindow->m_waylandbuffer.m_pwlbuffer, 0, 0);
 // //      //       wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, NULL);
@@ -555,9 +555,9 @@ namespace windowing_q6
 // //
 // //      }
 // //
-// //      ::minimum(pwaylandwindow->m_sizeConfigure.cx());
+// //      ::minimum(pwaylandwindow->m_sizeConfigure.cx);
 // //
-// //      ::minimum(pwaylandwindow->m_sizeConfigure.cy());
+// //      ::minimum(pwaylandwindow->m_sizeConfigure.cy);
 // //
 //    }
 
@@ -649,8 +649,8 @@ namespace windowing_q6
     //     wl_callback_destroy(m_pwlcallbackFrame);
         // if (ht == 0) ht = HEIGHT;
 
-//      if((pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
-//          || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)
+//      if((pwaylandwindow->m_sizeConfigure.cx == I32_MINIMUM
+//          || pwaylandwindow->m_sizeConfigure.cy == I32_MINIMUM)
 //          && (pwaylandwindow->m_timeLastConfigureRequest.elapsed() > 5_s
 //         || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial))
 //      {
@@ -761,8 +761,8 @@ namespace windowing_q6
 //
 //             if ((::is_set(pwaylandwindow->m_pxdgtoplevel)
 //                  || ::is_set(pwaylandwindow->m_pxdgpopup))
-//                 //                      && (pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
-//                 //                    || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)
+//                 //                      && (pwaylandwindow->m_sizeConfigure.cx == I32_MINIMUM
+//                 //                    || pwaylandwindow->m_sizeConfigure.cy == I32_MINIMUM)
 //                 && (pwaylandwindow->m_timeLastConfigureRequest.elapsed() > 5_s
 //                     || pwaylandwindow->m_uLastConfigureSerial > pwaylandwindow->m_uLastRequestSerial)) {
 //
@@ -816,8 +816,8 @@ namespace windowing_q6
 //             if ((::is_set(pwaylandwindow->m_pxdgtoplevel)
 //                  || ::is_set(pwaylandwindow->m_pxdgpopup))
 //                 && pwaylandwindow->m_sizeWindow == pitem->m_size
-//                 && ((pwaylandwindow->m_sizeConfigure.cx() == I32_MINIMUM
-//                      || pwaylandwindow->m_sizeConfigure.cy() == I32_MINIMUM)
+//                 && ((pwaylandwindow->m_sizeConfigure.cx == I32_MINIMUM
+//                      || pwaylandwindow->m_sizeConfigure.cy == I32_MINIMUM)
 //                     || pwaylandwindow->m_sizeWindow == pwaylandwindow->m_sizeConfigure)
 //                 &&
 //                 (pwaylandwindow->m_timeLastConfigureRequest.elapsed() > 5_s
@@ -862,13 +862,13 @@ namespace windowing_q6
 // #endif
 //
 //
-//                //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx() * 4 * pitem->m_size.cy());
+//                //memset(pwindow->m_waylandbuffer.m_pdata, 127,pitem->m_size.cx * 4 * pitem->m_size.cy);
 // //      m_pwlcallbackFrame = wl_surface_frame(pwindow->m_pwlsurface);
 //                wl_surface_attach(pwaylandwindow->m_pwlsurface,
 //                                  pwaylandwindow->m_buffer.m_pwlbuffer, 0, 0);
 //                //       wl_callback_add_listener(m_pwlcallbackFrame, &frame_listener, NULL);
-//                wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx(),
-//                                  pitem->m_size.cy());
+//                wl_surface_damage(pwaylandwindow->m_pwlsurface, 0, 0, pitem->m_size.cx,
+//                                  pitem->m_size.cy);
 //
 //
 //                pwaylandwindow->__defer_xdg_surface_ack_configure();
@@ -923,9 +923,9 @@ namespace windowing_q6
 // //
 // //                                             }
 //
-// //                  ::minimum(pwaylandwindow->m_sizeConfigure.cx());
+// //                  ::minimum(pwaylandwindow->m_sizeConfigure.cx);
 //
-// //                  ::minimum(pwaylandwindow->m_sizeConfigure.cy());
+// //                  ::minimum(pwaylandwindow->m_sizeConfigure.cy);
 //
 //                //}
 //
@@ -1024,8 +1024,8 @@ namespace windowing_q6
 // //      {
 // //
 // //         if (!m_pximage
-// //             || m_pximage->width != pitem->m_sizeInternal.cx()
-// //             || m_pximage->height != pitem->m_sizeInternal.cy())
+// //             || m_pximage->width != pitem->m_sizeInternal.cx
+// //             || m_pximage->height != pitem->m_sizeInternal.cy)
 // //         {
 // //
 // //            if (m_pximage)
@@ -1046,10 +1046,10 @@ namespace windowing_q6
 // //               ZPixmap,
 // //               NULL,
 // //               &m_xshmsegmentinfo,
-// //               pitem->m_sizeInternal.cx(),
-// //               pitem->m_sizeInternal.cy());
+// //               pitem->m_sizeInternal.cx,
+// //               pitem->m_sizeInternal.cy);
 // //
-// //            pitem->m_iScan = pitem->m_sizeInternal.cx() * 4;
+// //            pitem->m_iScan = pitem->m_sizeInternal.cx * 4;
 // //
 // //            m_xshmsegmentinfo.shmid = m_shmid;
 // //
@@ -1068,8 +1068,8 @@ namespace windowing_q6
 // //      {
 // //
 // //         if (!m_pximage
-// //             || m_pximage->width != sizeBitBlitting.cx()
-// //             || m_pximage->height != sizeBitBlitting.cy()
+// //             || m_pximage->width != sizeBitBlitting.cx
+// //             || m_pximage->height != sizeBitBlitting.cy
 // //             || m_pximage->data != (char *) pimage->get_data())
 // //         {
 // //
@@ -1090,8 +1090,8 @@ namespace windowing_q6
 // //                  ZPixmap,
 // //                  0,
 // //                  (char *) pimage->get_data(),
-// //                  sizeBitBlitting.cx(),
-// //                  sizeBitBlitting.cy(),
+// //                  sizeBitBlitting.cx,
+// //                  sizeBitBlitting.cy,
 // //                  sizeof(color32_t) * 8,
 // //                  pimage->scan_size());
 // //
@@ -1177,8 +1177,8 @@ namespace windowing_q6
 // //               x11_window()->Window(),
 // //               m_gc, m_pximage,
 // //               0, 0, 0, 0,
-// //               sizeBitBlitting.cx(),
-// //               sizeBitBlitting.cy(), true);
+// //               sizeBitBlitting.cx,
+// //               sizeBitBlitting.cy, true);
 // //
 // //            information() << "XShmPutImage : " << sizeBitBlitting;
 // //
@@ -1206,8 +1206,8 @@ namespace windowing_q6
 // //               x11_window()->Window(),
 // //               m_gc, m_pximage,
 // //               0, 0, 0, 0,
-// //               sizeBitBlitting.cx(),
-// //               sizeBitBlitting.cy());
+// //               sizeBitBlitting.cx,
+// //               sizeBitBlitting.cy);
 // //
 // //            information() << "XPutImage : " << sizeBitBlitting;
 // //

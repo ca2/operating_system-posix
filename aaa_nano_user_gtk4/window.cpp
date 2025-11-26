@@ -113,9 +113,9 @@ namespace gtk4
 
                auto pgtkwindow = GTK_WINDOW(pgobject);
 
-               int iWidth = pwindow->m_sizeOnSize.cx();
+               int iWidth = pwindow->m_sizeOnSize.cx;
 
-               int iHeight = pwindow->m_sizeOnSize.cy();
+               int iHeight = pwindow->m_sizeOnSize.cy;
 
                gtk_window_get_default_size(pgtkwindow, &iWidth, &iHeight);
 
@@ -403,9 +403,9 @@ namespace gtk4
 
             int y = m_pointWindow.y();
 
-            int cx = m_sizeWindow.cx();
+            int cx = m_sizeWindow.cx;
 
-            int cy = m_sizeWindow.cy();
+            int cy = m_sizeWindow.cy;
 
             if (cx <= 0)
             {
@@ -506,9 +506,9 @@ namespace gtk4
 
             }
 
-            m_sizeOnSize.cx() = cx;
+            m_sizeOnSize.cx = cx;
 
-            m_sizeOnSize.cy() = cy;
+            m_sizeOnSize.cy = cy;
 
             if (GTK_IS_WINDOW(m_pgtkwidget))
             {
@@ -814,8 +814,8 @@ namespace gtk4
                   // Get the default pointer device (e.g., mouse)
                   GdkDevice * pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
 
-                  m_pointCursor2.x() = m_sizeOnSize.cx() / 2;
-                  m_pointCursor2.y() = m_sizeOnSize.cy() / 2;
+                  m_pointCursor2.x() = m_sizeOnSize.cx / 2;
+                  m_pointCursor2.y() = m_sizeOnSize.cy / 2;
 
 
                   auto * pwidget = (GtkWidget *) pitem->m_pWidgetImpl;
@@ -878,8 +878,8 @@ namespace gtk4
                   // Get the default pointer device (e.g., mouse)
                   GdkDevice * pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
 
-                  m_pointCursor2.x() = m_sizeOnSize.cx() / 2;
-                  m_pointCursor2.y() = m_sizeOnSize.cy() / 2;
+                  m_pointCursor2.x() = m_sizeOnSize.cx / 2;
+                  m_pointCursor2.y() = m_sizeOnSize.cy / 2;
 
                   //
                   // pmouse->m_pointHost = m_pointCursor2;
@@ -945,8 +945,8 @@ namespace gtk4
                {
 
 
-                  m_pointCursor2.x() = m_sizeOnSize.cx() / 2;
-                  m_pointCursor2.y() = m_sizeOnSize.cy() / 2;
+                  m_pointCursor2.x() = m_sizeOnSize.cx / 2;
+                  m_pointCursor2.y() = m_sizeOnSize.cy / 2;
 
 
 
@@ -1456,18 +1456,18 @@ namespace gtk4
          }
 
 
-         void window::set_window_width(int iWidth) // m_sizeWindow.cx()
+         void window::set_window_width(int iWidth) // m_sizeWindow.cx
          {
 
-            m_sizeWindow.cx() = iWidth;
+            m_sizeWindow.cx = iWidth;
 
          }
 
 
-         void window::set_window_height(int iHeight) // m_sizeWindow.cy()
+         void window::set_window_height(int iHeight) // m_sizeWindow.cy
          {
 
-            m_sizeWindow.cy() = iHeight;
+            m_sizeWindow.cy = iHeight;
 
          }
 

@@ -429,12 +429,12 @@ m_pgdkcursor = cursor;
       // m_waylandbuffer.m_pwlbuffer = wl_cursor_image_get_buffer(m_pwlcursorimage);
       //
       // information() << "_load_default_cursor m_pwlbuffer : " << (::iptr) m_waylandbuffer.m_pwlbuffer;
-      // m_waylandbuffer.m_size.cx() = m_pwlcursor->images[0]->width;
-      // m_waylandbuffer.m_size.cy() = m_pwlcursor->images[0]->height;
+      // m_waylandbuffer.m_size.cx = m_pwlcursor->images[0]->width;
+      // m_waylandbuffer.m_size.cy = m_pwlcursor->images[0]->height;
       // information() << "_load_default_cursor size : " << m_waylandbuffer.m_size;
       //
-      // m_szHotspotOffset.cx() = m_pwlcursor->images[0]->hotspot_x;
-      // m_szHotspotOffset.cy() = m_pwlcursor->images[0]->hotspot_y;
+      // m_szHotspotOffset.cx = m_pwlcursor->images[0]->hotspot_x;
+      // m_szHotspotOffset.cy = m_pwlcursor->images[0]->hotspot_y;
 
       //information() << "_load_default_cursor hotspot : " << m_szHotspotOffset;
 
