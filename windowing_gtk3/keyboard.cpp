@@ -311,7 +311,7 @@ namespace windowing_gtk3
 
       //::user::enum_key ekey;
 
-      //::type typeinfoKey = ::as_type < ::user::enum_key >();
+      //::type typeinfoKey = typeid(::user::enum_key );
 
       string str = file()->as_string(path);
 
