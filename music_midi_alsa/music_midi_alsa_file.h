@@ -125,9 +125,9 @@ namespace music
 
          ::e_status OpenFile(::file::stream_buffer & file, int32_t openMode);
 
-         ::e_status OpenFile(primitive::memory * pmemstorage, int32_t openMode, ::music::e_storage);
+         ::e_status OpenFile(prototype::memory * pmemstorage, int32_t openMode, ::music::e_storage);
 
-         ::e_status OpenFile(primitive::memory * pmemstorage, ::music::midi::file::e_open eopenmode, ::music::e_storage estorage);
+         ::e_status OpenFile(prototype::memory * pmemstorage, ::music::midi::file::e_open eopenmode, ::music::e_storage estorage);
 
          ::e_status SaveFile(::file::stream_buffer & file);
 

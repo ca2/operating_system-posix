@@ -54,7 +54,7 @@ namespace music
          * Returns
          *   ::success If the operation was successful.
          *
-         *   MCIERR_OUT_OF_MEMORY  If there is insufficient primitive::memory for
+         *   MCIERR_OUT_OF_MEMORY  If there is insufficient prototype::memory for
          *     the requested number and size of buffers.
          *
          * seqAllocBuffers allocates playback buffers based on the
@@ -126,7 +126,7 @@ namespace music
          *
          * pSeq                      - The sequencer instance to free buffers for.
          *
-         * seqFreeBuffers frees all allocated primitive::memory belonging to the
+         * seqFreeBuffers frees all allocated prototype::memory belonging to the
          * given sequencer instance pSeq. It must be the last call
          * performed on the instance before it is destroyed.
          *
@@ -163,7 +163,7 @@ namespace music
          *   ::music::EFunctionNotSupported If there is already a file open
          *     on this instance.
          *
-         *   MCIERR_OUT_OF_MEMORY If there was insufficient primitive::memory to
+         *   MCIERR_OUT_OF_MEMORY If there was insufficient prototype::memory to
          *     allocate internal buffers on the file.
          *
          *   MCIERR_INVALID_FILE If initial attempts to parse the file

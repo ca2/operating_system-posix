@@ -2548,7 +2548,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                  }
 //
 //
-//                  ::user::primitive_impl * pimpl = px11window->m_pwindow;
+//                  ::user::prototype_impl * pimpl = px11window->m_pwindow;
 //
 //                  if (pimpl != nullptr)
 //                  {

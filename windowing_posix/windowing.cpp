@@ -48,7 +48,7 @@ namespace windowing_posix
    void windowing::_configure_message(::windowing::window * pwindow, const ::int_rectangle & rectangle)
    {
 
-      // ::user::primitive_impl * pimpl = pwindow->m_pwindow;
+      // ::user::prototype_impl * pimpl = pwindow->m_pwindow;
       //
       // if (pimpl != nullptr)
       // {
@@ -77,7 +77,7 @@ namespace windowing_posix
 //
 //         pwindow->m_size = size;
 //
-//         ::user::primitive_impl * pimpl = pwindow->m_pwindow;
+//         ::user::prototype_impl * pimpl = pwindow->m_pwindow;
 //
 //         if (pimpl != nullptr)
 //         {

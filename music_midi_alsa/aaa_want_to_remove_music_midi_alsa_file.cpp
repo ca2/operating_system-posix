@@ -74,7 +74,7 @@ namespace music
 //         }
 //         catch(memory_exception * pe)
 //         {
-//            information( "smfOpenFile: No primitive::memory for image! [%08lX]", cbImage);
+//            information( "smfOpenFile: No prototype::memory for image! [%08lX]", cbImage);
 //            smfrc = ::music::ENoMemory;
 //            delete pe;
 //            goto smf_Open_File_Cleanup;
@@ -104,7 +104,7 @@ namespace music
 //         return smfrc;
 //      }
 //
-//      ::e_status file::OpenFile(primitive::memory * pmemorystorage, int32_t openMode, e_storage estorage)
+//      ::e_status file::OpenFile(prototype::memory * pmemorystorage, int32_t openMode, e_storage estorage)
 //      {
 //         ASSERT(pmemorystorage != NULL);
 //
@@ -165,7 +165,7 @@ namespace music
 //      }
 //
 //
-//      ::e_status file::OpenFile(primitive::memory * pmemorystorage, ::music::midi::file::e_open eopenmode, e_storage estorage)
+//      ::e_status file::OpenFile(prototype::memory * pmemorystorage, ::music::midi::file::e_open eopenmode, e_storage estorage)
 //      {
 //
 //         return OpenFile(pmemorystorage, (int32_t) eopenmode, estorage);
@@ -191,7 +191,7 @@ namespace music
 //      *
 //      *   ::music::EInvalidFile The specified file was corrupt or not a MIDI file.
 //      *
-//      *   ::music::ENoMemory There was insufficient primitive::memory to open the file.
+//      *   ::music::ENoMemory There was insufficient prototype::memory to open the file.
 //      *
 //      *   SMF_INVALID_PARM The given flags or time division in the
 //      *     SMFOPENFILESTRUCT were invalid.
@@ -1582,7 +1582,7 @@ namespace music
 //      *   SMF_END_OF_TRACK | The pointer was moved to end of track and no state
 //      *     information was returned.
 //      *   SMF_INVALID_PARM | The given handle or buffer was invalid.
-//      *   ::music::ENoMemory | There was insufficient primitive::memory in the given buffer to
+//      *   ::music::ENoMemory | There was insufficient prototype::memory in the given buffer to
 //      *     contain all of the state data.
 //      *
 //      * The state information in the buffer includes patch changes, tempo changes,
@@ -1820,7 +1820,7 @@ namespace music
 //      *
 //      * Returns
 //      *   ::music::success The happenings were successfully read.
-//      *   ::music::ENoMemory Out of primitive::memory to build key frames.
+//      *   ::music::ENoMemory Out of prototype::memory to build key frames.
 //      *   ::music::EInvalidFile A disk or parse error occured on the file.
 //      *
 //      * This function validates the format of and existing MIDI or RMI file

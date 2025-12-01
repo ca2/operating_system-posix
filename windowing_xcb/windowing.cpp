@@ -1720,7 +1720,7 @@ namespace windowing_xcb
                else if(pxcbwindow)
                {
 
-                  ::user::primitive_impl * pimpl = pxcbwindow->m_pwindow;
+                  ::user::prototype_impl * pimpl = pxcbwindow->m_pwindow;
 
                   if (::is_set(pimpl))
                   {
@@ -1843,7 +1843,7 @@ namespace windowing_xcb
 
                }
 
-               ::user::primitive_impl * pimpl = pxcbwindow->m_pwindow;
+               ::user::prototype_impl * pimpl = pxcbwindow->m_pwindow;
 
                if (::is_null(pimpl))
                {
