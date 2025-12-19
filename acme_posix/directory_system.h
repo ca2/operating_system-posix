@@ -66,7 +66,7 @@ namespace acme_posix
       //int make_path(const_char_pointer psz) override;
       ::file::path home()override;
 
-      ::file::path get_current()override;
+      ::file::path current()override;
 
       void change_current(const ::file::path & path) override;
 

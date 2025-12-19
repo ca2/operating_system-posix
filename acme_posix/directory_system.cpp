@@ -569,7 +569,7 @@ namespace acme_posix
    }
 
 
-   ::file::path directory_system::get_current()
+   ::file::path directory_system::current()
    {
 
       auto pszCurrentDirName = get_current_dir_name();
