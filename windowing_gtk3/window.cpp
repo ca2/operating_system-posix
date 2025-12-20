@@ -626,17 +626,17 @@ namespace windowing_gtk3
             pmouse->m_eusermessage = ::user::e_message_middle_button_down;
          }
 
-         m_pointCursor2.x() = happening->x;
+         m_pointCursor2.x = happening->x;
 
-         m_pointCursor2.y() = happening->y;
+         m_pointCursor2.y = happening->y;
 
-         pmouse->m_pointHost.x() = happening->x;
+         pmouse->m_pointHost.x = happening->x;
 
-         pmouse->m_pointHost.y() = happening->y;
+         pmouse->m_pointHost.y = happening->y;
 
-         pmouse->m_pointAbsolute.x() = happening->x_root;
+         pmouse->m_pointAbsolute.x = happening->x_root;
 
-         pmouse->m_pointAbsolute.y() = happening->y_root;
+         pmouse->m_pointAbsolute.y = happening->y_root;
 
          //pmouse->m_time.m_iSecond = millis / 1_k;
 
@@ -693,17 +693,17 @@ namespace windowing_gtk3
 
          }
 
-         m_pointCursor2.x() = happening->x;
+         m_pointCursor2.x = happening->x;
 
-         m_pointCursor2.y() = happening->y;
+         m_pointCursor2.y = happening->y;
 
-         pmouse->m_pointHost.x() = happening->x;
+         pmouse->m_pointHost.x = happening->x;
 
-         pmouse->m_pointHost.y() = happening->y;
+         pmouse->m_pointHost.y = happening->y;
 
-         pmouse->m_pointAbsolute.x() = happening->x_root;
+         pmouse->m_pointAbsolute.x = happening->x_root;
 
-         pmouse->m_pointAbsolute.y() = happening->y_root;
+         pmouse->m_pointAbsolute.y = happening->y_root;
 
          //pmouse->m_time.m_iSecond = millis / 1_k;
 
@@ -769,17 +769,17 @@ namespace windowing_gtk3
 
          pmouse->m_eusermessage = ::user::e_message_mouse_move;
 
-         m_pointCursor2.x() = happening->x;
+         m_pointCursor2.x = happening->x;
 
-         m_pointCursor2.y() = happening->y;
+         m_pointCursor2.y = happening->y;
 
-         pmouse->m_pointHost.x() = happening->x;
+         pmouse->m_pointHost.x = happening->x;
 
-         pmouse->m_pointHost.y() = happening->y;
+         pmouse->m_pointHost.y = happening->y;
 
-         pmouse->m_pointAbsolute.x() = happening->x_root;
+         pmouse->m_pointAbsolute.x = happening->x_root;
 
-         pmouse->m_pointAbsolute.y() = happening->y_root;
+         pmouse->m_pointAbsolute.y = happening->y_root;
 
          //pmouse->m_time.m_iSecond = millis / 1_k;
 
@@ -1169,17 +1169,17 @@ namespace windowing_gtk3
 
             ///::int_point pointCursor(pscroll->x_root, pscroll->y_root);
 
-         m_pointCursor2.x() = pscroll->x;
+         m_pointCursor2.x = pscroll->x;
 
-         m_pointCursor2.y() = pscroll->y;
+         m_pointCursor2.y = pscroll->y;
 
-         pmouse->m_pointHost.x() = pscroll->x;
+         pmouse->m_pointHost.x = pscroll->x;
 
-         pmouse->m_pointHost.y() = pscroll->y;
+         pmouse->m_pointHost.y = pscroll->y;
 
-         pmouse->m_pointAbsolute.x() = pscroll->x_root;
+         pmouse->m_pointAbsolute.x = pscroll->x_root;
 
-         pmouse->m_pointAbsolute.y() = pscroll->y_root;
+         pmouse->m_pointAbsolute.y = pscroll->y_root;
 
             debugf("Scroll event: dx=%d, dy=%d, cursor position: x=%df, y=%d at host: x=%df, y=%d\n",
                pscroll->delta_x,
@@ -1193,7 +1193,7 @@ namespace windowing_gtk3
       //    else
       //    {
       //
-      //       debugf("Failed to get cursorpos. Use last recorded position x=%d, y=%d", m_pointCursor2.x(), m_pointCursor2.y());
+      //       debugf("Failed to get cursorpos. Use last recorded position x=%d, y=%d", m_pointCursor2.x, m_pointCursor2.y);
       //
       //       pmouse->m_pointHost = m_pointCursor2;
       //
@@ -1320,9 +1320,9 @@ namespace windowing_gtk3
       //
       //// display_lock displaylock(pdisplayx11->Display());
       //
-      //int x = puserinteraction->const_layout().sketch().origin().x();
+      //int x = puserinteraction->const_layout().sketch().origin().x;
       //
-      //int y = puserinteraction->const_layout().sketch().origin().y();
+      //int y = puserinteraction->const_layout().sketch().origin().y;
       //
       //int cx = puserinteraction->const_layout().sketch().width();
       //
@@ -1386,14 +1386,14 @@ namespace windowing_gtk3
       //
       //{
       //
-      //m_pointWindow.x() = x;
+      //m_pointWindow.x = x;
       //
-      //m_pointWindow.y() = y;
+      //m_pointWindow.y = y;
       //}
       //
-      //// m_pointWindowBestEffort.x() = x;
+      //// m_pointWindowBestEffort.x = x;
       //
-      //// m_pointWindowBestEffort.y() = y;
+      //// m_pointWindowBestEffort.y = y;
       //
       //m_sizeWindow.cx = cx;
       //
@@ -1882,9 +1882,9 @@ namespace windowing_gtk3
 
       ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-      int x = puserinteraction->const_layout().sketch().origin().x();
+      int x = puserinteraction->const_layout().sketch().origin().x;
 
-      int y = puserinteraction->const_layout().sketch().origin().y();
+      int y = puserinteraction->const_layout().sketch().origin().y;
 
       int cx = puserinteraction->const_layout().sketch().width();
 
@@ -1948,14 +1948,14 @@ namespace windowing_gtk3
 
       {
 
-         m_pointWindow.x() = x;
+         m_pointWindow.x = x;
 
-         m_pointWindow.y() = y;
+         m_pointWindow.y = y;
       }
 
-      // m_pointWindowBestEffort.x() = x;
+      // m_pointWindowBestEffort.x = x;
 
-      // m_pointWindowBestEffort.y() = y;
+      // m_pointWindowBestEffort.y = y;
 
       m_sizeWindow.cx = cx;
 
@@ -2169,8 +2169,8 @@ namespace windowing_gtk3
    //         m_pointWindow = p;
    //
    //         xdg_positioner_set_offset(m_pxdgpositioner,
-   //                                   m_pointWindow.x(),
-   //                                   m_pointWindow.y());
+   //                                   m_pointWindow.x,
+   //                                   m_pointWindow.y);
    //
    //         information() << "xdg_positioner_set_offset " << m_pointWindow;
    //
@@ -2217,17 +2217,17 @@ namespace windowing_gtk3
    //
    //      }
    //
-   //      //m_pointWindow.x() = x;
+   //      //m_pointWindow.x = x;
    //
-   //      //m_pointWindow.y() = y;
+   //      //m_pointWindow.y = y;
    //
-   //      //auto x = m_pointWindowBestEffort.x();
+   //      //auto x = m_pointWindowBestEffort.x;
    //
-   //      //auto y = m_pointWindowBestEffort.y();
+   //      //auto y = m_pointWindowBestEffort.y;
    //
-   //      auto x = m_pointWindow.x();
+   //      auto x = m_pointWindow.x;
    //
-   //      auto y = m_pointWindow.y();
+   //      auto y = m_pointWindow.y;
    //
    //      auto cx = m_sizeWindow.cx;
    //
@@ -4345,9 +4345,9 @@ namespace windowing_gtk3
       //
       //         gtk_window_move(GTK_WINDOW(m_pgtkwidget), x, y);
       //
-      //         m_pointWindow.x() = x;
+      //         m_pointWindow.x = x;
       //
-      //         m_pointWindow.y() = y;
+      //         m_pointWindow.y = y;
       //
       //      }
       //
@@ -6090,9 +6090,9 @@ namespace windowing_gtk3
    // //            if (msg.oswindow)
    // //            {
    // //
-   // //               ::minimum(m_pointCursor.x());
+   // //               ::minimum(m_pointCursor.x);
    // //
-   // //               ::minimum(m_pointCursor.y());
+   // //               ::minimum(m_pointCursor.y);
    // //
    // //
    // //               if(e.xcrossing.mode == NotifyUngrab)
@@ -6120,9 +6120,9 @@ namespace windowing_gtk3
    //
    // //
    //
-   //       ::minimum(m_pointCursor2.x());
+   //       ::minimum(m_pointCursor2.x);
    //
-   //       ::minimum(m_pointCursor2.y());
+   //       ::minimum(m_pointCursor2.y);
    //
    // //      MESSAGE msg;
    // //      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;

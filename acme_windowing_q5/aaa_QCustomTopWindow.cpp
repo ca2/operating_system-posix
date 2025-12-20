@@ -59,8 +59,8 @@
 //      // }
 //      // label->setText(QString("Mouse Pressed: %1 Button at (%2, %3)")
 //      //     .arg(buttonType)
-//      //     .arg(happening->pos().x())
-//      //     .arg(happening->pos().y()));
+//      //     .arg(happening->pos().x)
+//      //     .arg(happening->pos().y));
 //      //qDebug() << "Mouse Pressed:" << buttonType << "at" << happening->pos();
 //      m_pwindow->_on_mouse_press(happening);
 //   }
@@ -77,8 +77,8 @@
 //      //    buttonType = 3;
 //      // }
 //      // label->setText(QString("Mouse Released at (%1, %2)")
-//      //     .arg(happening->pos().x())
-//      //     .arg(happening->pos().y()));
+//      //     .arg(happening->pos().x)
+//      //     .arg(happening->pos().y));
 //      //qDebug() << "Mouse Released at" << happening->pos();
 //      m_pwindow->_on_mouse_release(happening);
 //   }
@@ -87,8 +87,8 @@
 //   void QCustomTopWindow::mouseMoveEvent(QMouseEvent *happening)
 //   {
 ////         label->setText(QString("Mouse Moved to (%1, %2)")
-////           .arg(happening->pos().x())
-// //         .arg(happening->pos().y()));
+////           .arg(happening->pos().x)
+// //         .arg(happening->pos().y));
 //   //   qDebug() << "Mouse Moved to" << happening->pos();
 //      m_pwindow->_on_mouse_motion(happening);
 //   }
@@ -99,7 +99,7 @@
 //   {
 //      QPoint newPos = happening->pos();  // Get the ___new size of the window
 //      //   qDebug() << "Window resized to:" << newSize;
-//      m_pwindow->_on_reposition(newPos.x(), newPos.y());
+//      m_pwindow->_on_reposition(newPos.x, newPos.y);
 //      // Update the label with the ___new size
 //      //updateSizeLabel(newSize);
 //   }
@@ -147,8 +147,8 @@
 //   // }
 //   // label->setText(QString("Mouse Pressed: %1 Button at (%2, %3)")
 //   //     .arg(buttonType)
-//   //     .arg(happening->pos().x())
-//   //     .arg(happening->pos().y()));
+//   //     .arg(happening->pos().x)
+//   //     .arg(happening->pos().y));
 //   //qDebug() << "Mouse Pressed:" << buttonType << "at" << happening->pos();
 //   m_pwindow->_on_key_press(happening);
 //   QWidget::keyPressEvent(happening);
@@ -166,8 +166,8 @@
 //   //    buttonType = 3;
 //   // }
 //   // label->setText(QString("Mouse Released at (%1, %2)")
-//   //     .arg(happening->pos().x())
-//   //     .arg(happening->pos().y()));
+//   //     .arg(happening->pos().x)
+//   //     .arg(happening->pos().y));
 //   //qDebug() << "Mouse Released at" << happening->pos();
 //   m_pwindow->_on_key_release(happening);
 //   QWidget::keyReleaseEvent(happening);

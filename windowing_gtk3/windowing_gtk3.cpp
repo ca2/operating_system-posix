@@ -1792,9 +1792,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //            if (msg.oswindow)
 //            {
 //
-//               ::minimum(m_pointCursor.x());
+//               ::minimum(m_pointCursor.x);
 //
-//               ::minimum(m_pointCursor.y());
+//               ::minimum(m_pointCursor.y);
 //
 //
 //               if(e.xcrossing.mode == NotifyUngrab)
@@ -1852,9 +1852,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //            if (msg.oswindow)
 //            {
 //
-//               m_pointCursor.x() = e.xmotion.x_root;
+//               m_pointCursor.x = e.xmotion.x_root;
 //
-//               m_pointCursor.y() = e.xmotion.y_root;
+//               m_pointCursor.y = e.xmotion.y_root;
 //
 //               msg.oswindow->set_cursor_position(m_pointCursor);
 //
@@ -1980,9 +1980,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               pmouse->m_emessage = ::user::e_message_mouse_move;
 //
-//               pmouse->m_point.x() = e.xmotion.x_root;
+//               pmouse->m_point.x = e.xmotion.x_root;
 //
-//               pmouse->m_point.y() = e.xmotion.y_root;
+//               pmouse->m_point.y = e.xmotion.y_root;
 //
 //               pmouse->m_time.m_iSecond = e.xmotion.time / 1_k;
 //
@@ -2710,9 +2710,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               int YRoot = e.xbutton.y_root;
 //
-//               m_pointCursor.x() = XRoot;
+//               m_pointCursor.x = XRoot;
 //
-//               m_pointCursor.y() = YRoot;
+//               m_pointCursor.y = YRoot;
 //
 //               msg.oswindow->set_cursor_position(m_pointCursor);
 //
@@ -2749,9 +2749,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  pmousewheel->m_Δ = Δ;
 //
-//                  pmousewheel->m_point.x() = e.xbutton.x_root;
+//                  pmousewheel->m_point.x = e.xbutton.x_root;
 //
-//                  pmousewheel->m_point.y() = e.xbutton.y_root;
+//                  pmousewheel->m_point.y = e.xbutton.y_root;
 //
 //                  pmousewheel->m_time.m_iSecond = e.xbutton.time / 1_k;
 //
@@ -2772,9 +2772,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  pmouse->m_emessage = emessage;
 //
-//                  pmouse->m_point.x() = e.xbutton.x_root;
+//                  pmouse->m_point.x = e.xbutton.x_root;
 //
-//                  pmouse->m_point.y() = e.xbutton.y_root;
+//                  pmouse->m_point.y = e.xbutton.y_root;
 //
 //                  pmouse->m_time.m_iSecond = e.xbutton.time / 1_k;
 //

@@ -633,9 +633,9 @@ namespace nano
          }
 
 
-         int x = m_pointWindow.x();
+         int x = m_pointWindow.x;
 
-         int y = m_pointWindow.y();
+         int y = m_pointWindow.y;
 
          int cx = m_sizeWindow.cx;
 
@@ -650,9 +650,9 @@ namespace nano
 
             m_sizeWindow = windowing_popup_size();
 
-            //x = m_pointWindow.x();
+            //x = m_pointWindow.x;
 
-            //y = m_pointWindow.y();
+            //y = m_pointWindow.y;
 
             x = 0;
 
@@ -685,8 +685,8 @@ namespace nano
             information() << "xdg_positioner_set_offset : " << m_pointWindow;
 
             xdg_positioner_set_offset(m_pxdgpositioner,
-                                      sizeScreen.cx + m_pointWindow.x(),
-                                      sizeScreen.cy + m_pointWindow.y());
+                                      sizeScreen.cx + m_pointWindow.x,
+                                      sizeScreen.cy + m_pointWindow.y);
 
             information() << "xdg_positioner_set_size : " << m_sizeWindow;
 
@@ -749,13 +749,13 @@ namespace nano
          //
          //      information() << "cx, cy : " << cx << ", " << cy;
 
-         //m_pointWindow.x() = x;
+         //m_pointWindow.x = x;
 
-         //m_pointWindow.y() = y;
+         //m_pointWindow.y = y;
 
-         //auto x = m_pointWindowBestEffort.x();
+         //auto x = m_pointWindowBestEffort.x;
 
-         //auto y = m_pointWindowBestEffort.y();
+         //auto y = m_pointWindowBestEffort.y;
 
          if (m_pxdgsurface)
          {
@@ -972,9 +972,9 @@ namespace nano
          //            if (msg.oswindow)
          //            {
          //
-         //               ::minimum(m_pointCursor.x());
+         //               ::minimum(m_pointCursor.x);
          //
-         //               ::minimum(m_pointCursor.y());
+         //               ::minimum(m_pointCursor.y);
          //
          //
          //               if(e.xcrossing.mode == NotifyUngrab)
@@ -1002,9 +1002,9 @@ namespace nano
 
          //
          //
-         //      ::minimum(m_pointCursor2.x());
+         //      ::minimum(m_pointCursor2.x);
          //
-         //      ::minimum(m_pointCursor2.y());
+         //      ::minimum(m_pointCursor2.y);
          //
          ////      MESSAGE msg;
          ////      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;

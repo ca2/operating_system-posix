@@ -673,7 +673,7 @@ namespace windowing_gtk4
 //
 //          }
 //
-//          //auto x = m_pointWindowBestEffort.x();
+//          //auto x = m_pointWindowBestEffort.x;
 //
 //       }
 //
@@ -711,7 +711,7 @@ namespace windowing_gtk4
 //
 //                }
 //
-//                //auto x = m_pointWindowBestEffort.x();
+//                //auto x = m_pointWindowBestEffort.x;
 //
 //                pwaylandwindow->__map();
 //

@@ -691,7 +691,7 @@ namespace windowing_wayland
 //
 //         pmouse->m_emessage = emessage;
 //
-//         //pmouse->m_pointAbsolute.x() =
+//         //pmouse->m_pointAbsolute.x =
 //
 //         for(auto & pparticle : m_particleaMouseHandler)
 //         {
@@ -740,7 +740,7 @@ namespace windowing_wayland
 //
 //         pkey->m_emessage = emessage;
 //
-//         //pmouse->m_pointAbsolute.x() =
+//         //pmouse->m_pointAbsolute.x =
 //
 //         for(auto & pparticle : m_particleaKeyboardHandler)
 //         {

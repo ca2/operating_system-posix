@@ -58,8 +58,8 @@ QCustomTopWindow::QCustomTopWindow(::kde5::micro::window * pwindow)
       // }
       // label->setText(QString("Mouse Pressed: %1 Button at (%2, %3)")
       //     .arg(buttonType)
-      //     .arg(happening->pos().x())
-      //     .arg(happening->pos().y()));
+      //     .arg(happening->pos().x)
+      //     .arg(happening->pos().y));
       //qDebug() << "Mouse Pressed:" << buttonType << "at" << happening->pos();
       m_pwindow->_on_mouse_press(happening);
    }
@@ -76,8 +76,8 @@ QCustomTopWindow::QCustomTopWindow(::kde5::micro::window * pwindow)
       //    buttonType = 3;
       // }
       // label->setText(QString("Mouse Released at (%1, %2)")
-      //     .arg(happening->pos().x())
-      //     .arg(happening->pos().y()));
+      //     .arg(happening->pos().x)
+      //     .arg(happening->pos().y));
       //qDebug() << "Mouse Released at" << happening->pos();
       m_pwindow->_on_mouse_release(happening);
    }
@@ -86,8 +86,8 @@ QCustomTopWindow::QCustomTopWindow(::kde5::micro::window * pwindow)
    void QCustomTopWindow::mouseMoveEvent(QMouseEvent *happening)
    {
 //         label->setText(QString("Mouse Moved to (%1, %2)")
-//           .arg(happening->pos().x())
- //         .arg(happening->pos().y()));
+//           .arg(happening->pos().x)
+ //         .arg(happening->pos().y));
    //   qDebug() << "Mouse Moved to" << happening->pos();
       m_pwindow->_on_mouse_motion(happening);
    }
@@ -98,7 +98,7 @@ void QCustomTopWindow::moveEvent(QMoveEvent *happening)
    {
       QPoint newPos = happening->pos();  // Get the ___new size of the window
       //   qDebug() << "Window resized to:" << newSize;
-      m_pwindow->_on_reposition(newPos.x(), newPos.y());
+      m_pwindow->_on_reposition(newPos.x, newPos.y);
       // Update the label with the ___new size
       //updateSizeLabel(newSize);
    }

@@ -769,7 +769,7 @@ namespace windowing_x11
       XQueryPointer(
          Display(), DefaultRootWindow(Display()),
          &root_return, &child_return,
-         &pointCursor.x(), &pointCursor.y(),
+         &pointCursor.x, &pointCursor.y,
          &win_x_return, &win_y_return,
          &mask_return);
 

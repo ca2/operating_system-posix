@@ -181,7 +181,7 @@ namespace innate_ui_q5
    //       if(pdialog)
    //       {
    //
-   //          m_pqwidget->move(point.x(), point.y());
+   //          m_pqwidget->move(point.x, point.y);
    //
    //       }
    //

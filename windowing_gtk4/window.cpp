@@ -667,8 +667,8 @@ gtk_im_context_commit (
       //       // Get the default pointer device (e.g., mouse)
       //       GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
       //
-      //       m_pointCursor2.x() = m_sizeOnSize.cx/2;
-      //       m_pointCursor2.y() = m_sizeOnSize.cy/2;
+      //       m_pointCursor2.x = m_sizeOnSize.cx/2;
+      //       m_pointCursor2.y = m_sizeOnSize.cy/2;
       //
       //
       //       pmouse->m_pointHost = m_pointCursor2;
@@ -699,8 +699,8 @@ gtk_im_context_commit (
       //          GDK_TOPLEVEL(surface),
       //          pgdkdevicePointer,
       //          gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture)),
-      //          m_pointCursor2.x(),
-      //          m_pointCursor2.y(), timestamp);
+      //          m_pointCursor2.x,
+      //          m_pointCursor2.y, timestamp);
       //
       //       gtk_event_controller_reset (GTK_EVENT_CONTROLLER (pgesture));
       //
@@ -721,8 +721,8 @@ gtk_im_context_commit (
       //    }
       //    else if(pitem->m_strAtom ==  "***size")
       //    {
-      //       // m_pointCursor2.x() = 4;
-      //       // m_pointCursor2.y() = 4;
+      //       // m_pointCursor2.x = 4;
+      //       // m_pointCursor2.y = 4;
       //       //
       //       //
       //       // pmouse->m_pointHost = m_pointCursor2;
@@ -756,8 +756,8 @@ gtk_im_context_commit (
       //       // Get the default pointer device (e.g., mouse)
       //       GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
       //
-      //       m_pointCursor2.x() = m_sizeOnSize.cx/2;
-      //       m_pointCursor2.y() = m_sizeOnSize.cy/2;
+      //       m_pointCursor2.x = m_sizeOnSize.cx/2;
+      //       m_pointCursor2.y = m_sizeOnSize.cy/2;
       //
       //
       //       pmouse->m_pointHost = m_pointCursor2;
@@ -789,8 +789,8 @@ gtk_im_context_commit (
       //          GDK_SURFACE_EDGE_NORTH_WEST,
       //          pgdkdevicePointer,
       //          gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture)),
-      //          m_pointCursor2.x(),
-      //          m_pointCursor2.y(), timestamp);
+      //          m_pointCursor2.x,
+      //          m_pointCursor2.y, timestamp);
       //
       //       gtk_event_controller_reset (GTK_EVENT_CONTROLLER (pgesture));
       //
@@ -845,8 +845,8 @@ gtk_im_context_commit (
       //    {
       //
       //
-      //       m_pointCursor2.x() = m_sizeOnSize.cx/2;
-      //       m_pointCursor2.y() = m_sizeOnSize.cy/2;
+      //       m_pointCursor2.x = m_sizeOnSize.cx/2;
+      //       m_pointCursor2.y = m_sizeOnSize.cy/2;
       //
       //
       //       pmouse->m_pointHost = m_pointCursor2;
@@ -875,8 +875,8 @@ gtk_im_context_commit (
       //    }
       //    else if(pitem->m_strAtom == "***size")
       //    {
-      //       m_pointCursor2.x() = 4;
-      //       m_pointCursor2.y() = 4;
+      //       m_pointCursor2.x = 4;
+      //       m_pointCursor2.y = 4;
       //
       //
       //       pmouse->m_pointHost = m_pointCursor2;
@@ -1059,8 +1059,8 @@ gtk_im_context_commit (
 //            gtk_gesture_set_state(GTK_GESTURE (pcontroller), GTK_EVENT_SEQUENCE_CLAIMED);
 //
 //
-//            m_pointCursor2.x() = m_sizeOnSize.cx / 2;
-//            m_pointCursor2.y() = m_sizeOnSize.cy / 2;
+//            m_pointCursor2.x = m_sizeOnSize.cx / 2;
+//            m_pointCursor2.y = m_sizeOnSize.cy / 2;
 //
 //            GdkEvent * happening = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(pcontroller));
 //            guint32 timestamp = gdk_event_get_time(happening);
@@ -1307,9 +1307,9 @@ on_text(scopedstr, scopedstr.size());
 
           //pimpl->m_pwindow = this;
 
-//          int x = puserinteraction->const_layout().sketch().origin().x();
+//          int x = puserinteraction->const_layout().sketch().origin().x;
 //
-//          int y = puserinteraction->const_layout().sketch().origin().y();
+//          int y = puserinteraction->const_layout().sketch().origin().y;
 //
 //          int cx = puserinteraction->const_layout().sketch().width();
 //
@@ -2455,7 +2455,7 @@ on_text(scopedstr, scopedstr.size());
 //         if (xd)
 //         {
 //
-//            XMoveWindow(xd, xw, (int) point.x(), (int) point.y());
+//            XMoveWindow(xd, xw, (int) point.x, (int) point.y);
 //
 //         }
 //
@@ -2477,7 +2477,7 @@ on_text(scopedstr, scopedstr.size());
 //         if (xd)
 //         {
 //
-//            XMoveResizeWindow(xd, xw, (int) point.x(), (int) point.y(), (int) size.cx, (int) size.cy);
+//            XMoveResizeWindow(xd, xw, (int) point.x, (int) point.y, (int) size.cx, (int) size.cy);
 //
 //         }
 //
@@ -2665,7 +2665,7 @@ return false;
          else
          {
 
-            debugf("Failed to get cursorpos. Use last recorded position x=%d, y=%d", m_pointCursor2.x(), m_pointCursor2.y());
+            debugf("Failed to get cursorpos. Use last recorded position x=%d, y=%d", m_pointCursor2.x, m_pointCursor2.y);
 
             pmouse->m_pointHost = m_pointCursor2;
 

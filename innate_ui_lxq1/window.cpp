@@ -182,7 +182,7 @@ namespace innate_ui_lxq1
    //                  if (pdialog)
    //                  {
    //
-   //                     m_pqwidget->move(point.x(), point.y());
+   //                     m_pqwidget->move(point.x, point.y);
    //
    //                  }
    //

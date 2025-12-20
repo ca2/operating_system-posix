@@ -1192,7 +1192,7 @@ namespace q5
       void window::set_position_unlocked(const ::int_point & point)
       {
 
-            m_pqwidget->move(point.x(), point.y());
+            m_pqwidget->move(point.x, point.y);
 
       }
 
@@ -1416,12 +1416,12 @@ namespace q5
 
              pmouse->m_iTimestamp = pevent->timestamp();
 
-             m_pointCursor2.x() = pevent->globalX();
-             m_pointCursor2.y() = pevent->globalY();
+             m_pointCursor2.x = pevent->globalX();
+             m_pointCursor2.y = pevent->globalY();
 
 
-             pmouse->m_pointHost.x() = pevent->x();
-             pmouse->m_pointHost.y() = pevent->y();
+             pmouse->m_pointHost.x = pevent->x();
+             pmouse->m_pointHost.y = pevent->y();
 
              pmouse->m_pointAbsolute = m_pointCursor2;
 
@@ -1515,12 +1515,12 @@ namespace q5
              //
              // pmouse->m_pwindow = this;
 
-             m_pointCursor2.x() = pevent->globalX();
-             m_pointCursor2.y() = pevent->globalY();
+             m_pointCursor2.x = pevent->globalX();
+             m_pointCursor2.y = pevent->globalY();
 
 
-             pmouse->m_pointHost.x() = pevent->x();
-             pmouse->m_pointHost.y() = pevent->y();
+             pmouse->m_pointHost.x = pevent->x();
+             pmouse->m_pointHost.y = pevent->y();
 
              pmouse->m_pointAbsolute = m_pointCursor2;
 
@@ -1664,8 +1664,8 @@ pelemental->back_on_right_button_up(pmouse);
 
                auto p = pevent->globalPos();
 
-               p.setX(p.x()-m_pqwidget->size().width()/2);
-               p.setY(p.y()- m_pqwidget->size().height()/2);
+               p.setX(p.x-m_pqwidget->size().width()/2);
+               p.setY(p.y- m_pqwidget->size().height()/2);
 
 m_pqwidget->move(p);
                return;
@@ -1678,8 +1678,8 @@ m_pqwidget->move(p);
 
                auto p = pevent->globalPos();
 
-               s.setWidth(p.x()-m_pqwidget->pos().x());
-               s.setHeight(p.y()-m_pqwidget->pos().y());
+               s.setWidth(p.x-m_pqwidget->pos().x);
+               s.setHeight(p.y-m_pqwidget->pos().y);
 
                m_pqwidget->resize(s);
                return;
@@ -1717,8 +1717,8 @@ m_pqwidget->move(p);
           //    gtk_gesture_set_state (GTK_GESTURE (pcontroller), GTK_EVENT_SEQUENCE_CLAIMED);
           //
           //
-          //    m_pointCursor2.x() = m_sizeOnSize.cx/2;
-          //    m_pointCursor2.y() = m_sizeOnSize.cy/2;
+          //    m_pointCursor2.x = m_sizeOnSize.cx/2;
+          //    m_pointCursor2.y = m_sizeOnSize.cy/2;
           //
           //    GdkEvent *happening = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(pcontroller));
           //    guint32 timestamp = gdk_event_get_time(happening);
@@ -1768,12 +1768,12 @@ m_pqwidget->move(p);
           //
           // }
 
-          m_pointCursor2.x() = pevent->globalX();
-          m_pointCursor2.y() = pevent->globalY();
+          m_pointCursor2.x = pevent->globalX();
+          m_pointCursor2.y = pevent->globalY();
 
 
-          pmouse->m_pointHost.x() = pevent->x();
-          pmouse->m_pointHost.y() = pevent->y();
+          pmouse->m_pointHost.x = pevent->x();
+          pmouse->m_pointHost.y = pevent->y();
 
           pmouse->m_pointAbsolute = m_pointCursor2;
 
@@ -1825,12 +1825,12 @@ m_pqwidget->move(p);
 
              pkey->m_iTimestamp = pevent->timestamp();
 
-             // m_pointCursor2.x() = pevent->globalX();
-             // m_pointCursor2.y() = pevent->globalY();
+             // m_pointCursor2.x = pevent->globalX();
+             // m_pointCursor2.y = pevent->globalY();
              //
              //
-             // pmouse->m_pointHost.x() = pevent->x();
-             // pmouse->m_pointHost.y() = pevent->y();
+             // pmouse->m_pointHost.x = pevent->x();
+             // pmouse->m_pointHost.y = pevent->y();
 
              //pkey->m_pointAbsolute = m_pointCursor2;
 
@@ -1926,12 +1926,12 @@ m_pqwidget->move(p);
 
              pkey->m_iTimestamp = pevent->timestamp();
 
-             // m_pointCursor2.x() = pevent->globalX();
-             // m_pointCursor2.y() = pevent->globalY();
+             // m_pointCursor2.x = pevent->globalX();
+             // m_pointCursor2.y = pevent->globalY();
              //
              //
-             // pmouse->m_pointHost.x() = pevent->x();
-             // pmouse->m_pointHost.y() = pevent->y();
+             // pmouse->m_pointHost.x = pevent->x();
+             // pmouse->m_pointHost.y = pevent->y();
 
              //pkey->m_pointAbsolute = m_pointCursor2;
 
@@ -2167,7 +2167,7 @@ m_pqwidget->move(p);
             }
 
          // Show the context menu at the cursor position
-            contextMenu.exec({pmouse->m_pointAbsolute.x(), pmouse->m_pointAbsolute.y()});
+            contextMenu.exec({pmouse->m_pointAbsolute.x, pmouse->m_pointAbsolute.y});
 
          }
 

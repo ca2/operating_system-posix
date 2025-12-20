@@ -736,7 +736,7 @@ namespace x11
 //         {
 //            display_lock displaylock(m_pdisplay->m_pdisplay);
 //
-//            ::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x(), point.y());
+//            ::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x, point.y);
 //
 //         }
 

@@ -37,10 +37,10 @@ namespace windowing_lxq2
 // inline void copy(::int_rectangle & rectangleTarget, const QRect & qrect)
 // {
 //
-//    rectangleTarget.left = qrect.x();
-//    rectangleTarget.right = qrect.x() + qrect.width();
-//    rectangleTarget.top = qrect.y();
-//    rectangleTarget.bottom = qrect.y() + qrect.height();
+//    rectangleTarget.left = qrect.x;
+//    rectangleTarget.right = qrect.x + qrect.width();
+//    rectangleTarget.top = qrect.y;
+//    rectangleTarget.bottom = qrect.y + qrect.height();
 //
 // }
 //

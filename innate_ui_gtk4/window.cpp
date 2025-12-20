@@ -431,7 +431,7 @@ namespace innate_ui_gtk4
          if(pdialog)
          {
 
-            gtk_fixed_put(GTK_FIXED(pdialog->m_pgtkwidgetFixed), m_pgtkwidget, point.x(), point.y());
+            gtk_fixed_put(GTK_FIXED(pdialog->m_pgtkwidgetFixed), m_pgtkwidget, point.x, point.y);
 
          }
 

@@ -379,8 +379,8 @@
 //      //         int w = m_pinterface->m_rectangle.width();
 //      //         int h = m_pinterface->m_rectangle.height();
 //
-//                         //m_pointWindow.x() = m_pinterface->m_rectangle.left;
-//                         //m_pointWindow.y() = m_pinterface->m_rectangle.top;
+//                         //m_pointWindow.x = m_pinterface->m_rectangle.left;
+//                         //m_pointWindow.y = m_pinterface->m_rectangle.top;
 //                         //m_sizeWindow.cx = m_pinterface->m_rectangle.width();
 //                         //m_sizeWindow.cy = m_pinterface->m_rectangle.height();
 //
@@ -867,7 +867,7 @@
 //         void window::move_to(const ::int_point & point)
 //         {
 //
-//            //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x(), point.y());
+//            //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x, point.y);
 //
 //         }
 //
@@ -1026,11 +1026,11 @@
 //         //
 //         //      pmouse->m_emessage = ::user::e_message_mouse_move;
 //         //
-//            pmouse->m_pointHost.x() = x;
-//            pmouse->m_pointHost.y() = y;
+//            pmouse->m_pointHost.x = x;
+//            pmouse->m_pointHost.y = y;
 //
-//            pmouse->m_pointAbsolute.x() = x;
-//            pmouse->m_pointAbsolute.x() = y;
+//            pmouse->m_pointAbsolute.x = x;
+//            pmouse->m_pointAbsolute.x = y;
 //
 //         //      enum_message emessage = ::user::e_message_undefined;
 //         //      //msg.id() = ::user::e_message_mouse_wheel;
@@ -1240,11 +1240,11 @@
 //         //
 //         //      pmouse->m_emessage = ::user::e_message_mouse_move;
 //         //
-//            pmouse->m_pointHost.x() = x;
-//            pmouse->m_pointHost.y() = y;
+//            pmouse->m_pointHost.x = x;
+//            pmouse->m_pointHost.y = y;
 //
-//            pmouse->m_pointAbsolute.x() = x;
-//            pmouse->m_pointAbsolute.y() = y;
+//            pmouse->m_pointAbsolute.x = x;
+//            pmouse->m_pointAbsolute.y = y;
 //
 //         //      enum_message emessage = ::user::e_message_undefined;
 //         //      //msg.id() = ::user::e_message_mouse_wheel;
@@ -1455,11 +1455,11 @@
 //            //
 //            //      pmouse->m_emessage = ::user::e_message_mouse_move;
 //            //
-//            pmouse->m_pointHost.x() = x;
-//            pmouse->m_pointHost.y() = y;
+//            pmouse->m_pointHost.x = x;
+//            pmouse->m_pointHost.y = y;
 //
-//            pmouse->m_pointAbsolute.x() = x;
-//            pmouse->m_pointAbsolute.x() = y;
+//            pmouse->m_pointAbsolute.x = x;
+//            pmouse->m_pointAbsolute.x = y;
 //            //
 //            //      pmouse->m_time.m_iSecond = millis / 1_k;
 //            //
@@ -1544,9 +1544,9 @@
 //         //    //            if (msg.oswindow)
 //         //    //            {
 //         //    //
-//         //    //               ::minimum(m_pointCursor.x());
+//         //    //               ::minimum(m_pointCursor.x);
 //         //    //
-//         //    //               ::minimum(m_pointCursor.y());
+//         //    //               ::minimum(m_pointCursor.y);
 //         //    //
 //         //    //
 //         //    //               if(e.xcrossing.mode == NotifyUngrab)
@@ -1574,9 +1574,9 @@
 //         //
 //         //    //
 //         //    //
-//         //    //      ::minimum(m_pointCursor2.x());
+//         //    //      ::minimum(m_pointCursor2.x);
 //         //    //
-//         //    //      ::minimum(m_pointCursor2.y());
+//         //    //      ::minimum(m_pointCursor2.y);
 //         //    //
 //         //    ////      MESSAGE msg;
 //         //    ////      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;

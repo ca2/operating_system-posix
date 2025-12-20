@@ -380,32 +380,32 @@ namespace innate_ui_gtk3
 
                auto fixed = pdialog->m_fixed;
 
-               gtk_fixed_put(GTK_FIXED(fixed), m_pgtkwidget, point.x(), point.y());
+               gtk_fixed_put(GTK_FIXED(fixed), m_pgtkwidget, point.x, point.y);
 
                //::pointer < ::innate_ui_gtk3::dialog > pdialog = innate_ui()->m_windowmap[pwidgetParentWindow];
                //pdialog
 
             }
 
-            // if (p.x() < 0 || p.y() < 0)
+            // if (p.x < 0 || p.y < 0)
             // {
             //    auto hwndParent  = GetParent(m_hwnd);
             //    RECT rParentClient;
             //    GetClientRect(hwndParent, &rParentClient);
             //    RECT rThis;
             //    GetClientRect(m_hwnd, &rParentClient);
-            //    if (p.x() < 0)
+            //    if (p.x < 0)
             //    {
-            //       p.x() += ::width(rParentClient) - ::width(rThis);
+            //       p.x += ::width(rParentClient) - ::width(rThis);
             //    }
             //
-            //    if (p.y() < 0)
+            //    if (p.y < 0)
             //    {
-            //       p.y() += ::height(rParentClient) - ::height(rThis);
+            //       p.y += ::height(rParentClient) - ::height(rThis);
             //    }
             // }
             //
-            // ::SetWindowPos(m_hwnd, nullptr, p.x(), p.y(), 0, 0, SWP_NOSIZE);
+            // ::SetWindowPos(m_hwnd, nullptr, p.x, p.y, 0, 0, SWP_NOSIZE);
 
          });
 

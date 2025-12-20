@@ -123,9 +123,9 @@ namespace windowing_xcb
 
       //display_lock displaylock(pdisplayxcb);
 
-      int x = m_pwindow->m_puserinteraction->const_layout().sketch().origin().x();
+      int x = m_pwindow->m_puserinteraction->const_layout().sketch().origin().x;
 
-      int y = m_pwindow->m_puserinteraction->const_layout().sketch().origin().y();
+      int y = m_pwindow->m_puserinteraction->const_layout().sketch().origin().y;
 
       int cx = m_pwindow->m_puserinteraction->const_layout().sketch().width();
 
@@ -180,9 +180,9 @@ namespace windowing_xcb
 
       xcb_window_t window = xcb_generate_id(pdisplayxcb->m_pxcbdisplay->m_pconnection);
 
-      m_pointWindow.x() = I32_MINIMUM;
+      m_pointWindow.x = I32_MINIMUM;
 
-      m_pointWindow.y() = I32_MINIMUM;
+      m_pointWindow.y = I32_MINIMUM;
 
       m_sizeWindow.cx = I32_MINIMUM;
 
@@ -3792,9 +3792,9 @@ namespace windowing_xcb
 
       xcb_flush(xcb_connection());
 
-      m_pointWindow.x() = x;
+      m_pointWindow.x = x;
 
-      m_pointWindow.y() = y;
+      m_pointWindow.y = y;
 
       m_sizeWindow.cx = cx;
 
@@ -3838,9 +3838,9 @@ namespace windowing_xcb
 
       }
 
-      m_pointWindow.x() = x;
+      m_pointWindow.x = x;
 
-      m_pointWindow.y() = y;
+      m_pointWindow.y = y;
 
       m_pwindow->m_puserinteraction->layout().m_statea[::user::e_layout_window].origin() = m_pointWindow;
 

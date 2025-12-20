@@ -355,8 +355,8 @@ namespace wayland
       //         int w = m_pinterface->m_rectangle.width();
       //         int h = m_pinterface->m_rectangle.height();
 
-                         //m_pointWindow.x() = m_pinterface->m_rectangle.left;
-                         //m_pointWindow.y() = m_pinterface->m_rectangle.top;
+                         //m_pointWindow.x = m_pinterface->m_rectangle.left;
+                         //m_pointWindow.y = m_pinterface->m_rectangle.top;
                          //m_sizeWindow.cx = m_pinterface->m_rectangle.width();
                          //m_sizeWindow.cy = m_pinterface->m_rectangle.height();
 
@@ -836,7 +836,7 @@ namespace wayland
          void window::move_to(const ::int_point & point)
          {
 
-            //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x(), point.y());
+            //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x, point.y);
 
          }
 
@@ -1042,9 +1042,9 @@ namespace wayland
             //            if (msg.oswindow)
             //            {
             //
-            //               ::minimum(m_pointCursor.x());
+            //               ::minimum(m_pointCursor.x);
             //
-            //               ::minimum(m_pointCursor.y());
+            //               ::minimum(m_pointCursor.y);
             //
             //
             //               if(e.xcrossing.mode == NotifyUngrab)
@@ -1072,9 +1072,9 @@ namespace wayland
 
             //
             //
-            //      ::minimum(m_pointCursor2.x());
+            //      ::minimum(m_pointCursor2.x);
             //
-            //      ::minimum(m_pointCursor2.y());
+            //      ::minimum(m_pointCursor2.y);
             //
             ////      MESSAGE msg;
             ////      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;

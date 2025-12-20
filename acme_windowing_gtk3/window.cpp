@@ -697,8 +697,8 @@ return FALSE;
 
             m_pacmeuserinteraction->on_before_create_window(this);
 
-            int x = m_pointWindow.x();
-            int y = m_pointWindow.y();
+            int x = m_pointWindow.x;
+            int y = m_pointWindow.y;
             int cx = m_sizeWindow.cx;
             int cy = m_sizeWindow.cy;
 
@@ -915,17 +915,17 @@ return FALSE;
 //               pmouse->m_pOsMouseDataOkIfOnStack = happening;
 //
 //               pmouse->m_pwindow = this;
-               m_pointCursor2.x() = pevent->x;
+               m_pointCursor2.x = pevent->x;
 
-               m_pointCursor2.y() = pevent->y;
+               m_pointCursor2.y = pevent->y;
 
-               pmouse->m_pointHost.x() = pevent->x;
+               pmouse->m_pointHost.x = pevent->x;
 
-               pmouse->m_pointHost.y() = pevent->y;
+               pmouse->m_pointHost.y = pevent->y;
 
-               pmouse->m_pointAbsolute.x() = pevent->x_root;
+               pmouse->m_pointAbsolute.x = pevent->x_root;
 
-               pmouse->m_pointAbsolute.y() = pevent->y_root;
+               pmouse->m_pointAbsolute.y = pevent->y_root;
 
                if (pevent->button == GDK_BUTTON_PRIMARY)
                {
@@ -1041,17 +1041,17 @@ m_phappeningLastMouseUp = pevent;
 
                //pmouse->m_pwindow = this;
 
-               m_pointCursor2.x() = pevent->x;
+               m_pointCursor2.x = pevent->x;
 
-               m_pointCursor2.y() = pevent->y;
+               m_pointCursor2.y = pevent->y;
 
-               pmouse->m_pointHost.x() = pevent->x;
+               pmouse->m_pointHost.x = pevent->x;
 
-               pmouse->m_pointHost.y() = pevent->y;
+               pmouse->m_pointHost.y = pevent->y;
 
-               pmouse->m_pointAbsolute.x() = pevent->x_root;
+               pmouse->m_pointAbsolute.x = pevent->x_root;
 
-               pmouse->m_pointAbsolute.y() = pevent->y_root;
+               pmouse->m_pointAbsolute.y = pevent->y_root;
 
                auto puserinteractionbaseHold = m_pacmeuserinteraction;
 
@@ -1201,17 +1201,17 @@ m_phappeningLastMouseUp = pevent;
 
                pmouse->m_eusermessage = ::user::e_message_mouse_move;
 
-               m_pointCursor2.x() = happening->x;
+               m_pointCursor2.x = happening->x;
 
-               m_pointCursor2.y() = happening->y;
+               m_pointCursor2.y = happening->y;
 
-               pmouse->m_pointHost.x() = happening->x;
+               pmouse->m_pointHost.x = happening->x;
 
-               pmouse->m_pointHost.y() = happening->y;
+               pmouse->m_pointHost.y = happening->y;
 
-               pmouse->m_pointAbsolute.x() = happening->x_root;
+               pmouse->m_pointAbsolute.x = happening->x_root;
 
-               pmouse->m_pointAbsolute.y() = happening->y_root;
+               pmouse->m_pointAbsolute.y = happening->y_root;
 
                //pmouse->m_time.m_iSecond = millis / 1_k;
 
@@ -1960,9 +1960,9 @@ m_phappeningLastMouseUp = pevent;
          {
             //display_lock displaylock(m_pdisplay->m_pdisplay);
 
-            //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x(), point.y());
+            //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x, point.y);
 
-            information() << "gtk3::acme_windowing_gtk::window::set_position_unlocked point : " << point.x() << ", " << point.y();
+            information() << "gtk3::acme_windowing_gtk::window::set_position_unlocked point : " << point.x << ", " << point.y;
 
             gtk_window_set_position(GTK_WINDOW(m_pgtkwidget), GTK_WIN_POS_NONE);
 
@@ -1977,7 +1977,7 @@ m_phappeningLastMouseUp = pevent;
 
             }
 
-            gtk_window_move(GTK_WINDOW(m_pgtkwidget), point.x(), point.y());
+            gtk_window_move(GTK_WINDOW(m_pgtkwidget), point.x, point.y);
 
          }
 

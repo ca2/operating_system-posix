@@ -665,7 +665,7 @@ namespace windowing_wayland
 
          }
 
-         //auto x = m_pointWindowBestEffort.x();
+         //auto x = m_pointWindowBestEffort.x;
 
       }
 
@@ -703,7 +703,7 @@ namespace windowing_wayland
 
                }
 
-               //auto x = m_pointWindowBestEffort.x();
+               //auto x = m_pointWindowBestEffort.x;
 
                pwaylandwindow->__map();
 

@@ -82,7 +82,7 @@ namespace x11
 
             auto handle = _x11_handle();
 
-            XMoveWindow(__x11_handle(handle), point.x(), point.y());
+            XMoveWindow(__x11_handle(handle), point.x, point.y);
 
          }
 
@@ -148,18 +148,18 @@ namespace x11
 
             int abs_x, abs_y;
 
-            int x = point.x();
+            int x = point.x;
 
-            int y = point.y();
+            int y = point.y;
 
             XTranslateCoordinates(__x11_handle(handle),
                                   XDefaultRootWindow(as_x11_display(handle)),
                                   (int) x, (int) y, &abs_x, &abs_y,
                                   &child_return);
 
-            point.x() = abs_x;
+            point.x = abs_x;
 
-            point.y() = abs_y;
+            point.y = abs_y;
 
          }
 

@@ -583,7 +583,7 @@ namespace windowing_kde5
       // }
       //
       // // Show the context menu at the cursor position
-      // contextMenu.exec({pmouse->m_pointAbsolute.x(), pmouse->m_pointAbsolute.y()});
+      // contextMenu.exec({pmouse->m_pointAbsolute.x, pmouse->m_pointAbsolute.y});
       //
       // //    // Create a popover menu
       // //    auto popover = gtk_popover_new();
@@ -621,8 +621,8 @@ namespace windowing_kde5
       // // Create and show the popover menu at the click location
       //
       // // auto * widget = m_pdrawingarea;
-      // // int x = pmouse->m_pointAbsolute.x();
-      // // int y = pmouse->m_pointAbsolute.y();
+      // // int x = pmouse->m_pointAbsolute.x;
+      // // int y = pmouse->m_pointAbsolute.y;
       // //
       // //
       // // gtk_widget_realize(m_pgtkwidget);
@@ -1309,12 +1309,12 @@ namespace windowing_kde5
             pmouse->m_eusermessage = ::user::e_message_middle_button_down;
          }
 
-         m_pointCursor2.x() = pevent->globalX();
-         m_pointCursor2.y() = pevent->globalY();
+         m_pointCursor2.x = pevent->globalX();
+         m_pointCursor2.y = pevent->globalY();
 
 
-         pmouse->m_pointHost.x() = pevent->x();
-         pmouse->m_pointHost.y() = pevent->y();
+         pmouse->m_pointHost.x = pevent->x();
+         pmouse->m_pointHost.y = pevent->y();
 
          pmouse->m_pointAbsolute = m_pointCursor2;
 
@@ -1387,12 +1387,12 @@ namespace windowing_kde5
                pmouse->m_eusermessage = ::user::e_message_middle_button_up;
             }
 
-            m_pointCursor2.x() = pevent->globalX();
-            m_pointCursor2.y() = pevent->globalY();
+            m_pointCursor2.x = pevent->globalX();
+            m_pointCursor2.y = pevent->globalY();
 
 
-            pmouse->m_pointHost.x() = pevent->x();
-            pmouse->m_pointHost.y() = pevent->y();
+            pmouse->m_pointHost.x = pevent->x();
+            pmouse->m_pointHost.y = pevent->y();
 
             pmouse->m_pointAbsolute = m_pointCursor2;
 
@@ -1432,8 +1432,8 @@ namespace windowing_kde5
 
          auto p = pevent->globalPos();
 
-         p.setX(p.x()-m_pqwidget->size().width()/2);
-         p.setY(p.y()- m_pqwidget->size().height()/2);
+         p.setX(p.x-m_pqwidget->size().width()/2);
+         p.setY(p.y- m_pqwidget->size().height()/2);
 
          m_pqwidget->move(p);
          return;
@@ -1446,8 +1446,8 @@ namespace windowing_kde5
 
          auto p = pevent->globalPos();
 
-         s.setWidth(p.x()-m_pqwidget->pos().x());
-         s.setHeight(p.y()-m_pqwidget->pos().y());
+         s.setWidth(p.x-m_pqwidget->pos().x);
+         s.setHeight(p.y-m_pqwidget->pos().y);
 
          m_pqwidget->resize(s);
          return;
@@ -1477,13 +1477,13 @@ namespace windowing_kde5
 
          __check_refdbg;
 
-         m_pointCursor2.x() = pevent->globalX();
-         m_pointCursor2.y() = pevent->globalY();
+         m_pointCursor2.x = pevent->globalX();
+         m_pointCursor2.y = pevent->globalY();
 
          __check_refdbg;
 
-         pmouse->m_pointHost.x() = pevent->x();
-         pmouse->m_pointHost.y() = pevent->y();
+         pmouse->m_pointHost.x = pevent->x();
+         pmouse->m_pointHost.y = pevent->y();
 
          __check_refdbg;
 
@@ -1602,12 +1602,12 @@ namespace windowing_kde5
 
              pkey->m_iTimestamp = pevent->timestamp();
 
-             // m_pointCursor2.x() = pevent->globalX();
-             // m_pointCursor2.y() = pevent->globalY();
+             // m_pointCursor2.x = pevent->globalX();
+             // m_pointCursor2.y = pevent->globalY();
              //
              //
-             // pmouse->m_pointHost.x() = pevent->x();
-             // pmouse->m_pointHost.y() = pevent->y();
+             // pmouse->m_pointHost.x = pevent->x();
+             // pmouse->m_pointHost.y = pevent->y();
 
              //pkey->m_pointAbsolute = m_pointCursor2;
 
@@ -1713,12 +1713,12 @@ namespace windowing_kde5
 
              pkey->m_iTimestamp = pevent->timestamp();
 
-             // m_pointCursor2.x() = pevent->globalX();
-             // m_pointCursor2.y() = pevent->globalY();
+             // m_pointCursor2.x = pevent->globalX();
+             // m_pointCursor2.y = pevent->globalY();
              //
              //
-             // pmouse->m_pointHost.x() = pevent->x();
-             // pmouse->m_pointHost.y() = pevent->y();
+             // pmouse->m_pointHost.x = pevent->x();
+             // pmouse->m_pointHost.y = pevent->y();
 
              //pkey->m_pointAbsolute = m_pointCursor2;
 
@@ -2074,9 +2074,9 @@ namespace windowing_kde5
 
          //display_lock displaylock(pdisplayx11->Display());
 
-         int x = puserinteraction->const_layout().sketch().origin().x();
+         int x = puserinteraction->const_layout().sketch().origin().x;
 
-         int y = puserinteraction->const_layout().sketch().origin().y();
+         int y = puserinteraction->const_layout().sketch().origin().y;
 
          int cx = puserinteraction->const_layout().sketch().width();
 
@@ -2097,14 +2097,14 @@ namespace windowing_kde5
 
 
          {
-            m_pointWindow.x() = 0;
+            m_pointWindow.x = 0;
 
-            m_pointWindow.y() = 0;
+            m_pointWindow.y = 0;
          }
 
-         //m_pointWindowBestEffort.x() = x;
+         //m_pointWindowBestEffort.x = x;
 
-         //m_pointWindowBestEffort.y() = y;
+         //m_pointWindowBestEffort.y = y;
 
          m_sizeWindow.cx = cx;
 
@@ -2978,8 +2978,8 @@ namespace windowing_kde5
    //         m_pointWindow = p;
    //
    //         xdg_positioner_set_offset(m_pxdgpositioner,
-   //                                   m_pointWindow.x(),
-   //                                   m_pointWindow.y());
+   //                                   m_pointWindow.x,
+   //                                   m_pointWindow.y);
    //
    //         information() << "xdg_positioner_set_offset " << m_pointWindow;
    //
@@ -3026,17 +3026,17 @@ namespace windowing_kde5
    //
    //      }
    //
-   //      //m_pointWindow.x() = x;
+   //      //m_pointWindow.x = x;
    //
-   //      //m_pointWindow.y() = y;
+   //      //m_pointWindow.y = y;
    //
-   //      //auto x = m_pointWindowBestEffort.x();
+   //      //auto x = m_pointWindowBestEffort.x;
    //
-   //      //auto y = m_pointWindowBestEffort.y();
+   //      //auto y = m_pointWindowBestEffort.y;
    //
-   //      auto x = m_pointWindow.x();
+   //      auto x = m_pointWindow.x;
    //
-   //      auto y = m_pointWindow.y();
+   //      auto y = m_pointWindow.y;
    //
    //      auto cx = m_sizeWindow.cx;
    //
@@ -6762,9 +6762,9 @@ namespace windowing_kde5
    // //            if (msg.oswindow)
    // //            {
    // //
-   // //               ::minimum(m_pointCursor.x());
+   // //               ::minimum(m_pointCursor.x);
    // //
-   // //               ::minimum(m_pointCursor.y());
+   // //               ::minimum(m_pointCursor.y);
    // //
    // //
    // //               if(e.xcrossing.mode == NotifyUngrab)
@@ -6792,9 +6792,9 @@ namespace windowing_kde5
    //
    // //
    //
-   //       ::minimum(m_pointCursor2.x());
+   //       ::minimum(m_pointCursor2.x);
    //
-   //       ::minimum(m_pointCursor2.y());
+   //       ::minimum(m_pointCursor2.y);
    //
    // //      MESSAGE msg;
    // //      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
@@ -7396,8 +7396,8 @@ namespace windowing_kde5
          // }
          // else
          // {
-         //    x = pmouse->m_pointAbsolute.x();
-         //    y = pmouse->m_pointAbsolute.y();
+         //    x = pmouse->m_pointAbsolute.x;
+         //    y = pmouse->m_pointAbsolute.y;
          // }
          //
          // gdk_toplevel_begin_resize(GDK_TOPLEVEL(toplevel), gdksurfacedge, pgdkdevicePointer, button, x, y, timestamp);
@@ -7591,8 +7591,8 @@ namespace windowing_kde5
          // }
          // else
          // {
-         //    x = pmouse->m_pointAbsolute.x();
-         //    y = pmouse->m_pointAbsolute.y();
+         //    x = pmouse->m_pointAbsolute.x;
+         //    y = pmouse->m_pointAbsolute.y;
          // }
          //
          //
@@ -8051,7 +8051,7 @@ namespace windowing_kde5
    //    //    if(xd)
    //    //    {
    //    //
-   //    //       XMoveWindow (xd, xw, (int)point.x(), (int)point.y());
+   //    //       XMoveWindow (xd, xw, (int)point.x, (int)point.y);
    //    //
    //    //    }
    //    //
@@ -8073,7 +8073,7 @@ namespace windowing_kde5
    //    //    if(xd)
    //    //    {
    //    //
-   //    //       XMoveResizeWindow(xd, xw, (int)point.x(), (int)point.y(), (int) size.cx, (int) size.cy);
+   //    //       XMoveResizeWindow(xd, xw, (int)point.x, (int)point.y, (int) size.cx, (int) size.cy);
    //    //
    //    //    }
    //    //

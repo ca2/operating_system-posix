@@ -390,9 +390,9 @@ namespace q
 
             //auto r = pacmeuserinteraction->get_rectangle();
 
-            int x = m_pointWindow.x();
+            int x = m_pointWindow.x;
 
-            int y = m_pointWindow.y();
+            int y = m_pointWindow.y;
 
             int cx = m_sizeWindow.cx;
 
@@ -1195,7 +1195,7 @@ namespace q
          void window::set_position_unlocked(const ::int_point & point)
          {
 
-            m_pqwidget->move(point.x(), point.y());
+            m_pqwidget->move(point.x, point.y);
 
          }
 
@@ -1399,19 +1399,19 @@ namespace q
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
-               m_pointCursor2.x() = pevent->globalPosition().x();
-               m_pointCursor2.y() = pevent->globalPosition().y();
+               m_pointCursor2.x = pevent->globalPosition().x;
+               m_pointCursor2.y = pevent->globalPosition().y;
 
-               pmouse->m_pointHost.x() = pevent->position().x();
-               pmouse->m_pointHost.y() = pevent->position().y();
+               pmouse->m_pointHost.x = pevent->position().x;
+               pmouse->m_pointHost.y = pevent->position().y;
 
 #else
 
-               m_pointCursor2.x() = pevent->globalPos().x();
-               m_pointCursor2.y() = pevent->globalPos().y();
+               m_pointCursor2.x = pevent->globalPos().x;
+               m_pointCursor2.y = pevent->globalPos().y;
 
-               pmouse->m_pointHost.x() = pevent->pos().x();
-               pmouse->m_pointHost.y() = pevent->pos().y();
+               pmouse->m_pointHost.x = pevent->pos().x;
+               pmouse->m_pointHost.y = pevent->pos().y;
 
 #endif
 
@@ -1516,19 +1516,19 @@ namespace q
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
-                  m_pointCursor2.x() = pevent->globalPosition().x();
-                  m_pointCursor2.y() = pevent->globalPosition().y();
+                  m_pointCursor2.x = pevent->globalPosition().x;
+                  m_pointCursor2.y = pevent->globalPosition().y;
 
-                  pmouse->m_pointHost.x() = pevent->position().x();
-                  pmouse->m_pointHost.y() = pevent->position().y();
+                  pmouse->m_pointHost.x = pevent->position().x;
+                  pmouse->m_pointHost.y = pevent->position().y;
 
 #else
 
-                  m_pointCursor2.x() = pevent->globalPos().x();
-                  m_pointCursor2.y() = pevent->globalPos().y();
+                  m_pointCursor2.x = pevent->globalPos().x;
+                  m_pointCursor2.y = pevent->globalPos().y;
 
-                  pmouse->m_pointHost.x() = pevent->pos().x();
-                  pmouse->m_pointHost.y() = pevent->pos().y();
+                  pmouse->m_pointHost.x = pevent->pos().x;
+                  pmouse->m_pointHost.y = pevent->pos().y;
 
 #endif
 
@@ -1732,10 +1732,10 @@ namespace q
 #endif
 
 
-               p.setX(p.x() - m_pqwidget->size().width() / 2);
-               p.setY(p.y() - m_pqwidget->size().height() / 2);
+               p.setX(p.x - m_pqwidget->size().width() / 2);
+               p.setY(p.y - m_pqwidget->size().height() / 2);
 
-               m_pqwidget->move(p.x(), p.y());
+               m_pqwidget->move(p.x, p.y);
 
                return;
 
@@ -1755,8 +1755,8 @@ namespace q
 
 #endif
 
-               s.setWidth(p.x() - m_pqwidget->pos().x());
-               s.setHeight(p.y() - m_pqwidget->pos().y());
+               s.setWidth(p.x - m_pqwidget->pos().x);
+               s.setHeight(p.y - m_pqwidget->pos().y);
 
                m_pqwidget->resize(s);
 
@@ -1795,8 +1795,8 @@ namespace q
                //    gtk_gesture_set_state (GTK_GESTURE (pcontroller), GTK_EVENT_SEQUENCE_CLAIMED);
                //
                //
-               //    m_pointCursor2.x() = m_sizeOnSize.cx/2;
-               //    m_pointCursor2.y() = m_sizeOnSize.cy/2;
+               //    m_pointCursor2.x = m_sizeOnSize.cx/2;
+               //    m_pointCursor2.y = m_sizeOnSize.cy/2;
                //
                //    GdkEvent *happening = gtk_event_controller_get_current_event(GTK_EVENT_CONTROLLER(pcontroller));
                //    guint32 timestamp = gdk_event_get_time(happening);
@@ -1848,19 +1848,19 @@ namespace q
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
-               m_pointCursor2.x() = pevent->globalPosition().x();
-               m_pointCursor2.y() = pevent->globalPosition().y();
+               m_pointCursor2.x = pevent->globalPosition().x;
+               m_pointCursor2.y = pevent->globalPosition().y;
 
-               pmouse->m_pointHost.x() = pevent->position().x();
-               pmouse->m_pointHost.y() = pevent->position().y();
+               pmouse->m_pointHost.x = pevent->position().x;
+               pmouse->m_pointHost.y = pevent->position().y;
 
 #else
 
-               m_pointCursor2.x() = pevent->globalPos().x();
-               m_pointCursor2.y() = pevent->globalPos().y();
+               m_pointCursor2.x = pevent->globalPos().x;
+               m_pointCursor2.y = pevent->globalPos().y;
 
-               pmouse->m_pointHost.x() = pevent->pos().x();
-               pmouse->m_pointHost.y() = pevent->pos().y();
+               pmouse->m_pointHost.x = pevent->pos().x;
+               pmouse->m_pointHost.y = pevent->pos().y;
 
 #endif
 
@@ -2073,7 +2073,7 @@ namespace q
             }
 
             // Show the context menu at the cursor position
-            contextMenu.exec({pmouse->m_pointAbsolute.x(), pmouse->m_pointAbsolute.y()});
+            contextMenu.exec({pmouse->m_pointAbsolute.x, pmouse->m_pointAbsolute.y});
 
          }
 

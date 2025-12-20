@@ -643,9 +643,9 @@ namespace gtk4
 
             auto pgtk4windowingsystem = gtk4_acme_windowing();
 
-            int x = m_pointWindow.x();
+            int x = m_pointWindow.x;
 
-            int y = m_pointWindow.y();
+            int y = m_pointWindow.y;
 
             int cx = m_sizeWindow.cx;
 
@@ -1234,8 +1234,8 @@ namespace gtk4
                   // Get the default pointer device (e.g., mouse)
                   GdkDevice* pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
 
-                  m_pointCursor2.x() = m_sizeOnSizeRestored.cx / 2;
-                  m_pointCursor2.y() = m_sizeOnSizeRestored.cy / 2;
+                  m_pointCursor2.x = m_sizeOnSizeRestored.cx / 2;
+                  m_pointCursor2.y = m_sizeOnSizeRestored.cy / 2;
 
 
                   auto* pwidget = (GtkWidget*)pitem->m_pWidgetImpl;
@@ -1254,8 +1254,8 @@ namespace gtk4
                      GDK_TOPLEVEL(surface),
                      pgdkdevicePointer,
                      gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture)),
-                     m_pointCursor2.x(),
-                     m_pointCursor2.y(), timestamp);
+                     m_pointCursor2.x,
+                     m_pointCursor2.y, timestamp);
 
                   gtk_event_controller_reset(GTK_EVENT_CONTROLLER(pgesture));
 
@@ -1263,8 +1263,8 @@ namespace gtk4
                }
                else if (pitem->m_strAtom == "***size")
                {
-                  // m_pointCursor2.x() = 4;
-                  // m_pointCursor2.y() = 4;
+                  // m_pointCursor2.x = 4;
+                  // m_pointCursor2.y = 4;
                   //
                   //
                   // pmouse->m_pointHost = m_pointCursor2;
@@ -1298,8 +1298,8 @@ namespace gtk4
                   // Get the default pointer device (e.g., mouse)
                   GdkDevice* pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
 
-                  m_pointCursor2.x() = m_sizeOnSizeRestored.cx / 2;
-                  m_pointCursor2.y() = m_sizeOnSizeRestored.cy / 2;
+                  m_pointCursor2.x = m_sizeOnSizeRestored.cx / 2;
+                  m_pointCursor2.y = m_sizeOnSizeRestored.cy / 2;
 
                   //
                   // pmouse->m_pointHost = m_pointCursor2;
@@ -1329,8 +1329,8 @@ namespace gtk4
                      GDK_SURFACE_EDGE_NORTH_WEST,
                      pgdkdevicePointer,
                      gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture)),
-                     m_pointCursor2.x(),
-                     m_pointCursor2.y(), timestamp);
+                     m_pointCursor2.x,
+                     m_pointCursor2.y, timestamp);
 
                   gtk_event_controller_reset(GTK_EVENT_CONTROLLER(pgesture));
 
@@ -1363,15 +1363,15 @@ namespace gtk4
                {
 
 
-                  m_pointCursor2.x() = m_sizeOnSizeRestored.cx / 2;
-                  m_pointCursor2.y() = m_sizeOnSizeRestored.cy / 2;
+                  m_pointCursor2.x = m_sizeOnSizeRestored.cx / 2;
+                  m_pointCursor2.y = m_sizeOnSizeRestored.cy / 2;
 
 
                }
                else if (pitem->m_strAtom == "***size")
                {
-                  m_pointCursor2.x() = 4;
-                  m_pointCursor2.y() = 4;
+                  m_pointCursor2.x = 4;
+                  m_pointCursor2.y = 4;
 
                   //
                   // pmouse->m_pointHost = m_pointCursor2;
@@ -1389,8 +1389,8 @@ namespace gtk4
          void window::defer_show_system_menu(::user::mouse* pmouse)
          {
 
-            int x = pmouse->m_pointHost.x();
-            int y = pmouse->m_pointHost.y();
+            int x = pmouse->m_pointHost.x;
+            int y = pmouse->m_pointHost.y;
 
 #if !defined(FEDORA_LINUX) && !defined(SUSE_LINUX)
 
@@ -1974,9 +1974,9 @@ namespace gtk4
       else
       {
 
-         x = pmouse->m_pointHost.x();
+         x = pmouse->m_pointHost.x;
 
-         y = pmouse->m_pointHost.y();
+         y = pmouse->m_pointHost.y;
 
       }
 
@@ -2055,9 +2055,9 @@ namespace gtk4
       else
       {
 
-         x = pmouse->m_pointHost.x();
+         x = pmouse->m_pointHost.x;
 
-         y = pmouse->m_pointHost.y();
+         y = pmouse->m_pointHost.y;
 
       }
 
@@ -2472,13 +2472,13 @@ void window::_on_focus_changed(bool bHasFocus)
 
       auto pmouse = øcreate_new<::user::mouse>();
 
-      pmouse->m_pointHost.x() = x;
+      pmouse->m_pointHost.x = x;
 
-      pmouse->m_pointHost.y() = y;
+      pmouse->m_pointHost.y = y;
 
-      m_pointCursor2.x() = x;
+      m_pointCursor2.x = x;
 
-      m_pointCursor2.y() = y;
+      m_pointCursor2.y = y;
 
       pmouse->m_pointAbsolute = m_pointCursor2;
 
@@ -2532,13 +2532,13 @@ void window::_on_focus_changed(bool bHasFocus)
 
       auto pmouse = øcreate_new<::user::mouse>();
 
-      pmouse->m_pointHost.x() = x;
+      pmouse->m_pointHost.x = x;
 
-      pmouse->m_pointHost.y() = y;
+      pmouse->m_pointHost.y = y;
 
-      m_pointCursor2.x() = x;
+      m_pointCursor2.x = x;
 
-      m_pointCursor2.y() = y;
+      m_pointCursor2.y = y;
 
       pmouse->m_pointAbsolute = m_pointCursor2;
 
@@ -2599,13 +2599,13 @@ void window::_on_focus_changed(bool bHasFocus)
 
       auto pmouse = øcreate_new<::user::mouse>();
 
-      pmouse->m_pointHost.x() = x;
+      pmouse->m_pointHost.x = x;
 
-      pmouse->m_pointHost.y() = y;
+      pmouse->m_pointHost.y = y;
 
-      m_pointCursor2.x() = x;
+      m_pointCursor2.x = x;
 
-      m_pointCursor2.y() = y;
+      m_pointCursor2.y = y;
 
       pmouse->m_pointAbsolute = m_pointCursor2;
 

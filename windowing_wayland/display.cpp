@@ -1124,13 +1124,13 @@ namespace windowing_wayland
 //      if(m_pwindowPointerEnter)
 //      {
 //
-//         //m_pwindowPointerEnter->m_pointPointer.x() = (double) m_pwindowPointerEnter->m_pointWindow.x() + x;
+//         //m_pwindowPointerEnter->m_pointPointer.x = (double) m_pwindowPointerEnter->m_pointWindow.x + x;
 //
-//         //m_pwindowPointerEnter->m_pointPointer.y() = (double) m_pwindowPointerEnter->m_pointWindow.y() + y;
+//         //m_pwindowPointerEnter->m_pointPointer.y = (double) m_pwindowPointerEnter->m_pointWindow.y + y;
 //
-//         m_pwindowPointerEnter->m_pointCursor2.x() = x;
+//         m_pwindowPointerEnter->m_pointCursor2.x = x;
 //
-//         m_pwindowPointerEnter->m_pointCursor2.y() = y;
+//         m_pwindowPointerEnter->m_pointCursor2.y = y;
 //
 //         m_pwindowPointerEnter->__handle_pointer_enter(pwlpointer);
 //
@@ -1193,16 +1193,16 @@ namespace windowing_wayland
 //      if(m_pwindowPointerCapture)
 //      {
 //
-//         ::minimum(m_pwindowPointerCapture->m_pointCursor2.x());
+//         ::minimum(m_pwindowPointerCapture->m_pointCursor2.x);
 //
-//         ::minimum(m_pwindowPointerCapture->m_pointCursor2.y());
+//         ::minimum(m_pwindowPointerCapture->m_pointCursor2.y);
 //
 //         if(m_pwindowPointerEnter)
 //         {
 //
-//            ::minimum(m_pwindowPointerEnter->m_pointCursor2.x());
+//            ::minimum(m_pwindowPointerEnter->m_pointCursor2.x);
 //
-//            ::minimum(m_pwindowPointerEnter->m_pointCursor2.y());
+//            ::minimum(m_pwindowPointerEnter->m_pointCursor2.y);
 //
 //         }
 //
@@ -1210,9 +1210,9 @@ namespace windowing_wayland
 //      else if(m_pwindowPointerEnter)
 //      {
 //
-//         ::minimum(m_pwindowPointerEnter->m_pointCursor2.x());
+//         ::minimum(m_pwindowPointerEnter->m_pointCursor2.x);
 //
-//         ::minimum(m_pwindowPointerEnter->m_pointCursor2.y());
+//         ::minimum(m_pwindowPointerEnter->m_pointCursor2.y);
 //
 //      }
 //

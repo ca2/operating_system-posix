@@ -191,9 +191,9 @@ namespace windowing_wayland
 
          //display_lock displaylock(pdisplayx11->Display());
 
-         int x = m_pwindow->m_puserinteraction->const_layout().sketch().origin().x();
+         int x = m_pwindow->m_puserinteraction->const_layout().sketch().origin().x;
 
-         int y = m_pwindow->m_puserinteraction->const_layout().sketch().origin().y();
+         int y = m_pwindow->m_puserinteraction->const_layout().sketch().origin().y;
 
          int cx = m_pwindow->m_puserinteraction->const_layout().sketch().width();
 
@@ -326,22 +326,22 @@ namespace windowing_wayland
 //   if(m_pwindow->m_puserinteraction->m_puserinteractionOwner)
 //   {
 //
-//      m_pointWindow.x() = x;
+//      m_pointWindow.x = x;
 //
-//      m_pointWindow.y() = y;
+//      m_pointWindow.y = y;
 //   }
 //   else
          {
 
-            m_pointWindow.x() = 0;
+            m_pointWindow.x = 0;
 
-            m_pointWindow.y() = 0;
+            m_pointWindow.y = 0;
 
          }
 
-         //m_pointWindowBestEffort.x() = x;
+         //m_pointWindowBestEffort.x = x;
 
-         //m_pointWindowBestEffort.y() = y;
+         //m_pointWindowBestEffort.y = y;
 
          m_sizeWindow.cx = cx;
 
@@ -1004,8 +1004,8 @@ namespace windowing_wayland
 //         m_pointWindow = p;
 //
 //         xdg_positioner_set_offset(m_pxdgpositioner,
-//                                   m_pointWindow.x(),
-//                                   m_pointWindow.y());
+//                                   m_pointWindow.x,
+//                                   m_pointWindow.y);
 //
 //         information() << "xdg_positioner_set_offset " << m_pointWindow;
 //
@@ -1052,17 +1052,17 @@ namespace windowing_wayland
 //
 //      }
 //
-//      //m_pointWindow.x() = x;
+//      //m_pointWindow.x = x;
 //
-//      //m_pointWindow.y() = y;
+//      //m_pointWindow.y = y;
 //
-//      //auto x = m_pointWindowBestEffort.x();
+//      //auto x = m_pointWindowBestEffort.x;
 //
-//      //auto y = m_pointWindowBestEffort.y();
+//      //auto y = m_pointWindowBestEffort.y;
 //
-//      auto x = m_pointWindow.x();
+//      auto x = m_pointWindow.x;
 //
-//      auto y = m_pointWindow.y();
+//      auto y = m_pointWindow.y;
 //
 //      auto cx = m_sizeWindow.cx;
 //
@@ -4236,8 +4236,8 @@ namespace windowing_wayland
          if (bMove)
          {
 
-            m_pointWindow.x() = x;
-            m_pointWindow.y() = y;
+            m_pointWindow.x = x;
+            m_pointWindow.y = y;
 
          }
 
@@ -4267,7 +4267,7 @@ namespace windowing_wayland
 
             wl_subsurface_set_position(
                m_pwlsubsurface,
-               m_pointWindow.x(), m_pointWindow.y());
+               m_pointWindow.x, m_pointWindow.y);
 
          }
 
@@ -5852,9 +5852,9 @@ namespace windowing_wayland
 //            if (msg.oswindow)
 //            {
 //
-//               ::minimum(m_pointCursor.x());
+//               ::minimum(m_pointCursor.x);
 //
-//               ::minimum(m_pointCursor.y());
+//               ::minimum(m_pointCursor.y);
 //
 //
 //               if(e.xcrossing.mode == NotifyUngrab)
@@ -5882,9 +5882,9 @@ namespace windowing_wayland
 
 //
 
-      ::minimum(m_pointCursor2.x());
+      ::minimum(m_pointCursor2.x);
 
-      ::minimum(m_pointCursor2.y());
+      ::minimum(m_pointCursor2.y);
 
 //      MESSAGE msg;
 //      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;

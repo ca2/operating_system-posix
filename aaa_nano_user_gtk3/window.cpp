@@ -504,8 +504,8 @@ namespace gtk3
 
             m_puserinteractionbase->on_before_create_window(this);
 
-            int x = m_pointWindow.x();
-            int y = m_pointWindow.y();
+            int x = m_pointWindow.x;
+            int y = m_pointWindow.y;
             int cx = m_sizeWindow.cx;
             int cy = m_sizeWindow.cy;
 
@@ -626,17 +626,17 @@ namespace gtk3
 //               pmouse->m_pOsMouseDataOkIfOnStack = happening;
 //
 //               pmouse->m_pwindow = this;
-               m_pointCursor2.x() = happening->x;
+               m_pointCursor2.x = happening->x;
 
-               m_pointCursor2.y() = happening->y;
+               m_pointCursor2.y = happening->y;
 
-               pmouse->m_pointHost.x() = happening->x;
+               pmouse->m_pointHost.x = happening->x;
 
-               pmouse->m_pointHost.y() = happening->y;
+               pmouse->m_pointHost.y = happening->y;
 
-               pmouse->m_pointAbsolute.x() = happening->x_root;
+               pmouse->m_pointAbsolute.x = happening->x_root;
 
-               pmouse->m_pointAbsolute.y() = happening->y_root;
+               pmouse->m_pointAbsolute.y = happening->y_root;
 
                if (happening->button == GDK_BUTTON_PRIMARY)
                {
@@ -693,17 +693,17 @@ namespace gtk3
 
                //pmouse->m_pwindow = this;
 
-               m_pointCursor2.x() = happening->x;
+               m_pointCursor2.x = happening->x;
 
-               m_pointCursor2.y() = happening->y;
+               m_pointCursor2.y = happening->y;
 
-               pmouse->m_pointHost.x() = happening->x;
+               pmouse->m_pointHost.x = happening->x;
 
-               pmouse->m_pointHost.y() = happening->y;
+               pmouse->m_pointHost.y = happening->y;
 
-               pmouse->m_pointAbsolute.x() = happening->x_root;
+               pmouse->m_pointAbsolute.x = happening->x_root;
 
-               pmouse->m_pointAbsolute.y() = happening->y_root;
+               pmouse->m_pointAbsolute.y = happening->y_root;
 
                auto puserinteractionbaseHold = m_puserinteractionbase;
 
@@ -795,17 +795,17 @@ namespace gtk3
 
                pmouse->m_emessage = ::user::e_message_mouse_move;
 
-               m_pointCursor2.x() = happening->x;
+               m_pointCursor2.x = happening->x;
 
-               m_pointCursor2.y() = happening->y;
+               m_pointCursor2.y = happening->y;
 
-               pmouse->m_pointHost.x() = happening->x;
+               pmouse->m_pointHost.x = happening->x;
 
-               pmouse->m_pointHost.y() = happening->y;
+               pmouse->m_pointHost.y = happening->y;
 
-               pmouse->m_pointAbsolute.x() = happening->x_root;
+               pmouse->m_pointAbsolute.x = happening->x_root;
 
-               pmouse->m_pointAbsolute.y() = happening->y_root;
+               pmouse->m_pointAbsolute.y = happening->y_root;
 
                //pmouse->m_time.m_iSecond = millis / 1_k;
 
@@ -1398,9 +1398,9 @@ namespace gtk3
          {
             //display_lock displaylock(m_pdisplay->m_pdisplay);
 
-            //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x(), point.y());
+            //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x, point.y);
 
-            gtk_window_move(GTK_WINDOW(m_pgtkwidget), point.x(), point.y());
+            gtk_window_move(GTK_WINDOW(m_pgtkwidget), point.x, point.y);
 
          }
 

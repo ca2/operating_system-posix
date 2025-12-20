@@ -399,9 +399,9 @@ namespace gtk4
 
             auto pgtk4windowingsystem = gtk4_acme_windowing();
 
-            int x = m_pointWindow.x();
+            int x = m_pointWindow.x;
 
-            int y = m_pointWindow.y();
+            int y = m_pointWindow.y;
 
             int cx = m_sizeWindow.cx;
 
@@ -814,8 +814,8 @@ namespace gtk4
                   // Get the default pointer device (e.g., mouse)
                   GdkDevice * pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
 
-                  m_pointCursor2.x() = m_sizeOnSize.cx / 2;
-                  m_pointCursor2.y() = m_sizeOnSize.cy / 2;
+                  m_pointCursor2.x = m_sizeOnSize.cx / 2;
+                  m_pointCursor2.y = m_sizeOnSize.cy / 2;
 
 
                   auto * pwidget = (GtkWidget *) pitem->m_pWidgetImpl;
@@ -834,8 +834,8 @@ namespace gtk4
                      GDK_TOPLEVEL(surface),
                      pgdkdevicePointer,
                      gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture)),
-                     m_pointCursor2.x(),
-                     m_pointCursor2.y(), timestamp);
+                     m_pointCursor2.x,
+                     m_pointCursor2.y, timestamp);
 
                   gtk_event_controller_reset(GTK_EVENT_CONTROLLER (pgesture));
 
@@ -843,8 +843,8 @@ namespace gtk4
                }
                else if (pitem->m_strAtom == "***size")
                {
-                  // m_pointCursor2.x() = 4;
-                  // m_pointCursor2.y() = 4;
+                  // m_pointCursor2.x = 4;
+                  // m_pointCursor2.y = 4;
                   //
                   //
                   // pmouse->m_pointHost = m_pointCursor2;
@@ -878,8 +878,8 @@ namespace gtk4
                   // Get the default pointer device (e.g., mouse)
                   GdkDevice * pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
 
-                  m_pointCursor2.x() = m_sizeOnSize.cx / 2;
-                  m_pointCursor2.y() = m_sizeOnSize.cy / 2;
+                  m_pointCursor2.x = m_sizeOnSize.cx / 2;
+                  m_pointCursor2.y = m_sizeOnSize.cy / 2;
 
                   //
                   // pmouse->m_pointHost = m_pointCursor2;
@@ -911,8 +911,8 @@ namespace gtk4
                      GDK_SURFACE_EDGE_NORTH_WEST,
                      pgdkdevicePointer,
                      gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture)),
-                     m_pointCursor2.x(),
-                     m_pointCursor2.y(), timestamp);
+                     m_pointCursor2.x,
+                     m_pointCursor2.y, timestamp);
 
                   gtk_event_controller_reset(GTK_EVENT_CONTROLLER (pgesture));
 
@@ -945,8 +945,8 @@ namespace gtk4
                {
 
 
-                  m_pointCursor2.x() = m_sizeOnSize.cx / 2;
-                  m_pointCursor2.y() = m_sizeOnSize.cy / 2;
+                  m_pointCursor2.x = m_sizeOnSize.cx / 2;
+                  m_pointCursor2.y = m_sizeOnSize.cy / 2;
 
 
 
@@ -954,8 +954,8 @@ namespace gtk4
 
                } else if (pitem->m_strAtom == "***size")
                {
-                  m_pointCursor2.x() = 4;
-                  m_pointCursor2.y() = 4;
+                  m_pointCursor2.x = 4;
+                  m_pointCursor2.y = 4;
 
                   //
                   // pmouse->m_pointHost = m_pointCursor2;
@@ -974,8 +974,8 @@ namespace gtk4
          {
 
             auto * widget = m_pdrawingarea;
-            int x = pmouse->m_pointHost.x();
-            int y = pmouse->m_pointHost.y();
+            int x = pmouse->m_pointHost.x;
+            int y = pmouse->m_pointHost.y;
 
 
             gtk_widget_realize(m_pgtkwidget);
@@ -1332,9 +1332,9 @@ namespace gtk4
             else
             {
 
-               x = pmouse->m_pointHost.x();
+               x = pmouse->m_pointHost.x;
 
-               y = pmouse->m_pointHost.y();
+               y = pmouse->m_pointHost.y;
 
             }
 
@@ -1405,9 +1405,9 @@ namespace gtk4
             else
             {
 
-               x = pmouse->m_pointHost.x();
+               x = pmouse->m_pointHost.x;
 
-               y = pmouse->m_pointHost.y();
+               y = pmouse->m_pointHost.y;
 
             }
 
@@ -1811,9 +1811,9 @@ namespace gtk4
 ////            if (xw && xd)
 ////            {
 ////
-////               auto x = point.x();
+////               auto x = point.x;
 ////
-////               auto y = point.y();
+////               auto y = point.y;
 ////
 ////               XMoveWindow(xd, xw, x, y);
 ////
@@ -1852,13 +1852,13 @@ namespace gtk4
 
             auto pmouse = øcreate_new<::user::mouse>();
 
-            pmouse->m_pointHost.x() = x;
+            pmouse->m_pointHost.x = x;
 
-            pmouse->m_pointHost.y() = y;
+            pmouse->m_pointHost.y = y;
 
-            m_pointCursor2.x() = x;
+            m_pointCursor2.x = x;
 
-            m_pointCursor2.y() = y;
+            m_pointCursor2.y = y;
 
 //            _defer_translate_to_absolute_coordinates_unlocked(m_pointCursor2);
 
@@ -1889,13 +1889,13 @@ namespace gtk4
 
             auto pmouse = øcreate_new<::user::mouse>();
 
-            pmouse->m_pointHost.x() = x;
+            pmouse->m_pointHost.x = x;
 
-            pmouse->m_pointHost.y() = y;
+            pmouse->m_pointHost.y = y;
 
-            m_pointCursor2.x() = x;
+            m_pointCursor2.x = x;
 
-            m_pointCursor2.y() = y;
+            m_pointCursor2.y = y;
 
 //            _defer_translate_to_absolute_coordinates_unlocked(m_pointCursor2);
 
@@ -1926,13 +1926,13 @@ namespace gtk4
 
             auto pmouse = øcreate_new<::user::mouse>();
 
-            pmouse->m_pointHost.x() = x;
+            pmouse->m_pointHost.x = x;
 
-            pmouse->m_pointHost.y() = y;
+            pmouse->m_pointHost.y = y;
 
-            m_pointCursor2.x() = x;
+            m_pointCursor2.x = x;
 
-            m_pointCursor2.y() = y;
+            m_pointCursor2.y = y;
 
 //            _defer_translate_to_absolute_coordinates_unlocked(m_pointCursor2);
 

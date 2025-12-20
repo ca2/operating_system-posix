@@ -1790,13 +1790,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             if (msg.oswindow)
             {
 
-               ::minimum(px11window->m_pointCursor2.x());
+               ::minimum(px11window->m_pointCursor2.x);
 
-               ::minimum(px11window->m_pointCursor2.y());
+               ::minimum(px11window->m_pointCursor2.y);
 
-               ::minimum(m_pdisplay->m_pointCursor2.x());
+               ::minimum(m_pdisplay->m_pointCursor2.x);
 
-               ::minimum(m_pdisplay->m_pointCursor2.y());
+               ::minimum(m_pdisplay->m_pointCursor2.y);
 
                if(e.xcrossing.mode == NotifyUngrab)
                {
@@ -1853,13 +1853,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             if (msg.oswindow)
             {
 
-               px11window->m_pointCursor2.x() = e.xmotion.x;
+               px11window->m_pointCursor2.x = e.xmotion.x;
 
-               px11window->m_pointCursor2.y() = e.xmotion.y;
+               px11window->m_pointCursor2.y = e.xmotion.y;
 
-               m_pdisplay->m_pointCursor2.x() = e.xmotion.x_root;
+               m_pdisplay->m_pointCursor2.x = e.xmotion.x_root;
 
-               m_pdisplay->m_pointCursor2.y() = e.xmotion.y_root;
+               m_pdisplay->m_pointCursor2.y = e.xmotion.y_root;
 
                //msg.oswindow->set_cursor_position(m_pointCursor);
 
@@ -1985,13 +1985,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                pmouse->m_emessage = ::user::e_message_mouse_move;
 
-               pmouse->m_pointHost.x() = e.xmotion.x;
+               pmouse->m_pointHost.x = e.xmotion.x;
 
-               pmouse->m_pointHost.y() = e.xmotion.y;
+               pmouse->m_pointHost.y = e.xmotion.y;
 
-               pmouse->m_pointAbsolute.x() = e.xmotion.x_root;
+               pmouse->m_pointAbsolute.x = e.xmotion.x_root;
 
-               pmouse->m_pointAbsolute.y() = e.xmotion.y_root;
+               pmouse->m_pointAbsolute.y = e.xmotion.y_root;
 
                pmouse->m_time.m_iSecond = e.xmotion.time / 1_k;
 
@@ -2621,13 +2621,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             if (msg.oswindow)
             {
 
-               px11window->m_pointCursor2.x() = e.xbutton.x;
+               px11window->m_pointCursor2.x = e.xbutton.x;
 
-               px11window->m_pointCursor2.y() = e.xbutton.y;
+               px11window->m_pointCursor2.y = e.xbutton.y;
 
-               m_pdisplay->m_pointCursor2.x() = e.xbutton.x_root;
+               m_pdisplay->m_pointCursor2.x = e.xbutton.x_root;
 
-               m_pdisplay->m_pointCursor2.y() = e.xbutton.y_root;
+               m_pdisplay->m_pointCursor2.y = e.xbutton.y_root;
 
                enum_message emessage = ::user::e_message_undefined;
                //msg.id() = ::user::e_message_mouse_wheel;
@@ -2725,9 +2725,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                int YRoot = e.xbutton.y_root;
 
-               //m_pointCursor.x() = XRoot;
+               //m_pointCursor.x = XRoot;
 
-               //m_pointCursor.y() = YRoot;
+               //m_pointCursor.y = YRoot;
 
                //msg.oswindow->set_cursor_position(m_pointCursor);
 
@@ -2764,13 +2764,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   pmousewheel->m_Δ = Δ;
 
-                  pmousewheel->m_pointHost.x() = e.xbutton.x;
+                  pmousewheel->m_pointHost.x = e.xbutton.x;
 
-                  pmousewheel->m_pointHost.y() = e.xbutton.y;
+                  pmousewheel->m_pointHost.y = e.xbutton.y;
 
-                  pmousewheel->m_pointAbsolute.x() = e.xbutton.x_root;
+                  pmousewheel->m_pointAbsolute.x = e.xbutton.x_root;
 
-                  pmousewheel->m_pointAbsolute.y() = e.xbutton.y_root;
+                  pmousewheel->m_pointAbsolute.y = e.xbutton.y_root;
 
                   pmousewheel->m_time.m_iSecond = e.xbutton.time / 1_k;
 
@@ -2791,13 +2791,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   pmouse->m_emessage = emessage;
 
-                  pmouse->m_pointHost.x() = e.xbutton.x;
+                  pmouse->m_pointHost.x = e.xbutton.x;
 
-                  pmouse->m_pointHost.y() = e.xbutton.y;
+                  pmouse->m_pointHost.y = e.xbutton.y;
 
-                  pmouse->m_pointAbsolute.x() = e.xbutton.x_root;
+                  pmouse->m_pointAbsolute.x = e.xbutton.x_root;
 
-                  pmouse->m_pointAbsolute.y() = e.xbutton.y_root;
+                  pmouse->m_pointAbsolute.y = e.xbutton.y_root;
 
                   pmouse->m_time.m_iSecond = e.xbutton.time / 1_k;
 

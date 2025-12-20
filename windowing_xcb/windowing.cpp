@@ -980,13 +980,13 @@ namespace windowing_xcb
 
             }
 
-            m_pdisplay->m_pointCursor2.x() = pmotion->root_x;
+            m_pdisplay->m_pointCursor2.x = pmotion->root_x;
 
-            m_pdisplay->m_pointCursor2.y() = pmotion->root_y;
+            m_pdisplay->m_pointCursor2.y = pmotion->root_y;
 
-            pxcbwindow->m_pointCursor2.x() = pmotion->event_x;
+            pxcbwindow->m_pointCursor2.x = pmotion->event_x;
 
-            pxcbwindow->m_pointCursor2.y() = pmotion->event_y;
+            pxcbwindow->m_pointCursor2.y = pmotion->event_y;
 
             informationf("XCB_MOTION_NOTIFY %d,%d", pmotion->root_x, pmotion->root_y);
 
@@ -1016,9 +1016,9 @@ namespace windowing_xcb
 //
 //                     throttling.m_timeMouseMove.Now();
 //
-//                     throttling.m_pointMouseMove.x() = pmotion->root_x;
+//                     throttling.m_pointMouseMove.x = pmotion->root_x;
 //
-//                     throttling.m_pointMouseMove.y() = pmotion->root_y;
+//                     throttling.m_pointMouseMove.y = pmotion->root_y;
 //
 //                     if (false)
 //                     {
@@ -1027,8 +1027,8 @@ namespace windowing_xcb
 //                        {
 //
 //                           ::int_size sizeDistance(
-//                              (throttling.m_pointMouseMoveSkip.x() - throttling.m_pointMouseMove.x()),
-//                              (throttling.m_pointMouseMoveSkip.y() - throttling.m_pointMouseMove.y()));
+//                              (throttling.m_pointMouseMoveSkip.x - throttling.m_pointMouseMove.x),
+//                              (throttling.m_pointMouseMoveSkip.y - throttling.m_pointMouseMove.y));
 //
 //                           if (!throttling.m_timeMouseMoveSkip.timeout(throttling.m_timeMouseMovePeriod)
 //                               && sizeDistance.cx * sizeDistance.cx + sizeDistance.cy * sizeDistance.cy <
@@ -1964,13 +1964,13 @@ if(bSentResponse)
 
             }
 
-            m_pdisplay->m_pointCursor2.x() = pbutton->root_x;
+            m_pdisplay->m_pointCursor2.x = pbutton->root_x;
 
-            m_pdisplay->m_pointCursor2.y() = pbutton->root_y;
+            m_pdisplay->m_pointCursor2.y = pbutton->root_y;
 
-            pxcbwindow->m_pointCursor2.x() = pbutton->event_x;
+            pxcbwindow->m_pointCursor2.x = pbutton->event_x;
 
-            pxcbwindow->m_pointCursor2.y() = pbutton->event_y;
+            pxcbwindow->m_pointCursor2.y = pbutton->event_y;
 
             //pxcbwindow->set_cursor_position(m_pointCursor);
 
@@ -2046,8 +2046,8 @@ if(bSentResponse)
 
                informationf("XCB_BUTTON_PRESS %d,%d window %d,%d %d,%d",
                            pbutton->root_x, pbutton->root_y,
-                           origin.x(), origin.y(),
-                           origin.x() + size.cx, origin.y() + size.cy);
+                           origin.x, origin.y,
+                           origin.x + size.cx, origin.y + size.cy);
 
 
             }
@@ -2083,8 +2083,8 @@ if(bSentResponse)
 
                informationf("XCB_BUTTON_RELEASE %d,%d window %d,%d %d,%d",
                            pbutton->root_x, pbutton->root_y,
-                           origin.x(), origin.y(),
-                           origin.x() + size.cx, origin.y() + size.cy);
+                           origin.x, origin.y,
+                           origin.x + size.cx, origin.y + size.cy);
 
 
             }

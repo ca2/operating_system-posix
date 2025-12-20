@@ -191,9 +191,9 @@ namespace windowing_x11
 
                      ::x11::display_lock displaylock(pdisplayx11->Display());
 
-                     int x = m_pwindow->m_puserinteraction->const_layout().sketch().origin().x();
+                     int x = m_pwindow->m_puserinteraction->const_layout().sketch().origin().x;
 
-                     int y = m_pwindow->m_puserinteraction->const_layout().sketch().origin().y();
+                     int y = m_pwindow->m_puserinteraction->const_layout().sketch().origin().y;
 
                      int cx = m_pwindow->m_puserinteraction->const_layout().sketch().width();
 
@@ -3838,9 +3838,9 @@ namespace windowing_x11
 
       bool bSize = !bNoSize;
 
-      m_pointWindow.x() = x;
+      m_pointWindow.x = x;
 
-      m_pointWindow.y() = y;
+      m_pointWindow.y = y;
 
       m_sizeWindow.cx = cx;
 

@@ -404,7 +404,7 @@ namespace input_xinput
 //
 //         pmouse->m_emessage = emessage;
 //
-//         //pmouse->m_pointAbsolute.x() =
+//         //pmouse->m_pointAbsolute.x =
 //
 //         for(auto & pparticle : m_particleaMouseHandler)
 //         {
@@ -453,7 +453,7 @@ namespace input_xinput
 //
 //         pkey->m_emessage = emessage;
 //
-//         //pmouse->m_pointAbsolute.x() =
+//         //pmouse->m_pointAbsolute.x =
 //
 //         for(auto & pparticle : m_particleaKeyboardHandler)
 //         {

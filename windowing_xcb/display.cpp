@@ -579,9 +579,9 @@ namespace windowing_xcb
 
       ::int_point pointCursor;
 
-      pointCursor.x() = preply->root_x;
+      pointCursor.x = preply->root_x;
 
-      pointCursor.y() = preply->root_y;
+      pointCursor.y = preply->root_y;
 
       return pointCursor;
 

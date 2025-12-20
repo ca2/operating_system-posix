@@ -749,7 +749,7 @@ namespace windowing_q5
    //    //
    //    //         pmouse->m_emessage = emessage;
    //    //
-   //    //         //pmouse->m_pointAbsolute.x() =
+   //    //         //pmouse->m_pointAbsolute.x =
    //    //
    //    //         for(auto & pparticle : m_particleaMouseHandler)
    //    //         {
@@ -798,7 +798,7 @@ namespace windowing_q5
    //    //
    //    //         pkey->m_emessage = emessage;
    //    //
-   //    //         //pmouse->m_pointAbsolute.x() =
+   //    //         //pmouse->m_pointAbsolute.x =
    //    //
    //    //         for(auto & pparticle : m_particleaKeyboardHandler)
    //    //         {
