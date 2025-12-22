@@ -5,25 +5,15 @@
 #pragma once
 
 
-#include "acme_windowing_g/display.h"
-//#include "windowing_system_wayland/xkb_input.h"
 #include "acme/prototype/geometry2d/rectangle.h"
 #include "acme/prototype/geometry2d/size_array.h"
 #include "acme/windowing/display.h"
 
-#include <gtk/gtk.h>
+#include <X11/Xlib.h>
 
 
 
-//#include "display_base.h"
-//#include "event_listener.h"
-//#include "windowing_system_x11/_atom.h"
-
-
-//struct wl_display;
-
-
-namespace gtk4
+namespace x11
 {
 
 
@@ -38,9 +28,8 @@ namespace gtk4
          class window;
 
 
-         class CLASS_DECL_ACME_WINDOWING_GTK4 display :
-            virtual public ::g::acme::windowing::display
-            //virtual public event_listener
+         class CLASS_DECL_ACME_WINDOWING_X11 display :
+            virtual public ::acme::windowing::display
          {
          public:
 
@@ -49,7 +38,7 @@ namespace gtk4
             //window_map m_windowmap;
 
             bool m_bOpened;
-            GdkDisplay* m_pgdkdisplay;
+            Display* m_pDisplay;
 
             bool m_bOwnDisplay;
 
@@ -80,7 +69,7 @@ namespace gtk4
             void initialize(::particle * pparticle) override;
 
 
-            virtual void set_gdk_display(::GdkDisplay * pgdkdisplay);
+            virtual void set_x11_display(::Display * pgdkdisplay);
 
 
             bool is_branch_current() const override;
@@ -145,7 +134,7 @@ namespace gtk4
             //void initialize(::particle* pparticle) override;
 
 
-            virtual ::GdkDisplay* __get_gdk_display();
+            virtual ::Display* __get_x11_display();
 
 
             virtual void open();
@@ -160,13 +149,13 @@ namespace gtk4
             //void init_task() override;
 
 
-            virtual ::GdkDisplay* _gdk_display();
+            virtual ::Display* _x11_display();
 
 
-            virtual ::GdkDisplay* _gdk_display() const;
+            virtual ::Display* _x11_display() const;
 
 
-            virtual ::GtkWidget* _gtk_widget_focus();
+            virtual Window _x11_focus();
 
 
             void display_post(const procedure& procedure) override;
@@ -259,7 +248,7 @@ namespace gtk4
    } // namespace acme
 
 
-} // namespace gtk4
+} // namespace x11
 
 
 

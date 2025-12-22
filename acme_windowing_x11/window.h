@@ -5,7 +5,6 @@
 
 
 #include "acme/windowing/window.h"
-//#include "event_listener.h"
 #include "acme/parallelization/manual_reset_happening.h"
 
 #include <X11/Xutil.h>
@@ -24,13 +23,13 @@ namespace x11
       {
 
 
-         class CLASS_DECL_ACME window :
-            virtual public ::acme::windowing::windowing
+         class CLASS_DECL_ACME_WINDOWING_X11 window :
+            virtual public ::acme::windowing::window
          {
          public:
 
 
-            ::pointer<::x11::acme::windowing::display>        m_pdisplay;
+            ::pointer<::x11::acme::windowing::display>   m_pdisplay;
             Window                                       m_window;
             Window                                       m_windowRoot;
             cairo_surface_t *                            m_psurface;

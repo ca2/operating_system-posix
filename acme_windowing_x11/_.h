@@ -17,3 +17,39 @@
 
 
 void x11_check_status(int status, unsigned long window);
+
+
+namespace x11
+{
+
+   namespace acme
+   {
+
+
+
+      namespace windowing
+      {
+
+
+         class display;
+         class window;
+
+
+         class windowing;
+
+
+      } // namespace windowing
+
+
+
+
+
+
+
+   } // namespae acme
+
+
+
+
+} // namespace acme_windowing_x11
+

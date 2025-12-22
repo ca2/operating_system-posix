@@ -4,14 +4,12 @@
 #include "framework.h"
 #include "window.h"
 #include "display.h"
+#include "display_lock.h"
 #include "acme/nano/graphics/device.h"
-#include "acme/user/micro/child.h"
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
-#include "acme/user/user/interaction_base.h"
 #include "acme/user/user/mouse.h"
-#include "windowing_system_x11/display_lock.h"
 #include "_x11.h"
 #include <X11/Xatom.h>
 #include <xkbcommon/xkbcommon.h>

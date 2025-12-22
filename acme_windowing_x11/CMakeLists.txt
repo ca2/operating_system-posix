@@ -17,6 +17,8 @@ list(APPEND library_source
         _.h
         _atom.cpp
         _factory.cpp
+   display.cpp
+   display.h
         display_lock.cpp
         display_lock.h
         framework.cpp
@@ -28,7 +30,8 @@ window.cpp
    windowing.cpp
    windowing.h)
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source}
+   _x11.h)
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 

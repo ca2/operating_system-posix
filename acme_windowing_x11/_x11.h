@@ -1,8 +1,7 @@
 //
-// Created by camilo on 12/22/25.
+// Created by camilo on 2025-12-25 09:03 <3ThomasBorregaardSørensen!!
 //
+#pragma once
 
-#ifndef LINUX_OPENGL_GRAPHICS3D__X11_H
-#define LINUX_OPENGL_GRAPHICS3D__X11_H
 
-#endif //LINUX_OPENGL_GRAPHICS3D__X11_H
+

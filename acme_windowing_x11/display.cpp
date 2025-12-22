@@ -57,7 +57,7 @@ void x11_init_threads();
 void set_main_user_thread();
 
 
-namespace gtk4
+namespace x11
 {
 
 
@@ -2979,4 +2979,4 @@ namespace gtk4
    } // namespace acme
 
 
-} // namespace gtk4
+} // namespace x11
