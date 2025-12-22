@@ -4576,116 +4576,7 @@ namespace windowing_kde5
 //       system()->acme_windowing()->_user_send(procedure);
 //
 //    }
-//
-//
-//    // void window::_main_send(const ::procedure & procedure)
-//    // {
-//
-//    //    _user_send(procedure);
-//
-//    // }
-//
-//    //   bool window::get_state(long & lState)
-//    //   {
-//    //
-//    //      windowing_output_debug_string("::window::get_state 1");
-//    //
-//    //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
-//    //
-//    //      display_lock displaylock(x11_display()->Display());
-//    //
-//    //      return _get_wm_state_unlocked(lState);
-//    //
-//    //   }
-//    //
-//    //
-//    //   bool window::_get_wm_state_unlocked(long & lState)
-//    //   {
-//    //
-//    //      static const long WM_STATE_ELEMENTS = 2L;
-//    //
-//    //      if (x11_display()->m_atomWmState == None)
-//    //      {
-//    //
-//    //         x11_display()->m_atomWmState = x11_display()->intern_atom("WM_STATE", false);
-//    //
-//    //      }
-//    //
-//    //      Atom actual_type = 0;
-//    //
-//    //      int actual_format = 0;
-//    //
-//    //      unsigned long nitems = 0;
-//    //
-//    //      unsigned long leftover = 0;
-//    //
-//    //      unsigned char * p = nullptr;
-//    //
-//    //      auto atomWmState = x11_display()->m_atomWmState;
-//    //
-//    //      int status = XGetWindowProperty(Display(), Window(), atomWmState, 0L,
-//    //                                        WM_STATE_ELEMENTS, False, AnyPropertyType,
-//    //                                  &actual_type,
-//    //                                  &actual_format, &nitems, &leftover, &p);
-//    //
-//    //      if (status != 0)
-//    //      {
-//    //
-//    //         windowing_output_debug_string("::window::_get_state_unlocked 2");
-//    //
-//    //         return false;
-//    //
-//    //      }
-//    //
-//    //      long lStatus = -1;
-//    //
-//    //      if (p != nullptr)
-//    //      {
-//    //
-//    //         lStatus = (long) *p;
-//    //
-//    //      }
-//    //
-//    //      XFree(p);
-//    //
-//    //      windowing_output_debug_string("::window::_get_state_unlocked 1.1");
-//    //
-//    //      lState = lStatus;
-//    //
-//    //      return true;
-//    //
-//    //   }
-//
-//
-//    bool window::is_iconic()
-//    {
-//       //#ifdef XDISPLAY_LOCK_LOG
-//       //
-//       //      b_prevent_xdisplay_lock_log = true;
-//       //
-//       //#endif
-//       //
-//       //      long lState = -1;
-//       //
-//       //      if(!get_state(lState))
-//       //      {
-//       //
-//       //         return false;
-//       //
-//       //      }
-//       //
-//       //      bool bIconic = lState == IconicState;
-//       //
-//       //#ifdef XDISPLAY_LOCK_LOG
-//       //
-//       //      b_prevent_xdisplay_lock_log = false;
-//       //
-//       //#endif
-//       //
-//       //      return lState;
-//       return false;
-//    }
-//
+
 //
 //    bool window::is_window_visible()
 //    {
@@ -6055,22 +5946,6 @@ namespace windowing_kde5
    // //
    // //   }
    // //
-   // //
-   // //   ::comparable_array < Atom > window::_get_net_wm_state_unlocked()
-   // //   {
-   // //
-   // //      auto pdisplay = x11_display();
-   // //
-   // //      return _wm_get_list_unlocked(pdisplay->m_atomNetWmState);
-   // //
-   // ////      bNetWmStateHidden = atoma.contains(pdisplay->m_atomNetWmStateHidden);
-   // ////
-   // ////      bNetWmStateMaximized = atoma.contains(pdisplay->m_atomNetWmStateMaximizedHorz)
-   // ////         || atoma.contains(pdisplay->m_atomNetWmStateMaximizedVert);
-   // ////
-   // ////      bNetWmStateFocused = atoma.contains(pdisplay->m_atomNetWmStateFocused);
-   // //
-   // //   }
    // //
    // //
    // //   int window::_wm_test_list_unlocked(Atom atomList, Atom atomFlag)

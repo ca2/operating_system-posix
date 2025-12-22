@@ -6,7 +6,6 @@ list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
-        #_library.h
         buffer.cpp
         buffer.h
         cursor.cpp
@@ -15,17 +14,12 @@ list(APPEND library_source
         display.cpp
         display.h
         display_xrender.cpp
-        enum_display_monitors.cpp
         framework.cpp
         framework.h
         icon.cpp
         icon.h
         keyboard.cpp
         keyboard.h
-        #node.cpp
-        #node.h
-        #startup-notification.cpp
-        #startup-notification.h
         text_composition_client.cpp
         text_composition_client.h
         user.cpp
@@ -36,7 +30,6 @@ list(APPEND library_source
         windowing_x11.cpp
         windowing.h
         x11_windowing.cpp
-        #xi.cpp
 )
 
 

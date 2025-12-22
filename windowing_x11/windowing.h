@@ -5,7 +5,7 @@
 
 
 #include "windowing_posix/windowing.h"
-#include "acme/prototype/collection/list.h"
+#include "acme_windowing_x11/windowing.h"
 #include "apex/input/input.h"
 #include "_x11.h"
 
@@ -16,6 +16,7 @@ namespace windowing_x11
 
    class CLASS_DECL_WINDOWING_X11 windowing :
       virtual public ::windowing_posix::windowing,
+      virtual public ::x11::acme::windowing::windowing,
       virtual public ::input::input
    {
    public:
@@ -62,8 +63,8 @@ namespace windowing_x11
       virtual void post_ui_message(::message::message * pmessage);
 
 
-      void user_send(const ::procedure & procedure) override;
-      void user_post(const ::procedure & procedure) override;
+      void _send(const ::procedure & procedure) override;
+      void _post(const ::procedure & procedure) override;
 
       //void add_mouse_message_handler(::particle * pparticle) override;
       //void add_keyboard_message_handler(::particle * pparticle) override;

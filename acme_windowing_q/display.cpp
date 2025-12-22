@@ -110,7 +110,7 @@ namespace q
          //         }
          //
          //
-         //         Atom display::intern_atom(enuid() eatom, bool bCreate)
+         //         Atom display::intern_atom(enum_atom eatom, bool bCreate)
          //         {
          //
          //            return _intern_atom_unlocked(eatom, bCreate);
@@ -165,7 +165,7 @@ namespace q
          //         }
          //
          //
-         //         Atom display::_intern_atom_unlocked(enuid() eatom, bool bCreate)
+         //         Atom display::_intern_atom_unlocked(enum_atom eatom, bool bCreate)
          //         {
          //
          //            if (eatom < 0 || eatom >= e_atom_count)

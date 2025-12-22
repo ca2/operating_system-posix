@@ -2210,24 +2210,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                  if (e.xproperty.atom == m_pdisplay->m_atomNetWmState)
 //                  {
 //
-//                     auto bNetWmStateHiddenOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateHidden);
-//
-//                     auto bNetWmStateMaximizedHorzOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedHorz);
-//
-//                     auto bNetWmStateMaximizedVertOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedVert);
-//
-//                     auto bNetWmStateFocusedOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateFocused);
-//
-//                     px11window->m_atomaNetWmState = px11window->_get_net_wm_state_unlocked();
-//
-//                     auto bNetWmStateHidden = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateHidden);
-//
-//                     auto bNetWmStateMaximizedHorz = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedHorz);
-//
-//                     auto bNetWmStateMaximizedVert = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateMaximizedVert);
-//
-//                     auto bNetWmStateFocused = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateFocused);
-//
 //                     information() << "PropertyNotify Hidden : " << bNetWmStateHidden << ", Zoomed : " << (bNetWmStateMaximizedHorz || bNetWmStateMaximizedVert) << ", Focused : " << bNetWmStateFocused;
 //
 //                     auto edisplayDesign = pinteraction->const_layout().design().display();

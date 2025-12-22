@@ -70,7 +70,7 @@ namespace x11
       if(!m_bLocked)
       {
 
-         if(!psystem->windowing_system()->synchronization()->_wait(30_s))
+         if(!psystem->acme_windowing()->synchronization()->_wait(30_s))
          {
 
             return;
@@ -114,7 +114,7 @@ namespace x11
 
          }
 
-         psystem->windowing_system()->synchronization()->unlock();
+         psystem->acme_windowing()->synchronization()->unlock();
 
       }
 

@@ -882,6 +882,236 @@ namespace x11
          //   }
 
 
+   comparable_array<Atom> window::_wm_get_list_unlocked(Atom atomList)
+   {
+
+      comparable_array<Atom> atoma;
+
+      if (atomList == None)
+      {
+
+         return atoma;
+
+      }
+
+      Atom actual_type;
+
+      int actual_format;
+
+      unsigned long int bytes_after;
+
+      Atom *patoms = nullptr;
+
+      long unsigned int num_items = 0;
+
+      XGetWindowProperty(Display(), Window(), atomList, 0, 1024,
+                         False, XA_ATOM, &actual_type, &actual_format,
+                         &num_items,
+                         &bytes_after, (unsigned char **) &patoms);
+
+      atoma.set_size(num_items);
+
+      ::memory_copy(atoma.data(), patoms, atoma.get_size_in_bytes());
+
+      XFree(patoms);
+
+      return atoma;
+
+   }
+
+
+   ::comparable_array<Atom> window::_get_net_wm_state_unlocked()
+   {
+
+      auto pdisplay = x11_display();
+
+      return _wm_get_list_unlocked(pdisplay->m_atomNetWmState);
+
+//      bNetWmStateHidden = atoma.contains(pdisplay->m_atomNetWmStateHidden);
+//
+//      bNetWmStateMaximized = atoma.contains(pdisplay->m_atomNetWmStateMaximizedHorz)
+//         || atoma.contains(pdisplay->m_atomNetWmStateMaximizedVert);
+//
+//      bNetWmStateFocused = atoma.contains(pdisplay->m_atomNetWmStateFocused);
+
+   }
+
+
+   int window::_wm_test_list_unlocked(Atom atomList, Atom atomFlag)
+   {
+
+//      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      Atom actual_type;
+
+      int actual_format;
+
+      unsigned long i;
+
+      auto atoma = _wm_get_list_unlocked(atomList);
+
+      if (atoma.is_empty())
+      {
+
+         return 0;
+
+      }
+
+      bool bFind = atoma.contains(atomFlag);
+
+      return bFind ? 1 : 0;
+
+   }
+
+
+   int window::_wm_test_state_unlocked(const_char_pointer pszNetStateFlag)
+   {
+
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      Atom atomFlag = x11_display()->_intern_atom_unlocked(scopedstrNetStateFlag, 1);
+
+      if (atomFlag == None)
+      {
+
+         windowing_output_debug_string("ERROR: cannot find atom for " + string(scopedstrNetStateFlag) + "!\n");
+
+         return 0;
+
+      }
+
+      Atom atomNetState = x11_display()->_intern_atom_unlocked("_NET_WM_STATE", 1);
+
+      if (atomNetState == None)
+      {
+
+         windowing_output_debug_string("ERROR: cannot find atom for _NET_WM_STATE !\n");
+
+         return 0;
+
+      }
+
+      return _wm_test_list_unlocked(atomNetState, atomFlag);
+
+   }
+
+
+   int window::wm_test_state(const_char_pointer pszNetStateFlag)
+   {
+
+      ::string strNetStateFlag;
+
+      int i = 0;
+
+      system()->acme_windowing()->sync([this, &i, strNetStateFlag]()
+               {
+
+                  //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+                  windowing_output_debug_string("::wm_test_state 1");
+
+                  ::x11::display_lock displaylock(x11_display()->Display());
+
+                  if (x11_display()->is_null())
+                  {
+
+                     windowing_output_debug_string("::wm_test_state 1.1");
+
+                     i = 0;
+
+                     return;
+
+                  }
+
+                  i = _wm_test_state_unlocked(strNetStateFlag);
+
+                  windowing_output_debug_string("::wm_test_state 2");
+
+               });
+
+      return i;
+
+   }
+
+
+   bool window::_wm_add_remove_list_unlocked(Atom atomList, Atom atomFlag, bool bSet)
+   {
+
+      if (atomFlag == None)
+      {
+
+         return false;
+
+      }
+
+      if (atomList == None)
+      {
+
+         return false;
+
+      }
+
+      if (bSet)
+      {
+
+         if (!_wm_test_list_unlocked(atomList, atomFlag))
+         {
+
+            XChangeProperty(Display(), Window(), atomList, XA_ATOM, 32, PropModeAppend, (unsigned char *) &atomFlag, 1);
+
+         }
+
+      } else
+      {
+
+         unsigned long num_items;
+
+         auto atoma = _wm_get_list_unlocked(atomList);
+
+         if (atoma.is_empty())
+         {
+
+            return false;
+
+         }
+
+         auto iFind = -1;
+
+         int i;
+
+         for (i = 0; i < num_items; i++)
+         {
+
+            if (atoma[i] == atomFlag)
+            {
+
+               iFind = i;
+
+               break;
+
+            }
+
+         }
+
+         if (::not_found(iFind))
+         {
+
+            atoma.erase_at(iFind);
+
+            XChangeProperty(Display(), Window(), atomList, XA_ATOM, 32, PropModeReplace, (unsigned char *) atoma.data(),
+                            atoma.size());
+
+         }
+
+      }
+
+      return true;
+
+   }
+
+
+
+
       }//namespace user
 
 

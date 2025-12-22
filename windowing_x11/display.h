@@ -7,8 +7,9 @@
 #define WINDOWING_X11_DISPLAY_MEMBER
 
 
-#include "nano_user_x11/event_listener.h"
-#include "nano_user_x11/display.h"
+#include "acme_windowing_x11/_atom.h"
+//#include "nano_user_x11/event_listener.h"
+//#include "nano_user_x11/display.h"
 #include "aura/windowing/display.h"
 #include "_x11.h"
 
@@ -30,8 +31,8 @@ namespace windowing_x11
       Atom                                         m_atoma[::x11::e_atom_count];
 
 
-      ::pointer<::x11::acme::windowing::display>        m_px11display;
-      //::Display *                                m_pdisplay;
+      //::pointer<::x11::acme::windowing::display>        m_px11display;
+      ::Display *                                  m_pdisplay;
       XVisualInfo                                  m_visualinfo;
       ::Visual *                                   m_pvisual;
       Colormap                                     m_colormap;
@@ -124,11 +125,11 @@ namespace windowing_x11
 
       Atom intern_atom(const_char_pointer pszAtomName, bool bCreate);
 
-      Atom intern_atom(::x11::enuid() eatom, bool bCreate);
+      Atom intern_atom(::x11::enum_atom eatom, bool bCreate);
 
       Atom _intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate);
 
-      Atom _intern_atom_unlocked(::x11::enuid() eatom, bool bCreate);
+      Atom _intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate);
 
       Atom net_wm_state_atom(bool bCreate);
 

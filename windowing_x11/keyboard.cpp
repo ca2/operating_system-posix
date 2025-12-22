@@ -4,20 +4,13 @@
 //
 #include "framework.h"
 #include "keyboard.h"
+#include "window.h"
 #include "acme/constant/user_key.h"
-#include "windowing_system_x11/keyboard.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/filesystem/filesystem/file_context.h"
-#include "apex/user/user/prototype.h"
-#include "aura/user/user/key.h"
+//#include "apex/user/user/prototype.h"
+//#include "aura/user/user/key.h"
 
-
-//#if defined(LINUX) || defined(SOLARIS)
-////#include "berg/base/os/x11/x11_keyboard.h"
-//string x11_keyboard_get_current_group_symbol();
-//#elif defined(MACOS)
-//string keyboard_input_source();
-//#endif
 
 
 namespace windowing_x11
@@ -288,9 +281,9 @@ namespace windowing_x11
 
       //::type typeinfoKey = typeid(::user::enum_key );
 
-      string str = file()->as_string(scopedstrPath);
+      string str = file()->as_string(path);
 
-      informationf(scopedstrPath);
+      informationf(path);
 
       informationf(str);
 

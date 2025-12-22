@@ -190,12 +190,12 @@ namespace windowing_xcb
       virtual bool _list_has_atom(xcb_atom_t propertyList, xcb_atom_t propertyItem);
       virtual ::e_status _list_add_atom(xcb_atom_t atomList, xcb_atom_t atomFlag);
       virtual ::e_status _list_erase_atom(xcb_atom_t atomList, xcb_atom_t atomFlag);
-      virtual ::e_status _mapped_add_net_wm_state(::x11::enuid() eatomNetWmState);
-      virtual ::e_status _mapped_erase_net_wm_state(::x11::enuid() eatomNetWmState);
-      virtual ::e_status _unmapped_add_net_wm_state(::x11::enuid() eatomNetWmState);
-      virtual ::e_status _unmapped_erase_net_wm_state(::x11::enuid() eatomNetWmState);
-      virtual ::e_status _add_net_wm_state(::x11::enuid() eatomNetWmState);
-      virtual ::e_status _erase_net_wm_state(::x11::enuid() eatomNetWmState);
+      virtual ::e_status _mapped_add_net_wm_state(::x11::enum_atom eatomNetWmState);
+      virtual ::e_status _mapped_erase_net_wm_state(::x11::enum_atom eatomNetWmState);
+      virtual ::e_status _unmapped_add_net_wm_state(::x11::enum_atom eatomNetWmState);
+      virtual ::e_status _unmapped_erase_net_wm_state(::x11::enum_atom eatomNetWmState);
+      virtual ::e_status _add_net_wm_state(::x11::enum_atom eatomNetWmState);
+      virtual ::e_status _erase_net_wm_state(::x11::enum_atom eatomNetWmState);
       virtual ::e_status _clear_net_wm_state();
       virtual ::e_status _add_net_wm_state_below();
       virtual ::e_status _add_net_wm_state_above();

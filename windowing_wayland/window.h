@@ -105,7 +105,7 @@ namespace windowing_wayland
 //      static Atom get_window_long_atom(int nIndex);
 //
 //
-//      inline int net_wm_state(::x11::enuid() eatom) const
+//      inline int net_wm_state(::x11::enum_atom eatom) const
 //      {
 //
 //         return m_iaNetWmState2[eatom - ::x11::e_atom_net_wm_state_first];
@@ -175,9 +175,6 @@ namespace windowing_wayland
       ::windowing_wayland::display * wayland_display() const;
 
       void set_parent(::windowing::window * pwindowNewParent) override;
-      //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
-      //virtual bool get_state(long & lState);
-      //bool _get_wm_state_unlocked(long & lState) override;
       bool is_iconic() override;
       bool is_window_visible() override;
 //      bool _is_iconic_unlocked() override;
@@ -275,49 +272,6 @@ namespace windowing_wayland
       bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize);
 
 
-//      virtual comparable_array < Atom > _wm_get_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList);
-//      virtual ::comparable_array < Atom > _get_net_wm_state_unlocked();
-//      virtual int wm_test_state( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
-//      virtual int _wm_test_state_unlocked( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
-//      virtual int _wm_test_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
-//      virtual bool _wm_add_remove_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
-//      virtual void _wm_add_remove_state_mapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-//      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-//      virtual void _wm_add_remove_state_unmapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-//      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-//      virtual void _wm_add_remove_state_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-//      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-//      virtual void _wm_state_clear_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-//      virtual void _wm_state_below_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-//      virtual void _wm_state_above_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-//      virtual void _wm_state_hidden_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-//      virtual void wm_state_above( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-//      virtual void wm_state_below( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-//      virtual void wm_state_hidden( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-//      virtual void wm_toolwindow( WINDOWING_X11_WINDOW_MEMBER bool bToolWindow);
-//      virtual void wm_normalwindow();
-//      virtual void wm_hidden_state( WINDOWING_X11_WINDOW_MEMBER bool bHidden);
-//      virtual void wm_desktopwindow( WINDOWING_X11_WINDOW_MEMBER bool bDesktopWindow);
-//      virtual void wm_centerwindow( WINDOWING_X11_WINDOW_MEMBER bool bCenterWindow);
-//      virtual void wm_splashwindow( WINDOWING_X11_WINDOW_MEMBER bool bCenterWindow);
-//      virtual void wm_dockwindow( WINDOWING_X11_WINDOW_MEMBER bool bDockWindow);
-//      virtual void wm_nodecorations( WINDOWING_X11_WINDOW_MEMBER int bMap);
-//      virtual void _wm_nodecorations( WINDOWING_X11_WINDOW_MEMBER int bMap);
-//      virtual int_bool _wm_is_window_visible_unlocked( WINDOWING_X11_WINDOW_MEMBER);
-//      virtual void wm_iconify_window( WINDOWING_X11_WINDOW_MEMBER );
-//      //virtual int_bool IsWindowVisibleRaw( WINDOWING_X11_WINDOW_MEMBER);
-//      //virtual int_bool IsWindowVisibleRaw(oswindow w);
-////      virtual Atom * wm_get_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, unsigned long int * pnum_items);
-////      virtual int wm_test_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
-////      virtual int wm_test_state_raw( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
-////      virtual int wm_test_state( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
-////      virtual bool wm_add_remove_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
-
-
-//      virtual ::e_status x11_post_message(MESSAGE & msg);
-//      virtual ::e_status post_ui_message(const MESSAGE & message);
-      //virtual bool x11_process_event(osdisplay_data * pdisplaydata, XEvent * pevent, XGenericEventCookie *cookie);
-      //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, int x, int y, int cx, int cy, unsigned int nFlags);
       virtual ::e_status window_rectangle( ::int_rectangle * prectangle);
       virtual ::e_status rectangle(::int_rectangle * prectangle);
       //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::int_rectangle & rectangle);

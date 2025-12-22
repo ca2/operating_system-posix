@@ -37,7 +37,7 @@ namespace gtk4
             //pointer_array < event_listener >        m_happeninglistenera;
             //pointer_array < nano_window_base >      m_windowa;
             //Window                                  m_windowActive;
-            //map < enuid(), Atom >                 id()map;
+            //map < enum_atom, Atom >                 id()map;
 
             //static display *                          g_pdisplay;
 
@@ -59,10 +59,10 @@ namespace gtk4
 
 
             //virtual Atom intern_atom(const char *pszAtomName, bool bCreate);
-            //virtual Atom intern_atom(enuid() eatom, bool bCreate);
+            //virtual Atom intern_atom(enum_atom eatom, bool bCreate);
 
             //virtual Atom _intern_atom_unlocked(const char *pszAtomName, bool bCreate);
-            //virtual Atom _intern_atom_unlocked(enuid() eatom, bool bCreate);
+            //virtual Atom _intern_atom_unlocked(enum_atom eatom, bool bCreate);
 
             //unsigned char * _get_string_property(Display *display, Window window, char *property_name);
             //unsigned long _get_long_property(Display *d, Window w, char *property_name);

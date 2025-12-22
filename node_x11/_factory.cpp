@@ -5,9 +5,9 @@
 //#include "os_context.h"
 #include "copydesk.h"
 #include "notify_icon.h"
-#if !defined(OPENBSD) //&& !defined(NETBSD)
-#include "appindicator.h"
-#endif
+// #if !defined(OPENBSD) //&& !defined(NETBSD)
+// #include "appindicator.h"
+// #endif
 
 
 

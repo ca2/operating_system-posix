@@ -579,7 +579,7 @@ namespace windowing_lxq2
 // //   }
 // //
 // //
-// //   Atom display::intern_atom(::x11::enuid() eatom, bool bCreate)
+// //   Atom display::intern_atom(::x11::enum_atom eatom, bool bCreate)
 // //   {
 // //
 // //      if (eatom < 0 || eatom >= ::x11::e_atom_count)
@@ -622,7 +622,7 @@ namespace windowing_lxq2
 // //   }
 // //
 // //
-// //   Atom display::_intern_atom_unlocked(::x11::enuid() eatom, bool bCreate)
+// //   Atom display::_intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate)
 // //   {
 // //
 // //      if (eatom < 0 || eatom >= ::x11::e_atom_count)

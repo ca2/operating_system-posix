@@ -2219,7 +2219,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                     auto bNetWmStateFocusedOld = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateFocused);
 //
-//                     px11window->m_atomaNetWmState = px11window->_get_net_wm_state_unlocked();
 //
 //                     auto bNetWmStateHidden = px11window->m_atomaNetWmState.contains(m_pdisplay->m_atomNetWmStateHidden);
 //

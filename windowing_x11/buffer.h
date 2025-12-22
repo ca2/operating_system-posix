@@ -72,10 +72,10 @@ namespace windowing_x11
 //      virtual bool create_os_buffer(::image::image *pimage);
 //      virtual void destroy_os_buffer(::image::image *pimage);
 
-      bool update_screen() override;
+      void update_screen() override;
       virtual bool _update_screen_lesser_lock();
       virtual bool _update_screen_unlocked(::graphics::buffer_item * pitem);
-      bool on_update_screen(::graphics::buffer_item * pitem) override;
+      void on_update_screen(::graphics::buffer_item * pitem) override;
 
 
       bool buffer_lock_round_swap_key_buffers() override;

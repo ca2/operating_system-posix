@@ -12,7 +12,7 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/parallelization/task_message_queue.h"
 #include "acme/user/user/_text_stream.h"
-#include "acme/windowing/windowing_base.h"
+#include "acme/windowing/windowing.h"
 #include "apex/platform/node.h"
 #include "apex/platform/system.h"
 #include "aura/graphics/graphics/graphics.h"
@@ -24,7 +24,7 @@
 #include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
-#include "windowing_system_x11/display_lock.h"
+#include "acme_windowing_x11/display_lock.h"
 
 
 #include <inttypes.h>

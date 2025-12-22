@@ -8,7 +8,7 @@
 #include "windowing.h"
 #include "acme/parallelization/synchronous_lock.h"
 //#include "aura/user/user/interaction_impl.h"
-#include "windowing_system_x11/display_lock.h"
+#include "acme_windowing_x11/display_lock.h"
 #include <X11/Xatom.h>
 
 
@@ -17,7 +17,7 @@ namespace windowing_x11
 
 
    /// must be run in x11 thread (user thread)
-   void window::_wm_add_remove_state_mapped_unlocked(::x11::enuid() eatomNetWmState, bool bSet)
+   void window::_wm_add_remove_state_mapped_unlocked(::x11::enum_atom eatomNetWmState, bool bSet)
    {
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -83,7 +83,7 @@ namespace windowing_x11
 
 
    /// must be run in x11 thread (user thread)
-   void window::wm_add_remove_state_mapped(::x11::enuid() eatomNetWmState, bool bSet)
+   void window::wm_add_remove_state_mapped(::x11::enum_atom eatomNetWmState, bool bSet)
    {
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -100,7 +100,7 @@ namespace windowing_x11
 
 
    /// must be run in x11 thread (user thread)
-   void window::_wm_add_remove_state_unmapped_unlocked(::x11::enuid() eatomNetWmState, bool bSet)
+   void window::_wm_add_remove_state_unmapped_unlocked(::x11::enum_atom eatomNetWmState, bool bSet)
    {
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -130,7 +130,7 @@ namespace windowing_x11
 
 
    /// must be run in x11 thread (user thread)
-   void window::wm_add_remove_state_unmapped(::x11::enuid() eatomNetWmState, bool bSet)
+   void window::wm_add_remove_state_unmapped(::x11::enum_atom eatomNetWmState, bool bSet)
    {
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -147,7 +147,7 @@ namespace windowing_x11
 
 
    /// must be run in x11 thread (user thread)
-   void window::_wm_add_remove_state_unlocked(::x11::enuid() eatomNetWmState, bool bSet)
+   void window::_wm_add_remove_state_unlocked(::x11::enum_atom eatomNetWmState, bool bSet)
    {
 
       if (_wm_is_window_visible_unlocked())
@@ -167,7 +167,7 @@ namespace windowing_x11
 
 
    /// must be run in x11 thread (user thread)
-   void window::wm_add_remove_state(::x11::enuid() eatomNetWmState, bool bSet)
+   void window::wm_add_remove_state(::x11::enum_atom eatomNetWmState, bool bSet)
    {
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);

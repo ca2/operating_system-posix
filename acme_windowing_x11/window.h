@@ -4,8 +4,8 @@
 #pragma once
 
 
-#include "nano_user_x11/window_base.h"
-#include "event_listener.h"
+#include "acme/windowing/window.h"
+//#include "event_listener.h"
 #include "acme/parallelization/manual_reset_happening.h"
 
 #include <X11/Xutil.h>
@@ -16,16 +16,16 @@ namespace x11
 {
 
 
-   namespace nano
+   namespace acme
    {
 
 
-      namespace user
+      namespace windowing
       {
 
 
          class CLASS_DECL_ACME window :
-            virtual public ::x11::micro::window_base
+            virtual public ::acme::windowing::windowing
          {
          public:
 
@@ -81,6 +81,12 @@ namespace x11
 
             virtual void _update_window();
 
+
+            virtual bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) ;
+
+
+
+
             //void aaa_message_loop() override;
 
             //virtual bool aaa_message_loop_step();
@@ -135,20 +141,34 @@ namespace x11
 
             ::int_rectangle get_window_rectangle() override;
 
+
+            virtual void set_foreground_window();
+            virtual void _set_foreground_window();
+
+
+            virtual bool has_mouse_capture() const;
+
+            virtual bool has_keyboard_focus() const;
+
+
+
             void set_mouse_capture() override;
 
             void release_mouse_capture() override;
 
             virtual void _wm_nodecorations(int iMap);
 
+            virtual bool _get_wm_state_unlocked(long & lState);
+
+
 
          };
 
 
-      }//namespace user
+      }//namespace windowing
 
 
-   }//namespace nano
+   }//namespace acme
 
 
 } // namespace x11

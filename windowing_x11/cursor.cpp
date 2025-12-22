@@ -3,13 +3,9 @@
 #include "framework.h"
 #include "cursor.h"
 #include "windowing.h"
-#include "acme/parallelization/synchronous_lock.h"
-#include "acme/platform/system.h"
-//#include "aura_posix/_x11.h"
-#include "windowing_system_x11/display_lock.h"
+#include "acme_windowing_x11/display_lock.h"
 #include <X11/cursorfont.h>
 #include "aura/platform/session.h"
-#include "aura/user/user/user.h"
 #include "aura/windowing/cursor_manager.h"
 #include "display.h"
 
@@ -34,33 +30,6 @@ namespace windowing_x11
    }
 
 
-//   ::e_status cursor::initialize_system_default()
-//   {
-//
-//      auto estatus = load_default_cursor(m_ecursor);
-//
-//      if(!estatus)
-//      {
-//
-//         return estatus;
-//
-//      }
-//
-//      return estatus;
-//
-//   }
-
-   
-//   ::e_status cursor::create_from_image(const ::image::image *pimage, int xHotspot, short yHotspot)
-//   {
-//
-//      throw ::interface_only();
-//
-//      throw ::interface_only();
-//
-//   }
-
-
    void cursor::_create_os_cursor()
    {
 
@@ -71,18 +40,8 @@ namespace windowing_x11
 
       }
 
-      //auto estatus =
-      //
       _load_default_cursor(m_ecursor);
 
-//      if(!estatus)
-//      {
-//
-//         return estatus;
-//
-//      }
-//
-//      return estatus;
 
    }
 

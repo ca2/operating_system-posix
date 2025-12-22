@@ -1,11 +1,11 @@
 #include "framework.h"
-#include "windowing_system.h"
+#include "windowing.h"
 
 
-IMPLEMENT_FACTORY(windowing_system_x11)
+IMPLEMENT_FACTORY(acme_windowing_x11)
 {
 
-   pfactory->add_factory_item < ::x11::windowing_system, ::windowing::windowing_base >();
+   pfactory->add_factory_item < ::x11::acme::windowing::windowing, ::acme::windowing::windowing >();
 
 }
 

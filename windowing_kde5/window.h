@@ -168,7 +168,7 @@ namespace windowing_kde5
 // //      static Atom get_window_long_atom(int nIndex);
 // //
 // //
-// //      inline int net_wm_state(::x11::enuid() eatom) const
+// //      inline int net_wm_state(::x11::enum_atom eatom) const
 // //      {
 // //
 // //         return m_iaNetWmState2[eatom - ::x11::e_atom_net_wm_state_first];
@@ -242,7 +242,6 @@ namespace windowing_kde5
 //       void set_parent(::windowing::window * pwindowNewParent) override;
 //       //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
 //       //virtual bool get_state(long & lState);
-//       //bool _get_wm_state_unlocked(long & lState) override;
 //       bool is_iconic() override;
 //       bool is_window_visible() override;
 // //      bool _is_iconic_unlocked() override;
@@ -353,17 +352,16 @@ namespace windowing_kde5
 //
 //
 // //      virtual comparable_array < Atom > _wm_get_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList);
-// //      virtual ::comparable_array < Atom > _get_net_wm_state_unlocked();
 // //      virtual int wm_test_state( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
 // //      virtual int _wm_test_state_unlocked( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
 // //      virtual int _wm_test_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
 // //      virtual bool _wm_add_remove_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
-// //      virtual void _wm_add_remove_state_mapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-// //      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-// //      virtual void _wm_add_remove_state_unmapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-// //      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-// //      virtual void _wm_add_remove_state_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-// //      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
+// //      virtual void _wm_add_remove_state_mapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+// //      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+// //      virtual void _wm_add_remove_state_unmapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+// //      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+// //      virtual void _wm_add_remove_state_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+// //      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
 // //      virtual void _wm_state_clear_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
 // //      virtual void _wm_state_below_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
 // //      virtual void _wm_state_above_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);

@@ -7,24 +7,18 @@
 #include "windowing.h"
 #include "windowing_x11.h"
 #include "acme/constant/user_message.h"
-#include "acme/parallelization/synchronous_lock.h"
-#include "apex/platform/node.h"
 #include "apex/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
 #include "aura/graphics/image/image.h"
-#include "aura/windowing/desktop_environment.h"
 #include "aura/windowing/monitor.h"
-#include "windowing_system_x11/display_lock.h"
+#include "acme_windowing_x11/display_lock.h"
 #include <X11/extensions/Xrender.h>
 
 
 extern ::app_core * g_pappcore;
 
 Display * x11_get_display();
-
-//::particle * user_synchronization();
-
 
 void windowing_output_debug_string(const ::scoped_string & scopedstrDebugString);
 
@@ -502,7 +496,7 @@ namespace windowing_x11
    }
 
 
-   Atom display::intern_atom(::x11::enuid() eatom, bool bCreate)
+   Atom display::intern_atom(::x11::enum_atom eatom, bool bCreate)
    {
 
       if (eatom < 0 || eatom >= ::x11::e_atom_count)
@@ -545,7 +539,7 @@ namespace windowing_x11
    }
 
 
-   Atom display::_intern_atom_unlocked(::x11::enuid() eatom, bool bCreate)
+   Atom display::_intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate)
    {
 
       if (eatom < 0 || eatom >= ::x11::e_atom_count)

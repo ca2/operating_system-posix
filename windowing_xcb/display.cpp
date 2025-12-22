@@ -186,7 +186,7 @@ namespace windowing_xcb
          if (!m_atoma[iAtomName])
          {
 
-            auto pszWindowName = ::x11::atom_name((::x11::enuid()) iAtomName);
+            auto pszWindowName = ::x11::atom_name((::x11::enum_atom) iAtomName);
 
             auto atom = intern_atom(scopedstrWindowName);
 
@@ -409,7 +409,7 @@ namespace windowing_xcb
    }
 
 
-   xcb_atom_t display::intern_atom(::x11::enuid() eatom, bool bCreate)
+   xcb_atom_t display::intern_atom(::x11::enum_atom eatom, bool bCreate)
    {
 
       return m_pxcbdisplay->intern_atom(eatom, bCreate);

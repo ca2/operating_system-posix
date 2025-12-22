@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(node_gtk3 CXX)
+project(node_x11 CXX)
 
 
 list(APPEND library_source

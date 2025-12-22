@@ -11,6 +11,9 @@
 #include <X11/Xutil.h>
 
 
+Display * windowing_x11_Display();
+
+
 namespace x11
 {
 
@@ -28,7 +31,7 @@ namespace x11
          windowing::windowing()
          {
 
-            m_pvoidX11Display = nullptr;
+            m_p_Display = nullptr;
             m_estatusInitializeX11 = error_not_initialized;
 
          }
@@ -41,32 +44,32 @@ namespace x11
          }
 
 
-         ::e_status windowing::defer_initialize_windowing()
+         void windowing::initialize_windowing()
          {
 
-            if (m_estatusInitializeX11 == error_not_initialized)
-            {
+            // if (m_estatusInitializeX11 == error_not_initialized)
+            // {
+            //
+            //    m_estatusInitializeX11 = initialize_windowing();
+            //
+            // }
 
-               m_estatusInitializeX11 = initialize_windowing();
+            //return m_estatusInitializeX11;
 
-            }
-
-            return m_estatusInitializeX11;
-
-         }
+         //}
 
 
-         ::e_status windowing::initialize_windowing()
-         {
+         //::e_status windowing::initialize_windowing()
+         //{
 
-            informationf("node_gtk3::node::x11_initialize");
+            informationf("x11::acme::windowing::x11_initialize");
 
-            informationf("node_gtk3::node::x11_initialize going to call x11_init_threads");
+            informationf("x11::acme::windowing::x11_initialize going to call x11_init_threads");
 
             if (!system()->acme_windowing()->init_threads())
             {
 
-               return ::error_failed;
+               throw ::exception(error_failed);
 
             }
 
@@ -75,32 +78,32 @@ namespace x11
 
             //g_pmutexX11 = ___new ::pointer < ::mutex >();
 
-            return ::success;
+            //return ::success;
 
          }
 
 
 
-         void * windowing::get_display()
+         void * windowing::get_Display()
          {
 
             //return ::platform::node::x11_get_display();
 
-            defer_initialize_windowing();
+            //defer_initialize_windowing();
 
-            if(m_pvoidX11Display == NULL)
+            if(m_p_Display == NULL)
             {
 
-               m_pvoidX11Display = fetch_windowing_display();
+               m_p_Display = windowing_x11_Display();
 
             }
 
-            return m_pvoidX11Display;
+            return m_p_Display;
 
          }
 
 
-         void windowing::sync(const ::procedure & procedure)
+         void windowing::_main_send(const ::procedure & procedure)
          {
 
             if(::is_main_thread())
@@ -128,15 +131,15 @@ namespace x11
 
                       });
 
-            if(!pevent->wait(procedure.m_timeTimeout))
-            {
-
-               throw ::exception(error_timeout);
-               //pevent.release();
-
-               //return false;
-
-            }
+            // if(!pevent->wait(procedure.m_timeTimeout))
+            // {
+            //
+            //    throw ::exception(error_timeout);
+            //    //pevent.release();
+            //
+            //    //return false;
+            //
+            // }
 
             ///return true;
             //
@@ -146,7 +149,7 @@ namespace x11
          }
 
 
-         void windowing::async(const ::procedure & procedure)
+         void windowing::_main_post(const ::procedure & procedure)
          {
 
             node()->user_post(procedure);

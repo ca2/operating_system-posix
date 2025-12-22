@@ -9,13 +9,13 @@
 #include "acme/prototype/geometry2d/_text_stream.h"
 #include "aura/windowing/display.h"
 #include "aura/windowing/windowing.h"
-#include <gdk/x11/gdkx11monitor.h>
+//#include <gdk/x11/gdkx11monitor.h>
 
 
 //::particle * user_synchronization();
 
 
-namespace node_gtk3
+namespace node_x11
 {
 
 
@@ -199,7 +199,7 @@ namespace node_gtk3
 //   }
 
 
-} // namespace node_gtk3
+} // namespace node_x11
 
 
 

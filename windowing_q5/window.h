@@ -168,7 +168,7 @@ namespace windowing_q5
 // //      static Atom get_window_long_atom(int nIndex);
 // //
 // //
-// //      inline int net_wm_state(::x11::enuid() eatom) const
+// //      inline int net_wm_state(::x11::enum_atom eatom) const
 // //      {
 // //
 // //         return m_iaNetWmState2[eatom - ::x11::e_atom_net_wm_state_first];
@@ -238,20 +238,6 @@ namespace windowing_q5
       ::windowing_q5::display * q5_display();
 //
 //          //void _on_initialize_system_menu_button(GtkWidget * pbutton, const ::scoped_string & scopedstrAtom);
-//
-//       void set_parent(::windowing::window * pwindowNewParent) override;
-//       //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
-//       //virtual bool get_state(long & lState);
-//       //bool _get_wm_state_unlocked(long & lState) override;
-//       bool is_iconic() override;
-//       bool is_window_visible() override;
-// //      bool _is_iconic_unlocked() override;
-//       bool _is_window_visible_unlocked() override;
-//       //void show_window(const ::e_display & edisplay, const ::user::e_activation & useractivation) override;
-//       //void _show_window_unlocked(const ::e_display & edisplay, const ::user::e_activation & useractivation) override;
-//       //virtual iptr get_window_long_ptr(int nIndex);
-//       //virtual iptr set_window_long_ptr(int nIndex, iptr l);
-//       virtual bool client_to_screen(::int_point * ppoint) override;
 //
 //       bool screen_to_client(::int_point * ppoint) override;
 //
@@ -350,68 +336,6 @@ namespace windowing_q5
 //       bool _set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
 //       bool _configure_window_unlocked(const class ::zorder& zorder, const ::user::activation& useractivation, bool bNoZorder, ::e_display edisplay) override;
 //       bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize) override;
-//
-//
-// //      virtual comparable_array < Atom > _wm_get_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList);
-// //      virtual ::comparable_array < Atom > _get_net_wm_state_unlocked();
-// //      virtual int wm_test_state( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
-// //      virtual int _wm_test_state_unlocked( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
-// //      virtual int _wm_test_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
-// //      virtual bool _wm_add_remove_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
-// //      virtual void _wm_add_remove_state_mapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-// //      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-// //      virtual void _wm_add_remove_state_unmapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-// //      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-// //      virtual void _wm_add_remove_state_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-// //      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-// //      virtual void _wm_state_clear_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-// //      virtual void _wm_state_below_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-// //      virtual void _wm_state_above_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-// //      virtual void _wm_state_hidden_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-// //      virtual void wm_state_above( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-// //      virtual void wm_state_below( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-// //      virtual void wm_state_hidden( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-// //      virtual void wm_toolwindow( WINDOWING_X11_WINDOW_MEMBER bool bToolWindow);
-// //      virtual void wm_normalwindow();
-// //      virtual void wm_hidden_state( WINDOWING_X11_WINDOW_MEMBER bool bHidden);
-// //      virtual void wm_desktopwindow( WINDOWING_X11_WINDOW_MEMBER bool bDesktopWindow);
-// //      virtual void wm_centerwindow( WINDOWING_X11_WINDOW_MEMBER bool bCenterWindow);
-// //      virtual void wm_splashwindow( WINDOWING_X11_WINDOW_MEMBER bool bCenterWindow);
-// //      virtual void wm_dockwindow( WINDOWING_X11_WINDOW_MEMBER bool bDockWindow);
-// //      virtual void wm_nodecorations( WINDOWING_X11_WINDOW_MEMBER int bMap);
-// //      virtual void _wm_nodecorations( WINDOWING_X11_WINDOW_MEMBER int bMap);
-// //      virtual int_bool _wm_is_window_visible_unlocked( WINDOWING_X11_WINDOW_MEMBER);
-// //      virtual void wm_iconify_window( WINDOWING_X11_WINDOW_MEMBER );
-// //      //virtual int_bool IsWindowVisibleRaw( WINDOWING_X11_WINDOW_MEMBER);
-// //      //virtual int_bool IsWindowVisibleRaw(oswindow w);
-// ////      virtual Atom * wm_get_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, unsigned long int * pnum_items);
-// ////      virtual int wm_test_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
-// ////      virtual int wm_test_state_raw( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
-// ////      virtual int wm_test_state( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
-// ////      virtual bool wm_add_remove_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
-//
-//
-// //      virtual ::e_status x11_post_message(MESSAGE & msg);
-// //      virtual ::e_status post_ui_message(const MESSAGE & message);
-//       //virtual bool x11_process_event(osdisplay_data * pdisplaydata, XEvent * pevent, XGenericEventCookie *cookie);
-//       //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, int x, int y, int cx, int cy, unsigned int nFlags);
-//       virtual ::e_status window_rectangle( ::int_rectangle * prectangle);
-//       virtual ::e_status rectangle(::int_rectangle * prectangle);
-//       //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::int_rectangle & rectangle);
-//
-//       //virtual ::e_status x11_store_name(const_char_pointer pszName);
-//       //virtual ::e_status set_foreground_window();
-//       //virtual ::e_status set_active_window();
-//       //virtual void wm_toolwindow( WINDOWING_X11_WINDOW_MEMBER bool bToolWindow);
-//       //virtual void wm_state_hidden( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-//       //virtual void wm_state_hidden_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
-// //      virtual ::e_status mq_remove_window_from_all_queues( WINDOWING_X11_WINDOW_MEMBER );
-//
-//       void __update_graphics_buffer() override;
-//       //void _window_request_presentation_locked() override;
-//
-//       //void _on_configure_notify_unlocked(const ::int_rectangle & rectangle) override;
-//
 //
        bool is_active_window() override;
 //

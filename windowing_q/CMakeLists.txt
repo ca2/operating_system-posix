@@ -2,41 +2,16 @@ cmake_minimum_required(VERSION 3.16)
 project(windowing_q CXX)
 
 
-#if(${HAS_WAYLAND})
-#
-#    set(XDG_SHELL_CLIENT_PROTOCOL_XML "/usr/share/wayland-protocols/stable/xdg-shell/xdg-shell.xml")
-#
-#    set(XDG_SHELL_CLIENT_PROTOCOL_H "${CMAKE_CURRENT_SOURCE_DIR}/_operating_system/${SLASHED_OPERATING_SYSTEM}/include/xdg-shell-client-protocol.h")
-#
-#    add_custom_command(
-#       OUTPUT ${XDG_SHELL_CLIENT_PROTOCOL_H}
-#       COMMAND mkdir -p "${CMAKE_CURRENT_SOURCE_DIR}/${SLASHED_OPERATING_SYSTEM}/include"
-#       COMMAND wayland-scanner client-header ${XDG_SHELL_CLIENT_PROTOCOL_XML} ${XDG_SHELL_CLIENT_PROTOCOL_H}
-#       MAIN_DEPENDENCY ${XDG_SHELL_CLIENT_PROTOCOL_XML}
-#    )
-#
-#    set(XDG_SHELL_CLIENT_PROTOCOL_C "${CMAKE_CURRENT_SOURCE_DIR}/_operating_system/${SLASHED_OPERATING_SYSTEM}/include/xdg-shell-client-protocol.c")
-#
-#    add_custom_command(
-#       OUTPUT ${XDG_SHELL_CLIENT_PROTOCOL_C}
-#       COMMAND mkdir -p "${CMAKE_CURRENT_SOURCE_DIR}/${SLASHED_OPERATING_SYSTEM}/include"
-#       COMMAND wayland-scanner private-code ${XDG_SHELL_CLIENT_PROTOCOL_XML} ${XDG_SHELL_CLIENT_PROTOCOL_C}
-#       MAIN_DEPENDENCY ${XDG_SHELL_CLIENT_PROTOCOL_XML}
-#    )
-#
-#endif()
 
 
 list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
-        #_library.h
         buffer.cpp
         buffer.h
         cursor.cpp
         cursor.h
-        #debug.cpp
         display.cpp
         display.h
         #display_xrender.cpp

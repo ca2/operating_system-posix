@@ -19,22 +19,23 @@ namespace x11
       {
 
 
-         class CLASS_DECL_WINDOWING_SYSTEM_X11 windowing :
+         class CLASS_DECL_ACME_WINDOWING_X11 windowing :
                  virtual public ::acme::windowing::windowing
          {
          public:
 
 
-            void *                                                m_pvoidX11Display;
+            void *                                                m_p_Display;
             ::e_status                                            m_estatusInitializeX11;
 
 
             windowing();
             ~windowing() override;
 
-            ::e_status defer_initialize_windowing_system() override;
-            ::e_status initialize_windowing_system() override;
-            void * get_display() override;
+            //::e_status defer_initialize_windowing() override;
+            //::e_status initialize_windowing() override;
+            void initialize_windowing() override;
+            virtual void * get_Display();
             void _main_send(const ::procedure & procedure) override;
             void _main_post(const ::procedure & procedure) override;
             void display_error_trap_push(int i) override;

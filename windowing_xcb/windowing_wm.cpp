@@ -21,7 +21,7 @@ namespace windowing_xcb
 
    
    /// must be run in x11 thread (user thread)
-   ::e_status window::_mapped_add_net_wm_state(::x11::enuid() eatomNetWmState)
+   ::e_status window::_mapped_add_net_wm_state(::x11::enum_atom eatomNetWmState)
    {
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -51,7 +51,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_mapped_erase_net_wm_state(::x11::enuid() eatomNetWmState)
+   ::e_status window::_mapped_erase_net_wm_state(::x11::enum_atom eatomNetWmState)
    {
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -82,7 +82,7 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_add_net_wm_state(::x11::enuid() eatomNetWmState)
+   ::e_status window::_add_net_wm_state(::x11::enum_atom eatomNetWmState)
    {
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -117,7 +117,7 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_erase_net_wm_state(::x11::enuid() eatomNetWmState)
+   ::e_status window::_erase_net_wm_state(::x11::enum_atom eatomNetWmState)
    {
 
       auto estatus = xcb_display()->m_pxcbdisplay->_erase_net_wm_state(m_window, eatomNetWmState);
@@ -224,7 +224,7 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   ::e_status window::_unmapped_add_net_wm_state(::x11::enuid() eatomNetWmState)
+   ::e_status window::_unmapped_add_net_wm_state(::x11::enum_atom eatomNetWmState)
    {
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -247,7 +247,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status window::_unmapped_erase_net_wm_state(::x11::enuid() eatomNetWmState)
+   ::e_status window::_unmapped_erase_net_wm_state(::x11::enum_atom eatomNetWmState)
    {
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);

@@ -36,7 +36,7 @@ namespace wayland
             //pointer_array < event_listener >        m_happeninglistenera;
             //pointer_array < nano_window_base >      m_windowa;
             //Window                                  m_windowActive;
-            //map_base < enuid(), Atom >                 id()map_base;
+            //map_base < enum_atom, Atom >                 id()map_base;
 
             //static display *                          g_pdisplay;
 
@@ -58,10 +58,10 @@ namespace wayland
 
 
             //virtual Atom intern_atom(const_char_pointer pszAtomName, bool bCreate);
-            //virtual Atom intern_atom(enuid() eatom, bool bCreate);
+            //virtual Atom intern_atom(enum_atom eatom, bool bCreate);
 
             //virtual Atom _intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate);
-            //virtual Atom _intern_atom_unlocked(enuid() eatom, bool bCreate);
+            //virtual Atom _intern_atom_unlocked(enum_atom eatom, bool bCreate);
 
             //unsigned char * _get_string_property(Display *display, Window window, char *property_name);
             //unsigned long _get_long_property(Display *d, Window w, char *property_name);

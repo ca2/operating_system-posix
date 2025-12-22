@@ -31,7 +31,7 @@ namespace x11
    };
 
 
-   const_char_pointer atom_name(enuid() eatom)
+   const_char_pointer atom_name(enum_atom eatom)
    {
 
       int iAtom = (int) eatom;

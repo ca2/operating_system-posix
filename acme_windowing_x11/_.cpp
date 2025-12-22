@@ -80,7 +80,7 @@ namespace x11
 
          static htask g_htaskX11 = (htask) nullptr;
 
-         static itask g_itaskX11 = (itask)-1;
+         static itask g_itaskX11;
 
 
          CLASS_DECL_ACME void set_htask(htask htask)

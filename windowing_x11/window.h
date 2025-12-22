@@ -6,9 +6,11 @@
 
 #include "windowing_posix/window.h"
 #include "_x11.h"
-#include "windowing_system_x11/_atom.h"
+#include "acme_windowing_x11/_atom.h"
 #include "acme/prototype/geometry2d/rectangle_array.h"
 #include <X11/extensions/sync.h>
+
+#include "acme_windowing_x11/window.h"
 
 
 #define HAVE_XSYNC 1
@@ -27,7 +29,8 @@ namespace windowing_x11
 
 
    class CLASS_DECL_WINDOWING_X11 window :
-      virtual public ::windowing_posix::window
+      virtual public ::windowing_posix::window,
+   virtual public ::x11::acme::windowing::window
    {
    public:
 
@@ -99,7 +102,7 @@ namespace windowing_x11
       static Atom get_window_long_atom(int nIndex);
 
 
-      inline int net_wm_state(::x11::enuid() eatom) const
+      inline int net_wm_state(::x11::enum_atom eatom) const
       {
 
          return m_iaNetWmState2[eatom - ::x11::e_atom_net_wm_state_first];
@@ -154,9 +157,9 @@ namespace windowing_x11
       virtual ::e_status set_window_icon(const ::file::path & path);
 
       virtual bool is_child( WINDOWING_X11_WINDOW_MEMBER ::windowing::window * candidateChildOrDescendant); // or descendant
-      ::windowing::window * get_parent() const override;
+      //::windowing::window * get_parent() const override;
       //virtual ::Window get_parent_handle();
-      ::oswindow get_parent_oswindow() const override;
+      //::oswindow get_parent_oswindow() const override;
 
 //      ::int_point get_mouse_cursor_host_position() override;
 //      ::int_point get_mouse_cursor_absolute_position() override;
@@ -169,7 +172,6 @@ namespace windowing_x11
       void set_parent(::windowing::window * pwindowNewParent) override;
       //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
       virtual bool get_state(long & lState);
-      bool _get_wm_state_unlocked(long & lState) override;
       bool is_iconic() override;
       bool is_window_visible() override;
 //      bool _is_iconic_unlocked() override;
@@ -214,13 +216,7 @@ namespace windowing_x11
       void _set_active_window_unlocked() override;
 
 
-      void set_foreground_window() override;
-      void _set_foreground_window_unlocked() override;
 
-
-      bool has_mouse_capture() const override;
-
-      bool has_keyboard_focus() const override;
 
 
 
@@ -256,7 +252,6 @@ namespace windowing_x11
       void set_tool_window(bool bSet) override;
 
 
-      bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
 
 
       bool _set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
@@ -270,12 +265,12 @@ namespace windowing_x11
       virtual int _wm_test_state_unlocked( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);
       virtual int _wm_test_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
       virtual bool _wm_add_remove_list_unlocked( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
-      virtual void _wm_add_remove_state_mapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-      virtual void _wm_add_remove_state_unmapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-      virtual void _wm_add_remove_state_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
-      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER ::x11::enuid() eatomNetWmState, bool bSet);
+      virtual void _wm_add_remove_state_mapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state_mapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+      virtual void _wm_add_remove_state_unmapped_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state_unmapped( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+      virtual void _wm_add_remove_state_unlocked( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
+      virtual void wm_add_remove_state( WINDOWING_X11_WINDOW_MEMBER ::x11::enum_atom eatomNetWmState, bool bSet);
       virtual void _wm_state_clear_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       virtual void _wm_state_below_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       virtual void _wm_state_above_unlocked( WINDOWING_X11_WINDOW_MEMBER bool bSet);

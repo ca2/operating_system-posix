@@ -2,34 +2,24 @@
 #pragma once
 
 
-#include "windowing_gtk3/_.h"
+#include "windowing_x11/_.h"
 
 
-#include <gtk/gtk.h>
-#include <gdk/gdkx.h>
-
-
-#include "gdk_gdk.h"
-
-
-#include "gtk3_gtk3.h"
-
-
-#if defined(_node_gtk3_project)
-   #define CLASS_DECL_NODE_GTK3  CLASS_DECL_EXPORT
+#if defined(_node_x11_project)
+   #define CLASS_DECL_NODE_X11  CLASS_DECL_EXPORT
 #else
-   #define CLASS_DECL_NODE_GTK3  CLASS_DECL_IMPORT
+   #define CLASS_DECL_NODE_X11  CLASS_DECL_IMPORT
 #endif
 
 
-
-namespace node_gtk3
+namespace node_x11
 {
 
 
    class node;
 
 
-} // namespace node_gtk3
+} // namespace node_x11
+
 
 

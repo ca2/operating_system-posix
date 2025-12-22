@@ -12,7 +12,7 @@
 #include "apex/platform/system.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 #include "aura_posix/xinput.h"
-#include "windowing_system_x11/display_lock.h"
+#include "acme_windowing_x11/display_lock.h"
 ////#include "sn/sn.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
@@ -31,7 +31,7 @@
 
 //#include "aura/operating_system/x11/_x11.h"
 #include "acme/parallelization/message_queue.h"
-#include "acme/windowing/windowing_base.h"
+#include "acme/windowing/windowing.h"
 #include "windowing_x11.h"
 #include "windowing.h"
 #include "window.h"

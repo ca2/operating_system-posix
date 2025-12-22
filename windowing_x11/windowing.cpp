@@ -7,15 +7,13 @@
 #include "display.h"
 #include "cursor.h"
 #include "acme/parallelization/synchronous_lock.h"
-//#include "acme/prototype/prototype/function.h"
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
-//#include "aura/user/user/interaction_impl.h"
 #include "aura/windowing/display.h"
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
-#include "windowing_system_x11/display_lock.h"
+#include "acme_windowing_x11/display_lock.h"
 
 
 namespace windowing_x11
@@ -25,13 +23,11 @@ namespace windowing_x11
    windowing::windowing()
    {
 
-      defer_create_synchronization();
-
       m_bRootSelectInput = false;
 
       m_itask = -1;
 
-      m_pWindowing4 = this;
+      //m_pWindowing4 = this;
 
       m_bFirstWindowMap = false;
 
@@ -98,7 +94,11 @@ namespace windowing_x11
    void windowing::initialize(::particle * pparticle)
    {
 
-      ::windowing::windowing::initialize(pparticle);
+      ::acme::windowing::windowing::initialize(pparticle);
+
+      defer_create_synchronization();
+
+
 
    }
 

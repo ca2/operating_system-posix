@@ -8,7 +8,7 @@ namespace x11
 {
 
 
-   enum enuid()
+   enum enum_atom
    {
 
       e_atom_net_wm_state,
@@ -37,7 +37,7 @@ namespace x11
    };
 
 
-   const_char_pointer atom_name(enuid() eatom);
+   const_char_pointer atom_name(enum_atom eatom);
 
    int atom_count();
 
