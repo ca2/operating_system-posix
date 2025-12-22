@@ -21,54 +21,6 @@
 #include "acme/user/user/mouse.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
 
-//#include "windowing_system_x11/display_lock.h"
-//#include <X11/Xatom.h>
-//#include <xkbcommon/xkbcommon.h>
-//#include <X11/XKBlib.h>
-//#include <X11/Xutil.h>
-//#include <cairo/cairo-xlib.h>
-
-
-//::user::enum_operating_ambient get_eoperating_ambient();
-
-
-//struct MWMHints
-//{
-//
-//   unsigned long flags;
-//   unsigned long functions;
-//   unsigned long decorations;
-//   long input_mode;
-//   unsigned long status;
-//
-//};
-//
-//#define MWM_HINTS_FUNCTIONS     (1L << 0)
-//#define MWM_HINTS_DECORATIONS   (1L << 1)
-//
-//
-//#define MWM_FUNC_ALL            (1L << 0)
-//#define MWM_FUNC_RESIZE         (1L << 1)
-//#define MWM_FUNC_MOVE           (1L << 2)
-//#define MWM_FUNC_MINIMIZE       (1L << 3)
-//#define MWM_FUNC_MAXIMIZE       (1L << 4)
-//#define MWM_FUNC_CLOSE          (1L << 5)
-//
-///* MWM decorations values */
-//#define MWM_DECOR_NONE          0
-//#define MWM_DECOR_ALL           (1L << 0)
-//#define MWM_DECOR_BORDER        (1L << 1)
-//#define MWM_DECOR_RESIZEH       (1L << 2)
-//#define MWM_DECOR_TITLE         (1L << 3)
-//#define MWM_DECOR_MENU          (1L << 4)
-//#define MWM_DECOR_MINIMIZE      (1L << 5)
-//#define MWM_DECOR_MAXIMIZE      (1L << 6)
-//GdkDevice *get_pointer_device(GtkWidget *widget) {
-//   GdkDisplay *display = gtk_widget_get_display(widget);
-//   GdkSeat *seat = gdk_display_get_default_seat(display);
-//   return gdk_seat_get_pointer(seat);
-//}
-
 namespace gtk3
 {
 

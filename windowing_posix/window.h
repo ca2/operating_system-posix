@@ -19,33 +19,11 @@ namespace windowing_posix
    public:
 
 
-//#if defined(WITH_X11)
-
-      // enum enum_net_wm_sync
-      // {
-
-      //    e_net_wm_sync_none,
-      //    e_net_wm_sync_wait_configure,
-      //    e_net_wm_sync_wait_paint,
-
-      // };
-
-      // enum_net_wm_sync                             m_enetwmsync;
-
-      //::pointer<::xim::keyboard>                   m_pximkeyboard;
-
       void *                                       m_pSnLauncheeContextSetup;
-
-//#endif
 
 
       window();
       ~window() override;
-
-
-      //virtual bool _get_wm_state_unlocked(long & lState);
-
-      //bool _is_iconic_unlocked() override;
 
 
    };

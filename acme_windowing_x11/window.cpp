@@ -7,7 +7,6 @@
 #include "display_lock.h"
 #include "acme/nano/graphics/device.h"
 #include "acme/platform/application.h"
-#include "acme/platform/node.h"
 #include "acme/platform/system.h"
 #include "acme/user/user/mouse.h"
 #include "_x11.h"
@@ -17,7 +16,7 @@
 #include <X11/Xutil.h>
 
 
-::user::enum_operating_ambient get_eoperating_ambient();
+::windowing::enum_operating_ambient get_eoperating_ambient();
 
 
 struct MWMHints
@@ -57,11 +56,11 @@ namespace x11
 {
 
 
-   namespace nano
+   namespace acme
    {
 
 
-      namespace user
+      namespace windowing
       {
 
 
@@ -90,7 +89,7 @@ namespace x11
          ::x11::handle_t window::_x11_handle()
          {
 
-            return as_x11_handle(x11_display()->m_pdisplay, m_window, m_pvisual);
+            return as_x11_handle(x11_display()->m_pDisplay, m_window, m_pvisual);
 
          }
 
@@ -1110,43 +1109,11 @@ namespace x11
 
 
 
-      }//namespace user
+      }//namespace windowing
 
 
-   }//namespace nano
+   }//namespace acme
 
 
 } // namespace x11
 
-
-#define MAXSTR 1000
-
-
-//CLASS_DECL_ACME ::platform::system * system();
-//
-//
-//void x11_asynchronous(::procedure function)
-//{
-//
-//   auto psystem = system();
-//
-//   auto pdisplay = ::x11::display::get(psystem);
-//
-//   if (!pdisplay)
-//   {
-//
-//      throw ::exception(error_null_pointer);
-//
-//   }
-//
-//   pdisplay->aaa_display_post([function]()
-//                                    {
-//
-//                                       function();
-//
-//                                    });
-//
-//}
-//
-//
-//

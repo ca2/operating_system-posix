@@ -4,6 +4,7 @@
 #pragma once
 
 
+#include "acme/operating_system/x11/_.h"
 #include "acme/windowing/window.h"
 #include "acme/parallelization/manual_reset_happening.h"
 
@@ -64,7 +65,7 @@ namespace x11
 
             virtual ::x11::acme::windowing::display * x11_display();
 
-            ::x11::handle_t _x11_handle() override;
+            virtual ::x11::handle_t _x11_handle();
 
             void on_initialize_particle() override;
 
@@ -81,11 +82,6 @@ namespace x11
             virtual void _update_window();
 
 
-            virtual bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) ;
-
-
-
-
             //void aaa_message_loop() override;
 
             //virtual bool aaa_message_loop_step();
@@ -94,7 +90,7 @@ namespace x11
 
             //virtual void on_draw(::nano::graphics::device * pnanodevice);
 
-            void on_char(int iChar) override;
+            virtual void on_char(int iChar);
 
             bool is_active_window() override;
 

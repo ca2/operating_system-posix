@@ -24,8 +24,6 @@
 #include "acme/platform/system.h"
 #include "acme/windowing/windowing.h"
 #include "acme_windowing_g/gdk_3_and_4.h"
-//#if
-//#include <linux/input.h> // for BTN_LEFT
 #include <sys/poll.h>
 #include <wayland-client-protocol.h>
 #include <wayland-server-protocol.h>
