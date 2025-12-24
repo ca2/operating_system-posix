@@ -66,11 +66,11 @@ namespace windowing_x11
 
       auto pdisplay = pwindowing->display();
 
-      auto px11display = (::windowing_x11::display *) pwindowing->display()->m_pDisplay;
+      ::cast < ::windowing_x11::display > px11display = pwindowing->display();
 
-      ::x11::display_lock lock(px11display->Display());
+      ::x11::display_lock lock(px11display->__x11_display());
 
-      auto cursor = XCreateFontCursor(px11display->Display(), iCursor);
+      auto cursor = XCreateFontCursor(px11display->__x11_display(), iCursor);
 
       if(iCursor == XC_bottom_right_corner)
       {

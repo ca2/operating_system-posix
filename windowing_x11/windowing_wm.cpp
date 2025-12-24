@@ -37,7 +37,7 @@ namespace windowing_x11
 
       auto atomFlag = x11_display()->intern_atom(eatomNetWmState, true);
 
-      auto atomWmNetState = x11_display()->net_wm_state_atom(true);
+      auto atomWmNetState = x11_display()->__x11_atom_net_wm_state();
 
       if (_wm_test_list_unlocked(atomWmNetState, atomFlag))
       {
@@ -90,7 +90,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::wm_add_remove_state_mapped 1");
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
       _wm_add_remove_state_mapped_unlocked(eatomNetWmState, bSet);
 
@@ -122,7 +122,7 @@ namespace windowing_x11
 
       Atom atomFlag = x11_display()->intern_atom(eatomNetWmState, true);
 
-      Atom atomWmNetState = x11_display()->net_wm_state_atom(true);
+      Atom atomWmNetState = x11_display()->__x11_atom_net_wm_state();
 
       _wm_add_remove_list_unlocked(atomWmNetState, atomFlag, bSet);
 
@@ -137,7 +137,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::wm_add_remove_state_unmapped 1");
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
       _wm_add_remove_state_unmapped_unlocked(eatomNetWmState, bSet);
 
@@ -174,7 +174,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::wm_add_remove_state 1");
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
       _wm_add_remove_state_unlocked(eatomNetWmState, bSet);
 
@@ -259,7 +259,7 @@ namespace windowing_x11
 //
 //   windowing_output_debug_string("::wm_state_above 1");
 //
-//   ::x11::display_lock displaylock(x11_display()->Display());
+//   ::x11::display_lock displaylock(x11_display()->__x11_display());
 //
 //   wm_state_hidden_raw(bSet);
 //
@@ -274,7 +274,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::wm_state_above 1");
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
       _wm_state_above_unlocked(bSet);
 
@@ -291,7 +291,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::wm_state_below 1");
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
       _wm_state_above_unlocked(bSet);
 
@@ -308,7 +308,7 @@ namespace windowing_x11
 
       windowing_output_debug_string("::wm_state_hidden 1");
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
       _wm_state_hidden_unlocked(bSet);
 
@@ -328,18 +328,18 @@ namespace windowing_x11
 
          //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-         ::x11::display_lock displaylock(x11_display()->Display());
+         ::x11::display_lock displaylock(x11_display()->__x11_display());
 
-         if (!m_pnanouserdisplay)
-         {
-
-            windowing_output_debug_string("::wm_toolwindow 1.1");
-
-            //fflush(stdout);
-
-            return;
-
-         }
+         // if (!m_pnanouserdisplay)
+         // {
+         //
+         //    windowing_output_debug_string("::wm_toolwindow 1.1");
+         //
+         //    //fflush(stdout);
+         //
+         //    return;
+         //
+         // }
 
          _wm_add_remove_state_unlocked(::x11::e_atom_net_wm_state_skip_taskbar, bToolWindow);
 
@@ -356,7 +356,7 @@ namespace windowing_x11
 
       Atom atomWindowType;
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
       atomWindowType = x11_display()->intern_atom("_NET_WM_WINDOW_TYPE", False);
 
@@ -391,18 +391,18 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
-      if (!m_pnanouserdisplay)
-      {
-
-         windowing_output_debug_string("::wm_hidden_state 1.1");
-
-         //fflush(stdout);
-
-         return;
-
-      }
+      // if (!m_pnanouserdisplay)
+      // {
+      //
+      //    windowing_output_debug_string("::wm_hidden_state 1.1");
+      //
+      //    //fflush(stdout);
+      //
+      //    return;
+      //
+      // }
 
       _wm_add_remove_state_unlocked(::x11::e_atom_net_wm_state_skip_taskbar, bHidden);
 
@@ -421,7 +421,7 @@ namespace windowing_x11
 //
 //               synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//               ::x11::display_lock displaylock(x11_display()->Display());
+//               ::x11::display_lock displaylock(x11_display()->__x11_display());
 //
 //               if(!m_pnanouserdisplay)
 //               {
@@ -482,18 +482,18 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
-      if (!m_pnanouserdisplay)
-      {
-
-         windowing_output_debug_string("::wm_desktopwindow 1.1");
-
-         //fflush(stdout);
-
-         return;
-
-      }
+      // if (!m_pnanouserdisplay)
+      // {
+      //
+      //    windowing_output_debug_string("::wm_desktopwindow 1.1");
+      //
+      //    //fflush(stdout);
+      //
+      //    return;
+      //
+      // }
 
       auto windowRoot = DefaultRootWindow(Display());
 
@@ -540,18 +540,18 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
-      if (!m_pnanouserdisplay)
-      {
-
-         windowing_output_debug_string("::wm_centerwindow 1.1");
-
-         //fflush(stdout);
-
-         return;
-
-      }
+      // if (!m_pnanouserdisplay)
+      // {
+      //
+      //    windowing_output_debug_string("::wm_centerwindow 1.1");
+      //
+      //    //fflush(stdout);
+      //
+      //    return;
+      //
+      // }
 
       auto windowRoot = DefaultRootWindow(Display());
 
@@ -598,18 +598,18 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
-      if (!m_pnanouserdisplay)
-      {
-
-         windowing_output_debug_string("::wm_centerwindow 1.1");
-
-         //fflush(stdout);
-
-         return;
-
-      }
+      // if (!m_pnanouserdisplay)
+      // {
+      //
+      //    windowing_output_debug_string("::wm_centerwindow 1.1");
+      //
+      //    //fflush(stdout);
+      //
+      //    return;
+      //
+      // }
 
       auto windowRoot = DefaultRootWindow(Display());
 
@@ -656,18 +656,18 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
-      if (!m_pnanouserdisplay)
-      {
-
-         windowing_output_debug_string("::wm_dockwindow 1.1");
-
-         //fflush(stdout);
-
-         return;
-
-      }
+      // if (!m_pnanouserdisplay)
+      // {
+      //
+      //    windowing_output_debug_string("::wm_dockwindow 1.1");
+      //
+      //    //fflush(stdout);
+      //
+      //    return;
+      //
+      // }
 
       
 
@@ -716,14 +716,14 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
-      if (!m_pnanouserdisplay)
-      {
-
-         return;
-
-      }
+      // if (!m_pnanouserdisplay)
+      // {
+      //
+      //    return;
+      //
+      // }
 
       _wm_nodecorations(bMap);
 
@@ -780,18 +780,18 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      ::x11::display_lock displaylock(x11_display()->Display());
+      ::x11::display_lock displaylock(x11_display()->__x11_display());
 
       windowing_output_debug_string("::wm_iconify_window 1");
 
-      if (!m_pnanouserdisplay)
-      {
-
-         windowing_output_debug_string("::wm_iconify_window 1.1");
-
-         return;
-
-      }
+      // if (!m_pnanouserdisplay)
+      // {
+      //
+      //    windowing_output_debug_string("::wm_iconify_window 1.1");
+      //
+      //    return;
+      //
+      // }
 
       auto window = Window();
 
@@ -806,10 +806,12 @@ namespace windowing_x11
       else
       {
 
-         if (m_pwindow->m_puserinteraction->const_layout().design().display() != ::e_display_iconic)
+         ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+         if (puserinteraction->const_layout().design().display() != ::e_display_iconic)
          {
 
-            m_pwindow->m_puserinteraction->display(::e_display_iconic);
+            puserinteraction->display(::e_display_iconic);
 
          }
 

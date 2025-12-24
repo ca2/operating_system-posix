@@ -92,7 +92,9 @@ namespace windowing_x11
    ::windowing_x11::window * buffer::x11_window()
    {
 
-      return (::windowing_x11::window *) (m_pwindow ? m_pwindow->m_pWindow4 : nullptr);
+      ::cast < ::windowing_x11::window > pwindow = m_pwindow;
+
+      return pwindow;
 
    }
 
@@ -104,7 +106,7 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      ::x11::display_lock displaylock(x11_window()->x11_display()->Display());
+      ::x11::display_lock displaylock(x11_window()->x11_display()->m_pDisplay);
 
       XGCValues gcvalues = {};
 
@@ -125,7 +127,7 @@ namespace windowing_x11
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      ::x11::display_lock displaylock(x11_window()->x11_display()->Display());
+      ::x11::display_lock displaylock(x11_window()->x11_display()->__x11_display());
 
       if (m_gc != nullptr)
       {
@@ -142,58 +144,60 @@ namespace windowing_x11
    bool buffer::update_buffer(::graphics::buffer_item * pbufferitem)
    {
 
-      debug() << "x11 buffer::update_buffer";
-
-      auto pwindowing = m_pimpl->m_puserinteraction->windowing();
-
-      auto pdisplay = pwindowing->display();
-
-      auto sizeLargeInternalBitmap = pdisplay->get_monitor_union_rectangle().size();
-
-      if (pbufferitem->m_size.cx > sizeLargeInternalBitmap.cx)
-      {
-
-         sizeLargeInternalBitmap.cx = pbufferitem->m_size.cx;
-
-      }
-
-      if (pbufferitem->m_size.cy > sizeLargeInternalBitmap.cy)
-      {
-
-         sizeLargeInternalBitmap.cy = pbufferitem->m_size.cy;
-
-      }
-
-      if (pbufferitem->m_sizeInternal.cx > sizeLargeInternalBitmap.cx)
-      {
-
-         sizeLargeInternalBitmap.cx = pbufferitem->m_sizeInternal.cx;
-
-      }
-
-      if (pbufferitem->m_sizeInternal.cy > sizeLargeInternalBitmap.cy)
-      {
-
-         sizeLargeInternalBitmap.cy = pbufferitem->m_sizeInternal.cy;
-
-      }
-
-      if (pbufferitem->m_sizeInternal.cx < sizeLargeInternalBitmap.cx
-          || pbufferitem->m_sizeInternal.cy < sizeLargeInternalBitmap.cy)
-      {
-
-         _map_shared_memory(sizeLargeInternalBitmap);
-
-         if (m_shmaddr)
-         {
-
-            pbufferitem->m_sizeInternal = sizeLargeInternalBitmap;
-
-         }
-
-      }
-
-      debug() << "x11 buffer::update_buffer sizeLargeInternalBitmap : " << sizeLargeInternalBitmap;
+      // debug() << "x11 buffer::update_buffer";
+      //
+      // auto pwindowing = m_pwindow->m_pacmeuserinteraction->acme_windowing();
+      //
+      // auto pdisplay = pwindowing->display();
+      //
+      // auto sizeLargeInternalBitmap = pdisplay->get_monitor_union_rectangle().size();
+      //
+      // if (pbufferitem->m_sizeI.cx > sizeLargeInternalBitmap.cx)
+      // {
+      //
+      //    sizeLargeInternalBitmap.cx = pbufferitem->m_size.cx;
+      //
+      // }
+      //
+      // if (pbufferitem->m_size.cy > sizeLargeInternalBitmap.cy)
+      // {
+      //
+      //    sizeLargeInternalBitmap.cy = pbufferitem->m_size.cy;
+      //
+      // }
+      //
+      // if (pbufferitem->m_sizeInternal.cx > sizeLargeInternalBitmap.cx)
+      // {
+      //
+      //    sizeLargeInternalBitmap.cx = pbufferitem->m_sizeInternal.cx;
+      //
+      // }
+      //
+      // if (pbufferitem->m_sizeInternal.cy > sizeLargeInternalBitmap.cy)
+      // {
+      //
+      //    sizeLargeInternalBitmap.cy = pbufferitem->m_sizeInternal.cy;
+      //
+      // }
+      //
+      // if (pbufferitem->m_sizeInternal.cx < sizeLargeInternalBitmap.cx
+      //     || pbufferitem->m_sizeInternal.cy < sizeLargeInternalBitmap.cy)
+      // {
+      //
+      //    _map_shared_memory(sizeLargeInternalBitmap);
+      //
+      //    if (m_shmaddr)
+      //    {
+      //
+      //       pbufferitem->m_sizeInternal = sizeLargeInternalBitmap;
+      //
+      //    }
+      //
+      // }
+      //
+      // debug() << "x11 buffer::update_buffer sizeLargeInternalBitmap : " << sizeLargeInternalBitmap;
+      //
+      // return ::graphics::double_buffer::update_buffer(pbufferitem);
 
       return ::graphics::double_buffer::update_buffer(pbufferitem);
 
@@ -236,7 +240,7 @@ namespace windowing_x11
 //
 //      }
 //
-//      //m_pdc->m_pdisplay = m_pimpl->m_oswindow->display();
+//      //m_pdc->m_pdisplay = m_pwindow->m_oswindow->display();
 //
       return true;
 
@@ -360,35 +364,37 @@ namespace windowing_x11
    }
 
 
-   bool buffer::update_screen()
+   void buffer::update_screen()
    {
 
       information() << "x11 buffer::update_screen";
 
-      if (m_pimpl == nullptr)
+      if (m_pwindow == nullptr)
       {
 
-         warningf("windowing_x11::buffer::update_screen !m_pimpl!!");
+         warningf("windowing_x11::buffer::update_screen !m_pwindow!!");
 
-         return false;
+         return;
 
       }
 
-      if (!m_pimpl->m_pwindow)
-      {
+      // if (!m_pwindow->m_pwindow)
+      // {
+      //
+      //    warningf("windowing_x11::buffer::update_screen !m_pwindow->m_pwindow!!");
+      //
+      //    return false;
+      //
+      // }
 
-         warningf("windowing_x11::buffer::update_screen !m_pimpl->m_pwindow!!");
-
-         return false;
-
-      }
-
-      if (!m_pimpl->m_puserinteraction->is_window_screen_visible())
+      if (!m_pwindow->m_pacmeuserinteraction->is_window_visible())
       {
 
          information() << "windowing_x11::buffer::update_screen XPutImage not called. Ui is not visible.";
 
-         return false;
+         //return false;
+
+         return;
 
       }
 
@@ -397,15 +403,19 @@ namespace windowing_x11
 
          warningf("windowing_x11::buffer::update_screen !m_pwindow!");
 
-         return false;
+         //return false;
+
+         return;
 
       }
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      ::x11::display_lock displayLock(x11_window()->x11_display()->Display());
+      //::x11::display_lock displayLock(x11_window()->x11_display()->__x11_display());
 
-      return _update_screen_lesser_lock();
+      ::x11::display_lock displayLock(x11_window()->x11_display()->__x11_display());
+
+      _update_screen_lesser_lock();
 
    }
 
@@ -431,7 +441,7 @@ namespace windowing_x11
 
       debug() << "x11 buffer::_update_screen_unlocked";
 
-      auto sizeBitBlitting = pitem->m_size;
+      auto sizeBitBlitting = pitem->m_sizeBufferItemDraw;
 
       if (sizeBitBlitting.is_empty())
       {
@@ -444,7 +454,7 @@ namespace windowing_x11
 
       auto & pimage = pitem->m_pimage2;
 
-      pimage->map_base();
+      pimage->map();
 
 //      try
 //      {
@@ -579,7 +589,9 @@ namespace windowing_x11
 
       }
 
-      ::int_size sizeDesign = m_pimpl->m_puserinteraction->const_layout().design().size();
+      ::cast < ::user::interaction > puserinteraction = m_pwindow->m_pacmeuserinteraction;
+
+      ::int_size sizeDesign = puserinteraction->const_layout().design().size();
 
       if (sizeDesign != sizeBitBlitting)
       {
@@ -612,7 +624,7 @@ namespace windowing_x11
 
                information() << "XShmCompletionEvent timeout";
 
-               ::pointer<::windowing_x11::window> px11window = m_pimpl->m_pwindow;
+               ::pointer<::windowing_x11::window> px11window = m_pwindow;
 
                try
                {
@@ -627,14 +639,16 @@ namespace windowing_x11
 
             }
 
-            copy_image32((::image32_t *) m_pximage->data, sizeBitBlitting,
+            auto pimage32 = (::image32_t *) m_pximage->data;
+
+            pimage32->copy(sizeBitBlitting,
                          pitem->m_iScan, pimage->get_data(), pimage->scan_size());
 
             pitem->m_manualresethappening.reset_happening();
 
             m_sizeLastBitBlitting = sizeBitBlitting;
 
-            x11_window()->m_rectangleXShm = x11_window()->m_pwindow->m_puserinteraction->const_layout().parent_raw_rectangle(::user::e_layout_design);
+            x11_window()->m_rectangleXShm = puserinteraction->const_layout().parent_raw_rectangle(::user::e_layout_design);
 
             m_bXShmPutImagePending = true;
 
@@ -652,7 +666,7 @@ namespace windowing_x11
          else
          {
 
-            ::pointer<::windowing_x11::window> px11window = m_pimpl->m_pwindow;
+            ::pointer<::windowing_x11::window> px11window = m_pwindow;
 
             try
             {
@@ -737,7 +751,7 @@ namespace windowing_x11
 
       // pximage->data = nullptr;
 
-      // if(m_pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
+      // if(m_pwindow->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
       // {
 
 // //     x11_window()->m_pwindow->m_puserinteraction->_set_size({ iWidth, iHeight }, ::user::e_layout_window);
@@ -749,12 +763,12 @@ namespace windowing_x11
    }
 
 
-   bool buffer::on_update_screen(::graphics::buffer_item * pitem)
+   void buffer::on_update_screen(::graphics::buffer_item * pitem)
    {
 
       throw ("use update_window(void)");
 
-      return true;
+      //return true;
 
    }
 
@@ -768,7 +782,7 @@ namespace windowing_x11
 
       auto pimageBuffer = pbufferitem->m_pimage2;
 
-      if (pimageBuffer->m_size != pbufferitem->m_size)
+      if (pimageBuffer->m_size != pbufferitem->m_sizeBufferItemDraw)
       {
 
          if(!update_buffer(pbufferitem))

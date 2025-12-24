@@ -12,7 +12,7 @@ namespace x11
 {
 
 
-   class event_listener :
+   class happening_listener :
       virtual public ::particle
    {
    public:

@@ -351,7 +351,7 @@ namespace x11
          }
 
 
-         void display::add_listener(event_listener * plistener)
+         void display::add_listener(happening_listener * plistener)
          {
 
             _synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -371,7 +371,7 @@ namespace x11
          }
 
 
-         void display::erase_listener(event_listener * plistener)
+         void display::erase_listener(happening_listener * plistener)
          {
 
             _synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);

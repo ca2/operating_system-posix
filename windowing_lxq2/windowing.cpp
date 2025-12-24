@@ -703,7 +703,7 @@ namespace windowing_lxq2
 //       //
 //       //                                      windowing_output_debug_string("::SetCursor 1");
 //       //
-//       //                                      display_lock displaylock(x11_display()->Display());;
+//       //                                      display_lock displaylock(x11_display()->__x11_display());;
 //       //
 //       //                                      XDefineCursor(Display(), Window(), pcursorx11->m_cursor);
 //       //

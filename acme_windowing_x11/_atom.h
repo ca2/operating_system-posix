@@ -3,13 +3,99 @@
 //
 #pragma once
 
-
 namespace x11
 {
 
-
    enum enum_atom
    {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       e_atom_net_wm_state,
       e_atom_net_wm_state_above,
@@ -17,6 +103,7 @@ namespace x11
       e_atom_net_wm_state_hidden,
       e_atom_net_wm_state_maximized_horz,
       e_atom_net_wm_state_maximized_penn,
+      e_atom_net_wm_state_focused,
       e_atom_net_wm_state_fullscreen,
       e_atom_net_wm_state_skip_taskbar,
       e_atom_wm_name,
@@ -28,6 +115,9 @@ namespace x11
       e_atom_net_wm_window_type_normal,
       e_atom_net_wm_window_type_splash,
       e_atom_net_wm_cm_s0,
+      e_atom_wm_protocols,
+      e_atom_net_wm_sync_request,
+      e_atom_net_wm_sync_request_counter,
       e_atom_count,
 
 

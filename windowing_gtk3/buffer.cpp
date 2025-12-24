@@ -129,7 +129,7 @@ namespace windowing_gtk3
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      //display_lock displaylock(x11_window()->x11_display()->Display());
+      //display_lock displaylock(x11_window()->x11_display()->__x11_display());
 
       //XGCValues gcvalues = {};
 
@@ -150,7 +150,7 @@ namespace windowing_gtk3
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      //display_lock displaylock(x11_window()->x11_display()->Display());
+      //display_lock displaylock(x11_window()->x11_display()->__x11_display());
 
 //      if (m_gc != nullptr)
 //      {
@@ -422,7 +422,7 @@ namespace windowing_gtk3
 //
 //      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//      //display_lock displayLock(x11_window()->x11_display()->Display());
+//      //display_lock displayLock(x11_window()->x11_display()->__x11_display());
 //
 //      //return _update_screen_lesser_lock();
 //      return _post_update_screen();

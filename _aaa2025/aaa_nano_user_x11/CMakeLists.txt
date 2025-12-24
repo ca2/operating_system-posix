@@ -24,8 +24,8 @@ list(APPEND library_source
    _x11.h
         display.cpp
         display.h
-   event_listener.cpp
-   event_listener.h
+   happening_listener.cpp
+   happening_listener.h
         framework.cpp
         framework.h
         user.cpp

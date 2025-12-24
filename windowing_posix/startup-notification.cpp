@@ -16,6 +16,7 @@
 #define SN_API_NOT_YET_FROZEN
 #include <libsn/sn.h>
 #include "aura/windowing/display.h"
+#include "acme/constant/windowing2.h"
 
 
 static int g_iIgnoreXDisplayError = 0;

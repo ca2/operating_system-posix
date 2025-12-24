@@ -31,7 +31,7 @@ namespace x11
          windowing::windowing()
          {
 
-            m_p_Display = nullptr;
+            //m_p_Display = nullptr;
             m_estatusInitializeX11 = error_not_initialized;
 
          }
@@ -84,24 +84,24 @@ namespace x11
 
 
 
-         void * windowing::get_Display()
-         {
-
-            //return ::platform::node::x11_get_display();
-
-            //defer_initialize_windowing();
-
-            if(m_p_Display == NULL)
-            {
-
-               m_p_Display = windowing_x11_Display();
-
-            }
-
-            return m_p_Display;
-
-         }
-
+         // void * windowing::get_Display()
+         // {
+         //
+         //    //return ::platform::node::x11_get_display();
+         //
+         //    //defer_initialize_windowing();
+         //
+         //    if(m_p_Display == NULL)
+         //    {
+         //
+         //       m_p_Display = windowing_x11_Display();
+         //
+         //    }
+         //
+         //    return m_p_Display;
+         //
+         // }
+         //
 
          void windowing::_main_send(const ::procedure & procedure)
          {

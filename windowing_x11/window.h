@@ -34,9 +34,16 @@ namespace windowing_x11
    {
    public:
 
+      enum enum_net_wm_sync
+      {
 
+         e_net_wm_sync_none,
+         e_net_wm_sync_wait_configure,
+         e_net_wm_sync_wait_paint,
+      };
 
-
+      //x
+      //XSyncValue                                   m_xsyncvalueNetWmSyncPending;
       XWindowAttributes                            m_attr;
       XVisualInfo                                  m_visualinfo;
       void *                                       m_pgdkwindow;
@@ -61,6 +68,7 @@ namespace windowing_x11
       string                                       m_strWMClass;
       int                                          m_iaNetWmState2[::x11::e_atom_net_wm_state_last-::x11::e_atom_net_wm_state_first+1];
       //::int_point                                m_pointCursor;
+      enum_net_wm_sync                             m_enetwmsync;
       XSyncCounter                                 m_xsynccounterNetWmSync;
       XSyncValue                                   m_xsyncvalueNetWmSync;
       XSyncValue                                   m_xsyncvalueNetWmSyncPending;
@@ -91,7 +99,7 @@ namespace windowing_x11
 
 
       //void create_window(::windowing::window * pimpl) override;
-
+void on_initialize_particle() override;
 
       void create_window() override;
 
@@ -150,9 +158,15 @@ namespace windowing_x11
 
       void exit_zoomed() override;
 
-      virtual void set_user_interaction(::windowing::window * pinteraction);
+      //virtual void set_user_interaction(::windowing::window * pinteraction);
 
       virtual void post_nc_destroy();
+
+      void _create_window() override;
+
+      bool is_active_window() override;
+
+
 
       virtual ::e_status set_window_icon(const ::file::path & path);
 
@@ -166,12 +180,17 @@ namespace windowing_x11
 
       //virtual ::Window get_parent_handle() const;
 
+      void destroy() override;
+
+      void release_mouse_capture() override;
+
+
       ::windowing_x11::windowing * x11_windowing() const;
       ::windowing_x11::display * x11_display() const;
 
       void set_parent(::windowing::window * pwindowNewParent) override;
       //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
-      virtual bool get_state(long & lState);
+
       bool is_iconic() override;
       bool is_window_visible() override;
 //      bool _is_iconic_unlocked() override;
@@ -186,7 +205,7 @@ namespace windowing_x11
 
 
       //virtual bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) ;
-      bool _set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay, unsigned int nOverrideFlags = 0) override;
+      bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) override;
 
 
       //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);
@@ -302,8 +321,8 @@ namespace windowing_x11
 //      virtual bool wm_add_remove_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag, bool bSet);
 
 
-      virtual ::e_status x11_post_message(MESSAGE & msg);
-      virtual ::e_status post_ui_message(const MESSAGE & message);
+      //virtual ::e_status x11_post_message(MESSAGE & msg);
+      //virtual ::e_status post_ui_message(const MESSAGE & message);
       //virtual bool x11_process_event(osdisplay_data * pdisplaydata, XEvent * pevent, XGenericEventCookie *cookie);
       //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, int x, int y, int cx, int cy, unsigned int nFlags);
       virtual ::e_status window_rectangle( WINDOWING_X11_WINDOW_MEMBER ::int_rectangle * prectangle);
@@ -311,7 +330,8 @@ namespace windowing_x11
       //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::int_rectangle & rectangle);
 
       virtual ::e_status x11_store_name(const_char_pointer pszName);
-      //virtual ::e_status set_foreground_window();
+      void set_foreground_window() override;
+      void _set_foreground_window_unlocked() override;
       //virtual ::e_status set_active_window();
       //virtual void wm_toolwindow( WINDOWING_X11_WINDOW_MEMBER bool bToolWindow);
       //virtual void wm_state_hidden( WINDOWING_X11_WINDOW_MEMBER bool bSet);
@@ -322,7 +342,7 @@ namespace windowing_x11
       //void _window_request_presentation_locked() override;
       //void _on_configure_notify_unlocked(const ::int_rectangle & rectangle) override;
 
-      bool is_active_window() const override;
+      bool is_window_active() override;
 
 
       void bring_to_front() override;
@@ -335,9 +355,9 @@ namespace windowing_x11
       virtual void _enable_net_wm_sync();
 
 
-      void user_send(const ::procedure & procedure) override;
+      void _user_send(const ::procedure & procedure) override;
 
-      void user_post(const ::procedure & procedure) override;
+      void _user_post(const ::procedure & procedure) override;
 
 
    };

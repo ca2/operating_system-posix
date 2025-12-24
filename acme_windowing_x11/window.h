@@ -30,7 +30,7 @@ namespace x11
          public:
 
 
-            ::pointer<::x11::acme::windowing::display>   m_pdisplay;
+            ::pointer<::x11::acme::windowing::display>   m_px11display;
             Window                                       m_window;
             Window                                       m_windowRoot;
             cairo_surface_t *                            m_psurface;
@@ -46,7 +46,7 @@ namespace x11
             //string                                     m_strTitle;
             //bool                                       m_bNcActive;
 
-            manual_reset_happening                           m_happeningEnd;
+            manual_reset_happening                       m_happeningEnd;
             //int_rectangle                              m_rectangle;
             //int_rectangle                              m_rectangleX;
 
@@ -66,6 +66,11 @@ namespace x11
             virtual ::x11::acme::windowing::display * x11_display();
 
             virtual ::x11::handle_t _x11_handle();
+
+            virtual Display * __x11_display();
+            virtual Window __x11_window();
+            //virtual int __x11_screen();
+
 
             void on_initialize_particle() override;
 
@@ -138,7 +143,7 @@ namespace x11
 
 
             virtual void set_foreground_window();
-            virtual void _set_foreground_window();
+            virtual void _set_foreground_window_unlocked();
 
 
             virtual bool has_mouse_capture() const;
@@ -153,7 +158,20 @@ namespace x11
 
             virtual void _wm_nodecorations(int iMap);
 
+            //bool window::_get_wm_state_unlocked(long &lState);
+            virtual bool get_state(long & lState);
             virtual bool _get_wm_state_unlocked(long & lState);
+            virtual comparable_array<Atom> _wm_get_list_unlocked(Atom atomList);
+            virtual ::comparable_array<Atom> _get_net_wm_state_unlocked();
+            virtual int _wm_test_list_unlocked(Atom atomList, Atom atomFlag);
+            virtual int _wm_test_state_unlocked(const_char_pointer pszNetStateFlag);
+            virtual int wm_test_state(const_char_pointer pszNetStateFlag);
+            virtual bool _wm_add_erase_list_unlocked(Atom atomList, Atom atomFlag, bool bSet);
+
+            virtual void _on_cairo_draw(cairo_t *cr);
+
+
+            //virtual void _draw(::nano::graphics::device * pnanodevice);
 
 
 

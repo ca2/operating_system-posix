@@ -1026,7 +1026,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //      }
 //
-//      auto pdisplay = m_pdisplay->Display();
+//      auto pdisplay = m_pdisplay->__x11_display();
 //
 //      if (pdisplay == nullptr)
 //      {
@@ -1116,7 +1116,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   bool windowing::x11_message_handler(XEvent * pevent)
 //   {
 //
-//      Display * pdisplay = m_pdisplay->Display();
+//      Display * pdisplay = m_pdisplay->__x11_display();
 //
 //      if (pdisplay == nullptr)
 //      {
@@ -1130,7 +1130,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//         display_lock displaylock(m_pdisplay->Display());
+//         display_lock displaylock(m_pdisplay->__x11_display());
 //
 //         try
 //         {
@@ -1169,7 +1169,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //#else
 //
-//                  if (!x11_process_event(m_pdisplay->Display(), pevent))
+//                  if (!x11_process_event(m_pdisplay->__x11_display(), pevent))
 //
 //#endif
 //               {
@@ -1284,9 +1284,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-         display_lock displayLock(m_pdisplay->Display());
+         display_lock displayLock(m_pdisplay->__x11_display());
 
-         Display * pdisplay = m_pdisplay->Display();
+         Display * pdisplay = m_pdisplay->__x11_display();
 
          if (pdisplay == nullptr)
          {
@@ -1344,7 +1344,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #else
 
-                     if (!x11_process_event(m_pdisplay->Display(), &e))
+                     if (!x11_process_event(m_pdisplay->__x11_display(), &e))
 
 #endif
                   {
@@ -1492,7 +1492,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       XEvent & e = *pevent;
 
-      int iXShmEventBase = XShmGetEventBase(m_pdisplay->Display());
+      int iXShmEventBase = XShmGetEventBase(m_pdisplay->__x11_display());
 
       int iXShmEvent = iXShmEventBase + ShmCompletion;
 
@@ -1584,7 +1584,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          bool bProcessed = false;
 
-         if (XGetEventData(m_pdisplay->Display(), cookie) && cookie->type == GenericEvent &&
+         if (XGetEventData(m_pdisplay->__x11_display(), cookie) && cookie->type == GenericEvent &&
              cookie->extension == m_xi_opcode)
          {
 
@@ -1753,7 +1753,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          }
 
-         XFreeEventData(m_pdisplay->Display(), cookie);
+         XFreeEventData(m_pdisplay->__x11_display(), cookie);
 
          if (bProcessed)
          {
@@ -2138,7 +2138,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case PropertyNotify:
          {
 
-            if (e.xany.window == DefaultRootWindow(m_pdisplay->Display()))
+            if (e.xany.window == DefaultRootWindow(m_pdisplay->__x11_display()))
             {
 
                Atom atom = m_pdisplay->intern_atom("_NET_ACTIVE_WINDOW", False);
@@ -2416,7 +2416,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             if (px11window)
             {
 
-               if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
+               if (!XGetWindowAttributes(m_pdisplay->__x11_display(), px11window->__x11_window(), &px11window->m_xwindowattributes))
                {
 
                   informationf("X11 MapNotify XGetWindowAttributes failed");
@@ -2443,7 +2443,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             if (msg.oswindow)
             {
 
-               if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
+               if (!XGetWindowAttributes(m_pdisplay->__x11_display(), px11window->__x11_window(), &px11window->m_xwindowattributes))
                {
 
                   informationf("X11 MapNotify XGetWindowAttributes failed");
@@ -2466,7 +2466,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case ConfigureNotify:
          {
 
-            if (e.xconfigure.window == DefaultRootWindow(m_pdisplay->Display()))
+            if (e.xconfigure.window == DefaultRootWindow(m_pdisplay->__x11_display()))
             {
 
                
@@ -2520,33 +2520,33 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             else
             {
 
-               if (m_pdisplay->m_bHasXSync)
-               {
-
-                  auto oswindow = m_pdisplay->_window(e.xconfigure.window);
-
-                  if (oswindow)
-                  {
-
-                     if (oswindow->m_enetwmsync == window::e_net_wm_sync_wait_configure)
-                     {
-
-                        oswindow->m_xsyncvalueNetWmSync = oswindow->m_xsyncvalueNetWmSyncPending;
-
-                        XSyncIntToValue(&oswindow->m_xsyncvalueNetWmSyncPending, 0);
-
-                        oswindow->m_enetwmsync = window::e_net_wm_sync_wait_paint;
-
-                     }
-
-                  }
-
-               }
+               // if (m_pdisplay->m_bHasXSync)
+               // {
+               //
+               //    auto oswindow = m_pdisplay->_window(e.xconfigure.window);
+               //
+               //    if (oswindow)
+               //    {
+               //
+               //       if (oswindow->m_enetwmsync == window::e_net_wm_sync_wait_configure)
+               //       {
+               //
+               //          oswindow->m_xsyncvalueNetWmSync = oswindow->m_xsyncvalueNetWmSyncPending;
+               //
+               //          XSyncIntToValue(&oswindow->m_xsyncvalueNetWmSyncPending, 0);
+               //
+               //          oswindow->m_enetwmsync = window::e_net_wm_sync_wait_paint;
+               //
+               //       }
+               //
+               //    }
+               //
+               // }
 
                if(px11window)
                {
 
-                  if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(),
+                  if (!XGetWindowAttributes(m_pdisplay->__x11_display(), px11window->__x11_window(),
                                             &px11window->m_xwindowattributes))
                   {
 
@@ -2880,7 +2880,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                else if (e.xkey.type == KeyRelease)
                {
 
-                  keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0,
+                  keysym = XkbKeycodeToKeysym(m_pdisplay->__x11_display(), e.xkey.keycode, 0,
                                               e.xkey.state & ShiftMask ? 1 : 0);
 
                   msg.id() = ::user::e_message_key_up;
@@ -3059,7 +3059,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                      int revert_to_return = 0;
 
-                     XGetInputFocus(m_pdisplay->Display(), &wFocus, &revert_to_return);
+                     XGetInputFocus(m_pdisplay->__x11_display(), &wFocus, &revert_to_return);
 
                      msg.wParam = (wparam) (iptr) m_pdisplay->_window(wFocus);
 

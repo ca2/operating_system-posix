@@ -13,19 +13,21 @@ endif ()
 
 
 list(APPEND library_source
-        _.cpp
-        _.h
-        _atom.cpp
-        _factory.cpp
+   _.cpp
+   _.h
+   _atom.cpp
+   _factory.cpp
    display.cpp
    display.h
-        display_lock.cpp
-        display_lock.h
-        framework.cpp
-        framework.h
-        keyboard.cpp
-        keyboard.h
-window.cpp
+   display_lock.cpp
+   display_lock.h
+   framework.cpp
+   framework.h
+   happening_listener.cpp
+   happening_listener.h
+   keyboard.cpp
+   keyboard.h
+   window.cpp
    window.h
    windowing.cpp
    windowing.h)
@@ -52,7 +54,7 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
    target_link_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE acme ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${this_system_libraries} ${global_library_references})
+   target_link_libraries(${PROJECT_NAME} PRIVATE Xrandr acme ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${this_system_libraries} ${global_library_references})
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    message("PKGCONFIG_LIBRARIES is " ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
 endif ()

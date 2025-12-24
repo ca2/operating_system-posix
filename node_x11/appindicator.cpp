@@ -45,22 +45,22 @@ extern "C"
 {
 
 
-   static void gtk_menu_item_application_menu_callback(GtkMenuItem * pgtkmenuitem, gpointer p)
-   {
-
-      auto pcommandhandler = (::command_handler *) p;
-
-      ::atom atom;
-
-      atom = gtk_widget_get_name(GTK_WIDGET(pgtkmenuitem));
-
-      //auto pactivationtoken= øallocate ::gtk3::acme::windowing::activation_token();
-
-      //pcallback->on_application_menu_command(atom, puseractivationtoken);
-
-      pcommandhandler->handle_command(atom, nullptr);
-
-   }
+   // static void gtk_menu_item_application_menu_callback(GtkMenuItem * pgtkmenuitem, gpointer p)
+   // {
+   //
+   //    auto pcommandhandler = (::command_handler *) p;
+   //
+   //    ::atom atom;
+   //
+   //    atom = gtk_widget_get_name(GTK_WIDGET(pgtkmenuitem));
+   //
+   //    //auto pactivationtoken= øallocate ::gtk3::acme::windowing::activation_token();
+   //
+   //    //pcallback->on_application_menu_command(atom, puseractivationtoken);
+   //
+   //    pcommandhandler->handle_command(atom, nullptr);
+   //
+   // }
 
 
 } // extern "C"
@@ -98,109 +98,109 @@ extern "C"
 //    return FALSE;  // Return FALSE to propagate the happening, or TRUE to stop further happening handling
 // }
 
-GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, ::command_handler * pcommandhandler)
-{
-
-   int iCount = papplicationmenu->get_count();
-
-   if(iCount <= 0)
-   {
-
-      return nullptr;
-
-   }
-
-   GtkWidget * pgtkwidgetMenu = gtk_menu_new();
-
-   gtk_widget_add_events(pgtkwidgetMenu, GDK_BUTTON_PRESS_MASK);
-
-   for(int i = 0; i < iCount; i++)
-   {
-
-      auto pitem = papplicationmenu->element_at(i);
-
-      auto strName = pitem->m_strName;
-      //const_char_pointer pszLabel = pbridge->_get_notification_area_action_label(i);
-      //const_char_pointer pszAccelerator = pbridge->_get_notification_area_action_accelerator(i);
-      //const_char_pointer pszDescription = pbridge->_get_notification_area_action_description(i);
-
-      GtkWidget * pgtkwidget = nullptr;
-
-      if(pitem->is_separator())
-      {
-
-         pgtkwidget = gtk_separator_menu_item_new();
-
-      }
-      else
-      {
-
-         pgtkwidget = gtk_menu_item_new_with_label(strName);
-
-         if (pitem->is_popup())
-         {
-
-            auto pgtkwidgetSubMenu = gtk_menu_from_application_menu(pitem, pcommandhandler);
-
-            gtk_menu_item_set_submenu(GTK_MENU_ITEM(pgtkwidget), GTK_WIDGET(pgtkwidgetSubMenu));
-
-         }
-         else
-         {
-
-            auto strId = pitem->m_atomMenu.as_string();
-            auto strAccelerator = pitem->m_strAccelerator;
-            auto strDescription = pitem->m_strDescription;
-
-
-            gtk_widget_set_name(GTK_WIDGET(pgtkwidget), strId);
-
-            // //if(pitem->m_strAtom.begins("***"))
-            // {
-            //    gtk_widget_add_events(pgtkwidget, GDK_BUTTON_PRESS_MASK);
-            //
-            //    // Connect the button-press-event signal to handle button press happenings on menu items
-            //    g_signal_connect(pgtkwidget, "button-press-event", G_CALLBACK(on_menu_item_button_press), pcommandhandler);
-            //
-            // }
-            // else {
-            //    g_signal_connect(menu_item, "activate", G_CALLBACK(on_menu_item_clicked), pitem.m_p);
-            // }
-            g_signal_connect (G_OBJECT(pgtkwidget), "activate", G_CALLBACK(gtk_menu_item_application_menu_callback),
-                              pcommandhandler);
-
-            // gtkactionentriea[iEntry].stock_id = g_strdup(scopedstrId);
-
-            // gtkactionentriea[iEntry].label = g_strdup(scopedstrName);
-
-            // //gtkactionentriea[iEntry].accelerator = g_strdup(scopedstrAccelerator);
-
-            // //gtkactionentriea[iEntry].accelerator = nullptr;
-
-            // gtkactionentriea[iEntry].accelerator = g_strdup("");
-
-            // gtkactionentriea[iEntry].tooltip = g_strdup(scopedstrDescription);
-
-            // gtkactionentriea[iEntry].callback = G_CALLBACK (user_notify_icon_bridge_extra_action);
-
-            // iEntry++;
-
-         }
-
-      }
-
-      gtk_widget_show (pgtkwidget);
-
-      gtk_menu_shell_append (GTK_MENU_SHELL (pgtkwidgetMenu), pgtkwidget);
-
-      //gtk_container_add (GTK_CONTAINER (pgtkwidgetMenu), pgtkwidget);
-
-   }
-
-   return GTK_MENU(pgtkwidgetMenu);
-
-
-}
+// GtkMenu * gtk_menu_from_application_menu(application_menu * papplicationmenu, ::command_handler * pcommandhandler)
+// {
+//
+//    int iCount = papplicationmenu->get_count();
+//
+//    if(iCount <= 0)
+//    {
+//
+//       return nullptr;
+//
+//    }
+//
+//    GtkWidget * pgtkwidgetMenu = gtk_menu_new();
+//
+//    gtk_widget_add_events(pgtkwidgetMenu, GDK_BUTTON_PRESS_MASK);
+//
+//    for(int i = 0; i < iCount; i++)
+//    {
+//
+//       auto pitem = papplicationmenu->element_at(i);
+//
+//       auto strName = pitem->m_strName;
+//       //const_char_pointer pszLabel = pbridge->_get_notification_area_action_label(i);
+//       //const_char_pointer pszAccelerator = pbridge->_get_notification_area_action_accelerator(i);
+//       //const_char_pointer pszDescription = pbridge->_get_notification_area_action_description(i);
+//
+//       GtkWidget * pgtkwidget = nullptr;
+//
+//       if(pitem->is_separator())
+//       {
+//
+//          pgtkwidget = gtk_separator_menu_item_new();
+//
+//       }
+//       else
+//       {
+//
+//          pgtkwidget = gtk_menu_item_new_with_label(strName);
+//
+//          if (pitem->is_popup())
+//          {
+//
+//             auto pgtkwidgetSubMenu = gtk_menu_from_application_menu(pitem, pcommandhandler);
+//
+//             gtk_menu_item_set_submenu(GTK_MENU_ITEM(pgtkwidget), GTK_WIDGET(pgtkwidgetSubMenu));
+//
+//          }
+//          else
+//          {
+//
+//             auto strId = pitem->m_atomMenu.as_string();
+//             auto strAccelerator = pitem->m_strAccelerator;
+//             auto strDescription = pitem->m_strDescription;
+//
+//
+//             gtk_widget_set_name(GTK_WIDGET(pgtkwidget), strId);
+//
+//             // //if(pitem->m_strAtom.begins("***"))
+//             // {
+//             //    gtk_widget_add_events(pgtkwidget, GDK_BUTTON_PRESS_MASK);
+//             //
+//             //    // Connect the button-press-event signal to handle button press happenings on menu items
+//             //    g_signal_connect(pgtkwidget, "button-press-event", G_CALLBACK(on_menu_item_button_press), pcommandhandler);
+//             //
+//             // }
+//             // else {
+//             //    g_signal_connect(menu_item, "activate", G_CALLBACK(on_menu_item_clicked), pitem.m_p);
+//             // }
+//             g_signal_connect (G_OBJECT(pgtkwidget), "activate", G_CALLBACK(gtk_menu_item_application_menu_callback),
+//                               pcommandhandler);
+//
+//             // gtkactionentriea[iEntry].stock_id = g_strdup(scopedstrId);
+//
+//             // gtkactionentriea[iEntry].label = g_strdup(scopedstrName);
+//
+//             // //gtkactionentriea[iEntry].accelerator = g_strdup(scopedstrAccelerator);
+//
+//             // //gtkactionentriea[iEntry].accelerator = nullptr;
+//
+//             // gtkactionentriea[iEntry].accelerator = g_strdup("");
+//
+//             // gtkactionentriea[iEntry].tooltip = g_strdup(scopedstrDescription);
+//
+//             // gtkactionentriea[iEntry].callback = G_CALLBACK (user_notify_icon_bridge_extra_action);
+//
+//             // iEntry++;
+//
+//          }
+//
+//       }
+//
+//       gtk_widget_show (pgtkwidget);
+//
+//       gtk_menu_shell_append (GTK_MENU_SHELL (pgtkwidgetMenu), pgtkwidget);
+//
+//       //gtk_container_add (GTK_CONTAINER (pgtkwidgetMenu), pgtkwidget);
+//
+//    }
+//
+//    return GTK_MENU(pgtkwidgetMenu);
+//
+//
+// }
 
 
 #include "appindicator.h"
@@ -282,7 +282,8 @@ namespace node_gtk3
 //
 //      }
 
-      auto pgtkmenu = gtk_menu_from_application_menu(papplicationmenu, pcommandhandler);
+      throw todo;
+      //auto pgtkmenu = gtk_menu_from_application_menu(papplicationmenu, pcommandhandler);
 
 //      for(int i = 0; i < iCount; i++)
 //      {
@@ -336,11 +337,11 @@ namespace node_gtk3
 //
 //      }
 
-      informationf("appindicator::init GtkMenu = %" PRI0xPTR, (long unsigned int) pgtkmenu);
-
-      app_indicator_set_menu(m_pindicator, pgtkmenu);
-
-      app_indicator_set_status(m_pindicator, APP_INDICATOR_STATUS_ACTIVE);
+      // informationf("appindicator::init GtkMenu = %" PRI0xPTR, (long unsigned int) pgtkmenu);
+      //
+      // app_indicator_set_menu(m_pindicator, pgtkmenu);
+      //
+      // app_indicator_set_status(m_pindicator, APP_INDICATOR_STATUS_ACTIVE);
 
       return true;
 

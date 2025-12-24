@@ -4,18 +4,106 @@
 #include "framework.h"
 #include "_atom.h"
 
-
 namespace x11
 {
-
-
    const_char_pointer g_pszAtomName[] = {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       "_NET_WM_STATE",
       "_NET_WM_STATE_ABOVE",
       "_NET_WM_STATE_BELOW",
       "_NET_WM_STATE_HIDDEN",
       "_NET_WM_STATE_MAXIMIZED_HORZ",
       "_NET_WM_STATE_MAXIMIZED_VERT",
+      "_NET_WM_STATE_FOCUSED",
       "_NET_WM_STATE_FULLSCREEN",
       "_NET_WM_STATE_SKIP_TASKBAR",
       "WM_NAME",
@@ -27,6 +115,9 @@ namespace x11
       "_NET_WM_WINDOW_TYPE_NORMAL",
       "_NET_WM_WINDOW_TYPE_SPLASH",
       "_NET_WM_CM_S0",
+      "_WM_PROTOCOLS",
+      "_NET_WM_SYNC_REQUEST",
+      "_NET_WM_SYNC_REQUEST_COUNTER",
 
    };
 

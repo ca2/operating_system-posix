@@ -39,8 +39,8 @@ namespace windowing_x11
 
 #endif
 
-      ::procedure_list                                m_procedurelist;
-      ::procedure_list                                m_procedurelistPriority;
+      ::procedure_list_base                                m_procedurelist;
+      ::procedure_list_base                                m_procedurelistPriority;
 
       windowing();
       ~windowing() override;
@@ -48,7 +48,9 @@ namespace windowing_x11
 
       void initialize(::particle * pparticle) override;
 
-      void initialize_windowing(::user::user * puser) override;
+      //void initialize_windowing(::user::user * puser) override;
+
+      void initialize_windowing() override;
 
 
       bool is_branch_current() const override;
@@ -56,15 +58,18 @@ namespace windowing_x11
 
       //virtual void initialize_windowing();
 
-      void terminate_windowing() override;
+      virtual void terminate_windowing();
 
-      virtual void post_ui_message(const MESSAGE & message);
+      //virtual void post_ui_message(const MESSAGE & message);
 
-      virtual void post_ui_message(::message::message * pmessage);
+      //virtual void post_ui_message(::message::message * pmessage);
 
 
       void _send(const ::procedure & procedure) override;
       void _post(const ::procedure & procedure) override;
+
+      void _user_send(const ::procedure &procedure) override;
+      void _user_post(const ::procedure &procedure) override;
 
       //void add_mouse_message_handler(::particle * pparticle) override;
       //void add_keyboard_message_handler(::particle * pparticle) override;
@@ -85,9 +90,9 @@ namespace windowing_x11
       void windowing_post_quit() override;
 
 
-      void release_mouse_capture(::thread * pthread) override;
+      void release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow) override;
 
-      bool defer_release_mouse_capture(::thread * pthread, ::windowing::window * pwindow) override;
+      bool defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow) override;
 
 
       //virtual void x11_main();
@@ -122,7 +127,7 @@ namespace windowing_x11
 
       ::acme::windowing::window * get_keyboard_focus(::thread * pthread) override;
 
-      ::windowing::window * get_mouse_capture(::thread * pthread) override;
+      virtual ::acme::windowing::window * get_mouse_capture(::thread * pthread) override;
 
       void clear_active_window(::thread * pthread, ::windowing::window * pwindow) override;
 
@@ -142,7 +147,7 @@ namespace windowing_x11
 
       virtual bool x11_runnable_step();
 
-      virtual ::windowing::window * window(oswindow oswindow) override;
+      //::acme::windowing::window * get_mouse_capture(::thread * pthread) override;
 
       //virtual void _libsnx_start_context() override;
 
@@ -158,7 +163,7 @@ namespace windowing_x11
 #endif
 
 
-      //void _on_wm_state_change(::windowing::window * pwindow) override;
+      virtual void _on_wm_state_change(::windowing::window * pwindow);
 
 
    };

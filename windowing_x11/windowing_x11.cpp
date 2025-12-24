@@ -49,7 +49,7 @@
 #include <stdio.h>
 
 #endif
-
+#include "acme_windowing_x11/keyboard.h"
 
 void on_sn_launch_complete(void *pSnContext);
 
@@ -773,30 +773,30 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //}
 
 
-
-   ::windowing::window *oswindow_get(oswindow oswindow)
-   {
-
-      if (is_null(oswindow))
-      {
-
-         return nullptr;
-
-      }
-
-#ifdef WINDOWS_DESKTOP
-
-      critical_section_lock slOsWindow(::user::g_pcsImpl);
-
-      return ::user::g_pmapImpl->operator[](oswindow);
-
-#else
-
-      return oswindow->m_pwindow;
-
-#endif
-
-   }
+//
+//    ::windowing::window *oswindow_get(oswindow oswindow)
+//    {
+//
+//       if (is_null(oswindow))
+//       {
+//
+//          return nullptr;
+//
+//       }
+//
+// #ifdef WINDOWS_DESKTOP
+//
+//       critical_section_lock slOsWindow(::user::g_pcsImpl);
+//
+//       return ::user::g_pmapImpl->operator[](oswindow);
+//
+// #else
+//
+//       return oswindow->m_pwindow;
+//
+// #endif
+//
+//    }
 
 
 //
@@ -861,7 +861,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 #endif
 
 
-   bool post_ui_message(const MESSAGE &message);
+   //bool post_ui_message(const MESSAGE &message);
 
 
 
@@ -940,7 +940,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //      }
 //
-//      auto pdisplay = m_pdisplay->Display();
+//      auto pdisplay = m_pdisplay->__x11_display();
 //
 //      if (pdisplay == nullptr)
 //      {
@@ -1030,7 +1030,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   bool windowing::x11_message_handler(XEvent * pevent)
 //   {
 //
-//      Display * pdisplay = m_pdisplay->Display();
+//      Display * pdisplay = m_pdisplay->__x11_display();
 //
 //      if (pdisplay == nullptr)
 //      {
@@ -1044,7 +1044,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //         //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//         display_lock displaylock(m_pdisplay->Display());
+//         display_lock displaylock(m_pdisplay->__x11_display());
 //
 //         try
 //         {
@@ -1083,7 +1083,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 // #else
 //
-//                  if (!x11_process_event(m_pdisplay->Display(), pevent))
+//                  if (!x11_process_event(m_pdisplay->__x11_display(), pevent))
 //
 // #endif
 //               {
@@ -1188,7 +1188,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       //displayLock.unlock();
 
-      if (!m_pdisplay->m_px11display->x11_event(pevent))
+      ::cast < ::windowing_x11::display > px11display = ::system()->acme_windowing()->acme_display();
+
+      if (!px11display->__x11_event(pevent))
       {
 
 #ifdef WITH_XI
@@ -1197,7 +1199,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #else
 
-            if (!x11_process_event(m_pdisplay->Display(), pevent))
+            if (!x11_process_event(m_pdisplay->__x11_display(), pevent))
 
 #endif
          {
@@ -1260,12 +1262,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
          }
 
-         ::x11::display_lock displayLock(m_pdisplay->Display());
+         ::x11::display_lock displayLock(m_pdisplay->__x11_display());
 
+         ::cast<::windowing_x11::display > px11display = acme_display();
 
          information() << "windowing_x11::windowing::x11_message_loop_step display_lock";
 
-         Display *pdisplay = m_pdisplay->Display();
+         Display *pdisplay = m_pdisplay->__x11_display();
 
          if (pdisplay == nullptr)
          {
@@ -1321,7 +1324,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                displayLock.unlock();
 
-               if (!m_pdisplay->m_px11display->x11_event(&e))
+               if (!px11display->__x11_event(&e))
                {
 
 #ifdef WITH_XI
@@ -1330,7 +1333,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #else
 
-                     if (!x11_process_event(m_pdisplay->Display(), &e))
+                     if (!x11_process_event(m_pdisplay->__x11_display(), &e))
 
 #endif
                   {
@@ -1490,9 +1493,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       XEvent &e = *pevent;
 
-      ::x11::display_lock displaylock(m_pdisplay->Display());
+      ::x11::display_lock displaylock(m_pdisplay->__x11_display());
 
-      int iXShmEventBase = XShmGetEventBase(m_pdisplay->Display());
+      int iXShmEventBase = XShmGetEventBase(m_pdisplay->__x11_display());
 
       int iXShmEvent = iXShmEventBase + ShmCompletion;
 
@@ -1522,11 +1525,11 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               }
 
-               auto pbuffer = px11window->m_pwindow->m_pgraphicsgraphics;
+               auto pbuffer = px11window->m_pgraphicsgraphics;
 
                auto pbufferitem = pbuffer->get_buffer_item();
 
-               auto sizeBitBlitting = pbuffer->m_sizeLastBitBlitting;
+               auto sizeBitBlitting = pbufferitem->m_sizeBufferItemDraw;
 
                //px11window->m_pwindow->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
 
@@ -1554,7 +1557,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                px11window->_on_end_paint();
 
-               pbuffer->m_bXShmPutImagePending = false;
+               //pbuffer->m_bXShmPutImagePending = false;
 
                pbufferitem->m_manualresethappening.set_happening();
 
@@ -1603,11 +1606,11 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 #endif
 
-      msg.time = 0;
+      //msg.time = 0;
 
       auto px11window = m_pdisplay->_window(e.xany.window);
 
-      msg.oswindow = px11window;
+      //msg.oswindow = px11window;
 
       if (e.xany.type == ClientMessage && e.xany.window == g_windowX11Client
           && e.xclient.message_type == g_atomKickIdle)
@@ -1624,7 +1627,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case LeaveNotify:
          {
 
-            if (msg.oswindow)
+            if (px11window)
             {
 
                ::minimum(px11window->m_pointCursor2.x);
@@ -1657,12 +1660,31 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //            }
 
-               msg.id() = ::user::e_message_mouse_leave;
-               msg.wParam = 0;
-               msg.lParam = 0;
-               msg.time = e.xcrossing.time;
 
-               post_ui_message(msg);
+
+               auto pmouse = øcreate_new<::message::mouse>();
+
+               pmouse->m_oswindow = px11window;
+
+               pmouse->m_pwindow = px11window;
+
+               pmouse->m_eusermessage = ::user::e_message_mouse_leave;
+
+               // m_pointCursor2.x = happening->x;
+               //
+               // m_pointCursor2.y = happening->y;
+               //
+               // pmouse->m_pointHost.x = happening->x;
+               //
+               // pmouse->m_pointHost.y = happening->y;
+               //
+               // pmouse->m_pointAbsolute.x = happening->x_root;
+               //
+               // pmouse->m_pointAbsolute.y = happening->y_root;
+
+               //post_ui_message(msg);
+
+               px11window->message_handler(pmouse);
 
             }
 
@@ -1687,7 +1709,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case MotionNotify:
          {
 
-            if (msg.oswindow)
+            if (px11window)
             {
 
                px11window->m_pointCursor2.x = e.xmotion.x;
@@ -1831,7 +1853,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                pmouse->m_pwindow = px11window;
 
-               pmouse->m_emessage = ::user::e_message_mouse_move;
+               pmouse->m_eusermessage = ::user::e_message_mouse_move;
 
                pmouse->m_pointHost.x = e.xmotion.x;
 
@@ -1847,7 +1869,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                //pwindow->message_handler(pmouse);
 
-               post_ui_message(pmouse);
+               px11window->message_handler(pmouse);
 
             }
 
@@ -1942,10 +1964,10 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //px11window->
 
 
-                  auto pimpl = px11window->m_pwindow;
+                  //auto pimpl = px11window->m_pwindow;
 
                   //auto puserinteraction = pimpl->m_puserinteraction;
-                  ::pointer<buffer> pbuffer = pimpl->m_pgraphicsgraphics;
+                  ::pointer<buffer> pbuffer = px11window->m_pgraphicsgraphics;
 
                   if (pbuffer)
                   {
@@ -1994,7 +2016,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case PropertyNotify:
          {
 
-            if (e.xany.window == DefaultRootWindow(m_pdisplay->Display()))
+            if (e.xany.window == DefaultRootWindow(m_pdisplay->__x11_display()))
             {
 
                Atom atom = m_pdisplay->intern_atom("_NET_ACTIVE_WINDOW", False);
@@ -2014,12 +2036,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      if (::is_set(pwindowActiveNew))
                      {
 
-                        auto pimplNew = pwindowActiveNew->m_pwindow;
+                        auto pimplNew = pwindowActiveNew;
 
                         if (::is_set(pimplNew))
                         {
 
-                           auto puserinteractionNew = pimplNew->m_puserinteraction;
+                           ::cast < ::user::interaction > puserinteractionNew = pimplNew->m_pacmeuserinteraction;
 
                            if (::is_set(puserinteractionNew))
                            {
@@ -2037,12 +2059,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      if (::is_set(pwindowActiveOld))
                      {
 
-                        auto pimplOld = pwindowActiveOld->m_pwindow;
+                        auto pimplOld = pwindowActiveOld;
 
                         if (::is_set(pimplOld))
                         {
 
-                           auto puserinteractionOld = pimplOld->m_puserinteraction;
+                           ::cast < ::user::interaction > puserinteractionOld = pimplOld->m_pacmeuserinteraction;
 
                            if (::is_set(puserinteractionOld))
                            {
@@ -2062,12 +2084,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                }
 
             }
-            else if (px11window && px11window->m_window == (Window) msg.oswindow && !px11window->has_flag(e_flag_destroying))
+            else if (px11window && px11window->m_window == (Window) pevent->xproperty.window && !px11window->has_flag(e_flag_destroying))
             {
 
-               msg.time = e.xproperty.time;
+               //msg.time = e.xproperty.time;
 
-               ::user::interaction *pinteraction = msg.oswindow->m_pwindow->m_puserinteraction;
+               ::cast < ::user::interaction > pinteraction = px11window->m_pacmeuserinteraction;
 
                if (::is_set(pinteraction))
                {
@@ -2147,7 +2169,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                            information()
                                    << "X11::ConfigureNotify trying to fix state to previous state by calling display_previous";
 
-                           pinteraction->display_previous();
+                           pinteraction->display_previous(nullptr);
 
                         }
 
@@ -2270,9 +2292,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                px11window->m_pSnLauncheeContextSetup = nullptr;
 
-               auto pdisplay = m_pdisplay->Display();
+               auto pdisplay = m_pdisplay->__x11_display();
 
-               system()->acme_windowing()->async([this, pdisplay, pSnLauncheeContextSetup]()
+               system()->acme_windowing()->post([this, pdisplay, pSnLauncheeContextSetup]()
                                  {
 
                                     ::x11::display_lock displaylock(pdisplay);
@@ -2350,7 +2372,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             if (px11window)
             {
 
-               if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
+               if (!XGetWindowAttributes(m_pdisplay->__x11_display(), px11window->Window(), &px11window->m_xwindowattributes))
                {
 
                   informationf("X11 MapNotify XGetWindowAttributes failed");
@@ -2359,11 +2381,21 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                }
 
-               msg.id() = ::user::e_message_show_window;
-               msg.wParam = 1;
-               msg.lParam = 0;
+               auto pmouse = px11window->øcreate_new<::message::show_window>();
 
-               post_ui_message(msg);
+               pmouse->m_oswindow = px11window;
+
+               pmouse->m_pwindow = px11window;
+
+               pmouse->m_eusermessage = ::user::e_message_show_window;
+
+               pmouse->m_bShow = true;
+
+               pmouse->m_time.m_iSecond = e.xmotion.time / 1_k;
+
+               pmouse->m_time.m_iNanosecond = (e.xmotion.time % 1_k) * 1_M;
+
+               px11window->message_handler(pmouse);
 
             }
 
@@ -2374,7 +2406,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             informationf("windowing_x11 UnmapNotify");
 
-            if (msg.oswindow && px11window && px11window->m_window == (Window) msg.oswindow && !px11window->has_flag(e_flag_destroying))
+            if (px11window && px11window->m_window == (Window) pevent->xunmap.window && !px11window->has_flag(e_flag_destroying))
             {
 
 //               auto iWindow = px11window->payload("destroying_window").as_long_long();
@@ -2384,7 +2416,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //               if((Window) msg.oswindow != windowDestroying)
                {
 
-                  if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(), &px11window->m_xwindowattributes))
+                  if (!XGetWindowAttributes(m_pdisplay->__x11_display(), px11window->Window(), &px11window->m_xwindowattributes))
                   {
 
                      informationf("X11 MapNotify XGetWindowAttributes failed");
@@ -2394,11 +2426,21 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   }
 
 
-                  msg.id() = ::user::e_message_show_window;
-                  msg.wParam = 0;
-                  msg.lParam = 0;
+                  auto pmouse = px11window->øcreate_new<::message::show_window>();
 
-                  post_ui_message(msg);
+                  pmouse->m_oswindow = px11window;
+
+                  pmouse->m_pwindow = px11window;
+
+                  pmouse->m_eusermessage = ::user::e_message_show_window;
+
+                  pmouse->m_bShow = false;
+
+                  pmouse->m_time.m_iSecond = e.xmotion.time / 1_k;
+
+                  pmouse->m_time.m_iNanosecond = (e.xmotion.time % 1_k) * 1_M;
+
+                  px11window->message_handler(pmouse);
 
                }
 
@@ -2409,12 +2451,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case ConfigureNotify:
          {
 
-            if (e.xconfigure.window == DefaultRootWindow(m_pdisplay->Display()))
+            if (e.xconfigure.window == DefaultRootWindow(m_pdisplay->__x11_display()))
             {
 
-               
+               ::cast < ::aura::session > paurasession = session();
 
-               auto applicationa = psession->m_applicationa;
+               auto applicationa = paurasession->m_applicationa;
 
                try
                {
@@ -2465,21 +2507,21 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if (m_pdisplay->m_bHasXSync)
                {
 
-                  auto oswindow = m_pdisplay->_window(e.xconfigure.window);
+                  ::cast < ::windowing_x11::window > px11windowConfigure = m_pdisplay->_window(e.xconfigure.window);
 
-                  if (oswindow)
+                  if (px11windowConfigure)
                   {
 
-                     if (oswindow->m_enetwmsync == window::e_net_wm_sync_wait_configure)
+                     if (px11windowConfigure->m_enetwmsync == window::e_net_wm_sync_wait_configure)
                      {
 
-                        ::x11::display_lock displayLock(m_pdisplay->Display());
+                        ::x11::display_lock displayLock(m_pdisplay->__x11_display());
 
-                        oswindow->m_xsyncvalueNetWmSync = oswindow->m_xsyncvalueNetWmSyncPending;
+                        px11windowConfigure->m_xsyncvalueNetWmSync = px11windowConfigure->m_xsyncvalueNetWmSyncPending;
 
-                        XSyncIntToValue(&oswindow->m_xsyncvalueNetWmSyncPending, 0);
+                        XSyncIntToValue(&px11windowConfigure->m_xsyncvalueNetWmSyncPending, 0);
 
-                        oswindow->m_enetwmsync = window::e_net_wm_sync_wait_paint;
+                        px11windowConfigure->m_enetwmsync = window::e_net_wm_sync_wait_paint;
 
                      }
 
@@ -2492,9 +2534,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   {
 
-                     ::x11::display_lock displayLock(m_pdisplay->Display());
+                     ::x11::display_lock displayLock(m_pdisplay->__x11_display());
 
-                     if (!XGetWindowAttributes(m_pdisplay->Display(), px11window->Window(),
+                     if (!XGetWindowAttributes(m_pdisplay->__x11_display(), px11window->Window(),
                                                &px11window->m_xwindowattributes))
                      {
 
@@ -2506,12 +2548,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   }
 
-                  ::user::prototype_impl *pimpl = px11window->m_pwindow;
+                  //::user::prototype_impl *pimpl = px11window;
 
-                  if (pimpl != nullptr)
+                  if (px11window != nullptr)
                   {
 
-                     ::user::interaction *pinteraction = pimpl->m_puserinteraction;
+                     ::cast < ::user::interaction > pinteraction = px11window->m_pacmeuserinteraction;
 
                      if (pinteraction != nullptr)
                      {
@@ -2554,7 +2596,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                        msg.oswindow->m_sizeWindow = size;
 //
-                           _configure_message(msg.oswindow, rectangle);
+                           _configure_message(px11window, rectangle);
 
                         }
 
@@ -2574,7 +2616,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case ButtonRelease:
          {
 
-            if (msg.oswindow)
+            if (px11window)
             {
 
                px11window->m_pointCursor2.x = e.xbutton.x;
@@ -2585,7 +2627,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                m_pdisplay->m_pointCursor2.y = e.xbutton.y_root;
 
-               enum_message emessage = ::user::e_message_undefined;
+               ::user::enum_message emessage = ::user::e_message_undefined;
                //msg.id() = ::user::e_message_mouse_wheel;
 
                //post_ui_message(pmouse);
@@ -2702,7 +2744,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   pmousewheel->m_pwindow = px11window;
 
-                  pmousewheel->id() = ::user::e_message_mouse_wheel;
+                  pmousewheel->m_eusermessage = ::user::e_message_mouse_wheel;
 
                   //msg.wParam = make_int(0, iDelta);
 
@@ -2722,7 +2764,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   pmousewheel->m_time.m_iNanosecond = (e.xbutton.time % 1_k) * 1_M;
 
-                  post_ui_message(pmousewheel);
+                  px11window->message_handler(pmousewheel);
 
 
                } else if (bRet)
@@ -2734,7 +2776,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   pmouse->m_pwindow = px11window;
 
-                  pmouse->m_emessage = emessage;
+                  pmouse->m_eusermessage = emessage;
 
                   pmouse->m_pointHost.x = e.xbutton.x;
 
@@ -2753,7 +2795,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
 
                   //post_ui_message(msg);
-                  post_ui_message(pmouse);
+                  px11window->message_handler(pmouse);
 
                }
 
@@ -2765,10 +2807,10 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case KeyRelease:
          {
 
-            if (msg.oswindow)
+            if (px11window)
             {
 
-               msg.time = e.xkey.time;
+               //msg.time = e.xkey.time;
 
                bRet = true;
 
@@ -2780,23 +2822,28 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                KeySym keysym = 0;
 
+               auto pkey1 = øcreate_new<::message::key>();
+
+               pkey1->m_oswindow=px11window;
+               pkey1->m_pwindow=px11window;
+
                if (e.xkey.type == KeyPress)
                {
 
-                  msg.id() = ::user::e_message_key_down;
+                  pkey1->m_eusermessage = ::user::e_message_key_down;
 
-                  ::pointer<::windowing_x11::window> pwindow = msg.oswindow;
+                  //::pointer<::windowing_x11::window> pwindow = msg.oswindow;
 
-                  if (!pwindow->m_pximkeyboard)
+                  if (!px11window->m_pximkeyboard)
                   {
 
-                     pwindow->m_pximkeyboard = ___new ::xim::keyboard(m_pdisplay->Display(), e.xkey.window);
+                     px11window->m_pximkeyboard = ___new ::xim::keyboard(m_pdisplay->__x11_display(), e.xkey.window);
 
-                     pwindow->m_pximkeyboard->initialize(pwindow);
+                     px11window->m_pximkeyboard->initialize(px11window);
 
                   }
 
-                  strText = pwindow->m_pximkeyboard->get_key_press_text(&e.xkey, &keysym);
+                  strText = px11window->m_pximkeyboard->get_key_press_text(&e.xkey, &keysym);
 
                   //case XK_Escape:
 //                dv_dpy->dontdraw = 1;
@@ -2824,10 +2871,10 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                } else if (e.xkey.type == KeyRelease)
                {
 
-                  keysym = XkbKeycodeToKeysym(m_pdisplay->Display(), e.xkey.keycode, 0,
+                  keysym = XkbKeycodeToKeysym(m_pdisplay->__x11_display(), e.xkey.keycode, 0,
                                               e.xkey.state & ShiftMask ? 1 : 0);
 
-                  msg.id() = ::user::e_message_key_up;
+                  pkey1->m_eusermessage = ::user::e_message_key_up;
 
                } else
                {
@@ -2839,11 +2886,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if (bRet)
                {
 
-                  msg.wParam = e.xkey.keycode;
+                  pkey1->m_iCode= e.xkey.keycode;
 
-                  msg.lParam = keysym;
+                  pkey1->m_ekey = ::x11::keysym_to_userkey(keysym);
 
-                  post_ui_message(msg);
+                  //post_ui_message(msg);
+                  px11window->message_handler(pkey1);
 
                }
 
@@ -2858,7 +2906,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   //pkey->set(oswindow, oswindow, ::user::e_message_text_composition, 0, 0);
 
-                  pkey->m_emessage = ::user::e_message_text_composition;
+                  pkey->m_eusermessage = ::user::e_message_text_composition;
 
                   pkey->m_strText = strText;
 
@@ -2875,7 +2923,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   print_line("x11_process_message ::user::e_message_text_composition");
 
                   //post_ui_message(msgText);
-                  post_ui_message(pkey);
+                  //post_ui_message(pkey);
+                  px11window->_message_handler(pkey);
 
                }
 
@@ -2887,30 +2936,36 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case FocusIn:
          {
 
+            auto psetfocus = øcreate_new<::message::set_keyboard_focus>();
+
             informationf("FocusIn\n");
 
-            msg.id() = ::user::e_message_set_focus;
+            psetfocus->m_oswindow = px11window;
+
+            psetfocus->m_pwindow = px11window;
+
+            psetfocus->m_eusermessage = ::user::e_message_set_focus;
 
             if (::is_set(px11window))
             {
 
                m_pdisplay->m_pwindowKeyboardFocus = px11window;
 
-               auto pimpl = px11window->m_pwindow;
+               //auto pimpl = px11window->m_pwindow;
 
-               if (::is_set(pimpl))
+               if (::is_set(px11window))
                {
 
-                  auto pinteraction = pimpl->m_puserinteraction;
+                  ::cast < ::user::interaction > pinteraction = px11window->m_pacmeuserinteraction;
 
                   if (::is_set(pinteraction))
                   {
 
-                     msg.id() = ::user::e_message_set_focus;
+                     //msg.id() = ::user::e_message_set_focus;
 
                      pinteraction->m_ewindowflag |= ::e_window_flag_focus;
 
-                     post_ui_message(msg);
+                     px11window->message_handler(psetfocus);
 
                   }
 
@@ -2984,29 +3039,37 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                }
 
-               auto pimpl = px11window->m_pwindow;
+               //auto pimpl = px11window->m_pwindow;
 
-               if (::is_set(pimpl))
+               if (::is_set(px11window))
                {
 
-                  auto pinteraction = pimpl->m_puserinteraction;
+                  ::cast <::user::interaction > puserinteraction = px11window->m_pacmeuserinteraction;
 
-                  if (::is_set(pinteraction))
+                  if (::is_set(puserinteraction))
                   {
 
-                     msg.id() = ::user::e_message_kill_focus;
 
-                     pinteraction->m_ewindowflag -= ::e_window_flag_focus;
+                     auto pkillfocus = øcreate_new<::message::kill_keyboard_focus>();
+
+                     pkillfocus->m_oswindow = px11window;
+                     pkillfocus->m_pwindow = px11window;
+
+                     pkillfocus->m_eusermessage = ::user::e_message_kill_focus;
+
+                     puserinteraction->m_ewindowflag -= ::e_window_flag_focus;
 
                      Window wFocus = 0;
 
                      int revert_to_return = 0;
 
-                     XGetInputFocus(m_pdisplay->Display(), &wFocus, &revert_to_return);
+                     XGetInputFocus(m_pdisplay->__x11_display(), &wFocus, &revert_to_return);
 
-                     msg.wParam = (wparam) (iptr) m_pdisplay->_window(wFocus);
+                     pkillfocus->m_pwindow = m_pdisplay->_window(wFocus);
 
-                     post_ui_message(msg);
+                     //post_ui_message(msg);
+
+                     px11window->message_handler(pkillfocus);
 
                   }
 
@@ -3022,7 +3085,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
             windowing_output_debug_string("windowing_x11.cpp DestroyNotify");
 
-            if (msg.oswindow && px11window && px11window->m_window == (Window) msg.oswindow)
+            if (px11window && px11window->m_window == pevent->xdestroywindow.window)
             {
               // msg.oswindow = m_pdisplay->_window(e.xdestroywindow.window);
               // msg.id() = ::user::e_message_destroy;
@@ -3030,7 +3093,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
               // post_ui_message(msg);
 
                 windowing_output_debug_string("windowing_x11.cpp DestroyNotify going to try to post non_client_destroy message to userinteraction");
-                ::pointer < ::user::interaction > pinteraction = msg.oswindow->m_pwindow->m_puserinteraction;
+                ::pointer < ::user::interaction > pinteraction = px11window->m_pacmeuserinteraction;
 		if(pinteraction)
 		{
                    windowing_output_debug_string("windowing_x11.cpp DestroyNotify postin non_client_destroy message to userinteraction");
@@ -3171,146 +3234,146 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
    }
 
-   void windowing::post_ui_message(const MESSAGE &message)
-   {
+   // void windowing::post_ui_message(const MESSAGE &message)
+   // {
+   //
+   //    oswindow oswindow = message.oswindow;
+   //
+   //    ASSERT(oswindow != nullptr);
+   //
+   //    auto pimpl = oswindow->m_pwindow;
+   //
+   //    if (::is_null(pimpl))
+   //    {
+   //
+   //       throw ::exception(error_null_pointer);
+   //
+   //    }
+   //
+   //    auto pinteraction = pimpl->m_puserinteraction;
+   //
+   //    if (::is_null(pinteraction))
+   //    {
+   //
+   //       return;
+   //       //throw ::exception(error_null_pointer);
+   //
+   //    }
+   //
+   //    ::thread *pthread = nullptr;
+   //
+   //    if (::is_set(pinteraction))
+   //    {
+   //
+   //       pthread = pinteraction->m_pthreadUserInteraction;
+   //
+   //    }
+   //
+   //    if (::is_null(pthread))
+   //    {
+   //
+   //       throw ::exception(error_null_pointer);
+   //
+   //    }
+   //
+   //    auto pmessagequeue = pthread->m_pmessagequeue.get();
+   //
+   //    if (pmessagequeue == nullptr)
+   //    {
+   //
+   //       if (message.m_emessage == ::user::e_message_quit)
+   //       {
+   //
+   //          return;
+   //
+   //       }
+   //
+   //       pmessagequeue = pthread->get_message_queue();
+   //
+   //    }
+   //
+   //    if (pmessagequeue == nullptr)
+   //    {
+   //
+   //       throw ::exception(error_null_pointer);
+   //
+   //    }
+   //
+   //    _synchronous_lock ml(pmessagequeue->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+   //
+   //    pmessagequeue->m_messagea.add(message);
+   //
+   //    if (message.m_emessage == ::user::e_message_quit)
+   //    {
+   //
+   //       informationf("::user::e_message_quit thread");
+   //
+   //    } else if (message.m_emessage == ::user::e_message_left_button_down)
+   //    {
+   //
+   //       informationf("post_ui_message::user::e_message_left_button_down");
+   //
+   //    } else if (message.m_emessage == ::user::e_message_left_button_up)
+   //    {
+   //
+   //       informationf("post_ui_message::user::e_message_left_button_up");
+   //
+   //    }
+   //
+   //    pmessagequeue->m_happeningNewMessage.set_happening();
+   //
+   //    //return true;
+   //
+   // }
 
-      oswindow oswindow = message.oswindow;
 
-      ASSERT(oswindow != nullptr);
-
-      auto pimpl = oswindow->m_pwindow;
-
-      if (::is_null(pimpl))
-      {
-
-         throw ::exception(error_null_pointer);
-
-      }
-
-      auto pinteraction = pimpl->m_puserinteraction;
-
-      if (::is_null(pinteraction))
-      {
-
-         return;
-         //throw ::exception(error_null_pointer);
-
-      }
-
-      ::thread *pthread = nullptr;
-
-      if (::is_set(pinteraction))
-      {
-
-         pthread = pinteraction->m_pthreadUserInteraction;
-
-      }
-
-      if (::is_null(pthread))
-      {
-
-         throw ::exception(error_null_pointer);
-
-      }
-
-      auto pmessagequeue = pthread->m_pmessagequeue.get();
-
-      if (pmessagequeue == nullptr)
-      {
-
-         if (message.m_emessage == ::user::e_message_quit)
-         {
-
-            return;
-
-         }
-
-         pmessagequeue = pthread->get_message_queue();
-
-      }
-
-      if (pmessagequeue == nullptr)
-      {
-
-         throw ::exception(error_null_pointer);
-
-      }
-
-      _synchronous_lock ml(pmessagequeue->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
-
-      pmessagequeue->m_messagea.add(message);
-
-      if (message.m_emessage == ::user::e_message_quit)
-      {
-
-         informationf("::user::e_message_quit thread");
-
-      } else if (message.m_emessage == ::user::e_message_left_button_down)
-      {
-
-         informationf("post_ui_message::user::e_message_left_button_down");
-
-      } else if (message.m_emessage == ::user::e_message_left_button_up)
-      {
-
-         informationf("post_ui_message::user::e_message_left_button_up");
-
-      }
-
-      pmessagequeue->m_happeningNewMessage.set_happening();
-
-      //return true;
-
-   }
-
-
-   void windowing::post_ui_message(::message::message *pmessage)
-   {
-
-      oswindow oswindow = pmessage->m_oswindow;
-
-      ASSERT(oswindow != nullptr);
-
-      auto pimpl = oswindow->m_pwindow;
-
-      if (::is_null(pimpl))
-      {
-
-         throw ::exception(error_null_pointer);
-
-      }
-
-      auto puserinteraction = pimpl->m_puserinteraction;
-
-      if (::is_null(puserinteraction))
-      {
-
-         throw ::exception(error_null_pointer);
-
-      }
-
-      // information() << "windowing::post_ui_message oswindow : " << (::iptr) pmessage->m_oswindow;
-      // information() << "windowing::post_ui_message cntRef (A1) : " << (::iptr) pmessage->m_countReference;
-
-      {
-
-         ::pointer<::user::message> pusermessage = pmessage;
-
-         // if(pusermessage)
-         // {
-
-         //    information() << "windowing::post_ui_message pwindow : " << (::iptr) pusermessage->m_pwindow.m_p;
-         //    information() << "windowing::post_ui_message cntRef (A2) : " << (::iptr) pmessage->m_countReference;
-
-         // }
-
-         puserinteraction->post_message(pmessage);
-
-      }
-
-//      information() << "windowing::post_ui_message cntRef (A3) : " << (::iptr) pmessage->m_countReference;
-
-   }
+//    void windowing::post_ui_message(::message::message *pmessage)
+//    {
+//
+//       oswindow oswindow = pmessage->m_oswindow;
+//
+//       ASSERT(oswindow != nullptr);
+//
+//       auto pimpl = oswindow->m_pwindow;
+//
+//       if (::is_null(pimpl))
+//       {
+//
+//          throw ::exception(error_null_pointer);
+//
+//       }
+//
+//       auto puserinteraction = pimpl->m_puserinteraction;
+//
+//       if (::is_null(puserinteraction))
+//       {
+//
+//          throw ::exception(error_null_pointer);
+//
+//       }
+//
+//       // information() << "windowing::post_ui_message oswindow : " << (::iptr) pmessage->m_oswindow;
+//       // information() << "windowing::post_ui_message cntRef (A1) : " << (::iptr) pmessage->m_countReference;
+//
+//       {
+//
+//          ::pointer<::user::message> pusermessage = pmessage;
+//
+//          // if(pusermessage)
+//          // {
+//
+//          //    information() << "windowing::post_ui_message pwindow : " << (::iptr) pusermessage->m_pwindow.m_p;
+//          //    information() << "windowing::post_ui_message cntRef (A2) : " << (::iptr) pmessage->m_countReference;
+//
+//          // }
+//
+//          puserinteraction->post_message(pmessage);
+//
+//       }
+//
+// //      information() << "windowing::post_ui_message cntRef (A3) : " << (::iptr) pmessage->m_countReference;
+//
+//    }
 
 
 //   void windowing::windowing_main()
@@ -3334,18 +3397,18 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   }
 
 
-   void windowing::user_send(const ::procedure &procedure)
+   void windowing::_user_send(const ::procedure &procedure)
    {
 
-      system()->acme_windowing()->sync(procedure);
+      system()->acme_windowing()->send(procedure);
 
    }
 
 
-   void windowing::user_post(const ::procedure &procedure)
+   void windowing::_user_post(const ::procedure &procedure)
    {
 
-      system()->acme_windowing()->async(procedure);
+      system()->acme_windowing()->post(procedure);
 
    }
 

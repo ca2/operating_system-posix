@@ -20,6 +20,7 @@ namespace windowing_posix
    windowing::windowing()
    {
 
+      m_pSnLauncheeContext = nullptr;
 
    }
 

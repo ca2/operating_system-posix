@@ -90,7 +90,7 @@ namespace windowing_gtk4
 //
 //      windowing_output_debug_string("::wm_add_remove_state_mapped 1");
 //
-//      //display_lock displaylock(x11_display()->Display());
+//      //display_lock displaylock(x11_display()->__x11_display());
 //
 //      _wm_add_remove_state_mapped_unlocked(eatomNetWmState, bSet);
 //
@@ -137,7 +137,7 @@ namespace windowing_gtk4
 //
 //      windowing_output_debug_string("::wm_add_remove_state_unmapped 1");
 //
-//      //display_lock displaylock(x11_display()->Display());
+//      //display_lock displaylock(x11_display()->__x11_display());
 //
 //      _wm_add_remove_state_unmapped_unlocked(eatomNetWmState, bSet);
 //
@@ -174,7 +174,7 @@ namespace windowing_gtk4
 //
 //      windowing_output_debug_string("::wm_add_remove_state 1");
 //
-//      //display_lock displaylock(x11_display()->Display());
+//      //display_lock displaylock(x11_display()->__x11_display());
 //
 //      _wm_add_remove_state_unlocked(eatomNetWmState, bSet);
 //
@@ -259,7 +259,7 @@ namespace windowing_gtk4
 ////
 ////   windowing_output_debug_string("::wm_state_above 1");
 ////
-////   //display_lock displaylock(x11_display()->Display());
+////   //display_lock displaylock(x11_display()->__x11_display());
 ////
 ////   wm_state_hidden_raw(bSet);
 ////
@@ -274,7 +274,7 @@ namespace windowing_gtk4
 //
 //      windowing_output_debug_string("::wm_state_above 1");
 //
-//      //display_lock displaylock(x11_display()->Display());
+//      //display_lock displaylock(x11_display()->__x11_display());
 //
 //      _wm_state_above_unlocked(bSet);
 //
@@ -291,7 +291,7 @@ namespace windowing_gtk4
 //
 //      windowing_output_debug_string("::wm_state_below 1");
 //
-//      //display_lock displaylock(x11_display()->Display());
+//      //display_lock displaylock(x11_display()->__x11_display());
 //
 //      _wm_state_above_unlocked(bSet);
 //
@@ -308,7 +308,7 @@ namespace windowing_gtk4
 //
 //      windowing_output_debug_string("::wm_state_hidden 1");
 //
-//      //display_lock displaylock(x11_display()->Display());
+//      //display_lock displaylock(x11_display()->__x11_display());
 //
 //      _wm_state_hidden_unlocked(bSet);
 //
@@ -328,7 +328,7 @@ namespace windowing_gtk4
 //
 //         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//         //display_lock displaylock(x11_display()->Display());
+//         //display_lock displaylock(x11_display()->__x11_display());
 //
 //         if (!m_pdisplay)
 //         {
@@ -389,7 +389,7 @@ namespace windowing_gtk4
 //
 //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//      //display_lock displaylock(x11_display()->Display());
+//      //display_lock displaylock(x11_display()->__x11_display());
 //
 //      if (!m_pdisplay)
 //      {
@@ -419,7 +419,7 @@ namespace windowing_gtk4
 ////
 ////               synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
-////               //display_lock displaylock(x11_display()->Display());
+////               //display_lock displaylock(x11_display()->__x11_display());
 ////
 ////               if(!m_pdisplay)
 ////               {
@@ -480,7 +480,7 @@ namespace windowing_gtk4
 //
 //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//      //display_lock displaylock(x11_display()->Display());
+//      //display_lock displaylock(x11_display()->__x11_display());
 //
 //      if (!m_pdisplay)
 //      {
@@ -538,7 +538,7 @@ namespace windowing_gtk4
 //
 //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//      //display_lock displaylock(x11_display()->Display());
+//      //display_lock displaylock(x11_display()->__x11_display());
 //
 //      if (!m_pdisplay)
 //      {
@@ -596,7 +596,7 @@ namespace windowing_gtk4
 //
 //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//      //display_lock displaylock(x11_display()->Display());
+//      //display_lock displaylock(x11_display()->__x11_display());
 //
 //      if (!m_pdisplay)
 //      {
@@ -654,7 +654,7 @@ namespace windowing_gtk4
 //
 //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//      //display_lock displaylock(x11_display()->Display());
+//      //display_lock displaylock(x11_display()->__x11_display());
 //
 //      if (!m_pdisplay)
 //      {
@@ -714,7 +714,7 @@ namespace windowing_gtk4
 //
 //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//      //display_lock displaylock(x11_display()->Display());
+//      //display_lock displaylock(x11_display()->__x11_display());
 //
 //      if (!m_pdisplay)
 //      {
@@ -776,7 +776,7 @@ namespace windowing_gtk4
 //
 //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//      //display_lock displaylock(x11_display()->Display());
+//      //display_lock displaylock(x11_display()->__x11_display());
 //
 //      windowing_output_debug_string("::wm_iconify_window 1");
 //

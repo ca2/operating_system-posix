@@ -20,6 +20,8 @@
 #include "acme/user/user/interaction.h"
 #include "acme/user/user/mouse.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
+#include "acme/integrate/cairo/surface.h"
+
 
 namespace gtk3
 {

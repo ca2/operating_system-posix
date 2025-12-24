@@ -22,11 +22,11 @@ namespace windowing_x11
 
       windowing_output_debug_string("::CreateAlphaCursor 1");
 
-      ::x11::display_lock displaylock(Display());
+      ::x11::display_lock displaylock(m_pDisplay);
 
       Picture picture = xrender_create_picture(pimage);
 
-      auto cursor = XRenderCreateCursor(Display(), picture, xHotSpot, yHotSpot);
+      auto cursor = XRenderCreateCursor(m_pDisplay, picture, xHotSpot, yHotSpot);
 
       return cursor;
 

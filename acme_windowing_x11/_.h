@@ -37,6 +37,8 @@ namespace x11
 
          class windowing;
 
+         class happening_listener;
+
 
       } // namespace windowing
 

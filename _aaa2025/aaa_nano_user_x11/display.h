@@ -5,7 +5,7 @@
 
 
 #include "acme/user/micro/display.h"
-#include "event_listener.h"
+#include "happening_listener.h"
 #include "windowing_system_x11/_atom.h"
 
 
@@ -29,14 +29,14 @@ namespace x11
 
          class display :
             virtual public ::acme::windowing::display,
-            virtual public event_listener
+            virtual public happening_listener
          {
          public:
 
 
             bool                                               m_bUnhook;
             Display   *                                        m_pdisplay;
-            pointer_array < event_listener >                   m_happeninglistenera;
+            pointer_array < happening_listener >                   m_happeninglistenera;
             pointer_array < ::x11::micro::window >        m_windowa;
             Window                                             m_windowActive;
             map < enum_atom, Atom >                            id()map;
@@ -81,10 +81,10 @@ namespace x11
             void run() override;
 
 
-            void add_listener(event_listener * plistener);
+            void add_listener(happening_listener * plistener);
             void add_window(::x11::micro::window * pwindow);
 
-            void erase_listener(event_listener * plistener);
+            void erase_listener(happening_listener * plistener);
             void erase_window(::x11::micro::window * pwindow);
 
             bool _on_x11_event(::x11::event_t * peventX11) override;

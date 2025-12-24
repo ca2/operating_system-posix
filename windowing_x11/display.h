@@ -8,6 +8,7 @@
 
 
 #include "acme_windowing_x11/_atom.h"
+#include "acme_windowing_x11/display.h"
 //#include "nano_user_x11/event_listener.h"
 //#include "nano_user_x11/display.h"
 #include "aura/windowing/display.h"
@@ -19,7 +20,8 @@ namespace windowing_x11
 
 
    class CLASS_DECL_WINDOWING_X11 display :
-      virtual public ::windowing::display
+      virtual public ::windowing::display,
+   virtual public ::x11::acme::windowing::display
    {
    public:
 
@@ -32,28 +34,19 @@ namespace windowing_x11
 
 
       //::pointer<::x11::acme::windowing::display>        m_px11display;
-      ::Display *                                  m_pdisplay;
+      //::Display *                                  m_pdisplay;
       XVisualInfo                                  m_visualinfo;
       ::Visual *                                   m_pvisual;
       Colormap                                     m_colormap;
-      int                                          m_iScreen;
+      //int                                          m_iScreen;
       int                                          m_iDepth;
-      Window                                       m_windowRoot;
+      //Window                                       m_windowRoot;
 
 
-      Atom                                         m_atomLongType;
-      Atom                                         m_atomLongStyle;
-      Atom                                         m_atomLongStyleEx;
+      //Atom                                         m_atomLongType;
+      //Atom                                         m_atomLongStyle;
+      //Atom                                         m_atomLongStyleEx;
       //Atom                                       m_atomCardinal;
-      Atom                                         m_atomWmState;
-      Atom                                         m_atomNetWmStateFocused;
-      Atom                                         m_atomNetWmStateHidden;
-      Atom                                         m_atomNetWmStateMaximizedHorz;
-      Atom                                         m_atomNetWmStateMaximizedVert;
-      Atom                                         m_atomNetWmState;
-      Atom                                         m_atomWmProtocols;
-      Atom                                         m_atomNetWmSyncRequest;
-      Atom                                         m_atomNetWmSyncRequestCounter;
       iptr                                         m_countReference;
       ::pointer<class window>                      m_pwindowRoot;
       ::pointer<class window>                      m_pwindowKeyboardFocus;
@@ -80,8 +73,6 @@ namespace windowing_x11
 #endif
 
 
-      virtual ::Display * _get_system_default_display();
-
 
       virtual ::windowing_x11::window * _window(Window window);
 
@@ -97,21 +88,25 @@ namespace windowing_x11
 
       virtual ::e_status erase_window(::windowing::window * pwindow);
 
-      virtual ::Display * Display();
+      //virtual ::Display * Display();
 
-      virtual ::Display * Display() const;
+      //virtual ::Display * Display() const;
 
-      virtual int Screen();
-
-      virtual int Screen() const;
-
-      virtual Atom atom_long_type();
-
-      virtual Atom atom_long_style();
-
-      virtual Atom atom_long_style_ex();
+      // virtual int Screen();
+      //
+      // virtual int Screen() const;
+      //
+      // virtual Atom atom_long_type();
+      //
+      // virtual Atom atom_long_style();
+      //
+      // virtual Atom atom_long_style_ex();
 
       virtual bool is_null() const;
+
+
+      void destroy() override;
+      ::int_size get_main_screen_size() override;
 
       bool get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
 
@@ -123,15 +118,15 @@ namespace windowing_x11
 
       ::int_point _get_mouse_cursor_position() override;
 
-      Atom intern_atom(const_char_pointer pszAtomName, bool bCreate);
-
-      Atom intern_atom(::x11::enum_atom eatom, bool bCreate);
-
-      Atom _intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate);
-
-      Atom _intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate);
-
-      Atom net_wm_state_atom(bool bCreate);
+      // Atom intern_atom(const_char_pointer pszAtomName, bool bCreate);
+      //
+      // Atom intern_atom(::x11::enum_atom eatom, bool bCreate);
+      //
+      // Atom _intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate);
+      //
+      // Atom _intern_atom_unlocked(::x11::enum_atom eatom, bool bCreate);
+      //
+      // Atom net_wm_state_atom(bool bCreate);
 
       virtual ::windowing_x11::window * get_keyboard_focus();
 

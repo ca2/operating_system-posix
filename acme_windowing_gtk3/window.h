@@ -10,6 +10,8 @@
 
 #include <gtk/gtk.h>
 
+#include "acme_windowing_x11/happening_listener.h"
+
 
 namespace gtk3
 {
@@ -24,7 +26,8 @@ namespace gtk3
 
 
          class CLASS_DECL_ACME_WINDOWING_GTK3 window :
-            virtual public ::acme::windowing::window
+            virtual public ::acme::windowing::window,
+         virtual ::x11::acme::windowing::happening_listener
          {
          public:
 
@@ -207,7 +210,10 @@ namespace gtk3
 
             //virtual void _on_configure_linux_mint_x_cinnamon();
 
-			virtual void _enable_mouse_wheel_messages();
+			   virtual void _enable_mouse_wheel_messages();
+
+
+
          };
 
 

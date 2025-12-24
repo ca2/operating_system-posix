@@ -3,8 +3,8 @@
 #include "node.h"
 //#include "desktop_environment.h"
 //#include "os_context.h"
-#include "copydesk.h"
-#include "notify_icon.h"
+//#include "copydesk.h"
+//#include "notify_icon.h"
 // #if !defined(OPENBSD) //&& !defined(NETBSD)
 // #include "appindicator.h"
 // #endif
@@ -78,16 +78,16 @@ __FACTORY_EXPORT void node_gtk3_factory(::factory::factory * pfactory)
    //pfactory->add_factory_item < ::node_gtk3::display, ::windowing::display > ();
 //
 //   pfactory->add_factory_item < ::node_gtk3::monitor, ::windowing::monitor > ();
-   pfactory->add_factory_item < ::node_gtk3::copydesk, ::user::copydesk > ();
-   pfactory->add_factory_item < ::node_gtk3::notify_icon, ::user::notify_icon > ();
+   //pfactory->add_factory_item < ::node_gtk3::copydesk, ::user::copydesk > ();
+   //pfactory->add_factory_item < ::node_gtk3::notify_icon, ::user::notify_icon > ();
 #if !defined(OPENBSD) && !defined(DISABLE_APPINDICATOR) // && !defined(NETBSD)
 //#if !defined(DISABLE_APPINDICATOR)
-   pfactory->add_factory_item < ::node_gtk3::appindicator, ::aura_posix::appindicator >();
+   //pfactory->add_factory_item < ::node_gtk3::appindicator, ::aura_posix::appindicator >();
 #endif
 //
 //   pfactory->add_factory_item < ::node_gtk3::windowing, ::windowing::windowing >();
 
-   pfactory->add_factory_item < ::node_gtk3::node, ::platform::node > ();
+   pfactory->add_factory_item < ::node_x11::node, ::platform::node > ();
 
 
    //pfactory->add_factory_item < ::node_gtk3::desktop_environment, ::windowing::desktop_environment > ();

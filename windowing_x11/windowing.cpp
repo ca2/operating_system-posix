@@ -25,7 +25,7 @@ namespace windowing_x11
 
       m_bRootSelectInput = false;
 
-      m_itask = -1;
+      ///m_itask = -1;
 
       //m_pWindowing4 = this;
 
@@ -103,14 +103,14 @@ namespace windowing_x11
    }
 
 
-   void windowing::initialize_windowing(::user::user * puser)
+   void windowing::initialize_windowing()
    {
 
-      ::windowing_posix::windowing::initialize_windowing(puser);
+      ::windowing_posix::windowing::initialize_windowing();
 
       auto pdisplay = øcreate<::windowing::display>();
 
-      pdisplay->initialize_display(this);
+      //pdisplay->initialize_display();
 
       m_pdisplay = pdisplay;
 
@@ -194,10 +194,10 @@ namespace windowing_x11
       if (m_pdisplay)
       {
 
-         if (m_pdisplay->m_px11display)
+         //if (m_pdisplay->m_px11display)
          {
 
-            while (m_pdisplay->m_px11display->x11_posted())
+            while (m_pdisplay->__x11_posted())
             {
 
                bHandled = true;
@@ -372,9 +372,9 @@ namespace windowing_x11
 
       windowing_output_debug_string("::x11_GetWindowRect 1");
 
-      ::x11::display_lock lock(m_pdisplay->Display());
+      ::x11::display_lock lock(m_pdisplay->__x11_display());
 
-      auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
+      auto cursor = XCreateFontCursor(m_pdisplay->__x11_display(), iCursor);
 
       auto pcursorX11 = øcreate < ::windowing_x11::cursor >();
 
@@ -405,7 +405,7 @@ namespace windowing_x11
    }
 
 
-   ::windowing::window * windowing::get_mouse_capture(::thread *)
+   ::acme::windowing::window * windowing::get_mouse_capture(::thread *)
    {
 
       if(!m_pdisplay)
@@ -422,15 +422,15 @@ namespace windowing_x11
    }
 
 
-   ::windowing::window * windowing::window(oswindow oswindow)
-   {
+   // ::acme::windowing::window * windowing::window(oswindow oswindow)
+   // {
+   //
+   //    return oswindow;
+   //
+   // }
 
-      return oswindow;
 
-   }
-
-
-   void windowing::release_mouse_capture(::thread * pthread)
+   void windowing::release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
       //auto estatus =
@@ -449,10 +449,10 @@ namespace windowing_x11
    }
 
 
-   bool windowing::defer_release_mouse_capture(::thread * pthread, ::windowing::window * pwindow)
+   bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
-      release_mouse_capture(pthread);
+      release_mouse_capture(pthread, pwindow);
 
       return true;
 

@@ -4,24 +4,37 @@
 #pragma once
 
 
-//#include <X11/Xlib.h>
+#include "acme_windowing_x11/_x11.h"
 //#include "acme/prototype/prototype/element.h"
 
 
 namespace x11
 {
 
+   namespace acme
+   {
 
-   class event_listener :
+      namespace windowing
+      {
+
+
+
+   class happening_listener :
       virtual public ::particle
    {
    public:
 
 
-      virtual bool _on_x11_event(::x11::event_t * pevent);
+      virtual bool __on_x11_event(XEvent * pevent);
 
 
    };
+
+
+
+      }
+   }
+
 
 
 } // namespace x11

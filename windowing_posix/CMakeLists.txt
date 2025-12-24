@@ -10,8 +10,8 @@ list(APPEND library_source
         #desktop_environment.h
         framework.cpp
         framework.h
-        #startupxxx-notification.cpp
-        #startupxxx-notification.h
+        startup-notification.cpp
+        startup-notification.h
         window.cpp
         window.h
         windowing.cpp

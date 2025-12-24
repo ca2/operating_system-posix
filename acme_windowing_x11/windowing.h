@@ -25,7 +25,7 @@ namespace x11
          public:
 
 
-            void *                                                m_p_Display;
+            //void *                                                m_p_Display;
             ::e_status                                            m_estatusInitializeX11;
 
 
@@ -35,7 +35,7 @@ namespace x11
             //::e_status defer_initialize_windowing() override;
             //::e_status initialize_windowing() override;
             void initialize_windowing() override;
-            virtual void * get_Display();
+            //virtual void * get_Display();
             void _main_send(const ::procedure & procedure) override;
             void _main_post(const ::procedure & procedure) override;
             void display_error_trap_push(int i) override;

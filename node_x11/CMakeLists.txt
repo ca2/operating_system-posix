@@ -7,31 +7,31 @@ list(APPEND library_source
    _.h
    _factory.cpp
    #_library.h
-   application.cpp
-   application.h
-   copydesk.cpp
-   copydesk.h
+   #application.cpp
+   #application.h
+   #copydesk.cpp
+   #copydesk.h
    #desktop_environment.cpp
    #desktop_environment.h
    #display.cpp
    #display.h
    framework.cpp
    framework.h
-   gconf.cpp
-   gdk_gdk.cpp
-   gdk_gdk.h
-   gtk_clipboard.cpp
-   gtk3_gtk3.cpp
-   gtk3_gtk3.h
+   #gconf.cpp
+   #gdk_gdk.cpp
+   #gdk_gdk.h
+   #gtk_clipboard.cpp
+   #gtk3_gtk3.cpp
+   #gtk3_gtk3.h
    #gtk-launch.cpp
-   monitor.cpp
-   monitor.h
+   #monitor.cpp
+   #monitor.h
    node.cpp
    node.h
-   node_file_dialog.cpp
-   node_folder_dialog.cpp
-   notify_icon.cpp
-   notify_icon.h
+   #node_file_dialog.cpp
+   #node_folder_dialog.cpp
+   #notify_icon.cpp
+   #notify_icon.h
    #windowing.cpp
    #windowing.h
 )
