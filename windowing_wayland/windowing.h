@@ -40,7 +40,7 @@ namespace windowing_wayland
 
       ::procedure_list                                m_procedurelist;
       ::procedure_list                                m_procedurelistPriority;
-      ::pointer < ::windowing_wayland::window >       m_pwindowMouseCapture;
+      //::pointer < ::windowing_wayland::window >       m_pwindowMouseCapture;
 
 
       windowing();

@@ -5,6 +5,7 @@
 #include "framework.h"
 #include "display.h"
 #include "window.h"
+#include "windowing.h"
 #include "acme/parallelization/mutex.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/acme.h"
@@ -136,6 +137,12 @@ namespace x11
             }
 
             add_listener(this);
+
+            auto psystem = system();
+
+            ::cast < ::x11::acme::windowing::windowing > px11windowing = psystem->acme_windowing();
+
+            add_listener(px11windowing);
 
 
             ::task_set_name("x11:display:run");
@@ -792,14 +799,6 @@ namespace x11
 
          }
 
-
-         // void display::run()
-         // {
-         //
-         //    display::run();
-         //
-         // }
-         //
 
          //   bool display::_on_event(XEvent * pevent)
          //   {
@@ -2666,16 +2665,6 @@ namespace x11
          // }
 
 
-         // void display::run()
-         // {
-         //
-         //    message_loop();
-         //
-         //    close();
-         //
-         // }
-
-
    //       void display::_set_wallpaper(::collection::index iMonitorIndex, const ::scoped_string & scopedstrWallpaper)
    // {
    //
@@ -3464,6 +3453,14 @@ namespace x11
          //    return false;
          //
          // }
+
+
+         bool display::is_display_opened() const
+         {
+
+            return m_pDisplay != nullptr;
+
+         }
 
 
          void display::__on_x11_open_display()

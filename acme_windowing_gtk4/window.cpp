@@ -2413,7 +2413,7 @@ namespace gtk4
    void window::set_mouse_capture()
    {
 
-     system()->acme_windowing()->m_pwindowMouseCapture = this;
+     system()->acme_windowing()->m_pacmewindowingwindowMouseCapture = this;
 
    }
 
@@ -2421,10 +2421,10 @@ namespace gtk4
    void window::release_mouse_capture()
    {
 
-     if(system()->acme_windowing()->m_pwindowMouseCapture == this)
+     if(system()->acme_windowing()->m_pacmewindowingwindowMouseCapture == this)
      {
 
-        system()->acme_windowing()->m_pwindowMouseCapture =nullptr;
+        system()->acme_windowing()->m_pacmewindowingwindowMouseCapture =nullptr;
 
      }
 

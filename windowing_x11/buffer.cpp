@@ -600,7 +600,7 @@ namespace windowing_x11
 
       }
 
-      if (sizeBitBlitting.any_gt(pitem->m_sizeInternal))
+      if (sizeBitBlitting.any_gt(pitem->m_pimage2->size()))
       {
 
          warning() << "What!! Drawn Buffer doesn't fit internal buffer (that should be at least same size as the buffer size)";

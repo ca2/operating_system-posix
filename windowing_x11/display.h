@@ -48,10 +48,10 @@ namespace windowing_x11
       //Atom                                         m_atomLongStyleEx;
       //Atom                                       m_atomCardinal;
       //iptr                                         m_countReference;
-      ::pointer<class window>                      m_pwindowRoot;
-      ::pointer<class window>                      m_pwindowKeyboardFocus;
-      ::pointer<::windowing_x11::window>           m_pwindowActive;
-      ::pointer<::windowing_x11::window>           m_pwindowMouseCapture;
+      //::pointer<class window>                      m_pwindowRoot;
+      //::pointer<class window>                      m_pwindowKeyboardFocus;
+      //::pointer<::windowing_x11::window>           m_pwindowActive;
+      //::pointer<::windowing_x11::window>           m_pwindowMouseCapture;
       bool                                         m_bHasXSync;
       int                                          m_iXSyncMajor;
       int                                          m_iXSyncMinor;
@@ -90,6 +90,9 @@ namespace windowing_x11
 
       virtual ::e_status erase_window(::windowing::window * pwindow);
 
+
+      void _enumerate_monitors() override;
+
       //virtual ::Display * Display();
 
       //virtual ::Display * Display() const;
@@ -114,7 +117,7 @@ namespace windowing_x11
 
       bool get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
 
-      virtual ::windowing::window * get_mouse_capture();
+      //virtual ::windowing::window * get_mouse_capture();
 
       virtual ::e_status release_mouse_capture();
 
@@ -130,11 +133,11 @@ namespace windowing_x11
       //
       // Atom net_wm_state_atom(bool bCreate);
 
-      virtual ::windowing_x11::window * get_keyboard_focus();
+      //virtual ::windowing_x11::window * get_keyboard_focus();
 
       virtual ::windowing_x11::window * _get_keyboard_focus();
 
-      virtual ::windowing_x11::window * _get_active_window(::thread * pthread);
+      virtual ::windowing_x11::window * _x11_get_active_window(::thread * pthread);
 
       //virtual bool get_cursor_position(::int_point * ppointCursor);
 

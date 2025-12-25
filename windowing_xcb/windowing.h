@@ -36,7 +36,7 @@ namespace windowing_xcb
 
 #endif
 
-      ::pointer<::windowing_xcb::window>        m_pwindowMouseCapture;
+      //::pointer<::windowing_xcb::window>        m_pwindowMouseCapture;
 
 
       //::procedure_list                                m_procedurelist;

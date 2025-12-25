@@ -76,19 +76,3 @@ bool x11_get_client_rect(Display * d, Window window, ::int_rectangle * prectangl
 //#include "acme/prototype/prototype/matter.h"
 
 
-namespace windowing_x11
-{
-
-
-   class x11data :
-      virtual public matter
-   {
-   public:
-
-      XWindowAttributes m_attr;
-      //GdkWindow *                   m_pgdkwindow;
-
-   };
-
-
-} // namespace windowing_x11

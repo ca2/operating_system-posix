@@ -15,6 +15,8 @@
 #include "acme_windowing_x11/display_lock.h"
 #include <X11/extensions/Xrender.h>
 
+#include "operating_system.h"
+
 
 extern ::app_core * g_pappcore;
 
@@ -286,6 +288,8 @@ namespace windowing_x11
 //
 //      }
 
+      ::system()->windowing()->_libsn_start_context();
+
    }
 
 
@@ -418,12 +422,12 @@ namespace windowing_x11
    }
 
 
-   ::windowing::window * display::get_mouse_capture()
-   {
-
-      return m_pwindowMouseCapture;
-
-   }
+   // ::windowing::window * display::get_mouse_capture()
+   // {
+   //
+   //    return m_pwindowMouseCapture;
+   //
+   // }
 
 
    ::e_status display::release_mouse_capture()
@@ -488,9 +492,11 @@ namespace windowing_x11
       //
       // }
 
-      auto pwindowMouseCaptureOld = m_pwindowMouseCapture;
+      ::cast < ::thread > pthreadCurrent = ::get_task();
 
-      m_pwindowMouseCapture = pwindowMouseCaptureNew;
+      auto pwindowMouseCaptureOld = system()->acme_windowing()->get_mouse_capture(pthreadCurrent);
+
+      system()->acme_windowing()->m_pacmewindowingwindowMouseCapture = pwindowMouseCaptureNew;
 
       if (pwindowMouseCaptureOld && pwindowMouseCaptureOld != pwindowMouseCaptureNew)
       {
@@ -503,9 +509,13 @@ namespace windowing_x11
          pmessage->m_wparam = 0;
          pmessage->m_lparam = pwindowMouseCaptureNew;
 
-         pwindowMouseCaptureOld->post_message(pmessage);
+         ::cast < ::windowing_x11::window > pwindowOld = pwindowMouseCaptureOld;
 
-         m_pwindowMouseCapture->post_message(pmessage);
+         pwindowOld->post_message(pmessage);
+
+         ::cast < ::windowing_x11::window > pwindowNew = system()->acme_windowing()->m_pacmewindowingwindowMouseCapture;
+
+         pwindowNew->post_message(pmessage);
 
       }
 
@@ -656,7 +666,7 @@ namespace windowing_x11
    }
 
 
-   ::windowing_x11::window * display::_get_active_window(::thread * pthread)
+   ::windowing_x11::window * display::_x11_get_active_window(::thread * pthread)
    {
 
       auto window = __x11_get_active_window();
@@ -670,12 +680,12 @@ namespace windowing_x11
    }
 
 
-   ::windowing_x11::window * display::get_keyboard_focus()
-   {
-
-      return m_pwindowKeyboardFocus;
-
-   }
+   // ::windowing_x11::window * display::get_keyboard_focus()
+   // {
+   //
+   //    return m_pwindowKeyboardFocus;
+   //
+   // }
 
 
    ::windowing_x11::window * display::_get_keyboard_focus()
@@ -962,6 +972,39 @@ namespace windowing_x11
 
       return windowa;
 
+   }
+
+
+   void display::_enumerate_monitors()
+   {
+
+      ::x11::acme::windowing::display::_enumerate_monitors();
+
+
+      // Iterate over each monitor
+      for (int i = 0; i < m_rectangleaMonitor.size(); i++) {
+         auto r = m_rectangleaMonitor[i];
+
+         auto pmonitor = øcreate_new < ::windowing::monitor >();
+         __check_refdbg
+         pmonitor->m_pdisplay = this;
+
+         __check_refdbg
+         // Get the geometry (rectangle) of the monitor
+//         GdkRectangle geometry;
+  //       gdk_monitor_get_geometry(monitor, &geometry);
+
+         // Print monitor geometry details
+         informationf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
+                i, r.left, r.top, r.width(), r.height());
+         ::copy(pmonitor->m_rectangle, r);
+         ::copy(pmonitor->m_rectangleWorkspace, r);
+         // Unref the monitor object as we no longer need it
+         //g_object_unref(monitor);
+         __check_refdbg
+         m_monitora.add(pmonitor);
+         __check_refdbg
+      }
    }
 
 

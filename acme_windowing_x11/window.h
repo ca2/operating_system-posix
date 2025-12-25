@@ -26,6 +26,19 @@ namespace x11
       {
 
 
+         class x11data :
+            virtual public ::particle
+         {
+         public:
+
+            XWindowAttributes m_attr;
+            //GdkWindow *                   m_pgdkwindow;
+
+         };
+
+
+
+
          class CLASS_DECL_ACME_WINDOWING_X11 window :
             virtual public ::acme::windowing::window,
             virtual public ::x11::acme::windowing::happening_listener
@@ -34,14 +47,19 @@ namespace x11
 
 
             ::pointer<::x11::acme::windowing::display>   m_px11display;
+            ::pointer<::x11::acme::windowing::x11data>   m_px11data;
             Window                                       m_window;
             Window                                       m_windowRoot;
             cairo_surface_t *                            m_psurface;
             ::pointer<::nano::graphics::device>          m_pnanodevice;
             int                                          m_iDepth;
-            XVisualInfo                                  m_visualinfo;
-            Visual *                                     m_pvisual;
+            //XVisualInfo                                  m_visualinfo;
+            //Visual *                                     m_pvisual;
             Colormap                                     m_colormap;
+            XWindowAttributes                            m_attr;
+            XVisualInfo                                  m_visualinfo;
+            ::Visual *                                   m_pvisual;
+            //int                                          m_iDepth;
             //::pointer<::nano::graphics::font>          m_pfont;
             //color32_t                                  m_colorText;
             //color32_t                                  m_colorFocus;

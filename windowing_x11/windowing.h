@@ -26,7 +26,7 @@ namespace windowing_x11
       bool                                            m_bRootSelectInput : 1;
       bool                                            m_bFirstWindowMap : 1;
 
-      ::pointer<::windowing_x11::display>            m_pdisplay;
+      //::pointer<::windowing_x11::display>            m_pdisplay;
       bool                                            m_bFinishX11Thread;
       bool                                            m_bInitX11Thread;
 
@@ -81,7 +81,7 @@ namespace windowing_x11
 
       //void _libsnx_start_context()  override;
 
-      ::windowing::display * display() override;
+      //::windowing::display * display() override;
 
       //void windowing_main() override;
 
@@ -150,6 +150,8 @@ namespace windowing_x11
       //::acme::windowing::window * get_mouse_capture(::thread * pthread) override;
 
       //virtual void _libsnx_start_context() override;
+
+      bool __on_x11_event(XEvent * pevent) override;
 
 #ifdef WITH_XI
 

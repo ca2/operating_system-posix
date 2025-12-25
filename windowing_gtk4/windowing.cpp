@@ -161,7 +161,7 @@ namespace windowing_gtk4
    void windowing::destroy()
    {
 
-      m_pwindowMouseCapture.release();
+      m_pacmeuserinteractionActive.release();
 
       ::gtk4::acme::windowing::windowing::destroy();
 
@@ -499,7 +499,7 @@ namespace windowing_gtk4
 
       //return pwindow;
 
-      return m_pwindowMouseCapture;
+      return m_pacmewindowingwindowMouseCapture;
 
    }
 
@@ -542,7 +542,7 @@ namespace windowing_gtk4
    bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
    {
 
-      if(m_pwindowMouseCapture != pwindow)
+      if(m_pacmewindowingwindowMouseCapture != pwindow)
       {
 
          return false;

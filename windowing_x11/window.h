@@ -44,18 +44,13 @@ namespace windowing_x11
 
       //x
       //XSyncValue                                   m_xsyncvalueNetWmSyncPending;
-      XWindowAttributes                            m_attr;
-      XVisualInfo                                  m_visualinfo;
       void *                                       m_pgdkwindow;
-      ::pointer<::windowing_x11::x11data>          m_px11data;
       ::Window                                     m_parent;
       Cursor                                       m_cursorLast;
       int                                          m_iXic;
       XIC                                          m_xic;
       //::pointer<::windowing_x11::display>        m_pdisplay;
       //::Window                                     m_window;
-      ::Visual                                     m_visual;
-      int                                          m_iDepth;
       //int                                        m_iScreen;
       bool                                         m_bMessageOnlyWindow;
       //::pointer<::windowing::window>        m_pimpl;
@@ -102,6 +97,8 @@ namespace windowing_x11
 void on_initialize_particle() override;
 
       void create_window() override;
+
+      void _create_window() override;
 
 
       void on_finished_window_creation() override;
@@ -161,8 +158,6 @@ void on_initialize_particle() override;
       //virtual void set_user_interaction(::windowing::window * pinteraction);
 
       virtual void post_nc_destroy();
-
-      void _create_window() override;
 
       bool is_active_window() override;
 

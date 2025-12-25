@@ -77,6 +77,8 @@ namespace x11
             void initialize(::particle * pparticle) override;
 
 
+            bool is_display_opened() const override;
+
             //virtual void set_x11_display(::Display * pgdkdisplay);
 
             virtual void __on_x11_open_display();

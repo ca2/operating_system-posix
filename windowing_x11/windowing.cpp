@@ -86,7 +86,9 @@ namespace windowing_x11
    void windowing::erase_window(::windowing::window * pwindow)
    {
 
-      m_pdisplay->erase_window(pwindow);
+      ::cast < ::windowing_x11::display > pdisplay = m_pacmedisplay;
+
+      pdisplay->erase_window(pwindow);
 
    }
 
@@ -108,23 +110,24 @@ namespace windowing_x11
 
       ::windowing_posix::windowing::initialize_windowing();
 
-      auto pdisplay = øcreate<::acme::windowing::display>();
-
-      //pdisplay->initialize_display();
-
-      m_pdisplay = pdisplay;
-
-      if (!pdisplay)
+      //auto pdisplay = øcreate<::acme::windowing::display>();
+      if (ødefer_construct(m_pacmedisplay))
       {
+         //pdisplay->initialize_display();
 
-         throw ::exception(error_no_interface,
-                           "Failed to cast pdisplay to m_pdisplay at windowing_x11::windowing::initialize");
+         //px11display = pdisplay;
+
+         if (!m_pacmedisplay)
+         {
+
+            throw ::exception(error_no_interface,
+                              "Failed to cast pdisplay to px11display at windowing_x11::windowing::initialize");
+
+         }
+
+         m_pacmedisplay->open_display();
 
       }
-
-      m_pdisplay->open_display();
-
-      _libsn_start_context();
 
    }
 
@@ -190,14 +193,16 @@ namespace windowing_x11
       //information() << "windowing_x11::windowing::x11_runnable_step";
 
       process_owned_procedure_list(m_procedurelistPriority, bHandled);
+      
+      ::cast<::windowing_x11::display > px11display = acme_display();
 
-      if (m_pdisplay)
+      if (px11display)
       {
 
-         //if (m_pdisplay->m_px11display)
+         //if (px11display->m_px11display)
          {
 
-            while (m_pdisplay->__x11_posted())
+            while (px11display->__x11_posted())
             {
 
                bHandled = true;
@@ -248,25 +253,27 @@ namespace windowing_x11
 //   }
 
 
-   ::windowing::display * windowing::display()
-   {
-
-      return m_pdisplay;
-
-   }
+   // ::windowing::display * windowing::display()
+   // {
+   //
+   //    return px11display;
+   //
+   // }
 
 
    ::windowing_x11::window * windowing::_window(Window window)
    {
 
-      if (!m_pdisplay)
+      ::cast<::windowing_x11::display > px11display = acme_display();
+
+      if (!px11display)
       {
 
          return nullptr;
 
       }
 
-      auto pwindow = m_pdisplay->_window(window);
+      auto pwindow = px11display->_window(window);
 
       return pwindow;
 
@@ -372,9 +379,11 @@ namespace windowing_x11
 
       windowing_output_debug_string("::x11_GetWindowRect 1");
 
-      ::x11::display_lock lock(m_pdisplay->__x11_display());
+      ::cast<::windowing_x11::display > px11display = acme_display();
 
-      auto cursor = XCreateFontCursor(m_pdisplay->__x11_display(), iCursor);
+      ::x11::display_lock lock(px11display->__x11_display());
+
+      auto cursor = XCreateFontCursor(px11display->__x11_display(), iCursor);
 
       auto pcursorX11 = øcreate < ::windowing_x11::cursor >();
 
@@ -391,16 +400,20 @@ namespace windowing_x11
    ::acme::windowing::window * windowing::get_keyboard_focus(::thread *)
    {
 
-      if(!m_pdisplay)
+      auto pacmeuserinteractionKeyboardFocus = m_pacmeuserinteractionActive;
+
+      if (!pacmeuserinteractionKeyboardFocus)
       {
 
          return nullptr;
 
       }
 
-      auto pwindow = m_pdisplay->get_keyboard_focus();
+      ::cast < ::windowing_x11::window > pwindowKeyboardFocus = pacmeuserinteractionKeyboardFocus;
 
-      return pwindow;
+      //auto pwindow = px11display->get_keyboard_focus();
+
+      return pwindowKeyboardFocus;
 
    }
 
@@ -408,16 +421,20 @@ namespace windowing_x11
    ::acme::windowing::window * windowing::get_mouse_capture(::thread *)
    {
 
-      if(!m_pdisplay)
-      {
+      //
+      //
+      // if(!px11display)
+      // {
+      //
+      //    return nullptr;
+      //
+      // }
+      //
+      // auto pwindow = px11display->get_mouse_capture();
+      //
+      // return pwindow;
 
-         return nullptr;
-
-      }
-
-      auto pwindow = m_pdisplay->get_mouse_capture();
-
-      return pwindow;
+      return m_pacmewindowingwindowMouseCapture;
 
    }
 
@@ -435,7 +452,12 @@ namespace windowing_x11
 
       //auto estatus =
       //
-      m_pdisplay->release_mouse_capture();
+
+      m_pacmewindowingwindowMouseCapture.release();
+
+      //::cast<::windowing_x11::display > px11display = acme_display();
+
+      ///px11display->release_mouse_capture();
 
 //      if(!estatus)
 //      {

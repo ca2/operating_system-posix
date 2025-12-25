@@ -4,7 +4,9 @@
 #pragma once
 
 
+#include "happening_listener.h"
 #include "acme/windowing/windowing.h"
+#include "acme_windowing_x11/happening_listener.h"
 
 
 namespace x11
@@ -20,7 +22,8 @@ namespace x11
 
 
          class CLASS_DECL_ACME_WINDOWING_X11 windowing :
-                 virtual public ::acme::windowing::windowing
+                 virtual public ::acme::windowing::windowing,
+         virtual public ::x11::acme::windowing::happening_listener
          {
          public:
 

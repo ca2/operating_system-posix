@@ -74,7 +74,7 @@ namespace x11
 
             m_psurface = nullptr;
             m_iDepth = -1;
-            m_pvisual = nullptr;
+            //m_pvisual = nullptr;
             zero(m_visualinfo);
             m_colormap = 0;
 
@@ -205,6 +205,8 @@ namespace x11
 
             zero(m_visualinfo);
 
+            ødefer_construct_new(m_px11data);
+
             if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_visualinfo))
             {
 
@@ -278,7 +280,7 @@ namespace x11
 
             }
 
-            on_create_window();
+            //on_create_window();
 
          }
 
@@ -1325,7 +1327,7 @@ namespace x11
 
             }
 
-            auto pwindowCapture = pacmewindowing->m_pwindowMouseCapture;
+            auto pwindowCapture = pacmewindowing->m_pacmewindowingwindowMouseCapture;
 
             if (::is_null(pwindowCapture))
             {
