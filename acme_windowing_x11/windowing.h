@@ -48,6 +48,11 @@ namespace x11
             //   void x11_display_error_trap_push(int i) override;
             //   void x11_display_error_trap_pop_ignored(int i) override;
 
+            void windowing_application_on_system_start() override;
+
+            void windowing_application_main_loop() override;
+
+
 
          };
 

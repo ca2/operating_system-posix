@@ -53,7 +53,7 @@ namespace windowing_x11
       int                                          m_iXic;
       XIC                                          m_xic;
       //::pointer<::windowing_x11::display>        m_pdisplay;
-      ::Window                                     m_window;
+      //::Window                                     m_window;
       ::Visual                                     m_visual;
       int                                          m_iDepth;
       //int                                        m_iScreen;
@@ -354,10 +354,16 @@ void on_initialize_particle() override;
       virtual void _on_end_paint();
       virtual void _enable_net_wm_sync();
 
-
+      void _main_send(const ::procedure & procedure) override;
+      void _main_post(const ::procedure & procedure) override;
       void _user_send(const ::procedure & procedure) override;
-
       void _user_post(const ::procedure & procedure) override;
+
+
+      void _set_oswindow(::oswindow oswindow) override;
+
+
+      ::oswindow oswindow() const;
 
 
    };

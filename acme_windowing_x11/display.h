@@ -67,7 +67,7 @@ namespace x11
 
             ::task_pointer                               m_ptaskMessageLoop;
 
-            ::pointer < ::manual_reset_happening >       m_pmanualresethappeningDisplayOpen;
+            //::pointer < ::manual_reset_happening >       m_pmanualresethappeningDisplayOpen;
 
 
             display();
@@ -78,6 +78,8 @@ namespace x11
 
 
             //virtual void set_x11_display(::Display * pgdkdisplay);
+
+            virtual void __on_x11_open_display();
 
 
             bool is_branch_current() const override;

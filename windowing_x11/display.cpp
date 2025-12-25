@@ -59,68 +59,68 @@ namespace windowing_x11
    }
 
 
-#ifdef _DEBUG
-
-
-   long long display::get_ref_count()
-   {
-
-      return m_countReference;
-
-   }
-
-
-   long long display::increment_reference_count()
-   {
-
-#ifdef WINDOWS
-
-      return InterlockedIncrement64(&m_countReference);
-
-#elif defined(RASPBERRYPIOS) && defined(OS32BIT)
-
-      return __sync_add_and_fetch_4(&m_countReference,1);
-
-#else
-
-      return __sync_add_and_fetch(&m_countReference, 1);
-
-#endif
-
-   }
-
-
-   long long display::decrement_reference_count()
-   {
-
-#ifdef WINDOWS
-
-      return InterlockedDecrement64(&m_countReference);
-
-#elif defined(RASPBERRYPIOS) && defined(OS32BIT)
-
-      return __sync_sub_and_fetch_4(&m_countReference,1);
-
-#else
-
-      return __sync_sub_and_fetch(&m_countReference, 1);
-
-#endif
-
-   }
-
-
-   long long display::release()
-   {
-
-      long long i = decrement_reference_count();
-
-      return i;
-
-   }
-
-
-#endif // DEBUG
+// #ifdef _DEBUG
+//
+//
+//    long long display::get_ref_count()
+//    {
+//
+//       return m_countReference;
+//
+//    }
+//
+//
+//    long long display::increment_reference_count()
+//    {
+//
+// #ifdef WINDOWS
+//
+//       return InterlockedIncrement64(&m_countReference);
+//
+// #elif defined(RASPBERRYPIOS) && defined(OS32BIT)
+//
+//       return __sync_add_and_fetch_4(&m_countReference,1);
+//
+// #else
+//
+//       return __sync_add_and_fetch(&m_countReference, 1);
+//
+// #endif
+//
+//    }
+//
+//
+//    long long display::decrement_reference_count()
+//    {
+//
+// #ifdef WINDOWS
+//
+//       return InterlockedDecrement64(&m_countReference);
+//
+// #elif defined(RASPBERRYPIOS) && defined(OS32BIT)
+//
+//       return __sync_sub_and_fetch_4(&m_countReference,1);
+//
+// #else
+//
+//       return __sync_sub_and_fetch(&m_countReference, 1);
+//
+// #endif
+//
+//    }
+//
+//
+//    long long display::release()
+//    {
+//
+//       long long i = decrement_reference_count();
+//
+//       return i;
+//
+//    }
+//
+//
+// #endif // DEBUG
 
 
    // Display * display::_get_system_default_display()
@@ -134,14 +134,22 @@ namespace windowing_x11
    void display::open_display()
    {
 
-      if (::is_set(m_pDisplay))
-      {
+      ::x11::acme::windowing::display::open_display();
 
-         return;
+   }
 
-      }
 
-      information() << "::windowing_x11::display::open_display";
+   void display::__on_x11_open_display()
+   {
+
+      // if (::is_set(m_pDisplay))
+      // {
+      //
+      //    return;
+      //
+      // }
+
+      information() << "::windowing_x11::display::__on_x11_open_display";
 
       //bool bBranch = !session()->user()->m_pdesktopenvironment->m_bUnhook;
 
@@ -152,14 +160,14 @@ namespace windowing_x11
       //m_px11display = ::x11::display::get(this, false, px11displayGdk);
 
       // Using another ___new and different X11 Display connection apart from Gtk.
-      m_pDisplay = XOpenDisplay(nullptr);
-
-      if (::is_null(m_pDisplay))
-      {
-
-         throw ::exception(error_failed);
-
-      }
+      // m_pDisplay = XOpenDisplay(nullptr);
+      //
+      // if (::is_null(m_pDisplay))
+      // {
+      //
+      //    throw ::exception(error_failed);
+      //
+      // }
 
       ::x11::display_lock displaylock(m_pDisplay);
 

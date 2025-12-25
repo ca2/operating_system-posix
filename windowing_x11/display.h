@@ -47,7 +47,7 @@ namespace windowing_x11
       //Atom                                         m_atomLongStyle;
       //Atom                                         m_atomLongStyleEx;
       //Atom                                       m_atomCardinal;
-      iptr                                         m_countReference;
+      //iptr                                         m_countReference;
       ::pointer<class window>                      m_pwindowRoot;
       ::pointer<class window>                      m_pwindowKeyboardFocus;
       ::pointer<::windowing_x11::window>           m_pwindowActive;
@@ -61,16 +61,16 @@ namespace windowing_x11
       ~display() override;
 
 
-#ifdef _DEBUG
-
-
-      virtual long long get_ref_count();
-      virtual long long increment_reference_count() override;
-      virtual long long decrement_reference_count() override;
-      virtual long long release() override;
-
-
-#endif
+// #ifdef _DEBUG
+//
+//
+//       virtual long long get_ref_count();
+//       virtual long long increment_reference_count() override;
+//       virtual long long decrement_reference_count() override;
+//       virtual long long release() override;
+//
+//
+// #endif
 
 
 
@@ -85,6 +85,8 @@ namespace windowing_x11
       virtual void unlock_display();
 
       void open_display() override;
+
+      void __on_x11_open_display() override;
 
       virtual ::e_status erase_window(::windowing::window * pwindow);
 

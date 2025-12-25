@@ -195,7 +195,9 @@ namespace x11
          void window::_create_window()
          {
 
-            display_lock displaylock(m_px11display->m_pDisplay);
+            ::cast < ::x11::acme::windowing::display > px11display = get_display();
+
+            display_lock displaylock(px11display->m_pDisplay);
 
             auto display = m_px11display->m_pDisplay;
 
@@ -231,7 +233,7 @@ namespace x11
 
             m_colormap = XCreateColormap(display, m_windowRoot, m_pvisual, AllocNone);
 
-            //m_px11display->add_listener(this);
+            m_px11display->add_listener(this);
 
             //m_px11display->add_window(this);
 
@@ -252,12 +254,12 @@ namespace x11
 
             attr.override_redirect = False;
 
-            auto r = acme_user_interaction()->get_window_rectangle();
+            //auto r = acme_user_interaction()->rect();
 
-            int x = r.left;
-            int y = r.top;
-            int w = r.width();
-            int h = r.height();
+            int x = m_pointWindow.x;
+            int y = m_pointWindow.y;
+            int w = m_sizeWindow.cx;
+            int h = m_sizeWindow.cy;
 
             m_window = XCreateWindow(display, m_windowRoot,
                                      x, y, w, h,
@@ -272,115 +274,13 @@ namespace x11
             if(!m_window)
             {
 
-               //m_px11display->erase_listener(this);
-
-               //m_px11display->erase_window(this);
-
                throw exception(error_failed);
 
             }
 
-            // if(m_pacmeuserinteraction->m_bStartCentered)
-            // {
-            //
-            //    auto atomWindowType = XInternAtom(display, "_NET_WM_WINDOW_TYPE", true);
-            //
-            //    auto atomWindowTypeDialog = XInternAtom(display, "_NET_WM_WINDOW_TYPE_DIALOG", true);
-            //
-            //    if (atomWindowType != None && atomWindowTypeDialog != None)
-            //    {
-            //
-            //       XChangeProperty(display, m_window,
-            //                       atomWindowType, XA_ATOM, 32, PropModeReplace,
-            //                       (unsigned char *) &atomWindowTypeDialog, 1);
-            //
-            //    }
-            //
-            //    auto atomNormalHints = m_px11display->intern_atom("WM_NORMAL_HINTS", false);
-            //
-            //    XSizeHints hints{};
-            //
-            //    hints.flags = PWinGravity;
-            //
-            //    hints.win_gravity = CenterGravity;
-            //
-            //    XSetWMSizeHints(display, m_window, &hints, atomNormalHints);
-            //
-            // }
-
-            // if(m_pacmeuserinteraction->m_bArbitraryPositioning)
-            // {
-            //
-            //    XSetWindowAttributes attributes;
-            //
-            //    attributes.override_redirect = True;
-            //
-            //    XChangeWindowAttributes(display, m_window,
-            //                            CWOverrideRedirect,
-            //                            &attributes);
-            //
-            // }
-
             on_create_window();
 
          }
-
-
-//         void window::on_left_button_down(::user::mouse * pmouse)
-//         {
-//
-//            m_pacmeuserinteraction->on_left_button_down(pmouse);
-//
-//         }
-//
-//
-//         void window::on_left_button_up(::user::mouse * pmouse)
-//         {
-//
-//            m_pacmeuserinteraction->on_left_button_up(pmouse);
-//
-//         }
-//
-//
-//         void window::on_right_button_down(::user::mouse * pmouse)
-//         {
-//
-//            m_pacmeuserinteraction->on_right_button_down(pmouse);
-//
-//         }
-//
-//
-//         void window::on_right_button_up(::user::mouse * pmouse)
-//         {
-//
-//            m_pacmeuserinteraction->on_right_button_up(pmouse);
-//
-//         }
-//
-//
-//         void window::on_mouse_move(::user::mouse * pmouse)
-//         {
-//
-//            m_pacmeuserinteraction->on_mouse_move(pmouse);
-//
-//         }
-//
-//
-//         ::payload window::get_result()
-//         {
-//
-//            return m_pacmeuserinteraction->get_result();
-//
-//         }
-
-
-//         ::micro::child * window::hit_test(::user::mouse * pmouse, ::user::e_zorder ezorder)
-//         {
-//
-//            return m_pacmeuserinteraction->hit_test(pmouse, ezorder);
-//
-//         }
-
 
 
          void window::show_window()
@@ -466,7 +366,7 @@ namespace x11
 
 
 
-         bool window::_on_event(XEvent *pevent)
+         bool window::__on_x11_event(XEvent *pevent)
          {
 
             display_lock displaylock(m_px11display->m_pDisplay);

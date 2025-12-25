@@ -10,6 +10,8 @@
 #include "acme/platform/system.h"
 #include <X11/Xutil.h>
 
+#include "display.h"
+
 
 Display * windowing_x11_Display();
 
@@ -152,7 +154,7 @@ namespace x11
          void windowing::_main_post(const ::procedure & procedure)
          {
 
-            node()->user_post(procedure);
+            ::task::post(procedure);
 
          }
 
@@ -543,6 +545,34 @@ namespace x11
             return 0;
 
          }
+
+
+         void windowing::windowing_application_on_system_start()
+         {
+
+            system()->on_branch_system_from_main_thread_startup(this);
+
+         }
+
+
+         void windowing::windowing_application_main_loop()
+         {
+
+
+            ::cast < ::x11::acme::windowing::display > pdisplay = acme_display();
+
+            m_itask = ::current_itask();
+
+            m_htask = ::current_htask();
+
+            m_taskindex = ::current_task_index();
+
+            pdisplay->__message_loop();
+
+
+
+         }
+
 
 
       } // namespace windowing

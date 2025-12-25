@@ -746,7 +746,7 @@ gtk_init();
          }
 
 
-         void windowing::on_start_system()
+         void windowing::windowing_application_on_system_start()
          {
 
             system()->on_branch_system_from_main_thread_startup(this);

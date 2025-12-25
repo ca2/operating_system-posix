@@ -165,6 +165,8 @@ namespace windowing_x11
 
       virtual void _on_wm_state_change(::windowing::window * pwindow);
 
+      void windowing_application_main_loop();
+
 
    };
 

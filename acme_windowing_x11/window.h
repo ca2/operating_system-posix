@@ -11,6 +11,8 @@
 #include <X11/Xutil.h>
 #include <cairo/cairo.h>
 
+#include "happening_listener.h"
+
 
 namespace x11
 {
@@ -25,7 +27,8 @@ namespace x11
 
 
          class CLASS_DECL_ACME_WINDOWING_X11 window :
-            virtual public ::acme::windowing::window
+            virtual public ::acme::windowing::window,
+            virtual public ::x11::acme::windowing::happening_listener
          {
          public:
 
@@ -82,7 +85,7 @@ namespace x11
 
             void show_window() override;
 
-            bool _on_event(XEvent *pevent);
+            bool __on_x11_event(XEvent *pevent) override;
 
             virtual void _update_window();
 

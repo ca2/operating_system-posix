@@ -147,7 +147,11 @@ namespace node_x11
    void node::on_start_system()
    {
 
-      system()->windowing()->on_start_system();
+      auto psystem  = system();
+
+      auto pwindowing = psystem->windowing();
+
+      pwindowing->windowing_application_on_system_start();
 
    }
 

@@ -108,7 +108,7 @@ namespace windowing_x11
 
       ::windowing_posix::windowing::initialize_windowing();
 
-      auto pdisplay = øcreate<::windowing::display>();
+      auto pdisplay = øcreate<::acme::windowing::display>();
 
       //pdisplay->initialize_display();
 
@@ -538,6 +538,14 @@ namespace windowing_x11
    }
 
 
+   void windowing::windowing_application_main_loop()
+   {
+
+
+      ::x11::acme::windowing::windowing::windowing_application_main_loop();
+
+
+   }
 
 
 } // namespace windowing

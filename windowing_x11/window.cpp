@@ -125,6 +125,14 @@ namespace windowing_x11
    }
 
 
+   void window::_set_oswindow(::oswindow oswindow)
+   {
+
+
+
+   }
+
+
    //void window::create_window(::windowing::window * pimpl)
    void window::create_window()
    {
@@ -333,15 +341,17 @@ namespace windowing_x11
 
                      m_atomaNetWmState.clear();
 
-                     ::Window window = XCreateWindow(display, DefaultRootWindow(display),
-                                                     x, y,
-                                                     cx, cy,
-                                                     0,
-                                                     m_iDepth,
-                                                     InputOutput,
-                                                     visual,
-                                                     CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel
-                                                     | CWOverrideRedirect, &attr);
+            _create_window();
+
+                     // ::Window window = XCreateWindow(display, DefaultRootWindow(display),
+                     //                                 x, y,
+                     //                                 cx, cy,
+                     //                                 0,
+                     //                                 m_iDepth,
+                     //                                 InputOutput,
+                     //                                 visual,
+                     //                                 CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel
+                     //                                 | CWOverrideRedirect, &attr);
 
                      {
 
@@ -353,7 +363,7 @@ namespace windowing_x11
                         sizehints.width = cx;
                         sizehints.height = cy;
 
-                        XSetNormalHints(display, window, &sizehints);  /* Where new_window is the ___new window */
+                        XSetNormalHints(display, m_window, &sizehints);  /* Where new_window is the ___new window */
 
                      }
 
@@ -393,7 +403,7 @@ namespace windowing_x11
 
                      //state.screen_origin() = state.origin();
 
-                     if (window == 0)
+                     if (m_window == 0)
                      {
 
                         //bOk = false;
@@ -404,7 +414,7 @@ namespace windowing_x11
 
                      }
 
-                     auto estatus = initialize_x11_window(pdisplayx11, window, visual, m_iDepth, pdisplayx11->m_iScreen,
+                     auto estatus = initialize_x11_window(pdisplayx11, m_window, visual, m_iDepth, pdisplayx11->m_iScreen,
                                                           attr.colormap);
 
                      if (!estatus)
@@ -436,7 +446,7 @@ namespace windowing_x11
 
                      set_oswindow(this);
 
-                     set_os_data((void *) window);
+                     set_os_data((void *) (::uptr) m_window);
 
                      _enable_net_wm_sync();
 
@@ -537,7 +547,7 @@ namespace windowing_x11
 
                      unsigned int ncount = 0;
 
-                     XQueryTree(display, window, &root, &m_parent, &pchildren, &ncount);
+                     XQueryTree(display, m_window, &root, &m_parent, &pchildren, &ncount);
 
                      if (pchildren != nullptr)
                      {
@@ -1060,6 +1070,14 @@ namespace windowing_x11
          //auto lresult2 = puserinteraction->send_message(e_message_after_create, 0, 0);
 
       }
+
+   }
+
+
+   ::oswindow window::oswindow() const
+   {
+
+      return this;
 
    }
 
@@ -5773,10 +5791,26 @@ auto pwindowing = system()->acme_windowing();
    }
 
 
+   void window::_main_send(const ::procedure & procedure)
+   {
+
+      windowing()->_main_send(procedure);
+
+   }
+
+
+   void window::_main_post(const ::procedure & procedure)
+   {
+
+      windowing()->_main_post(procedure);
+
+   }
+
+
    void window::_user_send(const ::procedure &procedure)
    {
 
-      windowing()->user_send(procedure);
+      windowing()->_user_send(procedure);
 
    }
 
@@ -5784,7 +5818,7 @@ auto pwindowing = system()->acme_windowing();
    void window::_user_post(const ::procedure &procedure)
    {
 
-      windowing()->user_post(procedure);
+      windowing()->_user_post(procedure);
 
    }
 

@@ -52,7 +52,7 @@ namespace gtk4
             void process_messages() override;
 
 
-            void on_start_system() override;
+            void windowing_application_on_system_start() override;
 
 
             //void defer_initialize_windowing() override;

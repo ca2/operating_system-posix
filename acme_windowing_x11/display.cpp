@@ -124,7 +124,7 @@ namespace x11
 
             //    display::open();
             
-            information() << "windowing_gtk4::display::open_display";
+            information() << "windowing_x11::display::open_display";
 
             if (m_ptaskMessageLoop)
             {
@@ -137,25 +137,58 @@ namespace x11
 
             add_listener(this);
 
-            ødefer_construct_new(m_pmanualresethappeningDisplayOpen);
 
-            auto pmanualresethappeningDisplayOpen = m_pmanualresethappeningDisplayOpen;
+            ::task_set_name("x11:display:run");
 
-            m_ptaskMessageLoop = ::system()->m_papplicationMain->fork([this]()
+            information() << "x11::display::run";
+
+            set_main_user_thread();
+
+            m_pDisplay = XOpenDisplay(nullptr);
+
+            if (m_pDisplay == NULL)
             {
 
+               error() << "Can't connect to display";
 
-               this->__message_loop();
+               throw ::exception(error_failed);
+
+            }
+
+            information() << "connected to display\n";
+
+            m_bOwnDisplay = true;
+
+            //wl_display_disconnect(display);
+            //informationf("disconnected from display\n");
 
 
-               m_ptaskMessageLoop.release();
+            m_windowRoot = DefaultRootWindow(m_pDisplay);
 
-            });
+            __on_x11_open_display();
 
-            pmanualresethappeningDisplayOpen->wait(15_s);
+            _enumerate_monitors();
 
-            m_pmanualresethappeningDisplayOpen.release();
 
+            //ødefer_construct_new(m_pmanualresethappeningDisplayOpen);
+
+            //auto pmanualresethappeningDisplayOpen = m_pmanualresethappeningDisplayOpen;
+
+            // m_ptaskMessageLoop = ::system()->m_papplicationMain->fork([this]()
+            // {
+            //
+            //
+            //    this->__message_loop();
+            //
+            //
+            //    m_ptaskMessageLoop.release();
+            //
+            // });
+            //
+            // pmanualresethappeningDisplayOpen->wait(15_s);
+            //
+            // m_pmanualresethappeningDisplayOpen.release();
+            //
 
          }
 
@@ -598,14 +631,6 @@ namespace x11
          //
          //   }
 
-         //
-         // bool display::message_loop_step()
-         // {
-         //
-         //    return ::g::acme::windowing::display::message_loop_step();
-         //
-         // }
-
 
          //
          //      if (!XPending(m_pDisplay))
@@ -685,54 +710,6 @@ namespace x11
          //
          //   }
          //
-         //
-         //   void display::aaa_message_loop()
-         //   {
-         //
-         //      bool bHandled1;
-         //
-         //      bool bHandled2;
-         //
-         //      while (::task_get_run())
-         //      {
-         //
-         //         if(m_bUnhook)
-         //         {
-         //
-         //            break;
-         //
-         //         }
-         //
-         //         bHandled1 = false;
-         //
-         //         bHandled2 = false;
-         //
-         //         while(aaa_message_loop_step())
-         //         {
-         //
-         //            bHandled1 = true;
-         //
-         //         }
-         //
-         //         if(!bHandled1)
-         //         {
-         //
-         //            bHandled2 = aaa_x11_posted();
-         //
-         //         }
-         //
-         //         if(!bHandled1 && !bHandled2)
-         //         {
-         //
-         //            preempt(5_ms);
-         //
-         //         }
-         //
-         //      }
-         //
-         //      information() << "Finished display::message_loop for nano::display";
-         //
-         //   }
          //
          //
          // void display::init_task()
@@ -916,30 +893,6 @@ namespace x11
          //    ::g::acme::windowing::display::get(pparticle, false, (::GdkDisplay*)pgdkdisplay);
          //
          // }
-
-
-         // void* initialize_display(::particle* pparticle)
-         // {
-         //
-         //    auto pdisplay = ::g::acme::windowing::display::get(pparticle, false);
-         //
-         //    return pdisplay->m_pDisplay;
-         //         //
-         //         // void process_messages()
-         //         // {
-         //         //
-         //         //    if (::g::acme::windowing::display::s_pdisplaybase)
-         //         //    {
-         //         //
-         //         //       ::g::acme::windowing::display::s_pdisplaybase->message_loop_step();
-         //         //
-         //         //    }
-         //         //
-         //         // }
-         // }
-
-
-         //display * display::s_pdisplaybase = nullptr;
 
 
       //    /**
@@ -1752,9 +1705,9 @@ namespace x11
     //
     //            }
     //
-    //            information() << "gtk4::acme::windowing::display::open";
+    //            information() << "x11::acme::windowing::display::open";
     //
-    //            information() << "gtk4::acme::windowing::display::open pgdkdisplay : " << (::iptr) m_pDisplay;
+    //            information() << "x11::acme::windowing::display::open pgdkdisplay : " << (::iptr) m_pDisplay;
     //
     //   //          auto pwlregistry = wl_display_get_registry(m_pwldisplay);
     //   //
@@ -2010,7 +1963,7 @@ namespace x11
          }
 
 
-         // ::gtk4::acme::windowing::window * display::_window(::GtkWidget * pgtkwidget)
+         // ::x11::acme::windowing::window * display::_window(::GtkWidget * pgtkwidget)
          // {
          //
          //    if (!pgtkwidget)
@@ -2723,70 +2676,6 @@ namespace x11
          // }
 
 
-         // void display::message_loop()
-         // {
-         //
-         //    while (::task_get_run())
-         //    {
-         //
-         //       message_loop_step();
-         //
-         //    }
-         //
-         // }
-
-         //
-         // bool display::message_loop_step()
-         // {
-         //
-         //    struct pollfd fds[1];
-         //
-         //    // while (wl_display_prepare_read(m_pwldisplay) != 0)
-         //    //    wl_display_dispatch_pending(m_pwldisplay);
-         //    // wl_display_flush(m_pwldisplay);
-         //    //
-         //    // /* watch stdin for input */
-         //    // fds[0].fd = wl_display_get_fd(m_pwldisplay);
-         //    // fds[0].happenings = POLLIN;
-         //    //
-         //    // int ret = poll(fds, 1, 5);
-         //    // if (ret <= 0)
-         //    // {
-         //    //    wl_display_cancel_read(m_pwldisplay);
-         //    // }
-         //    // else
-         //    // {
-         //    //    wl_display_read_events(m_pwldisplay);
-         //    //
-         //    // }
-         //    //
-         //    // wl_display_dispatch_pending(m_pwldisplay);
-         //    // while(true)
-         //    // {
-         //    //
-         //    //    if(!display_posted_routine_step())
-         //    //    {
-         //    //
-         //    //       break;
-         //    //
-         //    //    }
-         //    //
-         //    // }
-         //
-         //    return true;
-         //
-         // }
-
-
-         // // todo color:// gradient:// if the operating system doesn't have this, create the file, please.
-         // void display::_set_wallpaper(::collection::index iMonitorIndex, const ::scoped_string & scopedstrWallpaper)
-         // {
-         //
-         //
-         // }
-
-
-
    //       void display::_set_wallpaper(::collection::index iMonitorIndex, const ::scoped_string & scopedstrWallpaper)
    // {
    //
@@ -2922,7 +2811,7 @@ namespace x11
          // display * display::get(::particle * pparticle, bool bBranch, ::GdkDisplay * pgdkdisplay)
          // {
          //
-         //    ::pointer < ::gtk4::acme::windowing::windowing > pwindowing = ::system()->acme_windowing();
+         //    ::pointer < ::x11::acme::windowing::windowing > pwindowing = ::system()->acme_windowing();
          //
          //    return ::system()->acme_windowing()->_defer_get_display(bBranch, pgdkdisplay);
          //
@@ -3348,6 +3237,12 @@ namespace x11
          bool display::__message_loop_step()
          {
 
+            auto psystem = system();
+
+            auto pwindowing = psystem->acme_windowing();
+
+            pwindowing->task_iteration();
+
             if(::is_null(m_pDisplay))
             {
 
@@ -3571,37 +3466,25 @@ namespace x11
          // }
 
 
+         void display::__on_x11_open_display()
+         {
+
+
+
+         }
+
+
          void display::__message_loop()
          {
 
-            ::task_set_name("x11:display:run");
 
-            information() << "x11::display::run";
-
-            set_main_user_thread();
+            //m_pmanualresethappeningDisplayOpen->set_happening();
 
 
-            m_pDisplay = XOpenDisplay(nullptr);
-            if (m_pDisplay == NULL)
-            {
-               error() << "Can't connect to display";
-               throw ::exception(error_failed);
-            }
-            information() << "connected to display\n";
-            m_bOwnDisplay = true;
-            //wl_display_disconnect(display);
-            //informationf("disconnected from display\n");
+            system()->acme_windowing()->windowing_application_on_start();
+            //system()->defer_post_application_start_file_open_request();
+            //system()->post_application_started();
 
-
-            m_windowRoot = DefaultRootWindow(m_pDisplay);
-
-
-
-            _enumerate_monitors();
-
-
-
-            m_pmanualresethappeningDisplayOpen->set_happening();
 
             ____message_loop();
 
@@ -3697,17 +3580,6 @@ namespace x11
    int _c_XErrorHandler(Display * display, XErrorEvent * perrorevent);
 
 
-   // void process_messages()
-   // {
-   //
-   //    if(::x11::acme::windowing::display::g_p)
-   //    {
-   //
-   //       ::x11::acme::windowing::display::g_p->message_loop_step();
-   //
-   //    }
-   //
-   // }
 } // namespace x11
 
 

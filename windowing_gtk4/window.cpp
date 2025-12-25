@@ -1447,6 +1447,9 @@ on_text(scopedstr, scopedstr.size());
    }
 
 
+
+
+
    void window::destroy()
    {
 
