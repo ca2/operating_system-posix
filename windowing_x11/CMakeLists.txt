@@ -36,6 +36,7 @@ list(APPEND library_source
 list(APPEND library_references
         acme
         acme_posix
+   acme_windowing_x11
         apex
         apex_posix
         aqua
@@ -43,8 +44,8 @@ list(APPEND library_references
         aura_posix
         aura_${OPERATING_SYSTEM_NAME}
         windowing_posix
-        windowing_system_x11
-        nano_user_x11
+        #windowing_system_x11
+        #nano_user_x11
 )
 
 list(APPEND static_library_references ${library_references})

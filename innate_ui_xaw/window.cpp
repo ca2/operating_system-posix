@@ -13,7 +13,7 @@
 #include "acme/platform/node.h"
 
 
-namespace innate_ui_gtk3
+namespace innate_ui_xaw
 {
 
    
@@ -373,7 +373,7 @@ namespace innate_ui_gtk3
 
             auto p = point;
 
-            ::pointer < ::innate_ui_gtk3::dialog > pdialog = m_pwindowParent;
+            ::pointer < ::innate_ui_xaw::dialog > pdialog = m_pwindowParent;
 
             if(pdialog)
             {
@@ -382,7 +382,7 @@ namespace innate_ui_gtk3
 
                gtk_fixed_put(GTK_FIXED(fixed), m_pgtkwidget, point.x, point.y);
 
-               //::pointer < ::innate_ui_gtk3::dialog > pdialog = innate_ui()->m_windowmap[pwidgetParentWindow];
+               //::pointer < ::innate_ui_xaw::dialog > pdialog = innate_ui()->m_windowmap[pwidgetParentWindow];
                //pdialog
 
             }
@@ -501,10 +501,10 @@ namespace innate_ui_gtk3
 
 
 
-   ::innate_ui_gtk3::innate_ui * window::innate_ui()
+   ::innate_ui_xaw::innate_ui * window::innate_ui()
    {
 
-      return dynamic_cast <::innate_ui_gtk3::innate_ui *> (::innate_ui::window::innate_ui());
+      return dynamic_cast <::innate_ui_xaw::innate_ui *> (::innate_ui::window::innate_ui());
 
    }
 
@@ -517,7 +517,7 @@ namespace innate_ui_gtk3
    }
 
 
-} // namespace innate_ui_gtk3
+} // namespace innate_ui_xaw
 
 
 

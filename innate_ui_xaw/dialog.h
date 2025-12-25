@@ -6,12 +6,12 @@
 #include "window.h"
 
 
-namespace innate_ui_gtk3
+namespace innate_ui_xaw
 {
 
 
-   class CLASS_DECL_INNATE_UI_GTK3 dialog :
-      virtual public ::innate_ui_gtk3::window,
+   class CLASS_DECL_INNATE_UI_XAW dialog :
+      virtual public ::innate_ui_xaw::window,
       virtual public ::innate_ui::dialog
    {
    public:
@@ -28,7 +28,7 @@ void create() override;
    };
 
 
-} // namespace innate_ui_gtk3
+} // namespace innate_ui_xaw
 
 
 

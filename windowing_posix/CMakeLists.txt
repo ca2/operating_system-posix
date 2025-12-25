@@ -16,8 +16,8 @@ list(APPEND library_source
         window.h
         windowing.cpp
         windowing.h
-        #xim_keyboard.cpp
-        #xim_keyboard.h
+        xim_keyboard.cpp
+        xim_keyboard.h
 
 )
 

@@ -4,7 +4,7 @@
 #include "still.h"
 
 
-namespace innate_ui_gtk3
+namespace innate_ui_xaw
 {
 
 
@@ -81,7 +81,7 @@ namespace innate_ui_gtk3
    void still::set_icon(::innate_ui::icon * piconParam)
    {
 
-      ::pointer <::innate_ui_gtk3::icon > picon = piconParam;
+      ::pointer <::innate_ui_xaw::icon > picon = piconParam;
 
       user_send([this, picon]()
       {
@@ -94,4 +94,4 @@ namespace innate_ui_gtk3
    }
 
 
-} // namespace innate_ui_gtk3
+} // namespace innate_ui_xaw

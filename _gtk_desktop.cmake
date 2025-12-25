@@ -89,7 +89,7 @@ if(${GTK_RELEASE_MAJOR} GREATER_EQUAL 4)
 
    set(HAS_GTK4 TRUE)
    set(GTK_RELEASE_MAJOR "4")
-   set(APPINDICATOR_PKG_MODULE "")
+   #set(APPINDICATOR_PKG_MODULE "")
    
    add_compile_definitions(HAS_GTK4)
 

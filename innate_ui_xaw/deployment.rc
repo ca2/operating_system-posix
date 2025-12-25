@@ -42,7 +42,7 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
 			VALUE "CompanyName", "operating_system-posix"
-			VALUE "FileDescription", "operating_system_posix_innate_ui_gtk3"
+			VALUE "FileDescription", "operating_system_posix_innate_ui_xaw"
             VALUE "FileVersion", "2025.1030.0347.10"
             VALUE "LegalCopyright", "Copyright (C) 2025-10-30-03-47-10"
             VALUE "ProductVersion", "2025.1030.0347.10"

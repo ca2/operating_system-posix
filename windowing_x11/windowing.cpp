@@ -531,6 +531,15 @@ namespace windowing_x11
 
    }
 
+
+   void windowing::_on_wm_state_change(::windowing::window* pwindow)
+   {
+
+   }
+
+
+
+
 } // namespace windowing
 
 

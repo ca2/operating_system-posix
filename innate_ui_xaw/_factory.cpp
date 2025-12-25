@@ -8,21 +8,21 @@
 
 
 
-IMPLEMENT_FACTORY(innate_ui_gtk3)
+IMPLEMENT_FACTORY(innate_ui_xaw)
 {
 
-   pfactory->add_factory_item < ::innate_ui_gtk3::window, ::innate_ui::window >();
-   pfactory->add_factory_item < ::innate_ui_gtk3::dialog, ::innate_ui::dialog >();
+   pfactory->add_factory_item < ::innate_ui_xaw::window, ::innate_ui::window >();
+   pfactory->add_factory_item < ::innate_ui_xaw::dialog, ::innate_ui::dialog >();
    
    
-   pfactory->add_factory_item < ::innate_ui_gtk3::button, ::innate_ui::button >();
-   pfactory->add_factory_item < ::innate_ui_gtk3::still, ::innate_ui::still >();
+   pfactory->add_factory_item < ::innate_ui_xaw::button, ::innate_ui::button >();
+   pfactory->add_factory_item < ::innate_ui_xaw::still, ::innate_ui::still >();
 
 
-   pfactory->add_factory_item < ::innate_ui_gtk3::icon, ::innate_ui::icon >();
+   pfactory->add_factory_item < ::innate_ui_xaw::icon, ::innate_ui::icon >();
 
 
-   pfactory->add_factory_item < ::innate_ui_gtk3::innate_ui, ::innate_ui::innate_ui >();
+   pfactory->add_factory_item < ::innate_ui_xaw::innate_ui, ::innate_ui::innate_ui >();
 
 }
 

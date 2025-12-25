@@ -4,7 +4,7 @@
 #include "icon.h"
 
 
-namespace innate_ui_gtk3
+namespace innate_ui_xaw
 {
 
 
@@ -18,21 +18,21 @@ namespace innate_ui_gtk3
 
    }
 
-
+   // Callback function to handle the button click happening
+   void on_button_clicked(GtkWidget *widget, gpointer data)
+   {
+      auto p = (button *) data;
+      p->call_on_click();
+   };
    void button::set_callback_on_click(const ::procedure & callbackOnClickParam)
    {
 
       ::innate_ui::button::set_callback_on_click(callbackOnClickParam);
 
-      // Callback function to handle the button click happening
-      auto on_button_clicked = [](GtkWidget *widget, gpointer data)->void
-      {
-         auto p = (button *) data;
-         p->call_on_click();
-      };
 
 
-      g_signal_connect(m_pgtkwidget, "clicked", G_HANDLER(on_button_clicked), this);
+
+      g_signal_connect(m_pgtkwidget, "clicked", (GCallback) on_button_clicked, this);
 
 
    }
@@ -92,4 +92,4 @@ namespace innate_ui_gtk3
    }
 
 
-} // namespace innate_ui_gtk3
+} // namespace innate_ui_xaw

@@ -8,7 +8,7 @@
 #include "acme/parallelization/manual_reset_happening.h"
 
 
-namespace innate_ui_gtk3
+namespace innate_ui_xaw
 {
    
 
@@ -46,7 +46,7 @@ namespace innate_ui_gtk3
    void dialog::create()
    {
 
-      ::innate_ui_gtk3::window::create();
+      ::innate_ui_xaw::window::create();
 
    }
 
@@ -75,4 +75,4 @@ namespace innate_ui_gtk3
    }
 
 
-} // namespace innate_ui_gtk3
+} // namespace innate_ui_xaw

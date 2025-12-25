@@ -137,6 +137,13 @@ namespace node_x11
    }
 
 
+   void node::initialize_window_manager()
+   {
+
+
+   }
+
+
    void node::on_start_system()
    {
 

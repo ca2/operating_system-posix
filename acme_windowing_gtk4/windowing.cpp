@@ -53,7 +53,7 @@ int is_dbus_session_running(void)
 }
 
 
-CLASS_DECL_ACME void set_main_thread();
+CLASS_DECL_ACME void set_main_user_thread();
 //extern int __argc;
 //extern char ** __argv;
 //#include "acme/graphics/image/pixmap.h"
@@ -572,7 +572,7 @@ gtk_init();
             
             information() << "application id: " << strId;
 
-            ::set_main_thread();
+            ::set_main_user_thread();
 
             //if (!g_dbus_is_address("unix:path=/tmp")) // or more properly:
             int iExtraFlags = 0;

@@ -12,7 +12,7 @@ namespace x11
 {
 
 
-   class CLASS_DECL_AURA display_lock
+   class CLASS_DECL_ACME_WINDOWING_X11 display_lock
    {
    public:
 

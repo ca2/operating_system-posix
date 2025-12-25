@@ -28,8 +28,8 @@ list(APPEND library_source
    #monitor.h
    node.cpp
    node.h
-   #node_file_dialog.cpp
-   #node_folder_dialog.cpp
+   node_file_dialog.cpp
+   node_folder_dialog.cpp
    #notify_icon.cpp
    #notify_icon.h
    #windowing.cpp
@@ -50,15 +50,14 @@ endif ()
 list(APPEND library_references
    acme
    acme_posix
-   acme_windowing_g
-   acme_windowing_gtk3
+   acme_windowing_x11
    apex
    apex_posix
    aqua
    aura
    aura_posix
    windowing_posix
-   windowing_gtk3
+   windowing_x11
 )
 
 
@@ -106,8 +105,13 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    #   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
    #endif()
    pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
-   
-   message(STATUS "APPINDICATOR_PKG_MODULE is ${APPINDICATOR_PKG_MODULE}")
+
+   if ("${APPINDICATOR_PKG_MODULE}" STREQUAL "")
+      message(FATAL_ERROR "node_x11 APPINDICATOR_PKG_MODULE is (Empty)")
+   else()
+      message(STATUS "node_x11 APPINDICATOR_PKG_MODULE is ${APPINDICATOR_PKG_MODULE}")
+   endif()
+
 
 
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)

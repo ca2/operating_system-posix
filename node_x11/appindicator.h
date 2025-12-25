@@ -14,7 +14,7 @@
 #endif
 
 
-namespace node_gtk3
+namespace node_x11
 {
 
 
@@ -53,7 +53,7 @@ namespace node_gtk3
    };
 
 
-} // namespace node_gtk3
+} // namespace node_x11
 
 
 

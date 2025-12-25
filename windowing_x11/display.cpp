@@ -1048,6 +1048,33 @@ namespace windowing_x11
    }
 
 
+   void display::destroy()
+   {
+
+
+   }
+
+
+
+
+   ::int_size display::get_main_screen_size()
+   {
+
+      return ::x11::acme::windowing::display::get_main_screen_size();
+
+   }
+
+
+   e_status display::erase_window(::windowing::window* pwindow)
+   {
+
+      //::x11::acme::windowing::display::erase_listener(pwindow);
+
+      return success;
+
+   }
+
+
 } // namespace windowing_x11
 
 

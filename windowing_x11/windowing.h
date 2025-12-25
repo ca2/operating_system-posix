@@ -65,8 +65,8 @@ namespace windowing_x11
       //virtual void post_ui_message(::message::message * pmessage);
 
 
-      void _send(const ::procedure & procedure) override;
-      void _post(const ::procedure & procedure) override;
+      //void _send(const ::procedure & procedure) override;
+      //void _post(const ::procedure & procedure) override;
 
       void _user_send(const ::procedure &procedure) override;
       void _user_post(const ::procedure &procedure) override;

@@ -117,6 +117,14 @@ namespace windowing_x11
    }
 
 
+   void window::on_initialize_particle()
+   {
+      ::windowing_posix::window::on_initialize_particle();
+      ::x11::acme::windowing::window::on_initialize_particle();
+
+   }
+
+
    //void window::create_window(::windowing::window * pimpl)
    void window::create_window()
    {
@@ -1140,6 +1148,27 @@ namespace windowing_x11
       ::windowing::window::on_finished_window_creation();
 
    }
+
+
+
+   bool window::is_window_active()
+   {
+
+      return ::x11::acme::windowing::window::is_window_active();
+
+   }
+
+
+   bool window::is_child(::windowing::window* pwindow)
+   {
+
+      //::x11::acme::windowing::display::erase_listener(pwindow);
+
+      return false;
+
+   }
+
+
 
 
    void window::set_wm_class(const_char_pointer psz)
@@ -3185,6 +3214,12 @@ namespace windowing_x11
                                                 });
 
       return ::success;
+
+   }
+
+
+   void window::release_mouse_capture()
+   {
 
    }
 

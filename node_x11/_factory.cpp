@@ -36,7 +36,7 @@
 //__FACTORY_EXPORT void windowing_gtk3_factory(::factory::factory * pfactory);
 
 
-__FACTORY_EXPORT void node_gtk3_factory(::factory::factory * pfactory)
+__FACTORY_EXPORT void node_x11_factory(::factory::factory * pfactory)
 {
 
    //::node_gtk3::initialize_gtk();

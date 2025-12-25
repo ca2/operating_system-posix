@@ -5,11 +5,11 @@
 #include "apex/innate_ui/icon.h"
 #include <gdk/gdk.h>
 
-namespace innate_ui_gtk3
+namespace innate_ui_xaw
 {
 
 
-   class CLASS_DECL_INNATE_UI_GTK3 icon :
+   class CLASS_DECL_INNATE_UI_XAW icon :
       virtual public ::innate_ui::icon
    {
    public:
@@ -26,7 +26,7 @@ namespace innate_ui_gtk3
    };
 
 
-} // namespace innate_ui_gtk3
+} // namespace innate_ui_xaw
 
 
 

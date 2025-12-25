@@ -10,7 +10,7 @@
 #include "acme/windowing/windowing.h"
 
 
-namespace innate_ui_gtk3
+namespace innate_ui_xaw
 {
 
 

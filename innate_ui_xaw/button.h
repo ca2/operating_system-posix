@@ -6,12 +6,12 @@
 #include "window.h"
 #include <gtk/gtk.h>
 
-namespace innate_ui_gtk3
+namespace innate_ui_xaw
 {
 
 
-   class CLASS_DECL_INNATE_UI_GTK3 button :
-    virtual public ::innate_ui_gtk3::window,
+   class CLASS_DECL_INNATE_UI_XAW button :
+    virtual public ::innate_ui_xaw::window,
       virtual public ::innate_ui::button
    {
    public:
