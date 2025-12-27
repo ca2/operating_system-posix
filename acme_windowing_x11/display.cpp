@@ -124,17 +124,24 @@ namespace x11
          {
 
             //    display::open();
-            
-            information() << "windowing_x11::display::open_display";
 
-            if (m_ptaskMessageLoop)
+            if (is_display_opened())
             {
-
 
                return;
 
-
             }
+            
+            information() << "windowing_x11::display::open_display";
+
+            // if (m_ptaskMessageLoop)
+            // {
+            //
+            //
+            //    return;
+            //
+            //
+            // }
 
             add_listener(this);
 
@@ -143,7 +150,6 @@ namespace x11
             ::cast < ::x11::acme::windowing::windowing > px11windowing = psystem->acme_windowing();
 
             add_listener(px11windowing);
-
 
             ::task_set_name("x11:display:run");
 
@@ -3567,6 +3573,21 @@ namespace x11
          // }
          //
 
+         void display::get_os_display_handle(void *p, int iSize)
+         {
+
+            if (iSize != sizeof(::Display *))
+            {
+
+               throw ::exception(error_wrong_state);
+
+            }
+
+            auto ppDisplay = (::Display **) p;
+
+            *ppDisplay = m_pDisplay;
+
+         }
 
       } // namespace windowing
 

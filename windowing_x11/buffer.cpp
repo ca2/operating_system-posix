@@ -9,6 +9,7 @@
 #include "windowing.h"
 #include "acme/parallelization/mutex.h"
 #include "acme/parallelization/synchronous_lock.h"
+#include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
 #include "aura/graphics/image/image.h"
@@ -143,6 +144,88 @@ namespace windowing_x11
 
    bool buffer::update_buffer(::graphics::buffer_item * pbufferitem)
    {
+
+      if (application()->m_gpu.m_bUseSwapChainWindow)
+      {
+
+               if (::is_null(m_pwindow))
+      {
+
+         return false;
+
+      }
+
+
+
+      ::image32_t * pimage32 = nullptr;
+
+      int iScan = -1;
+
+      ::int_size sizeAllocate;
+
+      auto pwindowing = m_pwindow->user_interaction()->windowing();
+
+      auto pdisplay = pwindowing->display();
+
+      auto rectangleUnion = pdisplay->get_monitor_union_rectangle();
+
+      auto sizeLargeInternalBitmap = rectangleUnion.size();
+
+      if (pbufferitem->m_sizeBufferItemDraw.cx > sizeLargeInternalBitmap.cx)
+      {
+
+         sizeLargeInternalBitmap.cx = pbufferitem->m_sizeBufferItemDraw.cx;
+
+      }
+
+      if (pbufferitem->m_sizeBufferItemDraw.cy > sizeLargeInternalBitmap.cy)
+      {
+
+         sizeLargeInternalBitmap.cy = pbufferitem->m_sizeBufferItemDraw.cy;
+
+      }
+
+
+         if (!pbufferitem->m_pgraphics)
+         {
+
+            øconstruct(pbufferitem->m_pgraphics);
+
+            auto puserinteraction = dynamic_cast < ::user::interaction * >( m_pwindow->m_pacmeuserinteraction.m_p);
+
+            //if (m_papplication->m_gpu.m_bUseSwapChainWindow)
+            //{
+
+            //   pbufferitem->m_pgraphics->create_offscreen_graphics_for_swap_chain_blitting(pbufferitem->m_sizeBufferItemDraw);
+
+            //}
+            //else
+            //{
+
+            pbufferitem->m_pgraphics->create_for_window_draw2d(puserinteraction, pbufferitem->m_sizeBufferItemDraw);
+
+               //pbufferitem->m_pgraphics->create_memory_graphics(pbufferitem->m_sizeBufferItemDraw);
+
+//            }
+
+            //pbufferitem->m_pgraphics->set_hint_window_output();
+
+            //pbufferitem->m_pgraphics->create_window_graphics(m_pwindow);
+
+         }
+         else
+         {
+
+            pbufferitem->m_pgraphics->defer_set_size(pbufferitem->m_sizeBufferItemDraw);
+
+         }
+
+
+
+
+         return true;
+
+      }
 
       // debug() << "x11 buffer::update_buffer";
       //

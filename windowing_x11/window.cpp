@@ -25,6 +25,7 @@
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
 #include "acme_windowing_x11/display_lock.h"
+#include "apex/gpu/approach.h"
 
 
 #include <inttypes.h>
@@ -1028,6 +1029,19 @@ namespace windowing_x11
       m_atomaNetWmState.clear();
 
       ::x11::acme::windowing::window::_create_window();
+
+      if (puserinteraction->is_graphical())
+      {
+
+         if (m_papplication->m_bGpu)
+         {
+            auto pgpuapproach = m_papplication->get_gpu_approach();
+            pgpuapproach->on_create_window(this);
+         }
+         //draw2d()->on_create_window(this);
+
+      }
+
 
       /* Create an input method context for pre-edit handling */
       //m_pimcontext = gtk_im_multicontext_new();

@@ -65,7 +65,7 @@ namespace x11
             pointer_array < happening_listener >         m_happeninglistenera;
 
 
-            ::task_pointer                               m_ptaskMessageLoop;
+            //::task_pointer                               m_ptaskMessageLoop;
 
             //::pointer < ::manual_reset_happening >       m_pmanualresethappeningDisplayOpen;
 
@@ -177,6 +177,10 @@ namespace x11
 
             virtual Window window_from_name_search(Display *display, Window current, char const *needle, int iOffset, int depth = -1);
             virtual Window window_from_name(char const *name, int iOffset, int depth);
+
+
+            void get_os_display_handle(void *p, int iSize) override;
+
 
          };
 
