@@ -496,9 +496,9 @@ namespace windowing_x11
 
       //::x11::display_lock displayLock(x11_window()->x11_display()->__x11_display());
 
-      ::x11::display_lock displayLock(x11_window()->x11_display()->__x11_display());
+       ::x11::display_lock displayLock(x11_window()->x11_display()->__x11_display());
 
-      _update_screen_lesser_lock();
+       _update_screen_lesser_lock();
 
    }
 

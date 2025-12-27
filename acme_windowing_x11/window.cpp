@@ -116,6 +116,14 @@ namespace x11
          }
 
 
+         long window::__x11_Window()
+         {
+
+
+            return __x11_window();
+
+         }
+
 
          ::x11::acme::windowing::display * window::x11_display()
          {
@@ -207,17 +215,38 @@ namespace x11
 
             ødefer_construct_new(m_px11data);
 
-            if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_visualinfo))
+            if (m_lX11NativeVisualId >= 0)
             {
 
-               m_pvisual = m_visualinfo.visual;
 
+               XVisualInfo viTemplate = {};
+               viTemplate.visualid = m_lX11NativeVisualId;
+
+               int num;
+               XVisualInfo* pvisualinfo = XGetVisualInfo(
+                   display,
+                   VisualIDMask,
+                   &viTemplate,
+                   &num
+               );
+
+               m_visualinfo = *pvisualinfo;
+               m_pvisual = m_visualinfo.visual;
             }
             else
             {
+               if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_visualinfo))
+               {
 
-               zero(m_visualinfo);
+                  m_pvisual = m_visualinfo.visual;
 
+               }
+               else
+               {
+
+                  zero(m_visualinfo);
+
+               }
             }
 
             m_iDepth = m_visualinfo.depth;
@@ -232,6 +261,8 @@ namespace x11
                XFreeColormap(display, m_colormap);
 
             }
+
+            printf("depth=%d\n", m_visualinfo.depth);
 
             m_colormap = XCreateColormap(display, m_windowRoot, m_pvisual, AllocNone);
 

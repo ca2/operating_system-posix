@@ -1028,6 +1028,21 @@ namespace windowing_x11
 
       m_atomaNetWmState.clear();
 
+
+      if (puserinteraction->is_graphical())
+      {
+
+         if (m_papplication->m_bGpu)
+         {
+
+            auto pgpuapproach = m_papplication->get_gpu_approach();
+            pgpuapproach->on_before_create_window(this);
+
+         }
+
+
+      }
+
       ::x11::acme::windowing::window::_create_window();
 
       if (puserinteraction->is_graphical())
@@ -1076,7 +1091,19 @@ namespace windowing_x11
                      }
 
 
+      Atom opaque = XInternAtom(__x11_display(), "_NET_WM_OPAQUE_REGION", False);
 
+      /* Setting property to empty removes opacity optimization */
+      XChangeProperty(
+          __x11_display(),
+          __x11_window(),
+          opaque,
+          XA_CARDINAL,
+          32,
+          PropModeReplace,
+          NULL,
+          0
+      );
                      // if(::is_null(puserinteraction->m_pwindow))
                      // {
 
@@ -5855,6 +5882,15 @@ auto pwindowing = system()->acme_windowing();
 //   }
 
 
+   long window::__x11_Window()
+   {
+
+      return ::x11::acme::windowing::window::__x11_Window();
+
+
+   }
+
+
    void window::__update_graphics_buffer()
    {
 
@@ -5898,29 +5934,32 @@ auto pwindowing = system()->acme_windowing();
 //      m_interlockedPostedScreenUpdate++;
 
       //windowing()->windowing_post([this]()
-      //                          {
-      user_post([this]()
-      {
+      //
+      //
+                               if(!application()->m_gpu.m_bUseSwapChainWindow)
+                               {
+                                  user_post([this]()
+                                  {
 
-         //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+                                     //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-         ::x11::display_lock displayLock(x11_display()->__x11_display());
+                                     ::x11::display_lock displayLock(x11_display()->__x11_display());
 
-         //auto pimpl = m_pwindow;
+                                     //auto pimpl = m_pwindow;
 
-         configure_window_unlocked();
+                                     configure_window_unlocked();
 
-         ::pointer<buffer> pbuffer = m_pgraphicsgraphics;
+                                     ::pointer<buffer> pbuffer = m_pgraphicsgraphics;
 
-         if(pbuffer)
-         {
+                                     if(pbuffer)
+                                     {
 
-            pbuffer->_update_screen_lesser_lock();
+                                        pbuffer->_update_screen_lesser_lock();
 
-         }
+                                     }
 
-      });
-
+                                  });
+                               }
       //auto pimpl = m_pwindow;
 
       m_pgraphicsthread->on_graphics_thread_iteration_end();

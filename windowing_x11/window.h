@@ -107,6 +107,7 @@ void on_initialize_particle() override;
       static Atom get_window_long_atom(int nIndex);
 
 
+
       inline int net_wm_state(::x11::enum_atom eatom) const
       {
 
@@ -332,6 +333,9 @@ void on_initialize_particle() override;
       //virtual void wm_state_hidden( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       //virtual void wm_state_hidden_raw( WINDOWING_X11_WINDOW_MEMBER bool bSet);
       virtual ::e_status mq_remove_window_from_all_queues( WINDOWING_X11_WINDOW_MEMBER );
+
+
+      long __x11_Window() override;
 
       void __update_graphics_buffer() override;
       //void _window_request_presentation_locked() override;

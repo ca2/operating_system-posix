@@ -90,6 +90,7 @@ namespace x11
 
             virtual Display * __x11_display();
             virtual Window __x11_window();
+            long __x11_Window() override;
             //virtual int __x11_screen();
 
 
