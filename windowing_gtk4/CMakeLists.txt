@@ -66,12 +66,6 @@ list(APPEND library_source
    window.h
    windowing.cpp
    windowing.h
-   #windowing_wm.cpp
-   #windowing_gtk4.cpp
-
-   #wayland_windowing.cpp
-   #xfree86_key.h
-   #xi.cpp
 )
 
 if (${HAS_WAYLAND})
@@ -87,18 +81,13 @@ list(APPEND library_references
    acme_posix
    acme_windowing_g
    acme_windowing_gtk4
-   #nano_user_x11
-   #nano_user_gtk4
    apex
    apex_posix
    innate_ui_gtk4
    aqua
    aura
    aura_posix
-   #aura_${OPERATING_SYSTEM_NAME}
    windowing_posix
-   # windowing_system_wayland
-   #windowing_system_x11
 
 )
 
@@ -140,6 +129,12 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG xkbcommon x11 xrender xi xext libstartupxxx-notification-1.0 wayland-client wayland-server wayland-cursor)
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk4 ${WAYLAND_PKG_MODULES} ${X11_PKG_MODULES} ${APPINDICATOR_PKG_MODULE})
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4 ${WAYLAND_PKG_MODULES} ${X11_PKG_MODULES} ${APPINDICATOR_PKG_MODULE})
+
+
+   if(NOT ${HAS_GTK4})
+      message(FATAL_ERROR "This is currently expected to build only at GTK4 system.")
+   endif()
+
    pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4 ${APPINDICATOR_PKG_MODULE})
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk4 ${APPINDICATOR_PKG_MODULE})
 

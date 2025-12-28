@@ -6,12 +6,10 @@ list(APPEND library_source
         _.cpp
         _.h
         _constant.h
-        #desktop_environment.cpp
-        #desktop_environment.h
         framework.cpp
         framework.h
-        startup-notification.cpp
-        startup-notification.h
+        #startup-notification.cpp
+        #startup-notification.h
         window.cpp
         window.h
         windowing.cpp
@@ -68,14 +66,11 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
    #set_target_properties(${PROJECT_NAME} PROPERTIES CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-
-
-
-
    list(APPEND extra_pkg_modules
-      libstartup-notification-1.0
       xkbcommon
    )
+
+
 
    if (${WITH_XCB})
 

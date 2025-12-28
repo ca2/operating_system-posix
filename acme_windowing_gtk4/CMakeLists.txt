@@ -69,7 +69,13 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
 
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG cairo xkbcommon wayland-client wayland-server wayland-cursor)
-   
+
+
+   if(NOT ${HAS_GTK4})
+      message(FATAL_ERROR "This is currently expected to build only at GTK4 system.")
+   endif()
+
+
    if(${OPENBSD})
 	   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4 x11 egl)
 	   list(APPEND library_references GL)

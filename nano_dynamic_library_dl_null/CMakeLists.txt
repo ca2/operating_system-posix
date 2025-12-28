@@ -42,7 +42,7 @@ if(${WIN32})
    target_link_options(static_${PROJECT_NAME} PRIVATE "/IMPLIB:${LIBRARY_OUTPUT_PATH}/${PROJECT_NAME}.lib")
    target_link_options(static_${PROJECT_NAME} PRIVATE "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.def")
    target_link_libraries(static_${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
-elseif (LINUX)
+elseif (${LINUX})
 
    if (NOT ${SUSE})
 

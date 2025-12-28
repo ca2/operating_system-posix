@@ -3,6 +3,8 @@ project(windowing_gtk3 CXX)
 
 
 list(APPEND library_source
+   ../_startup_notification/_startup_notification.cpp
+   ../_startup_notification/_startup_notification.h
    _.cpp
    _.h
    _factory.cpp
@@ -88,7 +90,12 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG xkbcommon x11 xrender xi xext libxxxstartupxxx-notification-1.0 wayland-client wayland-server wayland-cursor)
-   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
+   list(APPEND extra_pkg_modules
+      libstartup-notification-1.0
+   )
+
+   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE} ${extra_pkg_modules})
+
 
    target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
    target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})

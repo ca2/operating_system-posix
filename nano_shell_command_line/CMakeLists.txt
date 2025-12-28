@@ -39,7 +39,7 @@ if(${WIN32})
    target_link_options(static_${PROJECT_NAME}} PRIVATE "/IMPLIB:${LIBRARY_OUTPUT_PATH}/static_${PROJECT_NAME}}.lib")
    target_link_options(static_${PROJECT_NAME}} PRIVATE "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/static_${PROJECT_NAME}}.def")
    target_link_libraries(static_${PROJECT_NAME}} PRIVATE acme apex aqua aura Gdiplus)
-elseif (LINUX)
+elseif (${LINUX})
 
    message("PKGCONFIG_LIBRARIES is " ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
 

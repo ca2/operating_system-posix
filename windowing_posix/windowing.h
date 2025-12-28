@@ -24,7 +24,7 @@ namespace windowing_posix
       ~windowing() override;
 
 
-      void _libsn_start_context() override;
+      //void _libsn_start_context() override;
 
 
       //void _defer_position_and_size_message(oswindow oswindow);
