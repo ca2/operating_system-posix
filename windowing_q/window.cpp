@@ -1507,8 +1507,8 @@ namespace windowing_q
 
 #endif
 
-         s.setWidth(p.x-m_pqwidget->pos().x);
-         s.setHeight(p.y-m_pqwidget->pos().y);
+         s.setWidth(p.x()-m_pqwidget->pos().x());
+         s.setHeight(p.y()-m_pqwidget->pos().y());
 
          m_pqwidget->resize(s);
          return;
@@ -1538,11 +1538,11 @@ namespace windowing_q
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
-         m_pointCursor2.x = pevent->globalPosition().x;
-         m_pointCursor2.y = pevent->globalPosition().y;
+         m_pointCursor2.x = pevent->globalPosition().x();
+         m_pointCursor2.y = pevent->globalPosition().y();
 
-         pmouse->m_pointHost.x = pevent->position().x;
-         pmouse->m_pointHost.y = pevent->position().y;
+         pmouse->m_pointHost.x = pevent->position().x();
+         pmouse->m_pointHost.y = pevent->position().y();
 
 #else
 
@@ -1589,11 +1589,11 @@ namespace windowing_q
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 8)
 
-      m_pointCursor2.x = pevent->globalPosition().x;
-      m_pointCursor2.y = pevent->globalPosition().y;
+      m_pointCursor2.x = pevent->globalPosition().x();
+      m_pointCursor2.y = pevent->globalPosition().y();
 
-      pmouse->m_pointHost.x = pevent->position().x;
-      pmouse->m_pointHost.y = pevent->position().y;
+      pmouse->m_pointHost.x = pevent->position().x();
+      pmouse->m_pointHost.y = pevent->position().y();
 
 #else
 

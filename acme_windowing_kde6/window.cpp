@@ -1343,11 +1343,11 @@ namespace kde6
 //
 //               pmouse->m_iTimestamp = pevent->timestamp();
 //
-//               m_pointCursor2.x = pevent->globalPosition().x;
-//               m_pointCursor2.y = pevent->globalPosition().y;
+//               m_pointCursor2.x = pevent->globalPosition().x();
+//               m_pointCursor2.y = pevent->globalPosition().y();
 //
-//               pmouse->m_pointHost.x = pevent->position().x;
-//               pmouse->m_pointHost.y = pevent->position().y;
+//               pmouse->m_pointHost.x = pevent->position().x();
+//               pmouse->m_pointHost.y = pevent->position().y();
 //
 //               pmouse->m_pointAbsolute = m_pointCursor2;
 //
@@ -1448,11 +1448,11 @@ namespace kde6
 //                  //
 //                  // pmouse->m_pwindow = this;
 //
-//                  m_pointCursor2.x = pevent->globalPosition().x;
-//                  m_pointCursor2.y = pevent->globalPosition().y;
+//                  m_pointCursor2.x = pevent->globalPosition().x();
+//                  m_pointCursor2.y = pevent->globalPosition().y();
 //
-//                  pmouse->m_pointHost.x = pevent->position().x;
-//                  pmouse->m_pointHost.y = pevent->position().y;
+//                  pmouse->m_pointHost.x = pevent->position().x();
+//                  pmouse->m_pointHost.y = pevent->position().y();
 //
 //                  pmouse->m_pointAbsolute = m_pointCursor2;
 //
@@ -1748,11 +1748,11 @@ namespace kde6
 //               //
 //               // }
 //
-//               m_pointCursor2.x = pevent->globalPosition().x;
-//               m_pointCursor2.y = pevent->globalPosition().y;
+//               m_pointCursor2.x = pevent->globalPosition().x();
+//               m_pointCursor2.y = pevent->globalPosition().y();
 //
-//               pmouse->m_pointHost.x = pevent->position().x;
-//               pmouse->m_pointHost.y = pevent->position().y;
+//               pmouse->m_pointHost.x = pevent->position().x();
+//               pmouse->m_pointHost.y = pevent->position().y();
 //
 //               pmouse->m_pointAbsolute = m_pointCursor2;
 //

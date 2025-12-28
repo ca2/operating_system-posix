@@ -1233,12 +1233,12 @@ namespace windowing_lxq2
 //             pmouse->m_emessage = e_message_middle_button_down;
 //          }
 //
-//          m_pointCursor2.x = pevent->globalPosition().x;
-//          m_pointCursor2.y = pevent->globalPosition().y;
+//          m_pointCursor2.x = pevent->globalPosition().x();
+//          m_pointCursor2.y = pevent->globalPosition().y();
 //
 //
-//          pmouse->m_pointHost.x = pevent->position().x;
-//          pmouse->m_pointHost.y = pevent->position().y;
+//          pmouse->m_pointHost.x = pevent->position().x();
+//          pmouse->m_pointHost.y = pevent->position().y();
 //
 //          pmouse->m_pointAbsolute = m_pointCursor2;
 //
@@ -1309,12 +1309,12 @@ namespace windowing_lxq2
 //                pmouse->m_emessage = e_message_middle_button_up;
 //             }
 //
-//             m_pointCursor2.x = pevent->globalPosition().x;
-//             m_pointCursor2.y = pevent->globalPosition().y;
+//             m_pointCursor2.x = pevent->globalPosition().x();
+//             m_pointCursor2.y = pevent->globalPosition().y();
 //
 //
-//             pmouse->m_pointHost.x = pevent->position().x;
-//             pmouse->m_pointHost.y = pevent->position().y;
+//             pmouse->m_pointHost.x = pevent->position().x();
+//             pmouse->m_pointHost.y = pevent->position().y();
 //
 //             pmouse->m_pointAbsolute = m_pointCursor2;
 //
@@ -1391,12 +1391,12 @@ namespace windowing_lxq2
 //
 //          pmouse->m_emessage = e_message_mouse_move;
 //
-//          m_pointCursor2.x = pevent->globalPosition().x;
-//          m_pointCursor2.y = pevent->globalPosition().y;
+//          m_pointCursor2.x = pevent->globalPosition().x();
+//          m_pointCursor2.y = pevent->globalPosition().y();
 //
 //
-//          pmouse->m_pointHost.x = pevent->position().x;
-//          pmouse->m_pointHost.y = pevent->position().y;
+//          pmouse->m_pointHost.x = pevent->position().x();
+//          pmouse->m_pointHost.y = pevent->position().y();
 //
 //          pmouse->m_pointAbsolute = m_pointCursor2;
 //

@@ -19,6 +19,7 @@
 #include "aura/windowing/desktop_environment.h"
 #include "aura/windowing/monitor.h"
 #include "aura_posix/node.h"
+#include "acme/integrate/qt/geometry2d.h"
 #include <QGuiApplication>
 #include <QScreen>
 //#include "acme/operating_system/x11/display_lock.h"
