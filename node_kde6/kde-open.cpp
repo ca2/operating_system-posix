@@ -83,9 +83,9 @@ void kde_open_local_file(QApplication * papplication, const_char_pointer pszUrl,
 //
 //      QUrlQuery q;
 //
-//      q.addQueryItem(QStringLiteral("line"), QString::number(info.line));
+//      q.addQueryItem(QStringLiteral("line"), QString::number::number(info.line));
 //
-//      q.addQueryItem(QStringLiteral("column"), QString::number(info.column));
+//      q.addQueryItem(QStringLiteral("column"), QString::number::number(info.column));
 //
 //      info.url.setQuery(q);
 //

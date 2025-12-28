@@ -79,7 +79,7 @@ QString getFileIconPath(const QString &filePath, int size = 64) {
 
 
    // Fallback: Save icon to a temporary file and return its path
-   QString iconTempPath = QDir::tempPath() + filePath + "/icon"+QString::number(size)+".png";
+   QString iconTempPath = QDir::tempPath() + filePath + "/icon"+QString::number::number(size)+".png";
    if (fileIcon.pixmap(size, size).save(iconTempPath)) {
       return iconTempPath;
    }
