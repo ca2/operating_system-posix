@@ -1848,11 +1848,11 @@ namespace q
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
-               m_pointCursor2.x = pevent->globalPosition().x;
-               m_pointCursor2.y = pevent->globalPosition().y;
+               m_pointCursor2.x = pevent->globalPosition().x();
+               m_pointCursor2.y = pevent->globalPosition().y();
 
-               pmouse->m_pointHost.x = pevent->position().x;
-               pmouse->m_pointHost.y = pevent->position().y;
+               pmouse->m_pointHost.x = pevent->position().x();
+               pmouse->m_pointHost.y = pevent->position().y();
 
 #else
 
@@ -2089,7 +2089,7 @@ namespace q
 
                             m_pqwidget->grabMouse();
 
-                  system()->acme_windowing()->m_pwindowMouseCapture = this;
+                  system()->acme_windowing()->m_pacmewindowingwindowMouseCapture = this;
 
                          });
 
@@ -2106,7 +2106,7 @@ namespace q
             if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
             {
 
-               if (system()->acme_windowing()->m_pwindowMouseCapture != nullptr)
+               if (system()->acme_windowing()->m_pacmewindowingwindowMouseCapture != nullptr)
                {
 
                   return true;
@@ -2135,7 +2135,7 @@ namespace q
             if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
             {
 
-               if (system()->acme_windowing()->m_pwindowMouseCapture == this)
+               if (system()->acme_windowing()->m_pacmewindowingwindowMouseCapture == this)
                {
 
                   return true;
@@ -2162,7 +2162,7 @@ namespace q
             if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
             {
 
-               if (system()->acme_windowing()->m_pwindowMouseCapture == this)
+               if (system()->acme_windowing()->m_pacmewindowingwindowMouseCapture == this)
                {
 
                   main_post([this]()
@@ -2170,7 +2170,7 @@ namespace q
 
                                m_pqwidget->releaseMouse();
 
-                     system()->acme_windowing()->m_pwindowMouseCapture = nullptr;
+                     system()->acme_windowing()->m_pacmewindowingwindowMouseCapture = nullptr;
 
                      information("q::acme::windowing::window::release_mouse_capture()");
 

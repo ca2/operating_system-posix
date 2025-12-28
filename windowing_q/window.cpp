@@ -1333,11 +1333,11 @@ namespace windowing_q
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
-         m_pointCursor2.x = pevent->globalPosition().x;
-         m_pointCursor2.y = pevent->globalPosition().y;
+         m_pointCursor2.x = pevent->globalPosition().x();
+         m_pointCursor2.y = pevent->globalPosition().y();
 
-         pmouse->m_pointHost.x = pevent->position().x;
-         pmouse->m_pointHost.y = pevent->position().y;
+         pmouse->m_pointHost.x = pevent->position().x();
+         pmouse->m_pointHost.y = pevent->position().y();
 
 #else
 
@@ -1422,11 +1422,11 @@ namespace windowing_q
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 
-            m_pointCursor2.x = pevent->globalPosition().x;
-            m_pointCursor2.y = pevent->globalPosition().y;
+            m_pointCursor2.x = pevent->globalPosition().x();
+            m_pointCursor2.y = pevent->globalPosition().y();
 
-            pmouse->m_pointHost.x = pevent->position().x;
-            pmouse->m_pointHost.y = pevent->position().y;
+            pmouse->m_pointHost.x = pevent->position().x();
+            pmouse->m_pointHost.y = pevent->position().y();
 
 #else
 
