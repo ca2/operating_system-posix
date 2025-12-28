@@ -14,6 +14,9 @@
 //#include "acme/user/micro/window.h"
 #include "acme/windowing/windowing.h"
 //#include "common_gtk/gdk_3_and_4.h"
+#ifdef ulong
+#error "macro 'number' defined here"
+#endif
 #include <QScreen>
 #include <QRect>
 #include <QGuiApplication>

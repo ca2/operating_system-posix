@@ -6,6 +6,9 @@
 
 #include "acme/windowing/windowing.h"
 #include "micro_window.h"
+#ifdef number
+#error "macro 'number' defined here"
+#endif
 #include <QApplication>
 
 
