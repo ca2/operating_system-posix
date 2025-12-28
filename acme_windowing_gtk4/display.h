@@ -92,6 +92,9 @@ namespace gtk4
             void open_display() override;
 
 
+            bool is_display_opened() const override;
+
+
             bool is_wallpaper_associated_with_dark_mode() override;
             //bool is_wallpaper_associated_with_theming() override;
 

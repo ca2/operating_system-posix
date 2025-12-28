@@ -218,6 +218,14 @@ namespace gtk4
          }
 
 
+         bool display::is_display_opened() const
+         {
+
+            return m_pgdkdisplay != nullptr;
+
+         }
+
+
          bool display::is_wallpaper_associated_with_dark_mode()
          {
 

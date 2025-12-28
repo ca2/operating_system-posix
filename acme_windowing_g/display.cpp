@@ -4,18 +4,13 @@
 //
 #include "framework.h"
 #include "display.h"
-//#include "window.h"
 #include "acme/constant/windowing2.h"
 #include "acme/parallelization/mutex.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/acme.h"
 #include "acme/platform/system.h"
-//#include "acme/prototype/geometry2d/rectangle.h"
-//#include "acme/user/micro/window.h"
-
 #include "acme/exception/interface_only.h"
 #include "acme/graphics/image/pixmap.h"
-//#include "nano_user_wayland/window_base.h"
 #include "acme/parallelization/manual_reset_happening.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/parallelization/task.h"
@@ -31,28 +26,10 @@
 #include <sys/mman.h>
 #include <errno.h>
 #include <unistd.h>
-//#include "acme/_finish.h"
-
-// # ifdef GDK_WINDOWING_X11
-// #  include <gdk/x11/gdkx.h>
-// # endif
-// # ifdef GDK_WINDOWING_WAYLAND
-// #  include <gdk/wayland/gdkwayland.h>
-// #endif
 
 int os_create_anonymous_file(off_t size);
 
-//#include "windowing_system_x11/_.h"
-
-
 #define MAXSTR 1000
-
-
-void x11_init_threads();
-
-
-//void * x11_get_display();
-
 
 void set_main_user_thread();
 
