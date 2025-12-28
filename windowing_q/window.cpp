@@ -1607,7 +1607,7 @@ namespace windowing_q
 
       pmouse->m_pointAbsolute = m_pointCursor2;
 
-      int iY = pevent->angleDelta().y;
+      int iY = pevent->angleDelta().y();
 
       informationf("vertical wheel scroll iy:%d", iY);
 
