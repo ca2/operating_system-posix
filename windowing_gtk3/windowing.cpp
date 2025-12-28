@@ -464,7 +464,7 @@ namespace windowing_gtk3
       // else
       {
 
-         return m_pwindowMouseCapture;
+         return m_pacmewindowingwindowMouseCapture;
 
       }
 
@@ -489,7 +489,7 @@ namespace windowing_gtk3
 
       }
 
-      m_pwindowMouseCapture = pwindow;
+      m_pacmewindowingwindowMouseCapture = pwindow;
 
    }
 
@@ -504,7 +504,7 @@ namespace windowing_gtk3
 
       }
 
-      m_pwindowMouseCapture = nullptr;
+      m_pacmewindowingwindowMouseCapture = nullptr;
 
    }
 
@@ -541,7 +541,7 @@ namespace windowing_gtk3
       else
       {
 
-         if(m_pwindowMouseCapture != pwindow)
+         if(m_pacmewindowingwindowMouseCapture != pwindow)
          {
 
             return false;
@@ -550,7 +550,7 @@ namespace windowing_gtk3
 
          release_mouse_capture(pthread, pwindow);
 
-         m_pwindowMouseCapture.release();
+         m_pacmewindowingwindowMouseCapture.release();
 
          return true;
 

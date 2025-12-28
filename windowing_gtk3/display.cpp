@@ -359,13 +359,20 @@ namespace windowing_gtk3
 
    void display::open_display()
    {
+
+      if (m_pgdkdisplay)
+      {
+
+         return;
+
+      }
 	   
-	  if(m_bDisplayOpened)
-	  {
-		  
-		  return;
-		  
-	  }
+	  // if(m_bDisplayOpened)
+	  // {
+		 //
+		 //  return;
+		 //
+	  // }
 	   
 	  //information() << node()->get_call_stack_trace();
 	   
@@ -446,7 +453,7 @@ namespace windowing_gtk3
 
       }
 
-         m_bDisplayOpened = true;
+         //m_bDisplayOpened = true;
 
                                   });
 
