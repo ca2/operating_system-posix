@@ -58,7 +58,7 @@ namespace q
       virtual void _on_activate_kde_application();
 
 
-      void on_start_system() override;
+      void windowing_application_on_system_start() override;
 
 
       void windowing_application_main_loop() override;

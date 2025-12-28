@@ -121,24 +121,25 @@ namespace q
 
          }
 
+
          bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
          {
 
-            if(m_pwindowMouseCapture.m_p != pwindow)
+            if(m_pacmewindowingwindowMouseCapture.m_p != pwindow)
             {
 
                return false;
 
             }
 
-            if (m_pwindowMouseCapture)
+            if (m_pacmewindowingwindowMouseCapture)
             {
 
-               m_pwindowMouseCapture->release_mouse_capture();
+               m_pacmewindowingwindowMouseCapture->release_mouse_capture();
 
             }
 
-            m_pwindowMouseCapture.release();
+            m_pacmewindowingwindowMouseCapture.release();
 
             return true;
 
@@ -385,7 +386,7 @@ namespace q
          }
 
 
-         void windowing::on_start_system()
+         void windowing::windowing_application_on_system_start()
          {
 
             system()->on_branch_system_from_main_thread_startup(this);
