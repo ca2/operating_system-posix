@@ -34,17 +34,17 @@ namespace innate_ui_gtk3
       GdkPixbufLoader *loader = gdk_pixbuf_loader_new();
 
       // Write the JPEG memory buffer into the loader
-      if (!gdk_pixbuf_loader_write(loader, jpeg_buffer, jpeg_size, &error)) {
-         g_printerr("Error loading image from buffer: %s\n", error->message);
-         g_clear_error(&error);
+      if (!gdk_pixbuf_loader_write(loader, jpeg_buffer, jpeg_size, &pgerror)) {
+         g_printerr("Error loading image from buffer: %s\n", pgerror->message);
+         g_clear_error(&pgerror);
          g_object_unref(loader);
          throw ::exception(error_failed);
       }
 
       // Finish the loading process
-      if (!gdk_pixbuf_loader_close(loader, &error)) {
-         g_printerr("Error finalizing image loading: %s\n", error->message);
-         g_clear_error(&error);
+      if (!gdk_pixbuf_loader_close(loader, &pgerror)) {
+         g_printerr("Error finalizing image loading: %s\n", pgerror->message);
+         g_clear_error(&pgerror);
          g_object_unref(loader);
          throw ::exception(error_failed);
       }

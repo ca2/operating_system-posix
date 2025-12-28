@@ -10,8 +10,6 @@
 
 #include <gtk/gtk.h>
 
-#include "acme_windowing_x11/happening_listener.h"
-
 
 namespace gtk3
 {
@@ -26,8 +24,7 @@ namespace gtk3
 
 
          class CLASS_DECL_ACME_WINDOWING_GTK3 window :
-            virtual public ::acme::windowing::window,
-         virtual ::x11::acme::windowing::happening_listener
+            virtual public ::acme::windowing::window
          {
          public:
 
