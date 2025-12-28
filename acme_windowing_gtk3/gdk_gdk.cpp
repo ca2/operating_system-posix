@@ -400,7 +400,7 @@ namespace gdk
 
       GError * pgerror = nullptr;
 
-      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
+      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &pgerror);
 
       if(pfileinfo == nullptr)
       {
@@ -506,7 +506,7 @@ namespace gdk
 
       GError * pgerror = nullptr;
 
-      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
+      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &pgerror);
 
       if(pfileinfo == nullptr)
       {
@@ -541,7 +541,7 @@ namespace gdk
 
       //g_type_init();
 
-      ret = g_app_info_launch_default_for_uri(pszUri, nullptr, &error);
+      ret = g_app_info_launch_default_for_uri(pszUri, nullptr, &pgerror);
 
       if(ret)
       {
@@ -553,7 +553,7 @@ namespace gdk
       if(::is_set(pszError))
       {
 
-         strncpy(pszError, error->message, iBufferSize);
+         strncpy(pszError, pgerror->message, iBufferSize);
 
       }
 
@@ -625,10 +625,10 @@ void open_file_with_default_app(const_char_pointer filename) {
     GFile *file = g_file_new_for_path(filename);
     
     // Get the default application for the file type
-    GAppInfo *app_info = g_file_query_default_handler(file, NULL, &error);
+    GAppInfo *app_info = g_file_query_default_handler(file, NULL, &pgerror);
     if (!app_info) {
-        g_printerr("Could not find a default application to open '%s': %s\n", filename, error->message);
-        g_error_free(error);
+        g_printerr("Could not find a default application to open '%s': %s\n", filename, pgerror->message);
+        g_error_free(pgerror);
         g_object_unref(file);
         return;
     }
@@ -637,9 +637,9 @@ void open_file_with_default_app(const_char_pointer filename) {
     
 
     // Launch the file with the default application
-    if (!g_app_info_launch(app_info, g_list_append(NULL, file), NULL, &error)) {
-        g_printerr("Failed to open '%s': %s\n", filename, error->message);
-        g_error_free(error);
+    if (!g_app_info_launch(app_info, g_list_append(NULL, file), NULL, &pgerror)) {
+        g_printerr("Failed to open '%s': %s\n", filename, pgerror->message);
+        g_error_free(pgerror);
     }
 
     printf_line("gdk::open_file_with_default_app succeeded for : \"%s\"", filename);
@@ -653,11 +653,11 @@ void open_file_with_default_app(const_char_pointer filename) {
 // Callback function for handling the result of the asynchronous launch
 void on_file_opened(GObject *source_object, GAsyncResult *res, gpointer user_data) {
     GError * pgerror = NULL;
-    gboolean success = g_app_info_launch_uris_finish(G_APP_INFO(source_object), res, &error);
+    gboolean success = g_app_info_launch_uris_finish(G_APP_INFO(source_object), res, &pgerror);
 
     if (!success) {
-        g_printerr("Failed to open file: %s\n", error->message);
-        g_error_free(error);
+        g_printerr("Failed to open file: %s\n", pgerror->message);
+        g_error_free(pgerror);
     } else {
         g_print("File opened successfully.\n");
     }
@@ -669,10 +669,10 @@ void open_file_with_default_app_async(const_char_pointer filename) {
     GFile *file = g_file_new_for_path(filename);
 
     // Get the default application for the file type
-    GAppInfo *app_info = g_file_query_default_handler(file, NULL, &error);
+    GAppInfo *app_info = g_file_query_default_handler(file, NULL, &pgerror);
     if (!app_info) {
-        g_printerr("Could not find a default application to open '%s': %s\n", filename, error->message);
-        g_error_free(error);
+        g_printerr("Could not find a default application to open '%s': %s\n", filename, pgerror->message);
+        g_error_free(pgerror);
         g_object_unref(file);
         return;
     }

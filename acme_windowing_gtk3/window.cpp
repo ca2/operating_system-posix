@@ -2005,7 +2005,7 @@ m_phappeningLastMouseUp = pevent;
 
             if (status == GDK_GRAB_SUCCESS) {
                g_print("Pointer successfully grabbed.\n");
-               system()->acme_windowing()->m_pwindowMouseCapture = this;
+               system()->acme_windowing()->m_pacmewindowingwindowMouseCapture = this;
             } else {
                g_print("Failed to grab pointer. Status: %d\n", status);
             }

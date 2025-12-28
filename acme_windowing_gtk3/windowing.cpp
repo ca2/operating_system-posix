@@ -105,10 +105,10 @@ namespace gtk3
             GdkPixbufLoader* loader = gdk_pixbuf_loader_new();
             GError * pgerror = NULL;
 
-            if (!gdk_pixbuf_loader_write(loader, (const guchar *)p, size, &error))
+            if (!gdk_pixbuf_loader_write(loader, (const guchar *)p, size, &pgerror))
             {
-               g_printerr("Error loading image: %s\n", error->message);
-               g_error_free(error);
+               g_printerr("Error loading image: %s\n", pgerror->message);
+               g_error_free(pgerror);
                g_object_unref(loader);
                throw ::exception(error_failed);
             }
@@ -262,7 +262,7 @@ namespace gtk3
          }
 
 
-         void windowing::on_start_system()
+         void windowing::windowing_application_on_system_start()
          {
 
             system()->on_branch_system_from_main_thread_startup(this);
