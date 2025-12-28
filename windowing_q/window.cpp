@@ -1485,10 +1485,10 @@ namespace windowing_q
 
 #endif
 
-         p.setX(p.x-m_pqwidget->size().width()/2);
-         p.setY(p.y- m_pqwidget->size().height()/2);
+         p.setX(p.x() - m_pqwidget->size().width()/2);
+         p.setY(p.y() - m_pqwidget->size().height()/2);
 
-         m_pqwidget->move(p.x, p.y);
+         m_pqwidget->move(p.x(), p.y());
          return;
 
       }

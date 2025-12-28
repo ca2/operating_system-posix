@@ -25,7 +25,7 @@
 #include <QFileDialog>
 #include <QTextStream>
 #include <QDBusInterface>
-#include <qpa/qplatformnativeinterface.h>
+#include <QtGui/qpa/qplatformnativeinterface.h>
 #include <xcb/xcb.h>
 #include "windowing_kde6/windowing.h"
 //#include <KPackage/Package>
