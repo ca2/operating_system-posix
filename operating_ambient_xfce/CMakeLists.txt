@@ -59,7 +59,7 @@ endif ()
 set_target_properties(node_xfce PROPERTIES LINKER_LANGUAGE CXX)
 
 
-if (MSVC)
+if(${WIN32})
    target_compile_options(node_xfce PRIVATE "/MD$<$<CONFIG:Debug>:d>")
    target_link_options(node_xfce PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(node_xfce PRIVATE "/SUBSYSTEM:WINDOWS")

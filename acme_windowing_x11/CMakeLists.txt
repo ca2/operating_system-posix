@@ -5,7 +5,7 @@ project(acme_windowing_x11 CXX)
 message(STATUS "CMAKE_SYSTEM_NAME is ${CMAKE_SYSTEM_NAME}")
 
 
-if (MSVC)
+if(${WIN32})
    set(LIBCXX_TARGETING_MSVC ON)
 else ()
    set(LIBCXX_TARGETING_MSVC OFF)

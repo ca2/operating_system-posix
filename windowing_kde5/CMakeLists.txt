@@ -143,7 +143,7 @@ elseif (${HAS_KDE5})
 endif ()
 
 
-if (MSVC)
+if(${WIN32})
    target_compile_options(windowing_wayland PRIVATE "/MD$<$<CONFIG:Debug>:d>")
    target_link_options(windowing_wayland PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(windowing_wayland PRIVATE "/SUBSYSTEM:WINDOWS")

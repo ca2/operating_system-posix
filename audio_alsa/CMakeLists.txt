@@ -43,7 +43,7 @@ endif ()
 set_target_properties(audio_alsa PROPERTIES LINKER_LANGUAGE CXX)
 
 
-if (MSVC)
+if(${WIN32})
 
 
    target_compile_options(audio_alsa PRIVATE "/MD$<$<CONFIG:Debug>:d>")

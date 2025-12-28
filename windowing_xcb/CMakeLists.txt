@@ -77,7 +77,7 @@ endif ()
 set_target_properties(windowing_xcb PROPERTIES LINKER_LANGUAGE CXX)
 
 
-if (MSVC)
+if(${WIN32})
 
 
     target_compile_options(windowing_xcb PRIVATE "/MD$<$<CONFIG:Debug>:d>")

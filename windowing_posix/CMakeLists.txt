@@ -54,7 +54,7 @@ endif ()
 set_target_properties(aura_posix PROPERTIES LINKER_LANGUAGE CXX)
 
 
-if (MSVC)
+if(${WIN32})
 
 
    target_compile_options(aura_posix PRIVATE "/MD$<$<CONFIG:Debug>:d>")

@@ -5,7 +5,7 @@ project(nano_user_gtk4 CXX)
 message(STATUS "Project: nano_user_gtk4")
 
 
-if (MSVC)
+if(${WIN32})
     set(LIBCXX_TARGETING_MSVC ON)
 else ()
     set(LIBCXX_TARGETING_MSVC OFF)
@@ -68,7 +68,7 @@ if(${HAS_X11})
 endif()
 
 
-if (MSVC)
+if(${WIN32})
     target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
     target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
     target_link_options(${PROJECT_NAME} PRIVATE "/IMPLIB:${LIBRARY_OUTPUT_PATH}/${PROJECT_NAME}.lib")

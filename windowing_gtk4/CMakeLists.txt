@@ -128,7 +128,7 @@ if (${HAS_X11})
    list(APPEND X11_PKG_MODULES x11)
 endif ()
 
-if (MSVC)
+if(${WIN32})
    target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
    target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
@@ -142,6 +142,8 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4 ${WAYLAND_PKG_MODULES} ${X11_PKG_MODULES} ${APPINDICATOR_PKG_MODULE})
    pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4 ${APPINDICATOR_PKG_MODULE})
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk4 ${APPINDICATOR_PKG_MODULE})
+
+   message(STATUS "windowing_gtk4 : APPINDICATOR_PKG_MODULE is \"${APPINDICATOR_PKG_MODULE}\"")
 
    target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
    target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})

@@ -105,7 +105,7 @@ endif ()
 set_target_properties(apex_posix PROPERTIES LINKER_LANGUAGE CXX)
 
 
-if (MSVC)
+if(${WIN32})
 
 
     target_compile_options(apex_posix PRIVATE "/MD$<$<CONFIG:Debug>:d>")

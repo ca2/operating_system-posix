@@ -40,7 +40,7 @@ endif ()
 set_target_properties(windowing_x11 PROPERTIES LINKER_LANGUAGE CXX)
 
 
-if (MSVC)
+if(${WIN32})
    target_compile_options(windowing_x11 PRIVATE "/MD$<$<CONFIG:Debug>:d>")
    target_link_options(windowing_x11 PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(windowing_x11 PRIVATE "/SUBSYSTEM:WINDOWS")
