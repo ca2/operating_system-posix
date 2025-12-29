@@ -135,10 +135,11 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
       message(FATAL_ERROR "This is currently expected to build only at GTK4 system.")
    endif()
 
-   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4 ${APPINDICATOR_PKG_MODULE})
+   #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4 ${APPINDICATOR_PKG_MODULE})
+   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4)
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk4 ${APPINDICATOR_PKG_MODULE})
 
-   message(STATUS "windowing_gtk4 : APPINDICATOR_PKG_MODULE is \"${APPINDICATOR_PKG_MODULE}\"")
+   #message(STATUS "windowing_gtk4 : APPINDICATOR_PKG_MODULE is \"${APPINDICATOR_PKG_MODULE}\"")
 
    target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
    target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})

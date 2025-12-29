@@ -66,33 +66,38 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
    #set_target_properties(${PROJECT_NAME} PROPERTIES CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-   list(APPEND extra_pkg_modules
-      xkbcommon
-   )
-
-
-
-   if (${WITH_XCB})
-
-
-      list(APPEND extra_pkg_modules
-         x11 x11-xcb
-      )
-
-
-   else ()
-
-
-      list(APPEND extra_pkg_modules
-         x11
-      )
-
-
-   endif ()
+   #list(APPEND extra_pkg_modules
+    #  xkbcommon
+   #)
+#
+#
+#
+#   if (${WITH_XCB})
+#
+#
+#      list(APPEND extra_pkg_modules
+#         x11 x11-xcb
+#      )
+#
+#
+#   else ()
+#
+#
+#      list(APPEND extra_pkg_modules
+#         x11
+#      )
+#
+#
+#   endif ()
 
 
    #if (${USE_PKGCONFIG})
+
+   if(NOT "${extra_pkg_modules}" STREQUAL "")
+
    pkg_check_modules(${PROJECT_NAME}_PKGCONFIG ${extra_pkg_modules})
+
+   endif()
    #endif ()
 
 
