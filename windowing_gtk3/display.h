@@ -28,38 +28,11 @@ namespace windowing_gtk3
    public:
 
 
-
-      //Atom                                         m_atoma[::x11::e_atom_count];
-
-
-      //::pointer<::x11::display>                    m_px11display;
-      //::Display *                                m_pdisplay;
-      //XVisualInfo                                  m_visualinfo;
-      //::Visual *                                   m_pvisual;
-      //Colormap                                     m_colormap;
-      //int                                          m_iScreen;
-      //int                                          m_iDepth;
-      //Window                                       m_windowRoot;
-
-
-//      Atom                                         m_atomLongType;
-//      Atom                                         m_atomLongStyle;
-//      Atom                                         m_atomLongStyleEx;
-//      //Atom                                       m_atomCardinal;
-//      Atom                                         m_atomWmState;
-//      Atom                                         m_atomNetWmStateFocused;
-//      Atom                                         m_atomNetWmStateHidden;
-//      Atom                                         m_atomNetWmStateMaximizedHorz;
-//      Atom                                         m_atomNetWmStateMaximizedVert;
-//      Atom                                         m_atomNetWmState;
-//      Atom                                         m_atomWmProtocols;
-//      Atom                                         m_atomNetWmSyncRequest;
-//      Atom                                         m_atomNetWmSyncRequestCounter;
       iptr                                         m_countReference;
       ::pointer<class window>                      m_pwindowRoot;
       //::pointer<class window>                      m_pwindowKeyboardFocus;
       ::pointer<::windowing_gtk3::window>           m_pwindowActive;
-      GdkDisplay *                                    m_pgdkdisplay;
+      //GdkDisplay *                                    m_pgdkdisplay;
       ///::pointer<::windowing_gtk3::window>           m_pwindowMouseCapture;
       //bool                                         m_bHasXSync;
       //int                                          m_iXSyncMajor;
@@ -103,6 +76,8 @@ namespace windowing_gtk3
       //::wl_display * __get_wayland_display() override;
 
       void open_display() override;
+
+      bool is_display_opened() const override;
 
       virtual ::e_status erase_window(::windowing::window * pwindow);
 

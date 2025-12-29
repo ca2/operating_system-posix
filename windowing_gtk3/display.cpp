@@ -360,102 +360,16 @@ namespace windowing_gtk3
    void display::open_display()
    {
 
-      if (m_pgdkdisplay)
-      {
-
-         return;
-
-      }
-	   
-	  // if(m_bDisplayOpened)
-	  // {
-		 //
-		 //  return;
-		 //
-	  // }
-	   
-	  //information() << node()->get_call_stack_trace();
-	   
-	  information() << "windowing_gtk3::display::open_display (1) current thread current_task_index(): " << ::current_task_index();
-	  
-	  if(::get_task())
-	  {
-		  
-		  information() << "windowing_gtk3::display::open_display (1) current thread name: " << ::get_task()->m_strTaskName;
-		  
-	  }
-	  
-	  information() << "windowing_gtk3::display::open_display (1) main_task_index(): " << main_task_index();
-	  
-	  if(::main_task())
-	  {
-		  
-		  information() << "windowing_gtk3::display::open_display (1) main task_name: " << main_task()->m_strTaskName;
-		  
-	  }
-
-      gtk3_windowing()->user_send([this]()
-      {
-		  
-   		 information() << "windowing_gtk3::display::open_display";
-		  
-         if(m_pgdkdisplay != nullptr)
-         {
-
-            return;
-
-         }
+      ::gtk3::acme::windowing::display::open_display();
 
 
-         GdkScreen *screen = gdk_screen_get_default();
-
-         if (!screen)
-         {
-
-            g_printerr("Failed to get the default screen.\n");
-
-         }
-         else
-         {
-
-            // Get the primary monitor index
-            m_iMainMonitor = gdk_screen_get_primary_monitor(screen);
-
-         }
-
-      m_pgdkdisplay = gdk_display_get_default();
-
-      auto n = gdk_display_get_n_monitors(m_pgdkdisplay);
-
-      for(int i = 0; i < n; i++)
-      {
-
-         GdkMonitor *pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, i);
-
-         auto pmonitor = øcreate_new< ::windowing::monitor>();
-
-         pmonitor->m_pdisplay = this;
+   }
 
 
-         // Get the geometry (rectangle) of the monitor
-         GdkRectangle geometry;
-         gdk_monitor_get_geometry(pgdkmonitor, &geometry);
+   bool display::is_display_opened() const
+   {
 
-         // Print monitor geometry details
-         informationf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
-                i, geometry.x, geometry.y, geometry.width, geometry.height);
-         ::copy(pmonitor->m_rectangle, geometry);
-         ::copy(pmonitor->m_rectangleWorkspace, geometry);
-         // Unref the monitor object as we no longer need it
-         //g_object_unref(pgdkmonitor);
-
-         m_monitora.add(pmonitor);
-
-      }
-
-         //m_bDisplayOpened = true;
-
-                                  });
+      return m_pgdkdisplay != nullptr;
 
    }
 

@@ -49,7 +49,6 @@ namespace gtk4
             //window_map m_windowmap;
 
             bool m_bOpened;
-            GdkDisplay* m_pgdkdisplay;
 
             bool m_bOwnDisplay;
 

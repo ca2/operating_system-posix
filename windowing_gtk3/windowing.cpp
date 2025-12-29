@@ -562,9 +562,9 @@ namespace windowing_gtk3
    void windowing::_on_capture_changed_to(::windowing_gtk3::window * pwindowMouseCaptureNew)
    {
 
-      auto pwindowMouseCaptureOld = m_pwindowMouseCapture;
+      auto pwindowMouseCaptureOld = m_pacmewindowingwindowMouseCapture;
 
-      m_pwindowMouseCapture = pwindowMouseCaptureNew;
+      m_pacmewindowingwindowMouseCapture = pwindowMouseCaptureNew;
 
       if (pwindowMouseCaptureOld && pwindowMouseCaptureOld != pwindowMouseCaptureNew)
       {

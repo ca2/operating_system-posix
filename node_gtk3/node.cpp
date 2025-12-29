@@ -2245,12 +2245,12 @@ namespace node_gtk3
 
          GError * pgerror = nullptr;
       
-         if (!g_app_info_launch_default_for_uri(strUrl, nullptr, &perror))
+         if (!g_app_info_launch_default_for_uri(strUrl, nullptr, &pgerror))
          {
 
-            ::errf_line("Unable to read file: %s\n", perror->message);
+            ::errf_line("Unable to read file: %s\n", pgerror->message);
 
-            g_error_free(perror);
+            g_error_free(pgerror);
 
          }
          
