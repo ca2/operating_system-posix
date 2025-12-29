@@ -90,11 +90,7 @@ void x_display_error_trap_pop(SnDisplay * sndisplay, Display * display)
 }
 
 
-namespace windowing_posix
-{
-
-
-   void windowing::_libsn_start_context()
+   void windowing_libsn_start_context(::windowing::windowing * pwindowing)
    {
 
       auto ewindowing = system()->acme_windowing()->get_ewindowing();
@@ -121,22 +117,19 @@ namespace windowing_posix
 
          int iScreen = DefaultScreen(pdisplay);
 
-         auto papp = application();
+         auto papp = pwindowing->application();
 
          string strWMClass = papp->m_strAppId;
 
          strWMClass.find_replace("/", ".");
 
-         m_pSnLauncheeContext = sn_launchee_context_new(psndisplay, iScreen, strWMClass);
+         pwindowing->m_pSnLauncheeContext = sn_launchee_context_new(psndisplay, iScreen, strWMClass);
 
-         informationf("_libsn_start_context Starting m_pSnLauncheeContext: %llX", (::uptr) m_pSnLauncheeContext);
+         informationf("_libsn_start_context Starting m_pSnLauncheeContext: %llX", (::uptr) pwindowing->m_pSnLauncheeContext);
 
       }
 
    }
-
-
-} // namespace windowing_posix
 
 
 #endif

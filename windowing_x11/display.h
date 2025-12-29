@@ -21,7 +21,7 @@ namespace windowing_x11
 
    class CLASS_DECL_WINDOWING_X11 display :
       virtual public ::windowing::display,
-   virtual public ::x11::acme::windowing::display
+      virtual public ::x11::acme::windowing::display
    {
    public:
 
@@ -33,25 +33,12 @@ namespace windowing_x11
       Atom                                         m_atoma[::x11::e_atom_count];
 
 
-      //::pointer<::x11::acme::windowing::display>        m_px11display;
-      //::Display *                                  m_pdisplay;
       XVisualInfo                                  m_visualinfo;
       ::Visual *                                   m_pvisual;
       Colormap                                     m_colormap;
-      //int                                          m_iScreen;
       int                                          m_iDepth;
-      //Window                                       m_windowRoot;
 
 
-      //Atom                                         m_atomLongType;
-      //Atom                                         m_atomLongStyle;
-      //Atom                                         m_atomLongStyleEx;
-      //Atom                                       m_atomCardinal;
-      //iptr                                         m_countReference;
-      //::pointer<class window>                      m_pwindowRoot;
-      //::pointer<class window>                      m_pwindowKeyboardFocus;
-      //::pointer<::windowing_x11::window>           m_pwindowActive;
-      //::pointer<::windowing_x11::window>           m_pwindowMouseCapture;
       bool                                         m_bHasXSync;
       int                                          m_iXSyncMajor;
       int                                          m_iXSyncMinor;
@@ -60,17 +47,6 @@ namespace windowing_x11
       display();
       ~display() override;
 
-
-// #ifdef _DEBUG
-//
-//
-//       virtual long long get_ref_count();
-//       virtual long long increment_reference_count() override;
-//       virtual long long decrement_reference_count() override;
-//       virtual long long release() override;
-//
-//
-// #endif
 
 
 

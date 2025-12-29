@@ -44,11 +44,22 @@ namespace g
          public:
 
 
+            GdkDisplay* m_pgdkdisplay;
+
+            int m_iMainMonitor;
+
+
             display();
             ~display() override;
 
 
             void initialize(::particle * pparticle) override;
+
+
+
+            void open_display() override;
+
+            void _enumerate_monitors() override;
 
 
             ::string _get_wallpaper(::collection::index iMonitorIndex) override;

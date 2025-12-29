@@ -32,42 +32,17 @@ namespace gtk3
 
 
             bool                                         m_bUnhook;
-            //Display   *                                  m_pdisplay;
-            //pointer_array < event_listener >             m_happeninglistenera;
-            //pointer_array < ::x11::micro::elemental >  m_windowa;
-            //Window                                       m_windowActive;
-            //map_base < enum_atom, Atom >                      id()map_base;
 
-window_map                                               m_windowmap;
-            //static display *                             g_p;
+            window_map                                   m_windowmap;
 
 
             display();
             ~display() override;
 
 
-            //virtual void set_X11_Display(Display * pdisplay);
-
-
             bool is_branch_current() const override;
 
 
-//            virtual Atom intern_atom(const_char_pointer pszAtomName, bool bCreate);
-//            virtual Atom intern_atom(enum_atom eatom, bool bCreate);
-//
-//            virtual Atom _intern_atom_unlocked(const_char_pointer pszAtomName, bool bCreate);
-//            virtual Atom _intern_atom_unlocked(enum_atom eatom, bool bCreate);
-//
-//            unsigned char * _get_string_property(Display *display, Window window, char *property_name);
-//            unsigned long _get_long_property(Display *d, Window w, char *property_name);
-
-
-//            virtual Window _get_active_window();
-//
-//
-//            static Window window_from_name_search(Display *display, Window current, char const *needle, int iOffset = 0, int depth = 1);
-//
-//            Window window_from_name(char const *name, int iOffset, int depth = 1);
 
 
             bool message_loop_step();
@@ -77,22 +52,6 @@ window_map                                               m_windowmap;
 
             void run() override;
 
-
-//            void add_listener(event_listener * plistener);
-//            void add_window(::x11::micro::elemental * pwindow);
-//
-//            void erase_listener(event_listener * plistener);
-//            void erase_window(::x11::micro::elemental * pwindow);
-//
-//            bool _on_event(XEvent * pevent) override;
-//
-//            virtual bool x11_event(XEvent * pevent);
-//
-//            virtual bool x11_posted();
-
-            //void aaa_display_post(const ::procedure & procedure) override;
-            //void aaa_display_send(const ::procedure & procedure);
-            //bool aaa_display_posted_routine_step();
 
             ::int_size get_main_screen_size() override;
 
