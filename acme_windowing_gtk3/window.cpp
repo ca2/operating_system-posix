@@ -23,6 +23,9 @@
 #include "acme/integrate/cairo/surface.h"
 
 
+void set_reference_referer_releaser_breakpoint(int i);
+
+
 namespace gtk3
 {
 
@@ -272,7 +275,7 @@ return FALSE;
          static gboolean on_window_state(GtkWidget* widget,GdkEventWindowState* happening, gpointer p)
          {
 
-            ::pointer < ::gtk3::acme::windowing::window > pwindow = (::gtk3::acme::windowing::window*) p;
+            auto pwindow = (::gtk3::acme::windowing::window*) p;
 
             if(!pwindow->_on_window_state(widget, happening))
             {
@@ -365,9 +368,10 @@ return FALSE;
             )
          {
 
-            ::pointer < ::gtk3::acme::windowing::window > pwindow = (::gtk3::acme::windowing::window*) p;
+            auto pwindow = (::gtk3::acme::windowing::window*) p;
 
             pwindow->release();
+
          }
 
          window::window()
@@ -400,16 +404,14 @@ return FALSE;
          ::acme::windowing::display * window::get_display()
          {
 
-            if (!m_pdisplay)
+            if (!m_pacmewindowingdisplayWindow)
             {
 
-               øconstruct(m_pdisplay);
-
-               m_pdisplay->open_display();
+               m_pacmewindowingdisplayWindow = system()->acme_windowing()->acme_display();
 
             }
 
-            return m_pdisplay;
+            return m_pacmewindowingdisplayWindow;
 
 
          }
@@ -1146,6 +1148,7 @@ m_phappeningLastMouseUp = pevent;
 
             //if(::is_set(pwindow))
             {
+               set_reference_referer_releaser_breakpoint(0);
 
                auto pmouse = øcreate_new<::user::mouse>();
 
@@ -1188,6 +1191,9 @@ m_phappeningLastMouseUp = pevent;
                if (pmouse->m_bRet)
                {
 
+                  set_reference_referer_releaser_breakpoint(1);
+
+
                   return true;
 
                }
@@ -1203,11 +1209,16 @@ m_phappeningLastMouseUp = pevent;
                if (pmouse->m_bRet)
                {
 
+                  set_reference_referer_releaser_breakpoint(1);
+
+
                   return true;
 
                }
 
             }
+
+            set_reference_referer_releaser_breakpoint(1);
 
             return false;
 

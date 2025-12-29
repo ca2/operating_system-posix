@@ -374,6 +374,17 @@ namespace windowing_gtk3
    }
 
 
+   // void display::_on_monitor(int iIndex, const ::int_rectangle & rectangle, const ::int_rectangle & rectangleWorkspace)
+   // {
+   //
+   //    ::gtk3::acme::windowing::display::_on_monitor(iIndex, rectangle, rectangleWorkspace);
+   //
+   //    auto pmonitor = get_monitor(iIndex);
+   //
+   //
+   // }
+
+
 //    bool display::_get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
 //    {
 //

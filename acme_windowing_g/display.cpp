@@ -211,12 +211,13 @@ namespace g
                       i, geometry.x, geometry.y, geometry.width, geometry.height);
                int_rectangle rectangle;
                ::copy(rectangle, geometry);
+               _on_monitor(i, rectangle, rectangle);
                //::copy(pmonitor->m_rectangleWorkspace, geometry);
                // Unref the monitor object as we no longer need it
                //g_object_unref(pgdkmonitor);
 
                //m_monitora.add(pmonitor);
-               m_rectanglea.add(rectangle);
+               //m_rectanglea.add(rectangle);
 
 
             }
