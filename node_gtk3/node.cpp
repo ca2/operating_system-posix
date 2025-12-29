@@ -542,7 +542,7 @@ namespace node_gtk3
    void node::on_start_system()
    {
 
-      system()->windowing()->on_start_system();
+      system()->windowing()->windowing_application_on_system_start();
 
    }
 
