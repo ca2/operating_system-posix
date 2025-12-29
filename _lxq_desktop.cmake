@@ -1,6 +1,6 @@
 
 
-if(${LXQ_DESKTOP})
+if(${LXQT_DESKTOP})
    execute_process(COMMAND $ENV{HOME}/code/operating_system/tool/bin/application_build_helper --lxq-release OUTPUT_VARIABLE LXQ_RELEASE_RAW OUTPUT_STRIP_TRAILING_WHITESPACE)
    message(STATUS "LXQ_RELEASE_RAW is ${LXQ_RELEASE_RAW}")
    string(TOLOWER ${LXQ_RELEASE_RAW} LXQ_RELEASE)
