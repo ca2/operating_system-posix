@@ -407,7 +407,20 @@ namespace g
          {
 
 
-            ::string strOutput = node()->get_posix_shell_command_output("xrandr --listmonitors");
+            ::string strOutput;
+
+            try
+            {
+               node()->get_posix_shell_command_output("xrandr --listmonitors");
+            }
+            catch (...)
+            {
+
+               message_box("xrandr failed. Is it installed? Cannot set wallpaper.");
+
+               return;
+
+            }
 
             ::string_array_base stra;
 
