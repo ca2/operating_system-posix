@@ -29,7 +29,7 @@
 #include "aura/user/user/interaction_thread.h"
 #include "acme_windowing_q/QCustomTopWindow.h"
 #include <linux/input.h> // for BTN_LEFT,...
-#include <xkbcommon/xkbcommon.h>
+//#include <xkbcommon/xkbcommon.h>
 //#include <gio/gio.h>
 //#include "app-graphics/gcom/backimpact/visual_effect.h"
 #include <QAction>

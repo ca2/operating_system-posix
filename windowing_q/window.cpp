@@ -2126,11 +2126,11 @@ namespace windowing_q
          //puserinteraction->m_puserinteractionTopLevel = m_pwindow->
            // m_puserinteraction;
 
-         m_pdisplay = pdisplay;
+         m_pacmewindowingdisplayWindow = pdisplay;
 
          //m_pdisplaybase = pdisplay;
 
-         information() << "window::create_window m_pdisplay : " << (::iptr)m_pdisplay.m_p;
+         information() << "window::create_window m_pdisplay : " << (::iptr)m_pacmewindowingdisplayWindow.m_p;
 
          //information() << "window::create_window m_pdisplaybase : " << (::iptr) m_pdisplaybase.m_p;
 
