@@ -164,19 +164,7 @@ namespace windowing_q
    long long display::increment_reference_count()
    {
 
-#ifdef WINDOWS
-
-      return InterlockedIncrement64(&m_countReference);
-
-#elif defined(RASPBERRYPIOS) && defined(OS32BIT)
-
-      return __sync_add_and_fetch_4(&m_countReference,1);
-
-#else
-
-      return __sync_add_and_fetch(&m_countReference, 1);
-
-#endif
+      return ::q::acme::windowing::display::increment_reference_count();
 
    }
 
@@ -184,19 +172,7 @@ namespace windowing_q
    long long display::decrement_reference_count()
    {
 
-#ifdef WINDOWS
-
-      return InterlockedDecrement64(&m_countReference);
-
-#elif defined(RASPBERRYPIOS) && defined(OS32BIT)
-
-      return __sync_sub_and_fetch_4(&m_countReference,1);
-
-#else
-
-      return __sync_sub_and_fetch(&m_countReference, 1);
-
-#endif
+      return ::q::acme::windowing::display::decrement_reference_count();
 
    }
 
@@ -204,9 +180,7 @@ namespace windowing_q
    long long display::release()
    {
 
-      long long i = decrement_reference_count();
-
-      return i;
+      return ::q::acme::windowing::display::release();
 
    }
 

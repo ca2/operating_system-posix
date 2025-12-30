@@ -2099,8 +2099,6 @@ namespace windowing_q
 
       bool bOk = true;
 
-      //::windowing::window* pimpl = m_pwindow;
-
       printf_line("windowing_q::window::create_window");
 
       {
@@ -2117,29 +2115,11 @@ namespace windowing_q
 
          auto pdisplay = pqwindowing->m_pdisplay;
 
-
-         //m_pwindow = pimpl;
-
          puserinteraction->m_pacmewindowingwindow = this;
-
-
-         //puserinteraction->m_puserinteractionTopLevel = m_pwindow->
-           // m_puserinteraction;
 
          m_pacmewindowingdisplayWindow = pdisplay;
 
-         //m_pdisplaybase = pdisplay;
-
          information() << "window::create_window m_pdisplay : " << (::iptr)m_pacmewindowingdisplayWindow.m_p;
-
-         //information() << "window::create_window m_pdisplaybase : " << (::iptr) m_pdisplaybase.m_p;
-
-         //pimpl->m_pwindow = this;
-
-         // printf("pimpl->m_pwindow.m_p (0x%x)\n", pimpl->m_pwindow.m_p);
-         // printf("pimpl->m_pwindow.m_pelement (0x%x)\n", pimpl->m_pwindow.m_pelement);
-
-         //display_lock displaylock(pdisplayx11->Display());
 
          int x = puserinteraction->const_layout().sketch().origin().x;
 
@@ -2151,7 +2131,6 @@ namespace windowing_q
 
          bool bVisible = puserinteraction->const_layout().sketch().is_screen_visible();
 
-//m_puserinteractionbase = puserinteraction;
          if (cx <= 0)
          {
             cx = 1;
@@ -2163,15 +2142,9 @@ namespace windowing_q
          }
 
 
-         {
-            m_pointWindow.x = 0;
+         m_pointWindow.x = 0;
 
-            m_pointWindow.y = 0;
-         }
-
-         //m_pointWindowBestEffort.x = x;
-
-         //m_pointWindowBestEffort.y = y;
+         m_pointWindow.y = 0;
 
          m_sizeWindow.cx = cx;
 
@@ -2179,525 +2152,26 @@ namespace windowing_q
 
          ::q::acme::windowing::window::_create_window();
 
-         // //auto rectangleWindow = ::int_rectangle_dimension(x, y, cx, cy);
-         //
-         // //puserinteraction->place(rectangleWindow);
-         //
-         // //auto pwindowing = this->windowing();
-         //
-         // //m_pgtkwidget = gtk_application_window_new(pqwindowing->m_pgtkapplication);
-         //
-         // auto pmainwindow = new QCustomTopWindow(this);
-         //
-         // m_pqwidget = pmainwindow;
-         //
-         // //pmainwindow->setWindowFlags(Qt::Window|Qt::FramelessWindowHint | Qt::CustomizeWindowHint | Qt::WindowOverridesSystemGestures); // No window decorations
-         // pmainwindow->setWindowFlags(Qt::Window|Qt::FramelessWindowHint); // No window decorations
-         // pmainwindow->setAttribute(Qt::WA_TranslucentBackground); // Translucent background
-         // pmainwindow->setAttribute(Qt::WA_NoSystemBackground, true);
-         // pmainwindow->setAttribute(Qt::WA_OpaquePaintEvent, false);
-         // //pmainwindow->setAttribute(Qt::WA_NativeWindow, true);
-         // //pmainwindow->setAttribute(Qt::WA_NoMousePropagation, true);
-         //
-         // pmainwindow->setMouseTracking(true);
-
          m_pqwidget->move(x, y);
+
          m_pqwidget->resize(cx, cy);
 
-         //gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
-
-         //       GdkRGBA rgba;
-         //
-         //       // Create a ___new top-level window
-         // //      gtk_window_set_title(GTK_WINDOW(window), "Transparent Window");
-         //
-         //       // Set the RGBA visual for transparency
-         //       auto display = gdk_display_get_default();
-         //       gtk_widget_set_visual(GTK_WINDOW(m_pgtkwidget), gdk_display_get_rgba_visual(display));
-         //
-         //       // Set the background color to fully transparent (alpha = 0)
-         //       rgba.red = 0;
-         //       rgba.green = 0;
-         //       rgba.blue = 0;
-         //       rgba.alpha = 0;  // Fully transparent
-         //       gtk_widget_set_background_color(GTK_WIDGET(window), &rgba);
-
-         // auto css_provider = gtk_css_provider_new ();
-         // gtk_css_provider_load_from_string (
-         //     css_provider,
-         //     // rbga, `a` set to 0.0 makes the window background transparent
-         //     ".window { background-color: rgba(0, 0, 0, 0.0); }");
-         //
-         // gtk_style_context_add_provider_for_display (
-         //     gtk_widget_get_display (m_pgtkwidget),
-         //     (GtkStyleProvider *) css_provider, GTK_STYLE_PROVIDER_PRIORITY_USER);
-         //
-         // gtk_widget_add_css_class (m_pgtkwidget, "window");
-
-
-         // // Create a widget (e.g., a GtkWindow or GtkButton)
-         // GtkWidget *widget = gtk_button_new_with_label("Sample Button");
-         //
-         // // Get the style context for the widget before it is visible
-         // GtkStyleContext *context = gtk_widget_get_style_context(widget);
-         //
-         // // Now you can query the style context, e.g., getting a color:
-         // GdkRGBA bg_color;
-         // if(gtk_style_context_lookup_color(context, "background", &color))
-         // {
-         //    gtk_style_context_get_color(context, GTK_STATE_FLAG_NORMAL, &bg_color);
-         // }
-         //g_print("Foreground color: rgba(%f, %f, %f, %f)\n", fg_color.red, fg_color.green, fg_color.blue, fg_color.alpha);
-
-
-         // GdkScreen* screen = gtk_widget_get_screen(m_pgtkwidget);
-         // GdkVisual* visual = gdk_screen_get_rgba_visual(screen);
-         // if (visual != NULL)
-         // {
-         //    gtk_widget_set_visual(m_pgtkwidget, visual);
-         // }
-
-         //int w = puserinteraction->const_layout().sketch().size().cx;
-         //int h = puserinteraction->const_layout().sketch().size().cy;
-
          cx = maximum(cx, 800);
+
          cy = maximum(cy, 400);
 
          m_sizeOnSize.cx = cx;
+
          m_sizeOnSize.cy = cy;
 
-         // Set window size
-         //       gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
-         //
-         //
-         //       // Create drawing area
-         //       m_pdrawingarea = gtk_drawing_area_new();
-         //       gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
-         //       gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
-         //       gtk_drawing_area_set_draw_func(
-         //    GTK_DRAWING_AREA(m_pdrawingarea),
-         //    GtkDrawingAreaDrawFunc,
-         //    this,
-         //    nullptr
-         // );
-
-
-         // gtk_window_set_child(GTK_WINDOW(m_pgtkwidget), m_pdrawingarea);
-         // // gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA (area),
-         // //                                 draw_function,
-         // //                                 NULL, NULL);
-         //
-         // m_pgtkgestureClick = gtk_gesture_click_new();
-         //
-         //
-         // // Gesture to handle button press and release
-         // m_pgtkgestureClick = gtk_gesture_click_new();
-         // gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(m_pgtkgestureClick), 0);
-         // g_signal_connect(m_pgtkgestureClick, "pressed", G_CALLBACK(on_button_pressed), this);
-         // g_signal_connect(m_pgtkgestureClick, "released", G_CALLBACK(on_button_released), this);
-         // gtk_widget_add_controller(m_pdrawingarea, GTK_EVENT_CONTROLLER(m_pgtkgestureClick));
-         //
-         // // Motion controller to handle pointer motion for moving and resizing
-         // m_pgtkeventcontrollerMotion = gtk_event_controller_motion_new();
-         // g_signal_connect(m_pgtkeventcontrollerMotion, "motion", G_CALLBACK(on_motion_notify), this);
-         // g_signal_connect(m_pgtkeventcontrollerMotion, "enter", G_CALLBACK(on_enter_notify), this);
-         // gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerMotion);
-
-
-         // Set the happening mask to enable button press and release happenings
-         // gtk_widget_add_events(drawing_area, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
-         //
-         // // Connect signals for mouse button press and release happenings
-         // g_signal_connect(drawing_area, "button-press-happening", G_CALLBACK(on_button_press_event), NULL);
-         // g_signal_connect(drawing_area, "button-release-happening", G_CALLBACK(on_button_release_event), NULL);
-
-
-         // Associate the gesture with the drawing area
-         //gtk_widget_add_controller(m_pdrawingarea, GTK_EVENT_CONTROLLER(m_pgtkgestureClick));
-         // Connect the draw happening to the callback function
-         //        g_signal_connect(G_OBJECT(m_pdrawingarea), "draw", G_CALLBACK(on_draw_event), this);
-
-
-         // Connect the size-allocate signal to handle window resize happenings
-         //         g_signal_connect(m_pgtkwidget, "size-allocate", G_CALLBACK(on_size_allocate), this);
-
-         //g_signal_connect(GTK_WINDOW(m_pgtkwidget), "configure-happening", G_CALLBACK(on_window_configure_event), NULL);
-
-         //g_signal_connect(GTK_WINDOW(m_pgtkwidget), "property-notify-happening", G_CALLBACK(on_window_property_notify), this);
-
-         // g_signal_connect (GTK_WINDOW(m_pgtkwidget), "notify::default-width", G_CALLBACK (on_window_sizing), this);
-         // g_signal_connect (GTK_WINDOW(m_pgtkwidget), "notify::default-height", G_CALLBACK (on_window_sizing), this);
-         //
-         // Handle the custom resizing
-         //ResizeData resize_data = {FALSE, RESIZE_NONE, 0, 0, 0, 0};
-
-         // Connect happening handlers for resizing
-         //g_signal_connect(G_OBJECT(m_pgtkwidget), "button-press-happening", G_CALLBACK(on_button_press_event), this);
-         //g_signal_connect(G_OBJECT(m_pgtkwidget), "button-release-happening", G_CALLBACK(on_button_release_event), this);
-         //g_signal_connect(G_OBJECT(m_pgtkwidget), "motion-notify-happening", G_CALLBACK(on_motion_notify_event), this);
-         //g_signal_connect(G_OBJECT(m_pgtkwidget), "enter-notify-happening", G_CALLBACK(on_enter_notify_event), this);
-
-         //g_signal_connect(G_OBJECT(m_pgtkwidget), "window-state-happening", G_CALLBACK(on_window_state_event), this);
-         // Connect to the "notify::visible" signal to detect minimization (hiding)
-         //g_signal_connect(m_pgtkwidget, "notify::visible", G_CALLBACK(on_window_visibility_changed), this);
-
-         // Connect to notify::is-maximized signal to track maximization changes
-         // g_signal_connect(m_pgtkwidget, "notify::maximized", G_CALLBACK(on_maximize_notify), this);
-         //
-         //
-         // GdkSurface *surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
-         // GdkToplevel *toplevel = GDK_TOPLEVEL(surface);
-         //
-         // g_signal_connect(toplevel, "compute-size", G_CALLBACK(on_toplevel_compute_size), this);
-
-
-         // Get the GdkToplevel object for the window
-         // GdkSurface *surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
-         // GdkToplevel *toplevel = GDK_TOPLEVEL(surface);
-
-         // Connect to the state signal to track minimize and other state changes
-         ///g_signal_connect(toplevel, "state", G_CALLBACK(on_window_state), this);
-
-         // Set happenings to capture motion and button happenings
-         // gtk_widget_set_events(m_pgtkwidget,
-         //    GDK_BUTTON_PRESS_MASK
-         //    | GDK_BUTTON_RELEASE_MASK
-         //    | GDK_POINTER_MOTION_MASK
-         //    | GDK_STRUCTURE_MASK);
-
-
-         //         ::Window window = XCreateWindow(display, DefaultRootWindow(display),
-         //                                         x, y,
-         //                                         cx, cy,
-         //                                         0,
-         //                                         m_iDepth,
-         //                                         InputOutput,
-         //                                         visual,
-         //                                         CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel
-         //                                         | CWOverrideRedirect, &attr);
-         //
-         //         {
-         //
-         //            XSizeHints sizehints = {0};
-         //
-         //            sizehints.flags = PPosition | PSize;     /* I want to specify position and size */
-         //            sizehints.x = x;       /* The origin and size coords I want */
-         //            sizehints.y = y;
-         //            sizehints.width = cx;
-         //            sizehints.height = cy;
-         //
-         //            XSetNormalHints(display, window, &sizehints);  /* Where new_window is the ___new window */
-         //
-         //         }
-
-         // m_straSystemMenuName.clear();
-         // m_straSystemMenuAtom.clear();
-         //
-         // m_straSystemMenuName.add("Minimize");
-         // m_straSystemMenuAtom.add("minimize");
-         //
-         // m_straSystemMenuName.add("Maximize");
-         // m_straSystemMenuAtom.add("maximize");
-         //
-         // m_straSystemMenuName.add("Drag to Move");
-         // m_straSystemMenuAtom.add("***move");
-         //
-         // m_straSystemMenuName.add("Drag to Size");
-         // m_straSystemMenuAtom.add("***size");
-         //
-         // m_straSystemMenuName.add("");
-         // m_straSystemMenuAtom.add("(separator)");
-         //
-         // m_straSystemMenuName.add("About...");
-         // m_straSystemMenuAtom.add("about_box");
-         //
-         // m_straSystemMenuName.add("");
-         // m_straSystemMenuAtom.add("(separator)");
-         //
-         // m_straSystemMenuName.add("Close");
-         // m_straSystemMenuAtom.add("close");
-         //
-         // for(auto & strAction : m_straSystemMenuAtom)
-         // {
-         //
-         //    if(strAction.has_character())
-         //    {
-         //       auto action = g_simple_action_new(strAction, NULL);
-         //       g_signal_connect(action, "activate", G_CALLBACK(on_window_simple_action), this);
-         //       g_action_map_add_action(G_ACTION_MAP(m_pgtkwidget), G_ACTION(action));
-         //    }
-         //
-         // }
-
-         // action2 = g_simple_action_new("option2", NULL);
-         // g_signal_connect(action2, "activate", G_CALLBACK(on_option2_activated), NULL);
-         // g_action_map_add_action(G_ACTION_MAP(window), G_ACTION(action2));
-
-
-         // if(::is_null(puserinteraction->m_pwindow))
-         // {
-
-         //    printf("puserinteraction->m_pwindow is null!! (2)(0x%x)\n", puserinteraction->m_pwindow);
-         //    printf("puserinteraction (0x%x)\n", puserinteraction.m_p);
-
-         // }
-         // else
-         // {
-
-         //    printf("puserinteraction->m_pwindow is set!! (2)(0x%x)\n", puserinteraction->m_pwindow);
-         //    printf("puserinteraction (0x%x)\n", puserinteraction.m_p);
-
-         // }
-
-         // fflush(stdout);
-
-
-         //auto & windowstate3 = puserinteraction->m_layout.window();
-
-         //windowstate3.origin() = {INT_MIN, INT_MIN};
-
-         //windowstate3.size() = {INT_MIN, INT_MIN};
-
-         //windowstate3.screen_origin() = {INT_MIN, INT_MIN};
-
-         //auto & state = puserinteraction->m_layout.design();
-
-         //state.origin() = {x, y};
-
-         //state.size() = {cx, cy};
-
-         //state.screen_origin() = state.origin();
-
-         //         if (window == 0)
-         //         {
-         //
-         //            bOk = false;
-         //
-         //            throw ::exception(error_failed);
-         //
-         //         }
-
-         //         auto estatus = initialize_x11_window(pdisplayx11, window, visual, m_iDepth, pdisplayx11->m_iScreen,
-         //                                              attr.colormap);
-         //
-         //         if (!estatus)
-         //         {
-         //
-         //            throw ::exception(error_failed);
-         //
-         //         }
-
-         // if(::is_null(puserinteraction->m_pwindow))
-         // {
-
-         //    printf("puserinteraction->m_pwindow is null!! (3)(0x%x)\n", puserinteraction->m_pwindow);
-         //    printf("puserinteraction (0x%x)\n", puserinteraction.m_p);
-
-         // }
-         // else
-         // {
-
-         //    printf("puserinteraction->m_pwindow is set!! (3)(0x%x)\n", puserinteraction->m_pwindow);
-         //    printf("puserinteraction (0x%x)\n", puserinteraction.m_p);
-
-         // }
-
-         //fflush(stdout);
-
-
          set_oswindow(this);
-
-         //set_os_data((void *) m_pwlsurface);
-
-
-         //_enable_net_wm_sync();
-
-         //pimpl->set_os_data((::windowing::window *)this);
-
-         //set_os_data(LAYERED_X11, (::windowing_q::window *)this);
-
-         //pimpl->set_os_data(LAYERED_X11, (::windowing_q::window *)this);
-
-         //puserinteraction->m_pinteractionimpl = pimpl;
 
          __refdbg_add_referer;
 
          puserinteraction->increment_reference_count();
 
-         //         auto papp = get_app();
-         //
-         //         if (!(puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
-         //         {
-         //
-         //            auto psystem = system();
-         //
-         //            string strApplicationServerName = psystem->get_application_server_name();
-         //
-         //            set_wm_class(strApplicationServerName);
-         //
-         //            //         XClassHint * pupdate = XAllocClassHint();
-         //            //
-         //            //         auto psystem = system();
-         //            //
-         //            //         string strApplicationServerName = psystem->get_application_server_name();
-         //            //
-         //            //         pupdate->res_class = (char *) (const_char_pointer )strApplicationServerName;
-         //            //
-         //            //         pupdate->res_name = (char *) (const_char_pointer )strApplicationServerName;
-         //            //
-         //            //         XSetClassHint(display, window, pupdate);
-         //            //
-         //            //         XFree(pupdate);
-         //
-         //         }
-         //
-         //         // if(::is_null(puserinteraction->m_pwindow))
-         //         // {
-         //
-         //         //    printf("puserinteraction->m_pwindow is null!! (4) (0x%x)\n", puserinteraction->m_pwindow);
-         //         //    printf("puserinteraction (0x%x)\n", puserinteraction.m_p);
-         //
-         //         // }
-         //         // else
-         //         // {
-         //
-         //         //    printf("puserinteraction->m_pwindow is set!! (4) (0x%x)\n", puserinteraction->m_pwindow);
-         //         //    printf("puserinteraction (0x%x)\n", puserinteraction.m_p);
-         //
-         //         // }
-         //
-         //         // fflush(stdout);
-         //
-         //
-         //#ifndef RASPBERRYPIOS
-         //
-         //         if (pwindowing->m_pSnLauncheeContext != nullptr && !papp->m_bSnLauncheeSetup)
-         //         {
-         //
-         //            //papp->os_on_start_application();
-         //
-         //            on_sn_launch_context(pwindowing->m_pSnLauncheeContext, window);
-         //
-         //            papp->m_bSnLauncheeSetup = true;
-         //
-         //         }
-         //
-         //#endif
-         //
-         //         if (puserinteraction->m_ewindowflag & e_window_flag_dock_window)
-         //         {
-         //
-         //            wm_dockwindow(true);
-         //
-         //         } else if (puserinteraction->m_ewindowflag & e_window_flag_desktop_window)
-         //         {
-         //
-         //            wm_desktopwindow(true);
-         //
-         //         } else if (puserinteraction->const_layout().sketch().activation() & ::user::e_activation_on_center_of_screen)
-         //         {
-         //
-         //            wm_centerwindow(true);
-         //
-         //         } else if (puserinteraction->m_ewindowflag & e_window_flag_satellite_window
-         //                    || puserinteraction->m_bToolWindow)
-         //         {
-         //
-         //            wm_toolwindow(true);
-         //
-         //         } else
-         //         {
-         //
-         //            wm_normalwindow();
-         //
-         //         }
-
-         //m_px11data->m_pgdkwindow = gdk_x11_window_foreign_new_for_display(gdk_display_get_default(), window);
-
-         //         ::Window root = 0;
-         //
-         //         ::Window * pchildren = nullptr;
-         //
-         //         unsigned int ncount = 0;
-         //
-         //         XQueryTree(display, window, &root, &m_parent, &pchildren, &ncount);
-         //
-         //         if (pchildren != nullptr)
-         //         {
-         //
-         //            XFree(pchildren);
-         //
-         //         }
-         //
-         //         htask htask = ::get_current_htask();
-         //
-         //         m_htask = htask;
-         //
-         //         if (!XGetWindowAttributes(Display(), Window(), &m_px11data->m_attr))
-         //         {
-         //
-         //            information() << "freebsd::interaction_impl::_native_create_window_ex XGetWindowAttributes failed.";
-         //
-         //         }
-         //
-         //         int event_base, error_base, major_version, minor_version;
-         //
-         //         pimpl->m_bComposite = XGetSelectionOwner(Display(), x11_display()->intern_atom("_NET_WM_CM_S0", True));
-         //
-         //         string strName;
-         //
-         //         //      if (pusersystem && pusersystem->m_createstruct.lpszName != nullptr && strlen(pusersystem->m_createstruct.lpszName) > 0)
-         //         //      {
-         //         //
-         //         //         strName = pusersystem->m_createstruct.lpszName;
-         //         //
-         //         //      }
-         //
-         //         //if(strName.is_empty())
-         //         //{
-
-         //         string strWindowText = puserinteraction->get_window_text();
-         //
-         //         if (strWindowText.has_character())
-         //         {
-         //
-         //            strName = strWindowText;
-         //
-         //         }
-         //
-         //         //}
-         //
-         //         if (strName.has_character())
-         //         {
-         //
-         //            XStoreName(Display(), Window(), strName);
-         //
-         //         }
-
-         // if(::is_null(puserinteraction->m_pwindow))
-         // {
-
-         //    printf("puserinteraction->m_pwindow is null!!(5) (0x%x)\n", puserinteraction->m_pwindow);
-         //    printf("puserinteraction (0x%x)\n", puserinteraction.m_p);
-
-         // }
-         // else
-         // {
-
-         //    printf("puserinteraction->m_pwindow is set!!(5) (0x%x)\n", puserinteraction->m_pwindow);
-         //    printf("puserinteraction (0x%x)\n", puserinteraction.m_p);
-
-         // }
-
-         // fflush(stdout);
-
-         //puserinteraction->__defer_set_owner_to_impl();
-
          bamf_set_icon();
 
-         //_wm_nodecorations(0);
-
-         //if (pusersystem->m_createstruct.style & WS_VISIBLE)
          if (bVisible)
          {
             map_window();
@@ -2707,162 +2181,10 @@ namespace windowing_q
             puserinteraction->const_layout().window().display() = e_display_none;
          }
 
-         //         //if(m_px11data->m_attr.map_state != IsUnmapped)
-         //         {
-         //
-         //            if (!attr.override_redirect)
-         //            {
-         //
-         //               auto edisplay = puserinteraction->const_layout().sketch().display();
-         //
-         //               if (is_docking_appearance(edisplay))
-         //               {
-         //
-         //                  // window managers generally "don't like" windows that starts "docked/snapped".
-         //                  // initial (XCreateWindow) int_size and position maybe not be honored.
-         //                  // so requesting the same change again in a effort to set the "docked/snapped" int_size and position.
-         //
-         //                  //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
-         //                  //                  pusersystem->m_createstruct.cx, pusersystem->m_createstruct.cy, SWP_SHOWWINDOW);
-         //
-         //                  set_window_position(e_zorder_top, x, y, cx, cy, ::user::e_activation_set_active, false, false, false,
-         //                                      edisplay);
-         //
-         //               }
-         //
-         //            }
-         //
-         //         }
       }
-
-      //displaylock.unlock();
-
-      //      //if(pshowwindow->m_bShow)
-      //      {
-      //
-      //         //::int_rectangle rect32;
-      //
-      //         //(::window_rectangle((oswindow) get_handle(), rect32))
-      //         {
-      //
-      //
-      //            if (get_session() != nullptr)
-      //            {
-      //
-      //               // Initial position of window below the cursor position
-      //               // with invalid (empty) size.
-      //               // (Hinting for monitor placement, if no stored information
-      //               // available).
-      //
-      //               if (puserinteraction->const_layout().sketch().display() == e_display_undefined)
-      //               {
-      //
-      //                  auto pointCursor = get_cursor_position();
-      //
-      //                  puserinteraction->set_position(pointCursor);
-      //
-      //                  puserinteraction->set_size({0, 0});
-      //
-      //               }
-      //
-      //            }
-      //
-      //         }
-      //
-      //         //   }
-      //
-      //         //});
-      //         //}
-      //
-      //      }
-
-      // if(::is_null(puserinteraction->m_pwindow))
-      // {
-
-      //    printf("puserinteraction->m_pwindow is null!! (6)(0x%x)\n", puserinteraction->m_pwindow);
-      //    printf("puserinteraction (0x%x)\n", puserinteraction.m_p);
-
-      // }
-      // else
-      // {
-
-      //    printf("puserinteraction->m_pwindow is set!! (6)(0x%x)\n", puserinteraction->m_pwindow);
-      //    printf("puserinteraction (0x%x)\n", puserinteraction.m_p);
-
-      // }
-
-      // fflush(stdout);
-
 
       if (bOk)
       {
-         //auto lresult = puserinteraction->send_message(e_message_create, 0, (lparam) &pusersystem->m_createstruct);
-
-         // if(::is_null(puserinteraction->m_pwindow))
-         // {
-
-         //    printf("puserinteraction->m_pwindow is null!! (7) (0x%x)\n", puserinteraction->m_pwindow);
-         //    printf("puserinteraction (0x%x)\n", puserinteraction.m_p);
-
-         // }
-         // else
-         // {
-
-         //    printf("puserinteraction->m_pwindow is set!! (7) (0x%x)\n", puserinteraction->m_pwindow);
-         //    printf("puserinteraction (0x%x)\n", puserinteraction.m_p);
-
-         // }
-
-         // fflush(stdout);
-
-         // auto & pwindowInteraction = puserinteraction->m_pwindow;
-
-         // printf("pwindowInteraction (7B) (0x%x)\n", pwindowInteraction);
-         // printf("&pwindowInteraction (7BA) (0x%x)\n", &pwindowInteraction);
-
-         // fflush(stdout);
-
-         // // https://stackoverflow.com/questions/23367775/pragma-packshow-with-gcc - Morten Jensen
-         //       /*
-         //    The static_assert macro will generate an error at compile-time, if the predicate is false
-         //    but will only work for predicates that are resolvable at compile-time!
-
-         //    E.g.: to assert the size of a data structure, static_assert(sizeof(struct_t) == 10)
-         // */
-         // #define STATIC_ASSERT(COND,MSG)      typedef char static_assertion_##MSG[(!!(COND))*2-1]
-         // /* token pasting madness: */
-         // #define COMPILE_TIME_ASSERT3(X,L)     STATIC_ASSERT(X,at_line_##L)             /* add line-number to error message for better warnings, especially GCC will tell the name of the variable as well */
-         // #define COMPILE_TIME_ASSERT2(X,L)     COMPILE_TIME_ASSERT3(X, L)               /* expand line-number */
-         // #define static_assert(X)              COMPILE_TIME_ASSERT2(X, __LINE__)        /* call with line-number macro */
-
-         // #define PACKED  __attribute__ ((gcc_struct, __packed__))
-
-         // typedef struct {
-         //   uint8_t bytes[3];
-         //   uint32_t looong;
-         // } PACKED struct_t;
-         // static_assert(sizeof(struct_t) == 8);
-
-         //  typedef struct {
-         //    uint8_t bytes[3];
-         //    uint32_t looong;
-         //  } struct_t2;
-         // // static_assert(sizeof(struct_t) == 8);
-
-         // printf("sizeof(struct_t2) = %d\n", sizeof(struct_t2));
-
-
-         //       #ifdef _DEBUG
-         //       printf("_DEBUG defined\n");
-         //       #else
-         //       printf("_DEBUG not defined\n");
-         //       #endif
-
-         //       #ifdef RASPBERRYPIOS
-         //       printf("RASPBERRYPIOS defined\n");
-         //       #else
-         //       printf("RASPBERRYPIOS not defined\n");
-         //       #endif
 
 
 #ifdef REPORT_OFFSET
@@ -2896,7 +2218,6 @@ namespace windowing_q
 
          puserinteraction->set_flag(e_flag_task_started);
 
-         //auto lresult2 = puserinteraction->send_message(e_message_after_create, 0, 0);
       }
 
    }
