@@ -322,7 +322,7 @@ namespace g
 
          }
 
-            //break;
+            break;
 
          default:
 
@@ -412,12 +412,14 @@ namespace g
 
             try
             {
-               node()->get_posix_shell_command_output("xrandr --listmonitors");
+               strOutput = node()->get_posix_shell_command_output("xrandr --listmonitors");
             }
             catch (...)
             {
 
-               message_box("xrandr failed. Is it installed? Cannot set wallpaper.");
+               auto pmessagebox = message_box("xrandr failed. Is it installed? Cannot set wallpaper.");
+
+               pmessagebox->sync();
 
                return;
 
@@ -431,6 +433,8 @@ namespace g
             {
 
                str.trim();
+
+               information() << "xrandr --listmonitors output : " << str;
 
                auto iFind = str.find_index('+');
 

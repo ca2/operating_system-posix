@@ -22,9 +22,9 @@
 #include "acme/prototype/geometry2d/_text_stream.h"
 #include "acme/integrate/cairo/surface.h"
 
-
+#if REFERENCING_DEBUGGING
 void set_reference_referer_releaser_breakpoint(int i);
-
+#endif
 
 namespace gtk3
 {
@@ -1148,8 +1148,9 @@ m_phappeningLastMouseUp = pevent;
 
             //if(::is_set(pwindow))
             {
+#if REFERENCING_DEBUGGING
                set_reference_referer_releaser_breakpoint(0);
-
+#endif
                auto pmouse = øcreate_new<::user::mouse>();
 
 //               pmouse->m_oswindow = this;
@@ -1191,8 +1192,9 @@ m_phappeningLastMouseUp = pevent;
                if (pmouse->m_bRet)
                {
 
+#if REFERENCING_DEBUGGING
                   set_reference_referer_releaser_breakpoint(1);
-
+#endif
 
                   return true;
 
@@ -1209,17 +1211,18 @@ m_phappeningLastMouseUp = pevent;
                if (pmouse->m_bRet)
                {
 
+#if REFERENCING_DEBUGGING
                   set_reference_referer_releaser_breakpoint(1);
-
+#endif
 
                   return true;
 
                }
 
             }
-
+#if REFERENCING_DEBUGGING
             set_reference_referer_releaser_breakpoint(1);
-
+#endif
             return false;
 
          }
