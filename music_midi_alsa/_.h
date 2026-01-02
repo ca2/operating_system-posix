@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "app-veriwell/multimedia/_.h"
+#include "app-multimedia/multimedia/_.h"
 
 
 #include "seqlib.h"
