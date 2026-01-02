@@ -171,59 +171,6 @@ namespace g
          {
 
 
-
-
-            GdkScreen *screen = gdk_screen_get_default();
-
-            if (!screen)
-            {
-
-               g_printerr("Failed to get the default screen.\n");
-
-            }
-            else
-            {
-
-               // Get the primary monitor index
-               m_iMainMonitor = gdk_screen_get_primary_monitor(screen);
-
-            }
-
-
-            auto n = gdk_display_get_n_monitors(m_pgdkdisplay);
-
-            for(int i = 0; i < n; i++)
-            {
-
-               GdkMonitor *pgdkmonitor = gdk_display_get_monitor(m_pgdkdisplay, i);
-
-               //auto pmonitor = øcreate_new< ::windowing::monitor>();
-
-               //pmonitor->m_pdisplay = this;
-
-
-               // Get the geometry (rectangle) of the monitor
-               GdkRectangle geometry;
-               gdk_monitor_get_geometry(pgdkmonitor, &geometry);
-
-               // Print monitor geometry details
-               informationf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
-                      i, geometry.x, geometry.y, geometry.width, geometry.height);
-               int_rectangle rectangle;
-               ::copy(rectangle, geometry);
-               _on_monitor(i, rectangle, rectangle);
-               //::copy(pmonitor->m_rectangleWorkspace, geometry);
-               // Unref the monitor object as we no longer need it
-               //g_object_unref(pgdkmonitor);
-
-               //m_monitora.add(pmonitor);
-               //m_rectanglea.add(rectangle);
-
-
-            }
-
-            //m_bDisplayOpened = true;
-
          }
 
    ::string display::_get_wallpaper(::collection::index iMonitorIndex)

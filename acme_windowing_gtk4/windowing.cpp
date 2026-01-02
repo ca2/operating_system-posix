@@ -246,7 +246,7 @@ gtk_init();
 
             m_procedurelistPriority.clear();
 
-            m_callbackOnActivateGtkApplication.clear();
+            m_callbackOnActivateGtkApplication.release();
 
             m_phappeningCreatingWGtk4Display.defer_destroy();
 
