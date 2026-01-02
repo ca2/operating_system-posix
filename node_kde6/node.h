@@ -129,7 +129,7 @@ namespace node_kde6
       void _node_folder_dialog(::file::folder_dialog * pdialog) override;
 
 
-      ::wl_display * get_wayland_display() override;
+      //::wl_display * get_wayland_display() override;
 
 
       void launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion) override;

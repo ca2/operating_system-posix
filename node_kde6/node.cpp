@@ -25,7 +25,7 @@
 #include <QFileDialog>
 #include <QTextStream>
 #include <QDBusInterface>
-#include <QtGui/qpa/qplatformnativeinterface.h>
+//#include <QtGui/qpa/qplatformnativeinterface.h>
 #include <xcb/xcb.h>
 #include "windowing_kde6/windowing.h"
 //#include <KPackage/Package>
@@ -883,16 +883,16 @@ namespace node_kde6
    }
 
 
-   ::wl_display * node::get_wayland_display()
-   {
-
-      QPlatformNativeInterface *native =  QGuiApplication::platformNativeInterface();
-
-      auto pwldisplay = (::wl_display *) native->nativeResourceForWindow("display", NULL);
-
-      return pwldisplay;
-
-   }
+   // ::wl_display * node::get_wayland_display()
+   // {
+   //
+   //    QPlatformNativeInterface *native =  QGuiApplication::platformNativeInterface();
+   //
+   //    auto pwldisplay = (::wl_display *) native->nativeResourceForWindow("display", NULL);
+   //
+   //    return pwldisplay;
+   //
+   // }
 
 
    void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion)
