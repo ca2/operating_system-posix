@@ -3,7 +3,6 @@ project(windowing_posix CXX)
 
 
 list(APPEND library_source
-        _.cpp
         _.h
         _constant.h
         framework.cpp
