@@ -32,8 +32,67 @@
 //#include <KPackage/PackageLoader>
 //#include <KF5/plasma/applet.h>
 //#include <KF5/plasma/containment.h>
+#include <QtDBus/QDBusInterface>
+#include <QtDBus/QDBusReply>
+#include <QDebug>
+#include <QProcess>
+#include <QStringList>
+#include <iostream>
+int defer_make_executable(const ::file::path & path)
+{
 
+    const char *file_path = path.c_str();  // Replace with your file path
 
+    struct stat file_stat;
+
+    // Check if the file exists and get its metadata
+    if (stat(file_path, &file_stat) == -1) {
+        ::warning("Error accessing the file");
+        return 1;
+    }
+
+    // Check if the executable bit is set for the owner (S_IXUSR), group (S_IXGRP), or others (S_IXOTH)
+    if ((file_stat.st_mode & S_IXUSR) || (file_stat.st_mode & S_IXGRP) || (file_stat.st_mode & S_IXOTH)) {
+        ::information("The file is already executable.\n");
+    } else {
+        ::information("The file is not executable. Setting the executable bit...\n");
+
+        // Set the executable bit for the owner (S_IXUSR)
+        if (chmod(file_path, file_stat.st_mode | S_IXUSR) == -1) {
+            ::warning("Error setting the executable bit");
+            return 1;
+        }
+        ::information("Executable bit set for the owner.\n");
+    }
+return 0;
+}
+void launchDetachedExecutable(const ::file::path & pathDesktop) {
+
+    // Path to your .desktop file or the application executable
+    const QString appPath = pathDesktop.c_str();  // You can also use full path to the executable here
+
+    // DBus service name (this will be the KDE service for handling applications)
+    const QString service = "org.freedesktop.Application";
+
+    // DBus object path (this is typically '/org/freedesktop/desktop/launch')
+    const QString path = "/org/freedesktop/desktop/launch";
+
+    // Interface to interact with the service
+    const QString interface = "org.freedesktop.Application";
+
+    // Create a DBus interface for launching the application
+    QDBusInterface dbusInterface(service, path, interface, QDBusConnection::sessionBus());
+
+    // The 'Open' method can be called on this interface to launch an application
+    QDBusReply<void> reply = dbusInterface.call("Open", appPath);
+
+    // Check if the call was successful
+    if (reply.isValid()) {
+        qDebug() << "Application launched successfully!";
+    } else {
+        qDebug() << "Failed to launch application:" << reply.error().message();
+    }
+}
 void initialize_x11_display(::particle * pparticle, void * pX11Display);
 void * initialize_x11_display(::particle * pparticle);
 
@@ -897,42 +956,76 @@ namespace node_kde6
 
    void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion)
    {
+::file::path path = get_executable_path_by_app_id(scopedstrAppId, bSingleExecutableVersion);
+information() << "executable file path: file://" << path;
+auto pathDesktopFile = get_desktop_file_path_by_app_id(scopedstrAppId);
+information() << "desktop file path: file://" << path;
+if(!file()->exists(pathDesktopFile))
+{
+information() << "desktop file doesn't exist: file://" << path;
+::string strCommand;
+strCommand = ::string(path) + " --install-only";
+information() << "gonna run ::system(\""<< strCommand<<"\")";
+::system(strCommand);
+}
 
-//      information() << "node::launch_app_by_app_id : " << scopedstrAppId;
-//
-//      auto pathDesktopFile = get_desktop_file_path_by_app_id(scopedstrAppId);
-//
-//      if(!file_system()->exists(pathDesktopFile))
-//      {
-//
-//         information() << "Desktop file (\"" << pathDesktopFile << "\") doesn't exist. Going to try to launch with executable path.";
+defer_make_executable(pathDesktopFile);
 
-         ::aura_posix::node::launch_app_by_app_id(scopedstrAppId, bSingleExecutableVersion);
+::string strId= pathDesktopFile.name();
+strId.case_insensitive_ends_eat(".desktop");
+  ::string strCommand = "gtk-launch \"" + strId + "\"";
 
-//         return;
-//
-//      }
-//
-//      ::string strCommand = "sh -c \"nohup kioclient exec " + pathDesktopFile + " &\"";
-//
-//      int iExitCode = node()->command_system(strCommand, 10_minutes);
-//
-//      if(iExitCode == 0)
-//      {
-//
-//         information() << "Successfully launched \"" << scopedstrAppId << "\"";
-//
-//         return;
-//
-//      }
-//
-//      warning() << "Failed to launch application \"" + scopedstrAppId + "\" using kioclient exec";
-//
-//      information() << "Going to try to launch with executable path.";
-//
-//      ::aura_posix::node::launch_app_by_app_id(scopedstrAppId);
+      int result = ::system(strCommand);
 
+   if(result == 0)
+      {
+
+         information() << "Successfully launched \"" << scopedstrAppId << "\"";
+
+         return;
+
+      }
+
+      warning() << "Failed to launch application \"" + scopedstrAppId + "\" using kioclient exec";
+
+   //launchDetachedExecutable(pathDesktopFile);
    }
+
+     // information() << "node::launch_app_by_app_id : " << scopedstrAppId;
+
+    //  auto pathDesktopFile = get_desktop_file_path_by_app_id(scopedstrAppId);
+
+      //if(!file_system()->exists(pathDesktopFile))
+      //{
+
+       //  information() << "Desktop file (\"" << pathDesktopFile << "\") doesn't exist. Going to try to launch with executable path.";
+
+      //   ::aura_posix::node::launch_app_by_app_id(scopedstrAppId, bSingleExecutableVersion);
+
+     //    return;
+
+//}
+
+    //  ::string strCommand = "gio open \"" + pathDesktopFile + "\"";
+
+  //    int result = ::system(strCommand);
+
+//   if(result == 0)
+   //   {
+
+   //      information() << "Successfully launched \"" << scopedstrAppId << "\"";
+
+   //      return;
+
+    //  }
+
+     // warning() << "Failed to launch application \"" + scopedstrAppId + "\" using kioclient exec";
+
+      //information() << "Going to try to launch with executable path.";
+
+    //  ::aura_posix::node::launch_app_by_app_id(scopedstrAppId, bSingleExecutableVersion);
+
+///   }
 
 
    // bool node::dark_mode() const

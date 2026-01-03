@@ -27,7 +27,7 @@
 #include "acme/operating_system/ansi/_pthread.h"
 
 
-#define DEEP_LOG_HERE 0
+#define DEEP_LOG_HERE 47
 
 template < typename POINTER_TYPE >
 class array_of_malloced_pointer_base :

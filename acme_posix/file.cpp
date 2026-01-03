@@ -512,6 +512,13 @@ namespace acme_posix
       
 #if defined(__APPLE__) || defined(__BSD__)
 
+if(eseek == e_seek_from_end)
+{
+
+information() << "seek from end: " << lLoOffset;
+
+}
+
       filesize posNew = ::lseek(m_iFile, lLoOffset, (unsigned int)eseek);
       
 #else
@@ -689,11 +696,15 @@ namespace acme_posix
 
       filesize dwLen, dwCur;
 
+information()<<"going to get file size...";
       // seek is a non const operation
       file* pFile = (file*)this;
       dwCur = pFile->get_position();
+      information()<<"current position : " << dwCur;
       pFile->seek_to_end();
+
       dwLen = pFile->get_position();
+      information()<<"position after seek to end : " << dwLen;
       pFile->set_position(dwCur);
 
       return (filesize) dwLen;

@@ -12,7 +12,7 @@
 #include "acme/filesystem/filesystem/directory_system.h"
 #include "apex/platform/application.h"
 
-
+#include "acme/exception/exit.h"
 #include "acme/_operating_system.h"
 
 
@@ -88,6 +88,14 @@ namespace apex_posix
             pfile->write();
 
          }
+
+         if(system()->has_argument("--install-only"))
+         {
+
+            throw ::exit_exception();
+
+         }
+
 
       }
       catch(...)

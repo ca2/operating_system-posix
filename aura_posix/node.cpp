@@ -20,6 +20,7 @@
 #endif
 #endif
 
+int launch_process_detached(const ::file::path & pathExecutable);
 
 namespace aura_posix
 {
@@ -523,6 +524,31 @@ namespace aura_posix
 
       pathLog = pathLogFolder / strLogFileName;
 
+#if defined(FREEBSD)
+
+      //strCommand = "\"/bin/sh\" -c \"\\\"" + (pathFolder/strName) + "\\\"\"";
+      strCommand = "\"" + (pathFolder/strName) + "\"";
+::file::path pathExecutable = pathFolder/strName;
+
+        int iLaunchCode = launch_process_detached(pathExecutable);
+      //information() << "node::launch_app_by_app_id : " << strCommand;
+
+     //auto inlinelog = std_inline_log();
+
+    //inlinelog.set_timeout(10_minutes);
+
+    //int iExitCode = this->command_system(strCommand, inlinelog);
+
+    if(iLaunchCode != 0)
+    {
+
+       throw ::exception(error_failed);
+
+    }
+
+
+#else
+
       strCommand = "sh -c \"nohup ./\\\"" + strName + "\\\" > \\\"" + pathLog +"\\\"\"";
 
       information() << "node::launch_app_by_app_id : " << strCommand;
@@ -539,6 +565,9 @@ namespace aura_posix
          throw ::exception(error_failed);
 
       }
+
+#endif
+
 
 #endif
 
