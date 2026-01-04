@@ -588,7 +588,7 @@ namespace gdk
    void gdk_branch(const ::procedure & procedure)
    {
 
-      ::subparticle * pbase = procedure.m_pbase;
+      ::subparticle * pbase = procedure;
 
       ::increment_reference_count(pbase);
 
