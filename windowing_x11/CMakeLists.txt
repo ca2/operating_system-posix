@@ -5,6 +5,9 @@ project(windowing_x11 CXX)
 list(APPEND library_source
    ../_startup_notification/_startup_notification.cpp
    ../_startup_notification/_startup_notification.h
+   ../_xim_keyboard/_xim_keyboard.cpp
+   ../_xim_keyboard/_xim_keyboard.h
+   ../_x11_cursor/_x11_cursor.cpp
         _.cpp
         _.h
         _factory.cpp
