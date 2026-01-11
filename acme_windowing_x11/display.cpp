@@ -3573,19 +3573,10 @@ namespace x11
          // }
          //
 
-         void display::get_os_display_handle(void *p, int iSize)
+         void * display::_get_x11_display()
          {
 
-            if (iSize != sizeof(::Display *))
-            {
-
-               throw ::exception(error_wrong_state);
-
-            }
-
-            auto ppDisplay = (::Display **) p;
-
-            *ppDisplay = m_pDisplay;
+            return m_pDisplay;
 
          }
 

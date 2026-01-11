@@ -6251,6 +6251,15 @@ auto pwindowing = system()->acme_windowing();
    }
 
 
+   void * window::__x11_Display()
+   {
+
+      return m_px11display->m_pDisplay;
+
+   }
+
+
+
 } // namespace windowing_x11
 
 

@@ -365,6 +365,8 @@ void on_initialize_particle() override;
       ::oswindow oswindow() const;
 
 
+      void * __x11_Display() override;
+
    };
 
 

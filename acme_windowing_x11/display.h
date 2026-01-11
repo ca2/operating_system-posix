@@ -179,7 +179,7 @@ namespace x11
             virtual Window window_from_name(char const *name, int iOffset, int depth);
 
 
-            void get_os_display_handle(void *p, int iSize) override;
+            void * _get_x11_display() override;
 
 
          };
