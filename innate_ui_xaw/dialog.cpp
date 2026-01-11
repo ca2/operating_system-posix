@@ -58,19 +58,19 @@ namespace innate_ui_xaw
       //         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, (HINSTANCE) ::platform::get()->m_hinstanceThis,
       //         nullptr);
 
-      m_pgtkwidget = gtk_dialog_new_with_buttons("Custom Dialog",
-                                                   NULL,
-                                                   GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                   NULL);
-      if (m_pgtkwidget)
-      {
-
-         system()->innate_ui()->add_top_level_window(this);
-
-      }
-      GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(m_pgtkwidget));
-      m_fixed = gtk_fixed_new();
-      gtk_container_add(GTK_CONTAINER(content_area), m_fixed);
+      // m_pgtkwidget = gtk_dialog_new_with_buttons("Custom Dialog",
+      //                                              NULL,
+      //                                              GTK_DIALOG_DESTROY_WITH_PARENT,
+      //                                              NULL);
+      // if (m_pgtkwidget)
+      // {
+      //
+      //    system()->innate_ui()->add_top_level_window(this);
+      //
+      // }
+      // GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(m_pgtkwidget));
+      // m_fixed = gtk_fixed_new();
+      // gtk_container_add(GTK_CONTAINER(content_area), m_fixed);
 
    }
 

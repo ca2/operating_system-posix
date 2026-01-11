@@ -2,6 +2,9 @@
 #include "framework.h"
 #include "button.h"
 #include "icon.h"
+#include <X11/Intrinsic.h>
+#include <X11/StringDefs.h>
+#include <X11/Xaw/Command.h>
 
 
 namespace innate_ui_xaw
@@ -18,12 +21,14 @@ namespace innate_ui_xaw
 
    }
 
-   // Callback function to handle the button click happening
-   void on_button_clicked(GtkWidget *widget, gpointer data)
+   void on_button_clicked(Widget w, XtPointer client_data, XtPointer call_data)
    {
-      auto p = (button *) data;
+      auto p = static_cast<button*>(client_data);
       p->call_on_click();
-   };
+   }
+
+
+
    void button::set_callback_on_click(const ::procedure & callbackOnClickParam)
    {
 
@@ -32,7 +37,7 @@ namespace innate_ui_xaw
 
 
 
-      g_signal_connect(m_pgtkwidget, "clicked", (GCallback) on_button_clicked, this);
+      //g_signal_connect(m_pgtkwidget, "clicked", (GCallback) on_button_clicked, this);
 
 
    }
@@ -55,8 +60,29 @@ namespace innate_ui_xaw
       //    (HINSTANCE)GetWindowLongPtr(pwindowParent->m_hwnd, GWLP_HINSTANCE),
       //    NULL);
 
-      m_pgtkwidget = gtk_button_new();
-      gtk_widget_show(m_pgtkwidget);
+      ::cast < ::innate_ui_xaw::window >  pxawwindowParent = pwindowParent;
+
+
+      Widget button_widget = XtVaCreateManagedWidget(
+   "myButton",
+   commandWidgetClass,
+   pxawwindowParent->m_widget,
+   XtNlabel, "Click me",
+   nullptr
+);
+
+      m_widget = button_widget;
+
+      XtAddCallback(
+         button_widget,
+         XtNcallback,
+         on_button_clicked,
+         (XtPointer)this
+      );
+
+
+      //m_pgtkwidget = gtk_button_new();
+      //gtk_widget_show(m_pgtkwidget);
 
    }
 

@@ -22,7 +22,7 @@ namespace innate_ui_xaw
 
    window::window()
    {
-      m_pgtkwidget = nullptr;
+      m_widget = NULL;
       //m_hmenuSystem = nullptr;
       //m_iChildIdSeed = 1000;
    }
@@ -45,7 +45,7 @@ namespace innate_ui_xaw
          {
 
          //::string str;
-            gtk_window_set_title(GTK_WINDOW(m_pgtkwidget), str);
+         XtVaSetValues(m_widget, XtNtitle, str.c_str(), NULL);  // Set window title
 
 });
 
@@ -132,14 +132,32 @@ namespace innate_ui_xaw
    void window::_create()
    {
 
-      m_pgtkwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-
-      if (m_pgtkwidget)
+      system()->innate_ui()->_user_post([this]()
       {
 
-         system()->innate_ui()->add_top_level_window(this);
+         system()->innate_ui()->_defer_initialize_app();
 
-      }
+
+         // After XtAppInitialize and before XtAppMainLoop
+Widget topLevel = XtVaCreateManagedWidget("myWindow", topLevelShellWidgetClass, NULL, NULL);
+XtRealizeWidget(topLevel);
+            if (m_pwidget)
+            {
+
+               system()->innate_ui()->add_top_level_window(this);
+
+            }
+
+         XtAppProcessEvent(app_context, XtIMAll);  // Process events
+
+   //      set_window_title("My Xaw Window");
+
+         XtRealizeWidget(m_widget);
+         ///XtAppMainLoop(app_context);
+      });
+
+//      m_pgtkwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+
 
    }
 

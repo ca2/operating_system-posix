@@ -17,9 +17,9 @@
 #include "aura/windowing/windowing.h"
 
 
-#include <gio/gio.h>
-#include <gtk/gtk.h>
-#include <glib.h>
+// #include <gio/gio.h>
+// #include <gtk/gtk.h>
+// #include <glib.h>
 
 
 namespace node_x11

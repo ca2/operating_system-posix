@@ -7,11 +7,11 @@
 #include "aura_posix/appindicator.h"
 #include "acme/handler/command_handler.h"
 
-#if defined(UBUNTU_LINUX) || defined(FREEBSD) || defined(__ARCH_LINUX__) || defined(FEDORA_LINUX) || defined(SUSE_LINUX) || defined(OPENBSD) || defined(NETBSD)
-#include <libappindicator3-0.1/libappindicator/app-indicator.h>
-#else
-#include <libayatana-appindicator/app-indicator.h>
-#endif
+// #if defined(UBUNTU_LINUX) || defined(FREEBSD) || defined(__ARCH_LINUX__) || defined(FEDORA_LINUX) || defined(SUSE_LINUX) || defined(OPENBSD) || defined(NETBSD)
+// #include <libappindicator3-0.1/libappindicator/app-indicator.h>
+// #else
+// #include <libayatana-appindicator/app-indicator.h>
+// #endif
 
 
 namespace node_x11
@@ -24,7 +24,7 @@ namespace node_x11
    public:
 
 
-      AppIndicator * m_pindicator;
+      //AppIndicator * m_pindicator;
 
       appindicator();
       ~appindicator() override;

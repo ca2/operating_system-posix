@@ -28,7 +28,8 @@ list(APPEND library_references
    apex
 )
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source}
+   _xaw.h)
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 

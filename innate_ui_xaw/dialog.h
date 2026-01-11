@@ -17,7 +17,7 @@ namespace innate_ui_xaw
    public:
 
 
-      GtkWidget *m_fixed;
+      //GtkWidget *m_fixed;
       dialog();
       ~dialog() override;
 

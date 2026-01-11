@@ -5,7 +5,10 @@
 #include "apex/innate_ui/window.h"
 //#include "acme/_operating_system.h"
 //#include "acme/operating_system/windows/window.h"
-#include <gtk/gtk.h>
+//#include <gtk/gtk.h>
+#include <X11/Intrinsic.h>
+#include <X11/Xaw/Command.h>
+
 
 
 namespace innate_ui_xaw
@@ -22,7 +25,8 @@ namespace innate_ui_xaw
    public:
 
 
-      GtkWidget * m_pgtkwidget;
+      Widget         m_widget;
+      //GtkWidget * m_pgtkwidget;
       //HWND m_hwnd;
       //HMENU m_hmenuSystem;
       //int m_iChildIdSeed;

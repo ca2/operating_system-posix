@@ -1,8 +1,13 @@
 //
-// Created by camilo on 11/01/2026.
+// Created by camilo on 2026-01-11 07:02 <3ThomasBorregaardSørensen!!
 //
+#pragma once
 
-#ifndef SCENEFOUNDRY__XAW_H
-#define SCENEFOUNDRY__XAW_H
 
-#endif //SCENEFOUNDRY__XAW_H
+#include <X11/Intrinsic.h>
+#include <X11/StringDefs.h>
+#include <X11/Shell.h>
+#include <X11/Xaw/Command.h>
+
+
+

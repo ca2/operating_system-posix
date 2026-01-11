@@ -37,7 +37,7 @@
 //
 //}
 
-#include "acme_windowing_g/activation_token.h"
+//#include "acme_windowing_g/activation_token.h"
 #include "aura_posix/user_notify_icon_bridge.h"
 
 

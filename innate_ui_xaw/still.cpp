@@ -40,15 +40,20 @@ namespace innate_ui_xaw
       //    NULL,       // No menu.
       //    (HINSTANCE)GetWindowLongPtr(pwindowParent->m_hwnd, GWLP_HINSTANCE),
       //    NULL);
+
+      ::cast < ::innate_ui_xaw::window >  pxawwindowParent = pwindowParent;
       if(m_bIcon)
       {
-         m_pgtkwidget = gtk_image_new();
+
+         ///m_widget = ;
+
       }
-      else {
-         m_pgtkwidget = gtk_label_new("");
-         gtk_label_set_xalign(GTK_LABEL(m_pgtkwidget), 0.0);
+      else
+      {
+//         m_pgtkwidget = gtk_label_new("");
+  //       gtk_label_set_xalign(GTK_LABEL(m_pgtkwidget), 0.0);
       }
-      gtk_widget_show(m_pgtkwidget);
+    //  gtk_widget_show(m_pgtkwidget);
 
    }
 
@@ -72,7 +77,7 @@ namespace innate_ui_xaw
       ()
          {
 
-            gtk_label_set_label(GTK_LABEL(m_pgtkwidget), str);
+//            gtk_label_set_label(GTK_LABEL(m_pgtkwidget), str);
 
 });
 
@@ -86,9 +91,26 @@ namespace innate_ui_xaw
       user_send([this, picon]()
       {
 
-         gtk_image_set_from_pixbuf(GTK_IMAGE(m_pgtkwidget), picon->m_pgdkpixbuf);
+         if (m_widget == NULL)
+            {
+
+         XtDestroyWidget(m_widget);
+
+               }
+
+         ::pointer <::innate_ui_xaw::window > pxawwindowParent = m_pwindowParent;
+
+         ::pointer <::innate_ui_xaw::icon > pxawicon = picon;
+
+         Widget icon_widget = XtVaCreateManagedWidget("icon", commandWidgetClass,
+                        pxawwindowParent->m_widget,
+                                             XtNbitmap, picon->m_pixmap,
+                                             XtNwidth, picon->m_size.cx,
+                                             XtNheight, picon->m_size.cy,
+      m_widget = NULLicon_widget;
+         //gtk_image_set_from_pixbuf(GTK_IMAGE(m_pgtkwidget), picon->m_pgdkpixbuf);
          //::SendMessage(m_hwnd, STM_SETICON, (WPARAM) picon->m_hicon, 0);
-         
+
          });
 
    }

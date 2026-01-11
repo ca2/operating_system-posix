@@ -54,7 +54,7 @@ namespace innate_ui_xaw
    void innate_ui::_user_post(const ::procedure & procedure)
    {
 
-      system()->acme_windowing()->_user_post(procedure);      //auto pparticle = (::subparticle *)procedure.m_pbase;
+      ::system()->acme_windowing()->_user_post(procedure);      //auto pparticle = (::subparticle *)procedure.m_pbase;
 
       //pparticle->increment_reference_count();
 
@@ -63,6 +63,56 @@ namespace innate_ui_xaw
    }
 
 
+   void innate_ui::_defer_xt_app_initialize()
+   {
+
+
+      if (!m_bXtAppInitialized)
+      {
+
+
+         m_bXtAppInitialized = true;
+
+
+         _user_post([this]()
+         {
+
+
+            _xt_app_initialize();
+
+
+
+         });
+
+      }
+
+   }
+
+
+   void innate_ui::_xt_app_initialize()
+   {
+
+
+      XtAppInitialize(&m_xtappcontext, "XawExample", NULL, 0, &::system()->m_argc, ::system()->m_args, NULL, NULL);
+
+      ::system()->acme_windowing()->m_mapDoHappenings["innate_ui_xaw_happenings"] = [this]()
+      {
+
+         _xt_app_do_happenings();
+
+      });
+
+   }
+
+
+
+   void innate_ui::_xt_app_do_happenings()
+   {
+
+      XtAppProcessEvent(m_xtappcontext, XtIMAll);
+
+
+   }
    // LRESULT innate_ui::_window_procedure(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
    // {
    //

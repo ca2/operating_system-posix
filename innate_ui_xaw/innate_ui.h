@@ -3,7 +3,7 @@
 
 
 #include "apex/innate_ui/innate_ui.h"
-#include <gtk/gtk.h>
+//#include <gtk/gtk.h>
 
 
 namespace innate_ui_xaw
@@ -20,8 +20,11 @@ namespace innate_ui_xaw
       bool m_bRunning;
 
 
-      map_base < GtkWidget *, ::pointer < window > >     m_windowmap;
+      map_base < Widget, ::pointer < window > >     m_windowmap;
       //string_map_base < ATOM >                    m_classmap;
+      bool m_bXtAppInitialized = false;
+      XtAppContext m_xtappcontext;
+
 
       innate_ui();
       ~innate_ui() override;
@@ -29,6 +32,10 @@ namespace innate_ui_xaw
       void on_initialize_particle() override;
       
       //void _defer_run_innate_ui_gtk2_user_loop();
+
+      virtual void _defer_xt_app_initialize();
+      virtual void _xt_app_initialize();
+      virtual void _xt_app_do_happenings();
       
       void _user_post(const ::procedure & procedure) override;
 

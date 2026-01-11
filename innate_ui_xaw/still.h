@@ -4,7 +4,7 @@
 
 #include "apex/innate_ui/still.h"
 #include "window.h"
-#include <gtk/gtk.h>
+//#include <gtk/gtk.h>
 
 namespace innate_ui_xaw
 {

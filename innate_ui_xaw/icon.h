@@ -3,7 +3,12 @@
 
 
 #include "apex/innate_ui/icon.h"
-#include <gdk/gdk.h>
+//#include "app-graphics3d/draw2d_vulkan/bitmap.h"
+//#include <gdk/gdk.h>
+#include <X11/Xaw/Command.h>
+#include <X11/Intrinsic.h>
+#include <X11/Xutil.h>
+
 
 namespace innate_ui_xaw
 {
@@ -15,7 +20,8 @@ namespace innate_ui_xaw
    public:
 
 
-      GdkPixbuf *  m_pgdkpixbuf;
+      Pixmap      m_pixmap;
+//      GdkPixbuf *  m_pgdkpixbuf;
 
       icon();
       ~icon() override;
