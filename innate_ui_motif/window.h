@@ -6,8 +6,8 @@
 //#include "acme/_operating_system.h"
 //#include "acme/operating_system/windows/window.h"
 //#include <gtk/gtk.h>
-#include <X11/Intrinsic.h>
-#include <X11/Xaw/Command.h>
+//#include <X11/Intrinsic.h>
+//#include <X11/Xaw/Command.h>
 
 
 
@@ -68,6 +68,8 @@ namespace innate_ui_xaw
       //virtual bool _on_command();
 
       //virtual int _get_id();
+
+      virtual void _xt_manage_children();
 
       void defer_show_system_menu(::user::mouse * pmouse) override;
 

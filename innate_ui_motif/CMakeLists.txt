@@ -29,7 +29,9 @@ list(APPEND library_references
 )
 
 add_library(${PROJECT_NAME} SHARED ${library_source}
-   _xaw.h)
+   _xaw.h
+   _xaw_file_selection_widget.cpp
+   _xaw_file_selection_widget.h)
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 

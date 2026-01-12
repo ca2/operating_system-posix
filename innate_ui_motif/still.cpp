@@ -92,11 +92,11 @@ namespace innate_ui_xaw
       {
 
          if (m_widget == NULL)
-            {
+         {
 
-         XtDestroyWidget(m_widget);
+            XtDestroyWidget(m_widget);
 
-               }
+         }
 
          ::pointer <::innate_ui_xaw::window > pxawwindowParent = m_pwindowParent;
 
@@ -107,11 +107,12 @@ namespace innate_ui_xaw
                                              XtNbitmap, picon->m_pixmap,
                                              XtNwidth, picon->m_size.cx,
                                              XtNheight, picon->m_size.cy,
-      m_widget = NULLicon_widget;
+                                             NULL);
+         m_widget = icon_widget;
          //gtk_image_set_from_pixbuf(GTK_IMAGE(m_pgtkwidget), picon->m_pgdkpixbuf);
          //::SendMessage(m_hwnd, STM_SETICON, (WPARAM) picon->m_hicon, 0);
 
-         });
+      });
 
    }
 

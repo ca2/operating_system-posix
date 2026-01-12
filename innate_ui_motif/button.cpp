@@ -94,11 +94,13 @@ namespace innate_ui_xaw
 
       post([this, str]
       ()
-         {
+      {
 
-            gtk_button_set_label(GTK_BUTTON(m_pgtkwidget), str);
+         //gtk_button_set_label(GTK_BUTTON(m_pgtkwidget), str);
 
-});
+         XtVaSetValues(m_widget, XtNlabel, str.c_str(), NULL);
+
+      });
 
    }
 

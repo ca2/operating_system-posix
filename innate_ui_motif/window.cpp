@@ -135,25 +135,28 @@ namespace innate_ui_xaw
       system()->innate_ui()->_user_post([this]()
       {
 
-         system()->innate_ui()->_defer_initialize_app();
+         ::cast < ::innate_ui_xaw::innate_ui > pxawinnateui = ::system()->innate_ui();
 
+         pxawinnateui->_defer_xt_app_initialize();
 
          // After XtAppInitialize and before XtAppMainLoop
-Widget topLevel = XtVaCreateManagedWidget("myWindow", topLevelShellWidgetClass, NULL, NULL);
-XtRealizeWidget(topLevel);
-            if (m_pwidget)
-            {
-
-               system()->innate_ui()->add_top_level_window(this);
-
-            }
-
-         XtAppProcessEvent(app_context, XtIMAll);  // Process events
-
-   //      set_window_title("My Xaw Window");
+         m_widget = XtVaCreateManagedWidget("myWindow", topLevelShellWidgetClass, NULL, NULL);
 
          XtRealizeWidget(m_widget);
-         ///XtAppMainLoop(app_context);
+
+         if (m_widget)
+         {
+
+            system()->innate_ui()->add_top_level_window(this);
+
+         }
+
+         // XtAppProcessEvent(app_context, XtIMAll);  // Process events
+
+         // set_window_title("My Xaw Window");
+         // XtRealizeWidget(m_widget);
+         // XtAppMainLoop(app_context);
+
       });
 
 //      m_pgtkwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -172,7 +175,6 @@ XtRealizeWidget(topLevel);
    void window::create()
    {
 
-
       user_send([this]()
          {
 
@@ -180,19 +182,19 @@ XtRealizeWidget(topLevel);
             
             _create();
 
-            innate_ui()->m_windowmap[m_pgtkwidget] = this;
+            innate_ui()->m_windowmap[m_widget] = this;
 
+         });
 
-      });
-
-      if (!m_pgtkwidget)
+      if (!m_widget)
       {
+
          throw ::exception(error_failed);
+
       }
 
-
-
    }
+
    // int window::_get_id()
    // {
    //
@@ -307,20 +309,20 @@ XtRealizeWidget(topLevel);
 
             _create_child(pwindowImpl);
 
-            innate_ui()->m_windowmap[m_pgtkwidget] = this;
+            innate_ui()->m_windowmap[m_widget] = this;
+
             pwindowImpl->m_childa.add(this);
             //pwindowImpl->m_iChildIdSeed++;
             //::SetWindowLong(m_hwnd, GWL_ID, pwindowImpl->m_iChildIdSeed);
 
+         });
 
-      });
-
-      if (!m_pgtkwidget)
+      if (!m_widget)
       {
+
          throw ::exception(error_failed);
+
       }
-
-
 
    }
 
@@ -349,31 +351,78 @@ XtRealizeWidget(topLevel);
 
          //::DestroyWindow(m_hwnd);
 
-         gtk_widget_destroy(m_pgtkwidget);
+         //gtk_widget_destroy(m_pgtkwidget);
 
-         innate_ui()->m_windowmap[m_pgtkwidget].release();
+         XtDestroyWidget(m_widget);
 
-         m_pgtkwidget = nullptr;
+         innate_ui()->m_windowmap[m_widget].release();
+
+         m_widget = NULL;
 
       }
 
    }
 
+
    void window::show()
    {
 
       post([this]()
-         {
+      {
 
-         gtk_widget_show_all(m_pgtkwidget);
-            //ShowWindow(m_hwnd, SW_SHOW);
-            //UpdateWindow(m_hwnd);
+         _xt_manage_children();
+
+         //gtk_widget_show_all(m_pgtkwidget);
+         //ShowWindow(m_hwnd, SW_SHOW);
+         //UpdateWindow(m_hwnd);
 
       });
 
+   }
+
+
+   void window::_xt_manage_children()
+   {
+
+      for (auto pchild : m_childa)
+      {
+
+         try
+         {
+
+            ::cast < ::innate_ui_xaw::window > pwindowChild = pchild;
+
+            pwindowChild->_xt_manage_children();
+
+         }
+         catch (...)
+         {
+
+
+         }
+
+         try
+         {
+
+            if (m_widget)
+            {
+
+               XtManageChild(m_widget);
+
+            }
+
+         }
+         catch (...)
+         {
+
+
+         }
+
+      }
 
 
    }
+
 
    void window::hide()
    {
@@ -396,9 +445,12 @@ XtRealizeWidget(topLevel);
             if(pdialog)
             {
 
-               auto fixed = pdialog->m_fixed;
+             //  auto fixed = pdialog->m_fixed;
 
-               gtk_fixed_put(GTK_FIXED(fixed), m_pgtkwidget, point.x, point.y);
+              // gtk_fixed_put(GTK_FIXED(fixed), m_pgtkwidget, point.x, point.y);
+
+               // Position the button at (x, y)
+XtVaSetValues(m_widget, XtNx, point.x, XtNy, point.y, NULL); // Similar to gtk_fixed_put
 
                //::pointer < ::innate_ui_xaw::dialog > pdialog = innate_ui()->m_windowmap[pwidgetParentWindow];
                //pdialog
@@ -437,7 +489,9 @@ XtRealizeWidget(topLevel);
       user_send([this, size]()
          {
 
-         gtk_widget_set_size_request(m_pgtkwidget, size.cx, size.cy);
+         //gtk_widget_set_size_request(m_pgtkwidget, size.cx, size.cy);
+         XtVaSetValues(m_widget, XtNwidth, size.cx, XtNheight, size.cy, NULL);
+
 
             // ::SetWindowPos(m_hwnd, nullptr, 0, 0, size.cx, size.cy, SWP_NOMOVE);
             //
@@ -486,7 +540,25 @@ XtRealizeWidget(topLevel);
       user_send([this]()
    {
 
-         gtk_window_set_position(GTK_WINDOW(m_pgtkwidget), GTK_WIN_POS_CENTER);
+         //gtk_window_set_position(GTK_WINDOW(m_pgtkwidget), GTK_WIN_POS_CENTER);
+         //gtk_window_set_position(GTK_WINDOW(m_pgtkwidget), GTK_WIN_POS_CENTER);
+
+
+         // Get the screen width and height
+ Display *display = XtDisplay(m_widget);
+ int screenWidth = DisplayWidth(display, DefaultScreen(display));
+ int screenHeight = DisplayHeight(display, DefaultScreen(display));
+
+ // Dynamically get the dimensions of the top-level window
+ int widgetWidth, widgetHeight;
+ XtVaGetValues(m_widget, XtNwidth, &widgetWidth, XtNheight, &widgetHeight, NULL);
+
+ // Calculate position to center the window on the screen
+ int xPos = (screenWidth - widgetWidth) / 2;
+ int yPos = (screenHeight - widgetHeight) / 2;
+
+ // Set the position of the widget (centered)
+ XtVaSetValues(m_widget, XtNx, xPos, XtNy, yPos, NULL);
       // auto hwnd = ::GetParent(m_hwnd);
       //
       // if (hwnd == nullptr)

@@ -5,9 +5,9 @@
 #include "apex/innate_ui/icon.h"
 //#include "app-graphics3d/draw2d_vulkan/bitmap.h"
 //#include <gdk/gdk.h>
-#include <X11/Xaw/Command.h>
-#include <X11/Intrinsic.h>
-#include <X11/Xutil.h>
+// #include <X11/Xaw/Command.h>
+// #include <X11/Intrinsic.h>
+// #include <X11/Xutil.h>
 
 
 namespace innate_ui_xaw
@@ -20,7 +20,8 @@ namespace innate_ui_xaw
    public:
 
 
-      Pixmap      m_pixmap;
+      Pixmap         m_pixmap;
+      XImage *       m_pimage;
 //      GdkPixbuf *  m_pgdkpixbuf;
 
       icon();

@@ -5,6 +5,10 @@
 
 #include <stb/stb_image.h>
 
+#include "acme/windowing/display.h"
+#include "acme/windowing/windowing.h"
+
+
 namespace innate_ui_xaw
 {
 
@@ -39,10 +43,15 @@ namespace innate_ui_xaw
       m_size.cx = width;
       m_size.cy = height;
 
-      // Display *display = XtDisplay(parent);
-      // Pixmap pixmap = XCreatePixmap(display, XtWindow(parent), width, height, DefaultDepth(display, 0));
-      // XImage *ximage = XCreateImage(display, DefaultVisual(display, 0), 24, ZPixmap, 0, (char*)image_data, width, height, 32, 0);
-      // XPutImage(display, pixmap, DefaultGC(display, 0), ximage, 0, 0, 0, 0, width, height);
+      //Display *display = XtDisplay(parent);
+      auto display = (Display *) ::system()->acme_windowing()->acme_display()->_get_x11_display();
+      auto windowRoot = (Window) ::system()->acme_windowing()->acme_display()->_get_x11_root_window();
+      Pixmap pixmap = XCreatePixmap(display, windowRoot, width, height, DefaultDepth(display, 0));
+      XImage *ximage = XCreateImage(display, DefaultVisual(display, 0), 24, ZPixmap, 0, (char*)image_data, width, height, 32, 0);
+      XPutImage(display, pixmap, DefaultGC(display, 0), ximage, 0, 0, 0, 0, width, height);
+
+      m_pixmap = pixmap;
+      m_pimage = ximage;
       //
       // Widget icon_widget = XtVaCreateManagedWidget("icon", commandWidgetClass, parent,
       //                                              XtNbitmap, pixmap,
@@ -70,22 +79,22 @@ namespace innate_ui_xaw
       //    throw ::exception(error_failed);
       // }
 
-      // Get the GdkPixbuf from the loader
-      GdkPixbuf *pixbuf = gdk_pixbuf_loader_get_pixbuf(loader);
-
-      if (!pixbuf) {
-         g_printerr("Failed to load image from buffer\n");
-         g_object_unref(loader);
-         throw ::exception(error_failed);
-      }
-
-      // Convert GdkPixbuf to GdkPaintable
-      //pixbuf;
-
-      m_pgdkpixbuf = gdk_pixbuf_scale_simple(pixbuf, m_size.cx, m_size.cy, GDK_INTERP_BILINEAR);
-
-      // Free the original GdkPixbuf since it's no longer needed
-      g_object_unref(pixbuf);
+      // // Get the GdkPixbuf from the loader
+      // GdkPixbuf *pixbuf = gdk_pixbuf_loader_get_pixbuf(loader);
+      //
+      // if (!pixbuf) {
+      //    g_printerr("Failed to load image from buffer\n");
+      //    g_object_unref(loader);
+      //    throw ::exception(error_failed);
+      // }
+      //
+      // // Convert GdkPixbuf to GdkPaintable
+      // //pixbuf;
+      //
+      // m_pgdkpixbuf = gdk_pixbuf_scale_simple(pixbuf, m_size.cx, m_size.cy, GDK_INTERP_BILINEAR);
+      //
+      // // Free the original GdkPixbuf since it's no longer needed
+      // g_object_unref(pixbuf);
 
    }
 

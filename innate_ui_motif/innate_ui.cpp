@@ -93,14 +93,14 @@ namespace innate_ui_xaw
    {
 
 
-      XtAppInitialize(&m_xtappcontext, "XawExample", NULL, 0, &::system()->m_argc, ::system()->m_args, NULL, NULL);
+      XtAppInitialize(&m_xtappcontext, "XawExample", NULL, 0, &::system()->m_argc, ::system()->m_args, NULL, NULL, NULL);
 
       ::system()->acme_windowing()->m_mapDoHappenings["innate_ui_xaw_happenings"] = [this]()
       {
 
          _xt_app_do_happenings();
 
-      });
+      };
 
    }
 
