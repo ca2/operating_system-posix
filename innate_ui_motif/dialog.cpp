@@ -8,7 +8,7 @@
 #include "acme/parallelization/manual_reset_happening.h"
 
 
-namespace innate_ui_xaw
+namespace innate_ui_motif
 {
    
 
@@ -46,7 +46,7 @@ namespace innate_ui_xaw
    void dialog::create()
    {
 
-      ::innate_ui_xaw::window::create();
+      ::innate_ui_motif::window::create();
 
    }
 

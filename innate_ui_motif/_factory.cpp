@@ -11,18 +11,18 @@
 IMPLEMENT_FACTORY(innate_ui_xaw)
 {
 
-   pfactory->add_factory_item < ::innate_ui_xaw::window, ::innate_ui::window >();
-   pfactory->add_factory_item < ::innate_ui_xaw::dialog, ::innate_ui::dialog >();
+   pfactory->add_factory_item < ::innate_ui_motif::window, ::innate_ui::window >();
+   pfactory->add_factory_item < ::innate_ui_motif::dialog, ::innate_ui::dialog >();
    
    
-   pfactory->add_factory_item < ::innate_ui_xaw::button, ::innate_ui::button >();
-   pfactory->add_factory_item < ::innate_ui_xaw::still, ::innate_ui::still >();
+   pfactory->add_factory_item < ::innate_ui_motif::button, ::innate_ui::button >();
+   pfactory->add_factory_item < ::innate_ui_motif::still, ::innate_ui::still >();
 
 
-   pfactory->add_factory_item < ::innate_ui_xaw::icon, ::innate_ui::icon >();
+   pfactory->add_factory_item < ::innate_ui_motif::icon, ::innate_ui::icon >();
 
 
-   pfactory->add_factory_item < ::innate_ui_xaw::innate_ui, ::innate_ui::innate_ui >();
+   pfactory->add_factory_item < ::innate_ui_motif::innate_ui, ::innate_ui::innate_ui >();
 
 }
 

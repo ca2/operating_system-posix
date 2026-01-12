@@ -215,7 +215,7 @@ namespace node_x11
    appindicator::appindicator()
    {
 
-      m_pindicator = nullptr;
+      //m_pindicator = nullptr;
 
    }
 
@@ -247,23 +247,23 @@ namespace node_x11
 //
 //      }
 
-      m_pindicator = app_indicator_new_with_path(scopedstrId, scopedstrIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, scopedstrFolder);
-
-      if(m_pindicator == nullptr)
-      {
-
-         return false;
-
-      }
-
-      if(!init(papplicationmenu, pcommandhandler))
-      {
-
-         close();
-
-         return false;
-
-      }
+      // m_pindicator = app_indicator_new_with_path(scopedstrId, scopedstrIcon, APP_INDICATOR_CATEGORY_APPLICATION_STATUS, scopedstrFolder);
+      //
+      // if(m_pindicator == nullptr)
+      // {
+      //
+      //    return false;
+      //
+      // }
+      //
+      // if(!init(papplicationmenu, pcommandhandler))
+      // {
+      //
+      //    close();
+      //
+      //    return false;
+      //
+      // }
 
       return true;
 
@@ -352,23 +352,23 @@ namespace node_x11
    {
 
 
-      if(m_pindicator == NULL)
-      {
-
-         return;
-
-      }
-
-      auto pindicator = m_pindicator;
-
-      user_post([pindicator]()
-               {
-
-                  app_indicator_set_status(pindicator, APP_INDICATOR_STATUS_PASSIVE);
-
-               });
-
-      m_pindicator = NULL;
+      // if(m_pindicator == NULL)
+      // {
+      //
+      //    return;
+      //
+      // }
+      //
+      // auto pindicator = m_pindicator;
+      //
+      // user_post([pindicator]()
+      //          {
+      //
+      //             app_indicator_set_status(pindicator, APP_INDICATOR_STATUS_PASSIVE);
+      //
+      //          });
+      //
+      // m_pindicator = NULL;
 
    }
 

@@ -3,6 +3,7 @@
 
 
 #include "windowing_x11/_.h"
+#include "innate_ui_motif/_.h"
 
 
 #if defined(_node_x11_project)

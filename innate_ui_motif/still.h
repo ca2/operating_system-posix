@@ -6,12 +6,12 @@
 #include "window.h"
 //#include <gtk/gtk.h>
 
-namespace innate_ui_xaw
+namespace innate_ui_motif
 {
 
 
-   class CLASS_DECL_INNATE_UI_XAW still :
-      virtual public ::innate_ui_xaw::window,
+   class CLASS_DECL_INNATE_UI_MOTIF still :
+      virtual public ::innate_ui_motif::window,
       virtual public ::innate_ui::still
    {
    public:

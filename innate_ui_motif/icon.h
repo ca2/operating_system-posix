@@ -10,11 +10,11 @@
 // #include <X11/Xutil.h>
 
 
-namespace innate_ui_xaw
+namespace innate_ui_motif
 {
 
 
-   class CLASS_DECL_INNATE_UI_XAW icon :
+   class CLASS_DECL_INNATE_UI_MOTIF icon :
       virtual public ::innate_ui::icon
    {
    public:

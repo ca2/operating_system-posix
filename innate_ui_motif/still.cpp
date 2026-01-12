@@ -4,7 +4,7 @@
 #include "still.h"
 
 
-namespace innate_ui_xaw
+namespace innate_ui_motif
 {
 
 
@@ -41,11 +41,18 @@ namespace innate_ui_xaw
       //    (HINSTANCE)GetWindowLongPtr(pwindowParent->m_hwnd, GWLP_HINSTANCE),
       //    NULL);
 
-      ::cast < ::innate_ui_xaw::window >  pxawwindowParent = pwindowParent;
+      ::cast < ::innate_ui_motif::window >  pmotifwindowParent = pwindowParent;
       if(m_bIcon)
       {
 
          ///m_widget = ;
+         ///
+         /// // Create a PushButton widget (equivalent to Xaw's commandWidgetClass)
+         m_widget = XtVaCreateManagedWidget("icon",
+                                             xmPushButtonWidgetClass, pmotifwindowParent->m_widget,  // Parent and widget class
+//                            XmNwidth, iconWidth,             // Set the width
+  //                                           XmNheight, iconHeight,           // Set the height
+                                             NULL);                           // End of argument list
 
       }
       else
@@ -86,31 +93,32 @@ namespace innate_ui_xaw
    void still::set_icon(::innate_ui::icon * piconParam)
    {
 
-      ::pointer <::innate_ui_xaw::icon > picon = piconParam;
+      ::pointer <::innate_ui_motif::icon > picon = piconParam;
 
       user_send([this, picon]()
       {
 
-         if (m_widget == NULL)
-         {
+         // if (m_widget == NULL)
+         // {
+         //
+         //    XtDestroyWidget(m_widget);
+         //
+         // }
+         //
+         ::pointer <::innate_ui_motif::window > pxawwindowParent = m_pwindowParent;
 
-            XtDestroyWidget(m_widget);
+         ::pointer <::innate_ui_motif::icon > pmotificon = picon;
 
-         }
-
-         ::pointer <::innate_ui_xaw::window > pxawwindowParent = m_pwindowParent;
-
-         ::pointer <::innate_ui_xaw::icon > pxawicon = picon;
-
-         Widget icon_widget = XtVaCreateManagedWidget("icon", commandWidgetClass,
-                        pxawwindowParent->m_widget,
-                                             XtNbitmap, picon->m_pixmap,
-                                             XtNwidth, picon->m_size.cx,
-                                             XtNheight, picon->m_size.cy,
-                                             NULL);
-         m_widget = icon_widget;
-         //gtk_image_set_from_pixbuf(GTK_IMAGE(m_pgtkwidget), picon->m_pgdkpixbuf);
-         //::SendMessage(m_hwnd, STM_SETICON, (WPARAM) picon->m_hicon, 0);
+         XtVaSetValues(m_widget, XmNlabelPixmap, pmotificon->m_pixmap, NULL);
+         // Widget icon_widget = XtVaCreateManagedWidget("icon", commandWidgetClass,
+         //                pxawwindowParent->m_widget,
+         //                                     XtNbitmap, picon->m_pixmap,
+         //                                     XtNwidth, picon->m_size.cx,
+         //                                     XtNheight, picon->m_size.cy,
+         //                                     NULL);
+         // m_widget = icon_widget;
+         // //gtk_image_set_from_pixbuf(GTK_IMAGE(m_pgtkwidget), picon->m_pgdkpixbuf);
+         // //::SendMessage(m_hwnd, STM_SETICON, (WPARAM) picon->m_hicon, 0);
 
       });
 

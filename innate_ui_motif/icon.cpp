@@ -9,7 +9,7 @@
 #include "acme/windowing/windowing.h"
 
 
-namespace innate_ui_xaw
+namespace innate_ui_motif
 {
 
 

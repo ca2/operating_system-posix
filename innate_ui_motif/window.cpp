@@ -13,7 +13,7 @@
 #include "acme/platform/node.h"
 
 
-namespace innate_ui_xaw
+namespace innate_ui_motif
 {
 
    
@@ -135,7 +135,7 @@ namespace innate_ui_xaw
       system()->innate_ui()->_user_post([this]()
       {
 
-         ::cast < ::innate_ui_xaw::innate_ui > pxawinnateui = ::system()->innate_ui();
+         ::cast < ::innate_ui_motif::innate_ui > pxawinnateui = ::system()->innate_ui();
 
          pxawinnateui->_defer_xt_app_initialize();
 
@@ -390,7 +390,7 @@ namespace innate_ui_xaw
          try
          {
 
-            ::cast < ::innate_ui_xaw::window > pwindowChild = pchild;
+            ::cast < ::innate_ui_motif::window > pwindowChild = pchild;
 
             pwindowChild->_xt_manage_children();
 
@@ -440,7 +440,7 @@ namespace innate_ui_xaw
 
             auto p = point;
 
-            ::pointer < ::innate_ui_xaw::dialog > pdialog = m_pwindowParent;
+            ::pointer < ::innate_ui_motif::dialog > pdialog = m_pwindowParent;
 
             if(pdialog)
             {
@@ -591,10 +591,10 @@ XtVaSetValues(m_widget, XtNx, point.x, XtNy, point.y, NULL); // Similar to gtk_f
 
 
 
-   ::innate_ui_xaw::innate_ui * window::innate_ui()
+   ::innate_ui_motif::innate_ui * window::innate_ui()
    {
 
-      return dynamic_cast <::innate_ui_xaw::innate_ui *> (::innate_ui::window::innate_ui());
+      return dynamic_cast <::innate_ui_motif::innate_ui *> (::innate_ui::window::innate_ui());
 
    }
 

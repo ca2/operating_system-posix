@@ -6,12 +6,12 @@
 #include "window.h"
 
 
-namespace innate_ui_xaw
+namespace innate_ui_motif
 {
 
 
-   class CLASS_DECL_INNATE_UI_XAW dialog :
-      virtual public ::innate_ui_xaw::window,
+   class CLASS_DECL_INNATE_UI_MOTIF dialog :
+      virtual public ::innate_ui_motif::window,
       virtual public ::innate_ui::dialog
    {
    public:

@@ -53,6 +53,7 @@ list(APPEND library_references
    acme_windowing_x11
    apex
    apex_posix
+   innate_ui_motif
    aqua
    aura
    aura_posix
@@ -104,7 +105,8 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0)
    #   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
    #endif()
-   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
+   #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG cairo glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE})
+   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG cairo )
 
    if ("${APPINDICATOR_PKG_MODULE}" STREQUAL "")
       message(FATAL_ERROR "node_x11 APPINDICATOR_PKG_MODULE is (Empty)")

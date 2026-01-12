@@ -21,10 +21,10 @@
 //
 
 
-#if defined(_innate_ui_xaw_project)
-#define CLASS_DECL_INNATE_UI_XAW  CLASS_DECL_EXPORT
+#if defined(_innate_ui_motif_project)
+#define CLASS_DECL_INNATE_UI_MOTIF  CLASS_DECL_EXPORT
 #else
-#define CLASS_DECL_INNATE_UI_XAW  CLASS_DECL_IMPORT
+#define CLASS_DECL_INNATE_UI_MOTIF  CLASS_DECL_IMPORT
 #endif
 
 

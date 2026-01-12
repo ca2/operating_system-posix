@@ -10,23 +10,23 @@
 #include <X11/Intrinsic.h>
 
 
-class _motif_file_selection_widget :
+class _motif_file_selection_box :
    virtual public ::particle
 {
 public:
 
 
    Widget                                 m_widgetTopLevel;
-   Widget                                 m_fileselectionwidget;
+   Widget                                 m_fileselectionbox;
    ::pointer < ::file::dialog_base >      m_pdialogbase;
 
 
-   _motif_file_selection_widget();
-   ~_motif_file_selection_widget() override;
+   _motif_file_selection_box();
+   ~_motif_file_selection_box() override;
 
 
-   virtual void open_file_dialog(::file::dialog_base * pdialogbase);
-   virtual void on_chooser_response(const_char_pointer * pszPath);
+   virtual void file_dialog_base(::file::dialog_base * pdialogbase);
+   virtual void on_chooser_response(const_char_pointer pszPath);
 
 
 };

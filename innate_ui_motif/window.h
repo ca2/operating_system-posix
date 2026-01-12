@@ -11,14 +11,14 @@
 
 
 
-namespace innate_ui_xaw
+namespace innate_ui_motif
 {
 
 
    class innate_ui;
 
 
-   class CLASS_DECL_INNATE_UI_XAW window :
+   class CLASS_DECL_INNATE_UI_MOTIF window :
       virtual public ::innate_ui::window  //,
       //virtual public ::windows::window
    {
@@ -60,7 +60,7 @@ namespace innate_ui_xaw
       void set_size(const ::int_size & size) override;
       void adjust_for_client_size(const ::int_size & size) override;
 
-      ::innate_ui_xaw::innate_ui * innate_ui();
+      ::innate_ui_motif::innate_ui * innate_ui();
 
       //virtual ::pointer < window > _get_child_with_id(int iId);
       //virtual LRESULT _window_procedure(UINT message, WPARAM wparam, LPARAM lparam);

@@ -877,7 +877,7 @@ namespace node_kde6
 
                                        }
 
-                                       pdialog->m_function(::transfer(pdialogTransfer));
+                                       pdialog->m_procedureResponse(::transfer(pdialogTransfer));
 
                                        delete pqfiledialog;
 
@@ -907,10 +907,12 @@ namespace node_kde6
 
                    pqfiledialog->setOption(QFileDialog::Option::ShowDirsOnly);
 
-                   if(pdialog->m_path.has_character())
+                   if(pdialog->m_patha.has_element()
+
+                   && pdialog->m_patha.first().has_character())
                    {
 
-                      pqfiledialog->setDirectory(pdialog->m_path.c_str());
+                      pqfiledialog->setDirectory(pdialog->m_patha.first().c_str());
 
                    }
 
@@ -923,11 +925,11 @@ namespace node_kde6
                                        if(finished)
                                        {
 
-                                           pdialog->m_path = (const_char_pointer )pqfiledialog->directory().absolutePath().toUtf8().data();
+                                           pdialog->m_patha.add((const_char_pointer )pqfiledialog->directory().absolutePath().toUtf8().data());
 
                                        }
 
-                                       pdialog->m_function(::transfer(pdialogTransfer));
+                                       pdialog->m_procedureResponse(::transfer(pdialogTransfer));
 
                                        delete pqfiledialog;
 

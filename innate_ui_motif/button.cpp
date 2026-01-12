@@ -2,12 +2,9 @@
 #include "framework.h"
 #include "button.h"
 #include "icon.h"
-#include <X11/Intrinsic.h>
-#include <X11/StringDefs.h>
-#include <X11/Xaw/Command.h>
 
 
-namespace innate_ui_xaw
+namespace innate_ui_motif
 {
 
 
@@ -60,21 +57,28 @@ namespace innate_ui_xaw
       //    (HINSTANCE)GetWindowLongPtr(pwindowParent->m_hwnd, GWLP_HINSTANCE),
       //    NULL);
 
-      ::cast < ::innate_ui_xaw::window >  pxawwindowParent = pwindowParent;
+      ::cast < ::innate_ui_motif::window >  pmotifwindowParent = pwindowParent;
 
 
-      Widget button_widget = XtVaCreateManagedWidget(
-   "myButton",
-   commandWidgetClass,
-   pxawwindowParent->m_widget,
-   XtNlabel, "Click me",
-   nullptr
-);
-
-      m_widget = button_widget;
+//       Widget button_widget = XtVaCreateManagedWidget(
+//    "myButton",
+//    commandWidgetClass,
+//    pxawwindowParent->m_widget,
+//    XtNlabel, "Click me",
+//    nullptr
+// );
+      // Create a PushButton widget (equivalent to Xaw's commandWidgetClass)
+      m_widget = XtVaCreateManagedWidget(
+          "myButton",                    // Widget name
+          xmPushButtonWidgetClass,        // Widget class (PushButton in Motif)
+          pmotifwindowParent->m_widget,                         // Parent widget (same as pxawwindowParent->m_widget in Xaw)
+          //XmNlabel, "Click me",           // Set the label (text on the button)
+          NULL                            // End of argument list
+      );
+      //m_widget = button_widget;
 
       XtAddCallback(
-         button_widget,
+         m_widget,
          XtNcallback,
          on_button_clicked,
          (XtPointer)this
