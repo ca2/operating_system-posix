@@ -216,13 +216,14 @@ namespace x11
             ødefer_construct_new(m_px11data);
 
             if (m_lX11NativeVisualId >= 0)
+            //if (false)
             {
 
 
                XVisualInfo viTemplate = {};
                viTemplate.visualid = m_lX11NativeVisualId;
 
-               int num;
+               int num = 0;
                XVisualInfo* pvisualinfo = XGetVisualInfo(
                    display,
                    VisualIDMask,
@@ -230,8 +231,19 @@ namespace x11
                    &num
                );
 
+               if (!pvisualinfo || num <= 0)
+               {
+
+                  throw ::exception(error_failed);
+
+               }
+
                m_visualinfo = *pvisualinfo;
+
                m_pvisual = m_visualinfo.visual;
+
+               XFree(pvisualinfo);
+
             }
             else
             {
