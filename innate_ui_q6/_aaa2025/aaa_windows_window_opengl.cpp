@@ -18,7 +18,7 @@ window_opengl::~window_opengl()
 }
 
 
-void window_opengl::on_create_window(oswindow wnd)
+void window_opengl::_aaa_on_create_window(oswindow wnd)
 {
 
 }

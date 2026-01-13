@@ -1028,7 +1028,6 @@ namespace windowing_x11
 
       m_atomaNetWmState.clear();
 
-
       if (puserinteraction->is_graphical())
       {
 
@@ -1036,10 +1035,10 @@ namespace windowing_x11
          {
 
             auto pgpuapproach = m_papplication->get_gpu_approach();
-            pgpuapproach->on_before_create_window(this);
+
+            pgpuapproach->gpu_on_before_create_window(this);
 
          }
-
 
       }
 
@@ -1050,8 +1049,11 @@ namespace windowing_x11
 
          if (m_papplication->m_bGpu)
          {
+
             auto pgpuapproach = m_papplication->get_gpu_approach();
-            pgpuapproach->on_create_window(this);
+
+            pgpuapproach->gpu_on_create_window(this);
+
          }
          //draw2d()->on_create_window(this);
 
