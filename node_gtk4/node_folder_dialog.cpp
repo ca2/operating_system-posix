@@ -132,9 +132,9 @@ namespace node_gtk4
 
                                  auto path = g_file_get_path(pgfile);
 
-                                 pdialog->m_path = path;
+                                 pdialog->m_patha.add( path);
 
-                                 pdialog->m_function(pdialog);
+                                 pdialog->m_procedureResponse(pdialog);
 
                                  g_free(path);
 

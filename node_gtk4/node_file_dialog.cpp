@@ -159,7 +159,7 @@ namespace node_gtk4
 
                                  pdialog->m_patha.add(path);
 
-                                 pdialog->m_function(pdialog);
+                                 pdialog->m_procedureResponse(pdialog);
 
                                  g_free(path);
 
