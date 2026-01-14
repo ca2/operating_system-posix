@@ -2050,7 +2050,32 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      if (!pbuffer->m_bXShm || !pbuffer->m_bXShmPutImagePending)
                      {
 
-                        pbuffer->_update_screen_lesser_lock();
+                        if (m_papplication->m_gpu.m_bUseSwapChainWindow)
+                        {
+
+                           bool bChangedPosition = false;
+
+                           bool bChangedSize = false;
+
+                           try
+                           {
+
+                              px11window->strict_set_window_position_unlocked(bChangedPosition, bChangedSize);
+
+                           }
+                           catch (...)
+                           {
+
+                           }
+
+
+                        }
+                        else
+                        {
+
+                           pbuffer->_update_screen_lesser_lock();
+
+                        }
 
                      }
 

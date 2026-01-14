@@ -125,6 +125,15 @@ namespace x11
          }
 
 
+         void * window::__x11_Display()
+         {
+
+
+            return __x11_display();
+
+         }
+
+
          ::x11::acme::windowing::display * window::x11_display()
          {
 
@@ -219,6 +228,9 @@ namespace x11
             //if (false)
             {
 
+               XVisualInfo visualinfo2={};
+
+               XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &visualinfo2);
 
                XVisualInfo viTemplate = {};
                viTemplate.visualid = m_lX11NativeVisualId;
