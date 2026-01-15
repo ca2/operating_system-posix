@@ -233,9 +233,11 @@ namespace x11
                XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &visualinfo2);
 
                XVisualInfo viTemplate = {};
+
                viTemplate.visualid = m_lX11NativeVisualId;
 
                int num = 0;
+
                XVisualInfo* pvisualinfo = XGetVisualInfo(
                    display,
                    VisualIDMask,
@@ -259,6 +261,7 @@ namespace x11
             }
             else
             {
+
                if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_visualinfo))
                {
 
@@ -271,6 +274,7 @@ namespace x11
                   zero(m_visualinfo);
 
                }
+
             }
 
             m_iDepth = m_visualinfo.depth;
@@ -303,9 +307,11 @@ namespace x11
                | KeyPressMask | KeyReleaseMask | PointerMotionMask | StructureNotifyMask
                | FocusChangeMask | LeaveWindowMask | EnterWindowMask;
 
-            attr.background_pixmap = None;
+            // attr.background_pixmap = None;
 
-            attr.border_pixmap = None;
+            // attr.border_pixmap = None;
+
+            attr.background_pixel = 0;
 
             attr.border_pixel = 0;
 
@@ -324,7 +330,8 @@ namespace x11
                                      m_iDepth,
                                      InputOutput,
                                      m_pvisual,
-                                     CWColormap | CWEventMask | CWBackPixmap | CWBorderPixel | CWOverrideRedirect,
+                                     // CWBackPixmap | CWBorderPixmap
+                                     CWColormap | CWEventMask | CWBackPixel | CWBorderPixel | CWOverrideRedirect,
                                      &attr
             );
 
@@ -364,7 +371,6 @@ namespace x11
             zero(xev);
 
             display_lock displaylock(m_px11display->m_pDisplay);
-
 
             Window windowRoot = DefaultRootWindow(m_px11display->m_pDisplay);
 
