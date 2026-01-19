@@ -80,11 +80,12 @@ if(${WIN32})
 elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
-    list(APPEND extra_pkg_modules
-       libstartup-notification-1.0
-    )
+    #list(APPEND extra_pkg_modules
+    #   libstartup-notification-1.0
+    #)
 
-    pkg_check_modules(${PROJECT_NAME}_PKGCONFIG x11 xrender xi xext libstartup-notification-1.0 ${extra_pkg_modules})
+    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG x11 xrender xi xext libstartup-notification-1.0 ${extra_pkg_modules})
+    pkg_check_modules(${PROJECT_NAME}_PKGCONFIG x11 xrender xi xext libstartup-notification-1.0)
 
     target_compile_options(windowing_x11 PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
     target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})

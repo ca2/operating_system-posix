@@ -4,67 +4,71 @@
 //
 //  Created by Camilo Sasuke Thomas Borregaard Sørensen on 2024-12-22.
 //
+#include "framework.h"
+#include "acme/regular_expression/result.h"
 
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+::string string_expand_environment_variables(const ::scoped_string & scopedstr)
+{
 
-// Function to replace environment variable expressions ($ENV_VAR) in a string
-// by chat gpt on 2024-12-22.
-char *c_expand_environment_variables(const char * input) {
-    size_t len = strlen(input);
-    char *result = (char *)malloc(len + 1); // Allocate memory for the result string
-    if (!result) {
-        return NULL; // Memory allocation failed
-    }
+   ::string str(scopedstr);
 
-    size_t i = 0, j = 0;
-    while (i < len) {
-        if (input[i] == '$' && i + 1 < len && isalpha(input[i + 1])) {
-            // Found a '$' followed by a valid environment variable name
-            size_t var_start = i + 1;
-            size_t var_len = 0;
+   auto length = str.length();
 
-            // Find the length of the environment variable name
-            while (i + 1 + var_len < len && (isalnum(input[i + 1 + var_len]) || input[i + 1 + var_len] == '_')) {
-                var_len++;
-            }
+   character_count i = 0, j = 0;
 
-            // Extract the environment variable name
-            char *var_name = strndup(input + var_start, var_len);
-            if (!var_name) {
-                free(result);
-                return NULL; // Memory allocation failed
-            }
+   while (i < length)
+   {
 
-            // Get the environment variable value
-            char *env_value = getenv(var_name);
-            free(var_name);
+      if (str[i] == '$' && i + 1 < length && isalpha(str[i + 1]))
+      {
 
-            // If the environment variable exists, append its value to the result string
-            if (env_value) {
-                while (*env_value) {
-                    result[j++] = *env_value++;
-                }
-            } else {
-                // If the environment variable doesn't exist, just append the '$' and variable name
-                result[j++] = '$';
-                result[j++] = '$';
-                for (size_t k = 0; k < var_len; k++) {
-                    result[j++] = input[i + 1 + k];
-                }
-            }
+         // Found a '$' followed by a valid environment variable name
+         auto iNameBegin = i + 1;
 
-            // Move past the environment variable in the input string
-            i += var_len + 1;
-        } else {
-            // Copy the current character to the result string
-            result[j++] = input[i++];
-        }
-    }
+         auto iNameLength = 0;
 
-    result[j] = '\0'; // Null-terminate the result string
-    return result;
+         // Find the length of the environment variable name
+         while (i + 1 + iNameLength < length &&
+            (isalnum(scopedstr[i + 1 + iNameLength])
+               || scopedstr[i + 1 + iNameLength] == '_'))
+         {
+
+            iNameLength++;
+
+         }
+
+         // Extract the environment variable name
+         auto strName = str.substr(iNameBegin, iNameLength);
+
+         // Get the environment variable value
+         auto penvironmentvariable = getenv(strName);
+
+         if (penvironmentvariable)
+         {
+
+            ::string strPayload(penvironmentvariable);
+
+            // replace environment variable name byt its value
+            str = str.left(iNameBegin) + strPayload + str.substr(iNameBegin+iNameLength);
+
+         }
+
+         // Move past the environment variable in the input string
+         i += iNameLength + 1;
+
+         length = str.length();
+
+      }
+      else
+      {
+
+         i++;
+
+      }
+
+   }
+
+   return str;
+
 }

@@ -3257,7 +3257,7 @@ return{};
 } // namespace acme_posix
 
 
-char * c_expand_environment_variables(const_char_pointer p);
+::string string_expand_environment_variables(const ::scoped_string & scopedstr);
 
 
 ::string __expand_environment_variables(const ::scoped_string & scopedstr)
@@ -3265,21 +3265,10 @@ char * c_expand_environment_variables(const_char_pointer p);
  
    ::string str(scopedstr);
    
-   auto p = c_expand_environment_variables(str);
+   auto strExpanded = string_expand_environment_variables(str);
    
-   if(p)
-   {
-      
-      str = p;
-      
-      ::free(p);
-      
-   }
-   
-   return str;
-      
-      
-   
+   return strExpanded;
+
 }
 
 

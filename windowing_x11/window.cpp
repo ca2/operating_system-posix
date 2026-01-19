@@ -2187,7 +2187,7 @@ namespace windowing_x11
 
                   ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
 
-                  memory m(puserinteraction->get_app());
+                  memory m;
 
                   int length = 2 + image1->area();
 
@@ -3004,6 +3004,8 @@ namespace windowing_x11
                      ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
                      puserinteraction->place(rBest);
+
+                     information("XMoveResizeWindow rBest {} {} {} {}");
 
                      XMoveResizeWindow(Display(), Window(), rBest.left, rBest.top, rBest.width(), rBest.height());
 
@@ -4439,6 +4441,13 @@ namespace windowing_x11
 //               informationf("XMoveResizeWindow x or y less than 100 ... (Win=%d) (%d, %d) - (%d, %d)", Window(), x, y, cx, cy);
 //
 //            }
+
+            if (cx < 10 || cy < 10)
+            {
+
+               informationf("XMoveResizeWindow cx < 10 || cy < 10");
+
+            }
 
             informationf("XMoveResizeWindow (Win=%d) (%d, %d) - (%d, %d) - (%d, %d)", Window(), x, y, cx, cy, x + cx,
                          y + cy);

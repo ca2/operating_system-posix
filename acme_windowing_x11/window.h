@@ -193,6 +193,11 @@ namespace x11
 
             virtual void _on_cairo_draw(cairo_t *cr);
 
+            virtual void _user_send(const ::procedure & procedure) override;
+            virtual void _user_post(const ::procedure & procedure) override;
+            virtual void _main_send(const ::procedure & procedure) override;
+            virtual void _main_post(const ::procedure & procedure) override;
+
 
             //virtual void _draw(::nano::graphics::device * pnanodevice);
 

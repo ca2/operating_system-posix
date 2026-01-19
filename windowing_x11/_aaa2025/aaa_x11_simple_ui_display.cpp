@@ -560,6 +560,8 @@ int simple_ui_display::show()
 
          XMapWindow(pdisplay, m_window);
 
+         informationf("XResizeWindow (%d, %d)", Window(), m_size.cx, m_size.cy);
+
          XResizeWindow(pdisplay, m_window, m_size.cx, m_size.cy);
 
          XMoveWindow(pdisplay, m_window, m_point.x, m_point.y);

@@ -311,7 +311,7 @@ namespace x11
 
             // attr.border_pixmap = None;
 
-            attr.background_pixel = 0;
+            // attr.background_pixel = 0;
 
             attr.border_pixel = 0;
 
@@ -331,7 +331,8 @@ namespace x11
                                      InputOutput,
                                      m_pvisual,
                                      // CWBackPixmap | CWBorderPixmap
-                                     CWColormap | CWEventMask | CWBackPixel | CWBorderPixel | CWOverrideRedirect,
+                                     // CWColormap | CWEventMask | CWBackPixel | CWBorderPixel | CWOverrideRedirect,
+                                     CWColormap | CWEventMask | CWBorderPixel | CWOverrideRedirect,
                                      &attr
             );
 
@@ -1441,6 +1442,39 @@ namespace x11
 
          }
 
+
+         void window::_user_send(const ::procedure & procedure)
+         {
+
+            system()->acme_windowing()->send(procedure);
+
+         }
+
+
+         void window::_user_post(const ::procedure & procedure)
+         {
+
+            system()->acme_windowing()->post(procedure);
+
+         }
+
+
+         void window::_main_send(const ::procedure & procedure)
+         {
+
+            _user_send(procedure);
+
+         }
+
+
+         void window::_main_post(const ::procedure & procedure)
+         {
+
+            _user_post(procedure);
+
+         }
+
+
       }//namespace windowing
 
 
@@ -1448,4 +1482,6 @@ namespace x11
 
 
 } // namespace x11
+
+
 

@@ -1798,7 +1798,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if(m_timeLastMotionNotify.elapsed() < 2_ms)
                {
 
-                  print_line("ignored motion notify");
+                  information("ignored motion notify");
 
                   return true;
 
@@ -2631,7 +2631,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                if (px11window)
                {
-
                   {
 
                      ::x11::display_lock displayLock(px11display->__x11_display());
@@ -2650,59 +2649,75 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   //::user::prototype_impl *pimpl = px11window;
 
-                  if (px11window != nullptr)
+                  if (px11window->net_wm_state(::x11::e_atom_net_wm_state_above) != 0
+    || px11window->net_wm_state(::x11::e_atom_net_wm_state_below) != 0
+    || px11window->net_wm_state(::x11::e_atom_net_wm_state_hidden) != 0
+    || px11window->net_wm_state(::x11::e_atom_net_wm_state_maximized_horz) != 0
+    || px11window->net_wm_state(::x11::e_atom_net_wm_state_maximized_penn) != 0
+    || px11window->net_wm_state(::x11::e_atom_net_wm_state_fullscreen) != 0)
                   {
 
-                     ::cast < ::user::interaction > pinteraction = px11window->m_pacmeuserinteraction;
-
-                     if (pinteraction != nullptr)
+                     if (px11window != nullptr)
                      {
 
-                        ::int_rectangle rectangleWindow;
+                        ::cast < ::user::interaction > pinteraction = px11window->m_pacmeuserinteraction;
 
-                        rectangleWindow.left = e.xconfigure.x;
-                        rectangleWindow.top = e.xconfigure.y;
-                        rectangleWindow.right = e.xconfigure.x + e.xconfigure.width;
-                        rectangleWindow.bottom = e.xconfigure.y + e.xconfigure.height;
-
-                        pinteraction->_on_configure_notify_unlocked(rectangleWindow);
-
-                        information() << "X11 ConfigureNotify Win, xy : " << e.xconfigure.window << ", "
-                                      << e.xconfigure.x << ", " << e.xconfigure.y << ", wh :"
-                                      << e.xconfigure.width << ", " << e.xconfigure.height;
-
-                        //information() << "X11 ConfigureNotify Win, cx, cy : " << e.xconfigure.window << ", "
-                        //            <<  ;
-
-                        ::int_point point(e.xconfigure.x, e.xconfigure.y);
-
-//                     //if(point != msg.oswindow->m_point)
-//                     {
-//
-//                        msg.oswindow->m_point = point;
-//
-//                        _position_message(msg.oswindow, point);
-//
-//                     }
-
-                        ::int_size size(e.xconfigure.width, e.xconfigure.height);
-
-                        ::int_rectangle rectangle(point, size);
-
-                        //if(size != msg.oswindow->m_size)
+                        if (pinteraction != nullptr)
                         {
 
-//                        msg.oswindow->m_pointWindow = point;
-//
-//                        msg.oswindow->m_sizeWindow = size;
-//
-                           _configure_message(px11window, rectangle);
+                           ::int_rectangle rectangleWindow;
+
+                           rectangleWindow.left = e.xconfigure.x;
+                           rectangleWindow.top = e.xconfigure.y;
+                           rectangleWindow.right = e.xconfigure.x + e.xconfigure.width;
+                           rectangleWindow.bottom = e.xconfigure.y + e.xconfigure.height;
+
+                           pinteraction->_on_configure_notify_unlocked(rectangleWindow);
+
+                           information() << "X11 ConfigureNotify Win, xy : " << e.xconfigure.window << ", "
+                                         << e.xconfigure.x << ", " << e.xconfigure.y << ", wh :"
+                                         << e.xconfigure.width << ", " << e.xconfigure.height;
+
+                           //information() << "X11 ConfigureNotify Win, cx, cy : " << e.xconfigure.window << ", "
+                           //            <<  ;
+
+                           ::int_point point(e.xconfigure.x, e.xconfigure.y);
+
+                           //                     //if(point != msg.oswindow->m_point)
+                           //                     {
+                           //
+                           //                        msg.oswindow->m_point = point;
+                           //
+                           //                        _position_message(msg.oswindow, point);
+                           //
+                           //                     }
+
+                           ::int_size size(e.xconfigure.width, e.xconfigure.height);
+
+                           ::int_rectangle rectangle(point, size);
+
+                           //if(size != msg.oswindow->m_size)
+                           {
+
+                              //                        msg.oswindow->m_pointWindow = point;
+                              //
+                              //                        msg.oswindow->m_sizeWindow = size;
+                              //
+                              _configure_message(px11window, rectangle);
+
+                           }
+
+                           //_handle_configure_iconic_state(msg.oswindow);
 
                         }
 
-                        //_handle_configure_iconic_state(msg.oswindow);
-
                      }
+
+                  }
+                  else
+                  {
+
+                     information("net_wm_state made ignore configure_window");
 
                   }
 
