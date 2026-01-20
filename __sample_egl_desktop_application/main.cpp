@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <unistd.h>
-
+#include <math.h>
 static Atom
 get_atom(Display* dpy, const char* name)
 {
@@ -28,6 +28,21 @@ int main(void)
     }
 
     int screen = DefaultScreen(dpy);
+
+   /* ---------------- EGL ---------------- */
+
+   EGLDisplay egl_dpy = eglGetDisplay((EGLNativeDisplayType)dpy);
+   if (egl_dpy == EGL_NO_DISPLAY)
+   {
+      fprintf(stderr, "eglGetDisplay failed\n");
+      return 1;
+   }
+
+   if (!eglInitialize(egl_dpy, NULL, NULL))
+   {
+      fprintf(stderr, "eglInitialize failed\n");
+      return 1;
+   }
 
     /* Pick a 32-bit ARGB visual */
     XVisualInfo vinfo;
@@ -86,23 +101,8 @@ int main(void)
         5
     );
 
-    XMapWindow(dpy, win);
-    XFlush(dpy);
 
-    /* ---------------- EGL ---------------- */
 
-    EGLDisplay egl_dpy = eglGetDisplay((EGLNativeDisplayType)dpy);
-    if (egl_dpy == EGL_NO_DISPLAY)
-    {
-        fprintf(stderr, "eglGetDisplay failed\n");
-        return 1;
-    }
-
-    if (!eglInitialize(egl_dpy, NULL, NULL))
-    {
-        fprintf(stderr, "eglInitialize failed\n");
-        return 1;
-    }
 
     EGLint cfg_attribs[] = {
         EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
@@ -174,7 +174,6 @@ int main(void)
         return 1;
     }
 
-    eglMakeCurrent(egl_dpy, surf, surf, ctx);
 
     /* ---------------- OpenGL ---------------- */
 
@@ -183,6 +182,9 @@ int main(void)
     printf("GL_VERSION  = %s\n", glGetString(GL_VERSION));
 
     bool running = true;
+   float f = 0.f;
+
+   bool bMapped = false;
 
     while (running)
     {
@@ -195,19 +197,38 @@ int main(void)
                 running = false;
         }
 
+
+       if (!bMapped)
+       {
+          bMapped = true;
+
+          XMapWindow(dpy, win);
+          XFlush(dpy);
+
+
+       }
+
+
+       eglMakeCurrent(egl_dpy, surf, surf, ctx);
+
+
+       glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+
         /* Light blue, translucent */
         glViewport(0, 0, 640, 480);
-        glClearColor(0.6f* 0.6f, 0.8f* 0.6f, 1.0f * 0.6f, 0.6f);
+        glClearColor((sin(f * 2.0f* 3.1415* 0.5) * 0.5 + 0.5) * 0.6 * 0.6f, 0.8f* 0.6f, 1.0f * 0.6f, 0.6f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         eglSwapBuffers(egl_dpy, surf);
+       eglMakeCurrent(egl_dpy, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
 
         usleep(16667);
+
+       f += 0.016666666;
     }
 
     /* ---------------- Cleanup ---------------- */
 
-    eglMakeCurrent(egl_dpy, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
     eglDestroySurface(egl_dpy, surf);
     eglDestroyContext(egl_dpy, ctx);
     eglTerminate(egl_dpy);

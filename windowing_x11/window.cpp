@@ -2991,6 +2991,8 @@ namespace windowing_x11
 
                   }
 
+
+
                   ::int_rectangle rWindow;
 
                   rWindow.left = attr.x;

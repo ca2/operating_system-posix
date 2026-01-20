@@ -1716,7 +1716,17 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if (e.xcrossing.mode == NotifyUngrab)
                {
 
-                  information() << "X11 LeaveNotify NotifyUngrab";
+                  information() << "X11 LeaveNotify (NotifyUngrab)";
+
+               }
+               else
+               {
+
+                  information("   |   X11 LeaveNotify");
+                  information("   |");
+                  information("   .----------------------------------------");
+                  information("");
+                  information("");
 
                }
 
@@ -1774,6 +1784,15 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                information() << "X11 EnterNotify NotifyGrab";
 
             }
+            else
+            {
+
+               information("");
+                  information("   /----------------------------------------");
+               information("   |");
+               information("   |   X11 EnterNotify");
+
+            }
 
             //::minimum(m_pointCursor.x);
 
@@ -1798,13 +1817,22 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if(m_timeLastMotionNotify.elapsed() < 2_ms)
                {
 
-                  information("ignored motion notify");
+                  //information("ignored motion notify");
 
                   return true;
 
                }
 
                m_timeLastMotionNotify.Now();
+
+               if(m_timeLastMotionTracing.elapsed() > 1_s)
+               {
+
+                  information("   |   motion notify tracing with 1s window");
+
+                  m_timeLastMotionTracing.Now();
+
+               }
 
                //msg.oswindow->set_cursor_position(m_pointCursor);
 
@@ -2467,6 +2495,8 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //            }
 
+            px11window->m_lX11MapNotify = 1;
+
             informationf("windowing_x11 MapNotify");
 
             if (px11window)
@@ -2503,6 +2533,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             break;
          case UnmapNotify:
          {
+
+            if (px11window)
+            {
+
+               px11window->m_lX11MapNotify = 0;
+
+            }
 
             informationf("windowing_x11 UnmapNotify");
 

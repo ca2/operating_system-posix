@@ -311,7 +311,7 @@ namespace x11
 
             // attr.border_pixmap = None;
 
-            // attr.background_pixel = 0;
+            attr.background_pixel = 0;
 
             attr.border_pixel = 0;
 
@@ -331,8 +331,9 @@ namespace x11
                                      InputOutput,
                                      m_pvisual,
                                      // CWBackPixmap | CWBorderPixmap
-                                     // CWColormap | CWEventMask | CWBackPixel | CWBorderPixel | CWOverrideRedirect,
-                                     CWColormap | CWEventMask | CWBorderPixel | CWOverrideRedirect,
+                                     CWColormap | CWEventMask | CWBackPixel | CWBorderPixel | CWOverrideRedirect,
+                                     //CWColormap | CWEventMask | CWBorderPixel | CWOverrideRedirect,
+                                     //CWColormap | CWEventMask | CWBorderPixel,
                                      &attr
             );
 
@@ -343,6 +344,23 @@ namespace x11
 
             }
 
+            _wm_nodecorations(false);
+
+            XWindowAttributes attr2;
+
+            if (!XGetWindowAttributes(display, m_window, &attr2))
+            {
+
+               windowing_output_debug_string("::window::full_screen 1.2");
+
+               //fflush(stdout);
+
+               throw ::exception(error_failed);
+
+            }
+
+            m_lX11NativeVisualId = attr2.visual->visualid;
+
             //on_create_window();
 
          }
@@ -352,8 +370,6 @@ namespace x11
          {
 
             display_lock displaylock(m_px11display->m_pDisplay);
-
-            _wm_nodecorations(false);
 
             XMapWindow(m_px11display->m_pDisplay, m_window);
 
