@@ -2574,7 +2574,7 @@ namespace acme_posix
    
 #endif
    
-      auto pszExecutable = ::c::strdup(strExecutable);
+      //auto pszExecutable = ::c::strdup(strExecutable);
 
       auto stra = command_arguments_from_command_line(scopedstr);
 

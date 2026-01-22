@@ -1737,7 +1737,7 @@ namespace acme_posix
 
       path /= lpszName;
 
-      auto pdirectorysystem = pmatter->directory_system();
+      //auto pdirectorysystem = pmatter->directory_system();
 
       //pdirectorysystem->create(path.folder());
 
