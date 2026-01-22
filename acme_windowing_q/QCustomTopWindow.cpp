@@ -114,7 +114,7 @@ void QCustomTopWindow::moveEvent(QMoveEvent * happening)
    try {
       QPoint newPos = happening->pos();  // Get the ___new size of the window
       //   qDebug() << "Window resized to:" << newSize;
-      m_pwindow->_on_reposition(newPos.x(), newPos.y());
+      m_pwindow->_on_reposition(newPos.x, newPos.y);
       // Update the label with the ___new size
       //updateSizeLabel(newSize);
    }

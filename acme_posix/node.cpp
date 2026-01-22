@@ -2423,10 +2423,10 @@ namespace acme_posix
             if(iWaitPid == -1)
             {
                
-               int iErrorNo = errno;
-
    #if DEEP_LOG_HERE > 6
                
+               int iErrorNo = errno;
+
                information("waitpid -1 error errno={} (\"{}\")", iErrorNo, strerror(iErrorNo));
                
    #endif
