@@ -2564,6 +2564,7 @@ namespace acme_posix
    
 #endif
 
+      
       auto range = scopedstr();
       
       ::string strExecutable(range.consume_command_line_argument());
@@ -2574,7 +2575,7 @@ namespace acme_posix
    
 #endif
    
-      //auto pszExecutable = ::c::strdup(strExecutable);
+      auto pszExecutable = ::c::strdup(strExecutable);
 
       auto stra = command_arguments_from_command_line(scopedstr);
 
@@ -2610,6 +2611,8 @@ namespace acme_posix
 
 #if defined(__ANDROID__) || defined(APPLE_IOS)
 
+         __UNREFERENCED_PARAMETER(pszExecutable);
+         
          throw ::exception(todo);
 
 #else
