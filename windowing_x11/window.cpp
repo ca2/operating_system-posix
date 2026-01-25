@@ -1489,7 +1489,7 @@ namespace windowing_x11
    ::oswindow window::oswindow() const
    {
 
-      return this;
+      return (::oswindow) this;
 
    }
 
