@@ -92,8 +92,7 @@ namespace innate_ui_motif
    void innate_ui::_xt_app_initialize()
    {
 
-
-      XtAppInitialize(&m_xtappcontext, "XawExample", NULL, 0, &::system()->m_argc, ::system()->m_args, NULL, NULL, NULL);
+      XtAppInitialize(&m_xtappcontext, "XawExample", NULL, 0, &::system()->m_argc, ::system()->m_args, NULL, NULL, 0);
 
       ::system()->acme_windowing()->m_mapDoHappenings["innate_ui_xaw_happenings"] = [this]()
       {
@@ -103,7 +102,6 @@ namespace innate_ui_motif
       };
 
    }
-
 
 
    void innate_ui::_xt_app_do_happenings()
