@@ -92,7 +92,7 @@ list(APPEND this_system_libraries
    Qt6::Widgets
    #Qt6::X11Extras
    Qt6::Gui
-   Qt6::GuiPrivate
+   #Qt6::GuiPrivate
 )
 #
 #if (${FREEBSD} OR ${DEBIAN} OR ${SUSE} OR ${FEDORA} OR ${UBUNTU})

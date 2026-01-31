@@ -34,8 +34,8 @@
 #include <QIconEngine>
 #include <QTextStream>
 //#include <QDBusInterface>
-#include <qpa/qplatformnativeinterface.h>
-#include <xcb/xcb.h>
+//#include <qpa/qplatformnativeinterface.h>
+//#include <xcb/xcb.h>
 #include "windowing_lxq2/windowing.h"
 //#include <KPackage/Package>
 //#include <KPackage/PackageLoader>
@@ -925,7 +925,7 @@ namespace node_lxq2
 
                                        }
 
-                                       pdialog->m_function(::transfer(pdialogTransfer));
+                                       pdialog->m_procedureResponse(::transfer(pdialogTransfer));
 
                                        delete pqfiledialog;
 
@@ -955,10 +955,10 @@ namespace node_lxq2
 
                    pqfiledialog->setOption(QFileDialog::Option::ShowDirsOnly);
 
-                   if(pdialog->m_path.has_character())
+                   if(pdialog->m_patha.has_element() && pdialog->m_patha.first().has_character())
                    {
 
-                      pqfiledialog->setDirectory(pdialog->m_path.c_str());
+                      pqfiledialog->setDirectory(pdialog->m_patha.first().c_str());
 
                    }
 
@@ -971,11 +971,11 @@ namespace node_lxq2
                                        if(finished)
                                        {
 
-                                           pdialog->m_path = (const_char_pointer )pqfiledialog->directory().absolutePath().toUtf8().data();
+                                           pdialog->m_patha.add_unique((const_char_pointer )pqfiledialog->directory().absolutePath().toUtf8().data());
 
                                        }
 
-                                       pdialog->m_function(::transfer(pdialogTransfer));
+                                       pdialog->m_procedureResponse(::transfer(pdialogTransfer));
 
                                        delete pqfiledialog;
 
@@ -993,11 +993,13 @@ namespace node_lxq2
    ::wl_display * node::get_wayland_display()
    {
 
-      QPlatformNativeInterface *native =  QGuiApplication::platformNativeInterface();
+      return nullptr;
+      //
+      // QPlatformNativeInterface *native =  QGuiApplication::platformNativeInterface();
+      //
+      // auto pwldisplay = (::wl_display *) native->nativeResourceForWindow("display", NULL);
 
-      auto pwldisplay = (::wl_display *) native->nativeResourceForWindow("display", NULL);
-
-      return pwldisplay;
+      //return pwldisplay;
 
    }
 
