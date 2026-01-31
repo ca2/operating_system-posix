@@ -93,7 +93,7 @@ namespace node_gtk3
 
          pdialog->m_patha.add(path);
 
-         pdialog->m_function(pdialog);
+         pdialog->m_procedureResponse(pdialog);
 
       }
 

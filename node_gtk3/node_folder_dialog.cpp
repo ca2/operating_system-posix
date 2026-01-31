@@ -55,9 +55,9 @@ namespace node_gtk3
 
          auto path = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(pgtkdialog));
 
-         pdialog->m_path = path;
+         pdialog->m_patha.add_unique(path);
 
-         pdialog->m_function(pdialog);
+         pdialog->m_procedureResponse(pdialog);
 
       }
 
