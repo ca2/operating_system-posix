@@ -27,6 +27,7 @@ list(APPEND library_references
 
 list(APPEND static_library_references ${library_references})
 
+
 list(TRANSFORM static_library_references PREPEND static_)
 
 
@@ -36,10 +37,13 @@ add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 if (NOT ${NO_PRECOMPILED_HEADER})
 
+
    target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
    target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
 
+
 endif ()
+
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
@@ -55,6 +59,7 @@ if(${WIN32})
 
 elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
+
    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
    #set_target_properties(${PROJECT_NAME} PROPERTIES CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
@@ -63,11 +68,14 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gconf-2.0 glib-2.0 gtk+-3.0 gdk-3.0)
    #   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0)
    #endif()
+
+
    if (${HAS_GTK4})
       pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4 dbus-1)
    elseif (${HAS_GTK3})
       pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk+-3.0 dbus-1)
    endif ()
+
 
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
    target_compile_options(static_${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
