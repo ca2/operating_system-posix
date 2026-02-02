@@ -384,7 +384,7 @@ namespace node_gdk
 //
 //      }
 //
-//      GError * pgerror = nullptr;
+//AAAGError * pgaaaerror = nullptr;
 //
 //      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 //
@@ -470,7 +470,7 @@ namespace node_gdk
 //
 //      }
 //
-//      GError * pgerror = nullptr;
+//AAAGError * pgaaaerror = nullptr;
 //
 //      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 //
@@ -503,7 +503,7 @@ namespace node_gdk
 //
 //      gboolean ret;
 //
-//      GError * pgerror = nullptr;
+//AAAGError * pgaaaerror = nullptr;
 //
 //      //g_type_init();
 //

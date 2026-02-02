@@ -60,7 +60,7 @@ namespace innate_ui_motif
       //                                              NULL);
       stbi_image_free(image_data);
       // Create a GdkPixbufLoader to load the image from the memory buffer
-      //GError * pgerror = NULL;
+      //AAAGError * pgaaaerror = NULL;
       //GdkPixbufLoader *loader = gdk_pixbuf_loader_new();
 
       // // Write the JPEG memory buffer into the loader

@@ -107,7 +107,7 @@
 //
 //   //GCancellable * pc = g_cancellable_new();
 //
-//   //GError * pgerror = nullptr;
+//   //AAAGError * pgaaaerror = nullptr;
 //
 //   //g_application_register(application, pc, &perror);
 //   //new_window(application, nullptr);

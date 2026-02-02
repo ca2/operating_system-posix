@@ -2173,7 +2173,7 @@ namespace node_gtk3
       user_post([this, pathDesktop]()
                         {
 
-                           GError *pgerror = NULL;
+                           GError * pgerror = NULL;
                            GDesktopAppInfo *pgdesktopappinfo;
                            GList *plistFiles = NULL;
 
@@ -2250,7 +2250,7 @@ namespace node_gtk3
 
             ::errf_line("Unable to read file: %s\n", pgerror->message);
 
-            g_error_free(pgerror);
+            g_clear_error(&pgerror);
 
          }
          
@@ -3040,7 +3040,7 @@ namespace node_gtk3
 //
 //      }
 //
-//      GError * pgerror = nullptr;
+//AAAGError * pgaaaerror = nullptr;
 //
 //      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 //
@@ -3126,7 +3126,7 @@ namespace node_gtk3
 //
 //      }
 //
-//      GError * pgerror = nullptr;
+//AAAGError * pgaaaerror = nullptr;
 //
 //      GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 //
@@ -3159,7 +3159,7 @@ namespace node_gtk3
 //
 //      gboolean ret;
 //
-//      GError * pgerror = nullptr;
+//AAAGError * pgaaaerror = nullptr;
 //
 //      //g_type_init();
 //
@@ -3494,7 +3494,7 @@ log_handler(const gchar *log_domain,
 //
 //   gboolean ret;
 //
-//   GError * pgerror = NULL;
+//AAAGError * pgaaaerror = NULL;
 //
 //   ret = g_app_info_launch_default_for_uri(scopedstrUri, NULL, &error);
 //

@@ -628,7 +628,7 @@ void open_file_with_default_app(const_char_pointer filename) {
     GAppInfo *app_info = g_file_query_default_handler(file, NULL, &pgerror);
     if (!app_info) {
         g_printerr("Could not find a default application to open '%s': %s\n", filename, pgerror->message);
-        g_error_free(pgerror);
+        g_clear_error(&pgerror);
         g_object_unref(file);
         return;
     }
@@ -639,7 +639,7 @@ void open_file_with_default_app(const_char_pointer filename) {
     // Launch the file with the default application
     if (!g_app_info_launch(app_info, g_list_append(NULL, file), NULL, &pgerror)) {
         g_printerr("Failed to open '%s': %s\n", filename, pgerror->message);
-        g_error_free(pgerror);
+        g_clear_error(&pgerror);
     }
 
     printf_line("gdk::open_file_with_default_app succeeded for : \"%s\"", filename);
@@ -657,7 +657,7 @@ void on_file_opened(GObject *source_object, GAsyncResult *res, gpointer user_dat
 
     if (!success) {
         g_printerr("Failed to open file: %s\n", pgerror->message);
-        g_error_free(pgerror);
+        g_clear_error(&pgerror);
     } else {
         g_print("File opened successfully.\n");
     }
@@ -672,7 +672,7 @@ void open_file_with_default_app_async(const_char_pointer filename) {
     GAppInfo *app_info = g_file_query_default_handler(file, NULL, &pgerror);
     if (!app_info) {
         g_printerr("Could not find a default application to open '%s': %s\n", filename, pgerror->message);
-        g_error_free(pgerror);
+        g_clear_error(&pgerror);
         g_object_unref(file);
         return;
     }

@@ -30,7 +30,7 @@ get_session_bus (void)
       if(pgerror)
       {
          g_warning ("Couldn't connect to session bus: %s", pgerror->message);
-         g_error_free (pgerror);
+         g_clear_error(&pgerror);
       }
    }
          if (pgerror)

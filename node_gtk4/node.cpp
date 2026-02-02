@@ -1871,7 +1871,7 @@ namespace node_gtk4
       user_post([this, pathDesktop]()
                         {
 
-                           // GError *pgerror = NULL;
+                           //AAAGError * pgaaaerror = NULL;
                            // GDesktopAppInfo *pgdesktopappinfo;
                            // GList *plistFiles = NULL;
                            //
@@ -2568,7 +2568,7 @@ gboolean x11_source_func(gpointer p)
 //
 //   gboolean ret;
 //
-//   GError * pgerror = NULL;
+//AAAGError * pgaaaerror = NULL;
 //
 //   ret = g_app_info_launch_default_for_uri(scopedstrUri, NULL, &error);
 //

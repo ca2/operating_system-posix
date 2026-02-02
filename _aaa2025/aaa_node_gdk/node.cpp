@@ -2246,7 +2246,7 @@ m_bFetchingDarkMode = false;
       user_post([this, pathDesktop]()
                         {
 
-                           // GError *pgerror = NULL;
+                           //AAAGError * pgaaaerror = NULL;
                            // GDesktopAppInfo *pgdesktopappinfo;
                            // GList *plistFiles = NULL;
                            //

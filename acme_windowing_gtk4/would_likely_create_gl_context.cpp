@@ -99,14 +99,14 @@ static gboolean gdk_can_use_gl(void) {
     if (!ctx) {
         if (pgerror)
         {
-            g_error_free(pgerror);
+            g_clear_error(&pgerror);
             pgerror = nullptr;
         }
         return FALSE;
     }
     if (pgerror)
     {
-        g_error_free(pgerror);
+        g_clear_error(&pgerror);
         pgerror = nullptr;
     }
 
@@ -115,14 +115,14 @@ static gboolean gdk_can_use_gl(void) {
         g_object_unref(ctx);
         if (pgerror)
         {
-            g_error_free(pgerror);
+            g_clear_error(&pgerror);
             pgerror = nullptr;
         }
         return FALSE;
     }
     if (pgerror)
     {
-        g_error_free(pgerror);
+        g_clear_error(&pgerror);
         pgerror = nullptr;
     }
 

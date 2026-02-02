@@ -108,7 +108,7 @@ namespace gtk3
             if (!gdk_pixbuf_loader_write(loader, (const guchar *)p, size, &pgerror))
             {
                g_printerr("Error loading image: %s\n", pgerror->message);
-               g_error_free(pgerror);
+               g_clear_error(&pgerror);
                g_object_unref(loader);
                throw ::exception(error_failed);
             }

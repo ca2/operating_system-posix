@@ -250,7 +250,7 @@
 //   {
 //
 //
-//      GError * pgerror = nullptr;
+//AAAGError * pgaaaerror = nullptr;
 //
 //      GtkActionGroup * action_group = gtk_action_group_new ("AppActions");
 //
@@ -607,7 +607,7 @@
 //
 //   }
 //
-//   GError * pgerror = nullptr;
+//AAAGError * pgaaaerror = nullptr;
 //
 //   GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 //
@@ -709,7 +709,7 @@
 //
 //   }
 //
-//   GError * pgerror = nullptr;
+//AAAGError * pgaaaerror = nullptr;
 //
 //   GFileInfo * pfileinfo = g_file_query_info (pfile, "standard::*", G_FILE_QUERY_INFO_NONE, nullptr, &perror);
 //
@@ -741,7 +741,7 @@
 //
 //   gboolean ret;
 //
-//   GError * pgerror = NULL;
+//AAAGError * pgaaaerror = NULL;
 //
 //   g_type_init();
 //

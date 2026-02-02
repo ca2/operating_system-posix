@@ -42,7 +42,7 @@ namespace innate_ui_kde6
 //      // gsize jpeg_size = m_memory.size();
 //      //
 //      // // Create a GdkPixbufLoader to load the image from the memory buffer
-//      // GError * pgerror = NULL;
+//      //AAAGError * pgaaaerror = NULL;
 //      // GdkPixbufLoader *loader = gdk_pixbuf_loader_new();
 //      //
 //      // // Write the JPEG memory buffer into the loader

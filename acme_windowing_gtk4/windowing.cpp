@@ -114,7 +114,7 @@ cairo_surface_t* cairo_surface_from_file_in_memory(const void* p, memsize size)
       if (pgerror)
       {
          g_printerr("Error loading image: %s\n", pgerror->message);
-         g_error_free(pgerror);
+         g_clear_error(&pgerror);
          pgerror = nullptr;
       }
       g_object_unref(loader);
@@ -122,7 +122,7 @@ cairo_surface_t* cairo_surface_from_file_in_memory(const void* p, memsize size)
    }
    if (pgerror)
    {
-      g_error_free(pgerror);
+      g_clear_error(&pgerror);
       pgerror = nullptr;
    }
 
