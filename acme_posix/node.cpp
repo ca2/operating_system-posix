@@ -1438,7 +1438,14 @@ namespace acme_posix
       while (stdin_has_input_events())
       {
 
-         getchar();
+         int iGetChar = getchar();
+
+         if(iGetChar == EOF)
+         {
+
+            break;
+
+         }
 
       }
 
