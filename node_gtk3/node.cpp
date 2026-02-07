@@ -727,10 +727,11 @@ namespace node_gtk3
 
                       //psystem->defer_post_initial_request();
 
-            system()->post_application_start();
-            system()->defer_post_application_start_file_open_request();
-            system()->post_application_started();
+            //system()->post_aaa_application_start();
+            //system()->defer_post_aaa_application_start_file_open_request();
+            //system()->post_aaa_application_started();
 
+            system()->acme_windowing()->app_fork();
                    });
 
 

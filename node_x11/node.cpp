@@ -196,9 +196,11 @@ namespace node_x11
 
                       information() << "node_x11::system_main going to windowing_message_loop_add_idle_source";
 
-                     system()->post_application_start();
-                     system()->defer_post_application_start_file_open_request();
-                     system()->post_application_started();
+                     //system()->post_aaa_application_start();
+                     //system()->defer_post_aaa_application_start_file_open_request();
+                     //system()->post_aaa_application_started();
+
+                     system()->acme_windowing()->windowing_application_on_start();
 
                    });
 

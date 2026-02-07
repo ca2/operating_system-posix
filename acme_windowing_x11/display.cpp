@@ -3485,8 +3485,8 @@ namespace x11
 
 
             system()->acme_windowing()->windowing_application_on_start();
-            //system()->defer_post_application_start_file_open_request();
-            //system()->post_application_started();
+            //system()->defer_post_aaa_application_start_file_open_request();
+            //system()->post_aaa_application_started();
 
 
             ____message_loop();

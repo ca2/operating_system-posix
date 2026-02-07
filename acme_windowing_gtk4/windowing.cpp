@@ -729,9 +729,11 @@ gtk_init();
 
             ::information() << "gtk4::acme::windowing::_on_activate_gtk_application";
 
-            system()->post_application_start();
-            system()->defer_post_application_start_file_open_request();
-            system()->post_application_started();
+            //system()->post_aaa_application_start();
+            //system()->defer_post_aaa_application_start_file_open_request();
+            //system()->post_aaa_application_started();
+
+            windowing_application_on_start();
 
          }
 
