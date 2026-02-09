@@ -15,7 +15,7 @@
 
    auto length = str.length();
 
-   character_count i = 0, j = 0;
+   character_count i = 0;
 
    while (i < length)
    {
