@@ -139,19 +139,19 @@ namespace windowing_xcb
 //
 //      {
 //
-//         xdisplay d(m_oswindow->display());
+//         xdisplay d(m_pacmewindowingwindow->display());
 //
-//         m_pimage = XCreateImage(d, m_oswindow->visual(), m_oswindow->m_iDepth, ZPixmap, 0, (char *) m_mem->get_data(), m_pixmap->width(), m_pixmap->height(), sizeof(color32_t) * 8, m_iGoodStride);
+//         m_pimage = XCreateImage(d, m_pacmewindowingwindow->visual(), m_pacmewindowingwindow->m_iDepth, ZPixmap, 0, (char *) m_mem->get_data(), m_pixmap->width(), m_pixmap->height(), sizeof(color32_t) * 8, m_iGoodStride);
 //
 //         XGCValues gcvalues;
 //
 //   //      m_pdc = ___new device_context();
 //
-//         m_gc = XCreateGC(d, m_oswindow->window(), 0, &gcvalues);
+//         m_gc = XCreateGC(d, m_pacmewindowingwindow->window(), 0, &gcvalues);
 //
 //      }
 //
-//      //m_pdc->m_pdisplay = m_pimpl->m_oswindow->display();
+//      //m_pdc->m_pdisplay = m_pimpl->m_pacmewindowingwindow->display();
 //
       return true;
 
@@ -163,7 +163,7 @@ namespace windowing_xcb
 
 //      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//      xdisplay d(m_oswindow->display());
+//      xdisplay d(m_pacmewindowingwindow->display());
 //
 //      //if(m_pdc != nullptr)
 //      {
@@ -291,13 +291,13 @@ namespace windowing_xcb
 ////
 ////      {
 ////
-////         //xdisplay d(m_oswindow->display());
+////         //xdisplay d(m_pacmewindowingwindow->display());
 ////
 ////         m_pimage =
 ////            XCreateImage(
-////               m_oswindow->display(),
-////               m_oswindow->visual(),
-////               m_oswindow->m_iDepth,
+////               m_pacmewindowingwindow->display(),
+////               m_pacmewindowingwindow->visual(),
+////               m_pacmewindowingwindow->m_iDepth,
 ////               ZPixmap,
 ////               0,
 ////               (char *) pimage->get_data(),
@@ -821,7 +821,7 @@ namespace windowing_xcb
 
             //XGCValues gcvalues = {};
 
-//       auto gc = XCreateGC(m_oswindow->display(), m_oswindow->window(), 0, &gcvalues);
+//       auto gc = XCreateGC(m_pacmewindowingwindow->display(), m_pacmewindowingwindow->window(), 0, &gcvalues);
 
             //int iWidth = m_sizeImage.cx;
 
@@ -879,7 +879,7 @@ namespace windowing_xcb
 
             //}
 
-            //     XFreeGC(m_oswindow->display(), gc);
+            //     XFreeGC(m_pacmewindowingwindow->display(), gc);
 
 //         if(bComboList)
 //         {
@@ -896,11 +896,11 @@ namespace windowing_xcb
 //
 //            xcolour.flags = DoRed | DoGreen | DoBlue;
 //
-//            XAllocColor(m_oswindow->display(), m_oswindow->m_colormap, &xcolour);
+//            XAllocColor(m_pacmewindowingwindow->display(), m_pacmewindowingwindow->m_colormap, &xcolour);
 //
-//            XSetForeground(m_oswindow->display(), m_gc, xcolour.pixel);
+//            XSetForeground(m_pacmewindowingwindow->display(), m_gc, xcolour.pixel);
 //
-//            XFillRectangle(m_oswindow->display(), m_oswindow->window(), m_gc, 0, 0, iWidth, iHeight);
+//            XFillRectangle(m_pacmewindowingwindow->display(), m_pacmewindowingwindow->window(), m_gc, 0, 0, iWidth, iHeight);
 //
 //         }
 
@@ -914,11 +914,11 @@ namespace windowing_xcb
 
             xcolour.flags = DoRed | DoGreen | DoBlue;
 
-            XAllocColor(m_oswindow->display(), m_oswindow->m_colormap, &xcolour);
+            XAllocColor(m_pacmewindowingwindow->display(), m_pacmewindowingwindow->m_colormap, &xcolour);
 
-            XSetForeground(m_oswindow->display(), m_gc, xcolour.pixel);
+            XSetForeground(m_pacmewindowingwindow->display(), m_gc, xcolour.pixel);
 
-            XFillRectangle(m_oswindow->display(), m_oswindow->window(), m_gc, 0, 0, iWidth, iHeight);
+            XFillRectangle(m_pacmewindowingwindow->display(), m_pacmewindowingwindow->window(), m_gc, 0, 0, iWidth, iHeight);
 
 #endif
 
@@ -939,7 +939,7 @@ namespace windowing_xcb
 
             //XGCValues gcvalues = {};
 
-//       auto gc = XCreateGC(m_oswindow->display(), m_oswindow->window(), 0, &gcvalues);
+//       auto gc = XCreateGC(m_pacmewindowingwindow->display(), m_pacmewindowingwindow->window(), 0, &gcvalues);
 
             //int iWidth = m_sizeImage.cx;
 
@@ -990,7 +990,7 @@ namespace windowing_xcb
 
             //}
 
-            //     XFreeGC(m_oswindow->display(), gc);
+            //     XFreeGC(m_pacmewindowingwindow->display(), gc);
 
 //         if(bComboList)
 //         {
@@ -1007,11 +1007,11 @@ namespace windowing_xcb
 //
 //            xcolour.flags = DoRed | DoGreen | DoBlue;
 //
-//            XAllocColor(m_oswindow->display(), m_oswindow->m_colormap, &xcolour);
+//            XAllocColor(m_pacmewindowingwindow->display(), m_pacmewindowingwindow->m_colormap, &xcolour);
 //
-//            XSetForeground(m_oswindow->display(), m_gc, xcolour.pixel);
+//            XSetForeground(m_pacmewindowingwindow->display(), m_gc, xcolour.pixel);
 //
-//            XFillRectangle(m_oswindow->display(), m_oswindow->window(), m_gc, 0, 0, iWidth, iHeight);
+//            XFillRectangle(m_pacmewindowingwindow->display(), m_pacmewindowingwindow->window(), m_gc, 0, 0, iWidth, iHeight);
 //
 //         }
 
@@ -1025,11 +1025,11 @@ namespace windowing_xcb
 
             xcolour.flags = DoRed | DoGreen | DoBlue;
 
-            XAllocColor(m_oswindow->display(), m_oswindow->m_colormap, &xcolour);
+            XAllocColor(m_pacmewindowingwindow->display(), m_pacmewindowingwindow->m_colormap, &xcolour);
 
-            XSetForeground(m_oswindow->display(), m_gc, xcolour.pixel);
+            XSetForeground(m_pacmewindowingwindow->display(), m_gc, xcolour.pixel);
 
-            XFillRectangle(m_oswindow->display(), m_oswindow->window(), m_gc, 0, 0, iWidth, iHeight);
+            XFillRectangle(m_pacmewindowingwindow->display(), m_pacmewindowingwindow->window(), m_gc, 0, 0, iWidth, iHeight);
 
 #endif
 
@@ -1048,9 +1048,9 @@ namespace windowing_xcb
       if (m_pimpl->m_puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
       {
 
-         //XFlush(m_oswindow->display());
+         //XFlush(m_pacmewindowingwindow->display());
 
-         //XSync(m_oswindow->display(), false);
+         //XSync(m_pacmewindowingwindow->display(), false);
 
       }
 

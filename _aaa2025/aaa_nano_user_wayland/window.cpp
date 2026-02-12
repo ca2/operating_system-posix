@@ -1002,7 +1002,7 @@ namespace wayland
 
             auto pmouse = øcreate_new<::user::mouse>();
             //
-            //      pmouse->m_oswindow = this;
+            //      pmouse->m_pacmewindowingwindow = this;
             //
             //      pmouse->m_pwindow = this;
             //
@@ -1088,9 +1088,9 @@ namespace wayland
             //
             //      auto pmouse = øcreate_new<::message::mouse>();
             //
-            //      pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
+            //      pmouse->m_pacmewindowingwindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
             //
-            //      pmouse->m_pwindow = pmouse->m_oswindow;
+            //      pmouse->m_pwindow = pmouse->m_pacmewindowingwindow;
             //
             //      pmouse->m_emessage = ::user::e_message_mouse_leave;
             //
@@ -1124,7 +1124,7 @@ namespace wayland
 
             auto pmouse = øcreate_new<::user::mouse>();
             //
-            //      pmouse->m_oswindow = this;
+            //      pmouse->m_pacmewindowingwindow = this;
             //
             //      pmouse->m_pwindow = this;
             //
@@ -1271,7 +1271,7 @@ namespace wayland
             //
             //         auto pmousewheel = øcreate_new<::message::mouse_wheel>();
             //
-            //         pmousewheel->m_oswindow = this;
+            //         pmousewheel->m_pacmewindowingwindow = this;
             //
             //         pmousewheel->m_pwindow = this;
             //
@@ -1301,7 +1301,7 @@ namespace wayland
             //
             //         auto pmouse = øcreate_new<::message::mouse>();
             //
-            //         pmouse->m_oswindow = this;
+            //         pmouse->m_pacmewindowingwindow = this;
             //
             //         pmouse->m_pwindow = this;
             //

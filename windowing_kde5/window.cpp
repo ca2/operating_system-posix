@@ -279,7 +279,7 @@ namespace windowing_kde5
    }
 
    //
-   // void window::_set_oswindow(::oswindow oswindow)
+   // void window::_set_oswindow(::::acme::windowing::window * pacmewindowingwindow)
    // {
    // }
    //
@@ -1290,7 +1290,7 @@ namespace windowing_kde5
 
          auto pmouse = øcreate_new<::message::mouse>();
 
-         pmouse->m_oswindow = this;
+         pmouse->m_pacmewindowingwindow = this;
 
          pmouse->m_pwindow = this;
 
@@ -1370,7 +1370,7 @@ namespace windowing_kde5
 
             auto pmouse = øcreate_new<::message::mouse>();
 
-            pmouse->m_oswindow = this;
+            pmouse->m_pacmewindowingwindow = this;
 
             pmouse->m_pwindow = this;
 
@@ -1465,7 +1465,7 @@ namespace windowing_kde5
 
          __check_refdbg;
 
-         pmouse->m_oswindow = this;
+         pmouse->m_pacmewindowingwindow = this;
 
          __check_refdbg;
 
@@ -1589,7 +1589,7 @@ namespace windowing_kde5
 
              pkey->m_eusermessage = ::user::e_message_key_down;
 
-              pkey->m_oswindow = this;
+              pkey->m_pacmewindowingwindow = this;
              //
               pkey->m_pwindow = this;
 
@@ -1700,7 +1700,7 @@ namespace windowing_kde5
 
              pkey->m_eusermessage = ::user::e_message_key_up;
 
-              pkey->m_oswindow = this;
+              pkey->m_pacmewindowingwindow = this;
              //
               pkey->m_pwindow = this;
 
@@ -3879,7 +3879,7 @@ namespace windowing_kde5
    // }
 
 
-   //   bool window::is_child(::oswindow oswindow)
+   //   bool window::is_child(::::acme::windowing::window * pacmewindowingwindow)
    //   {
    //
    //      if (oswindow == nullptr || oswindow->m_pwindow == nullptr ||
@@ -4848,7 +4848,7 @@ namespace windowing_kde5
 //    //   ::e_status window::post_ui_message(const MESSAGE & message)
 //    //   {
 //    //
-//    //      ::oswindow oswindow = message.oswindow;
+//    //      ::::acme::windowing::window * pacmewindowingwindow = message.oswindow;
 //    //
 //    //      ASSERT(oswindow != nullptr);
 //    //
@@ -5103,7 +5103,7 @@ namespace windowing_kde5
 //
 //       //fflush(stdout);
 //
-//       //x11_store_name(m_oswindow, m_strWindowText);
+//       //x11_store_name(m_pacmewindowingwindow, m_strWindowText);
 //
 //       //x11_store_name(scopedstr);
 //
@@ -6598,7 +6598,7 @@ namespace windowing_kde5
    //
    //          auto pmouse = øcreate_new<::message::mouse>();
    //
-   //          pmouse->m_oswindow = this;
+   //          pmouse->m_pacmewindowingwindow = this;
    //
    //          pmouse->m_pwindow = this;
    //
@@ -6683,9 +6683,9 @@ namespace windowing_kde5
    //
    //       auto pmouse = øcreate_new<::message::mouse>();
    //
-   //       pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
+   //       pmouse->m_pacmewindowingwindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
    //
-   //       pmouse->m_pwindow = pmouse->m_oswindow;
+   //       pmouse->m_pwindow = pmouse->m_pacmewindowingwindow;
    //
    //       pmouse->m_emessage = e_message_mouse_leave;
    //
@@ -6843,7 +6843,7 @@ namespace windowing_kde5
    //
    //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
    //
-   //          pmousewheel->m_oswindow = this;
+   //          pmousewheel->m_pacmewindowingwindow = this;
    //
    //          pmousewheel->m_pwindow = this;
    //
@@ -6873,7 +6873,7 @@ namespace windowing_kde5
    //
    //          auto pmouse = øcreate_new<::message::mouse>();
    //
-   //          pmouse->m_oswindow = this;
+   //          pmouse->m_pacmewindowingwindow = this;
    //
    //          pmouse->m_pwindow = this;
    //
@@ -7107,7 +7107,7 @@ namespace windowing_kde5
    //          auto pkey = øcreate_new<::message::key>();
    //
    //          pkey->
-   //             m_oswindow = this;
+   //             m_pacmewindowingwindow = this;
    //
    //          pkey->
    //             m_pwindow = this;
@@ -7156,7 +7156,7 @@ namespace windowing_kde5
    //    auto pkey = øcreate_new<::message::key>();
    //
    //    pkey->
-   //    m_oswindow = this;
+   //    m_pacmewindowingwindow = this;
    //
    //    pkey->
    //    m_pwindow = this;
@@ -7584,7 +7584,7 @@ namespace windowing_kde5
    //
    //            auto pkey = øcreate_new<::message::key>();
    //
-   //            pkey->m_oswindow = this;
+   //            pkey->m_pacmewindowingwindow = this;
    //
    //            pkey->m_pwindow = this;
    //
@@ -7650,7 +7650,7 @@ namespace windowing_kde5
    //
    //            auto pkey = øcreate_new<::message::key>();
    //
-   //            pkey->m_oswindow = this;
+   //            pkey->m_pacmewindowingwindow = this;
    //
    //            pkey->m_pwindow = this;
    //

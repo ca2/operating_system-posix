@@ -359,10 +359,10 @@ void on_initialize_particle() override;
       void _user_post(const ::procedure & procedure) override;
 
 
-      void _set_oswindow(::oswindow oswindow) override;
+      void _set_oswindow(::::acme::windowing::window * pacmewindowingwindow) override;
 
 
-      ::oswindow oswindow() const;
+      ::::acme::windowing::window * pacmewindowingwindow() const;
 
 
       void * __x11_Display() override;

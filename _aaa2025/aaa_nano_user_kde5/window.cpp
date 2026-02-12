@@ -1271,7 +1271,7 @@ namespace kde5
           {
              auto pmouse = øcreate_new<::user::mouse>();
 
-             // pmouse->m_oswindow = this;
+             // pmouse->m_pacmewindowingwindow = this;
              //
              // pmouse->m_pwindow = this;
 
@@ -1368,7 +1368,7 @@ namespace kde5
 
              auto pmouse = øcreate_new<::user::mouse>();
 
-             // pmouse->m_oswindow = this;
+             // pmouse->m_pacmewindowingwindow = this;
              //
              // pmouse->m_pwindow = this;
 
@@ -1537,7 +1537,7 @@ m_pqwidget->move(p);
 
           auto pmouse = øcreate_new<::user::mouse>();
 
-          // pmouse->m_oswindow = this;
+          // pmouse->m_pacmewindowingwindow = this;
           //
           // pmouse->m_pwindow = this;
 

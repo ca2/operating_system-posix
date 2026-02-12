@@ -147,8 +147,8 @@ namespace windowing_lxq1
 //
 //       void destroy() override;
 //
-//          void _set_oswindow(::oswindow oswindow) override;
-//          ::oswindow oswindow() const override;
+//          void _set_oswindow(::::acme::windowing::window * pacmewindowingwindow) override;
+//          ::::acme::windowing::window * pacmewindowingwindow() const override;
 //
 //        virtual void _on_mouse_press(QMouseEvent * pevent);
 //        virtual void _on_mouse_release(QMouseEvent * pevent);

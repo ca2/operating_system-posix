@@ -538,7 +538,7 @@ namespace windowing_lxq1
 //
 //
 //
-//    ::acme::windowing::window * windowing::window(oswindow oswindow)
+//    ::acme::windowing::window * windowing::window(::acme::windowing::window * pacmewindowingwindow)
 //    {
 //
 //       return oswindow;

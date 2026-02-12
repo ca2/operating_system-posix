@@ -471,7 +471,7 @@ namespace windowing_gtk3
    }
 
 
-   ::acme::windowing::window * windowing::window(oswindow oswindow)
+   ::acme::windowing::window * windowing::window(::acme::windowing::window * pacmewindowingwindow)
    {
 
       return oswindow;
@@ -571,7 +571,7 @@ namespace windowing_gtk3
 
          MESSAGE msg;
 
-         msg.m_oswindow = pwindowMouseCaptureOld;
+         msg.m_pacmewindowingwindow = pwindowMouseCaptureOld;
          msg.m_eusermessage = ::user::e_message_capture_changed;
          msg.m_wparam = 0;
          msg.m_lparam = pwindowMouseCaptureNew;

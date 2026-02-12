@@ -99,8 +99,8 @@ namespace windowing_wayland
 
       void destroy() override;
 
-         void _set_oswindow(::oswindow oswindow) override;
-         ::oswindow oswindow() const override;
+         void _set_oswindow(::::acme::windowing::window * pacmewindowingwindow) override;
+         ::::acme::windowing::window * pacmewindowingwindow() const override;
 
 //      static Atom get_window_long_atom(int nIndex);
 //

@@ -504,7 +504,7 @@ namespace windowing_x11
          auto pmessage = øcreate_new<::user::message>();
 
          pmessage->m_pwindow = pwindowMouseCaptureOld;
-         pmessage->m_oswindow = pwindowMouseCaptureOld;
+         pmessage->m_pacmewindowingwindow = pwindowMouseCaptureOld;
          pmessage->m_eusermessage = ::user::e_message_capture_changed;
          pmessage->m_wparam = 0;
          pmessage->m_lparam = pwindowMouseCaptureNew;
@@ -698,7 +698,7 @@ namespace windowing_x11
 
          //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-         oswindow oswindow = nullptr;
+         ::acme::windowing::window * pacmewindowingwindow = nullptr;
 
          windowing_output_debug_string("::GetFocus 1");
 

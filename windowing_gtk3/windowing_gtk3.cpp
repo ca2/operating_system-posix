@@ -60,7 +60,7 @@
 //message_queue * aaa_get_message_queue(itask idthread, bool bCreate);
 
 
-void oswindow_set_active_window(oswindow oswindow);
+void oswindow_set_active_window(::acme::windowing::window * pacmewindowingwindow);
 
 
 CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const int_point & pointCursor);
@@ -192,7 +192,7 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const in
 ////void wm_toolwindow(oswindow w, bool bToolWindow);
 ////void wm_state_hidden(oswindow w, bool bSet);
 ////void wm_state_hidden_raw(oswindow w, bool bSet);
-////CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(oswindow oswindow);
+////CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(::acme::windowing::window * pacmewindowingwindow);
 ////
 ////
 ////int_bool x11_get_cursor_pos(::int_point * ppointCursor);
@@ -321,7 +321,7 @@ namespace windowing_gtk3
 //   }
 
 
-//   void oswindow_set_active_window(oswindow oswindow)
+//   void oswindow_set_active_window(::acme::windowing::window * pacmewindowingwindow)
 //   {
 //
 //      if (g_oswindowActive)
@@ -451,7 +451,7 @@ namespace windowing_gtk3
 //
 //   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//   oswindow oswindow = nullptr;
+//   ::acme::windowing::window * pacmewindowingwindow = nullptr;
 //
 //   windowing_output_debug_string("::GetFocus 1");
 //
@@ -653,7 +653,7 @@ namespace windowing_gtk3
 //   }
 
 
-// int_bool is_window_occluded(oswindow oswindow)
+// int_bool is_window_occluded(::acme::windowing::window * pacmewindowingwindow)
 // {
 
 //    synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -760,7 +760,7 @@ namespace windowing_gtk3
 //}
 
 //
-//oswindow get_parent(oswindow oswindow);
+//oswindow get_parent(::acme::windowing::window * pacmewindowingwindow);
 //
 
 
@@ -866,7 +866,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-//   ::windowing::window * oswindow_get(oswindow oswindow)
+//   ::windowing::window * oswindow_get(::acme::windowing::window * pacmewindowingwindow)
 //   {
 //
 //      if (is_null(oswindow))
@@ -1974,7 +1974,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               auto pmouse = px11window->øcreate_new<::message::mouse>();
 //
-//               pmouse->m_oswindow = px11window;
+//               pmouse->m_pacmewindowingwindow = px11window;
 //
 //               pmouse->m_pwindow = px11window;
 //
@@ -2736,7 +2736,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  auto pmousewheel = px11window->øcreate_new<::message::mouse_wheel>();
 //
-//                  pmousewheel->m_oswindow = px11window;
+//                  pmousewheel->m_pacmewindowingwindow = px11window;
 //
 //                  pmousewheel->m_pwindow = px11window;
 //
@@ -2765,7 +2765,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  auto pmouse = px11window->øcreate_new<::message::mouse>();
 //
-//                  pmouse->m_oswindow = px11window;
+//                  pmouse->m_pacmewindowingwindow = px11window;
 //
 //                  pmouse->m_pwindow = px11window;
 //
@@ -2885,7 +2885,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                  auto pkey = øcreate_new<::message::key>();
 //
-//                  pkey->m_oswindow = px11window;
+//                  pkey->m_pacmewindowingwindow = px11window;
 //
 //                  pkey->m_pwindow = px11window;
 //
@@ -3191,7 +3191,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    void windowing::post_ui_message(const MESSAGE & message)
    {
 
-      oswindow oswindow = message.m_oswindow;
+      ::acme::windowing::window * pacmewindowingwindow = message.m_pacmewindowingwindow;
 
       ASSERT(oswindow != nullptr);
 
@@ -3265,7 +3265,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    void windowing::post_ui_message(::message::message * pmessage)
    {
 
-      oswindow oswindow = pmessage->m_oswindow;
+      ::acme::windowing::window * pacmewindowingwindow = pmessage->m_pacmewindowingwindow;
 
       ASSERT(oswindow != nullptr);
 

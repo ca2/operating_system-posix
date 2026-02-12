@@ -589,7 +589,7 @@ namespace windowing_wayland
 ////
 ////         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 ////
-////         oswindow oswindow = nullptr;
+////         ::acme::windowing::window * pacmewindowingwindow = nullptr;
 ////
 ////         windowing_output_debug_string("::GetFocus 1");
 ////

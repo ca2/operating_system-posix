@@ -471,7 +471,7 @@ namespace windowing_wayland
 
 
 
-   ::windowing::window * windowing::window(oswindow oswindow)
+   ::windowing::window * windowing::window(::acme::windowing::window * pacmewindowingwindow)
    {
 
       return oswindow;

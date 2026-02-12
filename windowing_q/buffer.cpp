@@ -246,19 +246,19 @@ namespace windowing_q
 //
 //      {
 //
-//         xdisplay d(m_oswindow->display());
+//         xdisplay d(m_pacmewindowingwindow->display());
 //
-//         m_pimage = XCreateImage(d, m_oswindow->visual(), m_oswindow->m_iDepth, ZPixmap, 0, (char *) m_mem->get_data(), m_pixmap->width(), m_pixmap->height(), sizeof(color32_t) * 8, m_iGoodStride);
+//         m_pimage = XCreateImage(d, m_pacmewindowingwindow->visual(), m_pacmewindowingwindow->m_iDepth, ZPixmap, 0, (char *) m_mem->get_data(), m_pixmap->width(), m_pixmap->height(), sizeof(color32_t) * 8, m_iGoodStride);
 //
 //         XGCValues gcvalues;
 //
 //   //      m_pdc = ___new device_context();
 //
-//         m_gc = XCreateGC(d, m_oswindow->window(), 0, &gcvalues);
+//         m_gc = XCreateGC(d, m_pacmewindowingwindow->window(), 0, &gcvalues);
 //
 //      }
 //
-//      //m_pdc->m_pdisplay = m_pwindow->m_oswindow->display();
+//      //m_pdc->m_pdisplay = m_pwindow->m_pacmewindowingwindow->display();
 //
       return true;
 
@@ -270,7 +270,7 @@ namespace windowing_q
 
 //      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//      xdisplay d(m_oswindow->display());
+//      xdisplay d(m_pacmewindowingwindow->display());
 //
 //      //if(m_pdc != nullptr)
 //      {
@@ -326,13 +326,13 @@ namespace windowing_q
 ////
 ////      {
 ////
-////         //xdisplay d(m_oswindow->display());
+////         //xdisplay d(m_pacmewindowingwindow->display());
 ////
 ////         m_pimage =
 ////            XCreateImage(
-////               m_oswindow->display(),
-////               m_oswindow->visual(),
-////               m_oswindow->m_iDepth,
+////               m_pacmewindowingwindow->display(),
+////               m_pacmewindowingwindow->visual(),
+////               m_pacmewindowingwindow->m_iDepth,
 ////               ZPixmap,
 ////               0,
 ////               (char *) pimage->get_data(),

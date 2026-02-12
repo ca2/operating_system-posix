@@ -74,9 +74,9 @@ namespace windowing_gtk4
 
       void destroy() override;
 
-      void _set_oswindow(::oswindow oswindow) override;
+      void _set_oswindow(::::acme::windowing::window * pacmewindowingwindow) override;
 
-      ::oswindow oswindow() const override;
+      ::::acme::windowing::window * pacmewindowingwindow() const override;
 
       void
       _on_window_button_pressed(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press,

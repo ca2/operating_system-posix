@@ -140,8 +140,8 @@ namespace windowing_gtk3
 
       void destroy() override;
 
-         void _set_oswindow(::oswindow oswindow) override;
-         ::oswindow oswindow() const override;
+         void _set_oswindow(::::acme::windowing::window * pacmewindowingwindow) override;
+         ::::acme::windowing::window * pacmewindowingwindow() const override;
 
       void _main_send(const ::procedure & procedure) override;
 

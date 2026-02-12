@@ -282,7 +282,7 @@ namespace windowing_q6
 //    }
 //
 //
-//    void window::_set_oswindow(::oswindow oswindow)
+//    void window::_set_oswindow(::::acme::windowing::window * pacmewindowingwindow)
 //    {
 //    }
 //
@@ -1208,7 +1208,7 @@ namespace windowing_q6
 //
 //       auto pshowwindow = øcreate_new<::message::show_window>();
 //
-//       pshowwindow->m_oswindow = this;
+//       pshowwindow->m_pacmewindowingwindow = this;
 //
 //       pshowwindow->m_pwindow = this;
 //
@@ -1228,7 +1228,7 @@ namespace windowing_q6
 //
 //       auto psetkeyboardfocus = øcreate_new<::message::set_keyboard_focus>();
 //
-//       psetkeyboardfocus->m_oswindow = this;
+//       psetkeyboardfocus->m_pacmewindowingwindow = this;
 //
 //       psetkeyboardfocus->m_pwindow = this;
 //
@@ -1246,7 +1246,7 @@ namespace windowing_q6
 //
 //       auto pkillkeyboardfocus = øcreate_new<::message::kill_keyboard_focus>();
 //
-//       pkillkeyboardfocus->m_oswindow = this;
+//       pkillkeyboardfocus->m_pacmewindowingwindow = this;
 //
 //       pkillkeyboardfocus->m_pwindow = this;
 //
@@ -1278,7 +1278,7 @@ namespace windowing_q6
 //
 //          auto pmouse = øcreate_new<::message::mouse>();
 //
-//          pmouse->m_oswindow = this;
+//          pmouse->m_pacmewindowingwindow = this;
 //
 //          pmouse->m_pwindow = this;
 //
@@ -1356,7 +1356,7 @@ namespace windowing_q6
 //
 //             auto pmouse = øcreate_new<::message::mouse>();
 //
-//             pmouse->m_oswindow = this;
+//             pmouse->m_pacmewindowingwindow = this;
 //
 //             pmouse->m_pwindow = this;
 //
@@ -1449,7 +1449,7 @@ namespace windowing_q6
 //
 //          auto pmouse = øcreate_new<::message::mouse>();
 //
-//          pmouse->m_oswindow = this;
+//          pmouse->m_pacmewindowingwindow = this;
 //
 //          pmouse->m_pwindow = this;
 //
@@ -3500,7 +3500,7 @@ namespace windowing_q6
 //    }
 //
 //
-//    //   bool window::is_child(::oswindow oswindow)
+//    //   bool window::is_child(::::acme::windowing::window * pacmewindowingwindow)
 //    //   {
 //    //
 //    //      if (oswindow == nullptr || oswindow->m_pwindow == nullptr ||
@@ -4344,7 +4344,7 @@ namespace windowing_q6
 //
 //       //fflush(stdout);
 //
-//       //x11_store_name(m_oswindow, m_strWindowText);
+//       //x11_store_name(m_pacmewindowingwindow, m_strWindowText);
 //
 //       //x11_store_name(scopedstr);
 //
@@ -5258,7 +5258,7 @@ namespace windowing_q6
 //    //
 //    //          auto pmouse = øcreate_new<::message::mouse>();
 //    //
-//    //          pmouse->m_oswindow = this;
+//    //          pmouse->m_pacmewindowingwindow = this;
 //    //
 //    //          pmouse->m_pwindow = this;
 //    //
@@ -5343,9 +5343,9 @@ namespace windowing_q6
 //    //
 //    //       auto pmouse = øcreate_new<::message::mouse>();
 //    //
-//    //       pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
+//    //       pmouse->m_pacmewindowingwindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
 //    //
-//    //       pmouse->m_pwindow = pmouse->m_oswindow;
+//    //       pmouse->m_pwindow = pmouse->m_pacmewindowingwindow;
 //    //
 //    //       pmouse->m_emessage = ::user::e_message_mouse_leave;
 //    //
@@ -5503,7 +5503,7 @@ namespace windowing_q6
 //    //
 //    //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
 //    //
-//    //          pmousewheel->m_oswindow = this;
+//    //          pmousewheel->m_pacmewindowingwindow = this;
 //    //
 //    //          pmousewheel->m_pwindow = this;
 //    //
@@ -5533,7 +5533,7 @@ namespace windowing_q6
 //    //
 //    //          auto pmouse = øcreate_new<::message::mouse>();
 //    //
-//    //          pmouse->m_oswindow = this;
+//    //          pmouse->m_pacmewindowingwindow = this;
 //    //
 //    //          pmouse->m_pwindow = this;
 //    //
@@ -5767,7 +5767,7 @@ namespace windowing_q6
 //    //          auto pkey = øcreate_new<::message::key>();
 //    //
 //    //          pkey->
-//    //             m_oswindow = this;
+//    //             m_pacmewindowingwindow = this;
 //    //
 //    //          pkey->
 //    //             m_pwindow = this;
@@ -5816,7 +5816,7 @@ namespace windowing_q6
 //    //    auto pkey = øcreate_new<::message::key>();
 //    //
 //    //    pkey->
-//    //    m_oswindow = this;
+//    //    m_pacmewindowingwindow = this;
 //    //
 //    //    pkey->
 //    //    m_pwindow = this;
@@ -6243,7 +6243,7 @@ namespace windowing_q6
 //    //
 //    //            auto pkey = øcreate_new<::message::key>();
 //    //
-//    //            pkey->m_oswindow = this;
+//    //            pkey->m_pacmewindowingwindow = this;
 //    //
 //    //            pkey->m_pwindow = this;
 //    //
@@ -6309,7 +6309,7 @@ namespace windowing_q6
 //    //
 //    //            auto pkey = øcreate_new<::message::key>();
 //    //
-//    //            pkey->m_oswindow = this;
+//    //            pkey->m_pacmewindowingwindow = this;
 //    //
 //    //            pkey->m_pwindow = this;
 //    //

@@ -26,10 +26,10 @@ namespace aura_posix
 
       //virtual void defer_start();
 
-      //virtual int get_image_foo(oswindow oswindow, const ::scoped_string & scopedstrExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk = 0) override;
-      //virtual int get_file_extension_image(oswindow oswindow, const ::scoped_string & scopedstrExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk = 0) override;
+      //virtual int get_image_foo(::acme::windowing::window * pacmewindowingwindow, const ::scoped_string & scopedstrExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk = 0) override;
+      //virtual int get_file_extension_image(::acme::windowing::window * pacmewindowingwindow, const ::scoped_string & scopedstrExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk = 0) override;
       bool get_image_by_file_extension(_get_file_image_ & getfileimage) override;
-      //virtual int get_image(oswindow oswindow, const ::scoped_string & scopedstrPath, e_file_attribute eattribute, e_icon eicon, color32_t crBk = 0) override;
+      //virtual int get_image(::acme::windowing::window * pacmewindowingwindow, const ::scoped_string & scopedstrPath, e_file_attribute eattribute, e_icon eicon, color32_t crBk = 0) override;
 
 
       void on_update_sizes_interest() override;
@@ -45,9 +45,9 @@ namespace aura_posix
 
 
 
-//         int get_image(per_fork * pfork, oswindow oswindow, image_key key, const unichar * lpcszExtra, color32_t crBk);
-//         int get_image_by_extension(per_fork * pfork, oswindow oswindow, image_key & key, color32_t crBk);
-//         int get_foo_image(per_fork * pfork, oswindow oswindow, image_key key, color32_t crBk);
+//         int get_image(per_fork * pfork, ::acme::windowing::window * pacmewindowingwindow, image_key key, const unichar * lpcszExtra, color32_t crBk);
+//         int get_image_by_extension(per_fork * pfork, ::acme::windowing::window * pacmewindowingwindow, image_key & key, color32_t crBk);
+//         int get_foo_image(per_fork * pfork, ::acme::windowing::window * pacmewindowingwindow, image_key key, color32_t crBk);
 
 
       //int shell_run();

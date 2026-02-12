@@ -150,7 +150,7 @@ namespace windowing_xcb
 
       //virtual bool xcb_message_loop_step();
 
-      virtual ::windowing::window * window(oswindow oswindow) override;
+      virtual ::windowing::window * window(::acme::windowing::window * pacmewindowingwindow) override;
 
       //virtual void _libsnx_start_context() override;
 

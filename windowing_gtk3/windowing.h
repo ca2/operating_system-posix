@@ -162,7 +162,7 @@ namespace windowing_gtk3
 
       //virtual bool aaa_x11_runnable_step();
 
-      virtual ::acme::windowing::window * window(oswindow oswindow) override;
+      virtual ::acme::windowing::window * window(::acme::windowing::window * pacmewindowingwindow) override;
 
 
 

@@ -98,7 +98,7 @@ namespace windowing_wayland
 
    }
 
-   void window::_set_oswindow(::oswindow oswindow)
+   void window::_set_oswindow(::::acme::windowing::window * pacmewindowingwindow)
    {
 
 
@@ -1921,7 +1921,7 @@ namespace windowing_wayland
    }
 
 
-//   bool window::is_child(::oswindow oswindow)
+//   bool window::is_child(::::acme::windowing::window * pacmewindowingwindow)
 //   {
 //
 //      if (oswindow == nullptr || oswindow->m_pwindow == nullptr ||
@@ -2921,7 +2921,7 @@ namespace windowing_wayland
 //   ::e_status window::post_ui_message(const MESSAGE & message)
 //   {
 //
-//      ::oswindow oswindow = message.oswindow;
+//      ::::acme::windowing::window * pacmewindowingwindow = message.oswindow;
 //
 //      ASSERT(oswindow != nullptr);
 //
@@ -3147,7 +3147,7 @@ namespace windowing_wayland
 //
 ////            if(m_pwindow->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
 ////
-////               x11_windowing()->_defer_position_and_size_message(m_oswindow);
+////               x11_windowing()->_defer_position_and_size_message(m_pacmewindowingwindow);
 ////
 ////
 ////            }
@@ -3391,7 +3391,7 @@ namespace windowing_wayland
 //
 ////            if(m_pwindow->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
 ////
-////               x11_windowing()->_defer_position_and_size_message(m_oswindow);
+////               x11_windowing()->_defer_position_and_size_message(m_pacmewindowingwindow);
 ////
 ////
 ////            }
@@ -3967,7 +3967,7 @@ namespace windowing_wayland
 
 //            if(m_pwindow->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
 //
-//               x11_windowing()->_defer_position_and_size_message(m_oswindow);
+//               x11_windowing()->_defer_position_and_size_message(m_pacmewindowingwindow);
 //
 //
 //            }
@@ -4230,7 +4230,7 @@ namespace windowing_wayland
 
       //fflush(stdout);
 
-      //x11_store_name(m_oswindow, m_strWindowText);
+      //x11_store_name(m_pacmewindowingwindow, m_strWindowText);
 
       //x11_store_name(scopedstr);
 
@@ -5495,7 +5495,7 @@ namespace windowing_wayland
 
          auto pmouse = øcreate_new<::message::mouse>();
 
-         pmouse->m_oswindow = this;
+         pmouse->m_pacmewindowingwindow = this;
 
          pmouse->m_pwindow = this;
 
@@ -5580,9 +5580,9 @@ namespace windowing_wayland
 
       auto pmouse = øcreate_new<::message::mouse>();
 
-      pmouse->m_oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
+      pmouse->m_pacmewindowingwindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
 
-      pmouse->m_pwindow = pmouse->m_oswindow;
+      pmouse->m_pwindow = pmouse->m_pacmewindowingwindow;
 
       pmouse->m_emessage = ::user::e_message_mouse_leave;
 
@@ -5740,7 +5740,7 @@ namespace windowing_wayland
 
          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
 
-         pmousewheel->m_oswindow = this;
+         pmousewheel->m_pacmewindowingwindow = this;
 
          pmousewheel->m_pwindow = this;
 
@@ -5770,7 +5770,7 @@ namespace windowing_wayland
 
          auto pmouse = øcreate_new<::message::mouse>();
 
-         pmouse->m_oswindow = this;
+         pmouse->m_pacmewindowingwindow = this;
 
          pmouse->m_pwindow = this;
 
@@ -6004,7 +6004,7 @@ namespace windowing_wayland
          auto pkey = øcreate_new<::message::key>();
 
          pkey->
-            m_oswindow = this;
+            m_pacmewindowingwindow = this;
 
          pkey->
             m_pwindow = this;
@@ -6053,7 +6053,7 @@ namespace windowing_wayland
    auto pkey = øcreate_new<::message::key>();
 
    pkey->
-   m_oswindow = this;
+   m_pacmewindowingwindow = this;
 
    pkey->
    m_pwindow = this;
@@ -6224,7 +6224,7 @@ namespace windowing_wayland
 //
 //            auto pkey = øcreate_new<::message::key>();
 //
-//            pkey->m_oswindow = this;
+//            pkey->m_pacmewindowingwindow = this;
 //
 //            pkey->m_pwindow = this;
 //
@@ -6290,7 +6290,7 @@ namespace windowing_wayland
 //
 //            auto pkey = øcreate_new<::message::key>();
 //
-//            pkey->m_oswindow = this;
+//            pkey->m_pacmewindowingwindow = this;
 //
 //            pkey->m_pwindow = this;
 //

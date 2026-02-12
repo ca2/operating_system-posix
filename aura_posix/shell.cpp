@@ -111,7 +111,7 @@ namespace aura_posix
 //
 //      }
 
-//      int freebsd::get_image_by_extension(per_fork * pfork, oswindow oswindow, image_key & key, color32_t crBk)
+//      int freebsd::get_image_by_extension(per_fork * pfork, ::acme::windowing::window * pacmewindowingwindow, image_key & key, color32_t crBk)
 //      {
 //
 //         return I32_MINIMUM;
@@ -121,7 +121,7 @@ namespace aura_posix
 
 
 
-//      int freebsd::get_file_extension_image(oswindow oswindow, const ::scoped_string & scopedstrExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
+//      int freebsd::get_file_extension_image(::acme::windowing::window * pacmewindowingwindow, const ::scoped_string & scopedstrExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
 //      {
 //
 //         int iImage;
@@ -223,7 +223,7 @@ namespace aura_posix
 
    //bool freebsd::get_icon(
    //   per_fork * pfork,
-   //   oswindow oswindow,
+   //   ::acme::windowing::window * pacmewindowingwindow,
    //   IShellFolder * lpsf,
    //   LPITEMIDLIST lpiidlAbsolute,
    //   LPITEMIDLIST lpiidlChild,
@@ -478,7 +478,7 @@ namespace aura_posix
 
 
 
-   //int freebsd::get_image(per_fork * pfork, oswindow oswindow, image_key imagekey, LPITEMIDLIST lpiidlAbsolute, const unichar * lpcszExtra, color32_t crBk)
+   //int freebsd::get_image(per_fork * pfork, ::acme::windowing::window * pacmewindowingwindow, image_key imagekey, LPITEMIDLIST lpiidlAbsolute, const unichar * lpcszExtra, color32_t crBk)
    //{
 
    //   int iImage = get_image(pfork, oswindow, imagekey, lpiidlAbsolute, lpiidlChild, lpcszExtra, crBk);
@@ -493,7 +493,7 @@ namespace aura_posix
 
 
 
-//      bool freebsd::get_icon( oswindow oswindow, const_char_pointer psz, const unichar * lpcszExtra, e_icon eicon, HICON * phicon16, HICON * phicon48)
+//      bool freebsd::get_icon( ::acme::windowing::window * pacmewindowingwindow, const_char_pointer psz, const unichar * lpcszExtra, e_icon eicon, HICON * phicon16, HICON * phicon48)
 //      {
 //
 //         single_lock synchronouslock(mutex(), true);
@@ -507,7 +507,7 @@ namespace aura_posix
 //
 //      }
 //
-//      bool freebsd::get_icon(per_fork * pfork, oswindow oswindow, LPITEMIDLIST lpiidlAbsolute, const unichar * lpcszExtra, e_icon eicon, HICON * phicon16, HICON * phicon48)
+//      bool freebsd::get_icon(per_fork * pfork, ::acme::windowing::window * pacmewindowingwindow, LPITEMIDLIST lpiidlAbsolute, const unichar * lpcszExtra, e_icon eicon, HICON * phicon16, HICON * phicon48)
 //      {
 //
 //         single_lock synchronouslock(mutex(), true);
@@ -647,7 +647,7 @@ namespace aura_posix
 //
 //               synchronouslock.unlock();
 //
-//               int iImage = get_image(&fork, pkey->m_oswindow, *pkey, nullptr, pkey->m_cr);
+//               int iImage = get_image(&fork, pkey->m_pacmewindowingwindow, *pkey, nullptr, pkey->m_cr);
 //
 //               {
 //
@@ -671,7 +671,7 @@ namespace aura_posix
 //
 
 
-//      int freebsd::get_image(oswindow oswindow, const ::scoped_string & scopedstrPath, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
+//      int freebsd::get_image(::acme::windowing::window * pacmewindowingwindow, const ::scoped_string & scopedstrPath, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
 //      {
 //
 //         int iImage = I32_MINIMUM;
@@ -698,7 +698,7 @@ namespace aura_posix
 //
 //            imagekey.m_iIcon = 0;
 //
-//            imagekey.m_oswindow = oswindow;
+//            imagekey.m_pacmewindowingwindow = oswindow;
 //
 //            imagekey.m_cr = crBk;
 //
@@ -744,7 +744,7 @@ namespace aura_posix
 
 
    bool shell::get_image_by_file_extension(_get_file_image_ & getfileimage)
-   //int freebsd::get_image_foo(oswindow oswindow, const ::scoped_string & scopedstrExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
+   //int freebsd::get_image_foo(::acme::windowing::window * pacmewindowingwindow, const ::scoped_string & scopedstrExtension, e_file_attribute eattribute, e_icon eicon, color32_t crBk)
    {
 
       getfileimage.m_iImage = I32_MINIMUM;

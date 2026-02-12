@@ -148,7 +148,7 @@ namespace windowing_wayland
 
       //virtual bool aaa_x11_runnable_step();
 
-      virtual ::windowing::window * window(oswindow oswindow) override;
+      virtual ::windowing::window * window(::acme::windowing::window * pacmewindowingwindow) override;
 
       //virtual void _libsn_start_context() override;
 

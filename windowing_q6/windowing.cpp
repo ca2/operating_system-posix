@@ -538,7 +538,7 @@ namespace windowing_q6
 //
 //
 //
-//    ::acme::windowing::window * windowing::window(oswindow oswindow)
+//    ::acme::windowing::window * windowing::window(::acme::windowing::window * pacmewindowingwindow)
 //    {
 //
 //       return oswindow;

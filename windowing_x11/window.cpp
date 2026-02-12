@@ -128,7 +128,7 @@ namespace windowing_x11
    }
 
 
-   void window::_set_oswindow(::oswindow oswindow)
+   void window::_set_oswindow(::::acme::windowing::window * pacmewindowingwindow)
    {
 
 
@@ -2448,7 +2448,7 @@ namespace windowing_x11
 //    }
 
 
-   // bool window::is_child(::oswindow oswindow)
+   // bool window::is_child(::::acme::windowing::window * pacmewindowingwindow)
    // {
    //
    //    if (oswindow == nullptr || oswindow->m_pwindow == nullptr ||
@@ -3539,7 +3539,7 @@ namespace windowing_x11
    // ::e_status window::post_ui_message(const MESSAGE &message)
    // {
    //
-   //    ::oswindow oswindow = message.oswindow;
+   //    ::::acme::windowing::window * pacmewindowingwindow = message.oswindow;
    //
    //    ASSERT(oswindow != nullptr);
    //
@@ -3649,7 +3649,7 @@ namespace windowing_x11
       pmessagequeue->m_messagea.predicate_erase([this](MESSAGE &item)
                                                 {
 
-                                                   return item.m_oswindow == this;
+                                                   return item.m_pacmewindowingwindow == this;
 
                                                 });
 
@@ -3787,7 +3787,7 @@ namespace windowing_x11
 
 //            if(puserinteraction->const_layout().design().display() == e_display_zoomed) {
 //
-//               x11_windowing()->_defer_position_and_size_message(m_oswindow);
+//               x11_windowing()->_defer_position_and_size_message(m_pacmewindowingwindow);
 //
 //
 //            }
@@ -4029,7 +4029,7 @@ namespace windowing_x11
 //
 ////            if(puserinteraction->const_layout().design().display() == e_display_zoomed) {
 ////
-////               x11_windowing()->_defer_position_and_size_message(m_oswindow);
+////               x11_windowing()->_defer_position_and_size_message(m_pacmewindowingwindow);
 ////
 ////
 ////            }
@@ -4461,7 +4461,7 @@ namespace windowing_x11
 
 //            if(puserinteraction->const_layout().design().display() == e_display_zoomed) {
 //
-//               x11_windowing()->_defer_position_and_size_message(m_oswindow);
+//               x11_windowing()->_defer_position_and_size_message(m_pacmewindowingwindow);
 //
 //
 //            }
@@ -4672,7 +4672,7 @@ namespace windowing_x11
 
       //fflush(stdout);
 
-      //x11_store_name(m_oswindow, m_strWindowText);
+      //x11_store_name(m_pacmewindowingwindow, m_strWindowText);
 
       x11_store_name(scopedstr);
 
@@ -5395,7 +5395,7 @@ namespace windowing_x11
 
 //                     auto xwindow = Window();
 
-  //                   m_oswindow = nullptr;
+  //                   m_pacmewindowingwindow = nullptr;
 
 //                     payload("destroying_window") = (long long) Window();
 

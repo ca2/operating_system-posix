@@ -27,7 +27,7 @@ namespace windowing_posix
       //void _libsn_start_context() override;
 
 
-      //void _defer_position_and_size_message(oswindow oswindow);
+      //void _defer_position_and_size_message(::acme::windowing::window * pacmewindowingwindow);
       virtual void _configure_message(::windowing::window * pwindow, const ::int_rectangle & rectangle);
       //virtual void _size_message(::windowing::window * pwindow, const ::int_size & size);
 

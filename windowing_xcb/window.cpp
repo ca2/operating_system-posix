@@ -992,7 +992,7 @@ namespace windowing_xcb
    }
 
 
-   bool window::is_child(::oswindow oswindow)
+   bool window::is_child(::::acme::windowing::window * pacmewindowingwindow)
    {
 
       if (oswindow == nullptr || oswindow->m_pwindow == nullptr ||
@@ -1627,7 +1627,7 @@ namespace windowing_xcb
    void window::post_ui_message(const MESSAGE & message)
    {
 
-      ::oswindow oswindow = message.oswindow;
+      ::::acme::windowing::window * pacmewindowingwindow = message.oswindow;
 
       ASSERT(oswindow != nullptr);
 
@@ -4063,7 +4063,7 @@ namespace windowing_xcb
 //
 ////            if(m_pwindow->m_puserinteraction->const_layout().design().display() == e_display_zoomed) {
 ////
-////               x11_windowing()->_defer_position_and_size_message(m_oswindow);
+////               x11_windowing()->_defer_position_and_size_message(m_pacmewindowingwindow);
 ////
 ////
 ////            }

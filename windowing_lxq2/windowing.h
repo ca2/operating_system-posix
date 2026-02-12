@@ -198,7 +198,7 @@ namespace windowing_lxq2
 //
 //       //virtual bool aaa_x11_runnable_step();
 //
-//       ::acme::windowing::window* window(oswindow oswindow) override;
+//       ::acme::windowing::window* window(::acme::windowing::window * pacmewindowingwindow) override;
 //
 //       //virtual void _libsn_start_context() override;
 //

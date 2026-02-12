@@ -493,7 +493,7 @@ namespace windowing_xcb
          auto pmessage = øcreate_new<::user::message>();
 
          pmessage->m_pwindow = pwindowMouseCaptureOld;
-         pmessage->m_oswindow = pwindowMouseCaptureOld;
+         pmessage->m_pacmewindowingwindow = pwindowMouseCaptureOld;
          pmessage->m_eusermessage = ::user::e_message_capture_changed;
          pmessage->m_wparam = 0;
          pmessage->m_lparam = pwindowMouseCaptureNew;
@@ -505,7 +505,7 @@ namespace windowing_xcb
    }
 
 
-   ::windowing::window * windowing::window(oswindow oswindow)
+   ::windowing::window * windowing::window(::acme::windowing::window * pacmewindowingwindow)
    {
 
       return oswindow;
@@ -941,7 +941,7 @@ namespace windowing_xcb
 
             pmessage->m_eusermessage = ::user::e_message_mouse_leave;
             pmessage->m_pwindow = pxcbwindow;
-            pmessage->m_oswindow = pxcbwindow;
+            pmessage->m_pacmewindowingwindow = pxcbwindow;
             pmessage->m_wparam = 0;
             pmessage->m_lparam = 0;
 //          pmessage->m_time = pevent->time;
@@ -1127,7 +1127,7 @@ namespace windowing_xcb
 
                //msg.oswindow = m_pdisplay->_window(pmotion->happening);
                pmouse->m_pwindow = pxcbwindow;
-               pmouse->m_oswindow = pxcbwindow;
+               pmouse->m_pacmewindowingwindow = pxcbwindow;
                pmouse->m_emessage = ::user::e_message_mouse_move;
                //pmessage->.wParam = wparam;
                pmouse->m_ebuttonstate = ebuttonstate;
@@ -1310,7 +1310,7 @@ namespace windowing_xcb
 
                            auto pmessage = øcreate_new<::user::message>();
                            pmessage->m_pwindow = pxcbwindow;
-                           pmessage->m_oswindow = pxcbwindow;
+                           pmessage->m_pacmewindowingwindow = pxcbwindow;
                            pmessage->m_eusermessage = ::user::e_message_paint;
                            pmessage->m_lparam = 0;
                            pmessage->m_wparam = 0;
@@ -1760,7 +1760,7 @@ namespace windowing_xcb
             auto pmessage = øcreate_new<::message::show_window>();
 
             pmessage->m_pwindow = pxcbwindow;
-            pmessage->m_oswindow = pxcbwindow;
+            pmessage->m_pacmewindowingwindow = pxcbwindow;
             pmessage->m_eusermessage = ::user::e_message_show_window;
             pmessage->m_bShow = uResponseType == XCB_MAP_NOTIFY;
             //msg.lParam = 0;
@@ -2132,7 +2132,7 @@ if(bSentResponse)
 
                   pmessage->m_pwindow = pxcbwindow;
 
-                  pmessage->m_oswindow = pxcbwindow;
+                  pmessage->m_pacmewindowingwindow = pxcbwindow;
 
 
                   pmessage->m_eusermessage = ::user::e_message_mouse_wheel;
@@ -2153,7 +2153,7 @@ if(bSentResponse)
 
                   pmessage->m_pwindow = pxcbwindow;
 
-                  pmessage->m_oswindow = pxcbwindow;
+                  pmessage->m_pacmewindowingwindow = pxcbwindow;
 
                   pmessage->m_eusermessage = emessage;
 
@@ -2326,7 +2326,7 @@ if(bSentResponse)
             {
 
                auto pmessage = øcreate_new<::message::key>();
-               pmessage->m_oswindow = pxcbwindow;
+               pmessage->m_pacmewindowingwindow = pxcbwindow;
                pmessage->m_pwindow = pxcbwindow;
                pmessage->m_eusermessage = emessage;
                pmessage->m_ekey = ekey;
@@ -2340,7 +2340,7 @@ if(bSentResponse)
             {
 
                auto pmessage = øcreate_new<::message::key>();
-               pmessage->m_oswindow = pxcbwindow;
+               pmessage->m_pacmewindowingwindow = pxcbwindow;
                pmessage->m_pwindow = pxcbwindow;
                pmessage->m_eusermessage = ::user::e_message_text_composition;
 
@@ -2392,7 +2392,7 @@ if(bSentResponse)
                      auto pmessage = øcreate_new<::message::set_keyboard_focus>();
 
                      pmessage->m_pwindow = pxcbwindow;
-                     pmessage->m_oswindow = pxcbwindow;
+                     pmessage->m_pacmewindowingwindow = pxcbwindow;
                      pmessage->m_eusermessage = ::user::e_message_set_focus;
 
                      pinteraction->m_ewindowflag |= ::e_window_flag_focus;
@@ -2446,7 +2446,7 @@ if(bSentResponse)
                      auto pmessage = øcreate_new<::message::kill_keyboard_focus>();
 
                      pmessage->m_pwindow = pxcbwindow;
-                     pmessage->m_oswindow = pxcbwindow;
+                     pmessage->m_pacmewindowingwindow = pxcbwindow;
 
                      pmessage->m_eusermessage = ::user::e_message_kill_focus;
 
@@ -2499,7 +2499,7 @@ if(bSentResponse)
 
             pmessage->m_pwindow = pxcbwindow;
 
-            pmessage->m_oswindow = pxcbwindow;
+            pmessage->m_pacmewindowingwindow = pxcbwindow;
 
             pmessage->m_eusermessage = ::user::e_message_destroy;
 
@@ -2618,7 +2618,7 @@ if(bSentResponse)
 //
 //      auto sizeWindow = ::int_size(geometry.width, geometry.height);
 //
-//      oswindow oswindow = m_pdisplay->_window(window);
+//      ::acme::windowing::window * pacmewindowingwindow = m_pdisplay->_window(window);
 //
 //      if (!oswindow)
 //      {
@@ -2660,7 +2660,7 @@ if(bSentResponse)
 //
 //            pmessage->m_pwindow = oswindow;
 //
-//            pmessage->m_oswindow = oswindow;
+//            pmessage->m_pacmewindowingwindow = oswindow;
 //
 //
 //            oswindow->m_pointWindow = pointWindow;
@@ -2680,7 +2680,7 @@ if(bSentResponse)
 //
 //            pmessage->m_pwindow = oswindow;
 //
-//            pmessage->m_oswindow = oswindow;
+//            pmessage->m_pacmewindowingwindow = oswindow;
 //
 //
 //            oswindow->m_size = sizeWindow;

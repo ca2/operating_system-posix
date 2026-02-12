@@ -32,7 +32,7 @@ namespace windowing_posix
    }
 
 
-   //   void windowing::_defer_position_and_size_message(oswindow oswindow)
+   //   void windowing::_defer_position_and_size_message(::acme::windowing::window * pacmewindowingwindow)
 //   {
 //
 //      //::int_rectangle rectangle;
