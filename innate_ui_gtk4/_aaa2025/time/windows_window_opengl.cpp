@@ -61,7 +61,7 @@ void window_opengl::destroy_window_graphics()
    if(m_spgraphics->get_os_data() == nullptr)
    {
 
-      bool bOk = m_spgraphics->CreateWindowDC(m_pimpl->m_pacmewindowingwindow);
+      bool bOk = m_spgraphics->create_window_graphics(m_pimpl->m_pacmewindowingwindow);
 
       if (!bOk)
       {
