@@ -99,7 +99,7 @@ namespace acme_posix
       if (fd < 0)
       {
          
-         throw ::exception(error_io);
+         throw ::exception(error_io, "file_system::ensure_exists failed to create file\"" + path+"\".");
          
       }
 
