@@ -272,7 +272,7 @@ namespace gtk3
             if (!m_pdisplaybase)
             {
 
-               øconstruct(m_pdisplaybase);
+               constructø(m_pdisplaybase);
 
                m_pdisplaybase->open_display();
 
@@ -1001,7 +1001,7 @@ namespace gtk3
 
             nano()->graphics();
 
-            øconstruct(m_pnanodevice);
+            constructø(m_pnanodevice);
 
             m_pnanodevice->create(w, h);
 
@@ -1185,7 +1185,7 @@ namespace gtk3
 //
 //                  auto pdc = cairo_create(m_psurface);
 //
-//                  m_pnanodevice = øallocate ::cairo::nano::graphics::device(pdc);
+//                  m_pnanodevice = allocateø ::cairo::nano::graphics::device(pdc);
 //
 //               }
 //

@@ -597,7 +597,7 @@ namespace node_gtk3
 
       //::windowing::get_ewindowing() = calculate_ewindowing();
 
-      // system()->øconstruct(system()->m_pwindowingsystem);
+      // system()->constructø(system()->m_pwindowingsystem);
       //
       // ::pointer < ::node_gdk::windowing_system> pnodegdkwindowingsystem = system()->m_pwindowingsystem;
       //

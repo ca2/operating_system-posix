@@ -99,7 +99,7 @@ namespace q
             {
 
 
-               øconstruct(m_pacmedisplay);
+               constructø(m_pacmedisplay);
 
 
             }
@@ -181,7 +181,7 @@ namespace q
 //      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
 //      {
 
-            auto pevent = øallocate manual_reset_happening();
+            auto pevent = allocateø manual_reset_happening();
 
             user_post([procedure, pevent]
                       {

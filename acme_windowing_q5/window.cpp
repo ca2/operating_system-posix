@@ -831,7 +831,7 @@ namespace q5
       //
       //          auto pdc = cairo_create(m_psurface);
       //
-      //          m_pnanodevice = øallocate ::cairo::nano::graphics::device(pdc);
+      //          m_pnanodevice = allocateø ::cairo::nano::graphics::device(pdc);
       //
       //       }
       //
@@ -2065,7 +2065,7 @@ m_pqwidget->move(p);
 
          nano()->graphics();
 
-         øconstruct(m_pnanodevice);
+         constructø(m_pnanodevice);
 
          m_pnanodevice->create(w, h);
 

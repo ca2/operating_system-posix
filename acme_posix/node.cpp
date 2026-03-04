@@ -70,7 +70,7 @@ using array_of_malloced_pointer = ::array_particle < array_of_malloced_pointer_b
 
 	::pointer < ::array_of_malloced_pointer < char * > > p;
 	
-	p = øallocate ::array_of_malloced_pointer < char * > ();
+	p = allocateø ::array_of_malloced_pointer < char * > ();
 	
 	for(auto & str:stra)
 	{
@@ -375,7 +375,7 @@ namespace acme_posix
    ::pointer < ::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
-      return øallocate mutex(pparticleContext, bInitialOwner, "Local\\" + scopedstrName);
+      return allocateø mutex(pparticleContext, bInitialOwner, "Local\\" + scopedstrName);
 
    }
 
@@ -383,7 +383,7 @@ namespace acme_posix
    ::pointer < ::mutex > node::create_global_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
-      return øallocate mutex(pparticleContext, bInitialOwner, "Global\\" + scopedstrName);
+      return allocateø mutex(pparticleContext, bInitialOwner, "Global\\" + scopedstrName);
 
    }
 
@@ -403,7 +403,7 @@ namespace acme_posix
 
    }
 
-   auto pmutex = øallocate mutex(e_create_new, lpszName, h);
+   auto pmutex = allocateø mutex(e_create_new, lpszName, h);
 
    return pmutex;
 
@@ -436,7 +436,7 @@ namespace acme_posix
 
    }
 
-   auto pmutex = øallocate mutex(strName, psem, isCreator);
+   auto pmutex = allocateø mutex(strName, psem, isCreator);
 
    return pmutex;
 
@@ -516,7 +516,7 @@ namespace acme_posix
 
    //pthread_mutex_init(m_pmutex, &attr);
 
-   auto pmutex = øallocate mutex(e_create_new, lpszName, iFd, false);
+   auto pmutex = allocateø mutex(e_create_new, lpszName, iFd, false);
 
    return pmutex;
 
@@ -542,7 +542,7 @@ namespace acme_posix
 
    }
 
-   auto pmutex = øallocate mutex(strName, key, semid);
+   auto pmutex = allocateø mutex(strName, key, semid);
 
    return pmutex;
 
@@ -570,7 +570,7 @@ namespace acme_posix
    ::pointer < ::acme::exclusive > node::get_exclusive(::particle * pparticleContext, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
-      return øallocate exclusive(pparticleContext, scopedstrName);
+      return allocateø exclusive(pparticleContext, scopedstrName);
 
    }
 

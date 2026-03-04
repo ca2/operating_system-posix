@@ -533,7 +533,7 @@ namespace windowing_gtk3
    //   ::pointer < ::operating_system::a_system_menu > window::create_system_menu()
    //   {
    //
-   //      auto psystemmenu = øallocate ::operating_system::a_system_menu();
+   //      auto psystemmenu = allocateø ::operating_system::a_system_menu();
    //
    //      psystemmenu->add_item("Minimize", "minimize");
    //      psystemmenu->add_item("Maximize", "maximize");

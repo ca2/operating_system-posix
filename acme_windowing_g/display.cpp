@@ -366,7 +366,7 @@ namespace g
 
                auto pmessagebox = message_box("xrandr failed. Is it installed? Cannot set wallpaper.");
 
-               pmessagebox->sync();
+               send(pmessageboxpayload);
 
                return;
 

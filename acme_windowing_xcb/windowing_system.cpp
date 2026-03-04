@@ -79,7 +79,7 @@ namespace xcb
 
       }
 
-      auto pevent = øallocate manual_reset_happening();
+      auto pevent = allocateø manual_reset_happening();
 
       user_post([ procedure, pevent ]
                 {

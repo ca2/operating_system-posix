@@ -682,7 +682,7 @@ namespace windowing_kde5
 // //   ::windowing_kde5::window * display::_get_keyboard_focus()
 // //   {
 // //
-// ////      auto ppropertyobject = øallocate ::property_object();
+// ////      auto ppropertyobject = allocateø ::property_object();
 // ////
 // ////      auto predicate = [this, ppropertyobject]()
 // ////      {

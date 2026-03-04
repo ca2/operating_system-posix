@@ -265,7 +265,7 @@ namespace windowing_gtk3
       if (!m_pcursormanager)
       {
 
-         øconstruct_new(m_pcursormanager);
+         construct_newø(m_pcursormanager);
 
       }
 
@@ -368,7 +368,7 @@ namespace windowing_gtk3
 //
 //      windowing_output_debug_string("::x11_GetWindowRect 1");
 
-      øconstruct(pcursor);
+      constructø(pcursor);
 
       pcursor->m_strCursorName = cursor_name;
 

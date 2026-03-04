@@ -205,7 +205,7 @@ namespace system_5
 
       m_bRun = true;
 
-      get_app()->_post([this]()
+      get_app()->postø() << [this]()
       {
 
          m_pthread = get_app()->fork([this]()

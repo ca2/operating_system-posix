@@ -163,7 +163,7 @@
 //
 //            auto pcairo = cairo_create(m_pcairosurface);
 //
-//            m_pnanodevice = øallocate ::cairo::nano::graphics::device(pcairo);
+//            m_pnanodevice = allocateø ::cairo::nano::graphics::device(pcairo);
 //
 //
 //         }
@@ -638,7 +638,7 @@
 //         //
 //         //            auto pdc = cairo_create(m_psurface);
 //         //
-//         //            m_pnanodevice = øallocate ::cairo::nano::graphics::device(pdc);
+//         //            m_pnanodevice = allocateø ::cairo::nano::graphics::device(pdc);
 //         //
 //         //         }
 //         //

@@ -1444,7 +1444,7 @@ m_phappeningLastMouseUp = pevent;
 
             nano()->graphics();
 
-            øconstruct(m_pnanodevice);
+            constructø(m_pnanodevice);
 
             m_pnanodevice->create(w, h);
 
@@ -1666,7 +1666,7 @@ m_phappeningLastMouseUp = pevent;
 //
 //                  auto pdc = cairo_create(m_psurface);
 //
-//                  m_pnanodevice = øallocate ::cairo::nano::graphics::device(pdc);
+//                  m_pnanodevice = allocateø ::cairo::nano::graphics::device(pdc);
 //
 //               }
 //

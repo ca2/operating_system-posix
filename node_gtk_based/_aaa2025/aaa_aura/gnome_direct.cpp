@@ -257,7 +257,7 @@
 //      if(action_group != nullptr)
 //      {
 //
-//         GtkActionEntry * entries = øallocate< GtkActionEntry[pbridge->_get_notification_area_action_count >()];
+//         GtkActionEntry * entries = allocateø< GtkActionEntry[pbridge->_get_notification_area_action_count >()];
 //
 //         string strInfo;
 //

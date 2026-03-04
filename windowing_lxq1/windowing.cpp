@@ -383,7 +383,7 @@ namespace windowing_lxq1
 //          //auto estatus =
 //          //
 //          //
-//          øconstruct_new(m_pcursormanager);
+//          construct_newø(m_pcursormanager);
 //
 //          //         if (!estatus)
 //          //         {

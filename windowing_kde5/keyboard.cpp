@@ -434,7 +434,7 @@ namespace windowing_kde5
 // //   bool keyboard::load_layout(const_char_pointer pszPath, const ::action_context & context)
 // //   {
 // //
-// //      auto playout = øallocate ::user::keyboard_layout();
+// //      auto playout = allocateø ::user::keyboard_layout();
 // //
 // //      string strPath;
 // //      if(scopedstrPath == nullptr)

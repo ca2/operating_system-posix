@@ -37,7 +37,7 @@ namespace node_gdk
 } // namespace node_gdk
 
 
-//#define __matter(TYPE) øallocate< ::matter<TYPE> >()
+//#define __matter(TYPE) allocateø< ::matter<TYPE> >()
 
 
 //#include "gtk.h"

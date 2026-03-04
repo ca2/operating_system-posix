@@ -2182,7 +2182,7 @@ namespace gtk4
 
       nano()->graphics();
 
-      øconstruct(m_pnanodevice);
+      constructø(m_pnanodevice);
 
       m_pnanodevice->create(w, h);
 

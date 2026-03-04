@@ -26,7 +26,7 @@ namespace input_xinput
 //      if (!m_pobjectaExtendedEventListener)
 //      {
 //
-//         øconstruct_new(m_pobjectaExtendedEventListener);
+//         construct_newø(m_pobjectaExtendedEventListener);
 //
 //      }
 //

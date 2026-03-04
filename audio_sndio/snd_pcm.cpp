@@ -12,7 +12,7 @@ public:
    void * allocate(memsize s)
    {
 
-      auto pmemory = øallocate memory();
+      auto pmemory = allocateø memory();
 
       m_memorya.add(pmemory);
 

@@ -35,7 +35,7 @@ namespace node_gtk3
       ::user::notify_icon::initialize(pparticle);
 
 
-      øconstruct(m_pindicator);
+      constructø(m_pindicator);
 
 
    }
