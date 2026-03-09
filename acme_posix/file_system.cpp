@@ -1111,9 +1111,9 @@ namespace acme_posix
 
          auto cerrornumber = c_error_number();
 
-         auto estatus = cerrornumber.failed_estatus();
-
-         throw ::exception(estatus);
+         auto estatus = cerrornumber.estatus();
+         
+         throw ::file::exception(estatus, cerrornumber, path, ::file::e_open_write, "!fopen");
 
       }
 
