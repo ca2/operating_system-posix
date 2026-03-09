@@ -364,7 +364,7 @@ namespace g
             catch (...)
             {
 
-               auto pmessagebox = message_box("xrandr failed. Is it installed? Cannot set wallpaper.");
+               auto pmessageboxpayload = message_box("xrandr failed. Is it installed? Cannot set wallpaper.");
 
                send(pmessageboxpayload);
 
