@@ -311,7 +311,7 @@ gtk_init();
          }
 
 
-         void windowing::_user_send(const ::procedure& procedure)
+         void windowing::user_send(const ::procedure& procedure)
          {
 
             if (::is_main_thread())
@@ -330,7 +330,7 @@ gtk_init();
 
             auto pevent = allocateø manual_reset_happening();
 
-            _user_post([ procedure, pevent ]
+            user_post([ procedure, pevent ]
             {
 
                procedure();
@@ -380,7 +380,7 @@ gtk_init();
          }
 
 
-         void windowing::_user_post(const ::procedure& procedure)
+         void windowing::user_post(const ::procedure& procedure)
          {
 
             // Safely update the GTK label in the main thread
@@ -389,18 +389,18 @@ gtk_init();
          }
 
 
-         void windowing::_main_send(const ::procedure& procedure)
+         void windowing::main_send(const ::procedure& procedure)
          {
 
-            _user_send(procedure);
+            user_send(procedure);
 
          }
 
 
-         void windowing::_main_post(const ::procedure& procedure)
+         void windowing::main_post(const ::procedure& procedure)
          {
 
-            _user_post(procedure);
+            user_post(procedure);
 
          }
 

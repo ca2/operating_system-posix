@@ -74,9 +74,9 @@ namespace windowing_gtk4
 
       void destroy() override;
 
-      void _set_oswindow(::::acme::windowing::window * pacmewindowingwindow) override;
+      //void _set_oswindow(::::acme::windowing::window * pacmewindowingwindow) override;
 
-      ::::acme::windowing::window * pacmewindowingwindow() const override;
+      //::::acme::windowing::window * pacmewindowingwindow() const override;
 
       void
       _on_window_button_pressed(::operating_system::a_system_menu_item * pitem, GtkGestureClick * pgesture, int n_press,
@@ -237,9 +237,9 @@ namespace windowing_gtk4
 
       virtual void _unlocked_defer_set_window_size(const ::int_size & size);
 
-      void _main_send(const ::procedure & procedure) override;
+      void main_send(const ::procedure & procedure) override;
 
-      void _main_post(const ::procedure & procedure) override;
+      void main_post(const ::procedure & procedure) override;
 
 
    };

@@ -282,19 +282,19 @@ gtk_im_context_commit (
    }
 
 
-   void window::_set_oswindow(::::acme::windowing::window * pacmewindowingwindow)
-   {
-
-
-   }
-
-
-   ::oswindow window::oswindow() const
-   {
-
-      return (::oswindow) this;
-
-   }
+   // void window::_set_oswindow(::::acme::windowing::window * pacmewindowingwindow)
+   // {
+   //
+   //
+   // }
+   //
+   //
+   // ::oswindow window::oswindow() const
+   // {
+   //
+   //    return (::oswindow) this;
+   //
+   // }
 
 
    static void clear_controllers(GtkWidget * widget)
@@ -915,7 +915,7 @@ gtk_im_context_commit (
 
             auto pmouse = øcreate_new<::message::mouse>();
 
-            pmouse->m_pacmewindowingwindow = this;
+            pmouse->m_operatingsystemwindow = this->operating_system_window();
 
             pmouse->m_pwindow = this;
 

@@ -1982,7 +1982,7 @@ namespace gtk4
 
             __check_refdbg
 
-            system()->acme_windowing()->_main_post(procedure);
+            system()->acme_windowing()->main_post(procedure);
 
             __check_refdbg
 

@@ -149,7 +149,8 @@ namespace windowing_gtk4
 
       //virtual bool aaa_x11_runnable_step();
 
-      virtual ::acme::windowing::window* window(::acme::windowing::window * pacmewindowingwindow) override;
+      using windowing_posix::windowing::acme_windowing_window;
+      ::acme::windowing::window * acme_windowing_window(const ::operating_system::window & operatingsystemwindow) override;
 
 
       //virtual void _libsn_start_context() override;
