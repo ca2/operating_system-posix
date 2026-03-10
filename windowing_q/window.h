@@ -147,8 +147,8 @@ void on_initialize_particle() override;
 
       void destroy() override;
 
-      void _set_oswindow(::::acme::windowing::window * pacmewindowingwindow) override;
-      ::::acme::windowing::window * pacmewindowingwindow() const override;
+      //void _set_oswindow(::::acme::windowing::window * pacmewindowingwindow) override;
+      //::::acme::windowing::window * pacmewindowingwindow() const override;
 
       void _on_mouse_press(QMouseEvent * pevent) override;
       void _on_mouse_release(QMouseEvent * pevent) override;
@@ -253,11 +253,11 @@ void on_initialize_particle() override;
       bool screen_to_client(::int_point * ppoint) override;
 
 
-      void _main_post(const ::procedure & procedure) override;
+      void main_post(const ::procedure & procedure) override;
 
-      void _user_send(const ::procedure & procedure) override;
+      void user_send(const ::procedure & procedure) override;
 
-      void _main_send(const ::procedure & procedure) override;
+      void main_send(const ::procedure & procedure) override;
       //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);
       //virtual bool _set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);
       

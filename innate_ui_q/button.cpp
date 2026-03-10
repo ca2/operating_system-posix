@@ -104,7 +104,7 @@ namespace innate_ui_q
 
       ::pointer <icon > picon = piconParam;
 
-      _user_send([this, picon]()
+      user_send([this, picon]()
       {
 
          //::SendMessage(m_hwnd, BM_SETICON, (WPARAM) picon->m_hicon, 0);

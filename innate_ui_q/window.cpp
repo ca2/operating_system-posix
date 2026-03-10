@@ -82,7 +82,7 @@ namespace innate_ui_q
    void window::create()
    {
 
-      _user_send([this]()
+      user_send([this]()
                  {
 
                     _create();
@@ -104,7 +104,7 @@ namespace innate_ui_q
 
       ::pointer<window> pwindowImpl = pwindow;
 
-      _user_send([this, pwindowImpl]()
+      user_send([this, pwindowImpl]()
                  {
 
                     _create_child(pwindowImpl);
@@ -151,7 +151,7 @@ namespace innate_ui_q
    void window::show()
    {
 
-      _user_post([this]()
+      user_post([this]()
                  {
 
                     m_pqwidget->show();
@@ -174,7 +174,7 @@ namespace innate_ui_q
 
       auto point = pointParam;
 
-      _user_send([this, point]()
+      user_send([this, point]()
                  {
 
                     auto p = point;
@@ -201,7 +201,7 @@ namespace innate_ui_q
 
          auto size = sizeParam;
 
-         _user_send([this, size]()
+         user_send([this, size]()
                     {
 
                        m_pqwidget->resize(size.cx, size.cy);
@@ -226,7 +226,7 @@ namespace innate_ui_q
    void window::center()
    {
 
-      _user_send([this]()
+      user_send([this]()
                  {
 
 

@@ -33,6 +33,8 @@ namespace windowing_q
 
        //QApplication * m_pqapplication;
 
+
+
       bool m_bRootSelectInput: 1;
       bool m_bFirstWindowMap: 1;
 
@@ -108,9 +110,9 @@ namespace windowing_q
 
       //virtual bool os_defer_init_q();
 
-      void _main_send(const ::procedure & procedure) override;
+      void main_send(const ::procedure & procedure) override;
 
-      void _user_post(const ::procedure & procedureParam) override;
+      void user_post(const ::procedure & procedureParam) override;
 
 
       virtual void _set_os_user_theme(const ::scoped_string & strTheme);
@@ -195,7 +197,7 @@ namespace windowing_q
 
       //virtual bool aaa_x11_runnable_step();
 
-      ::acme::windowing::window* window(::acme::windowing::window * pacmewindowingwindow) override;
+      ::acme::windowing::window* acme_windowing_window(const ::operating_system::window & window) override;
 
       //virtual void _libsn_start_context() override;
 

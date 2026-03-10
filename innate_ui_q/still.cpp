@@ -85,7 +85,7 @@ namespace innate_ui_q
 
       ::string str(scopedstr);
 
-      _user_post([this, str]
+      user_post([this, str]
       ()
       {
 
@@ -109,7 +109,7 @@ namespace innate_ui_q
 
       ::pointer <::innate_ui_q::icon > picon = piconParam;
 
-      _user_send([this, picon]()
+      user_send([this, picon]()
       {
 
          //gtk_image_set_from_paintable(GTK_IMAGE(m_pqgtkwidget), picon->m_pgdkpaintable);

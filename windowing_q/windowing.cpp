@@ -543,10 +543,10 @@ namespace windowing_q
 
 
 
-   ::acme::windowing::window * windowing::window(::acme::windowing::window * pacmewindowingwindow)
+   ::acme::windowing::window * windowing::acme_windowing_window(const ::operating_system::window & window)
    {
 
-      return oswindow;
+      return ::q::acme::windowing::windowing::acme_windowing_window(window);
 
    }
 
@@ -990,10 +990,10 @@ namespace windowing_q
    //   }
 
 
-   void windowing::_main_send(const ::procedure & procedure)
+   void windowing::main_send(const ::procedure & procedure)
    {
 
-      ::q::acme::windowing::windowing::_main_send(procedure);
+      ::q::acme::windowing::windowing::main_send(procedure);
 
    }
 
@@ -1002,9 +1002,9 @@ namespace windowing_q
 
    //void gtk_settings_gtk_icon_theme_name_callback(GObject *object, GParamSpec *pspec, gpointer data);
 
-   void windowing::_user_post(const ::procedure & procedure)
+   void windowing::user_post(const ::procedure & procedure)
    {
-       ::q::acme::windowing::windowing::_user_post(procedure);
+       ::q::acme::windowing::windowing::user_post(procedure);
       // auto procedure(procedureParam);
       //
       // // invoke on the main thread

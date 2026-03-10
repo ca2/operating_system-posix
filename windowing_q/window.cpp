@@ -87,16 +87,16 @@ namespace windowing_q
    }
 
 
-   void window::_set_oswindow(::::acme::windowing::window * pacmewindowingwindow)
-   {
-   }
-
-
-   ::oswindow window::oswindow() const
-   {
-      return (::oswindow)this;
-   }
-
+   // void window::_set_oswindow(::::acme::windowing::window * pacmewindowingwindow)
+   // {
+   // }
+   //
+   //
+   // ::oswindow window::oswindow() const
+   // {
+   //    return (::oswindow)this;
+   // }
+   //
 
 
    void window::defer_show_system_menu(::user::mouse* pmouse)
@@ -1092,7 +1092,7 @@ namespace windowing_q
 
          auto pdisplay = pqwindowing->m_pdisplay;
 
-         puserinteraction->m_operatingsystemwindow = this->operating_system_window();
+         puserinteraction->m_pacmewindowingwindow = this;
 
          m_pacmewindowingdisplayWindow = pdisplay;
 
@@ -1141,7 +1141,7 @@ namespace windowing_q
 
          m_sizeOnSize.cy = cy;
 
-         set_oswindow(this);
+         //set_oswindow(this);
 
          __refdbg_add_referer;
 
@@ -2927,18 +2927,18 @@ namespace windowing_q
    }
 
 
-   void window::_main_post(const ::procedure & procedure)
+   void window::main_post(const ::procedure & procedure)
    {
 
-      system()->acme_windowing()->_main_post(procedure);
+      system()->acme_windowing()->main_post(procedure);
 
    }
 
 
-   void window::_user_send(const ::procedure & procedure)
+   void window::user_send(const ::procedure & procedure)
    {
 
-      system()->acme_windowing()->_user_send(procedure);
+      system()->acme_windowing()->user_send(procedure);
 
    }
 
@@ -3122,10 +3122,10 @@ namespace windowing_q
    }
 
 
-   void window::_main_send(const ::procedure & procedure)
+   void window::main_send(const ::procedure & procedure)
    {
 
-      system()->acme_windowing()->_main_send(procedure);
+      system()->acme_windowing()->main_send(procedure);
 
    }
 
@@ -3600,7 +3600,7 @@ namespace windowing_q
          }
          else
          {
-            _main_post([this]()
+            main_post([this]()
                {
 
                   ::cast < ::windowing_q::cursor > pqcursor = m_pcursor;

@@ -599,10 +599,10 @@ namespace node_q
    // }
    //
 
-   void node::_user_post(const ::procedure & procedure)
+   void node::user_post(const ::procedure & procedure)
    {
 
-      system()->acme_windowing()->_user_post(procedure);
+      system()->acme_windowing()->user_post(procedure);
 
       // // invoke on the main thread
       // QMetaObject::invokeMethod(

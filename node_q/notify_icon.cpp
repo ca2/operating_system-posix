@@ -90,8 +90,8 @@ namespace node_q
 
       auto picon = as_pointer(pwindowingicon);
 
-      _main_send([this, atom, puserinteractionNotify, picon]()
-         {
+      main_send([this, atom, puserinteractionNotify, picon]()
+      {
 
       // Ensure system tray is available
       if (!QSystemTrayIcon::isSystemTrayAvailable())

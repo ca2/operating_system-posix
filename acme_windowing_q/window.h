@@ -122,8 +122,8 @@ void hide_window() override;
                                                                ::user::mouse* pmouse) override;
 
 
-            void _main_send(const ::procedure & procedure) override;
-            void _main_post(const ::procedure & procedure) override;
+            void main_send(const ::procedure & procedure) override;
+            void main_post(const ::procedure & procedure) override;
 
             ///virtual void draw_children(::nano::graphics::device * pnanodevice);
 

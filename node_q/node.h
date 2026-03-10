@@ -96,7 +96,7 @@ namespace node_q
 
       //using ::aura::node::node_fork;
 
-      void _user_post(const ::procedure & procedure) override;
+      void user_post(const ::procedure & procedure) override;
 
       //void node_post_quit() override;
 

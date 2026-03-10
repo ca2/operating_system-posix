@@ -165,7 +165,7 @@ namespace q
          }
 
 
-         void windowing::_user_send(const ::procedure & procedure)
+         void windowing::user_send(const ::procedure & procedure)
          {
 
             if (::is_main_thread()) {
@@ -209,10 +209,10 @@ namespace q
          }
 
 
-   void windowing::_main_post(const ::procedure & procedure)
+   void windowing::main_post(const ::procedure & procedure)
    {
 
-      _user_post(procedure);
+      user_post(procedure);
 
    }
 
@@ -477,7 +477,7 @@ namespace q
          }
 
 
-         void windowing::_user_post(const ::procedure & procedure)
+         void windowing::user_post(const ::procedure & procedure)
          {
 
             // invoke on the main thread
@@ -549,6 +549,23 @@ namespace q
 //            return bDarkMode;
 
             return false;
+
+         }
+
+
+         ::acme::windowing::window* windowing::acme_windowing_window(const ::operating_system::window & window)
+         {
+
+            auto pacmewindowingwindow = window._get_acme_windowing_window();
+
+            if (::is_null(pacmewindowingwindow))
+            {
+
+               return nullptr;
+
+            }
+
+            return pacmewindowingwindow;
 
          }
 

@@ -24,61 +24,66 @@ namespace q
       {
 
 
-   class CLASS_DECL_COMMON_Q windowing :
-           virtual public ::acme::windowing::windowing//,
-         //virtual public ::kde6::micro::window
-   {
-   public:
+         class CLASS_DECL_COMMON_Q windowing :
+                 virtual public ::acme::windowing::windowing//,
+               //virtual public ::kde6::micro::window
+         {
+         public:
 
 
-      QApplication * m_pqapplication;
+            QApplication * m_pqapplication;
+
+            ::map < QWidget *, ::pointer < ::acme::windowing::window > > m_mapWindow;
 
 
-      windowing();
-      ~windowing() override;
+            windowing();
+            ~windowing() override;
 
-      //::e_status defer_initialize_windowing_system() override;
-      void initialize_windowing() override;
-      ::acme::windowing::display * acme_display() override;
-
-
-      bool defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow) override;
-
-      ::windowing::enum_windowing calculate_ewindowing() override;
-
-      void _user_send(const ::procedure & procedure) override;
-      void _user_post(const ::procedure & procedure) override;
-      void display_error_trap_push(int i) override;
-      void display_error_trap_pop_ignored(int i) override;
+            //::e_status defer_initialize_windowing_system() override;
+            void initialize_windowing() override;
+            ::acme::windowing::display * acme_display() override;
 
 
-      void _main_post(const ::procedure & procedureParam) override;
+            bool defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow) override;
+
+            ::windowing::enum_windowing calculate_ewindowing() override;
+
+            void user_send(const ::procedure & procedure) override;
+            void user_post(const ::procedure & procedure) override;
+            void display_error_trap_push(int i) override;
+            void display_error_trap_pop_ignored(int i) override;
 
 
-      virtual void _on_activate_kde_application();
+            void main_post(const ::procedure & procedureParam) override;
 
 
-      void windowing_application_on_system_start() override;
+            virtual void _on_activate_kde_application();
 
 
-      void windowing_application_main_loop() override;
-      void windowing_post_quit() override;
+            void windowing_application_on_system_start() override;
 
 
-      ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile) override;
+            void windowing_application_main_loop() override;
+            void windowing_post_quit() override;
 
 
-//   ::e_status x11_initialize() override;
-//   void * x11_get_display() override;
-//   void x11_sync(const ::procedure & procedure) override;
-//   void x11_async(const ::procedure & procedure) override;
-//   void x11_display_error_trap_push(int i) override;
-//   void x11_display_error_trap_pop_ignored(int i) override;
-
-     bool dark_mode() override;
+            ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile) override;
 
 
-   };
+      //   ::e_status x11_initialize() override;
+      //   void * x11_get_display() override;
+      //   void x11_sync(const ::procedure & procedure) override;
+      //   void x11_async(const ::procedure & procedure) override;
+      //   void x11_display_error_trap_push(int i) override;
+      //   void x11_display_error_trap_pop_ignored(int i) override;
+
+            bool dark_mode() override;
+
+
+            ::acme::windowing::window* acme_windowing_window(const ::operating_system::window & window) override;
+
+
+         };
 
 
       } // namespace windowing

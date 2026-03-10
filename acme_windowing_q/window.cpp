@@ -717,18 +717,18 @@ namespace q
          }
 
 
-         void window::_main_send(const ::procedure & procedure)
+         void window::main_send(const ::procedure & procedure)
          {
 
-            system()->acme_windowing()->_main_send(procedure);
+            system()->acme_windowing()->main_send(procedure);
 
          }
 
 
-         void window::_main_post(const ::procedure & procedure)
+         void window::main_post(const ::procedure & procedure)
          {
 
-            system()->acme_windowing()->_main_post(procedure);
+            system()->acme_windowing()->main_post(procedure);
 
          }
 
