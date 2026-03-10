@@ -621,7 +621,7 @@ namespace gtk3
 
                auto pmouse = øcreate_new<::user::mouse>();
 
-//               pmouse->m_pacmewindowingwindow = this;
+//               pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
 //               pmouse->m_pOsMouseDataOkIfOnStack = happening;
 //
@@ -689,7 +689,7 @@ namespace gtk3
 
                auto pmouse = øcreate_new<::user::mouse>();
 
-               //pmouse->m_pacmewindowingwindow = this;
+               //pmouse->m_operatingsystemwindow = this->operating_system_window();
 
                //pmouse->m_pwindow = this;
 
@@ -789,7 +789,7 @@ namespace gtk3
 
                auto pmouse = øcreate_new<::user::mouse>();
 
-//               pmouse->m_pacmewindowingwindow = this;
+//               pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
 //               pmouse->m_pwindow = this;
 

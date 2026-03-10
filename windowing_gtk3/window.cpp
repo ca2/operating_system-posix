@@ -607,7 +607,7 @@ namespace windowing_gtk3
 
          auto pmouse = øcreate_new<::message::mouse>();
 
-         pmouse->m_pacmewindowingwindow = this;
+         pmouse->m_operatingsystemwindow = this->operating_system_window();
 
          pmouse->m_pOsMouseDataOkIfOnStack = happening;
 
@@ -670,7 +670,7 @@ namespace windowing_gtk3
 
          auto pmouse = øcreate_new<::message::mouse>();
 
-         pmouse->m_pacmewindowingwindow = this;
+         pmouse->m_operatingsystemwindow = this->operating_system_window();
 
          pmouse->m_pwindow = this;
 
@@ -763,7 +763,7 @@ namespace windowing_gtk3
 
          auto pmouse = øcreate_new<::message::mouse>();
 
-         pmouse->m_pacmewindowingwindow = this;
+         pmouse->m_operatingsystemwindow = this->operating_system_window();
 
          pmouse->m_pwindow = this;
 
@@ -1090,7 +1090,7 @@ namespace windowing_gtk3
 
          pkey->m_eusermessage = ::user::e_message_key_down;
 
-         pkey->m_pacmewindowingwindow = this;
+         pkey->m_operatingsystemwindow = this->operating_system_window();
 
          pkey->m_pwindow = this;
 
@@ -1121,7 +1121,7 @@ namespace windowing_gtk3
 
          pkey->m_eusermessage = ::user::e_message_key_up;
 
-         pkey->m_pacmewindowingwindow = this;
+         pkey->m_operatingsystemwindow = this->operating_system_window();
 
          pkey->m_pwindow = this;
 
@@ -1143,7 +1143,7 @@ namespace windowing_gtk3
 
       auto pmouse = øcreate_new<::message::mouse_wheel>();
 
-      pmouse->m_pacmewindowingwindow = this;
+      pmouse->m_operatingsystemwindow = this->operating_system_window();
 
       pmouse->m_pwindow = this;
 
@@ -5928,7 +5928,7 @@ namespace windowing_gtk3
    //
    //          auto pmouse = øcreate_new<::message::mouse>();
    //
-   //          pmouse->m_pacmewindowingwindow = this;
+   //          pmouse->m_operatingsystemwindow = this->operating_system_window();
    //
    //          pmouse->m_pwindow = this;
    //
@@ -6173,7 +6173,7 @@ namespace windowing_gtk3
    //
    //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
    //
-   //          pmousewheel->m_pacmewindowingwindow = this;
+   //          pmousewheel->m_operatingsystemwindow = this->operating_system_window();
    //
    //          pmousewheel->m_pwindow = this;
    //
@@ -6203,7 +6203,7 @@ namespace windowing_gtk3
    //
    //          auto pmouse = øcreate_new<::message::mouse>();
    //
-   //          pmouse->m_pacmewindowingwindow = this;
+   //          pmouse->m_operatingsystemwindow = this->operating_system_window();
    //
    //          pmouse->m_pwindow = this;
    //
@@ -6660,7 +6660,7 @@ namespace windowing_gtk3
    //
    //            auto pkey = øcreate_new<::message::key>();
    //
-   //            pkey->m_pacmewindowingwindow = this;
+   //            pkey->m_operatingsystemwindow = this->operating_system_window();
    //
    //            pkey->m_pwindow = this;
    //
@@ -6726,7 +6726,7 @@ namespace windowing_gtk3
    //
    //            auto pkey = øcreate_new<::message::key>();
    //
-   //            pkey->m_pacmewindowingwindow = this;
+   //            pkey->m_operatingsystemwindow = this->operating_system_window();
    //
    //            pkey->m_pwindow = this;
    //

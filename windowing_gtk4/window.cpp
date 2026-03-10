@@ -628,7 +628,7 @@ gtk_im_context_commit (
       //
       //    auto pmouse = øcreate_new<::message::mouse>();
       //
-      //    pmouse->m_pacmewindowingwindow = this;
+      //    pmouse->m_operatingsystemwindow = this->operating_system_window();
       //
       //    pmouse->m_pwindow = this;
       //
@@ -821,7 +821,7 @@ gtk_im_context_commit (
       //
       //    auto pmouse = øcreate_new<::message::mouse>();
       //
-      //    pmouse->m_pacmewindowingwindow = this;
+      //    pmouse->m_operatingsystemwindow = this->operating_system_window();
       //
       //    pmouse->m_pwindow = this;
       //
@@ -983,7 +983,7 @@ gtk_im_context_commit (
 
             auto pmouse = øcreate_new<::message::mouse>();
 
-            pmouse->m_pacmewindowingwindow = this;
+            pmouse->m_operatingsystemwindow = this->operating_system_window();
 
             pmouse->m_pwindow = this;
 
@@ -1044,7 +1044,7 @@ gtk_im_context_commit (
 
          auto pmouse = øcreate_new<::message::mouse>();
 
-         pmouse->m_pacmewindowingwindow = this;
+         pmouse->m_operatingsystemwindow = this->operating_system_window();
 
          pmouse->m_pwindow = this;
 
@@ -1142,7 +1142,7 @@ gtk_im_context_commit (
 
          pkey->m_eusermessage = ::user::e_message_key_down;
 
-         pkey->m_pacmewindowingwindow = this;
+         pkey->m_operatingsystemwindow = this->operating_system_window();
 
          pkey->m_pwindow = this;
 
@@ -1173,7 +1173,7 @@ gtk_im_context_commit (
 
          pkey->m_eusermessage = ::user::e_message_key_up;
 
-         pkey->m_pacmewindowingwindow = this;
+         pkey->m_operatingsystemwindow = this->operating_system_window();
 
          pkey->m_pwindow = this;
 
@@ -1295,7 +1295,7 @@ on_text(scopedstr, scopedstr.size());
 
           //m_pwindow = pimpl;
 
-          puserinteraction->m_pacmewindowingwindow = this;
+          puserinteraction->m_operatingsystemwindow = this->operating_system_window();
 
           //m_puserinteraction->m_puserinteractionTopLevel = m_pwindow->m_puserinteraction;
 
@@ -2323,7 +2323,7 @@ on_text(scopedstr, scopedstr.size());
 
       pshowwindow->m_pwindow = this;
 
-      pshowwindow->m_pacmewindowingwindow = this;
+      pshowwindow->m_operatingsystemwindow = this->operating_system_window();
 
       pshowwindow->m_bShow = true;
 
@@ -2345,7 +2345,7 @@ on_text(scopedstr, scopedstr.size());
 
       pshowwindow->m_pwindow = this;
 
-      pshowwindow->m_pacmewindowingwindow = this;
+      pshowwindow->m_operatingsystemwindow = this->operating_system_window();
 
       pshowwindow->m_bShow = false;
 
@@ -2624,7 +2624,7 @@ return false;
 
       auto pmouse = øcreate_new<::message::mouse_wheel>();
 
-      pmouse->m_pacmewindowingwindow = this;
+      pmouse->m_operatingsystemwindow = this->operating_system_window();
 
       pmouse->m_pwindow = this;
 

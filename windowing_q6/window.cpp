@@ -1208,7 +1208,7 @@ namespace windowing_q6
 //
 //       auto pshowwindow = øcreate_new<::message::show_window>();
 //
-//       pshowwindow->m_pacmewindowingwindow = this;
+//       pshowwindow->m_operatingsystemwindow = this->operating_system_window();
 //
 //       pshowwindow->m_pwindow = this;
 //
@@ -1228,7 +1228,7 @@ namespace windowing_q6
 //
 //       auto psetkeyboardfocus = øcreate_new<::message::set_keyboard_focus>();
 //
-//       psetkeyboardfocus->m_pacmewindowingwindow = this;
+//       psetkeyboardfocus->m_operatingsystemwindow = this->operating_system_window();
 //
 //       psetkeyboardfocus->m_pwindow = this;
 //
@@ -1246,7 +1246,7 @@ namespace windowing_q6
 //
 //       auto pkillkeyboardfocus = øcreate_new<::message::kill_keyboard_focus>();
 //
-//       pkillkeyboardfocus->m_pacmewindowingwindow = this;
+//       pkillkeyboardfocus->m_operatingsystemwindow = this->operating_system_window();
 //
 //       pkillkeyboardfocus->m_pwindow = this;
 //
@@ -1278,7 +1278,7 @@ namespace windowing_q6
 //
 //          auto pmouse = øcreate_new<::message::mouse>();
 //
-//          pmouse->m_pacmewindowingwindow = this;
+//          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
 //          pmouse->m_pwindow = this;
 //
@@ -1356,7 +1356,7 @@ namespace windowing_q6
 //
 //             auto pmouse = øcreate_new<::message::mouse>();
 //
-//             pmouse->m_pacmewindowingwindow = this;
+//             pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
 //             pmouse->m_pwindow = this;
 //
@@ -1449,7 +1449,7 @@ namespace windowing_q6
 //
 //          auto pmouse = øcreate_new<::message::mouse>();
 //
-//          pmouse->m_pacmewindowingwindow = this;
+//          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
 //          pmouse->m_pwindow = this;
 //
@@ -5258,7 +5258,7 @@ namespace windowing_q6
 //    //
 //    //          auto pmouse = øcreate_new<::message::mouse>();
 //    //
-//    //          pmouse->m_pacmewindowingwindow = this;
+//    //          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //    //
 //    //          pmouse->m_pwindow = this;
 //    //
@@ -5503,7 +5503,7 @@ namespace windowing_q6
 //    //
 //    //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
 //    //
-//    //          pmousewheel->m_pacmewindowingwindow = this;
+//    //          pmousewheel->m_operatingsystemwindow = this->operating_system_window();
 //    //
 //    //          pmousewheel->m_pwindow = this;
 //    //
@@ -5533,7 +5533,7 @@ namespace windowing_q6
 //    //
 //    //          auto pmouse = øcreate_new<::message::mouse>();
 //    //
-//    //          pmouse->m_pacmewindowingwindow = this;
+//    //          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //    //
 //    //          pmouse->m_pwindow = this;
 //    //
@@ -6243,7 +6243,7 @@ namespace windowing_q6
 //    //
 //    //            auto pkey = øcreate_new<::message::key>();
 //    //
-//    //            pkey->m_pacmewindowingwindow = this;
+//    //            pkey->m_operatingsystemwindow = this->operating_system_window();
 //    //
 //    //            pkey->m_pwindow = this;
 //    //
@@ -6309,7 +6309,7 @@ namespace windowing_q6
 //    //
 //    //            auto pkey = øcreate_new<::message::key>();
 //    //
-//    //            pkey->m_pacmewindowingwindow = this;
+//    //            pkey->m_operatingsystemwindow = this->operating_system_window();
 //    //
 //    //            pkey->m_pwindow = this;
 //    //

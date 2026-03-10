@@ -504,10 +504,21 @@ namespace windowing_gtk4
    }
 
 
-   ::acme::windowing::window * windowing::window(::acme::windowing::window * pacmewindowingwindow)
+   ::acme::windowing::window * windowing::acme_windowing_window(const ::operating_system::window & window)
    {
 
-      return oswindow;
+      //return oswindow;
+
+      auto pacmewindowingwindow = window._get_acme_windowing_window();
+
+      if (::is_null(pacmewindowingwindow))
+      {
+
+         return nullptr;
+
+      }
+
+      return pacmewindowingwindow;
 
    }
 

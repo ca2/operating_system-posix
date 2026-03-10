@@ -1290,7 +1290,7 @@ namespace windowing_kde5
 
          auto pmouse = øcreate_new<::message::mouse>();
 
-         pmouse->m_pacmewindowingwindow = this;
+         pmouse->m_operatingsystemwindow = this->operating_system_window();
 
          pmouse->m_pwindow = this;
 
@@ -1370,7 +1370,7 @@ namespace windowing_kde5
 
             auto pmouse = øcreate_new<::message::mouse>();
 
-            pmouse->m_pacmewindowingwindow = this;
+            pmouse->m_operatingsystemwindow = this->operating_system_window();
 
             pmouse->m_pwindow = this;
 
@@ -1465,7 +1465,7 @@ namespace windowing_kde5
 
          __check_refdbg;
 
-         pmouse->m_pacmewindowingwindow = this;
+         pmouse->m_operatingsystemwindow = this->operating_system_window();
 
          __check_refdbg;
 
@@ -1589,7 +1589,7 @@ namespace windowing_kde5
 
              pkey->m_eusermessage = ::user::e_message_key_down;
 
-              pkey->m_pacmewindowingwindow = this;
+              pkey->m_operatingsystemwindow = this->operating_system_window();
              //
               pkey->m_pwindow = this;
 
@@ -1700,7 +1700,7 @@ namespace windowing_kde5
 
              pkey->m_eusermessage = ::user::e_message_key_up;
 
-              pkey->m_pacmewindowingwindow = this;
+              pkey->m_operatingsystemwindow = this->operating_system_window();
              //
               pkey->m_pwindow = this;
 
@@ -2053,7 +2053,7 @@ namespace windowing_kde5
 
          //m_pwindow = pimpl;
 
-         puserinteraction->m_pacmewindowingwindow = this;
+         puserinteraction->m_operatingsystemwindow = this->operating_system_window();
 
 
          //puserinteraction->m_puserinteractionTopLevel = m_pwindow->
@@ -6598,7 +6598,7 @@ namespace windowing_kde5
    //
    //          auto pmouse = øcreate_new<::message::mouse>();
    //
-   //          pmouse->m_pacmewindowingwindow = this;
+   //          pmouse->m_operatingsystemwindow = this->operating_system_window();
    //
    //          pmouse->m_pwindow = this;
    //
@@ -6843,7 +6843,7 @@ namespace windowing_kde5
    //
    //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
    //
-   //          pmousewheel->m_pacmewindowingwindow = this;
+   //          pmousewheel->m_operatingsystemwindow = this->operating_system_window();
    //
    //          pmousewheel->m_pwindow = this;
    //
@@ -6873,7 +6873,7 @@ namespace windowing_kde5
    //
    //          auto pmouse = øcreate_new<::message::mouse>();
    //
-   //          pmouse->m_pacmewindowingwindow = this;
+   //          pmouse->m_operatingsystemwindow = this->operating_system_window();
    //
    //          pmouse->m_pwindow = this;
    //
@@ -7584,7 +7584,7 @@ namespace windowing_kde5
    //
    //            auto pkey = øcreate_new<::message::key>();
    //
-   //            pkey->m_pacmewindowingwindow = this;
+   //            pkey->m_operatingsystemwindow = this->operating_system_window();
    //
    //            pkey->m_pwindow = this;
    //
@@ -7650,7 +7650,7 @@ namespace windowing_kde5
    //
    //            auto pkey = øcreate_new<::message::key>();
    //
-   //            pkey->m_pacmewindowingwindow = this;
+   //            pkey->m_operatingsystemwindow = this->operating_system_window();
    //
    //            pkey->m_pwindow = this;
    //

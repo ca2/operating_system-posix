@@ -929,7 +929,7 @@ namespace nano
 
          //      auto pmouse = øcreate_new<::message::mouse>();
          //
-         //      pmouse->m_pacmewindowingwindow = this;
+         //      pmouse->m_operatingsystemwindow = this->operating_system_window();
          //
          //      pmouse->m_pwindow = this;
          //
@@ -1182,7 +1182,7 @@ namespace nano
          //
          //         auto pmousewheel = øcreate_new<::message::mouse_wheel>();
          //
-         //         pmousewheel->m_pacmewindowingwindow = this;
+         //         pmousewheel->m_operatingsystemwindow = this->operating_system_window();
          //
          //         pmousewheel->m_pwindow = this;
          //
@@ -1212,7 +1212,7 @@ namespace nano
          //
          //         auto pmouse = øcreate_new<::message::mouse>();
          //
-         //         pmouse->m_pacmewindowingwindow = this;
+         //         pmouse->m_operatingsystemwindow = this->operating_system_window();
          //
          //         pmouse->m_pwindow = this;
          //
@@ -1656,7 +1656,7 @@ namespace nano
                //
                //            auto pkey = øcreate_new<::message::key>();
                //
-               //            pkey->m_pacmewindowingwindow = this;
+               //            pkey->m_operatingsystemwindow = this->operating_system_window();
                //
                //            pkey->m_pwindow = this;
                //

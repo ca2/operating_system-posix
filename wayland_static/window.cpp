@@ -997,7 +997,7 @@ namespace wayland
 
             auto pmouse = øcreate_new<::user::mouse>();
             //
-            //      pmouse->m_pacmewindowingwindow = this;
+            //      pmouse->m_operatingsystemwindow = this->operating_system_window();
             //
             //      pmouse->m_pwindow = this;
             //
@@ -1119,7 +1119,7 @@ namespace wayland
 
             auto pmouse = øcreate_new<::user::mouse>();
             //
-            //      pmouse->m_pacmewindowingwindow = this;
+            //      pmouse->m_operatingsystemwindow = this->operating_system_window();
             //
             //      pmouse->m_pwindow = this;
             //
@@ -1266,7 +1266,7 @@ namespace wayland
             //
             //         auto pmousewheel = øcreate_new<::message::mouse_wheel>();
             //
-            //         pmousewheel->m_pacmewindowingwindow = this;
+            //         pmousewheel->m_operatingsystemwindow = this->operating_system_window();
             //
             //         pmousewheel->m_pwindow = this;
             //
@@ -1296,7 +1296,7 @@ namespace wayland
             //
             //         auto pmouse = øcreate_new<::message::mouse>();
             //
-            //         pmouse->m_pacmewindowingwindow = this;
+            //         pmouse->m_operatingsystemwindow = this->operating_system_window();
             //
             //         pmouse->m_pwindow = this;
             //
