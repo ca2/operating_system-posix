@@ -31,6 +31,7 @@ namespace gtk4
 
             ::pointer < manual_reset_happening >    m_phappeningCreatingWGtk4Display;
 
+            ::map< GtkWidget, ::pointer < ::acme::windowing::window > >   m_mapWindow;
 
             ::procedure                         m_callbackOnActivateGtkApplication;
             GtkApplication *                    m_pgtkapplication;
@@ -53,6 +54,9 @@ namespace gtk4
 
 
             void windowing_application_on_system_start() override;
+
+
+            void each_window(const ::function < void(::acme::windowing::window*) > & function) override;
 
 
             //void defer_initialize_windowing() override;

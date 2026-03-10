@@ -1295,7 +1295,7 @@ on_text(scopedstr, scopedstr.size());
 
           //m_pwindow = pimpl;
 
-          puserinteraction->m_operatingsystemwindow = this->operating_system_window();
+          puserinteraction->m_pacmewindowingwindow = this;
 
           //m_puserinteraction->m_puserinteractionTopLevel = m_pwindow->m_puserinteraction;
 
@@ -1363,7 +1363,7 @@ on_text(scopedstr, scopedstr.size());
 
          g_signal_connect(m_pgtkwidget, "hide", G_CALLBACK(window_hide), this);
 
-          set_oswindow(this);
+          //set_oswindow(this);
 
           //pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
 
@@ -2510,18 +2510,18 @@ on_text(scopedstr, scopedstr.size());
    }
 
 
-   void window::_main_send(const ::procedure & procedure)
+   void window::main_send(const ::procedure & procedure)
    {
 
-      system()->windowing()->_main_send(procedure);
+      system()->windowing()->main_send(procedure);
 
    }
 
 
-   void window::_main_post(const ::procedure & procedure)
+   void window::main_post(const ::procedure & procedure)
    {
 
-      system()->windowing()->_main_post(procedure);
+      system()->windowing()->main_post(procedure);
 
    }
 

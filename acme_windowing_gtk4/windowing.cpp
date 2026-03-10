@@ -213,6 +213,33 @@ gtk_init();
          // }
 
 
+         void windowing::each_window(const ::function < void(::acme::windowing::window*) > & function)
+         {
+
+            for (auto & ppair: m_mapWindow)
+            {
+
+               auto pacmewindowingwindow = ppair.element2();
+
+               try
+               {
+
+                  function(pacmewindowingwindow);
+
+               }
+               catch (...)
+               {
+
+
+
+               }
+
+            }
+
+         }
+
+
+
          void windowing::initialize_windowing()
          {
 
