@@ -1630,6 +1630,8 @@ namespace acme_posix
          if(iError != 0)
          {
 
+            error("Error returned from pthread_mutex_unlock : {}", iError);
+
             throw ::exception(error_failed);
 
          }
