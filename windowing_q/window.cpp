@@ -986,7 +986,7 @@ namespace windowing_q
    void window::_on_qimage_draw(QImage* pqimage)
    {
 
-      auto pbuffer = m_pgraphicsgraphics;
+      auto pbuffer = m_pgraphicsgraphics.m_p;
 
       if (!pbuffer)
       {
