@@ -2067,7 +2067,11 @@ on_text(scopedstr, scopedstr.size());
       if(bHasFocus)
       {
 
+         __check_refdbg
+
          debug() << "::window::has_keyboard_focus";
+
+         __check_refdbg
 
       }
 
