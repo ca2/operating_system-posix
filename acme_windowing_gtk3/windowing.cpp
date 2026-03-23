@@ -468,7 +468,7 @@ namespace gtk3
             else
             {
 
-               //auto prequest = øcreate_new<::request>();
+               //auto prequest = create_newø<::request>();
 
                //application()->post_request(prequest);
 

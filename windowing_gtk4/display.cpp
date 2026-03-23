@@ -286,7 +286,7 @@ namespace windowing_gtk4
       for (guint i = 0; i < n_monitors; i++) {
          GdkMonitor *monitor = GDK_MONITOR(g_list_model_get_item(monitors, i));
 
-         auto pmonitor = øcreate_new < ::windowing::monitor >();
+         auto pmonitor = create_newø < ::windowing::monitor >();
          __check_refdbg
          pmonitor->m_pdisplay = this;
 

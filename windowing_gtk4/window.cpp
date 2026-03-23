@@ -387,7 +387,7 @@ gtk_im_context_commit (
       if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
       {
 
-         auto pgraphics = øcreate<::draw2d::graphics>();
+         auto pgraphics = createø<::draw2d::graphics>();
 
          pgraphics->attach(cr);
 
@@ -626,7 +626,7 @@ gtk_im_context_commit (
       //
       //    guint32 timestamp = gdk_event_get_time (happening);
       //
-      //    auto pmouse = øcreate_new<::message::mouse>();
+      //    auto pmouse = create_newø<::message::mouse>();
       //
       //    pmouse->m_operatingsystemwindow = this->operating_system_window();
       //
@@ -819,7 +819,7 @@ gtk_im_context_commit (
       //
       //    guint32 timestamp = gdk_event_get_time (happening);
       //
-      //    auto pmouse = øcreate_new<::message::mouse>();
+      //    auto pmouse = create_newø<::message::mouse>();
       //
       //    pmouse->m_operatingsystemwindow = this->operating_system_window();
       //
@@ -913,7 +913,7 @@ gtk_im_context_commit (
          if (::is_set(pwindow))
          {
 
-            auto pmouse = øcreate_new<::message::mouse>();
+            auto pmouse = create_newø<::message::mouse>();
 
             pmouse->m_operatingsystemwindow = this->operating_system_window();
 
@@ -981,7 +981,7 @@ gtk_im_context_commit (
          if (::is_set(pwindow))
          {
 
-            auto pmouse = øcreate_new<::message::mouse>();
+            auto pmouse = create_newø<::message::mouse>();
 
             pmouse->m_operatingsystemwindow = this->operating_system_window();
 
@@ -1042,7 +1042,7 @@ gtk_im_context_commit (
       if (::is_set(pwindow))
       {
 
-         auto pmouse = øcreate_new<::message::mouse>();
+         auto pmouse = create_newø<::message::mouse>();
 
          pmouse->m_operatingsystemwindow = this->operating_system_window();
 
@@ -1071,7 +1071,7 @@ gtk_im_context_commit (
 //            //    gdk_event_unref(happening);  // Free the happening object after use
 //            // }
 //
-//            auto pmouse = øcreate_new<::message::mouse>();
+//            auto pmouse = create_newø<::message::mouse>();
 //
 //            pmouse->m_iTimestamp = timestamp;
 //
@@ -1138,7 +1138,7 @@ gtk_im_context_commit (
       if(ekey != ::user::e_key_none)
       {
 
-         auto pkey = øcreate_new < ::message::key>();
+         auto pkey = create_newø < ::message::key>();
 
          pkey->m_eusermessage = ::user::e_message_key_down;
 
@@ -1169,7 +1169,7 @@ gtk_im_context_commit (
       if(ekey != ::user::e_key_none)
       {
 
-         auto pkey = øcreate_new < ::message::key>();
+         auto pkey = create_newø < ::message::key>();
 
          pkey->m_eusermessage = ::user::e_message_key_up;
 
@@ -2317,7 +2317,7 @@ on_text(scopedstr, scopedstr.size());
    void window::on_window_shown()
    {
 
-      auto pshowwindow = øcreate_new < ::message::show_window >();
+      auto pshowwindow = create_newø < ::message::show_window >();
 
       pshowwindow->m_eusermessage = ::user::e_message_show_window;
 
@@ -2339,7 +2339,7 @@ on_text(scopedstr, scopedstr.size());
    void window::on_window_hidden()
    {
 
-      auto pshowwindow = øcreate_new < ::message::show_window >();
+      auto pshowwindow = create_newø < ::message::show_window >();
 
       pshowwindow->m_eusermessage = ::user::e_message_show_window;
 
@@ -2626,7 +2626,7 @@ return false;
    bool window::_on_gtk_scroll(GtkEventControllerScroll * peventcontrollerScroll, double dx, double dy)
    {
 
-      auto pmouse = øcreate_new<::message::mouse_wheel>();
+      auto pmouse = create_newø<::message::mouse_wheel>();
 
       pmouse->m_operatingsystemwindow = this->operating_system_window();
 

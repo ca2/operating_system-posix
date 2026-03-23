@@ -672,7 +672,7 @@ namespace windowing_q
 //
 //       }
 //
-//       auto pevent = øcreate_new < manual_reset_happening >();
+//       auto pevent = create_newø < manual_reset_happening >();
 //
 //       pevent->reset_happening();
 //

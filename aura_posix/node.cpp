@@ -66,7 +66,7 @@ namespace aura_posix
 //      ::extended::transport<appindicator> node::new_appindicator()
 //      {
 //
-//         auto pappindicator = øcreate<appindicator>();
+//         auto pappindicator = createø<appindicator>();
 //
 //         if (!pappindicator)
 //         {

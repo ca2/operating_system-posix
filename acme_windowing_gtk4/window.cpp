@@ -2470,7 +2470,7 @@ void window::_on_focus_changed(bool bHasFocus)
 
       _defer_get_window_rectangle_unlocked();
 
-      auto pmouse = øcreate_new<::user::mouse>();
+      auto pmouse = create_newø<::user::mouse>();
 
       pmouse->m_pointHost.x = x;
 
@@ -2530,7 +2530,7 @@ void window::_on_focus_changed(bool bHasFocus)
    void window::_on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y)
    {
 
-      auto pmouse = øcreate_new<::user::mouse>();
+      auto pmouse = create_newø<::user::mouse>();
 
       pmouse->m_pointHost.x = x;
 
@@ -2597,7 +2597,7 @@ void window::_on_focus_changed(bool bHasFocus)
    void window::_on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y)
    {
 
-      auto pmouse = øcreate_new<::user::mouse>();
+      auto pmouse = create_newø<::user::mouse>();
 
       pmouse->m_pointHost.x = x;
 

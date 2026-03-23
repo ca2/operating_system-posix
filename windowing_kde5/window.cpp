@@ -1288,7 +1288,7 @@ namespace windowing_kde5
       //if (::is_set(puserinteraction))
       {
 
-         auto pmouse = øcreate_new<::message::mouse>();
+         auto pmouse = create_newø<::message::mouse>();
 
          pmouse->m_operatingsystemwindow = this->operating_system_window();
 
@@ -1368,7 +1368,7 @@ namespace windowing_kde5
          //if (::is_set(puserinteraction))
          {
 
-            auto pmouse = øcreate_new<::message::mouse>();
+            auto pmouse = create_newø<::message::mouse>();
 
             pmouse->m_operatingsystemwindow = this->operating_system_window();
 
@@ -1461,7 +1461,7 @@ namespace windowing_kde5
 
          __check_refdbg;
 
-         auto pmouse = øcreate_new < ::message::mouse >();
+         auto pmouse = create_newø < ::message::mouse >();
 
          __check_refdbg;
 
@@ -1585,7 +1585,7 @@ namespace windowing_kde5
 
           //if (::is_set(pelemental))
           {
-             auto pkey = øcreate_new<::message::key>();
+             auto pkey = create_newø<::message::key>();
 
              pkey->m_eusermessage = ::user::e_message_key_down;
 
@@ -1696,7 +1696,7 @@ namespace windowing_kde5
 
           //if (::is_set(pelemental))
           {
-             auto pkey = øcreate_new<::message::key>();
+             auto pkey = create_newø<::message::key>();
 
              pkey->m_eusermessage = ::user::e_message_key_up;
 
@@ -1926,7 +1926,7 @@ namespace windowing_kde5
             //
             // return;
 
-            //auto pgraphics = øcreate<::draw2d::graphics>();
+            //auto pgraphics = createø<::draw2d::graphics>();
 
             int w = minimum(pitem->m_pimage2->width(), pqimage->width());
 
@@ -6596,7 +6596,7 @@ namespace windowing_kde5
    //       if(::is_set(pwindow))
    //       {
    //
-   //          auto pmouse = øcreate_new<::message::mouse>();
+   //          auto pmouse = create_newø<::message::mouse>();
    //
    //          pmouse->m_operatingsystemwindow = this->operating_system_window();
    //
@@ -6681,7 +6681,7 @@ namespace windowing_kde5
    // //
    // //      wayland_windowing()->post_ui_message(msg);
    //
-   //       auto pmouse = øcreate_new<::message::mouse>();
+   //       auto pmouse = create_newø<::message::mouse>();
    //
    //       pmouse->m_pacmewindowingwindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
    //
@@ -6841,7 +6841,7 @@ namespace windowing_kde5
    //       if (Δ != 0)
    //       {
    //
-   //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
+   //          auto pmousewheel = create_newø<::message::mouse_wheel>();
    //
    //          pmousewheel->m_operatingsystemwindow = this->operating_system_window();
    //
@@ -6871,7 +6871,7 @@ namespace windowing_kde5
    //       else if (bRet)
    //       {
    //
-   //          auto pmouse = øcreate_new<::message::mouse>();
+   //          auto pmouse = create_newø<::message::mouse>();
    //
    //          pmouse->m_operatingsystemwindow = this->operating_system_window();
    //
@@ -7104,7 +7104,7 @@ namespace windowing_kde5
    //       if (ekey != ::user::e_key_none)
    //       {
    //
-   //          auto pkey = øcreate_new<::message::key>();
+   //          auto pkey = create_newø<::message::key>();
    //
    //          pkey->
    //             m_pacmewindowingwindow = this;
@@ -7153,7 +7153,7 @@ namespace windowing_kde5
    //
    //    //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //    auto pkey = øcreate_new<::message::key>();
+   //    auto pkey = create_newø<::message::key>();
    //
    //    pkey->
    //    m_pacmewindowingwindow = this;
@@ -7582,7 +7582,7 @@ namespace windowing_kde5
    //         if (ekey != ::user::e_key_none)
    //         {
    //
-   //            auto pkey = øcreate_new<::message::key>();
+   //            auto pkey = create_newø<::message::key>();
    //
    //            pkey->m_operatingsystemwindow = this->operating_system_window();
    //
@@ -7648,7 +7648,7 @@ namespace windowing_kde5
    //
    //            //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //            auto pkey = øcreate_new<::message::key>();
+   //            auto pkey = create_newø<::message::key>();
    //
    //            pkey->m_operatingsystemwindow = this->operating_system_window();
    //

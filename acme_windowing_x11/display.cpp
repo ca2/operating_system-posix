@@ -183,7 +183,7 @@ namespace x11
             _enumerate_monitors();
 
 
-            //ødefer_construct_new(m_pmanualresethappeningDisplayOpen);
+            //defer_construct_newø(m_pmanualresethappeningDisplayOpen);
 
             //auto pmanualresethappeningDisplayOpen = m_pmanualresethappeningDisplayOpen;
 
@@ -1888,7 +1888,7 @@ namespace x11
     // for (guint i = 0; i < n_monitors; i++) {
     //    GdkMonitor *monitor = GDK_MONITOR(g_list_model_get_item(monitors, i));
     //
-    //    //auto pmonitor = øcreate_new < ::windowing::monitor >();
+    //    //auto pmonitor = create_newø < ::windowing::monitor >();
     //
     //    //pmonitor->m_pDisplay = this;
     //

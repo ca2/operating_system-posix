@@ -1282,7 +1282,7 @@ namespace windowing_lxq1
 //       if (::is_set(puserinteraction))
 //       {
 //
-//          auto pmouse = øcreate_new<::message::mouse>();
+//          auto pmouse = create_newø<::message::mouse>();
 //
 //          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -1360,7 +1360,7 @@ namespace windowing_lxq1
 //          //if (::is_set(pwindow))
 //          {
 //
-//             auto pmouse = øcreate_new<::message::mouse>();
+//             auto pmouse = create_newø<::message::mouse>();
 //
 //             pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -1453,7 +1453,7 @@ namespace windowing_lxq1
 //       //if (::is_set(pwindow))
 //       {
 //
-//          auto pmouse = øcreate_new<::message::mouse>();
+//          auto pmouse = create_newø<::message::mouse>();
 //
 //          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -5422,7 +5422,7 @@ namespace windowing_lxq1
 //    //       if(::is_set(pwindow))
 //    //       {
 //    //
-//    //          auto pmouse = øcreate_new<::message::mouse>();
+//    //          auto pmouse = create_newø<::message::mouse>();
 //    //
 //    //          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //    //
@@ -5507,7 +5507,7 @@ namespace windowing_lxq1
 //    // //
 //    // //      wayland_windowing()->post_ui_message(msg);
 //    //
-//    //       auto pmouse = øcreate_new<::message::mouse>();
+//    //       auto pmouse = create_newø<::message::mouse>();
 //    //
 //    //       pmouse->m_pacmewindowingwindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
 //    //
@@ -5667,7 +5667,7 @@ namespace windowing_lxq1
 //    //       if (Δ != 0)
 //    //       {
 //    //
-//    //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
+//    //          auto pmousewheel = create_newø<::message::mouse_wheel>();
 //    //
 //    //          pmousewheel->m_operatingsystemwindow = this->operating_system_window();
 //    //
@@ -5697,7 +5697,7 @@ namespace windowing_lxq1
 //    //       else if (bRet)
 //    //       {
 //    //
-//    //          auto pmouse = øcreate_new<::message::mouse>();
+//    //          auto pmouse = create_newø<::message::mouse>();
 //    //
 //    //          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //    //
@@ -5930,7 +5930,7 @@ namespace windowing_lxq1
 //    //       if (ekey != ::user::e_key_none)
 //    //       {
 //    //
-//    //          auto pkey = øcreate_new<::message::key>();
+//    //          auto pkey = create_newø<::message::key>();
 //    //
 //    //          pkey->
 //    //             m_pacmewindowingwindow = this;
@@ -5979,7 +5979,7 @@ namespace windowing_lxq1
 //    //
 //    //    //Wayland_data_device_set_serial(input->data_device, serial);
 //    //
-//    //    auto pkey = øcreate_new<::message::key>();
+//    //    auto pkey = create_newø<::message::key>();
 //    //
 //    //    pkey->
 //    //    m_pacmewindowingwindow = this;
@@ -6407,7 +6407,7 @@ namespace windowing_lxq1
 //    //         if (ekey != ::user::e_key_none)
 //    //         {
 //    //
-//    //            auto pkey = øcreate_new<::message::key>();
+//    //            auto pkey = create_newø<::message::key>();
 //    //
 //    //            pkey->m_operatingsystemwindow = this->operating_system_window();
 //    //
@@ -6473,7 +6473,7 @@ namespace windowing_lxq1
 //    //
 //    //            //Wayland_data_device_set_serial(input->data_device, serial);
 //    //
-//    //            auto pkey = øcreate_new<::message::key>();
+//    //            auto pkey = create_newø<::message::key>();
 //    //
 //    //            pkey->m_operatingsystemwindow = this->operating_system_window();
 //    //
