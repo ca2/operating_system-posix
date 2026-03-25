@@ -1926,6 +1926,112 @@ namespace acme_posix
 
    int node::command_system(const ::scoped_string & scopedstr,  const ::trace_function & functionTrace, const ::file::path & pathWorkingDirectory, ::e_display edisplay)
    {
+
+      int iExitCode = -1;
+
+      if (functionTrace)
+      {
+
+         ::string strOutput;
+
+         ::string strError;
+
+         iExitCode = command_system_memory(scopedstr, [functionTrace, &strOutput, &strError](enum_trace_level etracelevel, const void * p, memsize s)
+            {
+
+               string strMessage((const char *) p, s);
+
+               if (etracelevel == e_trace_level_information)
+               {
+
+                  strOutput += strMessage;
+
+      #if DEEP_LOG_HERE > 6
+
+      #ifdef _DEBUG
+
+      information() << "partial stdout output: \"" << strOutput << "\"";
+
+      #endif
+
+      #endif
+
+                  ::str::get_lines(strOutput, false, [&](auto & str, bool bCarriage)
+                  {
+
+                     functionTrace(e_trace_level_information, str, bCarriage);
+
+                  });
+
+               }
+               else if (etracelevel == e_trace_level_error)
+               {
+                  strError += strMessage;
+
+      #if DEEP_LOG_HERE > 6
+
+      #ifdef _DEBUG
+
+                  error() << "partial stderr output: \"" << strError << "\"";
+
+      #endif
+
+      #endif
+
+
+      //               if(ecommandsystem & e_command_system_inline_log)
+      //               {
+      //
+      //                  fprintf(stderr, "%s", strMessage.c_str());
+      //
+      //               }
+      //
+      //               ::str::get_lines(straOutput, strError, "E: ", false, &singlelock, pfileLog);
+
+                  ::str::get_lines(strError, false, [&](auto &str, bool bCarriage)
+                  {
+
+                     functionTrace(e_trace_level_error, str, bCarriage);
+
+                  });
+               }
+
+
+            }, pathWorkingDirectory, edisplay);
+
+         ::str::get_lines(strOutput, true, [&](auto &str, bool bCarriage)
+         {
+
+            functionTrace(e_trace_level_information, str, bCarriage);
+
+         });
+
+         ::str::get_lines(strError, true, [&](auto &str, bool bCarriage)
+         {
+
+            functionTrace(e_trace_level_error, str, bCarriage);
+
+         });
+
+         //::str::get_lines(straOutput, strOutput, "I: ", true, &singlelock, pfileLog);
+
+         //::str::get_lines(straOutput, strError, "E: ", true, &singlelock, pfileLog);
+
+      }
+      else
+      {
+
+         iExitCode = command_system_memory(scopedstr, {}, pathWorkingDirectory, edisplay);
+
+      }
+
+      return iExitCode;
+
+   }
+
+
+   int node::command_system_memory(const ::scoped_string & scopedstr,  const ::memory_dump_function & memorydumpfunction, const ::file::path & pathWorkingDirectory, ::e_display edisplay)
+   {
    
 #if DEEP_LOG_HERE > 6
    
@@ -2318,32 +2424,39 @@ namespace acme_posix
 
                bRead = true;
 
-               string strMessage(buffer, iOutRead);
-
-               strOutput += strMessage;
-            
-#if DEEP_LOG_HERE > 6
-    
-#ifdef _DEBUG
-            
-               information() << "partial stdout output: \"" << strOutput << "\""; 
-            
-#endif
-
-#endif
-
-               if(functionTrace)
+               if (memorydumpfunction)
                {
 
-                  ::str::get_lines(strOutput, false, [&](auto & str, bool bCarriage)
-                  {
-
-                     functionTrace(e_trace_level_information, str, bCarriage);
-
-                  });
-              // functionTrace(e_trace_level_information, strMessage);
+                  memorydumpfunction(e_trace_level_information, buffer, iOutRead);
 
                }
+
+//                string strMessage(buffer, iOutRead);
+//
+//                strOutput += strMessage;
+//
+// #if DEEP_LOG_HERE > 6
+//
+// #ifdef _DEBUG
+//
+//                information() << "partial stdout output: \"" << strOutput << "\"";
+//
+// #endif
+//
+// #endif
+//
+//                if(functionTrace)
+//                {
+//
+//                   ::str::get_lines(strOutput, false, [&](auto & str, bool bCarriage)
+//                   {
+//
+//                      functionTrace(e_trace_level_information, str, bCarriage);
+//
+//                   });
+//               // functionTrace(e_trace_level_information, strMessage);
+//
+//                }
 
             //::str::get_lines(straOutput, strOutput, "I: ", false, &singlelock, pfileLog);
 
@@ -2356,39 +2469,10 @@ namespace acme_posix
 
                bRead = true;
 
-               string strMessage(buffer, iErrRead);
-
-               strError += strMessage;
-            
-#if DEEP_LOG_HERE > 6
-            
-#ifdef _DEBUG            
-            
-               information() << "partial stderr output: \"" << strOutput << "\""; 
-
-#endif
-
-#endif
-
-
-//               if(ecommandsystem & e_command_system_inline_log)
-//               {
-//
-//                  fprintf(stderr, "%s", strMessage.c_str());
-//
-//               }
-//
-//               ::str::get_lines(straOutput, strError, "E: ", false, &singlelock, pfileLog);
-
-               if(functionTrace)
+               if (memorydumpfunction)
                {
 
-                  ::str::get_lines(strError, false, [&](auto &str, bool bCarriage)
-                  {
-
-                     functionTrace(e_trace_level_error, str, bCarriage);
-
-                  });
+                  memorydumpfunction(e_trace_level_error, buffer, iErrRead);
 
                }
 
@@ -2535,28 +2619,7 @@ namespace acme_posix
 //
 //   }
 
-      if(functionTrace)
-      {
 
-         ::str::get_lines(strOutput, true, [&](auto &str, bool bCarriage)
-         {
-
-            functionTrace(e_trace_level_information, str, bCarriage);
-
-         });
-
-         ::str::get_lines(strError, true, [&](auto &str, bool bCarriage)
-         {
-
-            functionTrace(e_trace_level_error, str, bCarriage);
-
-         });
-
-         //::str::get_lines(straOutput, strOutput, "I: ", true, &singlelock, pfileLog);
-
-         //::str::get_lines(straOutput, strError, "E: ", true, &singlelock, pfileLog);
-
-      }
 
       return iExitCode;
 

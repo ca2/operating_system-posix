@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "http.h"
 #include "_nano_http.h"
+#include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/platform/node.h"
 
 
@@ -13,12 +14,16 @@ namespace command_line
 
    namespace nano
    {
+
       namespace http
       {
+
+
          http::http()
          {
 
-m_eapp = e_app_not_initialized;
+            m_eapp = e_app_not_initialized;
+
          }
 
 
@@ -28,7 +33,6 @@ m_eapp = e_app_not_initialized;
             //curl_global_cleanup();
 
          }
-
 
 
          enum_app http::_http_app()
@@ -41,15 +45,20 @@ m_eapp = e_app_not_initialized;
 
                   m_eapp = e_app_curl;
 
-::string strVersion = node()->get_posix_shell_command_output("curl --version");
-::string_array_base stra;
-stra.explode(" ", strVersion);
-if(stra.size() >= 2)
-{
-strVersion = stra[1];
-}
+                  ::string strVersion = node()->get_posix_shell_command_output("curl --version");
 
-m_strUserAgent = "curl/" + strVersion + "/nano_http_command_line";
+                  ::string_array_base stra;
+
+                  stra.explode(" ", strVersion);
+
+                  if(stra.size() >= 2)
+                  {
+
+                     strVersion = stra[1];
+
+                  }
+
+                  m_strUserAgentFallback = "curl/" + strVersion + "/nano_http_command_line";
 
                }
                else if(node()->has_posix_shell_command("wget"))
@@ -57,12 +66,31 @@ m_strUserAgent = "curl/" + strVersion + "/nano_http_command_line";
 
                   m_eapp = e_app_wget;
 
-               } else
+                  ::string strVersion = node()->get_posix_shell_command_output("wget --version");
+
+                  ::string_array_base stra;
+
+                  stra.explode(" ", strVersion);
+
+                  // Expected: "GNU Wget 1.21.4 ..."
+                  if(stra.size() >= 3)
+                  {
+                     strVersion = stra[2];
+                  }
+                  else
+                  {
+                     strVersion = "unknown";
+                  }
+
+                  m_strUserAgentFallback = "wget/" + strVersion + "/nano_http_command_line";
+               }
+               else
                {
 
                   m_eapp = e_app_unknown;
 
                }
+
             }
 
             return m_eapp;
@@ -87,49 +115,50 @@ m_strUserAgent = "curl/" + strVersion + "/nano_http_command_line";
          //   }
 
 
-         void http::perform(::nano::http::get * defer_get)
-         {
-
-            auto pgetHold = ::as_pointer(defer_get);
-
-//               pasynchronoushttpresponse->m_function = [](::pointer < ::nano::asynchronous_http_response > pasynchronoushttpresponse)
-//          //      {                                s_http_response(pasynchronoushttpresponse);
-////            //      };
-////
-////            //::pointer < ::nano::asynchronous_http_response > passynchronoushttpdata(e_pointer_transfer, (::particle *) userdata);
-////            fork([this,pgetHold]()
-////            {
-//
-//               auto pcurleasy = create_newø < curl_easy >();
-//
-//               pcurleasy->get(pgetHold);
-//
-//               pgetHold->set_finished();
-//
-//              //pasynchronoushttpresponse->m_happening.set_happening();
-//              //pasynchronoushttpresponse->m_function(pasynchronoushttpresponse);
-//            });
-//
-//            //nano_asynchronous_http_memory(scopedstrUrl.as_string().c_str(), s_http_response, pasynchronoushttpresponse.detach_particle());
-
-         }
-
-
-         ::url::url http::get_effective_url(const ::url::url & url)
+         void http::perform(::nano::http::get * pnanohttpget)
          {
 
             auto eapp = _http_app();
 
-            if (eapp == e_app_curl) {
+            if (eapp == e_app_curl)
+            {
 
-               return _curl_get_effective_url(url);
+               _curl(pnanohttpget);
 
-            } else if (eapp == e_app_wget) {
+            }
+            else if (eapp == e_app_wget)
+            {
 
-               return _wget_get_effective_url(url);
+               _wget(pnanohttpget);
 
-            } else {
+            }
+            else
+            {
 
+            }
+
+         }
+
+
+         ::url::url http::get_effective_url(const ::url::url & url, ::property_set & set)
+         {
+
+            auto eapp = _http_app();
+
+            if (eapp == e_app_curl)
+            {
+
+               return _curl_get_effective_url(url, set);
+
+            }
+            else if (eapp == e_app_wget)
+            {
+
+               return _wget_get_effective_url(url, set);
+
+            }
+            else
+            {
 
                return {};
 
@@ -138,7 +167,7 @@ m_strUserAgent = "curl/" + strVersion + "/nano_http_command_line";
          }
 
 
-         bool http::check_url_ok(const ::url::url & url)
+         bool http::check_url_ok(const ::url::url & url, ::property_set & set)
          {
 
             auto eapp = _http_app();
@@ -146,13 +175,13 @@ m_strUserAgent = "curl/" + strVersion + "/nano_http_command_line";
             if(eapp == e_app_curl)
             {
 
-               return _curl_check_url_ok(url);
+               return _curl_check_url_ok(url, set);
 
             }
             else if(eapp == e_app_wget)
             {
 
-               return _wget_check_url_ok(url);
+               return _wget_check_url_ok(url, set);
 
             } else
 
@@ -165,61 +194,152 @@ m_strUserAgent = "curl/" + strVersion + "/nano_http_command_line";
 
          }
 
-            ::string http::get(const ::url::url & url)
-            {
 
-               auto eapp = _http_app();
+         // void http::_http_command(const scoped_string & scopedstrCommand, ::nano::http::get * pnanohttpget)
+         // {
+         //
+         //    ::memory memoryOutput;
+         //
+         //    int iExitCode = node()->get_command_output_memory(
+         //       memoryOutput,
+         //       scopedstrCommand);
+         //
+         //    unsigned char * pData = memoryOutput.data();
+         //
+         //    unsigned char * pBeginBody = nullptr;
+         //
+         //    auto pEndHeaders = memoryOutput.find("\r\n\r\n");
+         //
+         //    if(pEndHeaders)
+         //    {
+         //
+         //       pBeginBody = pEndHeaders + 4;
+         //
+         //    }
+         //    else
+         //    {
+         //
+         //       pEndHeaders = memoryOutput.find("\n\n");
+         //
+         //       if (pEndHeaders)
+         //       {
+         //
+         //          pBeginBody = pEndHeaders + 2;
+         //
+         //       }
+         //
+         //    }
+         //
+         //    ::string strOutHeaders;
+         //
+         //    if(pEndHeaders)
+         //    {
+         //
+         //       strOutHeaders.assign((const char *) pData, pEndHeaders - pData);
+         //
+         //       memoryOutput.assign(pBeginBody, memoryOutput.end() - pBeginBody);
+         //
+         //    }
+         //
+         //    pnanohttpget->get_memory_response()->assign(memoryOutput);
+         //
+         //    pnanohttpget->property_set().parse_network_headers(strOutHeaders);
+         //
+         // }
 
-               if(eapp == e_app_curl)
-               {
-
-                  return _curl_get(url);
-
-               }
-               else if(eapp == e_app_wget)
-               {
-
-                  return _wget_get(url);
-
-               }
-               else
-               {
-
-
-                  return {};
-
-               }
-
-            }
-
-
-            void http::download(const ::file::path & path, const ::url::url & url)
-            {
-
-               auto eapp = _http_app();
-
-               if(eapp == e_app_curl)
-               {
-
-                  _curl_download(path, url);
-
-               }
-               else if(eapp == e_app_wget)
-               {
-
-                  _wget_download(path, url);
-
-               }
-               else
-               {
 
 
 
-               }
+         void http::_http_download(const scoped_string & scopedstrCommand, ::property_set & set)
+         {
 
 
          }
 
+
+
+
+         //    ::string http::get(const ::url::url & url, ::property_set & set)
+         //    {
+         //
+         //       auto eapp = _http_app();
+         //
+         //       if(eapp == e_app_curl)
+         //       {
+         //
+         //          return _curl_as_memory(url, set);
+         //
+         //       }
+         //       else if(eapp == e_app_wget)
+         //       {
+         //
+         //          return _wget_as_memory(url, set);
+         //
+         //       }
+         //       else
+         //       {
+         //
+         //          return {};
+         //
+         //       }
+         //
+         //    }
+         //
+         //
+         // ::memory http::as_memory(const ::url::url & url, ::property_set & set)
+         // {
+         //
+         //    auto eapp = _http_app();
+         //
+         //    if(eapp == e_app_curl)
+         //    {
+         //
+         //       return _curl_as_memory(url, set);
+         //
+         //    }
+         //    else if(eapp == e_app_wget)
+         //    {
+         //
+         //       return _wget_as_memory(url, set);
+         //
+         //    }
+         //    else
+         //    {
+         //
+         //       return {};
+         //
+         //    }
+         //
+         // }
+
+         void http::download(const ::file::path & pathFile, const ::url::url& url, ::property_set & set)
+         {
+
+            directory_system()->create(pathFile.folder());
+
+            auto eapp = _http_app();
+
+            if(eapp == e_app_curl)
+            {
+
+               _curl_download(pathFile, url, set);
+
+            }
+            else if(eapp == e_app_wget)
+            {
+
+               _wget_download(pathFile, url, set);
+
+            }
+            else
+            {
+
+
+
+            }
+
+
+         }
 
 
       } // namespace nano

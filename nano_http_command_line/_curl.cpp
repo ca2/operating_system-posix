@@ -31,12 +31,21 @@ namespace command_line
       {
 
 
-         bool http::_curl_check_url_ok(const ::url::url & url)
+         bool http::_curl_check_url_ok(const ::url::url & url, ::property_set & set)
          {
 
             ::string strCommand;
 
-            strCommand = "curl -A \""  + m_strUserAgent +  "\" --http1.1 --silent -I " + url.as_string();
+            ::string strUserAgent = set["in_headers"]["user-agent"];
+
+            if (strUserAgent.is_empty())
+            {
+
+               strUserAgent = m_strUserAgentFallback;
+
+            }
+
+            strCommand = "curl -A \""  + strUserAgent +  "\" --http1.1 --silent -I " + url.as_string();
 
             auto strOutput = node()->get_command_output(strCommand);
 
@@ -111,12 +120,21 @@ namespace command_line
          }
 
 
-         ::url::url http::_curl_get_effective_url(const ::url::url & url)
+         ::url::url http::_curl_get_effective_url(const ::url::url & url, ::property_set & set)
          {
 
             ::string strCommand;
 
-            strCommand = "curl -A \""  + m_strUserAgent +  "\" --http1.1 -Ls -o /dev/null -w %{url_effective} " + url.as_string();
+            ::string strUserAgent = set["in_headers"]["user-agent"];
+
+            if (strUserAgent.is_empty())
+            {
+
+               strUserAgent = m_strUserAgentFallback;
+
+            }
+
+            strCommand = "curl -A \""  + strUserAgent +  "\" --http1.1 -Ls -o /dev/null -w %{url_effective} " + url.as_string();
 
             auto strEffectiveUrl = node()->get_command_output(strCommand);
 
@@ -126,41 +144,104 @@ namespace command_line
 
 
 
-         ::string http::_curl_get(const ::url::url & url)
+         void http::_curl(::nano::http::get * pnanohttpget)
          {
+
+            auto strUserAgent = pnanohttpget->m_strUserAgent;
+
+            if (strUserAgent.is_empty())
+            {
+
+               strUserAgent = m_strUserAgentFallback;
+
+            }
+
+            auto strUrl = pnanohttpget->url().as_string();
 
             ::string strCommand;
 
-            ::string strUrl(url.as_string());
+            strCommand.format("curl -s -i -A \"{}\" --http1.0 \"{}\"", strUserAgent, strUrl);
 
-            strCommand.formatf("curl -A \""  + m_strUserAgent +  "\" --http1.0 %s", strUrl.c_str());
+            ::memory memoryOutput;
 
-            ::string strOutput = node()->get_command_output(strCommand);
+            ::memory memoryError;
 
-            return strOutput;
+            int iExitCode = node()->get_command_output_memory(
+               memoryOutput,
+               memoryError,
+               strCommand);
+
+            unsigned char * pData = memoryOutput.data();
+
+            unsigned char * pBeginBody = nullptr;
+
+            auto pEndHeaders = memoryOutput.find("\r\n\r\n");
+
+            if(pEndHeaders)
+            {
+
+               pBeginBody = pEndHeaders + 4;
+
+            }
+            else
+            {
+
+               pEndHeaders = memoryOutput.find("\n\n");
+
+               if (pEndHeaders)
+               {
+
+                  pBeginBody = pEndHeaders + 2;
+
+               }
+
+            }
+
+            ::string strOutHeaders;
+
+            if(pEndHeaders)
+            {
+
+               strOutHeaders.assign((const char *) pData, pEndHeaders - pData);
+
+               memoryOutput.assign(pBeginBody, memoryOutput.end() - pBeginBody);
+
+            }
+
+            pnanohttpget->get_memory_response()->assign(memoryOutput);
+
+            pnanohttpget->property_set().parse_network_headers(strOutHeaders);
 
          }
 
 
-
-
-         void http::_curl_download(const ::file::path & path, const ::url::url & url)
+         void http::_curl_download(const ::file::path & path, const ::url::url & url, ::property_set & set)
          {
 
             ::string strCommand;
 
             ::string strUrl(url.as_string());
+
+            ::string strUserAgent = set["in_headers"]["user-agent"];
             
-            print_line("Using the following user agent to download: \""  + m_strUserAgent +  "\".");
+            print_line("Using the following user agent to download: \""  + strUserAgent +  "\".");
 
-            strCommand.formatf("curl -A \""  + m_strUserAgent +  "\" --http1.0 %s --output \"%s\"", strUrl.c_str(), path.c_str());
+            strCommand.formatf("curl -s -D - -A \"%s\" \"%s\" -o \"%s\"",strUserAgent.c_str(), strUrl.c_str(), path.c_str());
 
-            int iExitCode = node()->command_system(strCommand, 2_hour);
+            ::memory memoryOutput;
 
-            if(iExitCode != 0)
+            ::memory memoryError;
+
+            int iExitCode = node()->get_command_output_memory(memoryOutput, memoryError, strCommand);
+
+            ::string strOutHeaders;
+
+            strOutHeaders = memoryOutput.as_utf8();
+
+            if (strOutHeaders.has_character())
             {
 
-               throw exception(::error_failed);
+               set.parse_network_headers(strOutHeaders);
 
             }
 

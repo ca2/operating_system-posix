@@ -34,10 +34,19 @@ namespace command_line
       {
 
 
-         bool http::_wget_check_url_ok(const ::url::url & url)
+         bool http::_wget_check_url_ok(const ::url::url & url, ::property_set & set)
          {
 
             ::string strCommand;
+
+            ::string strUserAgent = set["in_headers"]["user-agent"];
+
+            if (strUserAgent.is_empty())
+            {
+
+               strUserAgent = m_strUserAgentFallback;
+
+            }
 
             ::string strUrl(url.as_string());
 
@@ -123,7 +132,7 @@ namespace command_line
          }
 
 
-         ::url::url http::_wget_get_effective_url(const ::url::url & url)
+         ::url::url http::_wget_get_effective_url(const ::url::url & url, ::property_set & set)
          {
 
             ::string strCommand;
@@ -150,7 +159,7 @@ namespace command_line
 
                if (newline.is_empty()) {
 
-                  return strUrl;
+                  break;
 
                }
 
@@ -172,44 +181,104 @@ namespace command_line
 
             }
 
+            strUrl.ends_eat(" [following]");
+
+            if (strUrl.is_empty())
+            {
+
+               strUrl = url.as_string();
+
+               return strUrl;
+
+            }
+
             return strUrl;
 
          }
 
 
-
-         ::string http::_wget_get(const ::url::url & url)
+         void http::_wget(::nano::http::get * pnanohttpget)
          {
+
+            auto strUserAgent = pnanohttpget->m_strUserAgent;
+
+            if (strUserAgent.is_empty())
+            {
+
+               strUserAgent = m_strUserAgentFallback;
+
+            }
+
+            auto strUrl = pnanohttpget->url().as_string();
 
             ::string strCommand;
 
-            ::string strUrl(url.as_string());
+            strCommand.format("wget -q -S -O - --user-agent=\"{}\" \"{}\"", strUserAgent, strUrl);
 
-            strCommand.formatf("wget -qO - %s", strUrl.c_str());
+            ::memory memoryOutput;
 
-            ::string strOutput = node()->get_command_output(strCommand);
+            ::memory memoryError;
 
-            return strOutput;
+            int iExitCode = node()->get_command_output_memory(
+               memoryOutput,
+               memoryError,
+               strCommand);
+
+            ::string strOutHeaders;
+
+            strOutHeaders = memoryError.as_utf8();
+
+            pnanohttpget->get_memory_response()->assign(memoryOutput);
+
+            string_array_base straOutHeaders;
+
+            straOutHeaders.add_lines(strOutHeaders, true);
+
+            straOutHeaders.trim();
+
+            pnanohttpget->property_set().parse_network_headers(straOutHeaders);
 
          }
 
 
-
-         void http::_wget_download(const ::file::path & path, const ::url::url & url)
+         void http::_wget_download(const ::file::path & path, const ::url::url & url, ::property_set & set )
          {
 
             ::string strCommand;
 
             ::string strUrl(url.as_string());
 
-            strCommand.formatf("wget %s -O \"%s\"", strUrl.c_str(), path.c_str());
+            auto strUserAgent = set["in_headers"]["user-agent"].as_string();
 
-            int iExitCode = node()->command_system(strCommand, 2_hour);
-
-            if(iExitCode != 0)
+            if (strUserAgent.is_empty())
             {
 
-               throw exception(::error_failed);
+               strUserAgent = m_strUserAgentFallback;
+
+            }
+
+            strCommand.formatf("wget -q -S --user-agent=\"%s\" \"%s\" -O \"%s\"", strUserAgent.c_str(),strUrl.c_str(), path.c_str());
+
+            ::memory memoryOutput;
+
+            ::memory memoryError;
+
+            int iExitCode = node()->get_command_output_memory(memoryOutput, memoryError, strCommand);
+
+            ::string strOutHeaders;
+
+            strOutHeaders = memoryError.as_utf8();
+
+            if (strOutHeaders.has_character())
+            {
+
+               string_array_base straOutHeaders;
+
+               straOutHeaders.add_lines(strOutHeaders, true);
+
+               straOutHeaders.trim();
+
+               set.parse_network_headers(straOutHeaders);
 
             }
 
