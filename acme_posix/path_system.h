@@ -40,6 +40,8 @@ namespace acme_posix
 
       void create_symbolic_link(const ::scoped_string & scopedstrLink, const ::scoped_string& scopedstrSource)override;
 
+      void symbolic_link(const ::file::path & pathTarget, const ::file::path & pathSource) override;
+
 
    };
 

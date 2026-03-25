@@ -17,6 +17,7 @@
 #include "acme/parallelization/single_lock.h"
 #include "acme/platform/application.h"
 #include "acme/platform/system.h"
+#include "acme/prototype/datetime/datetime.h"
 #include "acme/prototype/string/command_line.h"
 #include "acme/prototype/string/str.h"
 #include "acme/prototype/prototype/memory.h"
@@ -2977,14 +2978,86 @@ namespace acme_posix
 //      }
       else
       {
+         int iTryInstallGnomeTerminal = 0;
+
+         while (true)
+         {
+
+            if (system()->is_operating_system_package_installed("gnome-terminal"))
+            {
+
+               break;
+
+            }
+
+            if (iTryInstallGnomeTerminal >= 3)
+            {
+
+               return -1;
+
+            }
+
+            iTryInstallGnomeTerminal++;
+
+            if (system()->is_operating_system_package_installed("ptyxis"))
+            {
+
+               printf_line("gnome-terminal isn't installed");
+
+               printf_line("going to try to install gnome-terminal");
+
+               auto strInstallCommand = system()->install_operating_system_packages_command_line({"gnome-terminal"});
+
+               strInstallCommand.find_replace("\\", "\\\\");
+
+               strInstallCommand.find_replace("\"", "\\\"");
+
+               strInstallCommand.find_replace("\n", "\\n");
+
+               auto pathFolder = directory()->home()/".tmp";
+
+               directory_system()->create(pathFolder);
+
+               ::string strName;
+
+               strName.format("installing_gnome-terminal_{}.txt", datetime()->date_time_text_for_file());
+
+               auto pathExitCode = pathFolder / strName;
+
+               class ::time timeStart;
+
+               timeStart.Now();
+
+               iExitCode = this->command_system(
+               "ptyxis -- bash -c \"" + strInstallCommand+"; exitcode=$?; echo $exitcode > '" + pathExitCode +"'\"",
+                       tracefunction);
+
+               while (timeStart.elapsed() < 1_min)
+               {
+
+                  ::string strExitCode = file()->as_string(pathExitCode);
+
+                  if (strExitCode.has_character())
+                  {
+
+                     break;
+
+                  }
+
+               }
+
+
+            }
+
+         }
 
          strCommand.find_replace("\\", "\\\\");
 
          strCommand.find_replace("\"", "\\\"");
 
-          strCommand.find_replace("\n", "\\n");
+         strCommand.find_replace("\n", "\\n");
 
-          iExitCode = this->command_system(
+         iExitCode = this->command_system(
                  "gnome-terminal --wait -- /bin/bash -c \"" + strCommand + "\"",
                  tracefunction);
 
