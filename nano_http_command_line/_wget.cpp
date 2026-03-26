@@ -54,9 +54,11 @@ namespace command_line
 
             debug() << strCommand;
 
-            ::string strOutput;
+            ::string strOut;
 
-            auto iExitCode = node()->get_posix_shell_command_output(strOutput, strCommand);
+            ::string strErr;
+
+            auto iExitCode = node()->get_posix_shell_command_output(strOut, strErr, strCommand);
 
             //auto ptmpname = start_temporary_file_name();
 
@@ -66,7 +68,7 @@ namespace command_line
 
             //rcmdauto psz = end_temporary_file_name_as_string(ptmpname);
 
-            if (strOutput.is_empty()) {
+            if (strOut.is_empty()) {
 
                return false;
 
@@ -74,13 +76,15 @@ namespace command_line
 
             ::string_array_base stra;
 
-            stra.add_lines(strOutput);
+            stra.add_lines(strOut);
 
-            for (auto &newline: stra) {
+            for (auto &newline: stra)
+            {
 
 //auto pszNewLine = get_line(scopedstr, psz);
 
-               if (newline.is_empty()) {
+               if (newline.is_empty())
+               {
 
                   return false;
 
@@ -141,9 +145,13 @@ namespace command_line
 
             strCommand.formatf("wget --spider %s", strUrl.c_str());
 
-            auto strOutput = node()->get_command_output(strCommand);
+            ::string strOutput;
 
-            if (strOutput.is_empty()) {
+            ::string strError;
+
+            auto iExitCode= node()->get_command_output(strOutput, strError, strCommand);
+
+            if (strError.is_empty()) {
 
                return strUrl;
 
@@ -151,7 +159,7 @@ namespace command_line
 
             ::string_array_base stra;
 
-            stra.add_lines(strOutput);
+            stra.add_lines(strError);
 
             for (auto &newline: stra) {
 

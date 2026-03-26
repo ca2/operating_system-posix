@@ -26,8 +26,8 @@
 
 #include "acme/_operating_system.h"
 #include "acme/operating_system/ansi/_pthread.h"
-
-
+#include <poll.h>
+#include "pty_process.h"
 #define DEEP_LOG_HERE 0
 
 template < typename POINTER_TYPE >
@@ -1936,7 +1936,7 @@ namespace acme_posix
 
          ::string strError;
 
-         iExitCode = command_system_memory(scopedstr, [functionTrace, &strOutput, &strError](enum_trace_level etracelevel, const void * p, memsize s)
+         iExitCode = command_system_memory(scopedstr, false, [functionTrace, &strOutput, &strError](enum_trace_level etracelevel, const void * p, memsize s)
             {
 
                string strMessage((const char *) p, s);
@@ -2021,7 +2021,7 @@ namespace acme_posix
       else
       {
 
-         iExitCode = command_system_memory(scopedstr, {}, pathWorkingDirectory, edisplay);
+         iExitCode = command_system_memory(scopedstr, false, {}, pathWorkingDirectory, edisplay);
 
       }
 
@@ -2030,7 +2030,7 @@ namespace acme_posix
    }
 
 
-   int node::command_system_memory(const ::scoped_string & scopedstr,  const ::memory_dump_function & memorydumpfunction, const ::file::path & pathWorkingDirectory, ::e_display edisplay)
+   int node::command_system_memory(const ::scoped_string & scopedstr, bool bInteractive, const ::memory_dump_function & memorydumpfunction, const ::file::path & pathWorkingDirectory, ::e_display edisplay)
    {
    
 #if DEEP_LOG_HERE > 6
@@ -2082,7 +2082,45 @@ namespace acme_posix
       int stdin_fds[2] = {};
    
       auto range = scopedstr();
-      
+
+      int flagsStdIn = 0;
+
+      if (bInteractive)
+      {
+
+         iError = pipe(stdin_fds);
+
+         if (iError != 0)
+         {
+
+            auto cerrornumber = c_error_number();
+
+            estatus = cerrornumber.estatus();
+
+            throw ::exception(estatus);
+
+         }
+
+
+         // Make stdin non-blocking
+         flagsStdIn = fcntl(STDIN_FILENO, F_GETFL, 0);
+         if (flagsStdIn == -1) {
+            auto cerrornumber = c_error_number();
+
+            estatus = cerrornumber.estatus();
+
+            throw ::exception(estatus);
+         }
+         if (fcntl(STDIN_FILENO, F_SETFL, flagsStdIn | O_NONBLOCK) == -1) {
+            auto cerrornumber = c_error_number();
+
+            estatus = cerrornumber.estatus();
+
+            throw ::exception(estatus);
+         }
+
+      }
+
       ::string strExecutable(range.consume_command_line_argument());
 //#if !defined(_APPLE_IOS_)
 //   char **argv;
@@ -2242,8 +2280,11 @@ namespace acme_posix
       fcntl(stdout_fds[1], F_SETFL, fcntl(stdout_fds[1], F_GETFL) | O_CLOEXEC);
       fcntl(stderr_fds[0], F_SETFL, fcntl(stderr_fds[0], F_GETFL) | O_CLOEXEC);
       fcntl(stderr_fds[1], F_SETFL, fcntl(stderr_fds[1], F_GETFL) | O_CLOEXEC);
-      fcntl(stdin_fds[0], F_SETFL, fcntl(stdin_fds[0], F_GETFL) | O_CLOEXEC);
-      fcntl(stdin_fds[1], F_SETFL, fcntl(stdin_fds[1], F_GETFL) | O_CLOEXEC);
+      if (bInteractive)
+      {
+         fcntl(stdin_fds[0], F_SETFL, fcntl(stdin_fds[0], F_GETFL) | O_CLOEXEC);
+         fcntl(stdin_fds[1], F_SETFL, fcntl(stdin_fds[1], F_GETFL) | O_CLOEXEC);
+      }
 
       string strOutput;
 
@@ -2253,6 +2294,19 @@ namespace acme_posix
 
       if (!pid)
       {
+
+         if (bInteractive)
+         {
+            // ---- Child ----
+            close(stdin_fds[1]); // child doesn't write to pipe
+
+            // Make pipe read end become child's stdin
+            if (dup2(stdin_fds[0], STDIN_FILENO) == -1) {
+               perror("dup2");
+               _exit(1);
+            }
+            close(stdin_fds[0]);
+         }
 
          while ((dup2(stdout_fds[1], STDOUT_FILENO) == -1) && (errno == EINTR))
          {
@@ -2345,24 +2399,24 @@ namespace acme_posix
 
       close(stderr_fds[1]);
 
-//   if(scopedstrPipe.has_character())
-//   {
-//
-//      close(stdin_fds[0]);
-//
-//   }
-//
+    if(bInteractive)
+    {
+
+      close(stdin_fds[0]);
+
+   }
+
    
       fcntl(stdout_fds[0], F_SETFL, fcntl(stdout_fds[0], F_GETFL) | O_NONBLOCK);
 
       fcntl(stderr_fds[0], F_SETFL, fcntl(stderr_fds[0], F_GETFL) | O_NONBLOCK);
 
-//   if(scopedstrPipe.has_character())
-//   {
-//
-//      fcntl(stdin_fds[1], F_SETFL, fcntl(stdin_fds[1], F_GETFL) | O_NONBLOCK);
-//
-//   }
+   if(bInteractive)
+   {
+
+      fcntl(stdin_fds[1], F_SETFL, fcntl(stdin_fds[1], F_GETFL) | O_NONBLOCK);
+
+   }
 
       const int buf_size = 4096;
 
@@ -2389,6 +2443,17 @@ namespace acme_posix
 //      ::close(stdin_fds[1]);
 //
 //   }
+      // Open output file in binary-safe mode
+      // (On Unix, O_BINARY is unnecessary; bytes are not translated.)
+      // int outfd = open("capture.bin", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+      // if (outfd == -1) {
+      //    perror("open");
+      //    close(pipefd[1]);
+      //    return 1;
+      // }
+      //
+      unsigned char buf[4096];
+      ssize_t n;
 
       while(true)
       {
@@ -2506,6 +2571,134 @@ namespace acme_posix
 
          }
 
+         if (bInteractive)
+         {
+
+            for (;;) {
+               struct pollfd pfd = {
+                  .fd = STDIN_FILENO,
+                  .events = POLLIN | POLLHUP
+              };
+
+               int pr = poll(&pfd, 1, 10); // wait up to 10 ms
+               if (pr == -1) {
+                  throw ::exception(error_failed);
+               }
+
+               if (pr == 0) {
+                  // timeout: no input yet
+                  //printf("no data yet...\n");
+                  //continue;
+                  break;
+               }
+
+               if (pfd.revents & POLLIN) {
+                  for (;;) {
+                     ssize_t n = read(STDIN_FILENO, buf, sizeof(buf));
+
+                     if (n > 0) {
+
+                        ssize_t total;
+                        // // Write to file
+                        // total = 0;
+                        // while (total < n) {
+                        //    ssize_t w = write(outfd, buf + total, n - total);
+                        //    if (w == -1) {
+                        //       perror("write file");
+                        //       close(outfd);
+                        //       close(pipefd[1]);
+                        //       waitpid(pid, NULL, 0);
+                        //       return 1;
+                        //    }
+                        //    total += w;
+                        // }
+
+                        // Write same bytes to child stdin via pipe
+                        total = 0;
+                        while (total < n) {
+                           ssize_t w = write(stdin_fds[1], buf + total, n - total);
+                           if (w == -1) {
+                              //perror("write pipe");
+                              //close(outfd);
+                              //close(stdin_fds[1]);
+                              //waitpid(pid, NULL, 0);
+                              //return 1;
+                              break;
+
+                           }
+
+                           total += w;
+
+                        }
+                     } else if (n == 0) {
+                        // EOF
+                        // printf("\nEOF\n");
+                        // return 0;
+                        break;
+                     } else {
+                        if (errno == EAGAIN || errno == EWOULDBLOCK) {
+                           // no more data available right now
+                           break;
+                        } else if (errno == EINTR) {
+                           // interrupted by signal, retry read
+                           continue;
+                        } else {
+                           //perror("read");
+                           //return 1;
+                           throw ::exception(error_failed);
+                        }
+                     }
+                  }
+               }
+
+               if (pfd.revents & POLLHUP) {
+                  // input source closed
+                  //printf("\nstdin closed\n");
+                  //return 0;
+                  break;
+               }
+            }
+
+            // while ((n = read(STDIN_FILENO, buf, sizeof(buf))) > 0)
+            // {
+            //
+            //    ssize_t total;
+            //    // // Write to file
+            //    // total = 0;
+            //    // while (total < n) {
+            //    //    ssize_t w = write(outfd, buf + total, n - total);
+            //    //    if (w == -1) {
+            //    //       perror("write file");
+            //    //       close(outfd);
+            //    //       close(pipefd[1]);
+            //    //       waitpid(pid, NULL, 0);
+            //    //       return 1;
+            //    //    }
+            //    //    total += w;
+            //    // }
+            //
+            //    // Write same bytes to child stdin via pipe
+            //    total = 0;
+            //    while (total < n) {
+            //       ssize_t w = write(stdin_fds[1], buf + total, n - total);
+            //       if (w == -1) {
+            //          //perror("write pipe");
+            //          //close(outfd);
+            //          //close(stdin_fds[1]);
+            //          //waitpid(pid, NULL, 0);
+            //          //return 1;
+            //          break;
+            //
+            //       }
+            //
+            //       total += w;
+            //
+            //    }
+            //
+            // }
+
+         }
+
          {
 
             int status = 0;
@@ -2601,13 +2794,30 @@ namespace acme_posix
 
       close(stderr_fds[0]);
 
-//      if (scopedstrPipe.has_character())
-//      {
-//
-//         ::close(stdin_fds[1]);
-//
-//      }
+     if (bInteractive)
+      {
 
+         ::close(stdin_fds[1]);
+
+      }
+
+      if (bInteractive)
+      {
+
+         if (fcntl(STDIN_FILENO, F_SETFL, flagsStdIn) == -1)
+         {
+
+            auto cerrornumber = c_error_number();
+
+            estatus = cerrornumber.estatus();
+
+            throw ::exception(estatus);
+         }
+
+
+      }
+
+      //close(outfd);
 
 
 //   if(iExitCode != 0)
@@ -2620,6 +2830,40 @@ namespace acme_posix
 //   }
 
 
+
+      return iExitCode;
+
+   }
+
+
+   int node::pty(const scoped_string& scopedstr)
+   {
+
+      pty_process proc;
+
+
+      proc.m_straCommands.add("echo 'hello from PtyProcess'\n");
+      proc.m_straCommands.add("pwd\n");
+      proc.m_straCommands.add("ls\n");
+      proc.m_straCommands.add(::string(scopedstr) +"; exit\n");
+
+
+      if (!proc.spawn("bash -i")) {
+         throw ::exception(error_failed, "spawn");
+      }
+
+      if (!proc.set_nonblocking(true)) {
+         throw ::exception(error_failed, "set_nonblocking");
+      }
+
+      proc.run();
+
+      auto iExitCode =proc.m_iExitCode;
+
+      // std::cout << "\n\n========== SUMMARY ==========\n";
+      // std::cout << "Exit code: " << exit_code << "\n";
+      // std::cout << "\n--- Captured merged PTY output ---\n";
+      // std::cout << captured << "\n";
 
       return iExitCode;
 
@@ -2784,13 +3028,15 @@ namespace acme_posix
    bool node::is_executable_in_path(const ::scoped_string &scopedstr)
    {
       
-      ::string strPath;
+      ::string strOut;
+
+      ::string strErr;
    
-      int iExitCode = get_posix_shell_command_output(strPath, "command -v " + scopedstr, e_posix_shell_system_default);
+      int iExitCode = get_posix_shell_command_output(strOut, strErr, "command -v " + scopedstr, e_posix_shell_system_default);
       
-      information() << "command -v : " << scopedstr << " output => " << strPath;
+      information() << "command -v : " << scopedstr << " output => " << strOut;
       
-      if(iExitCode != 0 || strPath.is_empty())
+      if(iExitCode != 0 || strOut.is_empty())
       {
          
          return false;

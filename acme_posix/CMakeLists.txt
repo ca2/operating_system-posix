@@ -46,6 +46,8 @@ list(APPEND library_source
    node_utsname.cpp
    pipe.cpp
    pipe.h
+   pty_process.cpp
+   pty_process.h
    process.cpp
    shmem.cpp
    shmem.h
@@ -63,7 +65,9 @@ list(APPEND library_source
 #endif ()
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source}
+   pty_process.h
+   pty_process.cpp)
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
