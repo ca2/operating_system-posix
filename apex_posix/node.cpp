@@ -77,7 +77,7 @@ namespace apex_posix
          if(path.has_character() && !file_system()->exists(path))
          {
 
-            auto pfile = papp->øcreate_new< ::freedesktop::desktop_file >();
+            auto pfile = papp->create_newø< ::freedesktop::desktop_file >();
 
             pfile->set_app_id(papp->m_strAppId);
 
@@ -122,7 +122,7 @@ namespace apex_posix
          //if(path.has_character() && !file_system()->exists(path))
          {
 
-            auto pfile = øcreate_new< ::freedesktop::desktop_file >();
+            auto pfile = create_newø< ::freedesktop::desktop_file >();
 
             //pfile->set_app_id(papp->m_strAppId);
 
@@ -166,7 +166,7 @@ namespace apex_posix
          //if(path.has_character() && !file_system()->exists(path))
          {
 
-            auto pfile = øcreate_new< ::freedesktop::desktop_file >();
+            auto pfile = create_newø< ::freedesktop::desktop_file >();
 
             pfile->open(pathLnk);
 
@@ -204,7 +204,7 @@ namespace apex_posix
 
       auto pathShortcut = app_shortcut_path(papp);
 
-      auto pfile = papp->øcreate_new< ::freedesktop::desktop_file >();
+      auto pfile = papp->create_newø< ::freedesktop::desktop_file >();
 
       pfile->set_file_path(pathShortcut);
 
@@ -373,7 +373,7 @@ namespace apex_posix
 
          informationf("register_user_auto_start true : %s", pathAutoStartDesktopFilePath.c_str());
 
-         auto pfile = papplication->øcreate_new < ::freedesktop::desktop_file >();
+         auto pfile = papplication->create_newø < ::freedesktop::desktop_file >();
 
          pfile->set_app_id(papplication->m_strAppId);
 

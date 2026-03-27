@@ -1747,7 +1747,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-               auto pmouse = øcreate_new<::message::mouse>();
+               auto pmouse = create_newø<::message::mouse>();
 
                pmouse->m_pacmewindowingwindow = px11window;
 
@@ -1950,7 +1950,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                //post_ui_message(msg);
 
-               auto pmouse = px11window->øcreate_new<::message::mouse>();
+               auto pmouse = px11window->create_newø<::message::mouse>();
 
                pmouse->m_pacmewindowingwindow = px11window;
 
@@ -2511,7 +2511,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                }
 
-               auto pmouse = px11window->øcreate_new<::message::show_window>();
+               auto pmouse = px11window->create_newø<::message::show_window>();
 
                pmouse->m_pacmewindowingwindow = px11window;
 
@@ -2563,7 +2563,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   }
 
 
-                  auto pmouse = px11window->øcreate_new<::message::show_window>();
+                  auto pmouse = px11window->create_newø<::message::show_window>();
 
                   pmouse->m_pacmewindowingwindow = px11window;
 
@@ -2890,7 +2890,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if (Δ != 0)
                {
 
-                  auto pmousewheel = px11window->øcreate_new<::message::mouse_wheel>();
+                  auto pmousewheel = px11window->create_newø<::message::mouse_wheel>();
 
                   pmousewheel->m_pacmewindowingwindow = px11window;
 
@@ -2922,7 +2922,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                } else if (bRet)
                {
 
-                  auto pmouse = px11window->øcreate_new<::message::mouse>();
+                  auto pmouse = px11window->create_newø<::message::mouse>();
 
                   pmouse->m_pacmewindowingwindow = px11window;
 
@@ -2974,7 +2974,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                KeySym keysym = 0;
 
-               auto pkey1 = øcreate_new<::message::key>();
+               auto pkey1 = create_newø<::message::key>();
 
                pkey1->m_pacmewindowingwindow=px11window;
                pkey1->m_pwindow=px11window;
@@ -3050,7 +3050,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if (strText.has_character() && !(e.xkey.state & ControlMask))
                {
 
-                  auto pkey = øcreate_new<::message::key>();
+                  auto pkey = create_newø<::message::key>();
 
                   pkey->m_pacmewindowingwindow = px11window;
 
@@ -3088,7 +3088,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
          case FocusIn:
          {
 
-            auto psetfocus = øcreate_new<::message::set_keyboard_focus>();
+            auto psetfocus = create_newø<::message::set_keyboard_focus>();
 
             informationf("FocusIn\n");
 
@@ -3202,7 +3202,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   {
 
 
-                     auto pkillfocus = øcreate_new<::message::kill_keyboard_focus>();
+                     auto pkillfocus = create_newø<::message::kill_keyboard_focus>();
 
                      pkillfocus->m_pacmewindowingwindow = px11window;
                      pkillfocus->m_pwindow = px11window;

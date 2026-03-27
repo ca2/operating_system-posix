@@ -27,11 +27,11 @@ curl_easy::~curl_easy()
 size_t curl_easy::s_write_function(void *contents, size_t size, size_t nmemb, void *userp)
 {
 
-   auto defer_get = (::nano::http::get *)(userp);
+   auto pnanohttpget = (::nano::http::get *)(userp);
 
    size_t realsize = size * nmemb;
 
-   defer_get->append_response(contents, realsize);
+   pnanohttpget->append_response(contents, realsize);
 
    // return the size of content that is copied.
    return realsize;
@@ -52,7 +52,7 @@ void curl_easy::get(::nano::http::get * defer_get)
    curl_easy_setopt(m_pcurl, CURLOPT_URL, strUrl.c_str());
    curl_easy_setopt(m_pcurl, CURLOPT_FOLLOWLOCATION, 1);
    curl_easy_setopt(m_pcurl, CURLOPT_WRITEFUNCTION, &curl_easy::s_write_function);
-   curl_easy_setopt(m_pcurl, CURLOPT_WRITEDATA, (void *)(::nano::http::get*)defer_get);
+   curl_easy_setopt(m_pcurl, CURLOPT_WRITEDATA, (void *)(::nano::http::get*)pnanohttpget);
    curl_easy_setopt(m_pcurl, CURLOPT_USERAGENT, "nano_http");
 
 

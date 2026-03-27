@@ -80,7 +80,7 @@ namespace windowing_xcb
 //   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
 //   {
 //
-//      ::pointer<::windowing_xcb::window> pwindow = pimpl->øcreate<::windowing::window>();
+//      ::pointer<::windowing_xcb::window> pwindow = pimpl->createø<::windowing::window>();
 //
 //      if (!pwindow)
 //      {
@@ -128,12 +128,12 @@ namespace windowing_xcb
 
       //initialize_windowing();
 
-//      auto pdisplay = øcreate<::windowing::display>();
+//      auto pdisplay = createø<::windowing::display>();
 //
 ////      if(!pdisplay)
 ////      {
 ////
-////         informationf("----> Failed to øcreate < ::windowing::display > at windowing_xcb::windowing::initialize");
+////         informationf("----> Failed to createø < ::windowing::display > at windowing_xcb::windowing::initialize");
 ////
 ////         //return ::error_no_factory;
 ////
@@ -381,7 +381,7 @@ namespace windowing_xcb
 
       auto cursor = m_pdisplay->_create_font_cursor(iCursor);
 
-      auto pcursorX11 = øcreate<::windowing_xcb::cursor>();
+      auto pcursorX11 = createø<::windowing_xcb::cursor>();
 
       pcursor = pcursorX11;
 
@@ -490,7 +490,7 @@ namespace windowing_xcb
       if (pwindowMouseCaptureOld && pwindowMouseCaptureOld != pwindowMouseCaptureNew)
       {
 
-         auto pmessage = øcreate_new<::user::message>();
+         auto pmessage = create_newø<::user::message>();
 
          pmessage->m_pwindow = pwindowMouseCaptureOld;
          pmessage->m_pacmewindowingwindow = pwindowMouseCaptureOld;
@@ -937,7 +937,7 @@ namespace windowing_xcb
 
             }
 
-            auto pmessage = øcreate_new<::user::message>();
+            auto pmessage = create_newø<::user::message>();
 
             pmessage->m_eusermessage = ::user::e_message_mouse_leave;
             pmessage->m_pwindow = pxcbwindow;
@@ -1123,7 +1123,7 @@ namespace windowing_xcb
             if (bRet && (!bCompositeWindow || bMouseCapture || alpha != 0 || bTransparentMouseEvents))
             {
 
-               auto pmouse = øcreate_new<::message::mouse>();
+               auto pmouse = create_newø<::message::mouse>();
 
                //msg.oswindow = m_pdisplay->_window(pmotion->happening);
                pmouse->m_pwindow = pxcbwindow;
@@ -1308,7 +1308,7 @@ namespace windowing_xcb
                         else
                         {
 
-                           auto pmessage = øcreate_new<::user::message>();
+                           auto pmessage = create_newø<::user::message>();
                            pmessage->m_pwindow = pxcbwindow;
                            pmessage->m_pacmewindowingwindow = pxcbwindow;
                            pmessage->m_eusermessage = ::user::e_message_paint;
@@ -1757,7 +1757,7 @@ namespace windowing_xcb
 
             }
 
-            auto pmessage = øcreate_new<::message::show_window>();
+            auto pmessage = create_newø<::message::show_window>();
 
             pmessage->m_pwindow = pxcbwindow;
             pmessage->m_pacmewindowingwindow = pxcbwindow;
@@ -2128,7 +2128,7 @@ if(bSentResponse)
                if (Δ != 0)
                {
 
-                  auto pmessage = øcreate_new<::message::mouse_wheel>();
+                  auto pmessage = create_newø<::message::mouse_wheel>();
 
                   pmessage->m_pwindow = pxcbwindow;
 
@@ -2149,7 +2149,7 @@ if(bSentResponse)
                else
                {
 
-                  auto pmessage = øcreate_new<::message::mouse_wheel>();
+                  auto pmessage = create_newø<::message::mouse_wheel>();
 
                   pmessage->m_pwindow = pxcbwindow;
 
@@ -2325,7 +2325,7 @@ if(bSentResponse)
             if (bRet)
             {
 
-               auto pmessage = øcreate_new<::message::key>();
+               auto pmessage = create_newø<::message::key>();
                pmessage->m_pacmewindowingwindow = pxcbwindow;
                pmessage->m_pwindow = pxcbwindow;
                pmessage->m_eusermessage = emessage;
@@ -2339,7 +2339,7 @@ if(bSentResponse)
             if (strText.has_character() && !(pkeyevent->state & XCB_MOD_MASK_CONTROL))
             {
 
-               auto pmessage = øcreate_new<::message::key>();
+               auto pmessage = create_newø<::message::key>();
                pmessage->m_pacmewindowingwindow = pxcbwindow;
                pmessage->m_pwindow = pxcbwindow;
                pmessage->m_eusermessage = ::user::e_message_text_composition;
@@ -2389,7 +2389,7 @@ if(bSentResponse)
 
                      m_pdisplay->m_pwindowKeyboardFocus = pxcbwindow;
 
-                     auto pmessage = øcreate_new<::message::set_keyboard_focus>();
+                     auto pmessage = create_newø<::message::set_keyboard_focus>();
 
                      pmessage->m_pwindow = pxcbwindow;
                      pmessage->m_pacmewindowingwindow = pxcbwindow;
@@ -2443,7 +2443,7 @@ if(bSentResponse)
                   if (::is_set(pinteraction))
                   {
 
-                     auto pmessage = øcreate_new<::message::kill_keyboard_focus>();
+                     auto pmessage = create_newø<::message::kill_keyboard_focus>();
 
                      pmessage->m_pwindow = pxcbwindow;
                      pmessage->m_pacmewindowingwindow = pxcbwindow;
@@ -2495,7 +2495,7 @@ if(bSentResponse)
 
             }
 
-            auto pmessage = øcreate_new<::message::kill_keyboard_focus>();
+            auto pmessage = create_newø<::message::kill_keyboard_focus>();
 
             pmessage->m_pwindow = pxcbwindow;
 
@@ -2656,7 +2656,7 @@ if(bSentResponse)
 //         if (bPositionFix)
 //         {
 //
-//            auto pmessage = øcreate_new<::message::reposition>();
+//            auto pmessage = create_newø<::message::reposition>();
 //
 //            pmessage->m_pwindow = oswindow;
 //
@@ -2676,7 +2676,7 @@ if(bSentResponse)
 //         if (bSizeFix)
 //         {
 //
-//            auto pmessage = øcreate_new<::message::size>();
+//            auto pmessage = create_newø<::message::size>();
 //
 //            pmessage->m_pwindow = oswindow;
 //

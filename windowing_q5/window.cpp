@@ -1270,7 +1270,7 @@ namespace windowing_q5
 //       //if (::is_set(puserinteraction))
 //       {
 //
-//          auto pmouse = øcreate_new<::message::mouse>();
+//          auto pmouse = create_newø<::message::mouse>();
 //
 //          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -1355,7 +1355,7 @@ namespace windowing_q5
 //          //if (::is_set(puserinteraction))
 //          {
 //
-//             auto pmouse = øcreate_new<::message::mouse>();
+//             auto pmouse = create_newø<::message::mouse>();
 //
 //             pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -1453,7 +1453,7 @@ namespace windowing_q5
 //
 //          __check_refdbg;
 //
-//          auto pmouse = øcreate_new < ::message::mouse >();
+//          auto pmouse = create_newø < ::message::mouse >();
 //
 //          __check_refdbg;
 //
@@ -1582,7 +1582,7 @@ namespace windowing_q5
 //
 //           //if (::is_set(pelemental))
 //           {
-//              auto pkey = øcreate_new<::message::key>();
+//              auto pkey = create_newø<::message::key>();
 //
 //              pkey->m_emessage = ::user::e_message_key_down;
 //
@@ -1700,7 +1700,7 @@ namespace windowing_q5
 //
 //           //if (::is_set(pelemental))
 //           {
-//              auto pkey = øcreate_new<::message::key>();
+//              auto pkey = create_newø<::message::key>();
 //
 //              pkey->m_emessage = ::user::e_message_key_up;
 //
@@ -6155,7 +6155,7 @@ return false;
 //    //       if(::is_set(pwindow))
 //    //       {
 //    //
-//    //          auto pmouse = øcreate_new<::message::mouse>();
+//    //          auto pmouse = create_newø<::message::mouse>();
 //    //
 //    //          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //    //
@@ -6240,7 +6240,7 @@ return false;
 //    // //
 //    // //      wayland_windowing()->post_ui_message(msg);
 //    //
-//    //       auto pmouse = øcreate_new<::message::mouse>();
+//    //       auto pmouse = create_newø<::message::mouse>();
 //    //
 //    //       pmouse->m_pacmewindowingwindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
 //    //
@@ -6400,7 +6400,7 @@ return false;
 //    //       if (Δ != 0)
 //    //       {
 //    //
-//    //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
+//    //          auto pmousewheel = create_newø<::message::mouse_wheel>();
 //    //
 //    //          pmousewheel->m_operatingsystemwindow = this->operating_system_window();
 //    //
@@ -6430,7 +6430,7 @@ return false;
 //    //       else if (bRet)
 //    //       {
 //    //
-//    //          auto pmouse = øcreate_new<::message::mouse>();
+//    //          auto pmouse = create_newø<::message::mouse>();
 //    //
 //    //          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //    //
@@ -6663,7 +6663,7 @@ return false;
 //    //       if (ekey != ::user::e_key_none)
 //    //       {
 //    //
-//    //          auto pkey = øcreate_new<::message::key>();
+//    //          auto pkey = create_newø<::message::key>();
 //    //
 //    //          pkey->
 //    //             m_pacmewindowingwindow = this;
@@ -6712,7 +6712,7 @@ return false;
 //    //
 //    //    //Wayland_data_device_set_serial(input->data_device, serial);
 //    //
-//    //    auto pkey = øcreate_new<::message::key>();
+//    //    auto pkey = create_newø<::message::key>();
 //    //
 //    //    pkey->
 //    //    m_pacmewindowingwindow = this;
@@ -7156,7 +7156,7 @@ return false;
 //    //         if (ekey != ::user::e_key_none)
 //    //         {
 //    //
-//    //            auto pkey = øcreate_new<::message::key>();
+//    //            auto pkey = create_newø<::message::key>();
 //    //
 //    //            pkey->m_operatingsystemwindow = this->operating_system_window();
 //    //
@@ -7222,7 +7222,7 @@ return false;
 //    //
 //    //            //Wayland_data_device_set_serial(input->data_device, serial);
 //    //
-//    //            auto pkey = øcreate_new<::message::key>();
+//    //            auto pkey = create_newø<::message::key>();
 //    //
 //    //            pkey->m_operatingsystemwindow = this->operating_system_window();
 //    //

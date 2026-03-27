@@ -2378,7 +2378,7 @@ m_bFetchingDarkMode = false;
 
       auto & pfactory = ::system()->factory("input", "libinput");
 
-      auto pinput = øcreate<::input::input>(pfactory);
+      auto pinput = createø<::input::input>(pfactory);
 
       return pinput;
 

@@ -29,7 +29,7 @@ namespace windowing_gtk4
 // //
 // //      auto cursor = XRenderCreateCursor(Display(), picture, xHotSpot, yHotSpot);
 //
-//    auto pcursor = øcreate_new< ::windowing_gtk4::cursor>();
+//    auto pcursor = create_newø< ::windowing_gtk4::cursor>();
 //
 //    pcursor->m_szHotspotOffset.cx = xHotSpot;
 //    pcursor->m_szHotspotOffset.cy = yHotSpot;

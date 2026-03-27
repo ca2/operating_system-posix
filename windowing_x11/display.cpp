@@ -501,7 +501,7 @@ namespace windowing_x11
       if (pwindowMouseCaptureOld && pwindowMouseCaptureOld != pwindowMouseCaptureNew)
       {
 
-         auto pmessage = øcreate_new<::user::message>();
+         auto pmessage = create_newø<::user::message>();
 
          pmessage->m_pwindow = pwindowMouseCaptureOld;
          pmessage->m_pacmewindowingwindow = pwindowMouseCaptureOld;
@@ -985,7 +985,7 @@ namespace windowing_x11
       for (int i = 0; i < m_rectangleaMonitor.size(); i++) {
          auto r = m_rectangleaMonitor[i];
 
-         auto pmonitor = øcreate_new < ::windowing::monitor >();
+         auto pmonitor = create_newø < ::windowing::monitor >();
          __check_refdbg
          pmonitor->m_pdisplay = this;
 

@@ -733,12 +733,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
       informationf("windowing_xcb::initialize_windowing starting");
 
-      auto pdisplay = øcreate<::windowing::display>();
+      auto pdisplay = createø<::windowing::display>();
 
 //      if(!pdisplay)
 //      {
 //
-//         informationf("----> Failed to øcreate < ::windowing::display > at windowing_xcb::windowing::initialize");
+//         informationf("----> Failed to createø < ::windowing::display > at windowing_xcb::windowing::initialize");
 //
 //         //return ::error_no_factory;
 //

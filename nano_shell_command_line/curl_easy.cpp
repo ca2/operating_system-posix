@@ -26,11 +26,11 @@ curl_easy::~curl_easy()
 size_t curl_easy::s_write_function(void *contents, size_t size, size_t nmemb, void *userp)
 {
 
-   auto defer_get = dynamic_cast< ::nano::http::get *>((::subparticle *)userp);
+   auto pnanohttpget = dynamic_cast< ::nano::http::get *>((::subparticle *)userp);
 
    size_t realsize = size * nmemb;
 
-   defer_get->m_memory.append(contents, realsize);
+   pnanohttpget->m_memory.append(contents, realsize);
 
    // return the size of content that is copied.
    return realsize;
@@ -38,11 +38,11 @@ size_t curl_easy::s_write_function(void *contents, size_t size, size_t nmemb, vo
 }
 
 
-void curl_easy::get(::nano::http::get * defer_get)
+void curl_easy::get(::nano::http::get * pnanohttpget)
 {
 
 
-   ::string strUrl(defer_get->m_strUrl);
+   ::string strUrl(pnanohttpget->m_strUrl);
 
 
    //auto pfile = create_memory_file();

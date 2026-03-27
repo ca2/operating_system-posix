@@ -619,7 +619,7 @@ namespace gtk3
             //if(::is_set(pwindow))
             {
 
-               auto pmouse = øcreate_new<::user::mouse>();
+               auto pmouse = create_newø<::user::mouse>();
 
 //               pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -687,7 +687,7 @@ namespace gtk3
             //if(::is_set(pwindow))
             {
 
-               auto pmouse = øcreate_new<::user::mouse>();
+               auto pmouse = create_newø<::user::mouse>();
 
                //pmouse->m_operatingsystemwindow = this->operating_system_window();
 
@@ -787,7 +787,7 @@ namespace gtk3
             //if(::is_set(pwindow))
             {
 
-               auto pmouse = øcreate_new<::user::mouse>();
+               auto pmouse = create_newø<::user::mouse>();
 
 //               pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -1224,7 +1224,7 @@ namespace gtk3
 //               if (pevent->xbutton.button == Button1)
 //               {
 //
-//                  auto pmouse = øcreate_new < ::user::mouse >();
+//                  auto pmouse = create_newø < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //
@@ -1236,7 +1236,7 @@ namespace gtk3
 //               else if (pevent->xbutton.button == Button3)
 //               {
 //
-//                  auto pmouse = øcreate_new < ::user::mouse >();
+//                  auto pmouse = create_newø < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //
@@ -1253,7 +1253,7 @@ namespace gtk3
 //               if (pevent->xbutton.button == Button1)
 //               {
 //
-//                  auto pmouse = øcreate_new < ::user::mouse >();
+//                  auto pmouse = create_newø < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //
@@ -1265,7 +1265,7 @@ namespace gtk3
 //               else if (pevent->xbutton.button == Button3)
 //               {
 //
-//                  auto pmouse = øcreate_new < ::user::mouse >();
+//                  auto pmouse = create_newø < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //
@@ -1279,7 +1279,7 @@ namespace gtk3
 //            else if (pevent->type == MotionNotify)
 //            {
 //
-//               auto pmouse = øcreate_new < ::user::mouse >();
+//               auto pmouse = create_newø < ::user::mouse >();
 //
 //               pmouse->m_pointHost = {pevent->xmotion.x, pevent->xmotion.y};
 //
@@ -1294,7 +1294,7 @@ namespace gtk3
 //               if (m_pinterface->m_pchildHover)
 //               {
 //
-//                  auto pmouse = øcreate_new < ::user::mouse >();
+//                  auto pmouse = create_newø < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {I32_MINIMUM, I32_MINIMUM};
 //

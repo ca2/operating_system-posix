@@ -280,7 +280,7 @@ namespace kde6
 //
 //            //g_object_ref(m_pgtkapplication);
 //
-//            // auto pdisplay = øcreate<::windowing::display>();
+//            // auto pdisplay = createø<::windowing::display>();
 //            //
 //            //
 //            //

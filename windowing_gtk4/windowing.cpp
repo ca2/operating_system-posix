@@ -80,7 +80,7 @@ namespace windowing_gtk4
    //   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
    //   {
    //
-   //      ::pointer<::windowing_gtk4::window> pwindow = pimpl->øcreate<::windowing::window>();
+   //      ::pointer<::windowing_gtk4::window> pwindow = pimpl->createø<::windowing::window>();
    //
    //      if (!pwindow)
    //      {
@@ -136,7 +136,7 @@ namespace windowing_gtk4
    //
    //      auto & pfactory = ::system()->factory("input", "libinput");
    //
-   //      auto pinput = øcreate<::input::input>(pfactory);
+   //      auto pinput = createø<::input::input>(pfactory);
    //
    //      return pinput;
    //
@@ -427,7 +427,7 @@ namespace windowing_gtk4
 
       //      auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
       //
-      //      auto pcursorX11 = øcreate < ::windowing_gtk4::cursor >();
+      //      auto pcursorX11 = createø < ::windowing_gtk4::cursor >();
       //
       //      pcursor = pcursorX11;
       //
@@ -723,7 +723,7 @@ namespace windowing_gtk4
    //      if(emessage != ::user::e_message_undefined)
    //      {
    //
-   //         auto pmouse = øcreate_new < ::message::mouse >();
+   //         auto pmouse = create_newø < ::message::mouse >();
    //
    //         pmouse->m_emessage = emessage;
    //
@@ -772,7 +772,7 @@ namespace windowing_gtk4
    //      if(emessage != ::user::e_message_undefined)
    //      {
    //
-   //         auto pkey = øcreate_new < ::message::key >();
+   //         auto pkey = create_newø < ::message::key >();
    //
    //         pkey->m_emessage = emessage;
    //
@@ -968,7 +968,7 @@ namespace windowing_gtk4
 
       //g_object_ref(m_pgtkapplication);
 
-      // auto pdisplay = øcreate<::windowing::display>();
+      // auto pdisplay = createø<::windowing::display>();
       //
       // pdisplay->initialize_display(this);
       //

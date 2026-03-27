@@ -677,7 +677,7 @@
 //         //         if (pevent->xbutton.button == Button1)
 //         //         {
 //         //
-//         //            auto pmouse = øcreate_new < ::user::mouse >();
+//         //            auto pmouse = create_newø < ::user::mouse >();
 //         //
 //         //            pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //         //
@@ -689,7 +689,7 @@
 //         //         else if (pevent->xbutton.button == Button3)
 //         //         {
 //         //
-//         //            auto pmouse = øcreate_new < ::user::mouse >();
+//         //            auto pmouse = create_newø < ::user::mouse >();
 //         //
 //         //            pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //         //
@@ -706,7 +706,7 @@
 //         //         if (pevent->xbutton.button == Button1)
 //         //         {
 //         //
-//         //            auto pmouse = øcreate_new < ::user::mouse >();
+//         //            auto pmouse = create_newø < ::user::mouse >();
 //         //
 //         //            pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //         //
@@ -718,7 +718,7 @@
 //         //         else if (pevent->xbutton.button == Button3)
 //         //         {
 //         //
-//         //            auto pmouse = øcreate_new < ::user::mouse >();
+//         //            auto pmouse = create_newø < ::user::mouse >();
 //         //
 //         //            pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //         //
@@ -732,7 +732,7 @@
 //         //      else if (pevent->type == MotionNotify)
 //         //      {
 //         //
-//         //         auto pmouse = øcreate_new < ::user::mouse >();
+//         //         auto pmouse = create_newø < ::user::mouse >();
 //         //
 //         //         pmouse->m_pointHost = {pevent->xmotion.x, pevent->xmotion.y};
 //         //
@@ -747,7 +747,7 @@
 //         //         if (m_pinterface->m_pchildHover)
 //         //         {
 //         //
-//         //            auto pmouse = øcreate_new < ::user::mouse >();
+//         //            auto pmouse = create_newø < ::user::mouse >();
 //         //
 //         //            pmouse->m_pointHost = {I32_MINIMUM, I32_MINIMUM};
 //         //
@@ -1018,7 +1018,7 @@
 //         void window::_on_button_pressed(GtkGestureClick* pgesture, int n_press, double x, double y)
 //         {
 //
-//         auto pmouse = øcreate_new<::user::mouse>();
+//         auto pmouse = create_newø<::user::mouse>();
 //         //
 //         //      pmouse->m_operatingsystemwindow = this->operating_system_window();
 //         //
@@ -1168,7 +1168,7 @@
 //         //      if (Δ != 0)
 //         //      {
 //         //
-//         //         auto pmousewheel = øcreate_new<::message::mouse_wheel>();
+//         //         auto pmousewheel = create_newø<::message::mouse_wheel>();
 //         //
 //         //         pmousewheel->m_operatingsystemwindow = this->operating_system_window();
 //         //
@@ -1198,7 +1198,7 @@
 //         //      else if (bRet)
 //         //      {
 //         //
-//         //         auto pmouse = øcreate_new<::message::mouse>();
+//         //         auto pmouse = create_newø<::message::mouse>();
 //         //
 //         //         pmouse->m_operatingsystemwindow = this->operating_system_window();
 //         //
@@ -1232,7 +1232,7 @@
 //
 //         void window::_on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y)
 //         {
-//         auto pmouse = øcreate_new<::user::mouse>();
+//         auto pmouse = create_newø<::user::mouse>();
 //         //
 //         //      pmouse->m_operatingsystemwindow = this->operating_system_window();
 //         //
@@ -1381,7 +1381,7 @@
 //         //      if (Δ != 0)
 //         //      {
 //         //
-//         //         auto pmousewheel = øcreate_new<::message::mouse_wheel>();
+//         //         auto pmousewheel = create_newø<::message::mouse_wheel>();
 //         //
 //         //         pmousewheel->m_operatingsystemwindow = this->operating_system_window();
 //         //
@@ -1411,7 +1411,7 @@
 //         //      else if (bRet)
 //         //      {
 //         //
-//         //         auto pmouse = øcreate_new<::message::mouse>();
+//         //         auto pmouse = create_newø<::message::mouse>();
 //         //
 //         //         pmouse->m_operatingsystemwindow = this->operating_system_window();
 //         //
@@ -1447,7 +1447,7 @@
 //         void window::_on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y)
 //         {
 //
-//            auto pmouse = øcreate_new<::user::mouse>();
+//            auto pmouse = create_newø<::user::mouse>();
 //            //
 //            //      pmouse->m_operatingsystemwindow = this->operating_system_window();
 //            //
@@ -1502,7 +1502,7 @@
 //         //
 //         //    //m_pointCursor2 = m_pointPointer;
 //         //
-//         //    auto pmouse = øcreate_new<::user::mouse>();
+//         //    auto pmouse = create_newø<::user::mouse>();
 //         //    //
 //         //    //      pmouse->m_operatingsystemwindow = this->operating_system_window();
 //         //    //
@@ -1588,7 +1588,7 @@
 //         //    ////
 //         //    ////      wayland_windowing()->post_ui_message(msg);
 //         //    //
-//         //    //      auto pmouse = øcreate_new<::message::mouse>();
+//         //    //      auto pmouse = create_newø<::message::mouse>();
 //         //    //
 //         //    //      pmouse->m_pacmewindowingwindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
 //         //    //
@@ -1624,7 +1624,7 @@
 //         //    window_base::__handle_pointer_button(pwlpointer, linux_button, pressed, millis);
 //         //
 //         //
-//         //    auto pmouse = øcreate_new<::user::mouse>();
+//         //    auto pmouse = create_newø<::user::mouse>();
 //         //    //
 //         //    //      pmouse->m_operatingsystemwindow = this->operating_system_window();
 //         //    //
@@ -1771,7 +1771,7 @@
 //         //    //      if (Δ != 0)
 //         //    //      {
 //         //    //
-//         //    //         auto pmousewheel = øcreate_new<::message::mouse_wheel>();
+//         //    //         auto pmousewheel = create_newø<::message::mouse_wheel>();
 //         //    //
 //         //    //         pmousewheel->m_operatingsystemwindow = this->operating_system_window();
 //         //    //
@@ -1801,7 +1801,7 @@
 //         //    //      else if (bRet)
 //         //    //      {
 //         //    //
-//         //    //         auto pmouse = øcreate_new<::message::mouse>();
+//         //    //         auto pmouse = create_newø<::message::mouse>();
 //         //    //
 //         //    //         pmouse->m_operatingsystemwindow = this->operating_system_window();
 //         //    //

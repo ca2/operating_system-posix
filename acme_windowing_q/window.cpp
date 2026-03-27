@@ -901,7 +901,7 @@ namespace q
          //       if (pbutton->detail == XCB_BUTTON_INDEX_1)
          //       {
          //
-         //          auto pmouse = øcreate_new < ::user::mouse >();
+         //          auto pmouse = create_newø < ::user::mouse >();
          //
          //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
          //
@@ -913,7 +913,7 @@ namespace q
          //       else if (pbutton->detail == XCB_BUTTON_INDEX_3)
          //       {
          //
-         //          auto pmouse = øcreate_new < ::user::mouse >();
+         //          auto pmouse = create_newø < ::user::mouse >();
          //
          //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
          //
@@ -940,7 +940,7 @@ namespace q
          //       if (pbutton->detail == XCB_BUTTON_INDEX_1)
          //       {
          //
-         //          auto pmouse = øcreate_new < ::user::mouse >();
+         //          auto pmouse = create_newø < ::user::mouse >();
          //
          //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
          //
@@ -952,7 +952,7 @@ namespace q
          //       else if (pbutton->detail == XCB_BUTTON_INDEX_3)
          //       {
          //
-         //          auto pmouse = øcreate_new < ::user::mouse >();
+         //          auto pmouse = create_newø < ::user::mouse >();
          //
          //          pmouse->m_pointHost = {pbutton->event_x, pbutton->event_y};
          //
@@ -975,7 +975,7 @@ namespace q
          //
          //       }
          //
-         //       auto pmouse = øcreate_new < ::user::mouse >();
+         //       auto pmouse = create_newø < ::user::mouse >();
          //
          //       pmouse->m_pointHost = {pmotion->event_x, pmotion->event_y};
          //
@@ -999,7 +999,7 @@ namespace q
          //       if (pacmeuserinteraction->m_pchildHover)
          //       {
          //
-         //          auto pmouse = øcreate_new < ::user::mouse >();
+         //          auto pmouse = create_newø < ::user::mouse >();
          //
          //          pmouse->m_pointHost = {I32_MINIMUM, I32_MINIMUM};
          //
@@ -1382,7 +1382,7 @@ namespace q
             if (::is_set(pelemental))
             {
 
-               auto pmouse = øcreate_new<::user::mouse>();
+               auto pmouse = create_newø<::user::mouse>();
 
                // pmouse->m_operatingsystemwindow = this->operating_system_window();
                //
@@ -1508,7 +1508,7 @@ namespace q
                if (::is_set(pelemental))
                {
 
-                  auto pmouse = øcreate_new<::user::mouse>();
+                  auto pmouse = create_newø<::user::mouse>();
 
                   // pmouse->m_operatingsystemwindow = this->operating_system_window();
                   //
@@ -1769,7 +1769,7 @@ namespace q
             if (::is_set(pelemental))
             {
 
-               auto pmouse = øcreate_new<::user::mouse>();
+               auto pmouse = create_newø<::user::mouse>();
 
                // pmouse->m_operatingsystemwindow = this->operating_system_window();
                //
@@ -1807,7 +1807,7 @@ namespace q
                //    //    gdk_event_unref(happening);  // Free the happening object after use
                //    // }
                //
-               //    auto pmouse = øcreate_new<::message::mouse>();
+               //    auto pmouse = create_newø<::message::mouse>();
                //
                //    pmouse->m_iTimestamp = timestamp;
                //

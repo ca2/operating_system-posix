@@ -6,7 +6,41 @@
 
 
 #define GDK_SURFACE_EDGE_NONE ((GdkSurfaceEdge)-1)
+#include <gtk/gtk.h>
+#include <gio/gio.h>
 
+bool gtk4_is_session_dbus_available()
+{
+   GError *error = NULL;
+   GDBusConnection *connection =
+       g_bus_get_sync(G_BUS_TYPE_SESSION, NULL, &error);
+
+   if (connection != NULL)
+   {
+      g_object_unref(connection);
+      return true;
+   }
+
+   if (error != NULL)
+   {
+      g_printerr("Failed to connect to session bus: %s\n", error->message);
+      g_error_free(error);
+   }
+
+   return false;
+}
+
+// int main(int argc, char *argv[])
+// {
+//    gtk_init();
+//
+//    if (is_session_dbus_available())
+//       g_print("Session D-Bus is available\n");
+//    else
+//       g_print("Session D-Bus is NOT available\n");
+//
+//    return 0;
+// }
 
 GdkSurfaceEdge as_gdk_surface_edge(::experience::enum_frame eframeSizing)
 {

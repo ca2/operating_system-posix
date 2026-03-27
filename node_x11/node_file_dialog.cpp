@@ -108,7 +108,7 @@ namespace node_x11
       user_post([this, pdialog]()
                         {
 
-         auto pmotiffileselectionbox = øcreate_new<_motif_file_selection_box>();
+         auto pmotiffileselectionbox = create_newø<_motif_file_selection_box>();
 
          pmotiffileselectionbox->file_dialog_base(pdialog);
 

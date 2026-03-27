@@ -1971,7 +1971,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //               //post_ui_message(msg);
 //
-//               auto pmouse = px11window->øcreate_new<::message::mouse>();
+//               auto pmouse = px11window->create_newø<::message::mouse>();
 //
 //               pmouse->m_pacmewindowingwindow = px11window;
 //
@@ -2734,7 +2734,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //               if (Δ != 0)
 //               {
 //
-//                  auto pmousewheel = px11window->øcreate_new<::message::mouse_wheel>();
+//                  auto pmousewheel = px11window->create_newø<::message::mouse_wheel>();
 //
 //                  pmousewheel->m_pacmewindowingwindow = px11window;
 //
@@ -2763,7 +2763,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //               else if (bRet)
 //               {
 //
-//                  auto pmouse = px11window->øcreate_new<::message::mouse>();
+//                  auto pmouse = px11window->create_newø<::message::mouse>();
 //
 //                  pmouse->m_pacmewindowingwindow = px11window;
 //
@@ -2883,7 +2883,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //               if (strText.has_character() && !(e.xkey.state & ControlMask))
 //               {
 //
-//                  auto pkey = øcreate_new<::message::key>();
+//                  auto pkey = create_newø<::message::key>();
 //
 //                  pkey->m_pacmewindowingwindow = px11window;
 //

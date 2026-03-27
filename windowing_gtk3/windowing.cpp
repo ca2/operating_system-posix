@@ -98,7 +98,7 @@ namespace windowing_gtk3
 //   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
 //   {
 //
-//      ::pointer<::windowing_gtk3::window> pwindow = pimpl->øcreate<::windowing::window>();
+//      ::pointer<::windowing_gtk3::window> pwindow = pimpl->createø<::windowing::window>();
 //
 //      if (!pwindow)
 //      {
@@ -152,7 +152,7 @@ namespace windowing_gtk3
 //
 //      auto & pfactory = ::system()->factory("input", "libinput");
 //
-//      auto pinput = øcreate<::input::input>(pfactory);
+//      auto pinput = createø<::input::input>(pfactory);
 //
 //      return pinput;
 //
@@ -168,7 +168,7 @@ namespace windowing_gtk3
 
       information() << "windowing_gtk3::windowing::initialize_windowing";
 
-//      auto pdisplay = øcreate<::windowing::display>();
+//      auto pdisplay = createø<::windowing::display>();
 //
 //      pdisplay->open_display();
 //

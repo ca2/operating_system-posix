@@ -33,9 +33,11 @@ namespace gtk4
 
             ::map< GtkWidget, ::pointer < ::acme::windowing::window > >   m_mapWindow;
 
+            ::procedure                         m_callbackOnStartupGtkApplication;
             ::procedure                         m_callbackOnActivateGtkApplication;
             GtkApplication *                    m_pgtkapplication;
             gpointer                            m_pGtkSettingsDefault;
+            bool                                m_bIsGtk4ApplicationHeld = false;
 
             GAction *                           m_pactionColorScheme = nullptr;
 
@@ -118,6 +120,8 @@ namespace gtk4
 
             void windowing_post_quit() override;
 
+
+            virtual void _on_startup_gtk_application();
 
             virtual void _on_activate_gtk_application();
 

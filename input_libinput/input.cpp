@@ -267,7 +267,7 @@ namespace input_libinput
       if(eusermessage != ::user::e_message_undefined)
       {
 
-         auto pmouse = øcreate_new < ::message::mouse >();
+         auto pmouse = create_newø < ::message::mouse >();
 
          pmouse->m_eusermessage = eusermessage;
 
@@ -382,7 +382,7 @@ namespace input_libinput
       if(eusermessage != ::user::e_message_undefined)
       {
 
-         auto pkey = øcreate_new < ::message::key >();
+         auto pkey = create_newø < ::message::key >();
 
          pkey->m_eusermessage = eusermessage;
 

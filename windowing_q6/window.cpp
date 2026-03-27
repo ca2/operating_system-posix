@@ -1206,7 +1206,7 @@ namespace windowing_q6
 //    void window::_on_show(bool bShow)
 //    {
 //
-//       auto pshowwindow = øcreate_new<::message::show_window>();
+//       auto pshowwindow = create_newø<::message::show_window>();
 //
 //       pshowwindow->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -1226,7 +1226,7 @@ namespace windowing_q6
 //
 //       m_bKeyboardFocus = true;
 //
-//       auto psetkeyboardfocus = øcreate_new<::message::set_keyboard_focus>();
+//       auto psetkeyboardfocus = create_newø<::message::set_keyboard_focus>();
 //
 //       psetkeyboardfocus->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -1244,7 +1244,7 @@ namespace windowing_q6
 //
 //       m_bKeyboardFocus = false;
 //
-//       auto pkillkeyboardfocus = øcreate_new<::message::kill_keyboard_focus>();
+//       auto pkillkeyboardfocus = create_newø<::message::kill_keyboard_focus>();
 //
 //       pkillkeyboardfocus->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -1276,7 +1276,7 @@ namespace windowing_q6
 //       if (::is_set(puserinteraction))
 //       {
 //
-//          auto pmouse = øcreate_new<::message::mouse>();
+//          auto pmouse = create_newø<::message::mouse>();
 //
 //          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -1354,7 +1354,7 @@ namespace windowing_q6
 //          //if (::is_set(pwindow))
 //          {
 //
-//             auto pmouse = øcreate_new<::message::mouse>();
+//             auto pmouse = create_newø<::message::mouse>();
 //
 //             pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -1447,7 +1447,7 @@ namespace windowing_q6
 //       //if (::is_set(pwindow))
 //       {
 //
-//          auto pmouse = øcreate_new<::message::mouse>();
+//          auto pmouse = create_newø<::message::mouse>();
 //
 //          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -5256,7 +5256,7 @@ namespace windowing_q6
 //    //       if(::is_set(pwindow))
 //    //       {
 //    //
-//    //          auto pmouse = øcreate_new<::message::mouse>();
+//    //          auto pmouse = create_newø<::message::mouse>();
 //    //
 //    //          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //    //
@@ -5341,7 +5341,7 @@ namespace windowing_q6
 //    // //
 //    // //      wayland_windowing()->post_ui_message(msg);
 //    //
-//    //       auto pmouse = øcreate_new<::message::mouse>();
+//    //       auto pmouse = create_newø<::message::mouse>();
 //    //
 //    //       pmouse->m_pacmewindowingwindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
 //    //
@@ -5501,7 +5501,7 @@ namespace windowing_q6
 //    //       if (Δ != 0)
 //    //       {
 //    //
-//    //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
+//    //          auto pmousewheel = create_newø<::message::mouse_wheel>();
 //    //
 //    //          pmousewheel->m_operatingsystemwindow = this->operating_system_window();
 //    //
@@ -5531,7 +5531,7 @@ namespace windowing_q6
 //    //       else if (bRet)
 //    //       {
 //    //
-//    //          auto pmouse = øcreate_new<::message::mouse>();
+//    //          auto pmouse = create_newø<::message::mouse>();
 //    //
 //    //          pmouse->m_operatingsystemwindow = this->operating_system_window();
 //    //
@@ -5764,7 +5764,7 @@ namespace windowing_q6
 //    //       if (ekey != ::user::e_key_none)
 //    //       {
 //    //
-//    //          auto pkey = øcreate_new<::message::key>();
+//    //          auto pkey = create_newø<::message::key>();
 //    //
 //    //          pkey->
 //    //             m_pacmewindowingwindow = this;
@@ -5813,7 +5813,7 @@ namespace windowing_q6
 //    //
 //    //    //Wayland_data_device_set_serial(input->data_device, serial);
 //    //
-//    //    auto pkey = øcreate_new<::message::key>();
+//    //    auto pkey = create_newø<::message::key>();
 //    //
 //    //    pkey->
 //    //    m_pacmewindowingwindow = this;
@@ -6241,7 +6241,7 @@ namespace windowing_q6
 //    //         if (ekey != ::user::e_key_none)
 //    //         {
 //    //
-//    //            auto pkey = øcreate_new<::message::key>();
+//    //            auto pkey = create_newø<::message::key>();
 //    //
 //    //            pkey->m_operatingsystemwindow = this->operating_system_window();
 //    //
@@ -6307,7 +6307,7 @@ namespace windowing_q6
 //    //
 //    //            //Wayland_data_device_set_serial(input->data_device, serial);
 //    //
-//    //            auto pkey = øcreate_new<::message::key>();
+//    //            auto pkey = create_newø<::message::key>();
 //    //
 //    //            pkey->m_operatingsystemwindow = this->operating_system_window();
 //    //

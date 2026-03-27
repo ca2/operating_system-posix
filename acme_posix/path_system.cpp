@@ -5,6 +5,7 @@
 #include "framework.h"
 #include "directory_system.h"
 #include "path_system.h"
+#include "acme/operating_system/shared_posix/c_error_number.h"
 #if defined( FREEBSD) || defined(OPENBSD)
 //#define __XSI_VISIBLE 1
 #include <unistd.h>
@@ -228,6 +229,19 @@ void path_system::create_symbolic_link(const ::scoped_string & scopedstrLink, co
       }
 
 }
+
+
+   // Assuming ::file::path has a .string() or .c_str() method
+   void path_system::symbolic_link(const ::file::path & pathTarget, const ::file::path & pathSource)
+   {
+      // symlink(existing_file, new_link_name)
+      if (symlink(pathSource, pathTarget) == -1)
+      {
+         ::c_error_number cerrornumber;
+         // Handle error, for example, throw an exception
+         throw ::exception(error_failed, {cerrornumber}, "Failed to create symlink");
+      }
+   }
 
 
 } // namespace acme_posix

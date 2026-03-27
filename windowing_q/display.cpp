@@ -282,7 +282,7 @@ namespace windowing_q
 
          auto & pmonitor = m_monitora[iMonitor];
 
-         ødefer_construct(pmonitor);
+         defer_constructø(pmonitor);
 
          pmonitor->m_pdisplay = this;
 

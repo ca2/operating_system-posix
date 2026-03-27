@@ -189,7 +189,7 @@ namespace windowing_x11
          if (!pgraphics)
          {
 
-            auto pgraphicsBufferItem = øcreate < ::draw2d::graphics >();
+            auto pgraphicsBufferItem = createø < ::draw2d::graphics >();
 
             auto puserinteraction = dynamic_cast < ::user::interaction * >( m_pwindow->m_pacmeuserinteraction.m_p);
 

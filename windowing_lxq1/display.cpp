@@ -307,7 +307,7 @@ namespace windowing_lxq1
 //
 //          auto & pmonitor = m_monitora[iMonitor];
 //
-//          ødefer_construct(pmonitor);
+//          defer_constructø(pmonitor);
 //
 //          pmonitor->m_pdisplay = this;
 //

@@ -864,7 +864,7 @@ return FALSE;
 
             {
 
-               auto pmouse = øcreate_new<::user::mouse>();
+               auto pmouse = create_newø<::user::mouse>();
 
 //               pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -991,7 +991,7 @@ m_phappeningLastMouseUp = pevent;
             //if(::is_set(pwindow))
             {
 
-               auto pmouse = øcreate_new<::user::mouse>();
+               auto pmouse = create_newø<::user::mouse>();
 
                //pmouse->m_operatingsystemwindow = this->operating_system_window();
 
@@ -1151,7 +1151,7 @@ m_phappeningLastMouseUp = pevent;
 #if REFERENCING_DEBUGGING
                set_reference_referer_releaser_breakpoint(0);
 #endif
-               auto pmouse = øcreate_new<::user::mouse>();
+               auto pmouse = create_newø<::user::mouse>();
 
 //               pmouse->m_operatingsystemwindow = this->operating_system_window();
 //
@@ -1705,7 +1705,7 @@ m_phappeningLastMouseUp = pevent;
 //               if (pevent->xbutton.button == Button1)
 //               {
 //
-//                  auto pmouse = øcreate_new < ::user::mouse >();
+//                  auto pmouse = create_newø < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //
@@ -1717,7 +1717,7 @@ m_phappeningLastMouseUp = pevent;
 //               else if (pevent->xbutton.button == Button3)
 //               {
 //
-//                  auto pmouse = øcreate_new < ::user::mouse >();
+//                  auto pmouse = create_newø < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //
@@ -1734,7 +1734,7 @@ m_phappeningLastMouseUp = pevent;
 //               if (pevent->xbutton.button == Button1)
 //               {
 //
-//                  auto pmouse = øcreate_new < ::user::mouse >();
+//                  auto pmouse = create_newø < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //
@@ -1746,7 +1746,7 @@ m_phappeningLastMouseUp = pevent;
 //               else if (pevent->xbutton.button == Button3)
 //               {
 //
-//                  auto pmouse = øcreate_new < ::user::mouse >();
+//                  auto pmouse = create_newø < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {pevent->xbutton.x, pevent->xbutton.y};
 //
@@ -1760,7 +1760,7 @@ m_phappeningLastMouseUp = pevent;
 //            else if (pevent->type == MotionNotify)
 //            {
 //
-//               auto pmouse = øcreate_new < ::user::mouse >();
+//               auto pmouse = create_newø < ::user::mouse >();
 //
 //               pmouse->m_pointHost = {pevent->xmotion.x, pevent->xmotion.y};
 //
@@ -1775,7 +1775,7 @@ m_phappeningLastMouseUp = pevent;
 //               if (m_pinterface->m_pchildHover)
 //               {
 //
-//                  auto pmouse = øcreate_new < ::user::mouse >();
+//                  auto pmouse = create_newø < ::user::mouse >();
 //
 //                  pmouse->m_pointHost = {I32_MINIMUM, I32_MINIMUM};
 //

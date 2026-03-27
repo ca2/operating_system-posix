@@ -29,7 +29,7 @@ namespace write_text_pango
 
       //synchronous_lock ml(::draw2d_cairo::mutex(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      ødefer_construct_new(m_pfontenumerationitema);
+      defer_construct_newø(m_pfontenumerationitema);
 
       m_pfontenumerationitema->erase_all();
 

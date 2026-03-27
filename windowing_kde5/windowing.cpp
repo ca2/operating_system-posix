@@ -118,7 +118,7 @@ namespace windowing_kde5
    //   ::windowing::window * windowing::new_window(::windowing::window * pimpl)
    //   {
    //
-   //      ::pointer<::windowing_kde5::window> pwindow = pimpl->øcreate<::windowing::window>();
+   //      ::pointer<::windowing_kde5::window> pwindow = pimpl->createø<::windowing::window>();
    //
    //      if (!pwindow)
    //      {
@@ -172,7 +172,7 @@ namespace windowing_kde5
 //    //
 //    //      auto & pfactory = ::system()->factory("input", "libinput");
 //    //
-//    //      auto pinput = øcreate<::input::input>(pfactory);
+//    //      auto pinput = createø<::input::input>(pfactory);
 //    //
 //    //      return pinput;
 //    //
@@ -471,7 +471,7 @@ namespace windowing_kde5
 //
 //       //      auto cursor = XCreateFontCursor(m_pdisplay->Display(), iCursor);
 //       //
-//       //      auto pcursorX11 = øcreate < ::windowing_kde5::cursor >();
+//       //      auto pcursorX11 = createø < ::windowing_kde5::cursor >();
 //       //
 //       //      pcursor = pcursorX11;
 //       //
@@ -741,7 +741,7 @@ namespace windowing_kde5
 //    //      if(emessage != ::user::e_message_undefined)
 //    //      {
 //    //
-//    //         auto pmouse = øcreate_new < ::message::mouse >();
+//    //         auto pmouse = create_newø < ::message::mouse >();
 //    //
 //    //         pmouse->m_emessage = emessage;
 //    //
@@ -790,7 +790,7 @@ namespace windowing_kde5
 //    //      if(emessage != ::user::e_message_undefined)
 //    //      {
 //    //
-//    //         auto pkey = øcreate_new < ::message::key >();
+//    //         auto pkey = create_newø < ::message::key >();
 //    //
 //    //         pkey->m_emessage = emessage;
 //    //
@@ -1016,7 +1016,7 @@ namespace windowing_kde5
 //    //
 //    //    //g_object_ref(m_pgtkapplication);
 //    //
-//    //    //auto pdisplay = øcreate<::acme::windowing::display>();
+//    //    //auto pdisplay = createø<::acme::windowing::display>();
 //    //
 //    //    auto pdisplay = this->display();
 //    //

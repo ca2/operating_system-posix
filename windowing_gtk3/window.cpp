@@ -443,7 +443,7 @@ namespace windowing_gtk3
          if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
          {
 
-            auto pgraphics = øcreate<::draw2d::graphics>();
+            auto pgraphics = createø<::draw2d::graphics>();
             //         cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
             //         cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
             //         cairo_paint(cr);
@@ -460,7 +460,7 @@ namespace windowing_gtk3
             //
             //         return;
 
-            //auto pgraphics = øcreate<::draw2d::graphics>();
+            //auto pgraphics = createø<::draw2d::graphics>();
 
             pgraphics->attach(cr);
             //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
@@ -605,7 +605,7 @@ namespace windowing_gtk3
       //if(::is_set(pwindow))
       {
 
-         auto pmouse = øcreate_new<::message::mouse>();
+         auto pmouse = create_newø<::message::mouse>();
 
          pmouse->m_operatingsystemwindow = this->operating_system_window();
 
@@ -668,7 +668,7 @@ namespace windowing_gtk3
       //if(::is_set(pwindow))
       {
 
-         auto pmouse = øcreate_new<::message::mouse>();
+         auto pmouse = create_newø<::message::mouse>();
 
          pmouse->m_operatingsystemwindow = this->operating_system_window();
 
@@ -761,7 +761,7 @@ namespace windowing_gtk3
       //if(::is_set(pwindow))
       {
 
-         auto pmouse = øcreate_new<::message::mouse>();
+         auto pmouse = create_newø<::message::mouse>();
 
          pmouse->m_operatingsystemwindow = this->operating_system_window();
 
@@ -1086,7 +1086,7 @@ namespace windowing_gtk3
       if (ekey != ::user::e_key_none)
       {
 
-         auto pkey = øcreate_new<::message::key>();
+         auto pkey = create_newø<::message::key>();
 
          pkey->m_eusermessage = ::user::e_message_key_down;
 
@@ -1117,7 +1117,7 @@ namespace windowing_gtk3
       if (ekey != ::user::e_key_none)
       {
 
-         auto pkey = øcreate_new<::message::key>();
+         auto pkey = create_newø<::message::key>();
 
          pkey->m_eusermessage = ::user::e_message_key_up;
 
@@ -1141,7 +1141,7 @@ namespace windowing_gtk3
    bool window::_on_gtk_scroll(GtkWidget * pwidget, GdkEventScroll * pscroll)
    {
 
-      auto pmouse = øcreate_new<::message::mouse_wheel>();
+      auto pmouse = create_newø<::message::mouse_wheel>();
 
       pmouse->m_operatingsystemwindow = this->operating_system_window();
 
@@ -5926,7 +5926,7 @@ namespace windowing_gtk3
    //       if(::is_set(pwindow))
    //       {
    //
-   //          auto pmouse = øcreate_new<::message::mouse>();
+   //          auto pmouse = create_newø<::message::mouse>();
    //
    //          pmouse->m_operatingsystemwindow = this->operating_system_window();
    //
@@ -6011,7 +6011,7 @@ namespace windowing_gtk3
    // //
    // //      wayland_windowing()->post_ui_message(msg);
    //
-   //       auto pmouse = øcreate_new<::message::mouse>();
+   //       auto pmouse = create_newø<::message::mouse>();
    //
    //       pmouse->m_pacmewindowingwindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
    //
@@ -6171,7 +6171,7 @@ namespace windowing_gtk3
    //       if (Δ != 0)
    //       {
    //
-   //          auto pmousewheel = øcreate_new<::message::mouse_wheel>();
+   //          auto pmousewheel = create_newø<::message::mouse_wheel>();
    //
    //          pmousewheel->m_operatingsystemwindow = this->operating_system_window();
    //
@@ -6201,7 +6201,7 @@ namespace windowing_gtk3
    //       else if (bRet)
    //       {
    //
-   //          auto pmouse = øcreate_new<::message::mouse>();
+   //          auto pmouse = create_newø<::message::mouse>();
    //
    //          pmouse->m_operatingsystemwindow = this->operating_system_window();
    //
@@ -6434,7 +6434,7 @@ namespace windowing_gtk3
    //       if (ekey != ::user::e_key_none)
    //       {
    //
-   //          auto pkey = øcreate_new<::message::key>();
+   //          auto pkey = create_newø<::message::key>();
    //
    //          pkey->
    //             m_pacmewindowingwindow = this;
@@ -6483,7 +6483,7 @@ namespace windowing_gtk3
    //
    //    //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //    auto pkey = øcreate_new<::message::key>();
+   //    auto pkey = create_newø<::message::key>();
    //
    //    pkey->
    //    m_pacmewindowingwindow = this;
@@ -6658,7 +6658,7 @@ namespace windowing_gtk3
    //         if (ekey != ::user::e_key_none)
    //         {
    //
-   //            auto pkey = øcreate_new<::message::key>();
+   //            auto pkey = create_newø<::message::key>();
    //
    //            pkey->m_operatingsystemwindow = this->operating_system_window();
    //
@@ -6724,7 +6724,7 @@ namespace windowing_gtk3
    //
    //            //Wayland_data_device_set_serial(input->data_device, serial);
    //
-   //            auto pkey = øcreate_new<::message::key>();
+   //            auto pkey = create_newø<::message::key>();
    //
    //            pkey->m_operatingsystemwindow = this->operating_system_window();
    //

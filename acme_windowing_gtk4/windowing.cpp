@@ -21,6 +21,7 @@
 //#include <X11/XKBlib.h>
 //#include <X11/Xutil.h>
 bool wouldnt_create_gl_context();
+bool gtk4_is_session_dbus_available();
 //extern "C" int jail_getid(const char *name);
 #include <stdio.h>
 #include <unistd.h>
@@ -506,13 +507,24 @@ gtk_init();
          //
          //    }
 
-
-         extern "C" void on_activate_gtk_application(GtkApplication*, gpointer p)
+         static void s_on_startup_gtk_application(GApplication *, gpointer p)
          {
 
             auto* pgtk4windowingsystem = (::gtk4::acme::windowing::windowing*)p;
-            
-            ::information() << "gtk4::acme::windowing::on_activate_gtk_application";
+
+            ::information() << "gtk4::acme::windowing::s_on_startup_gtk_application";
+
+            pgtk4windowingsystem->_on_startup_gtk_application();
+
+         }
+
+
+         static void s_on_activate_gtk_application(GtkApplication*, gpointer p)
+         {
+
+            auto* pgtk4windowingsystem = (::gtk4::acme::windowing::windowing*)p;
+
+            ::information() << "gtk4::acme::windowing::s_on_activate_gtk_application";
 
             pgtk4windowingsystem->_hook_system_theme_change_callbacks();
 
@@ -523,18 +535,17 @@ gtk_init();
          }
 
 
-         extern "C" void on_open_gtk_application(
-                                              GApplication* self,
-                                              gpointer files,
-                                              gint n_files,
-                                              gchar* hint,
-                                              gpointer p
-                                            )
+         static void s_on_open_gtk_application(
+                                             GtkApplication *app,
+                                             GFile **files,
+                                             gint n_files,
+                                             const gchar *hint,
+                                             gpointer p)
          {
 
             auto* pgtk4windowingsystem = (::gtk4::acme::windowing::windowing*)p;
 
-            ::information() << "gtk4::acme::windowing::on_open_gtk_application";
+            ::information() << "gtk4::acme::windowing::s_on_open_gtk_application";
 
             pgtk4windowingsystem->_hook_system_theme_change_callbacks();
 
@@ -569,10 +580,16 @@ gtk_init();
          }
 
 
-         void windowing::run()
+         static bool is_platform_option(const ::scoped_string & scopedstr)
          {
 
+            return scopedstr.begins( "--trace-level=");
 
+         }
+
+
+         void windowing::run()
+         {
 
              //int main(void) {
                  //int jid = jail_getid(".");
@@ -584,8 +601,6 @@ gtk_init();
                  //}
                //  return 0;
              //}
-
-
 
 			   information() << "gtk4::acme::windowing::windowing::run";
 
@@ -602,36 +617,66 @@ gtk_init();
             ::set_main_user_thread();
 
             //if (!g_dbus_is_address("unix:path=/tmp")) // or more properly:
+
             int iExtraFlags = 0;
-            ::string strDbusSessionBusAddress(node()->get_environment_variable("DBUS_SESSION_BUS_ADDRESS"));
-            ::string strDbusFile;
-            if(strDbusSessionBusAddress.begins_eat("unix:path="))
-            {
-                strDbusFile = strDbusSessionBusAddress.get_word(",");
-                warning() <<  "D-Bus file should be: " << strDbusFile;
-            }
-            bool bDbusFileExists = file()->exists(strDbusFile);
-            if(bDbusFileExists)
-            {
-               information("D-Bus file exists (path=\"{}\")", strDbusFile);
-            }
-            else
-            {
-                warning("D-Bus file doesn't exist (path=\"{}\")", strDbusFile);
-            }
-            bool bDbusSessionRunning =is_dbus_session_running();
+
+            // ::string strDbusSessionBusAddress(node()->get_environment_variable("DBUS_SESSION_BUS_ADDRESS"));
+            //
+            // ::string strDbusFile;
+            //
+            // if(strDbusSessionBusAddress.begins_eat("unix:path="))
+            // {
+            //
+            //    strDbusFile = strDbusSessionBusAddress.get_word(",");
+            //
+            //    warning() <<  "D-Bus file should be: " << strDbusFile;
+            //
+            // }
+            //
+            // bool bDbusFileExists = file()->exists(strDbusFile);
+            //
+            // if(bDbusFileExists)
+            // {
+            //
+            //    information("D-Bus file exists (path=\"{}\")", strDbusFile);
+            //
+            // }
+            // else
+            // {
+            //
+            //    warning("D-Bus file doesn't exist (path=\"{}\")", strDbusFile);
+            //
+            // }
+
+            //bool bDbusSessionRunning =is_dbus_session_running();
+
+            bool bDbusSessionRunning = gtk4_is_session_dbus_available();
+
             if(bDbusSessionRunning)
             {
-               information("D-Bus session is running (dbus-daemon process found)");
+
+               //information("D-Bus session is running (dbus-daemon process found)");
+
+               information("Session D-Bus is available");
+
             }
             else
             {
-                warning("D-Bus session isn't running (dbus-daemon process not found)");
+
+               //warning("D-Bus session isn't running (dbus-daemon process not found)");
+
+               information("Session D-Bus is NOT available");
+
             }
-            if(!bDbusFileExists || !bDbusSessionRunning)
+
+            //if(!bDbusFileExists || !bDbusSessionRunning)
+            if(!bDbusSessionRunning)
             {
-                warning() <<  "No D-Bus session detected — falling back to non-unique mode";
-                iExtraFlags = G_APPLICATION_NON_UNIQUE;
+
+               warning() <<  "No D-Bus session detected — falling back to non-unique mode";
+
+               iExtraFlags = G_APPLICATION_NON_UNIQUE;
+
             }
 
 #if GLIB_CHECK_VERSION(2,74,0)
@@ -644,9 +689,18 @@ gtk_init();
 
 #endif
 
-            g_signal_connect(m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
+            if (!m_pgtkapplication)
+            {
 
-            g_signal_connect(m_pgtkapplication, "open", G_CALLBACK(on_open_gtk_application), this);
+               throw ::exception(error_failed);
+
+            }
+
+            g_signal_connect(m_pgtkapplication, "startup", G_CALLBACK(s_on_startup_gtk_application), this);
+
+            g_signal_connect(m_pgtkapplication, "activate", G_CALLBACK(s_on_activate_gtk_application), this);
+
+            g_signal_connect(m_pgtkapplication, "open", G_CALLBACK(s_on_open_gtk_application), this);
 
             // // Retrieve system settings and listen for changes in dark mode preference
             // GtkSettings *settings = gtk_settings_get_default();
@@ -664,8 +718,7 @@ gtk_init();
             // ///GtkSettings *settings = gtk_settings_get_default();
             // g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
 
-            g_application_hold(G_APPLICATION(m_pgtkapplication));
-
+            // g_application_hold(G_APPLICATION(m_pgtkapplication));
 
             // if(m_pdisplay->is_wayland())
             // {
@@ -684,17 +737,50 @@ gtk_init();
 
             information() << "gtk4::acme::windowing::windowing::run argc " << argc;
 
+            if (argc <= 0)
+            {
+               g_printerr("argc <= 0\n");
+            }
+
+            if (!args)
+            {
+               g_printerr("args == NULL\n");
+            }
+            else
+            {
+               if (!args[0])
+               {
+                  g_printerr("args[0] == NULL\n");
+               }
+
+               for (int i = 0; i < argc; ++i)
+               {
+                  if (!args[i])
+                  {
+                     g_printerr("args[%d] == NULL inside argc range\n", i);
+                  }
+                  else
+                  {
+                     g_printerr("args[%d] = '%s'\n", i, args[i]);
+                  }
+               }
+            }
+
             for(int i = 0; i <= argc; i++)
             {
 
                 if(!args[i])
                 {
-                    information("gtk4::acme::windowing::windowing::run args[{}] = (nullptr) ", i);
-                    }
-                    else
-                    {
-                    information("gtk4::acme::windowing::windowing::run args[{}] = ({}){} ", i, (iptr)args[i], args[i]);
-                    }
+
+                   information("gtk4::acme::windowing::windowing::run args[{}] = (nullptr) ", i);
+
+                }
+                else
+                {
+
+                   information("gtk4::acme::windowing::windowing::run args[{}] = ({}){} ", i, (iptr)args[i], args[i]);
+
+                }
 
             }
 
@@ -707,7 +793,22 @@ gtk_init();
 
             //}
 
-            g_application_run(G_APPLICATION(m_pgtkapplication), argc, args);
+            char **filtered_args = g_new0(char *, argc + 1);
+            int filtered_argc = 0;
+
+            for (int i = 0; i < argc; ++i)
+            {
+               if (i > 0 && is_platform_option(args[i]))
+                  continue;
+
+               filtered_args[filtered_argc++] = args[i];
+            }
+
+            int status = g_application_run(G_APPLICATION(m_pgtkapplication), filtered_argc, filtered_args);
+
+            g_free(filtered_args);
+
+            //g_application_run(G_APPLICATION(m_pgtkapplication), argc, args);
 
             //g_application_run(G_APPLICATION(m_pgtkapplication), __argc, __argv);
 
@@ -740,8 +841,36 @@ gtk_init();
          }
 
 
+         void windowing::_on_startup_gtk_application()
+         {
+
+            ::information() << "gtk4::acme::windowing::windowing::_on_startup_gtk_application";
+
+            if (m_callbackOnStartupGtkApplication)
+            {
+
+               m_callbackOnStartupGtkApplication();
+
+               return;
+
+            }
+
+            if (!m_bIsGtk4ApplicationHeld)
+            {
+
+               m_bIsGtk4ApplicationHeld = true;
+
+               g_application_hold(G_APPLICATION(m_pgtkapplication));
+
+            }
+
+         }
+
+
          void windowing::_on_activate_gtk_application()
          {
+
+            ::information() << "gtk4::acme::windowing::windowing::_on_activate_gtk_application";
 
             if (m_callbackOnActivateGtkApplication)
             {
@@ -754,13 +883,20 @@ gtk_init();
 
             //system()->defer_post_initial_request();
 
-            ::information() << "gtk4::acme::windowing::_on_activate_gtk_application";
-
             //system()->post_aaa_application_start();
             //system()->defer_post_aaa_application_start_file_open_request();
             //system()->post_aaa_application_started();
 
             windowing_application_on_start();
+
+            if (!m_bIsGtk4ApplicationHeld)
+            {
+
+               m_bIsGtk4ApplicationHeld = true;
+
+               g_application_hold(G_APPLICATION(m_pgtkapplication));
+
+            }
 
          }
 
