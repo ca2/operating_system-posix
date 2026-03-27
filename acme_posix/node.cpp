@@ -2836,19 +2836,25 @@ namespace acme_posix
    }
 
 
-   int node::pty(const scoped_string& scopedstr)
+   int node::pty2(const ::string_array_base & straCommands)
    {
 
       pty_process proc;
 
 
-      proc.m_straCommands.add("echo 'hello from PtyProcess'\n");
-      proc.m_straCommands.add("pwd\n");
-      proc.m_straCommands.add("ls\n");
-      proc.m_straCommands.add(::string(scopedstr) +"; exit\n");
+      proc.add_command_line("echo 'hello from PtyProcess'");
+      proc.add_command_line("pwd");
+      proc.add_command_line("ls");
+
+      for (auto & strCommandLine : straCommands)
+      {
+
+         proc.add_command_line(strCommandLine);
+
+      }
 
 
-      if (!proc.spawn("bash -i")) {
+      if (!proc.open()) {
          throw ::exception(error_failed, "spawn");
       }
 
@@ -3221,27 +3227,34 @@ namespace acme_posix
    bool node::_is_smart_git_installed()
    {
 
-      ::file::listing_base listing;
+      // ::file::listing_base listing;
+      //
+      // auto pathAppData = directory_system()->home() / ".config/smartgit";
+      //
+      // listing.set_folder_listing(pathAppData);
+      //
+      // directory_system()->enumerate(listing);
+      //
+      // for(auto & path : listing)
+      // {
+      //    auto pathPreferences = path / "preferences.yml";
+      //
+      //    if(file_system()->exists(pathPreferences))
+      //    {
+      //
+      //       return true;
+      //
+      //    }
+      //
+      // }
 
-      auto pathJetbrains = directory_system()->home() / ".config/smartgit";
+      auto pathApp = directory_system()->home() / "application_opt/syntevo/smartgit";
 
-      listing.set_folder_listing(pathJetbrains);
+      auto pathSmartGitSh  = pathApp / "bin/smartgit.sh";
 
-      directory_system()->enumerate(listing);
+      bool bInstalled = file()->exists(pathSmartGitSh);
 
-      for(auto & path : listing)
-      {
-         auto pathPreferences = path / "preferences.yml";
-
-         if(file_system()->exists(pathPreferences))
-         {
-
-            return true;
-
-         }
-      }
-
-      return false;
+      return bInstalled;
 
    }
 

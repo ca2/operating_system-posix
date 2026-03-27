@@ -117,7 +117,7 @@ namespace acme_posix
       virtual int __command_system(const ::scoped_string & scopedstr, const ::scoped_string & scopedstrPipe, const trace_function & tracefunction = nullptr);
       int command_system(const ::scoped_string & scopedstr, const trace_function & tracefunction = nullptr, const ::file::path & pathWorkingDirectory ={}, ::e_display edisplay = e_display_none) override;
       int command_system_memory(const ::scoped_string & scopedstr, bool bInteractive = false, const memory_dump_function & memorydumpfunction = nullptr, const ::file::path & pathWorkingDirectory ={}, ::e_display edisplay = e_display_none) override;
-int pty(const scoped_string& scopedstr) override;
+      int pty2(const ::string_array_base & straCommands) override;
       void launch_process(const ::scoped_string & scopedstr) override;
 
       ::file::path library_file_name(const ::scoped_string& scopedstr) override;

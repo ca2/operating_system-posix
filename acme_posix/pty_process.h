@@ -11,21 +11,36 @@
 class pty_process :
 virtual public ::particle
 {
+protected:
+
+   ::string_array m_straCommands;
+   ::string_array m_straMarkerEcho;
+   ::string_array m_straMarker;
+   //iptr_array m_iaMarkerEcho;
+   //iptr_array m_iaMarker;
+   int m_iCurrentCommand = 0;
+   bool m_bWaitingMarker = false;
+   //memsize m_iSearchMarkerFrom= 0;
+   //memsize  m_iLastStdOut = 0;
+   ::string m_strCommand;
+   ::string m_strMarkerEcho;
+   ::string m_strMarker;
+
 public:
    //private:
    pid_t child_pid_;
    int m_ptyMaster;
    bool running_;
 
-::memory m_memoryOutput;
-   ::string_array m_straCommands;
-   int m_iCurrentCommand = 0;
+   ::memory m_memoryBuffer;
    int m_flagsStdIn;
    int m_iExitCode = 0;
    bool m_bSetNonBlockingIOforStdIn = false;
    termios m_tioOriginal{};
    bool m_bTerminalModeSaved = false;
    bool m_bLocalRawMode = false;
+
+
    pty_process();
    ~pty_process();
 
@@ -35,12 +50,16 @@ public:
    pty_process(pty_process&& other) noexcept;
    pty_process& operator=(pty_process&& other) noexcept;
 
+
+   void add_command_line(const ::scoped_string & scopedstrCommand);
+
    // Spawn using /bin/sh -c <command>
-   bool spawn(const ::scoped_string& command);
-
+   bool open();
+   bool open(const ::scoped_string& scopedstrShell);
+   void on_child_raw_stdout(const void *p, memsize s);
+   void on_child_stdout(const void *p, memsize s);
    // Spawn using execvp(argv[0], argv)
-   bool spawn(const string_array_base & args);
-
+   bool __open(const string_array_base & args);
    // Single PTY FD (read + write)
    int fd() const;
 
@@ -86,5 +105,19 @@ void set_stdin_non_blocking();
    void end_terminal_bridge();
 
    void run() override;
+
+};
+
+
+
+class pty_process_exception :
+virtual public ::exception
+{
+public:
+
+   pty_process_exception(const ::e_status & estatus, const ::scoped_string & scopedstrMessage);
+   ~pty_process_exception() override;
+
+
 
 };
