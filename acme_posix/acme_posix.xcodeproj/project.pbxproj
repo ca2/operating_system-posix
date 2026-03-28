@@ -119,6 +119,12 @@
 		9AC14CD3297B3370006D9BD3 /* file_memory_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B2264A2C6C00B5CC33 /* file_memory_map.cpp */; };
 		9AC14CD4297B3370006D9BD3 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C16B6264A2C6C00B5CC33 /* node.cpp */; };
 		9AC14CD5297B3370006D9BD3 /* node_clang_callstack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A78F44428E7E3E2007F62C0 /* node_clang_callstack.cpp */; };
+		9ADE49F12F76A1A40097F7FE /* pty_process.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ADE49EF2F76A1A40097F7FE /* pty_process.h */; };
+		9ADE49F22F76A1A40097F7FE /* pty_process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9ADE49F02F76A1A40097F7FE /* pty_process.cpp */; };
+		9ADE49F32F76A1A40097F7FE /* pty_process.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ADE49EF2F76A1A40097F7FE /* pty_process.h */; };
+		9ADE49F42F76A1A40097F7FE /* pty_process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9ADE49F02F76A1A40097F7FE /* pty_process.cpp */; };
+		9ADE49F52F76A1A40097F7FE /* pty_process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9ADE49F02F76A1A40097F7FE /* pty_process.cpp */; };
+		9ADE49F62F76A1A40097F7FE /* pty_process.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ADE49EF2F76A1A40097F7FE /* pty_process.h */; };
 		9AFC61B22D574170005ED062 /* node_utsname.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AFC61B12D574170005ED062 /* node_utsname.cpp */; };
 		9AFC61B32D574170005ED062 /* node_utsname.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AFC61B12D574170005ED062 /* node_utsname.cpp */; };
 		9AFC61B42D574170005ED062 /* node_utsname.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AFC61B12D574170005ED062 /* node_utsname.cpp */; };
@@ -212,6 +218,8 @@
 		9AB5228B2A4C0781001EB2F0 /* _____debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "_____debug.xcconfig"; sourceTree = "<group>"; };
 		9AB5228C2A4C0781001EB2F0 /* _____release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "_____release.xcconfig"; sourceTree = "<group>"; };
 		9AC14CDB297B3370006D9BD3 /* libstatic_acme_posix.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libstatic_acme_posix.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9ADE49EF2F76A1A40097F7FE /* pty_process.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pty_process.h; sourceTree = "<group>"; };
+		9ADE49F02F76A1A40097F7FE /* pty_process.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pty_process.cpp; sourceTree = "<group>"; };
 		9AFC61B12D574170005ED062 /* node_utsname.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node_utsname.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -287,6 +295,8 @@
 				9AFC61B12D574170005ED062 /* node_utsname.cpp */,
 				9A892E7F26CDDAA8008D6412 /* path_system.h */,
 				9A892E7E26CDDAA8008D6412 /* path_system.cpp */,
+				9ADE49EF2F76A1A40097F7FE /* pty_process.h */,
+				9ADE49F02F76A1A40097F7FE /* pty_process.cpp */,
 				9A0C16C0264A2C6C00B5CC33 /* pipe.h */,
 				9A0C16AF264A2C6C00B5CC33 /* pipe.cpp */,
 			);
@@ -325,6 +335,7 @@
 				9A0C16D5264A2C6D00B5CC33 /* _.h in Headers */,
 				9A0C16D1264A2C6D00B5CC33 /* pipe.h in Headers */,
 				9A78F40528E791B4007F62C0 /* exception_translator.h in Headers */,
+				9ADE49F62F76A1A40097F7FE /* pty_process.h in Headers */,
 				9A0C16D0264A2C6D00B5CC33 /* file_memory_map.h in Headers */,
 				9A892E8526CDDAA9008D6412 /* path_system.h in Headers */,
 				9A0C16CB264A2C6D00B5CC33 /* node.h in Headers */,
@@ -350,6 +361,7 @@
 				9A8E9DBF282A2F7E005FF778 /* _.h in Headers */,
 				9A8E9DC0282A2F7E005FF778 /* pipe.h in Headers */,
 				9A78F40628E791B4007F62C0 /* exception_translator.h in Headers */,
+				9ADE49F12F76A1A40097F7FE /* pty_process.h in Headers */,
 				9A8E9DC1282A2F7E005FF778 /* file_memory_map.h in Headers */,
 				9A8E9DC2282A2F7E005FF778 /* path_system.h in Headers */,
 				9A8E9DC3282A2F7E005FF778 /* node.h in Headers */,
@@ -375,6 +387,7 @@
 				9AC14CBC297B3370006D9BD3 /* _.h in Headers */,
 				9AC14CBD297B3370006D9BD3 /* pipe.h in Headers */,
 				9AC14CBE297B3370006D9BD3 /* exception_translator.h in Headers */,
+				9ADE49F32F76A1A40097F7FE /* pty_process.h in Headers */,
 				9AC14CBF297B3370006D9BD3 /* file_memory_map.h in Headers */,
 				9AC14CC0297B3370006D9BD3 /* path_system.h in Headers */,
 				9AC14CC1297B3370006D9BD3 /* node.h in Headers */,
@@ -543,6 +556,7 @@
 				9AFC61B32D574170005ED062 /* node_utsname.cpp in Sources */,
 				9A0C16C8264A2C6D00B5CC33 /* framework.cpp in Sources */,
 				9A89A8A82B92EDE300D44573 /* directory_context.cpp in Sources */,
+				9ADE49F52F76A1A40097F7FE /* pty_process.cpp in Sources */,
 				9A892E8226CDDAA9008D6412 /* directory_system.cpp in Sources */,
 				9A0C16D2264A2C6D00B5CC33 /* _factory.cpp in Sources */,
 				9AA3F96A2A949CDD004283CA /* file_context.cpp in Sources */,
@@ -570,6 +584,7 @@
 				9AFC61B42D574170005ED062 /* node_utsname.cpp in Sources */,
 				9A8E9DCB282A2F7E005FF778 /* framework.cpp in Sources */,
 				9A89A8A92B92EDE300D44573 /* directory_context.cpp in Sources */,
+				9ADE49F22F76A1A40097F7FE /* pty_process.cpp in Sources */,
 				9A8E9DCC282A2F7E005FF778 /* directory_system.cpp in Sources */,
 				9A8E9DCD282A2F7E005FF778 /* _factory.cpp in Sources */,
 				9AA3F96B2A949CDD004283CA /* file_context.cpp in Sources */,
@@ -597,6 +612,7 @@
 				9AFC61B22D574170005ED062 /* node_utsname.cpp in Sources */,
 				9AC14CCA297B3370006D9BD3 /* framework.cpp in Sources */,
 				9A89A8AA2B92EDE300D44573 /* directory_context.cpp in Sources */,
+				9ADE49F42F76A1A40097F7FE /* pty_process.cpp in Sources */,
 				9AC14CCB297B3370006D9BD3 /* directory_system.cpp in Sources */,
 				9AC14CCC297B3370006D9BD3 /* _factory.cpp in Sources */,
 				9AA3F96C2A949CDD004283CA /* file_context.cpp in Sources */,
@@ -689,8 +705,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				INSTALL_PATH = "@executable_path";
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path @loader_path";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(WorkspaceDir)/../operating_system/storage-$(PLATFORM_MODIFIER)/$(CONFIGURATION)/library",
@@ -776,8 +791,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				INSTALL_PATH = "@executable_path";
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path @loader_path";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(WorkspaceDir)/../operating_system/storage-$(PLATFORM_MODIFIER)/$(CONFIGURATION)/library",

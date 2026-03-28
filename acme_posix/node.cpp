@@ -2453,7 +2453,7 @@ namespace acme_posix
       // }
       //
       unsigned char buf[4096];
-      ssize_t n;
+      //ssize_t n;
 
       while(true)
       {

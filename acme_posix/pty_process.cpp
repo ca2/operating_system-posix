@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "pty_process.h"
 #include "acme/operating_system/posix/_.h"
+#include "acme/prototype/mathematics/mathematics.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
@@ -16,7 +17,7 @@
 
 #include <unistd.h>
 #include <errno.h>
-#include <acme/prototype/mathematics/mathematics.h>
+
 
 pty_process_exception::pty_process_exception(const ::e_status & estatus, const ::scoped_string & scopedstrMessage) :
 ::exception(estatus, scopedstrMessage)
@@ -169,7 +170,7 @@ void pty_process::set_stdin_non_blocking()
 void pty_process::poll_write_stdin()
 {
 char buf[4096];
-::e_status estatus = success;
+//::e_status estatus = success;
 
    sync_local_echo_from_child();
 
@@ -800,14 +801,14 @@ begin_terminal_bridge();
             m_strMarker =m_straMarker[m_iCurrentCommand];
          //      m_iCurrentCommand++;
 
-            auto pszCommand = m_strCommand.c_str();
-            auto pszMarkerEcho = m_strMarkerEcho.c_str();
-            auto pszMarker = m_strMarker.c_str();
+            //auto pszCommand = m_strCommand.c_str();
+            //auto pszMarkerEcho = m_strMarkerEcho.c_str();
+            //auto pszMarker = m_strMarker.c_str();
 
 
             ::string strOutputCommand =m_strCommand + m_strMarkerEcho + "\n";
 
-            auto pszOutputCommand = strOutputCommand.c_str();
+            //auto pszOutputCommand = strOutputCommand.c_str();
 
                //str.find_replace("!", "\\!");
                write_input(strOutputCommand);
