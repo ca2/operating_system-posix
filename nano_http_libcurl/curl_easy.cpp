@@ -39,11 +39,11 @@ size_t curl_easy::s_write_function(void *contents, size_t size, size_t nmemb, vo
 }
 
 
-void curl_easy::get(::nano::http::get * defer_get)
+void curl_easy::get(::nano::http::get * pnanohttpget)
 {
 
 
-   ::string strUrl(defer_get->url().as_string());
+   ::string strUrl(pnanohttpget->url().as_string());
 
 
    //auto pfile = create_memory_file();
@@ -66,7 +66,7 @@ void curl_easy::get(::nano::http::get * defer_get)
 
       curl_easy_getinfo (m_pcurl, CURLINFO_RESPONSE_CODE, &lHttpStatusCode);
       
-      defer_get->set_status(lHttpStatusCode);
+      pnanohttpget->set_status(lHttpStatusCode);
 
    }
    else
