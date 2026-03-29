@@ -23,7 +23,7 @@
 
 #include <sys/stat.h>
 
-
+#define HEAVY_FILE_LOG 0
 void set_last_errno_status();
 
 
@@ -512,12 +512,16 @@ namespace acme_posix
       
 #if defined(__APPLE__) || defined(__BSD__)
 
-if(eseek == e_seek_from_end)
-{
+#if HEAVY_FILE_LOG
+      
+      if(eseek == e_seek_from_end)
+      {
 
-information() << "seek from end: " << lLoOffset;
+         information() << "seek from end: " << lLoOffset;
 
-}
+      }
+      
+#endif
 
       filesize posNew = ::lseek(m_iFile, lLoOffset, (unsigned int)eseek);
       
