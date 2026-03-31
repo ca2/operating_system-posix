@@ -19,9 +19,14 @@ namespace innate_ui_gtk4
       //GtkWidget * m_pgtkwidget;
 
       bool m_bIcon;
+      ::string m_strText;
+      ::string m_strClassName;
+      GtkCssProvider * m_pgtkcssprovider;
+
 
       still();
       ~still() override;
+      void _update_style();
 
 
       void _create_child(window * pwindowParent) override;
@@ -29,6 +34,11 @@ namespace innate_ui_gtk4
 
       void set_icon(::innate_ui::icon * picon) override;
       void set_text(const ::scoped_string & scopedstr) override;
+      void set_font_size(double dFontSizeEm) override;
+      void set_font_weight(int iFontWeight) override;
+      void layout() override;
+      //int width() override;
+      //int height() override;
    };
 
 

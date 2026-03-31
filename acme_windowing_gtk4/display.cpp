@@ -75,6 +75,7 @@ namespace gtk4
             m_pgdkdisplay = nullptr;
 
             m_bUnhook = false;
+            //m_pgtkcssprovider = nullptr;
 
             //      if(!g_p)
             //      {

@@ -72,6 +72,7 @@ namespace gtk4
             //static display *                          g_pdisplay;
 
 
+
             display();
             ~display() override;
 

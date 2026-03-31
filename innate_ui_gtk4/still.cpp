@@ -2,6 +2,10 @@
 #include "framework.h"
 #include "icon.h"
 #include "still.h"
+#include "acme/windowing/windowing.h"
+#include "acme_windowing_gtk4/_.h"
+//#include "acme_windowing_gtk4/display.h"
+//#include "acme_windowing_gtk4/display.h"
 
 
 namespace innate_ui_gtk4
@@ -11,6 +15,7 @@ namespace innate_ui_gtk4
    still::still()
    {
       m_bIcon = false;
+      m_pgtkcssprovider = nullptr;
       //m_iCreateStyle = WS_TABSTOP | WS_VISIBLE | WS_CHILD | SS_LEFT;
    }
 
@@ -49,7 +54,11 @@ namespace innate_ui_gtk4
       {
 
          m_pgtkwidget = gtk_label_new("");
+
+         //m_strCssClass.format("dynamic-label");
+
          gtk_label_set_xalign(GTK_LABEL(m_pgtkwidget), 0.0);
+
 
       }
 
@@ -59,6 +68,64 @@ namespace innate_ui_gtk4
 
    }
 
+
+   void still::_update_style()
+   {
+
+      //::cast < ::gtk4::acme::windowing::display > pgtk4acmewindowingdisplay = system()->acme_windowing()->acme_display();
+
+      if (!m_pgtkcssprovider)
+      {
+
+         m_pgtkcssprovider = gtk_css_provider_new();
+
+         gtk_style_context_add_provider_for_display(
+             gdk_display_get_default(),
+             GTK_STYLE_PROVIDER(m_pgtkcssprovider),
+             GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
+         );
+
+      }
+
+      m_strClassName = "dynamic-label-" + ::as_string((::uptr) m_pgtkwidget);
+
+      gtk_widget_add_css_class(m_pgtkwidget, m_strClassName);
+
+      char css[256];
+
+      g_snprintf(css, sizeof(css),
+                 "label.%s { font-size: %.2fem; font-weight: %d; }",
+                 m_strClassName.c_str(), m_dFontSizeEm, m_iFontWeight);
+
+      gtk_css_provider_load_from_data(m_pgtkcssprovider, css, -1);
+
+      PangoLayout *layout = gtk_widget_create_pango_layout(m_pgtkwidget, m_strText);
+
+      pango_layout_get_pixel_size(layout, &m_iLayoutWidth, &m_iLayoutHeight);
+
+      g_object_unref(layout);
+
+      gtk_widget_queue_resize(m_pgtkwidget);
+
+      gtk_widget_queue_draw(m_pgtkwidget);
+
+   }
+
+
+   void still::set_font_size(double dFontSizeEm)
+   {
+
+      m_dFontSizeEm = dFontSizeEm;
+
+   }
+
+
+   void still::set_font_weight(int iFontWeight)
+   {
+
+      m_iFontWeight = iFontWeight;
+
+   }
 
    void still::create_icon_still(::innate_ui::window * pwindowParent)
    {
@@ -70,10 +137,20 @@ m_bIcon = true;
    }
 
 
+   void still::layout()
+   {
+
+      _update_style();
+
+   }
+
+
    void still::set_text(const ::scoped_string & scopedstr)
    {
 
       ::string str(scopedstr);
+
+      m_strText = str;
 
       post([this, str]
       ()

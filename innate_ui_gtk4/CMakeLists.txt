@@ -26,6 +26,7 @@ list(APPEND library_source
 list(APPEND library_references
    acme
    acme_windowing_g
+   acme_windowing_gtk4
    apex
 )
 
