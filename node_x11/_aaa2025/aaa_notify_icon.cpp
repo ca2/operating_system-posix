@@ -176,7 +176,7 @@ namespace node_gtk3
 //
 //      string strFile = "menubar-icon-22.png";
 //
-//      string strUrl = "https://ca2.network/matter/" + strFolder + strFile;
+//      string strUrl = "https://ca2.site/matter/" + strFolder + strFile;
 //
 //      strFile = Context.directory()->appdata() / strFolder / strFile;
 //
