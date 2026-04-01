@@ -85,7 +85,7 @@ namespace innate_ui_q
 
       ::string str(scopedstr);
 
-      user_post([this, str]
+      user_send([this, str]
       ()
       {
 
@@ -100,6 +100,30 @@ namespace innate_ui_q
          }
 
       });
+
+   }
+
+   void still::layout()
+   {
+
+
+      auto plabel = dynamic_cast<QLabel*>(m_pqwidget);
+
+      if (plabel)
+      {
+
+         ::string strStyle;
+         strStyle.format("font-size: {:.2f}em; font-weight: {};",
+                   m_dFontSizeEm, m_iFontWeight);
+         //QFont font = plabel->font();
+         plabel->setStyleSheet(strStyle.c_str());      // Font size
+         //font.setWeight(m_iFontWeight); // Font weight
+         // or: font.setBold(true);
+auto s = plabel->sizeHint();
+         m_iLayoutWidth = s.width();
+         m_iLayoutHeight = s.height();
+         //plabel->setFont(font);
+      }
 
    }
 
