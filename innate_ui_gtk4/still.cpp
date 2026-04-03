@@ -8,6 +8,51 @@
 //#include "acme_windowing_gtk4/display.h"
 
 
+void set_gtk_picture_from_rgba(GtkPicture * pgtkpicture, guchar *pixels, int width, int height, int stride)
+{
+
+   GBytes *bytes = g_bytes_new(pixels, stride * height);
+
+   GdkTexture *texture = gdk_memory_texture_new(
+      width,
+      height,
+      GDK_MEMORY_R8G8B8A8,
+      bytes,
+      stride
+      );
+
+   g_bytes_unref(bytes);
+
+   gtk_picture_set_paintable(pgtkpicture, GDK_PAINTABLE(texture));
+
+   g_object_unref(texture);
+
+   //return picture;
+
+}
+
+
+void set_gtk_picture_from_memory(GtkPicture * pgtkpicture, const guint8 *data, gsize size)
+{
+   GError *error = NULL;
+
+   GBytes *bytes = g_bytes_new(data, size);
+   GdkTexture *texture = gdk_texture_new_from_bytes(bytes, &error);
+   g_bytes_unref(bytes);
+
+   if (!texture) {
+      g_printerr("Failed to load image from memory: %s\n", error->message);
+      g_clear_error(&error);
+      return;
+   }
+
+   gtk_picture_set_paintable(pgtkpicture, GDK_PAINTABLE(texture));
+   g_object_unref(texture);
+
+   //return picture;
+}
+
+
 namespace innate_ui_gtk4
 {
 
@@ -47,7 +92,7 @@ namespace innate_ui_gtk4
       if(m_bIcon)
       {
 
-         m_pgtkwidget = gtk_image_new();
+         m_pgtkwidget = gtk_picture_new();
 
       }
       else
@@ -171,7 +216,11 @@ m_bIcon = true;
       main_send([this, picon]()
       {
 
-         gtk_image_set_from_paintable(GTK_IMAGE(m_pgtkwidget), picon->m_pgdkpaintable);
+
+         set_gtk_picture_from_memory(GTK_PICTURE(m_pgtkwidget), picon->m_memory.data(), picon->m_memory.size());
+
+
+         //gtk_image_set_from_paintable(GTK_IMAGE(m_pgtkwidget), picon->m_pgdkpaintable);
          //::SendMessage(m_hwnd, STM_SETICON, (WPARAM) picon->m_hicon, 0);
          
       });

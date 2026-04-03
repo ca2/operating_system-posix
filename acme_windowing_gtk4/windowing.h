@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "acme/windowing/windowing.h"
+#include "acme_windowing_g/windowing.h"
 #include "acme/prototype/collection/list.h"
 
 #include <gtk/gtk.h>
@@ -23,8 +23,7 @@ namespace gtk4
 
 
          class CLASS_DECL_ACME_WINDOWING_GTK4 windowing :
-            virtual public ::acme::windowing::windowing,
-            virtual public ::task_handler
+            virtual public ::g::acme::windowing::windowing
          {
          public:
 

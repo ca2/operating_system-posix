@@ -35,6 +35,15 @@ namespace innate_ui_gtk4
    }
 
 
+   double window::get_scale_factor()
+   {
+
+      auto dScaleFactor = gtk_widget_get_scale_factor(m_pgtkwidget);
+
+      return (double) dScaleFactor;
+
+   }
+
 
    void window::set_text(const ::scoped_string & scopedstr)
    {

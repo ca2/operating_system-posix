@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "acme/windowing/windowing.h"
+#include "acme_windowing_g/windowing.h"
 
 
 namespace gtk3
@@ -21,7 +21,7 @@ namespace gtk3
 
 	
       class CLASS_DECL_ACME_WINDOWING_GTK3 windowing :
-           virtual public ::acme::windowing::windowing
+           virtual public ::g::acme::windowing::windowing
    {
    public:
 

@@ -32,6 +32,8 @@ namespace innate_ui_gtk4
 
       void set_text(const ::scoped_string & scopedstr) override;
 
+      double get_scale_factor() override;
+
       //LONG_PTR _get_style();
 
 //      void _post(const ::procedure & procedure);

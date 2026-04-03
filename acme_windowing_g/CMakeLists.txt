@@ -16,7 +16,8 @@ list(APPEND library_source
    gdk_3_and_4.h
    gtk_3_and_4.cpp
    gtk_3_and_4.h
-
+   windowing.cpp
+   windowing.h
 )
 
 
@@ -31,7 +32,8 @@ list(APPEND static_library_references ${library_references})
 list(TRANSFORM static_library_references PREPEND static_)
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+add_library(${PROJECT_NAME} SHARED ${library_source}
+   windowing.cpp)
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
