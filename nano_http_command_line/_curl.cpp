@@ -226,7 +226,7 @@ namespace command_line
             
             print_line("Using the following user agent to download: \""  + strUserAgent +  "\".");
 
-            strCommand.formatf("curl -s -D - -A \"%s\" \"%s\" -o \"%s\"",strUserAgent.c_str(), strUrl.c_str(), path.c_str());
+            strCommand.formatf("curl -fL -s -D - -A \"%s\" \"%s\" -o \"%s\"",strUserAgent.c_str(), strUrl.c_str(), path.c_str());
 
             ::memory memoryOutput;
 
