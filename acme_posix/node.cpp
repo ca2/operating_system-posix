@@ -3488,7 +3488,10 @@ namespace acme_posix
          //
          // system()->branch_synchronously();
 
-         system()->acme_windowing()->windowing_application_main_loop();
+         //system()->acme_windowing()->windowing_application_main_loop();
+
+         ::system()->acme_windowing()->call_main();
+
 
 
       }

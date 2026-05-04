@@ -2,20 +2,22 @@
 #pragma once
 
 
-#include "axis/accessibility/main_window.h"
+#include "acme/accessibility/main_window.h"
 
 
-namespace accessibility_windows
+namespace accessibility_posix
 {
 
 
-   class CLASS_DECL_ACCESSIBILITY_WINDOWS main_window :
+   class CLASS_DECL_ACCESSIBILITY_POSIX main_window :
       virtual public ::accessibility::main_window
    {
    public:
 
 
-      HWND m_hwnd;
+      //HWND m_hwnd;
+
+      ::operating_system::window m_operatingsystemwindow;
 
 
       main_window();
@@ -38,7 +40,7 @@ namespace accessibility_windows
    };
 
 
-} //    namespace accessibility_windows
+} //    namespace accessibility_posix
 
 
 

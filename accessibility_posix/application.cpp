@@ -981,7 +981,7 @@ bool is_good_active_w(HWND w)
 //
 
 
-namespace accessibility_windows
+namespace accessibility_posix
 {
 
 
@@ -1048,7 +1048,7 @@ namespace accessibility_windows
    }
 
 
-} // namespace accessibility_windows
+} // namespace accessibility_posix
 
 
 

@@ -3,14 +3,14 @@
 #pragma once
 
 
-#include "axis/accessibility/application.h"
+#include "acme/accessibility/application.h"
 
 
-namespace accessibility_windows
+namespace accessibility_posix
 {
 
 
-   class CLASS_DECL_ACCESSIBILITY_WINDOWS application :
+   class CLASS_DECL_ACCESSIBILITY_POSIX application :
       virtual public ::accessibility::application
    {
    public:
@@ -34,7 +34,7 @@ namespace accessibility_windows
    };
 
 
-} //    namespace namespace accessibility_windows
+} //    namespace namespace accessibility_posix
 
 
 

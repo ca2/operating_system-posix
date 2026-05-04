@@ -3,7 +3,7 @@
 #include "accessibility.h"
 
 
-namespace accessibility_windows
+namespace accessibility_posix
 {
 
 
@@ -28,7 +28,7 @@ namespace accessibility_windows
    }
 
 
-} // namespace accessibility_windows
+} // namespace accessibility_posix
 
 
 

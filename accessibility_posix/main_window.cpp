@@ -8,7 +8,7 @@
 #include "acme/_operating_system.h"
 
 
-namespace accessibility_windows
+namespace accessibility_posix
 {
 
 
@@ -188,7 +188,7 @@ namespace accessibility_windows
 
    }
 
-} // namespace accessibility_windows
+} // namespace accessibility_posix
 
 
 

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(accessibility_windows CXX)
+project(accessibility_posix CXX)
 
 
 list(APPEND library_source
