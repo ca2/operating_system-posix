@@ -276,7 +276,7 @@ gtk_init();
 
             m_callbackOnActivateGtkApplication.release();
 
-            m_phappeningCreatingWGtk4Display.defer_destroy();
+            m_phappeningCreatingWGtk4Display.defer_destroy_and_release();
 
             ::acme::windowing::windowing::destroy();
 
@@ -556,14 +556,16 @@ gtk_init();
          }
 
 
-         void windowing::windowing_application_main_loop()
-         {
-
-            __task_init();
-
-            main();
-
-         }
+         /// for windowing
+         /// is it almost always like calling task::call_main?!?!
+         // void windowing::windowing_application_main_loop()
+         // {
+         //
+         //    __task_init();
+         //
+         //    main();
+         //
+         // }
 
 
          bool windowing::handle_messages()
