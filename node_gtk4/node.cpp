@@ -647,7 +647,8 @@ namespace node_gtk4
          //gtk_main();
 
 
-         system()->windowing()->windowing_application_main_loop();
+         //system()->windowing()->windowing_application_main_loop();
+         system()->windowing()->call_main();
 
 
       }

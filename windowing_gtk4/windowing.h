@@ -103,6 +103,9 @@ namespace windowing_gtk4
       void erase_window(::windowing::window* pwindow) override;
 
 
+      void run() override;
+
+
       //virtual ::wayland::micro::window_base * _window(::wl_surface * pwlsurface);
 
 
@@ -169,7 +172,9 @@ namespace windowing_gtk4
 
       //void _on_wm_state_change(::windowing::window * pwindow) override;
 
-      void windowing_application_main_loop() override;
+
+      /// call_main is equivalent?!?!?
+      //void windowing_application_main_loop() override;
 
 
       void set_dark_mode(bool bDarkMode) override;

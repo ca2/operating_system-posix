@@ -102,6 +102,14 @@ namespace windowing_gtk4
    //   }
 
 
+   // void windowing::run()
+   // {
+   //
+   //    ::gtk4::acme::windowing::windowing::run();
+   //
+   // }
+
+
    void windowing::erase_window(::windowing::window * pwindow)
    {
 
@@ -1002,7 +1010,9 @@ namespace windowing_gtk4
       //system()->defer_post_aaa_application_start_file_open_request();
       //system()->post_aaa_application_started();
 
-      windowing_application_on_start();
+      //windowing_application_on_start();
+
+      on_activate();
 
    }
 
@@ -1017,7 +1027,8 @@ namespace windowing_gtk4
    }
 
 
-   void windowing::windowing_application_main_loop()
+   //void windowing::windowing_application_main_loop()
+   void windowing::run()
    {
 	   
 	   information() << "windowing_gtk4::windowing_application_main_loop";
@@ -1030,7 +1041,9 @@ namespace windowing_gtk4
 
       };
 
-      ::gtk4::acme::windowing::windowing::windowing_application_main_loop();
+      //::gtk4::acme::windowing::windowing::windowing_application_main_loop();
+
+      ::gtk4::acme::windowing::windowing::run();
 
 
 

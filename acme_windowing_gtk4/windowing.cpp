@@ -593,6 +593,13 @@ gtk_init();
          void windowing::run()
          {
 
+            m_papplication->send([this]()
+            {
+
+               m_papplication->on_application_system_start();
+
+            });
+
              //int main(void) {
                  //int jid = jail_getid(".");
                  //if (jid < 0) {
@@ -800,10 +807,13 @@ gtk_init();
 
             for (int i = 0; i < argc; ++i)
             {
-               if (i > 0 && is_platform_option(args[i]))
+
+               auto filtered_arg = args[i];
+
+               if (i > 0 && is_platform_option(filtered_arg))
                   continue;
 
-               filtered_args[filtered_argc++] = args[i];
+               filtered_args[filtered_argc++] = filtered_arg;
             }
 
             int status = g_application_run(G_APPLICATION(m_pgtkapplication), filtered_argc, filtered_args);
@@ -889,7 +899,9 @@ gtk_init();
             //system()->defer_post_aaa_application_start_file_open_request();
             //system()->post_aaa_application_started();
 
-            windowing_application_on_start();
+            //windowing_application_on_start();
+
+            on_activate();
 
             if (!m_bIsGtk4ApplicationHeld)
             {
