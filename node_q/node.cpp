@@ -303,7 +303,8 @@ namespace node_q
 //
 //      //_qapplication_exec();
 
-      system()->windowing()->windowing_application_main_loop();
+      //system()->windowing()->windowing_application_main_loop();
+      system()->windowing()->call_main();
 
    }
 
