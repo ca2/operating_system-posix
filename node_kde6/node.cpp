@@ -319,7 +319,8 @@ namespace node_kde6
 //
 //      //_qapplication_exec();
 
-      system()->windowing()->windowing_application_main_loop();
+      //system()->windowing()->windowing_application_main_loop();
+      system()->windowing()->call_main();
 
    }
 
