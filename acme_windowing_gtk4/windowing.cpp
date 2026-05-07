@@ -526,9 +526,9 @@ gtk_init();
 
             ::information() << "gtk4::acme::windowing::s_on_activate_gtk_application";
 
-            pgtk4windowingsystem->_hook_system_theme_change_callbacks();
-
-            pgtk4windowingsystem->fetch_dark_mode();
+            // pgtk4windowingsystem->_hook_system_theme_change_callbacks();
+            //
+            // pgtk4windowingsystem->fetch_dark_mode();
 
             pgtk4windowingsystem->_on_activate_gtk_application();
 
@@ -547,9 +547,9 @@ gtk_init();
 
             ::information() << "gtk4::acme::windowing::s_on_open_gtk_application";
 
-            pgtk4windowingsystem->_hook_system_theme_change_callbacks();
-
-            pgtk4windowingsystem->fetch_dark_mode();
+            // pgtk4windowingsystem->_hook_system_theme_change_callbacks();
+            //
+            // pgtk4windowingsystem->fetch_dark_mode();
 
             pgtk4windowingsystem->_on_activate_gtk_application();
 
@@ -904,6 +904,23 @@ gtk_init();
                m_bIsGtk4ApplicationHeld = true;
 
                g_application_hold(G_APPLICATION(m_pgtkapplication));
+
+            }
+
+            if (!m_bApplicationActivated)
+            {
+
+               m_bApplicationActivated = true;
+
+               _hook_system_theme_change_callbacks();
+
+               fetch_dark_mode();
+
+               auto prequestDefaultStart = create_newø<::request>();
+
+               prequestDefaultStart->m_ecommand = e_command_default_start;
+
+               m_papplication->post_request(prequestDefaultStart);
 
             }
 
