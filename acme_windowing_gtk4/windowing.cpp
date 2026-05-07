@@ -593,12 +593,7 @@ gtk_init();
          void windowing::run()
          {
 
-            m_papplication->send([this]()
-            {
-
-               m_papplication->on_application_system_start();
-
-            });
+            m_papplication->prepare_application();
 
              //int main(void) {
                  //int jid = jail_getid(".");
