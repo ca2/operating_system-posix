@@ -47,10 +47,6 @@ namespace gtk4
             ::procedure_list_base               m_procedurelistPriority;
 
 
-            bool m_bApplicationActivated = false;
-
-
-
             windowing();
             ~windowing() override;
 
@@ -128,10 +124,10 @@ namespace gtk4
 
             virtual void _on_startup_gtk_application();
 
-            virtual void _on_activate_gtk_application();
+            void _on_activate_gtk_application() override;
 
 
-            virtual void _hook_system_theme_change_callbacks();
+            void _hook_system_theme_change_callbacks() override;
 
 
             void fetch_dark_mode() override;

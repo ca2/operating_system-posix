@@ -46,12 +46,22 @@ namespace g
             ::procedure_list_base               m_procedurelist;
             ::procedure_list_base               m_procedurelistPriority;
 
+            bool m_bApplicationActivated = false;
+
+
+
+
 
             windowing();
             ~windowing() override;
 
 
             ::string get_version() override;
+
+
+            virtual void _hook_system_theme_change_callbacks();
+
+            virtual void _on_activate_gtk_application();
 
 
 

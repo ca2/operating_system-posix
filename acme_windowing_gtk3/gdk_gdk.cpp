@@ -615,7 +615,7 @@ namespace gdk
 
       }
 
-      ::g_free(pfree);
+      g_free(pfree);
 
    }
 

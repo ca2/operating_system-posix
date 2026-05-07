@@ -331,7 +331,7 @@ namespace gtk3
          }
 
 
-         void windowing::_user_post(const ::procedure& procedure)
+         void windowing::post(const ::procedure& procedure)
          {
 
             //g_main_context_invoke(NULL, execute_on_main_thread, new ::procedure(procedure));
@@ -345,34 +345,34 @@ namespace gtk3
          }
 
 
-         void windowing::windowing_application_main_loop()
+         // void windowing::windowing_application_main_loop()
+         // {
+         //
+         //    information() << "gtk3::acme::windowing::windowing::windowing_application_main_loop()";
+         //
+         //    //signal(SIGCHLD, SIG_IGN);
+         //
+         //    __task_init();
+         //
+         //    defer_init_gtk();
+         //
+         //    task::main();
+         //
+         // }
+
+
+         void windowing::main_send(const ::procedure & procedure)
          {
 
-            information() << "gtk3::acme::windowing::windowing::windowing_application_main_loop()";
-
-            //signal(SIGCHLD, SIG_IGN);
-
-            __task_init();
-
-            defer_init_gtk();
-
-            task::main();
+            send(procedure);
 
          }
 
 
-         void windowing::_main_send(const ::procedure & procedure)
+         void windowing::main_post(const ::procedure & procedure)
          {
 
-            _user_send(procedure);
-
-         }
-
-
-         void windowing::_main_post(const ::procedure & procedure)
-         {
-
-            _user_post(procedure);
+            post(procedure);
 
          }
 
@@ -380,6 +380,8 @@ namespace gtk3
 
          void windowing::run()
          {
+
+            defer_init_gtk();
 
             information() << "gtk3::acme::windowing::windowing::run";
 
@@ -459,28 +461,30 @@ namespace gtk3
          void windowing::_on_activate_gtk_application()
          {
 
-            if (m_callbackOnActivateGtkApplication)
-            {
+            // if (m_callbackOnActivateGtkApplication)
+            // {
+            //
+            //    m_callbackOnActivateGtkApplication();
+            //
+            // }
+            // else
+            // {
+            //
+            //    //auto prequest = create_newø<::request>();
+            //
+            //    //application()->post_request(prequest);
+            //
+            //    //system()->defer_post_initial_request();
+            //
+            //    //system()->post_aaa_application_start();
+            //    //system()->defer_post_aaa_application_start_file_open_request();
+            //    //system()->post_aaa_application_started();
+            //
+            //    windowing_application_on_start();
+            //
+            // }
 
-               m_callbackOnActivateGtkApplication();
-
-            }
-            else
-            {
-
-               //auto prequest = create_newø<::request>();
-
-               //application()->post_request(prequest);
-
-               //system()->defer_post_initial_request();
-
-               //system()->post_aaa_application_start();
-               //system()->defer_post_aaa_application_start_file_open_request();
-               //system()->post_aaa_application_started();
-
-               windowing_application_on_start();
-
-            }
+            ::g::acme::windowing::windowing::_on_activate_gtk_application();
 
          }
 
@@ -552,7 +556,7 @@ namespace gtk3
          }
 
 
-         void windowing::_user_send(const ::procedure& procedure)
+         void windowing::send(const ::procedure& procedure)
          {
 
             if (::is_main_thread())
@@ -711,7 +715,7 @@ namespace gtk3
             application()->fork([this,path]()
             {
 
-               _user_post([path]()
+               post([path]()
                {
 
                   gdk::open_file_with_default_app_async(path);

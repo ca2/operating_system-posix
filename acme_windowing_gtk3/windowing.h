@@ -41,14 +41,13 @@ namespace gtk3
       //::e_status defer_initialize_windowing_system() override;
       void initialize_windowing() override;
 
-      void windowing_application_main_loop() override;
-      void windowing_post_quit() override;
-      virtual void _on_activate_gtk_application();
-
+      //void windowing_application_main_loop() override;
+         void _on_activate_gtk_application() override;
 
       void run() override;
       
-      
+         void windowing_post_quit() override;
+
                bool shell_open(const ::file::path & path) override;
 
 
@@ -56,10 +55,18 @@ namespace gtk3
       void _set_window(GtkWindow * pgtkwindow, ::gtk3::acme::windowing::window * pgtk3acmewindowingwindow);
 
       ::acme::windowing::display * acme_display() override;
-      void _user_send(const ::procedure & procedure) override;
-      void _user_post(const ::procedure & procedure) override;
-         void _main_send(const ::procedure & procedure) override;
-         void _main_post(const ::procedure & procedure) override;
+
+
+      // void _user_send(const ::procedure & procedure) override;
+      // void _user_post(const ::procedure & procedure) override;
+      // void _main_send(const ::procedure & procedure) override;
+      // void _main_post(const ::procedure & procedure) override;
+
+         void send(const ::procedure & procedure) override;
+         void post(const ::procedure & procedure) override;
+         void main_send(const ::procedure & procedure) override;
+         void main_post(const ::procedure & procedure) override;
+
          //void display_error_trap_push(int i) override;
       //void display_error_trap_pop_ignored(int i) override;
 
