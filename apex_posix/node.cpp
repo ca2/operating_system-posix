@@ -58,7 +58,7 @@ namespace apex_posix
    }
 
 
-   void node::on_start_application(::apex::application *papplication)
+   void node::on_prepare_application(::platform::application *papplication)
    {
 
 #if !defined(RASPBERRYPIOS) && !defined(__ANDROID__) && !defined(__APPLE__) && !defined(LINUX)

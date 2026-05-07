@@ -26,7 +26,7 @@ namespace apex_posix
       ~node() override;
 
 
-      void on_start_application(::apex::application *papplication) override;
+      void on_prepare_application(::platform::application *papplication) override;
 
 
       bool shell_link_target(::file::path &pathTarget, const ::file::path &pathLnk) override;
