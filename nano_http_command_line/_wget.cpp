@@ -50,15 +50,25 @@ namespace command_line
 
             ::string strUrl(url.as_string());
 
-            strCommand.formatf("wget -S \"%s\"", strUrl.c_str());
+            strCommand.formatf("wget --spider -S -U \"%s\" \"%s\"", strUserAgent.c_str(), strUrl.c_str());
 
-            debug() << strCommand;
+            print_line(strCommand);
+
+            //debug() << strCommand;
+
+            ::string strOutput;
+
+            ::string strError;
+
+            auto iExitCode = node()->get_posix_shell_command_output(strOutput, strError, strCommand);
 
             ::string strOut;
 
-            ::string strErr;
+            strOut += strOutput;
 
-            auto iExitCode = node()->get_posix_shell_command_output(strOut, strErr, strCommand);
+            strOut += "\n";
+
+            strOut += strError;
 
             //auto ptmpname = start_temporary_file_name();
 
@@ -68,70 +78,63 @@ namespace command_line
 
             //rcmdauto psz = end_temporary_file_name_as_string(ptmpname);
 
-            if (strOut.is_empty()) {
-
-               return false;
-
-            }
-
             ::string_array_base stra;
 
             stra.add_lines(strOut);
+
+            bool bOk = false;
 
             for (auto &newline: stra)
             {
 
 //auto pszNewLine = get_line(scopedstr, psz);
 
-               if (newline.is_empty())
+               print_line(newline);
+
+               ::string str(newline);
+
+               str.trim();
+
+               if (str.begins_eat("HTTP/"))
                {
 
-                  return false;
+                  ::string strHttpVersion = str.get_word(" ");
 
-               }
+                  if (strHttpVersion.is_empty())
+                  {
 
-
-               if (newline[0] == ' '
-                   && newline[1] == ' '
-                   && newline[2] == 'H'
-                   && newline[3] == 'T'
-                   && newline[4] == 'T'
-                   && newline[5] == 'P'
-                   && newline[6] == '/') {
-
-                  auto pszSpace = strchr(newline.c_str() + 6, ' ');
-
-                  if (!pszSpace) {
-
-                     return false;
+                     continue;
 
                   }
 
-                  auto nonSpace = strspn(pszSpace, " \t");
+                  ::string strStatus = str.get_word(" ");
 
-                  auto pszNonSpace = pszSpace + nonSpace;
+                  if (strStatus.is_empty())
+                  {
 
-                  auto pszNextSpace = strpbrk(pszNonSpace, " \t");
-
-                  if (!pszNextSpace) {
-
-                     return false;
+                     continue;
 
                   }
 
-                  if (!strncmp(pszNonSpace, "200", pszNextSpace - pszNonSpace)) {
+                  if (strStatus == "200")
+                  {
 
-                     return true;
+                     if (iExitCode == 0)
+                     {
+
+                        print_line("*** status is ok and exit code has no errors!! ***");
+
+                        bOk = true;
+
+                     }
 
                   }
-
-                  return false;
 
                }
 
             }
 
-            return false;
+            return bOk;
 
          }
 
@@ -227,6 +230,8 @@ namespace command_line
 
             ::memory memoryError;
 
+            print_line(strCommand);
+
             int iExitCode = node()->get_command_output_memory(
                memoryOutput,
                memoryError,
@@ -235,6 +240,10 @@ namespace command_line
             ::string strOutHeaders;
 
             strOutHeaders = memoryError.as_utf8();
+
+            print_line("OutHeaders:");
+
+            print_line(strOutHeaders);
 
             pnanohttpget->get_memory_response()->assign(memoryOutput);
 
@@ -270,6 +279,8 @@ namespace command_line
             ::memory memoryOutput;
 
             ::memory memoryError;
+
+            print_line(strCommand);
 
             int iExitCode = node()->get_command_output_memory(memoryOutput, memoryError, strCommand);
 
