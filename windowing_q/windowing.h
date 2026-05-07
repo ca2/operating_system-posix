@@ -215,7 +215,8 @@ namespace windowing_q
 
       //void _on_wm_state_change(::windowing::window * pwindow) override;
 
-      void windowing_application_main_loop() override;
+      void run() override;
+      //void windowing_application_main_loop() override;
    };
 
 

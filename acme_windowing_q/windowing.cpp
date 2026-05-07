@@ -383,7 +383,9 @@ namespace q
             //system()->defer_post_aaa_application_start_file_open_request();
             //system()->post_aaa_application_started();
 
-            windowing_application_on_start();
+            //windowing_application_on_start();
+
+            on_activate();
 
          }
 
@@ -396,7 +398,8 @@ namespace q
          }
 
 
-         void windowing::windowing_application_main_loop()
+         //void windowing::windowing_application_main_loop()
+         void windowing::run()
          {
 
             ::string strId = application()->m_strAppId;

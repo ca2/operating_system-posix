@@ -1138,74 +1138,81 @@ namespace windowing_q
    // }
 
 
-   void windowing::windowing_application_main_loop()
+   void windowing::run()
    {
 
-
-      ::q::acme::windowing::windowing::windowing_application_main_loop();
-
-       //system()->acme_windowing()->windowing_application_main_loop();
-      // ::string strId = application()->m_strAppId;
-      //
-      // strId.find_replace("/", ".");
-      // strId.find_replace("-", "_");
-      //
-      // //gtk_init();
-      //
-      // int argc = ::system()->get_argc();
-      //
-      // m_pqapplication = ___new QApplication(argc, ::system()->get_args());
-      //
-      // m_pqapplication->setQuitOnLastWindowClosed(false);
-      //
-      // _on_activate_kde_application();
-      //
-      // //m_pgtkapplication = gtk_application_new (strId, G_APPLICATION_DEFAULT_FLAGS);
-      //
-      // //g_signal_connect (m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
-      //
-      //
-      // // Retrieve system settings and listen for changes in dark mode preference
-      // //GtkSettings *settings = gtk_settings_get_default();
-      // //update_theme_based_on_system(settings, NULL); // Check initial state
-      // //g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(update_theme_based_on_system), NULL);
-      //
-      // // Get the current GTK theme name (or any other available property)
-      // //gboolean b=1;
-      // //g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
-      // //g_print("Current theme: %s\n", theme_name);
-      //
-      // // Free the allocated string after use
-      // //g_free(theme_name);
-      //
-      // ///GtkSettings *settings = gtk_settings_get_default();
-      // //g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
-      //
-      // //g_application_hold(G_APPLICATION(m_pgtkapplication));
-      //
-      //
-      // // if(m_pdisplay->is_wayland())
-      // // {
-      // //
-      // //
-      // //
-      // // }
-      //
-      // m_pqapplication->exec();
-      //
-      //
-      // //g_application_run (G_APPLICATION(m_pgtkapplication), ::system()->get_argc(), ::system()->get_args());
-      // //aaa_x11_main();
-      //
-      //
-      // // while(::task_get_run())
-      // // {
-      // //
-      // //    preempt(1_s);
-      // //
-      // // }
+      ::q::acme::windowing::windowing::run();
 
    }
+
+   // void windowing::windowing_application_main_loop()
+   // {
+   //
+   //
+   //    ::q::acme::windowing::windowing::windowing_application_main_loop();
+   //
+   //     //system()->acme_windowing()->windowing_application_main_loop();
+   //    // ::string strId = application()->m_strAppId;
+   //    //
+   //    // strId.find_replace("/", ".");
+   //    // strId.find_replace("-", "_");
+   //    //
+   //    // //gtk_init();
+   //    //
+   //    // int argc = ::system()->get_argc();
+   //    //
+   //    // m_pqapplication = ___new QApplication(argc, ::system()->get_args());
+   //    //
+   //    // m_pqapplication->setQuitOnLastWindowClosed(false);
+   //    //
+   //    // _on_activate_kde_application();
+   //    //
+   //    // //m_pgtkapplication = gtk_application_new (strId, G_APPLICATION_DEFAULT_FLAGS);
+   //    //
+   //    // //g_signal_connect (m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
+   //    //
+   //    //
+   //    // // Retrieve system settings and listen for changes in dark mode preference
+   //    // //GtkSettings *settings = gtk_settings_get_default();
+   //    // //update_theme_based_on_system(settings, NULL); // Check initial state
+   //    // //g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(update_theme_based_on_system), NULL);
+   //    //
+   //    // // Get the current GTK theme name (or any other available property)
+   //    // //gboolean b=1;
+   //    // //g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
+   //    // //g_print("Current theme: %s\n", theme_name);
+   //    //
+   //    // // Free the allocated string after use
+   //    // //g_free(theme_name);
+   //    //
+   //    // ///GtkSettings *settings = gtk_settings_get_default();
+   //    // //g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
+   //    //
+   //    // //g_application_hold(G_APPLICATION(m_pgtkapplication));
+   //    //
+   //    //
+   //    // // if(m_pdisplay->is_wayland())
+   //    // // {
+   //    // //
+   //    // //
+   //    // //
+   //    // // }
+   //    //
+   //    // m_pqapplication->exec();
+   //    //
+   //    //
+   //    // //g_application_run (G_APPLICATION(m_pgtkapplication), ::system()->get_argc(), ::system()->get_args());
+   //    // //aaa_x11_main();
+   //    //
+   //    //
+   //    // // while(::task_get_run())
+   //    // // {
+   //    // //
+   //    // //    preempt(1_s);
+   //    // //
+   //    // // }
+   //
+   // }
 
 
    void windowing::_set_os_user_theme(const ::scoped_string &strOsUserTheme)

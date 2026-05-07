@@ -62,8 +62,9 @@ namespace q
 
             void windowing_application_on_system_start() override;
 
-
-            void windowing_application_main_loop() override;
+/// call main or run?!?!?!
+            //void windowing_application_main_loop() override;
+            void run() override;
             void windowing_post_quit() override;
 
 
