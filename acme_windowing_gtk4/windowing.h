@@ -47,6 +47,10 @@ namespace gtk4
             ::procedure_list_base               m_procedurelistPriority;
 
 
+            bool m_bApplicationActivated = false;
+
+
+
             windowing();
             ~windowing() override;
 

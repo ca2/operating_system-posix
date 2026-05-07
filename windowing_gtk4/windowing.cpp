@@ -23,7 +23,7 @@
 #include "aura/user/user/user.h"
 #include "acme_windowing_gtk4/windowing.h"
 //#include "windowing_system_x11/display_lock.h"
-
+#include "acme/handler/request.h"
 
 
 
@@ -974,45 +974,49 @@ namespace windowing_gtk4
    void windowing::_on_activate_gtk_application()
    {
 
-      //g_object_ref(m_pgtkapplication);
+      ::gtk4::acme::windowing::windowing::_on_activate_gtk_application();
 
-      // auto pdisplay = createø<::windowing::display>();
+      // //g_object_ref(m_pgtkapplication);
       //
-      // pdisplay->initialize_display(this);
+      // // auto pdisplay = createø<::windowing::display>();
+      // //
+      // // pdisplay->initialize_display(this);
+      // //
+      // // m_pdisplay = pdisplay;
+      // //
+      // // if (!pdisplay)
+      // // {
+      // //
+      // //    throw ::exception(error_no_interface,
+      // //                      "Failed to cast pdisplay to m_pdisplay at windowing_gtk4::windowing::initialize");
+      // //
+      // // }
+      // //
       //
-      // m_pdisplay = pdisplay;
       //
-      // if (!pdisplay)
-      // {
+      // information() << "node_gtk4::_on_activate_gtk_application going to user_post";
       //
-      //    throw ::exception(error_no_interface,
-      //                      "Failed to cast pdisplay to m_pdisplay at windowing_gtk4::windowing::initialize");
+      // // This seems not to work with "foreign" windows
+      // // (X11 windows not created with Gdk)
+      // //x11_add_filter();
       //
-      // }
+      // information() << "node_gtk4::_on_activate_gtk_application on user_post";
       //
-
-
-      information() << "node_gtk4::_on_activate_gtk_application going to user_post";
-
-      // This seems not to work with "foreign" windows
-      // (X11 windows not created with Gdk)
-      //x11_add_filter();
-
-      information() << "node_gtk4::_on_activate_gtk_application on user_post";
-
-      //gtk_add_idle_source(this);
-
-      // auto psystem = system();
+      // //gtk_add_idle_source(this);
       //
-      // psystem->defer_post_initial_request();
-
-      //system()->post_aaa_application_start();
-      //system()->defer_post_aaa_application_start_file_open_request();
-      //system()->post_aaa_application_started();
-
-      //windowing_application_on_start();
-
-      on_activate();
+      // // auto psystem = system();
+      // //
+      // // psystem->defer_post_initial_request();
+      //
+      // //system()->post_aaa_application_start();
+      // //system()->defer_post_aaa_application_start_file_open_request();
+      // //system()->post_aaa_application_started();
+      //
+      // //windowing_application_on_start();
+      //
+      // on_activate();
+      //
+      //
 
    }
 
@@ -1033,13 +1037,14 @@ namespace windowing_gtk4
 	   
 	   information() << "windowing_gtk4::windowing_application_main_loop";
 
-      ::pointer < ::gtk4::acme::windowing::windowing > pgtk4windowingsystem = system()->acme_windowing();
-
-      pgtk4windowingsystem->m_callbackOnActivateGtkApplication=[this]()
-      {
-         _on_activate_gtk_application();
-
-      };
+      // ::pointer < ::gtk4::acme::windowing::windowing > pgtk4windowingsystem = system()->acme_windowing();
+      //
+      // pgtk4windowingsystem->m_callbackOnActivateGtkApplication=[this]()
+      // {
+      //
+      //    _on_activate_gtk_application();
+      //
+      // };
 
       //::gtk4::acme::windowing::windowing::windowing_application_main_loop();
 
