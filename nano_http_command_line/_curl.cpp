@@ -123,8 +123,6 @@ namespace command_line
          ::url::url http::_curl_get_effective_url(const ::url::url & url, ::property_set & set)
          {
 
-            ::string strCommand;
-
             ::string strUserAgent = set["in_headers"]["user-agent"];
 
             if (strUserAgent.is_empty())
@@ -134,7 +132,13 @@ namespace command_line
 
             }
 
-            strCommand = "curl -A \""  + strUserAgent +  "\" --http1.1 -Ls -o /dev/null -w %{url_effective} " + url.as_string();
+            ::string strUrl = url.as_string();
+
+            ::string strCommand;
+
+            strCommand.format("curl -A \"{}\" --http1.1 -Ls -o /dev/null -w %{{url_effective}} \"{}\"", strUserAgent, strUrl);
+
+            print_line(strCommand);
 
             auto strEffectiveUrl = node()->get_command_output(strCommand);
 
