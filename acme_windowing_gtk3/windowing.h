@@ -25,7 +25,7 @@ namespace gtk3
    {
    public:
 
-      ::procedure             m_callbackOnActivateGtkApplication;
+      //::procedure             m_callbackOnActivateGtkApplication;
       GtkApplication *        m_pgtkapplication;
 
       map_base < GtkWindow * , ::pointer < ::gtk3::acme::windowing::window> > m_windowmap;
@@ -42,7 +42,7 @@ namespace gtk3
       void initialize_windowing() override;
 
       //void windowing_application_main_loop() override;
-         void _on_activate_gtk_application() override;
+         //void _on_activate_gtk_application() override;
 
       void run() override;
       

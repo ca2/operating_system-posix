@@ -33,7 +33,7 @@ namespace gtk4
             ::map< GtkWidget, ::pointer < ::acme::windowing::window > >   m_mapWindow;
 
             ::procedure                         m_callbackOnStartupGtkApplication;
-            ::procedure                         m_callbackOnActivateGtkApplication;
+            //::procedure                         m_callbackOnActivateGtkApplication;
             GtkApplication *                    m_pgtkapplication;
             gpointer                            m_pGtkSettingsDefault;
             bool                                m_bIsGtk4ApplicationHeld = false;
@@ -124,10 +124,10 @@ namespace gtk4
 
             virtual void _on_startup_gtk_application();
 
-            void _on_activate_gtk_application() override;
+            //void _on_activate_gtk_application() override;
 
 
-            void _hook_system_theme_change_callbacks() override;
+            void hook_operating_ambient_theme_change_callbacks() override;
 
 
             void fetch_dark_mode() override;

@@ -122,6 +122,24 @@ namespace q
          }
 
 
+         void windowing::each_window(const ::function < void(::acme::windowing::window*) > & function)
+         {
+
+            for (auto & pacmewindowingwindow : m_mapWindow.payloads())
+            {
+
+               if (pacmewindowingwindow)
+               {
+
+                  function(pacmewindowingwindow);
+
+               }
+
+            }
+
+         }
+
+
          bool windowing::defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
          {
 
@@ -283,111 +301,113 @@ namespace q
 //    }
 
 
-         void windowing::_on_activate_kde_application()
-         {
-
-            //g_object_ref(m_pgtkapplication);
-
-            // auto pdisplay = createø<::windowing::display>();
-            //
-            //
-            //
-            // pdisplay->initialize_display(this);
-            //
-
-            auto pdisplay = this->acme_display();
-
-            if (!pdisplay) {
-
-               throw ::exception(error_no_interface,
-                                 "Failed to cast pdisplay to m_pdisplay at windowing_kde5::windowing::initialize");
-
-            }
-
-            information() << "node_kde5::_on_activate_gtk_application going to user_post";
-
-            // This seems not to work with "foreign" windows
-            // (X11 windows not created with Gdk)
-            //x11_add_filter();
-
-            information() << "node_kde5::_on_activate_gtk_application on user_post";
-
-
-            // auto pgtksettingsDefault = gtk_settings_get_default();
-            //
-            // if (pgtksettingsDefault)
-            // {
-            //
-            //    m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
-            //
-            //    g_object_ref (m_pGtkSettingsDefault);
-            //
-            //    {
-            //
-            //       gchar *theme_name = nullptr;
-            //
-            //       g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
-            //
-            //       m_strOsUserTheme = theme_name;
-            //
-            //       g_free(theme_name);
-            //
-            //    }
-            //
-            //    {
-            //
-            //       gchar *icon_theme_name = nullptr;
-            //
-            //       g_object_get(m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
-            //
-            //       m_strOsUserIconTheme = icon_theme_name;
-            //
-            //       g_free(icon_theme_name);
-            //
-            //    }
-            //
-            //
-            //    auto preturnTheme = g_signal_connect_data(
-            //            m_pGtkSettingsDefault,
-            //            "notify::gtk-theme-name",
-            //            //"gtk-private-changed",
-            //            G_CALLBACK(gtk_settings_gtk_theme_name_callback),
-            //            this,
-            //            NULL,
-            //            G_CONNECT_AFTER);
-            //
-            //    auto preturnIconTheme = g_signal_connect_data(
-            //            m_pGtkSettingsDefault,
-            //            "notify::gtk-icon-theme-name",
-            //            //"gtk-private-changed",
-            //            G_CALLBACK(gtk_settings_gtk_icon_theme_name_callback),
-            //            this,
-            //            NULL,
-            //            G_CONNECT_AFTER);
-            //
-            //    //g_object_ref(preturn);
-            //
-            //    //printf("return %" PRIiPTR, preturn);
-            //
-            //    //printf("return %" PRIiPTR, preturn);
-            //
-            // }
-
-            //gtk_add_idle_source(this);
-
-            // auto psystem = system();
-            //
-            // psystem->defer_post_initial_request();
-
-            //system()->post_aaa_application_start();
-            //system()->defer_post_aaa_application_start_file_open_request();
-            //system()->post_aaa_application_started();
-
-            //windowing_application_on_start();
-
-            on_activate();
-
-         }
+         // void windowing::_on_activate_kde_application()
+         // {
+         //
+         //
+         //    information() << "q::acme::windowing::windowing::_on_activate_kde_application";
+         //
+         //    //g_object_ref(m_pgtkapplication);
+         //
+         //    // auto pdisplay = createø<::windowing::display>();
+         //    //
+         //    //
+         //    //
+         //    // pdisplay->initialize_display(this);
+         //    //
+         //
+         //    auto pdisplay = this->acme_display();
+         //
+         //    if (!pdisplay) {
+         //
+         //       throw ::exception(error_no_interface,
+         //                         "Failed to cast pdisplay to m_pdisplay at windowing_kde5::windowing::initialize");
+         //
+         //    }
+         //
+         //
+         //    // This seems not to work with "foreign" windows
+         //    // (X11 windows not created with Gdk)
+         //    //x11_add_filter();
+         //
+         //    //information() << "node_kde5::_on_activate_gtk_application on user_post";
+         //
+         //
+         //    // auto pgtksettingsDefault = gtk_settings_get_default();
+         //    //
+         //    // if (pgtksettingsDefault)
+         //    // {
+         //    //
+         //    //    m_pGtkSettingsDefault = G_OBJECT(pgtksettingsDefault);
+         //    //
+         //    //    g_object_ref (m_pGtkSettingsDefault);
+         //    //
+         //    //    {
+         //    //
+         //    //       gchar *theme_name = nullptr;
+         //    //
+         //    //       g_object_get(m_pGtkSettingsDefault, "gtk-theme-name", &theme_name, NULL);
+         //    //
+         //    //       m_strOsUserTheme = theme_name;
+         //    //
+         //    //       g_free(theme_name);
+         //    //
+         //    //    }
+         //    //
+         //    //    {
+         //    //
+         //    //       gchar *icon_theme_name = nullptr;
+         //    //
+         //    //       g_object_get(m_pGtkSettingsDefault, "gtk-icon-theme-name", &icon_theme_name, NULL);
+         //    //
+         //    //       m_strOsUserIconTheme = icon_theme_name;
+         //    //
+         //    //       g_free(icon_theme_name);
+         //    //
+         //    //    }
+         //    //
+         //    //
+         //    //    auto preturnTheme = g_signal_connect_data(
+         //    //            m_pGtkSettingsDefault,
+         //    //            "notify::gtk-theme-name",
+         //    //            //"gtk-private-changed",
+         //    //            G_CALLBACK(gtk_settings_gtk_theme_name_callback),
+         //    //            this,
+         //    //            NULL,
+         //    //            G_CONNECT_AFTER);
+         //    //
+         //    //    auto preturnIconTheme = g_signal_connect_data(
+         //    //            m_pGtkSettingsDefault,
+         //    //            "notify::gtk-icon-theme-name",
+         //    //            //"gtk-private-changed",
+         //    //            G_CALLBACK(gtk_settings_gtk_icon_theme_name_callback),
+         //    //            this,
+         //    //            NULL,
+         //    //            G_CONNECT_AFTER);
+         //    //
+         //    //    //g_object_ref(preturn);
+         //    //
+         //    //    //printf("return %" PRIiPTR, preturn);
+         //    //
+         //    //    //printf("return %" PRIiPTR, preturn);
+         //    //
+         //    // }
+         //
+         //    //gtk_add_idle_source(this);
+         //
+         //    // auto psystem = system();
+         //    //
+         //    // psystem->defer_post_initial_request();
+         //
+         //    //system()->post_aaa_application_start();
+         //    //system()->defer_post_aaa_application_start_file_open_request();
+         //    //system()->post_aaa_application_started();
+         //
+         //    //windowing_application_on_start();
+         //
+         //    on_activate();
+         //
+         // }
 
 
          void windowing::windowing_application_on_system_start()
@@ -402,6 +422,9 @@ namespace q
          void windowing::run()
          {
 
+
+            system()->prepare_application();
+
             ::string strId = application()->m_strAppId;
 
             strId.find_replace("/", ".");
@@ -413,9 +436,30 @@ namespace q
 
             m_pqapplication = ___new QApplication(argc, ::system()->get_args());
 
+            auto handleApplicationState = [this](Qt::ApplicationState state) ->void
+            {
+               if (state == Qt::ApplicationActive) {
+                  // Application is now in the foreground/active
+                  on_application_activate();
+               }
+            };
+
+
+            // Connect the application state change signal to your handler
+            QObject::connect(m_pqapplication, &QGuiApplication::applicationStateChanged,
+                             handleApplicationState);
+
+            // void MyClass::handleApplicationState(Qt::ApplicationState state) {
+            //    if (state == Qt::ApplicationActive) {
+            //       // Application is now in the foreground/active
+            //    }
+            // }
+
             m_pqapplication->setQuitOnLastWindowClosed(false);
 
-            _on_activate_kde_application();
+            on_application_activate();
+
+            //_on_activate_kde_application();
 
             //m_pgtkapplication = gtk_application_new (strId, G_APPLICATION_DEFAULT_FLAGS);
 

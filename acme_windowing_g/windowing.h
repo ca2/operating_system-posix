@@ -33,7 +33,7 @@ namespace g
             ::map< GtkWidget, ::pointer < ::acme::windowing::window > >   m_mapWindow;
 
             ::procedure                         m_callbackOnStartupGtkApplication;
-            ::procedure                         m_callbackOnActivateGtkApplication;
+            //::procedure                         m_callbackOnActivateGtkApplication;
             GtkApplication *                    m_pgtkapplication;
             gpointer                            m_pGtkSettingsDefault;
             bool                                m_bIsGtk4ApplicationHeld = false;
@@ -46,7 +46,7 @@ namespace g
             ::procedure_list_base               m_procedurelist;
             ::procedure_list_base               m_procedurelistPriority;
 
-            bool m_bApplicationActivated = false;
+//            bool m_bApplicationActivated = false;
 
 
 
@@ -59,9 +59,9 @@ namespace g
             ::string get_version() override;
 
 
-            virtual void _hook_system_theme_change_callbacks();
+            //virtual void _hook_system_theme_change_callbacks();
 
-            virtual void _on_activate_gtk_application();
+            //virtual void _on_activate_gtk_application();
 
 
 

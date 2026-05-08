@@ -44,6 +44,10 @@ namespace q
             ::acme::windowing::display * acme_display() override;
 
 
+            void each_window(const ::function < void(::acme::windowing::window*) > & function);
+
+
+
             bool defer_release_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow) override;
 
             ::windowing::enum_windowing calculate_ewindowing() override;
@@ -57,7 +61,7 @@ namespace q
             void main_post(const ::procedure & procedureParam) override;
 
 
-            virtual void _on_activate_kde_application();
+            //virtual void _on_activate_kde_application();
 
 
             void windowing_application_on_system_start() override;
