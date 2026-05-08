@@ -132,15 +132,44 @@ namespace command_line
 
             }
 
-            ::string strUrl = url.as_string();
+            ::string strSourceUrl = url.as_string();
 
             ::string strCommand;
 
-            strCommand.format("curl -A \"{}\" --http1.1 -Ls -o /dev/null -w %{{url_effective}} \"{}\"", strUserAgent, strUrl);
+            //strCommand.format("curl -A \"{}\" --http1.1 -Ls -o /dev/null -w %{{url_effective}} \"{}\"", strUserAgent, strSourceUrl);
+
+            strCommand.format("curl -A \"{}\" --http1.1 -ILs -o /dev/null -w %{{url_effective}} \"{}\"", strUserAgent, strSourceUrl);
 
             print_line(strCommand);
 
-            auto strEffectiveUrl = node()->get_command_output(strCommand);
+            ::string strOutput;
+
+            ::string strError;
+
+            auto iExitCode = node()->get_posix_shell_command_output(strOutput, strError, strCommand);
+
+            ::string strOut;
+
+            strOut += strOutput;
+
+            strOut += "\n";
+
+            strOut += strError;
+
+            print_line(strOut);
+
+            if (iExitCode != 0)
+            {
+
+               throw ::exception(error_failed);
+
+            }
+
+            auto strEffectiveUrl = strOutput;
+
+            print_line("Source URL : " + strSourceUrl);
+
+            print_line("Effective URL : " + strEffectiveUrl);
 
             return strEffectiveUrl;
 
