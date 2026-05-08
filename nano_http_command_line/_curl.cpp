@@ -123,8 +123,6 @@ namespace command_line
          ::url::url http::_curl_get_effective_url(const ::url::url & url, ::property_set & set)
          {
 
-            ::string strCommand;
-
             ::string strUserAgent = set["in_headers"]["user-agent"];
 
             if (strUserAgent.is_empty())
@@ -134,9 +132,44 @@ namespace command_line
 
             }
 
-            strCommand = "curl -A \""  + strUserAgent +  "\" --http1.1 -Ls -o /dev/null -w %{url_effective} " + url.as_string();
+            ::string strSourceUrl = url.as_string();
 
-            auto strEffectiveUrl = node()->get_command_output(strCommand);
+            ::string strCommand;
+
+            //strCommand.format("curl -A \"{}\" --http1.1 -Ls -o /dev/null -w %{{url_effective}} \"{}\"", strUserAgent, strSourceUrl);
+
+            strCommand.format("curl -A \"{}\" --http1.1 -ILs -o /dev/null -w %{{url_effective}} \"{}\"", strUserAgent, strSourceUrl);
+
+            print_line(strCommand);
+
+            ::string strOutput;
+
+            ::string strError;
+
+            auto iExitCode = node()->get_posix_shell_command_output(strOutput, strError, strCommand);
+
+            ::string strOut;
+
+            strOut += strOutput;
+
+            strOut += "\n";
+
+            strOut += strError;
+
+            print_line(strOut);
+
+            if (iExitCode != 0)
+            {
+
+               throw ::exception(error_failed);
+
+            }
+
+            auto strEffectiveUrl = strOutput;
+
+            print_line("Source URL : " + strSourceUrl);
+
+            print_line("Effective URL : " + strEffectiveUrl);
 
             return strEffectiveUrl;
 
