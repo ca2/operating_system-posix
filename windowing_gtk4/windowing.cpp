@@ -971,10 +971,10 @@ namespace windowing_gtk4
    //   }
 
 
-   void windowing::_on_activate_gtk_application()
+   void windowing::on_application_activate()
    {
 
-      ::gtk4::acme::windowing::windowing::_on_activate_gtk_application();
+      ::gtk4::acme::windowing::windowing::on_application_activate();
 
       // //g_object_ref(m_pgtkapplication);
       //
@@ -1026,7 +1026,7 @@ namespace windowing_gtk4
 
       auto * pgtk4windowing=(::windowing_gtk4::windowing*) p;
 
-      pgtk4windowing->_on_activate_gtk_application();
+      pgtk4windowing->on_application_activate();
 
    }
 
