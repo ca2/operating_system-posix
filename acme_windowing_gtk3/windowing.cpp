@@ -34,6 +34,14 @@ namespace gtk3
       {
 
 
+         static bool is_platform_option(const ::scoped_string & scopedstr)
+         {
+
+            return scopedstr.begins( "--trace-level=");
+
+         }
+
+
          bool g_bGtkInit = false;
 
 
@@ -270,7 +278,21 @@ namespace gtk3
          }
 
 
-         static void on_activate_gtk_application(GtkApplication*, gpointer p)
+
+         static void s_on_startup_gtk_application(GApplication *, gpointer p)
+         {
+
+            auto* pgtk3windowingsystem = (::gtk3::acme::windowing::windowing*)p;
+
+            ::information() << "gtk3::acme::windowing::s_on_startup_gtk_application";
+
+            pgtk3windowingsystem->_on_startup_gtk_application();
+
+         }
+
+
+
+         static void s_on_activate_gtk_application(GtkApplication*, gpointer p)
          {
 
             auto* pgtk3windowingsystem = (::gtk3::acme::windowing::windowing *)p;
@@ -331,6 +353,32 @@ namespace gtk3
          }
 
 
+         void windowing::_on_startup_gtk_application()
+         {
+
+            ::information() << "gtk4::acme::windowing::windowing::_on_startup_gtk_application";
+
+            if (m_callbackOnStartupGtkApplication)
+            {
+
+               m_callbackOnStartupGtkApplication();
+
+               return;
+
+            }
+
+            if (!m_bIsGtk4ApplicationHeld)
+            {
+
+               m_bIsGtk4ApplicationHeld = true;
+
+               g_application_hold(G_APPLICATION(m_pgtkapplication));
+
+            }
+
+         }
+
+
          void windowing::post(const ::procedure& procedure)
          {
 
@@ -344,6 +392,13 @@ namespace gtk3
 
          }
 
+
+         // void windowing::run()
+         // {
+         //
+         //    ::g::acme::windowing::windowing::run();
+         //
+         // }
 
          // void windowing::windowing_application_main_loop()
          // {
@@ -383,6 +438,8 @@ namespace gtk3
 
             defer_init_gtk();
 
+            system()->prepare_application();
+
             information() << "gtk3::acme::windowing::windowing::run";
 
             ::string strId = application()->m_strAppId;
@@ -393,7 +450,9 @@ namespace gtk3
 
             m_pgtkapplication = gtk_application_new(strId, G_APPLICATION_DEFAULT_FLAGS);
 
-            g_signal_connect(m_pgtkapplication, "activate", G_CALLBACK(on_activate_gtk_application), this);
+            g_signal_connect(m_pgtkapplication, "startup", G_CALLBACK(s_on_startup_gtk_application), this);
+
+            g_signal_connect(m_pgtkapplication, "activate", G_CALLBACK(s_on_activate_gtk_application), this);
 
 
             // // Retrieve system settings and listen for changes in dark mode preference
@@ -412,7 +471,7 @@ namespace gtk3
             // ///GtkSettings *settings = gtk_settings_get_default();
             // g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
 
-            g_application_hold(G_APPLICATION(m_pgtkapplication));
+            //g_application_hold(G_APPLICATION(m_pgtkapplication));
 
 
             // if(m_pacmedisplay->is_wayland())
@@ -422,7 +481,92 @@ namespace gtk3
             //
             // }
 
-            g_application_run(G_APPLICATION(m_pgtkapplication), 0, nullptr);
+                        information() << "gtk4::acme::windowing::windowing::run g_application_run";
+
+            auto pplatform = ::system();
+
+            auto argc = pplatform->get_argc();
+
+            auto args = pplatform->get_args();
+
+            information() << "gtk4::acme::windowing::windowing::run argc " << argc;
+
+            if (argc <= 0)
+            {
+               g_printerr("argc <= 0\n");
+            }
+
+            if (!args)
+            {
+               g_printerr("args == NULL\n");
+            }
+            else
+            {
+               if (!args[0])
+               {
+                  g_printerr("args[0] == NULL\n");
+               }
+
+               for (int i = 0; i < argc; ++i)
+               {
+                  if (!args[i])
+                  {
+                     g_printerr("args[%d] == NULL inside argc range\n", i);
+                  }
+                  else
+                  {
+                     g_printerr("args[%d] = '%s'\n", i, args[i]);
+                  }
+               }
+            }
+
+            for(int i = 0; i <= argc; i++)
+            {
+
+                if(!args[i])
+                {
+
+                   information("gtk4::acme::windowing::windowing::run args[{}] = (nullptr) ", i);
+
+                }
+                else
+                {
+
+                   information("gtk4::acme::windowing::windowing::run args[{}] = ({}){} ", i, (iptr)args[i], args[i]);
+
+                }
+
+            }
+
+            //information() << "gtk4::acme::windowing::windowing::run __argc " << __argc;
+
+            //for(int i = 0; i < __argc; i++)
+            //{
+
+            //    information("gtk4::acme::windowing::windowing::run args[{}] = ({}){} ", i, (iptr)__argv[i],__argv[i]);
+
+            //}
+
+            char **filtered_args = g_new0(char *, argc + 1);
+            int filtered_argc = 0;
+
+            for (int i = 0; i < argc; ++i)
+            {
+
+               auto filtered_arg = args[i];
+
+               if (i > 0 && is_platform_option(filtered_arg))
+                  continue;
+
+               filtered_args[filtered_argc++] = filtered_arg;
+            }
+
+
+
+            g_application_run(G_APPLICATION(m_pgtkapplication), filtered_argc, filtered_args);
+
+
+            g_free(filtered_args);
             //
             // // //g_application_run (G_APPLICATION(m_pgtkapplication), ::system()->get_argc(), ::system()->get_args());
             // // //aaa_x11_main();
@@ -728,6 +872,31 @@ namespace gtk3
 
          }
 
+
+         void windowing::each_window(const ::function < void(::acme::windowing::window*) > & function)
+         {
+
+            for (auto & ppair: m_mapWindow)
+            {
+
+               auto pacmewindowingwindow = ppair.element2();
+
+               try
+               {
+
+                  function(pacmewindowingwindow);
+
+               }
+               catch (...)
+               {
+
+
+
+               }
+
+            }
+
+         }
 
       } // namespace windowing
 

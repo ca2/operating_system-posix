@@ -32,7 +32,6 @@ namespace gtk4
 
             ::map< GtkWidget, ::pointer < ::acme::windowing::window > >   m_mapWindow;
 
-            ::procedure                         m_callbackOnStartupGtkApplication;
             //::procedure                         m_callbackOnActivateGtkApplication;
             GtkApplication *                    m_pgtkapplication;
             gpointer                            m_pGtkSettingsDefault;

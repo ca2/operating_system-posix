@@ -30,7 +30,7 @@ namespace g
 
             ::pointer < manual_reset_happening >    m_phappeningCreatingWGtk4Display;
 
-            ::map< GtkWidget, ::pointer < ::acme::windowing::window > >   m_mapWindow;
+            ::map< GtkWidget *, ::pointer < ::acme::windowing::window > >   m_mapWindow;
 
             ::procedure                         m_callbackOnStartupGtkApplication;
             //::procedure                         m_callbackOnActivateGtkApplication;
@@ -75,3 +75,6 @@ namespace g
 
 
 } // namespace windowing_system_g
+
+CLASS_DECL_ACME_WINDOWING_G GtkWidget * as_gtk_widget(const ::operating_system::window & operatingsystemwindow);
+CLASS_DECL_ACME_WINDOWING_G ::operating_system::window as_operating_system_window(GtkWidget * pgtkwidget);

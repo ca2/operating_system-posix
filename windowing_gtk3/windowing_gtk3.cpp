@@ -3191,11 +3191,11 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    void windowing::post_ui_message(const MESSAGE & message)
    {
 
-      ::acme::windowing::window * pacmewindowingwindow = message.m_pacmewindowingwindow;
+      auto operatingsystemwindow = message.m_operatingsystemwindow;
 
-      ASSERT(oswindow != nullptr);
+      ASSERT(operatingsystemwindow.is_set());
 
-      auto pwindow = oswindow;
+      auto pwindow = m_mapWindow[(GtkWidget *)operatingsystemwindow.m_opaque.m_ulla[0]];
 
       if (::is_null(pwindow))
       {
@@ -3265,11 +3265,11 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    void windowing::post_ui_message(::message::message * pmessage)
    {
 
-      ::acme::windowing::window * pacmewindowingwindow = pmessage->m_pacmewindowingwindow;
+      auto operatingsystemwindow = pmessage->m_operatingsystemwindow;
 
-      ASSERT(oswindow != nullptr);
+      ASSERT(operatingsystemwindow.is_set());
 
-      auto pwindow = oswindow;
+      auto pwindow = m_mapWindow[::as_gtk_widget(operatingsystemwindow)];
 
       if (::is_null(pwindow))
       {
@@ -3292,12 +3292,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    }
 
 
-   void windowing::windowing_application_main_loop()
-   {
-
-      ::gtk3::acme::windowing::windowing::windowing_application_main_loop();
-
-   }
+   // void windowing::windowing_application_main_loop()
+   // {
+   //
+   //    ::gtk3::acme::windowing::windowing::windowing_application_main_loop();
+   //
+   // }
 
 
 //   void windowing::windowing_main()

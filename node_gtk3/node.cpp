@@ -731,7 +731,7 @@ namespace node_gtk3
             //system()->defer_post_aaa_application_start_file_open_request();
             //system()->post_aaa_application_started();
 
-            system()->acme_windowing()->app_fork();
+            //system()->acme_windowing()->app_fork();
                    });
 
 
@@ -764,7 +764,9 @@ namespace node_gtk3
 
          //aaa_x11_main();
 
-         system()->acme_windowing()->windowing_application_main_loop();
+         //system()->acme_windowing()->windowing_application_main_loop();
+
+         system()->acme_windowing()->call_main();
 
       }
 
@@ -2214,7 +2216,8 @@ namespace node_gtk3
 
       ::string strUrl(scopedstrUrl);
       
-      _main_post([strUrl]()
+      //_main_post([strUrl]()
+      main_post([strUrl]()
       {
 
          ::install_operating_system_default_signal_handlers();

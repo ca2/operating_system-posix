@@ -71,7 +71,7 @@ namespace windowing_gtk3
       virtual void post_ui_message(::message::message * pmessage);
 
 
-      void windowing_application_main_loop() override;
+      //void windowing_application_main_loop() override;
 
 
       //::pointer <::input::input> _get_input() override;
@@ -162,9 +162,10 @@ namespace windowing_gtk3
 
       //virtual bool aaa_x11_runnable_step();
 
-      virtual ::acme::windowing::window * window(::acme::windowing::window * pacmewindowingwindow) override;
+      //virtual ::acme::windowing::window * window(::acme::windowing::window * pacmewindowingwindow) override;
 
 
+      void run() override;
 
       //virtual void _libsn_start_context() override;
 

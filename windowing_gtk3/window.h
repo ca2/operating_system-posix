@@ -140,12 +140,16 @@ namespace windowing_gtk3
 
       void destroy() override;
 
-         void _set_oswindow(::::acme::windowing::window * pacmewindowingwindow) override;
-         ::::acme::windowing::window * pacmewindowingwindow() const override;
+         //void _set_oswindow(::::acme::windowing::window * pacmewindowingwindow) override;
+         //::::acme::windowing::window * pacmewindowingwindow() const override;
 
-      void _main_send(const ::procedure & procedure) override;
+      //void _main_send(const ::procedure & procedure) override;
 
-      void _main_post(const ::procedure & procedure) override;
+      //void _main_post(const ::procedure & procedure) override;
+
+      void main_send(const ::procedure & procedure) override;
+
+      void main_post(const ::procedure & procedure) override;
 
 //      static Atom get_window_long_atom(int nIndex);
 //
@@ -465,7 +469,8 @@ namespace windowing_gtk3
          void _on_unmap_window() override;
 
 
-      void _post(const ::procedure & procedure) override;
+      //void _post(const ::procedure & procedure) override;
+      void post(const ::procedure & procedure) override;
 
 
       void switch_to_this_window(bool b) override;

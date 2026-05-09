@@ -471,12 +471,12 @@ namespace windowing_gtk3
    }
 
 
-   ::acme::windowing::window * windowing::window(::acme::windowing::window * pacmewindowingwindow)
-   {
-
-      return oswindow;
-
-   }
+   // ::acme::windowing::window * windowing::window(::acme::windowing::window * pacmewindowingwindow)
+   // {
+   //
+   //    return oswindow;
+   //
+   // }
 
 
    void windowing::set_mouse_capture(::thread * pthread, ::acme::windowing::window * pwindow)
@@ -571,7 +571,7 @@ namespace windowing_gtk3
 
          MESSAGE msg;
 
-         msg.m_pacmewindowingwindow = pwindowMouseCaptureOld;
+         msg.m_operatingsystemwindow = pwindowMouseCaptureOld->operating_system_window();
          msg.m_eusermessage = ::user::e_message_capture_changed;
          msg.m_wparam = 0;
          msg.m_lparam = pwindowMouseCaptureNew;
@@ -626,6 +626,14 @@ namespace windowing_gtk3
       return this;
 
    }
+
+   void windowing::run()
+   {
+
+      ::gtk3::acme::windowing::windowing::run();
+
+   }
+
 
 
 } // namespace windowing

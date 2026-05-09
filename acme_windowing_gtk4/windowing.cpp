@@ -216,7 +216,8 @@ gtk_init();
          // }
 
 
-         void windowing::each_window(const ::function < void(::acme::windowing::window*) > & function)
+
+void windowing::each_window(const ::function < void(::acme::windowing::window*) > & function)
          {
 
             for (auto & ppair: m_mapWindow)
@@ -240,7 +241,6 @@ gtk_init();
             }
 
          }
-
 
 
          void windowing::initialize_windowing()

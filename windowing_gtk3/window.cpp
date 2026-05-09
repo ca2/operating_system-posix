@@ -173,19 +173,19 @@ namespace windowing_gtk3
    }
 
 
-   void window::_set_oswindow(::::acme::windowing::window * pacmewindowingwindow)
-   {
-
-
-   }
-
-
-   ::oswindow window::oswindow() const
-   {
-
-      return (::oswindow)this;
-   }
-
+   // void window::_set_oswindow(::::acme::windowing::window * pacmewindowingwindow)
+   // {
+   //
+   //
+   // }
+   //
+   //
+   // ::oswindow window::oswindow() const
+   // {
+   //
+   //    return (::oswindow)this;
+   // }
+   //
 
    // Callback to handle button-press-happening for menu item
    gboolean on_menu_item_button_press(GtkWidget* widget, GdkEventButton* happening, gpointer p)
@@ -361,7 +361,7 @@ namespace windowing_gtk3
    }
 
 
-   void window::_main_send(const ::procedure& procedure)
+   void window::main_send(const ::procedure& procedure)
    {
 
       auto pwindowing = system()->windowing();
@@ -373,12 +373,12 @@ namespace windowing_gtk3
 
       }
 
-      pwindowing->_main_send(procedure);
+      pwindowing->main_send(procedure);
 
    }
 
 
-   void window::_main_post(const ::procedure& procedure)
+   void window::main_post(const ::procedure& procedure)
    {
 
       auto pwindowing = system()->windowing();
@@ -390,7 +390,7 @@ namespace windowing_gtk3
 
       }
 
-      pwindowing->_main_post(procedure);
+      pwindowing->main_post(procedure);
 
    }
 
@@ -6998,7 +6998,7 @@ namespace windowing_gtk3
    }
 
 
-   void window::_post(const ::procedure& procedure)
+   void window::post(const ::procedure& procedure)
    {
 
       main_post(procedure);

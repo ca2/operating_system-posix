@@ -6,6 +6,8 @@
 //
 #include "framework.h"
 #include "windowing.h"
+
+#include "acme/constant/windowing2.h"
 #include "acme/handler/request.h"
 #include "acme/platform/application.h"
 
@@ -118,3 +120,27 @@ namespace g
 
 
 } // namespace g
+
+
+
+CLASS_DECL_ACME_WINDOWING_G GtkWidget * as_gtk_widget(const ::operating_system::window & operatingsystemwindow)
+{
+
+   if (operatingsystemwindow.m_eoperatingambient != ::windowing::e_operating_ambient_gnome)
+   {
+
+      throw ::exception(error_bad_argument);
+
+   }
+
+   return (GtkWidget *) operatingsystemwindow.m_opaque.m_ulla[0];
+
+}
+
+
+CLASS_DECL_ACME_WINDOWING_G ::operating_system::window as_operating_system_window(GtkWidget * pgtkwidget)
+{
+
+   return { ::windowing::e_operating_ambient_gnome, (unsigned long long) pgtkwidget};
+
+}
