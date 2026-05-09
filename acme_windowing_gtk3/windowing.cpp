@@ -279,7 +279,7 @@ namespace gtk3
 
             //pgtk3windowingsystem->_fetch_dark_mode();
 
-            pgtk3windowingsystem->_on_activate_gtk_application();
+            pgtk3windowingsystem->on_application_activate();
 
          }
 
@@ -458,35 +458,35 @@ namespace gtk3
          }
 
 
-         void windowing::_on_activate_gtk_application()
-         {
-
-            // if (m_callbackOnActivateGtkApplication)
-            // {
-            //
-            //    m_callbackOnActivateGtkApplication();
-            //
-            // }
-            // else
-            // {
-            //
-            //    //auto prequest = create_newø<::request>();
-            //
-            //    //application()->post_request(prequest);
-            //
-            //    //system()->defer_post_initial_request();
-            //
-            //    //system()->post_aaa_application_start();
-            //    //system()->defer_post_aaa_application_start_file_open_request();
-            //    //system()->post_aaa_application_started();
-            //
-            //    windowing_application_on_start();
-            //
-            // }
-
-            ::g::acme::windowing::windowing::_on_activate_gtk_application();
-
-         }
+         // void windowing::_on_activate_gtk_application()
+         // {
+         //
+         //    // if (m_callbackOnActivateGtkApplication)
+         //    // {
+         //    //
+         //    //    m_callbackOnActivateGtkApplication();
+         //    //
+         //    // }
+         //    // else
+         //    // {
+         //    //
+         //    //    //auto prequest = create_newø<::request>();
+         //    //
+         //    //    //application()->post_request(prequest);
+         //    //
+         //    //    //system()->defer_post_initial_request();
+         //    //
+         //    //    //system()->post_aaa_application_start();
+         //    //    //system()->defer_post_aaa_application_start_file_open_request();
+         //    //    //system()->post_aaa_application_started();
+         //    //
+         //    //    windowing_application_on_start();
+         //    //
+         //    // }
+         //
+         //    ::g::acme::windowing::windowing::_on_activate_gtk_application();
+         //
+         // }
 
 
          ::acme::windowing::display* windowing::acme_display()
