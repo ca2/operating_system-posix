@@ -34,15 +34,26 @@ pty_process_exception::~pty_process_exception()
 }
 
 
-namespace {
-    void close_if_valid(int& fd) {
-        if (fd >= 0) {
-            close(fd);
-            fd = -1;
-        }
-    }
+namespace
+{
+
+   void close_if_valid(int& fd)
+   {
+
+      if (fd >= 0)
+      {
+
+         close(fd);
+
+         fd = -1;
+      }
+
+   }
+
 }
+
 FILE * current_stdin();
+
 pty_process::pty_process()
     : child_pid_(-1),
       m_ptyMaster(-1),
@@ -59,38 +70,52 @@ pty_process::pty_process()
 
    m_strMarker = strMarker;
 
-   //m_iaMarkerEcho.add(-1);
-
    m_flagsStdIn = -1;
 
 }
 
-pty_process::~pty_process() {
-    __cleanup();
+
+pty_process::~pty_process()
+{
+
+   __cleanup();
+
 }
+
 
 pty_process::pty_process(pty_process&& other) noexcept
     : child_pid_(other.child_pid_),
       m_ptyMaster(other.m_ptyMaster),
-      running_(other.running_) {
-    other.child_pid_ = -1;
-    other.m_ptyMaster = -1;
-    other.running_ = false;
+      running_(other.running_)
+{
+
+   other.child_pid_ = -1;
+   other.m_ptyMaster = -1;
+   other.running_ = false;
+
 }
 
-pty_process& pty_process::operator=(pty_process&& other) noexcept {
-    if (this != &other) {
-        __cleanup();
 
-        child_pid_ = other.child_pid_;
-        m_ptyMaster = other.m_ptyMaster;
-        running_ = other.running_;
+pty_process& pty_process::operator=(pty_process&& other) noexcept
+{
 
-        other.child_pid_ = -1;
-        other.m_ptyMaster = -1;
-        other.running_ = false;
-    }
-    return *this;
+   if (this != &other)
+   {
+
+      __cleanup();
+
+      child_pid_ = other.child_pid_;
+      m_ptyMaster = other.m_ptyMaster;
+      running_ = other.running_;
+
+      other.child_pid_ = -1;
+      other.m_ptyMaster = -1;
+      other.running_ = false;
+
+   }
+
+   return *this;
+
 }
 
 
@@ -129,19 +154,26 @@ bool pty_process::open(const ::scoped_string& scopedstrShell)
 
    ::string_array_base args =
    {
+
       "/bin/sh", "-c", strShellCommand
+
    };
 
    return __open(args);
 
 }
 
+
 void pty_process::set_stdin_non_blocking()
 {
+
    if (m_bSetNonBlockingIOforStdIn)
    {
+
       return;
+
    }
+
    m_bSetNonBlockingIOforStdIn = true;
 
    auto pfileStdIn = current_stdin();
@@ -149,127 +181,144 @@ void pty_process::set_stdin_non_blocking()
    int iStdIn = fileno(pfileStdIn);
 
    m_flagsStdIn = fcntl(iStdIn, F_GETFL, 0);
+
    if (m_flagsStdIn == -1)
    {
+
       auto cerrornumber = c_error_number();
+
       auto estatus = cerrornumber.estatus();
+
       throw ::exception(estatus);
+
    }
+
    // Make stdin non-blocking
-   if (fcntl(iStdIn, F_SETFL, m_flagsStdIn | O_NONBLOCK) == -1) {
+   if (fcntl(iStdIn, F_SETFL, m_flagsStdIn | O_NONBLOCK) == -1)
+   {
+
       auto cerrornumber = c_error_number();
 
       auto estatus = cerrornumber.estatus();
 
       throw ::exception(estatus);
-   }
 
+   }
 
 }
 
+
 void pty_process::poll_write_stdin()
 {
-char buf[4096];
-//::e_status estatus = success;
+
+   char buf[4096];
 
    sync_local_echo_from_child();
 
    auto pfileStdIn = current_stdin();
-   int iStdIn = fileno(pfileStdIn);
-               for (;;) {
-               struct pollfd pfd = {
-                  .fd = iStdIn,
-                  .events = POLLIN | POLLHUP
-              };
 
-               int pr = poll(&pfd, 1, 10); // wait up to 10 ms
-               if (pr == -1) {
+   int iStdIn = fileno(pfileStdIn);
+
+   for (;;)
+   {
+
+      struct pollfd pfd =
+      {
+         .fd = iStdIn,
+         .events = POLLIN | POLLHUP
+      };
+
+      int pr = poll(&pfd, 1, 10); // wait up to 10 ms
+      if (pr == -1) {
+         throw ::exception(error_failed);
+      }
+
+      if (pr == 0) {
+         // timeout: no input yet
+         //printf("no data yet...\n");
+         //continue;
+         break;
+      }
+
+      if (pfd.revents & POLLIN) {
+         for (;;) {
+            ssize_t n = read(iStdIn, buf, sizeof(buf));
+
+            if (n > 0) {
+
+               ssize_t total;
+               // // Write to file
+               // total = 0;
+               // while (total < n) {
+               //    ssize_t w = write(outfd, buf + total, n - total);
+               //    if (w == -1) {
+               //       perror("write file");
+               //       close(outfd);
+               //       close(pipefd[1]);
+               //       waitpid(pid, NULL, 0);
+               //       return 1;
+               //    }
+               //    total += w;
+               // }
+
+               // Write same bytes to child stdin via pipe
+               total = 0;
+               while (total < n) {
+                  ssize_t w = write_input(buf + total, n - total);
+                  if (w == -1) {
+                     //perror("write pipe");
+                     //close(outfd);
+                     //close(stdin_fds[1]);
+                     //waitpid(pid, NULL, 0);
+                     //return 1;
+                     break;
+
+                  }
+
+                  total += w;
+
+               }
+            } else if (n == 0) {
+               // EOF
+               // printf("\nEOF\n");
+               // return 0;
+               break;
+            } else {
+               if (errno == EAGAIN || errno == EWOULDBLOCK) {
+                  // no more data available right now
+                  break;
+               } else if (errno == EINTR) {
+                  // interrupted by signal, retry read
+                  continue;
+               } else {
+                  //perror("read");
+                  //return 1;
                   throw ::exception(error_failed);
                }
-
-               if (pr == 0) {
-                  // timeout: no input yet
-                  //printf("no data yet...\n");
-                  //continue;
-                  break;
-               }
-
-               if (pfd.revents & POLLIN) {
-                  for (;;) {
-                     ssize_t n = read(iStdIn, buf, sizeof(buf));
-
-                     if (n > 0) {
-
-                        ssize_t total;
-                        // // Write to file
-                        // total = 0;
-                        // while (total < n) {
-                        //    ssize_t w = write(outfd, buf + total, n - total);
-                        //    if (w == -1) {
-                        //       perror("write file");
-                        //       close(outfd);
-                        //       close(pipefd[1]);
-                        //       waitpid(pid, NULL, 0);
-                        //       return 1;
-                        //    }
-                        //    total += w;
-                        // }
-
-                        // Write same bytes to child stdin via pipe
-                        total = 0;
-                        while (total < n) {
-                           ssize_t w = write_input(buf + total, n - total);
-                           if (w == -1) {
-                              //perror("write pipe");
-                              //close(outfd);
-                              //close(stdin_fds[1]);
-                              //waitpid(pid, NULL, 0);
-                              //return 1;
-                              break;
-
-                           }
-
-                           total += w;
-
-                        }
-                     } else if (n == 0) {
-                        // EOF
-                        // printf("\nEOF\n");
-                        // return 0;
-                        break;
-                     } else {
-                        if (errno == EAGAIN || errno == EWOULDBLOCK) {
-                           // no more data available right now
-                           break;
-                        } else if (errno == EINTR) {
-                           // interrupted by signal, retry read
-                           continue;
-                        } else {
-                           //perror("read");
-                           //return 1;
-                           throw ::exception(error_failed);
-                        }
-                     }
-                  }
-               }
-
-               if (pfd.revents & POLLHUP) {
-                  // input source closed
-                  //printf("\nstdin closed\n");
-                  //return 0;
-                  break;
-               }
             }
+         }
+      }
+
+      if (pfd.revents & POLLHUP) {
+         // input source closed
+         //printf("\nstdin closed\n");
+         //return 0;
+         break;
+      }
+   }
 
 }
+
 
 bool pty_process::__open(const ::string_array_base & straCommandLine)
 {
 
+   if (straCommandLine.is_empty())
+   {
 
-    if (straCommandLine.is_empty()) {
-        throw ::exception(error_bad_argument);
-    }
+      throw ::exception(error_bad_argument);
+
+   }
 
     ::array_base < char * > cargs;
     cargs.reserve(straCommandLine.size() + 1);
@@ -281,6 +330,7 @@ bool pty_process::__open(const ::string_array_base & straCommandLine)
 
     return __spawn_internal(cargs.data());
 }
+
 
 bool pty_process::__spawn_internal(char* const argv[]) {
     __cleanup();
@@ -753,18 +803,18 @@ bool pty_process::sync_local_echo_from_child()
 }
 
 
-
 void pty_process::run()
 {
 
    set_stdin_non_blocking();
 
-begin_terminal_bridge();
+   begin_terminal_bridge();
 
    //::memory captured;
    //bool sent_commands = false;
 
-   while (true) {
+   while (true)
+   {
       // struct pollfd pfd{};
       // pfd.fd = proc.fd();
       // pfd.events = POLLIN | POLLHUP;
@@ -781,7 +831,7 @@ begin_terminal_bridge();
       // }
       //
       // if (pfd.revents & POLLIN) {
-         poll_read_stdout();
+      poll_read_stdout();
          // auto chunk = proc.read_available();
          // if (chunk.has_data()) {
          //    captured += chunk;
@@ -794,39 +844,48 @@ begin_terminal_bridge();
       if (m_strMarkerEcho.is_empty()
          && m_strMarker.is_empty())
       {
+
          if (m_iCurrentCommand < m_straCommands.size())
          {
-            m_strCommand =m_straCommands[m_iCurrentCommand];
+
+            m_strCommand = m_straCommands[m_iCurrentCommand];
+
             m_strMarkerEcho = m_straMarkerEcho[m_iCurrentCommand];
-            m_strMarker =m_straMarker[m_iCurrentCommand];
+
+            m_strMarker = m_straMarker[m_iCurrentCommand];
+
          //      m_iCurrentCommand++;
 
             //auto pszCommand = m_strCommand.c_str();
             //auto pszMarkerEcho = m_strMarkerEcho.c_str();
             //auto pszMarker = m_strMarker.c_str();
 
-
-            ::string strOutputCommand =m_strCommand + m_strMarkerEcho + "\n";
+            ::string strOutputCommand = m_strCommand + m_strMarkerEcho + "\n";
 
             //auto pszOutputCommand = strOutputCommand.c_str();
 
                //str.find_replace("!", "\\!");
-               write_input(strOutputCommand);
+            write_input(strOutputCommand);
 
-            }
-       //     sent_commands = true;
          }
-         poll_write_stdin();
+       //     sent_commands = true;
+      }
+
+      poll_write_stdin();
+
       //}
       //
       // if (pfd.revents & POLLHUP) {
       //    break;
       // }
       //
-       if (!is_running())
-          {
-          break;
-       }
+      if (!is_running())
+      {
+
+         break;
+
+      }
+
    }
 
    poll_read_stdout();
@@ -839,154 +898,154 @@ begin_terminal_bridge();
 
 }
 
-   void pty_process::on_child_raw_stdout(const void * p, memsize s)
-   {
+
+void pty_process::on_child_raw_stdout(const void * p, memsize s)
+{
 
    auto psz = (const char*)p;
 
-      m_memoryBuffer.append(p, s);
+   m_memoryBuffer.append(p, s);
 
-      while (m_memoryBuffer.has_data()
-         && (m_strMarkerEcho.has_character() || m_strMarker.has_character()))
+   while (m_memoryBuffer.has_data()
+      && (m_strMarkerEcho.has_character() || m_strMarker.has_character()))
+   {
+
+
+
+      if (m_strMarkerEcho.has_character())
       {
 
+         int iMarkerEchoSize = m_strMarkerEcho.size();
 
+         auto pfind = m_memoryBuffer.find(m_strMarkerEcho);
 
-         if (m_strMarkerEcho.has_character())
+         if (pfind)
          {
 
-            int iMarkerEchoSize = m_strMarkerEcho.size();
+            auto iPosition = pfind - m_memoryBuffer.data();
 
-            auto pfind = m_memoryBuffer.find(m_strMarkerEcho);
+            m_strMarkerEcho.clear();
 
-            if (pfind)
+            if (m_strMarker.is_empty())
             {
 
-               auto iPosition = pfind - m_memoryBuffer.data();
-
-               m_strMarkerEcho.clear();
-
-               if (m_strMarker.is_empty())
-               {
-
-                  throw ::pty_process_exception(error_wrong_state, "m_strMarker.is_empty()");
-
-               }
-
-               on_child_stdout(m_memoryBuffer.data(), iPosition);
-
-               m_memoryBuffer.delete_begin(iPosition + iMarkerEchoSize);
+               throw ::pty_process_exception(error_wrong_state, "m_strMarker.is_empty()");
 
             }
-            else
-            {
 
-               int iReserve = iMarkerEchoSize;
+            on_child_stdout(m_memoryBuffer.data(), iPosition);
 
-               int iExtra = m_memoryBuffer.size();
-
-               int iCheck = minimum(iExtra, iReserve);
-
-               int i = iCheck - 1;
-
-               if (i < 0)
-               {
-
-                  i = 0;
-
-               }
-
-               for (; i >= 1; i--)
-               {
-
-                  ::string strTail((const char *) (m_memoryBuffer.m_end - i), i);
-
-                  if (m_strMarkerEcho.begins(strTail))
-                  {
-
-                     break;
-
-                  }
-
-               }
-
-               on_child_stdout(m_memoryBuffer.data(), m_memoryBuffer.size() - i);
-
-               m_memoryBuffer.delete_begin(m_memoryBuffer.size() - i);
-
-               //;//m_iLastStdOut = m_memoryOutputRaw.size() - i;
-
-            }
+            m_memoryBuffer.delete_begin(iPosition + iMarkerEchoSize);
 
          }
-         else if (m_strMarker.has_character())
+         else
          {
 
-            int iMarkerSize = m_strMarker.size();
+            int iReserve = iMarkerEchoSize;
 
-            auto pfind = m_memoryBuffer.find(m_strMarker);
+            int iExtra = m_memoryBuffer.size();
 
-            if (pfind)
+            int iCheck = minimum(iExtra, iReserve - 1);
+
+            int i = iCheck;
+
+            if (i < 0)
             {
 
-               auto iPosition = pfind - m_memoryBuffer.data();
-
-               if (m_strMarkerEcho.has_character())
-               {
-                  throw ::pty_process_exception(error_wrong_state, "m_strMarkerEcho.has_character()");
-               }
-
-               m_iCurrentCommand++;
-
-               m_strMarker.clear();
-
-               on_child_stdout(m_memoryBuffer, iPosition);
-
-               m_memoryBuffer.delete_begin(iPosition + iMarkerSize);
+               i = 0;
 
             }
-            else
+
+            for (; i >= 1; i--)
             {
 
-               int iReserve = iMarkerSize;
+               ::string strTail((const char *) (m_memoryBuffer.m_end - i), i);
 
-               int iExtra = m_memoryBuffer.size();
-
-               int iCheck = minimum(iExtra, iReserve);
-
-               int i = iCheck - 1;
-
-               if (i < 0)
+               if (m_strMarkerEcho.begins(strTail))
                {
 
-                  i = 0;
+                  break;
 
                }
-
-               for (; i >= 1; i--)
-               {
-
-                  ::string strTail((const char *) (m_memoryBuffer.m_end - i), i);
-
-                  if (m_strMarker.begins(strTail))
-                  {
-
-                     break;
-
-                  }
-
-               }
-
-               on_child_stdout(m_memoryBuffer.data(), m_memoryBuffer.size() - i);
-
-               m_memoryBuffer.delete_begin(m_memoryBuffer.size() - i);
-
 
             }
+
+            on_child_stdout(m_memoryBuffer.data(), m_memoryBuffer.size() - i);
+
+            m_memoryBuffer.delete_begin(m_memoryBuffer.size() - i);
+
+            //;//m_iLastStdOut = m_memoryOutputRaw.size() - i;
 
          }
 
       }
+      else if (m_strMarker.has_character())
+      {
+
+         int iMarkerSize = m_strMarker.size();
+
+         auto pfind = m_memoryBuffer.find(m_strMarker);
+
+         if (pfind)
+         {
+
+            auto iPosition = pfind - m_memoryBuffer.data();
+
+            if (m_strMarkerEcho.has_character())
+            {
+               throw ::pty_process_exception(error_wrong_state, "m_strMarkerEcho.has_character()");
+            }
+
+            m_iCurrentCommand++;
+
+            m_strMarker.clear();
+
+            on_child_stdout(m_memoryBuffer, iPosition);
+
+            m_memoryBuffer.delete_begin(iPosition + iMarkerSize);
+
+         }
+         else
+         {
+
+            int iReserve = iMarkerSize;
+
+            int iExtra = m_memoryBuffer.size();
+
+            int iCheck = minimum(iExtra, iReserve - 1);
+
+            int i = iCheck;
+
+            if (i < 0)
+            {
+
+               i = 0;
+
+            }
+
+            for (; i >= 1; i--)
+            {
+
+               ::string strTail((const char *) (m_memoryBuffer.m_end - i), i);
+
+               if (m_strMarker.begins(strTail))
+               {
+
+                  break;
+
+               }
+
+            }
+
+            on_child_stdout(m_memoryBuffer.data(), m_memoryBuffer.size() - i);
+
+            m_memoryBuffer.delete_begin(m_memoryBuffer.size() - i);
+
+         }
+
+      }
+
+   }
 
    if (m_memoryBuffer.has_data() && m_strMarkerEcho.is_empty() && m_strMarker.is_empty())
    {
@@ -998,32 +1057,36 @@ begin_terminal_bridge();
    }
 
 
-   }
+}
 
 
-   void pty_process::on_child_stdout(const void * p, memsize s)
+void pty_process::on_child_stdout(const void * p, memsize s)
+{
+
+   auto buf = (char *)p;
+
+   auto n = s;
+   // show child terminal output live
+   ssize_t total = 0;
+   while (total < n)
    {
-      auto buf = (char *)p;
-      auto n = s;
-      // show child terminal output live
-      ssize_t total = 0;
-      while (total < n)
+
+      ssize_t w = write(STDOUT_FILENO, buf + total, n - total);
+      if (w == -1)
       {
-
-         ssize_t w = write(STDOUT_FILENO, buf + total, n - total);
-         if (w == -1)
-         {
-            if (errno == EINTR)
-               continue;
-            break;
-         }
-         total += w;
+         if (errno == EINTR)
+            continue;
+         break;
       }
-
+      total += w;
    }
+
+}
+
 
 void pty_process::poll_read_stdout()
 {
+
    char buf[4096];
 
    for (;;)
@@ -1076,7 +1139,11 @@ void pty_process::poll_read_stdout()
 
       if (pfd.revents & POLLHUP)
       {
+
          return;
+
       }
+
    }
+
 }
