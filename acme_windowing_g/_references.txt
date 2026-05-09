@@ -1,2 +1,2 @@
 default_acme
-gnome_library
+operating_system-posix/gnome_library
