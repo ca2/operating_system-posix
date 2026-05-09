@@ -1,29 +1,22 @@
 cmake_minimum_required(VERSION 3.16)
-project(acme_windowing_g CXX)
+project(gnome_library CXX)
 
 
 list(APPEND library_source
    _.cpp
    _.h
    _factory.cpp
-   display.cpp
-   display.h
+   file.cpp
+   file.h
    framework.cpp
    framework.h
-   activation_token.cpp
-   activation_token.h
-   gdk_3_and_4.cpp
-   gdk_3_and_4.h
-   gtk_3_and_4.cpp
-   gtk_3_and_4.h
-   windowing.cpp
-   windowing.h
+   gnome_library.cpp
+   gnome_library.h
 )
 
 
 list(APPEND library_references
    acme
-   gnome_library
 )
 
 
@@ -33,8 +26,7 @@ list(APPEND static_library_references ${library_references})
 list(TRANSFORM static_library_references PREPEND static_)
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source}
-   windowing.cpp)
+add_library(${PROJECT_NAME} SHARED ${library_source})
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
@@ -74,9 +66,9 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
    if (${HAS_GTK4})
-      pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4 dbus-1)
+      pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gio-2.0)
    elseif (${HAS_GTK3})
-      pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk+-3.0 dbus-1)
+      pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gio-2.0)
    endif ()
 
 

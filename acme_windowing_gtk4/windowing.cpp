@@ -16,6 +16,8 @@
 #include "acme_windowing_g/gdk_3_and_4.h"
 #include "acme/platform/system.h"
 #include "acme/operating_system/summary.h"
+#include "gnome_library/file.h"
+#include "acme/handler/request.h"
 //#include <X11/Xatom.h>
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
@@ -274,8 +276,6 @@ gtk_init();
 
             m_procedurelistPriority.clear();
 
-            m_callbackOnActivateGtkApplication.release();
-
             m_phappeningCreatingWGtk4Display.defer_destroy_and_release();
 
             ::acme::windowing::windowing::destroy();
@@ -530,7 +530,7 @@ gtk_init();
             //
             // pgtk4windowingsystem->fetch_dark_mode();
 
-            pgtk4windowingsystem->_on_activate_gtk_application();
+            pgtk4windowingsystem->on_application_activate();
 
          }
 
@@ -551,7 +551,33 @@ gtk_init();
             //
             // pgtk4windowingsystem->fetch_dark_mode();
 
-            pgtk4windowingsystem->_on_activate_gtk_application();
+            pgtk4windowingsystem->on_application_activate();
+
+            if (files && n_files > 0)
+            {
+
+               for (int i = 0; i < n_files; i++)
+               {
+
+                  auto pgfile = files[i];
+
+                  if (pgfile)
+                  {
+
+                     auto pfileG = pgtk4windowingsystem->create_newø < ::gnome_library::file >();
+
+                     pfileG->_attach_g_file(pgfile);
+
+                     auto prequest = pgtk4windowingsystem->create_newø<::request>();
+
+                     pgtk4windowingsystem->m_papplication->post_request(prequest);
+
+                  }
+
+
+               }
+
+            }
 
          }
 
@@ -874,57 +900,59 @@ gtk_init();
          }
 
 
-         void windowing::_on_activate_gtk_application()
-         {
-
-            ::information() << "gtk4::acme::windowing::windowing::_on_activate_gtk_application";
-
-            if (m_callbackOnActivateGtkApplication)
-            {
-
-               m_callbackOnActivateGtkApplication();
-
-               return;
-
-            }
-
-            //system()->defer_post_initial_request();
-
-            //system()->post_aaa_application_start();
-            //system()->defer_post_aaa_application_start_file_open_request();
-            //system()->post_aaa_application_started();
-
-            //windowing_application_on_start();
-
-            on_activate();
-
-            if (!m_bIsGtk4ApplicationHeld)
-            {
-
-               m_bIsGtk4ApplicationHeld = true;
-
-               g_application_hold(G_APPLICATION(m_pgtkapplication));
-
-            }
-
-            if (!m_bApplicationActivated)
-            {
-
-               m_bApplicationActivated = true;
-
-               _hook_system_theme_change_callbacks();
-
-               fetch_dark_mode();
-
-               auto prequestDefaultStart = create_newø<::request>();
-
-               prequestDefaultStart->m_ecommand = e_command_default_start;
-
-               m_papplication->post_request(prequestDefaultStart);
-
-            }
-
-         }
+         // void windowing::on_application_activate()
+         // {
+         //
+         //    ::g::acme::windowing::windowing::on_application_activate();
+         //
+         //    // ::information() << "gtk4::acme::windowing::windowing::_on_activate_gtk_application";
+         //    //
+         //    // if (m_callbackOnActivateGtkApplication)
+         //    // {
+         //    //
+         //    //    m_callbackOnActivateGtkApplication();
+         //    //
+         //    //    return;
+         //    //
+         //    // }
+         //    //
+         //    // //system()->defer_post_initial_request();
+         //    //
+         //    // //system()->post_aaa_application_start();
+         //    // //system()->defer_post_aaa_application_start_file_open_request();
+         //    // //system()->post_aaa_application_started();
+         //    //
+         //    // //windowing_application_on_start();
+         //    //
+         //    // on_activate();
+         //    //
+         //    // if (!m_bIsGtk4ApplicationHeld)
+         //    // {
+         //    //
+         //    //    m_bIsGtk4ApplicationHeld = true;
+         //    //
+         //    //    g_application_hold(G_APPLICATION(m_pgtkapplication));
+         //    //
+         //    // }
+         //    //
+         //    // if (!m_bApplicationActivated)
+         //    // {
+         //    //
+         //    //    m_bApplicationActivated = true;
+         //    //
+         //    //    _hook_system_theme_change_callbacks();
+         //    //
+         //    //    fetch_dark_mode();
+         //    //
+         //    //    auto prequestDefaultStart = create_newø<::request>();
+         //    //
+         //    //    prequestDefaultStart->m_ecommand = e_command_default_start;
+         //    //
+         //    //    m_papplication->post_request(prequestDefaultStart);
+         //    //
+         //    // }
+         //
+         // }
 
 
          void windowing::process_messages()
@@ -1024,7 +1052,7 @@ gtk_init();
          }
 
 
-         void windowing::_hook_system_theme_change_callbacks()
+         void windowing::hook_operating_ambient_theme_change_callbacks()
          {
 
             auto pgtksettingsDefault = gtk_settings_get_default();

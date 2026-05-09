@@ -43,6 +43,7 @@ list(APPEND library_source
 
 list(APPEND library_references
    acme
+   gnome_library
    acme_windowing_g
 )
 
