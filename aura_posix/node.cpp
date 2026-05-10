@@ -432,10 +432,10 @@ namespace aura_posix
 #endif
 
 
-   ::file::path node::get_desktop_file_path(::apex::application * papp)
+   ::file::path node::get_desktop_file_path(::platform::application * papplication)
    {
 
-      return get_desktop_file_path_by_app_id(papp->m_strAppId);
+      return get_desktop_file_path_by_app_id(papplication->m_strAppId);
 
    }
 

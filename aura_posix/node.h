@@ -111,7 +111,7 @@ virtual void initialize_window_manager();
 #endif // WITH_XCB
 #endif
 
-      ::file::path get_desktop_file_path(::apex::application * papp) override;
+      ::file::path get_desktop_file_path(::platform::application * papplication) override;
       virtual ::file::path get_desktop_file_path_by_app_id(const ::scoped_string & scopedstrAppId);
 
 
