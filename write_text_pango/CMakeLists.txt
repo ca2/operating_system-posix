@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.16)
 project(write_text_pango CXX)
 
 
+message(STATUS "Project : ${PROJECT_NAME}")
+
+
 list(APPEND library_references
         acme
         apex
@@ -34,7 +37,7 @@ if (NOT ${NO_PRECOMPILED_HEADER})
 
 endif ()
 
-set_target_properties(write_text_pango PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 if(${WIN32})
 
@@ -61,12 +64,13 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
     target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
     target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
-    target_link_options(write_text_pango PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
-    target_link_libraries(write_text_pango PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${library_references} ${global_library_references})
+    target_link_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${library_references} ${global_library_references})
     target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
     # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 
-    message(STATUS "(2) PKGCONFIG_LIBRARIES is " ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
+    message(STATUS "${PROJECT_NAME}_PKGCONFIG_CFLAGS is " ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
+    message(STATUS "${PROJECT_NAME}_PKGCONFIG_LIBRARIES is " ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
 
 
 endif()
