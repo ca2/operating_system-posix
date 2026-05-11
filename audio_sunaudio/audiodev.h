@@ -60,12 +60,12 @@ struct audiodev {
 };
 
 int			audiodev_refresh(void);
-unsigned int		audiodev_count(void);
-struct audiodev *	audiodev_get(unsigned int);
+::u32		audiodev_count(void);
+struct audiodev *	audiodev_get(::u32);
 int			audiodev_set_default(struct audiodev *);
 int			audiodev_set_param(struct audiodev *, int,
-				const_char_pointer ,unsigned int, unsigned int,
-				unsigned int);
+				const_char_pointer ,::u32, ::u32,
+				::u32);
 int			audiodev_test(struct audiodev *);
 
 extern const_char_pointer encoding_names[];

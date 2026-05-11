@@ -44,7 +44,7 @@
 #include "drvctl.h"
 //#include "dtmf.h"
 
-static int audiodev_test_chmask(struct audiodev *, unsigned int,
+static int audiodev_test_chmask(struct audiodev *, ::u32,
 	audio_info_t *);
 
 static TAILQ_HEAD(audiodevhead, audiodev) audiodevlist =
@@ -104,7 +104,7 @@ audiodev_getinfo(struct audiodev *adev)
 }
 
 static int
-audiodev_add(const_char_pointer pdev, const_char_pointer dev, unsigned int unit)
+audiodev_add(const_char_pointer pdev, const_char_pointer dev, ::u32 unit)
 {
 	struct audiodev *adev;
 
@@ -143,7 +143,7 @@ audiodev_add(const_char_pointer pdev, const_char_pointer dev, unsigned int unit)
 }
 
 static void
-audiodev_cb(void *args, const_char_pointer pdev, const_char_pointer dev, unsigned int unit)
+audiodev_cb(void *args, const_char_pointer pdev, const_char_pointer dev, ::u32 unit)
 {
 	audiodev_add(pdev, dev, unit);
 }
@@ -179,11 +179,11 @@ audiodev_refresh(void)
 	return 0;
 }
 
-unsigned int
+::u32
 audiodev_count(void)
 {
 	struct audiodev *adev;
-	unsigned int n;
+	::u32 n;
 
 	n = 0;
 	TAILQ_FOREACH(adev, &audiodevlist, next)
@@ -193,10 +193,10 @@ audiodev_count(void)
 }
 
 struct audiodev *
-audiodev_get(unsigned int i)
+audiodev_get(::u32 i)
 {
 	struct audiodev *adev;
-	unsigned int n;
+	::u32 n;
 
 	n = 0;
 	TAILQ_FOREACH(adev, &audiodevlist, next) {
@@ -252,7 +252,7 @@ audiodev_set_default(struct audiodev *adev)
 
 int
 audiodev_set_param(struct audiodev *adev, int mode,
-	const_char_pointer encname, unsigned int prec, unsigned int ch, unsigned int freq)
+	const_char_pointer encname, ::u32 prec, ::u32 ch, ::u32 freq)
 {
 	audio_info_t ai;
 	int setmode;
@@ -304,7 +304,7 @@ int
 audiodev_test(struct audiodev *adev)
 {
 	audio_info_t info;
-	unsigned int i;
+	::u32 i;
 	int rv;
 
 	rv = -1;
@@ -345,7 +345,7 @@ done:
 }
 
 static int
-audiodev_test_chmask(struct audiodev *adev, unsigned int chanmask,
+audiodev_test_chmask(struct audiodev *adev, ::u32 chanmask,
 	audio_info_t *info)
 {
 	int16_t *buf;

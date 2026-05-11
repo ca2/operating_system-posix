@@ -117,7 +117,7 @@ struct audio_dev_ctx {
 	manual_reset_happening 		m_happeningWrite;
 //	int		ac_peerread;
 //	int		ac_peerwrite;
-unsigned long long	ac_buffersamples;
+::u64	ac_buffersamples;
 int m_iLowWaterMark;
 int m_iHighWaterMark;
 //	void		(*ac_readcallback)(void *);
@@ -138,7 +138,7 @@ virtual public audio_dev_ctx,
          bool                    m_bWrite;
          int                     m_iBuffer;
          bool                    m_bStarted;
-         unsigned long long                   m_uStart;
+         ::u64                   m_uStart;
          //snd_pcm_status_t *      m_pstatus;
          //timeval                 m_timevalStart;
          class ::time            m_timeStart;
@@ -169,7 +169,7 @@ int m_fd;
          //imedia_position out_get_position();
 
          //virtual ::e_status wave_out_open(::thread * pthreadCallback, ::collection::count iBufferCount, ::collection::count iBufferSampleCount) override;
-         void out_open_ex(::thread * pthreadCallback, unsigned int uiSamplesPerSec, unsigned int uiChannelCount, unsigned int uiBitsPerSample, ::wave::enum_purpose epurpose) override;
+         void out_open_ex(::thread * pthreadCallback, ::u32 uiSamplesPerSec, ::u32 uiChannelCount, ::u32 uiBitsPerSample, ::wave::enum_purpose epurpose) override;
          void out_stop() override;
          void out_close() override;
          void out_pause() override;

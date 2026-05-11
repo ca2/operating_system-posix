@@ -71,7 +71,7 @@ extern char const mad_build[];
 typedef   signed int mad_fixed_t;
 
 typedef   signed int mad_fixed64hi_t;
-typedef unsigned int mad_fixed64lo_t;
+typedef ::u32 mad_fixed64lo_t;
 # else
 typedef   signed long mad_fixed_t;
 
@@ -558,17 +558,17 @@ void mad_bit_init(struct mad_bitptr *, unsigned char const *);
 
 # define mad_bit_finish(bitptr)		/* nothing */
 
-unsigned int mad_bit_length(struct mad_bitptr const *,
+::u32 mad_bit_length(struct mad_bitptr const *,
 			    struct mad_bitptr const *);
 
 # define mad_bit_bitsleft(bitptr)  ((bitptr)->left)
 unsigned char const *mad_bit_nextbyte(struct mad_bitptr const *);
 
-void mad_bit_skip(struct mad_bitptr *, unsigned int);
-unsigned long mad_bit_read(struct mad_bitptr *, unsigned int);
-void mad_bit_write(struct mad_bitptr *, unsigned int, unsigned long);
+void mad_bit_skip(struct mad_bitptr *, ::u32);
+unsigned long mad_bit_read(struct mad_bitptr *, ::u32);
+void mad_bit_write(struct mad_bitptr *, ::u32, unsigned long);
 
-unsigned short mad_bit_crc(struct mad_bitptr, unsigned int, unsigned short);
+unsigned short mad_bit_crc(struct mad_bitptr, ::u32, unsigned short);
 
 # endif
 
@@ -707,11 +707,11 @@ struct mad_stream {
   struct mad_bitptr ptr;		/* current processing bit pointer */
 
   struct mad_bitptr anc_ptr;		/* ancillary bits pointer */
-  unsigned int anc_bitlen;		/* number of ancillary bits */
+  ::u32 anc_bitlen;		/* number of ancillary bits */
 
   unsigned char (*main_data)[MAD_BUFFER_MDLEN];
 					/* Layer III main_data() */
-  unsigned int md_len;			/* bytes in main_data */
+  ::u32 md_len;			/* bytes in main_data */
 
   int options;				/* decoding options (see below) */
   enum mad_error error;			/* error code (see above) */
@@ -776,7 +776,7 @@ struct mad_header {
   enum mad_emphasis emphasis;		/* de-emphasis to use (see above) */
 
   unsigned long bitrate;		/* stream bitrate (bps) */
-  unsigned int samplerate;		/* sampling frequency (Hz) */
+  ::u32 samplerate;		/* sampling frequency (Hz) */
 
   unsigned short crc_check;		/* frame CRC accumulator */
   unsigned short crc_target;		/* final target CRC checksum */
@@ -847,7 +847,7 @@ void mad_frame_mute(struct mad_frame *);
 
 
 struct mad_pcm {
-  unsigned int samplerate;		/* sampling frequency (Hz) */
+  ::u32 samplerate;		/* sampling frequency (Hz) */
   unsigned short channels;		/* number of channels */
   unsigned short length;		/* number of samples per channel */
   mad_fixed_t samples[2][1152];		/* PCM output samples [ch][sample] */
@@ -857,7 +857,7 @@ struct mad_synth {
   mad_fixed_t filter[2][2][2][16][8];	/* polyphase filterbank outputs */
   					/* [ch][eo][peo][s][v] */
 
-  unsigned int phase;			/* current processing phase */
+  ::u32 phase;			/* current processing phase */
 
   struct mad_pcm pcm;			/* PCM output */
 };
@@ -933,7 +933,7 @@ struct mad_decoder {
   enum mad_flow (*output_func)(void *,
 			       struct mad_header const *, struct mad_pcm *);
   enum mad_flow (*error_func)(void *, struct mad_stream *, struct mad_frame *);
-  enum mad_flow (*message_func)(void *, void *, unsigned int *);
+  enum mad_flow (*message_func)(void *, void *, ::u32 *);
 };
 
 void mad_decoder_init(struct mad_decoder *, void *,
@@ -948,14 +948,14 @@ void mad_decoder_init(struct mad_decoder *, void *,
 		      enum mad_flow (*)(void *,
 					struct mad_stream *,
 					struct mad_frame *),
-		      enum mad_flow (*)(void *, void *, unsigned int *));
+		      enum mad_flow (*)(void *, void *, ::u32 *));
 int mad_decoder_finish(struct mad_decoder *);
 
 # define mad_decoder_options(decoder, opts)  \
     ((void) ((decoder)->options = (opts)))
 
 int mad_decoder_run(struct mad_decoder *, enum mad_decoder_mode);
-int mad_decoder_message(struct mad_decoder *, void *, unsigned int *);
+int mad_decoder_message(struct mad_decoder *, void *, ::u32 *);
 
 # endif
 

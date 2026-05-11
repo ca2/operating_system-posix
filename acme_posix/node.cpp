@@ -243,7 +243,7 @@ namespace acme_posix
    }
 
 
-//      ::e_status node::call_async(const_char_pointer pszPath, const_char_pointer pszParam, const_char_pointer pszDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
+//      ::e_status node::call_async(const_char_pointer pszPath, const_char_pointer pszParam, const_char_pointer pszDir, ::e_display edisplay, bool bPrivileged, ::u32 * puiPid)
 //      {
 //
 //         throw ::interface_only();
@@ -736,7 +736,7 @@ namespace acme_posix
 
 
    void node::call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay,
-      bool bPrivileged, unsigned int * puiPid)
+      bool bPrivileged, ::u32 * puiPid)
    {
 
       string strCmdLine;
@@ -757,7 +757,7 @@ namespace acme_posix
       if (puiPid != nullptr)
       {
 
-         *puiPid = (unsigned int) processId;
+         *puiPid = (::u32) processId;
 
       }
 
@@ -1040,7 +1040,7 @@ namespace acme_posix
 
       }
 
-      //unsigned int processId;
+      //::u32 processId;
 
       auto processId = create_process(strCmdLine);
       //         {

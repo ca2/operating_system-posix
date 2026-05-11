@@ -110,13 +110,13 @@ namespace x11
 
             int y = 0;
 
-            unsigned int w = 0;
+            ::u32 w = 0;
 
-            unsigned int h = 0;
+            ::u32 h = 0;
 
-            unsigned int border = 0;
+            ::u32 border = 0;
 
-            unsigned int depth = 0;
+            ::u32 depth = 0;
 
             auto status = XGetGeometry(__x11_handle(handle),
                &windowRoot, &x, &y, &w,

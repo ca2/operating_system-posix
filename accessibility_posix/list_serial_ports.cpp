@@ -43,7 +43,7 @@ namespace acme_windows
 			nullptr,
 			DIGCF_PRESENT);
 
-		unsigned int device_info_set_index = 0;
+		::u32 device_info_set_index = 0;
 		SP_DEVINFO_DATA device_info_data = {};
 
 		device_info_data.cbSize = sizeof(SP_DEVINFO_DATA);

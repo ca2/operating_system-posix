@@ -547,7 +547,7 @@ namespace windowing_x11
 
                      ::Window *pchildren = nullptr;
 
-                     unsigned int ncount = 0;
+                     ::u32 ncount = 0;
 
                      XQueryTree(display, m_window, &root, &m_parent, &pchildren, &ncount);
 
@@ -1284,7 +1284,7 @@ namespace windowing_x11
 
                      ::Window *pchildren = nullptr;
 
-                     unsigned int ncount = 0;
+                     ::u32 ncount = 0;
 
                      XQueryTree(__x11_display(), m_window, &root, &m_parent, &pchildren, &ncount);
 
@@ -2127,7 +2127,7 @@ namespace windowing_x11
 
 #if 0
 
-                  unsigned int buffer[] =
+                  ::u32 buffer[] =
                      {
                      16, 16,
                      4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 338034905, 3657433343, 0, 184483840, 234881279, 3053453567, 3221225727, 1879048447, 0, 0, 0, 0, 0, 0, 0, 1224737023, 3305111807, 3875537151,0, 0, 2063597823, 1291845887, 0, 67109119, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 50266112, 3422552319, 0, 0, 3070230783, 2063597823, 2986344703, 771752191, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3422552319, 0, 0, 3372220671, 1509949695, 704643327, 3355443455, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 3422552319, 0, 134152192, 3187671295, 251658495, 0, 3439329535, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3422552319, 0, 0, 2332033279, 1342177535, 167772415, 3338666239, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 3422552319, 0, 0, 436207871, 3322085628, 3456106751, 1375731967, 4278255360, 4026597120, 3758161664, 3489726208, 3204513536, 2952855296, 2684419840, 2399207168, 2130771712, 1845559040, 1593900800, 1308688128, 1040252672, 755040000, 486604544, 234946304, 4278255360, 4043374336, 3774938880, 3506503424, 3221290752, 2952855296, 2667642624, 2399207168, 2130771712, 1862336256, 1627453957, 1359017481, 1073805064, 788591627, 503379721, 218169088, 4278255360, 4043374336, 3758161664, 3506503424, 3221290752, 2952855296, 2684419840, 2415984384, 2130771712, 1862336256, 1577123584, 1308688128, 1040252672, 755040000, 486604544, 218169088, 4278190335, 4026532095, 3758096639, 3489661183, 3221225727, 2952790271, 2667577599, 2415919359, 2130706687, 1862271231, 1593835775, 1325400319, 1056964863, 771752191, 520093951, 234881279, 4278190335, 4026532095, 3758096639, 3489661183, 3221225727, 2952790271, 2667577599, 2415919359, 2130706687, 1862271231, 1593835775, 1325400319, 1056964863, 771752191, 503316735, 234881279, 4278190335, 4026532095, 3758096639, 3489661183, 3221225727, 2952790271, 2684354815, 2399142143, 2130706687, 1862271231, 1593835775, 1325400319, 1040187647, 771752191, 520093951, 234881279, 4294901760, 4043243520, 3774808064, 3506372608, 3221159936, 2952724480, 2684289024, 2399076352, 2147418112, 1862205440, 1593769984, 1308557312, 1040121856, 771686400, 503250944, 234815488, 4294901760, 4060020736, 3758030848, 3506372608, 3221159936, 2952724480, 2684289024, 2415853568, 2130640896, 1862205440, 1593769984, 1308557312, 1040121856, 771686400, 503250944, 234815488, 4294901760, 4043243520, 3774808064, 3489595392, 3237937152, 2952724480, 2684289024, 2415853568, 2147418112, 1862205440, 1593769984, 1325334528, 1056899072, 788463616, 503250944, 234815488,
@@ -2193,7 +2193,7 @@ namespace windowing_x11
 
                   m.set_size(length * 4);
 
-                  unsigned int *pcr = (unsigned int *) m.data();
+                  ::u32 *pcr = (::u32 *) m.data();
 
                   pcr[0] = image1->width();
 
@@ -2276,7 +2276,7 @@ namespace windowing_x11
 
                   m.set_size(length * 4);
 
-                  unsigned int * pcr = (unsigned int *) m.get_data();
+                  ::u32 * pcr = (::u32 *) m.get_data();
 
                   pcr[0] = d1.width();
 
@@ -2591,12 +2591,12 @@ namespace windowing_x11
 
 
 /// Post an happening from the client to the X server
-   void window::send_client_event(Atom atom, unsigned int numArgs, ...)
+   void window::send_client_event(Atom atom, ::u32 numArgs, ...)
    {
 
       XEvent xevent;
 
-      unsigned int i;
+      ::u32 i;
 
       va_list argp;
 
@@ -2714,7 +2714,7 @@ namespace windowing_x11
 
       XEvent xevent;
 
-      unsigned int i;
+      ::u32 i;
 
       va_list argp;
 
@@ -3356,7 +3356,7 @@ namespace windowing_x11
 #undef SET_WINDOW_POS_LOG
 
 
-//   bool window::set_window_pos(class ::zorder zorder, int x, int y, int cx, int cy, unsigned int nFlags)
+//   bool window::set_window_pos(class ::zorder zorder, int x, int y, int cx, int cy, ::u32 nFlags)
 //   {
 //
 //      bool bOk = false;
@@ -4277,7 +4277,7 @@ namespace windowing_x11
 //
 //               Atom * patoms = nullptr;
 //
-//               long unsigned int num_items = 0;
+//               long ::u32 num_items = 0;
 //
 //               XGetWindowProperty(Display(), Window(), atomList, 0, 1024,
 //                                  False, XA_ATOM, &actual_type, &actual_format,
@@ -5247,7 +5247,7 @@ namespace windowing_x11
                         ::Window root = 0;
                         ::Window parent = 0;
                         ::Window *pchildren = nullptr;
-                        unsigned int numItems = 0;
+                        ::u32 numItems = 0;
 
                         int status = XQueryTree(Display(), Window(),
                                                 &root, &parent, &pchildren, &numItems);
@@ -5274,7 +5274,7 @@ namespace windowing_x11
                      ::Window root = 0;
                      ::Window parent = 0;
                      ::Window *pchildren = nullptr;
-                     unsigned int numItems = 0;
+                     ::u32 numItems = 0;
 
                      int status = XQueryTree(Display(), Window(),
                                              &root, &parent, &pchildren, &numItems);
@@ -5477,7 +5477,7 @@ auto pwindowing = system()->acme_windowing();
 
       Atom *patoms = nullptr;
 
-      long unsigned int num_items = 0;
+      long ::u32 num_items = 0;
 
       XGetWindowProperty(Display(), Window(), atomList, 0, 1024,
                          False, XA_ATOM, &actual_type, &actual_format,

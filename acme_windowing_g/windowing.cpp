@@ -141,6 +141,6 @@ CLASS_DECL_ACME_WINDOWING_G GtkWidget * as_gtk_widget(const ::operating_system::
 CLASS_DECL_ACME_WINDOWING_G ::operating_system::window as_operating_system_window(GtkWidget * pgtkwidget)
 {
 
-   return { ::windowing::e_operating_ambient_gnome, (unsigned long long) pgtkwidget};
+   return { ::windowing::e_operating_ambient_gnome, (::u64) pgtkwidget};
 
 }

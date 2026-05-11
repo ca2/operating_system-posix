@@ -300,7 +300,7 @@ namespace multimedia
 
          }
 
-         unsigned int uiFreq = pformat->m_waveformat.nSamplesPerSec;
+         ::u32 uiFreq = pformat->m_waveformat.nSamplesPerSec;
 
          int dir = 0;
 
@@ -369,7 +369,7 @@ namespace multimedia
 
          //information() << "Total Buffer Size: " << sizeTotalBuffer;
 
-         unsigned int uBufferCountMin = 0;
+         ::u32 uBufferCountMin = 0;
 
          int dirBufferCountMin = 0;
 
@@ -388,7 +388,7 @@ namespace multimedia
 
          information() << "snd_pcm_hw_params_get_periods_min: " << uBufferCountMin << " direction " << dirBufferCountMin;
 
-         unsigned int uBufferCountMax = 0;
+         ::u32 uBufferCountMax = 0;
 
          int dirBufferCountMax = 0;
 
@@ -500,7 +500,7 @@ namespace multimedia
 
          int dirGetPeriods = 0;
 
-         unsigned int uBufferCount = 0;
+         ::u32 uBufferCount = 0;
 
          err = snd_pcm_hw_params_get_periods(m_phwparams, &uBufferCount, &dirGetPeriods);
 

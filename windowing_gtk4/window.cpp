@@ -37,7 +37,7 @@
 //#include "../node_gtk/gtk_3_and_4.cpp"
 
 
-CLASS_DECL_ACME_WINDOWING_G ::user::e_key gtk_key_as_user_ekey(unsigned long long uGtkKey);
+CLASS_DECL_ACME_WINDOWING_G ::user::e_key gtk_key_as_user_ekey(::u64 uGtkKey);
 
 
 bool is_using_x11()
@@ -1130,7 +1130,7 @@ gtk_im_context_commit (
    }
 
 
-   void window::_on_gtk_key_pressed(unsigned long long uGtkKey, unsigned long long uGtkKeyCode)
+   void window::_on_gtk_key_pressed(::u64 uGtkKey, ::u64 uGtkKeyCode)
    {
 
       auto ekey = gtk_key_as_user_ekey(uGtkKey);
@@ -1161,7 +1161,7 @@ gtk_im_context_commit (
    }
 
 
-   void window::_on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode)
+   void window::_on_gtk_key_released(::u64 uGtkKey, ::u64 uGtkKeyCode)
    {
 
       auto ekey = gtk_key_as_user_ekey(uGtkKey);

@@ -54,7 +54,7 @@ class x11color32_t
 public:
 
    
-   unsigned int m_ui;
+   ::u32 m_ui;
 
 
    x11color32_t(){m_ui=0;}

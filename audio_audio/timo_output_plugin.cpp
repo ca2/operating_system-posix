@@ -50,9 +50,9 @@ struct output_plugin {
 	const struct mixer_plugin_opt *mixer_options;
 	int priority;
 
-	unsigned int pcm_initialized : 1;
-	unsigned int mixer_initialized : 1;
-	unsigned int mixer_open : 1;
+	::u32 pcm_initialized : 1;
+	::u32 mixer_initialized : 1;
+	::u32 mixer_open : 1;
 };
 
 static const_char_pointer plugin_dir;

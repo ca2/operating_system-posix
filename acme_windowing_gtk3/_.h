@@ -90,7 +90,7 @@ inline void copy(::int_rectangle * prectTarget, const GdkRectangle * prectSource
 //public:
 //
 //
-//   unsigned int m_ui;
+//   ::u32 m_ui;
 //
 //
 //   x11color32_t(){m_ui=0;}

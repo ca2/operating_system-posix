@@ -59,8 +59,8 @@ namespace acme_windows
 
 
       static void WINAPI read_complete(
-         unsigned int dwErrorCode,
-         unsigned int dwNumberOfBytesTransfered,
+         ::u32 dwErrorCode,
+         ::u32 dwNumberOfBytesTransfered,
          LPOVERLAPPED pOverlapped
 
          );

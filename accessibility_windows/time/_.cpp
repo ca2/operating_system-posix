@@ -47,7 +47,7 @@ string key_to_char(wparam wparam, lparam lparam)
    }
 
 
-   int iRet = ToUnicodeEx((unsigned int) wparam, (unsigned int) lparam, baState, wsz, 32, 0, GetKeyboardLayout(GetCurrentThreadId()));
+   int iRet = ToUnicodeEx((::u32) wparam, (::u32) lparam, baState, wsz, 32, 0, GetKeyboardLayout(GetCurrentThreadId()));
 
 
    if(iRet > 0)
@@ -93,7 +93,7 @@ string key_to_char(wparam wparam, lparam lparam)
 }
 
 
-//string get_last_error_message(unsigned int dwError)
+//string get_last_error_message(::u32 dwError)
 //{
 //
 //   LPWSTR pBuffer;
@@ -156,7 +156,7 @@ string key_to_char(wparam wparam, lparam lparam)
 // (which means Windows NT, 2000, XP).
 int GetVersion_ex1()
 {
-   unsigned int    dwVersion = GetVersion();
+   ::u32    dwVersion = GetVersion();
    // Get major and minor version numbers of Windows
    unsigned short loword = LOWORD(dwVersion);
    int lowbyte = lower_byte(loword);
@@ -361,21 +361,21 @@ int_bool is_windows_native_unicode()
    if (bNativeUnicode == -1)
    {
 
-      unsigned int dwVersion = GetVersion();
+      ::u32 dwVersion = GetVersion();
 
       // get the Windows version.
 
-      unsigned int dwWindowsMajorVersion = (unsigned int)(lower_byte(LOWORD(dwVersion)));
-      unsigned int dwWindowsMinorVersion = (unsigned int)(higher_byte(LOWORD(dwVersion)));
+      ::u32 dwWindowsMajorVersion = (::u32)(lower_byte(LOWORD(dwVersion)));
+      ::u32 dwWindowsMinorVersion = (::u32)(higher_byte(LOWORD(dwVersion)));
 
       // get the build number.
 
-      unsigned int dwBuild;
+      ::u32 dwBuild;
 
       if (dwVersion < I32_MINIMUM)              // Windows NT
-         dwBuild = (unsigned int)(HIWORD(dwVersion));
+         dwBuild = (::u32)(HIWORD(dwVersion));
       else if (dwWindowsMajorVersion < 4)      // Win32s
-         dwBuild = (unsigned int)(HIWORD(dwVersion) & ~0x8000);
+         dwBuild = (::u32)(HIWORD(dwVersion) & ~0x8000);
       else                                     // Windows Me/98/95
          dwBuild = 0;
 

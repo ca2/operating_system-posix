@@ -107,7 +107,7 @@ namespace windowing_q
       //static Atom                                s_atomLongStyleEx;
       ::int_rectangle_array                        m_rectangleaRedraw;
       ::pointer<::xim::keyboard>                   m_pximkeyboard;
-      //unsigned long long                                        m_uLastNetWmSyncRequest;
+      //::u64                                        m_uLastNetWmSyncRequest;
       ::int_rectangle                              m_rectangleXShm;
       //bool                                         m_bFirstConfigure;
       //bool                                         m_bXShmPutImagePending;
@@ -200,7 +200,7 @@ void on_initialize_particle() override;
 //
 //      virtual ::e_status initialize_x11_window(::windowing_q::display * pdisplay, ::Window window, ::Visual *pvisual, int iDepth, int iScreen, Colormap colormap);
 
-//      virtual void send_client_event(Atom atom, unsigned int numArgs, ...);
+//      virtual void send_client_event(Atom atom, ::u32 numArgs, ...);
       virtual int store_name(const_char_pointer psz);
       virtual int select_input(int iInput);
       virtual int select_all_input();
@@ -258,8 +258,8 @@ void on_initialize_particle() override;
       void user_send(const ::procedure & procedure) override;
 
       void main_send(const ::procedure & procedure) override;
-      //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);
-      //virtual bool _set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);
+      //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,::u32 nFlags);
+      //virtual bool _set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,::u32 nFlags);
       
 
       bool is_destroying() override;
@@ -376,15 +376,15 @@ void on_initialize_particle() override;
 //
 //
       // virtual void __handle_pointer_enter(::wl_pointer * pwlpointer);
-      // virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, unsigned int millis);
+      // virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis);
       // virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_q::window * pwaylandwindowLeave);
       //
-      // virtual void __handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int millis);
+      // virtual void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis);
 //
 //
 //      virtual void __defer_update_wayland_buffer();
 //
-//      virtual void __handle_xdg_surface_configure(unsigned int serial);
+//      virtual void __handle_xdg_surface_configure(::u32 serial);
 //
       //virtual void __handle_xdg_toplevel_configure(int width, int height, ::wl_array * pwlarrayState);
 //

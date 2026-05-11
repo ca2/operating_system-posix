@@ -51,7 +51,7 @@ namespace acme_windows
 
          }
 
-         return (unsigned int) uData;
+         return (::u32) uData;
 
       }
       else if (dwType == REG_SZ)
@@ -726,13 +726,13 @@ namespace acme_windows
       //if (ERROR_SUCCESS == ::RegOpenKeyW(hkey, wstring(name), &hkeySub))
       {
 
-         unsigned int dwAlloc = 1026 * 64;
+         ::u32 dwAlloc = 1026 * 64;
 
          ::wstring wstr;
 
          auto szKey = wstr.get_buffer(dwAlloc * 2);
 
-         unsigned int dwIndex = 0;
+         ::u32 dwIndex = 0;
 
          while (ERROR_SUCCESS == ::RegEnumKeyW(m_hkeySub, dwIndex, szKey, dwAlloc))
          {
@@ -780,7 +780,7 @@ LSTATUS
 
    const ::wide_character * pData,
 
-   unsigned int dwFlags,
+   ::u32 dwFlags,
    LPDWORD pdwType,
    PVOID pvData,
    LPDWORD pcbData
@@ -831,13 +831,13 @@ CLASS_DECL_ACME_WINDOWS void reg_delete_tree_dup(HKEY hkey, const_char_pointer n
    if (ERROR_SUCCESS == ::RegOpenKeyW(hkey, wstring(name), &hkeySub))
    {
 
-      unsigned int dwAlloc = 1026 * 64;
+      ::u32 dwAlloc = 1026 * 64;
 
       ::wstring wstr;
 
       auto szKey = wstr.get_buffer(dwAlloc * 2);
 
-      unsigned int dwIndex = 0;
+      ::u32 dwIndex = 0;
 
       while (ERROR_SUCCESS == ::RegEnumKeyW(hkeySub, dwIndex, szKey, dwAlloc))
       {

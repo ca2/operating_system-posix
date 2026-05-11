@@ -11,13 +11,13 @@ class CLASS_DECL_ACME_WINDOWS shared_memory :
 public:
 
 
-   unsigned int                                   m_nAllocFlags;
+   ::u32                                   m_nAllocFlags;
    HGLOBAL                                m_hGlobalMemory;
    bool                                   m_bAllowGrow;
 
 
    shared_memory(const memory_base & memory);
-   shared_memory(memory_container * pmsc = nullptr, double dAllocationRateUp = 4096, unsigned int nAllocFlags = 0);
+   shared_memory(memory_container * pmsc = nullptr, double dAllocationRateUp = 4096, ::u32 nAllocFlags = 0);
    shared_memory(memory_container * pmsc, const void * pMemory, memsize dwSize);
    shared_memory(const void *, memsize iCount);
    ~shared_memory() override;

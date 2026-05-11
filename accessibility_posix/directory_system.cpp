@@ -626,7 +626,7 @@ pacmedir->roaming();
 //      //str.case_insensitive_ends_eat("\\");
 //      //str.case_insensitive_ends_eat("/");
 //
-//      unsigned int dwFileAttributes = ::windows_get_file_attributes(path1);
+//      ::u32 dwFileAttributes = ::windows_get_file_attributes(path1);
 //
 //      if (dwFileAttributes != INVALID_FILE_ATTRIBUTES)
 //      {
@@ -861,7 +861,7 @@ bool windows_file_find_is_dots(const WIN32_FIND_DATAW & data)
 //
 //         }
 //
-//         if (!GetModuleFileNameW(hmodule, wstrModuleFilePath, (unsigned int)wstrModuleFilePath.length()))
+//         if (!GetModuleFileNameW(hmodule, wstrModuleFilePath, (::u32)wstrModuleFilePath.length()))
 //         {
 //
 //            return "";
@@ -870,7 +870,7 @@ bool windows_file_find_is_dots(const WIN32_FIND_DATAW & data)
 //
 //         LPWSTR pszModuleFileName;
 //
-//         if (!GetFullPathNameW(wstrModuleFilePath, (unsigned int)wstrModuleFilePath.length(), wstrModuleFolder, &pszModuleFileName))
+//         if (!GetFullPathNameW(wstrModuleFilePath, (::u32)wstrModuleFilePath.length(), wstrModuleFolder, &pszModuleFileName))
 //         {
 //
 //            return "";
@@ -1222,7 +1222,7 @@ pacmedir->create CreateDirectoryW last error(%d)=%s", dwError, pszError);
 
          auto p = path.get_buffer(MAX_PATH * 8);
 
-         if (!GetModuleFileNameW(nullptr, p, (unsigned int)path.size()))
+         if (!GetModuleFileNameW(nullptr, p, (::u32)path.size()))
          {
 
             return "";
@@ -1711,7 +1711,7 @@ pacmedir->create CreateDirectoryW last error(%d)=%s", dwError, pszError);
 //
 //         auto a = folder->GetItemsAsync().get();
 //
-//         for (unsigned int u = 0; u < a->Size; u++)
+//         for (::u32 u = 0; u < a->Size; u++)
 //         {
 //
 //            string strPath = string(begin(a->GetAt(u)->Path));
@@ -1806,7 +1806,7 @@ pacmedir->create CreateDirectoryW last error(%d)=%s", dwError, pszError);
 //
 //         ::winrt::Windows::Foundation::Collections::IVectorImpact < ::winrt::Windows::Storage::StorageFolder ^ > ^ a = wait(folder->GetFoldersAsync());
 //
-//         for (unsigned int u = 0; u < a->Size; u++)
+//         for (::u32 u = 0; u < a->Size; u++)
 //         {
 //            stra.add(begin(a->GetAt(u)->Path));
 //         }
@@ -1888,7 +1888,7 @@ pacmedir->create CreateDirectoryW last error(%d)=%s", dwError, pszError);
 //
 //         ::winrt::Windows::Foundation::Collections::IVectorImpact < ::winrt::Windows::Storage::StorageFolder ^ > ^ a = wait(folder->GetFoldersAsync());
 //
-//         for (unsigned int u = 0; u < a->Size; u++)
+//         for (::u32 u = 0; u < a->Size; u++)
 //         {
 //            stra.add(begin(a->GetAt(u)->Path));
 //         }

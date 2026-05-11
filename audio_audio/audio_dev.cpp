@@ -51,7 +51,7 @@
 #endif
 
 #ifdef __DragonFly__
-typedef unsigned int nfds_t;
+typedef ::u32 nfds_t;
 #endif
 
 #define PCM_MAX_BUFFSIZE	2 * 4_KiB
@@ -101,9 +101,9 @@ static void	audio_dev_sigpipe(int);
 static int	audio_dev_output(struct audio_dev_ctx *, struct pcm_data *);
 static void	audio_dev_command(struct audio_dev_ctx *, int *);
 static void	audio_dev_slave(const_char_pointer ,struct audio_dev_ctx *);
-//static inline signed long audio_linear_dither(unsigned int, mad_fixed_t,
+//static inline signed long audio_linear_dither(::u32, mad_fixed_t,
 //		    mad_fixed_t *);
-//static void	audio_convert_dither(unsigned char *, unsigned int,
+//static void	audio_convert_dither(unsigned char *, ::u32,
 //		    mad_fixed_t const *, mad_fixed_t const *);
 
 

@@ -124,8 +124,8 @@ namespace windowing_xcb
       virtual ::e_status _request_check(xcb_void_cookie_t cookie);
 
 
-      //virtual ::e_status _send_client_event(xcb_window_t window, xcb_atom_t atom, unsigned int numArgs, ...);
-      //virtual ::e_status _send_client_event_v(xcb_window_t window, xcb_atom_t atom, unsigned int numArgs, va_list args);
+      //virtual ::e_status _send_client_event(xcb_window_t window, xcb_atom_t atom, ::u32 numArgs, ...);
+      //virtual ::e_status _send_client_event_v(xcb_window_t window, xcb_atom_t atom, ::u32 numArgs, va_list args);
 
 
       virtual xcb_cursor_t _create_alpha_cursor(const ::image::image *pimage, int xHotSpot, int yHotSpot);

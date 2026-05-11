@@ -587,7 +587,7 @@ namespace acme_windows
          //
          //#ifdef WINDOWS_DESKTOP
          //   {
-         //      unsigned int dwSize = GetEnvironmentVariable("PATH", nullptr, 0);
+         //      ::u32 dwSize = GetEnvironmentVariable("PATH", nullptr, 0);
          //      char * lpsz = ___new char[dwSize + 1];
          //      dwSize = GetEnvironmentVariable("PATH", lpsz, dwSize + 1);
          //      delete lpsz;
@@ -602,7 +602,7 @@ namespace acme_windows
          //
          //   //   ::time tickStart= ::time::now();
          //
-         //   //   unsigned int dwExitCode;
+         //   //   ::u32 dwExitCode;
          //
          //   //   string strLog;
          //
@@ -631,8 +631,8 @@ namespace acme_windows
          //   //      CProcessEnvReader::ReleaseHandle(hProcess);
          //   //   }
          //   //process->write("\n");
-         //   unsigned int dwExitCode;
-         //   unsigned int tickStart= ::time::now();
+         //   ::u32 dwExitCode;
+         //   ::u32 tickStart= ::time::now();
          //   while(::task_get_run() && task_get_run())
          //   {
          //
@@ -661,7 +661,7 @@ namespace acme_windows
          //
          //   #ifdef WINDOWS_DESKTOP
          //   {
-         //      unsigned int dwSize = GetEnvironmentVariable("PATH", nullptr, 0);
+         //      ::u32 dwSize = GetEnvironmentVariable("PATH", nullptr, 0);
          //      char * lpsz = ___new char[dwSize + 1];
          //      dwSize = GetEnvironmentVariable("PATH", lpsz, dwSize + 1);
          //      delete lpsz;

@@ -97,11 +97,11 @@ drvctl_get_properties(int fd, const_char_pointer devnode, prop_dictionary_t *pro
 
 static int
 drvctl_search(int fd, const_char_pointer curnode, const_char_pointer dvname,
-    void (*callback)(void *, const_char_pointer ,const_char_pointer ,unsigned int),
+    void (*callback)(void *, const_char_pointer ,const_char_pointer ,::u32),
     void *args)
 {
 	struct devlistargs laa;
-	unsigned int i;
+	::u32 i;
 	uint32_t unit;
 	bool rv;
 
@@ -136,7 +136,7 @@ drvctl_search(int fd, const_char_pointer curnode, const_char_pointer dvname,
 
 int
 drvctl_foreach(int fd, const_char_pointer dvname,
-    void (*callback)(void *, const_char_pointer ,const_char_pointer ,unsigned int),
+    void (*callback)(void *, const_char_pointer ,const_char_pointer ,::u32),
     void *args)
 {
 	return drvctl_search(fd, "", dvname, callback, args);

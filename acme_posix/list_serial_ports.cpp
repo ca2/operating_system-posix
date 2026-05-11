@@ -161,7 +161,7 @@ namespace acme_posix
    string usb_sysfs_friendly_name(::particle *pparticle, const string &sys_usb_path)
    {
 
-      unsigned int device_number = 0;
+      ::u32 device_number = 0;
 
       auto psystem = pparticle->system();
 
@@ -290,7 +290,7 @@ namespace acme_posix
 
       bool done = false;
 
-      unsigned int loop_count = 0;
+      ::u32 loop_count = 0;
 
       while (!done)
       {

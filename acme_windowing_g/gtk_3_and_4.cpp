@@ -6,7 +6,7 @@
 #include <gdk/gdkkeysyms.h>
 
 
-CLASS_DECL_ACME_WINDOWING_G ::user::e_key gtk_key_as_user_ekey(unsigned long long uGtkKey)
+CLASS_DECL_ACME_WINDOWING_G ::user::e_key gtk_key_as_user_ekey(::u64 uGtkKey)
 {
 
    switch(uGtkKey)

@@ -17,7 +17,7 @@ shared_memory::shared_memory(const memory_base & s)
 
 }
 
-shared_memory::shared_memory(memory_container * pcontainer, double dAllocationRateUp, unsigned int nAllocFlags)
+shared_memory::shared_memory(memory_container * pcontainer, double dAllocationRateUp, ::u32 nAllocFlags)
 {
 
    m_nAllocFlags = nAllocFlags;

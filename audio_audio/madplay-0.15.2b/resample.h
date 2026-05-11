@@ -31,11 +31,11 @@ struct resample_state {
   mad_fixed_t last;
 };
 
-int resample_init(struct resample_state *, unsigned int, unsigned int);
+int resample_init(struct resample_state *, ::u32, ::u32);
 
 # define resample_finish(state)  /* nothing */
 
-unsigned int resample_block(struct resample_state *, unsigned int,
+::u32 resample_block(struct resample_state *, ::u32,
 			    mad_fixed_t const *, mad_fixed_t *);
 
 # endif

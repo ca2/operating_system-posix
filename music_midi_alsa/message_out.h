@@ -24,7 +24,7 @@ namespace music
          public:
 
 
-            unsigned long long                   m_u64Start;
+            ::u64                   m_u64Start;
             snd_rawmidi_t *         m_prawmidi;
             int64_t                 m_iWrite;
             memory_file             m_file;

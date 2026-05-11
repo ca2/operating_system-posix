@@ -52,7 +52,7 @@ namespace acme_windows
       virtual bool GetLastAccessTime(::earth::time& refTime) const;
       virtual bool GetCreationTime(::earth::time& refTime) const;
 
-      bool MatchesMask(unsigned int dwMask) const;
+      bool MatchesMask(::u32 dwMask) const;
 
       virtual bool IsDots() const;
       // these aren't virtual because they all use MatchesMask(), which is
@@ -67,7 +67,7 @@ namespace acme_windows
 
       
       void close();
-      virtual bool find_file(const ::scoped_string & scopedstrName = nullptr, unsigned int dwUnused = 0);
+      virtual bool find_file(const ::scoped_string & scopedstrName = nullptr, ::u32 dwUnused = 0);
       virtual bool find_next_file();
 
       virtual void CloseContext();
@@ -132,7 +132,7 @@ namespace acme_windows
 
    }
 
-   inline bool file_find::MatchesMask(unsigned int dwMask) const
+   inline bool file_find::MatchesMask(::u32 dwMask) const
    {
 
 

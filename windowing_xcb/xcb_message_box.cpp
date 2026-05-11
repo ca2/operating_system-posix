@@ -19,21 +19,21 @@ bool xcb_message_box_process_event(xcb_connection_t * pdisplay, XEvent & e);
 
 struct Dimensions{
     //window
-    unsigned int winMinWidth;
-    unsigned int winMinHeight;
+    ::u32 winMinWidth;
+    ::u32 winMinHeight;
     //vertical space between lines
-    unsigned int lineSpacing;
-    unsigned int barHeight;
+    ::u32 lineSpacing;
+    ::u32 barHeight;
     //padding
-    unsigned int pad_up;
-    unsigned int pad_down;
-    unsigned int pad_left;
-    unsigned int pad_right;
+    ::u32 pad_up;
+    ::u32 pad_down;
+    ::u32 pad_left;
+    ::u32 pad_right;
     //button
-    unsigned int btSpacing;
-    unsigned int btMinWidth;
-    unsigned int btMinHeight;
-    unsigned int btLateralPad;
+    ::u32 btSpacing;
+    ::u32 btMinWidth;
+    ::u32 btMinHeight;
+    ::u32 btLateralPad;
 
 };
 
@@ -76,8 +76,8 @@ void setWindowTitle(const_char_pointer title, const xcb_window_t *win, xcb_conne
 //    free(data);
 //}
 
-// void xcb_text_extents(XFontSet* fs, wchar_t** texts, int size, unsigned int spaceBetweenLines,
-//                      unsigned int *w,  unsigned  int *h)
+// void xcb_text_extents(XFontSet* fs, wchar_t** texts, int size, ::u32 spaceBetweenLines,
+//                      ::u32 *w,  unsigned  int *h)
 // {
 //     int i;
 //     XRectangle rect  = {0,0,0,0};
@@ -191,13 +191,13 @@ void setWindowTitle(const_char_pointer title, const xcb_window_t *win, xcb_conne
 //    Colormap cmap = DefaultColormap (dpy, ds);
 //
 //    //resize the window according to the text size-----------------------------------------------------------------------
-//    unsigned int winW, winH;
-//    unsigned int textW, textH;
+//    ::u32 winW, winH;
+//    ::u32 textW, textH;
 //
 //    //calculate the ideal window's size
 //    xcb_text_extents(&fs, text_splitted, textLines, dim.lineSpacing, &textW, &textH);
-//    unsigned int newWidth = textW + dim.pad_left + dim.pad_right;
-//    unsigned int newHeight = textH + dim.pad_up + dim.pad_down + dim.barHeight;
+//    ::u32 newWidth = textW + dim.pad_left + dim.pad_right;
+//    ::u32 newHeight = textH + dim.pad_up + dim.pad_down + dim.barHeight;
 //    winW = (newWidth > dim.winMinWidth)? newWidth: dim.winMinWidth;
 //    winH = (newHeight > dim.winMinHeight)? newHeight: dim.winMinHeight;
 //
@@ -297,7 +297,7 @@ void setWindowTitle(const_char_pointer title, const xcb_window_t *win, xcb_conne
 //
 //            case ClientMessage:
 //                //if window's cross button pressed does nothing
-//                //if((unsigned int)(e.xclient.data.l[0]) == WM_DELETE_WINDOW)
+//                //if((::u32)(e.xclient.data.l[0]) == WM_DELETE_WINDOW)
 //                    //quit = true;
 //                break;
 //            default:

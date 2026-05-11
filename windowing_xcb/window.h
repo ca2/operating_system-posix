@@ -249,7 +249,7 @@ namespace windowing_xcb
       virtual ::e_status _request_check(xcb_void_cookie_t cookie);
 
 
-      virtual ::e_status _send_client_event(xcb_atom_t atom, unsigned int numArgs, ...);
+      virtual ::e_status _send_client_event(xcb_atom_t atom, ::u32 numArgs, ...);
       virtual ::e_status _store_name(const_char_pointer psz);
       virtual ::e_status _select_input(int iInput);
       virtual ::e_status _select_all_input();

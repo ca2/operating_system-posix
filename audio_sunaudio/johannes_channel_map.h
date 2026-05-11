@@ -89,6 +89,6 @@ static inline void channel_map_init_stereo(channel_position_t *map_base)
 	map_base[1] = CHANNEL_POSITION_RIGHT;
 }
 
-void channel_map_init_waveex(int channels, unsigned int mask, channel_position_t *map_base);
+void channel_map_init_waveex(int channels, ::u32 mask, channel_position_t *map_base);
 
 #endif

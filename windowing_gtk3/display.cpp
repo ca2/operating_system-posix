@@ -727,7 +727,7 @@ namespace windowing_gtk3
 //      Window child_return;
       int win_x_return;
       int win_y_return;
-      unsigned int mask_return;
+      ::u32 mask_return;
 
 #ifdef display_lock_LOCK_LOG
 
@@ -1188,7 +1188,7 @@ namespace windowing_gtk3
 //   }
 //
 //
-//   void display::__handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, unsigned int millis)
+//   void display::__handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, ::u32 millis)
 //   {
 //
 //      ::int_point pointCursor((int)x, (int)y);
@@ -1288,7 +1288,7 @@ namespace windowing_gtk3
 //   }
 //
 //
-//   void display::__handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int millis)
+//   void display::__handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis)
 //   {
 //
 //      if(m_pwindowPointerCapture)
@@ -1313,7 +1313,7 @@ namespace windowing_gtk3
 //   }
 //
 
-//   void display::__capture_mouse(::windowing_gtk3::window * pwindowMouseCapture, unsigned int serial)
+//   void display::__capture_mouse(::windowing_gtk3::window * pwindowMouseCapture, ::u32 serial)
 //   {
 //
 //      if(::is_null(pwindowMouseCapture))

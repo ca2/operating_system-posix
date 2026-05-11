@@ -350,7 +350,7 @@ namespace uac_tools
    HHOOK   hVEHook                     = nullptr;
 
    __declspec(allocate("ve_shared"))
-   unsigned int   uVEMsg                     = 0;
+   ::u32   uVEMsg                     = 0;
 
    __declspec(allocate("ve_shared"))
    bool   bVESuccess                  = false;
@@ -406,7 +406,7 @@ namespace uac_tools
    bool
    (WINAPI
     *PGetModuleHandleExW)(
-    __in        unsigned int    dwFlags,
+    __in        ::u32    dwFlags,
     __in_opt    const unichar * pModuleName,
 
     __out HMODULE* phModule

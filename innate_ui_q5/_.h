@@ -35,7 +35,7 @@
 //CLASS_DECL_ACME_WINDOWS void windows_registry_initialize();
 //
 //
-//CLASS_DECL_ACME_WINDOWS string read_resource_as_string(hinstance hinst, unsigned int nID, const_char_pointer pcszType, character_count iReadAtMostByteCount = -1);
+//CLASS_DECL_ACME_WINDOWS string read_resource_as_string(hinstance hinst, ::u32 nID, const_char_pointer pcszType, character_count iReadAtMostByteCount = -1);
 //CLASS_DECL_ACME_WINDOWS const void * get_resource_pointer(HINSTANCE hinst, DWORD nID, const_char_pointer pcszType, memsize & memsize);
 //CLASS_DECL_ACME_WINDOWS bool read_resource_as_memory(memory & m, HINSTANCE hinst, DWORD nID, const_char_pointer pcszType, character_count iReadAtMostByteCount = -1);
 
@@ -57,11 +57,11 @@
 //
 //CLASS_DECL_ACME_WINDOWS HANDLE hfile_create(
 //   const_char_pointer pFileName,
-//   unsigned int                   dwDesiredAccess,
-//   unsigned int                   dwShareMode,
+//   ::u32                   dwDesiredAccess,
+//   ::u32                   dwShareMode,
 //   void * pSecurityAttributes,
-//   unsigned int                   dwCreationDisposition,
-//   unsigned int                   dwFlagsAndAttributes,
+//   ::u32                   dwCreationDisposition,
+//   ::u32                   dwFlagsAndAttributes,
 //   HANDLE                  hTemplateFile
 //);
 //
@@ -89,10 +89,10 @@
 //
 //}
 //
-//CLASS_DECL_ACME int_bool HFILE_set_size(HANDLE h, unsigned long long iSize);
+//CLASS_DECL_ACME int_bool HFILE_set_size(HANDLE h, ::u64 iSize);
 //
 //#ifdef WINDOWS
-//CLASS_DECL_ACME int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinst, unsigned int nID, LPCTSTR pcszType);
+//CLASS_DECL_ACME int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinst, ::u32 nID, LPCTSTR pcszType);
 //
 //#endif
 //
@@ -133,7 +133,7 @@
 //inline comptr < IStream > create_istream(const memory_base & memory)
 //{
 //
-//   return ::SHCreateMemStream(memory.get_data(), (unsigned int)memory.get_size());
+//   return ::SHCreateMemStream(memory.get_data(), (::u32)memory.get_size());
 //
 //}
 //
@@ -141,7 +141,7 @@
 //CLASS_DECL_ACME bool is_valid_FILETIME(const FILETIME & ft) noexcept;
 //
 //
-//CLASS_DECL_ACME int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinst, unsigned int nID, LPCTSTR pcszType);
+//CLASS_DECL_ACME int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinst, ::u32 nID, LPCTSTR pcszType);
 //
 //
 //namespace acme_windows

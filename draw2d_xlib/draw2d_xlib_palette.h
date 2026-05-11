@@ -20,16 +20,16 @@ namespace draw2d_xlib
       
       /*      operator HPALETTE() const;
             int GetEntryCount();
-            unsigned int GetPaletteEntries(unsigned int nStartIndex, unsigned int nNumEntries,
+            ::u32 GetPaletteEntries(::u32 nStartIndex, ::u32 nNumEntries,
                   LPPALETTEENTRY lpPaletteColors) const;
-            unsigned int SetPaletteEntries(unsigned int nStartIndex, unsigned int nNumEntries,
+            ::u32 SetPaletteEntries(::u32 nStartIndex, ::u32 nNumEntries,
                   LPPALETTEENTRY lpPaletteColors);
 
          
-            void AnimatePalette(unsigned int nStartIndex, unsigned int nNumEntries,
+            void AnimatePalette(::u32 nStartIndex, ::u32 nNumEntries,
                   LPPALETTEENTRY lpPaletteColors);
-            unsigned int GetNearestPaletteIndex(color32_t crColor) const;
-      //      bool ResizePalette(unsigned int nNumEntries);*/
+            ::u32 GetNearestPaletteIndex(color32_t crColor) const;
+      //      bool ResizePalette(::u32 nNumEntries);*/
 
       
    };

@@ -920,7 +920,7 @@ namespace nano
       }
 
 
-      void window_base::__handle_pointer_motion(::wl_pointer * pwlpointer, unsigned int millis)
+      void window_base::__handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis)
       {
 
          m_pwlpointer = pwlpointer;
@@ -1046,7 +1046,7 @@ namespace nano
       }
 
 
-      void window_base::__handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int millis)
+      void window_base::__handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis)
       {
 
          ::string strType = ::type(get_interface_client_particle()).name();
@@ -1286,7 +1286,7 @@ namespace nano
       }
 
 
-      void window_base::__handle_xdg_surface_configure(unsigned int serial)
+      void window_base::__handle_xdg_surface_configure(::u32 serial)
       {
 
          ::string strType = ::type(get_interface_client_particle()).name();

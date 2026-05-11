@@ -867,10 +867,10 @@ namespace wayland
             //      Window windowRoot = 0;
             //      int x = 0;
             //      int y = 0;
-            //      unsigned int w = 0;
-            //      unsigned int h = 0;
-            //      unsigned int border = 0;
-            //      unsigned int depth = 0;
+            //      ::u32 w = 0;
+            //      ::u32 h = 0;
+            //      ::u32 border = 0;
+            //      ::u32 depth = 0;
             //
             //      auto status = XGetGeometry(m_pdisplay->m_pdisplay, m_window, &windowRoot, &x, &y, &w,
             //                          &h, &border, &depth);
@@ -895,10 +895,10 @@ namespace wayland
             //      Window windowRoot = 0;
             //      int x = 0;
             //      int y = 0;
-            //      unsigned int w = 0;
-            //      unsigned int h = 0;
-            //      unsigned int border = 0;
-            //      unsigned int depth = 0;
+            //      ::u32 w = 0;
+            //      ::u32 h = 0;
+            //      ::u32 border = 0;
+            //      ::u32 depth = 0;
             //
             //      auto status = XGetGeometry(m_pdisplay->m_pdisplay, m_window, &windowRoot, &x, &y, &w,
             //                                 &h, &border, &depth);
@@ -988,7 +988,7 @@ namespace wayland
          }
 
 
-         void window::__handle_pointer_motion(::wl_pointer * pwlpointer, unsigned int millis)
+         void window::__handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis)
          {
 
             window_base::__handle_pointer_motion(pwlpointer, millis);
@@ -1111,7 +1111,7 @@ namespace wayland
          }
 
 
-         void window::__handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int millis)
+         void window::__handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis)
          {
 
             window_base::__handle_pointer_button(pwlpointer, linux_button, pressed, millis);

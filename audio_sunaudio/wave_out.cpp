@@ -116,7 +116,7 @@ namespace multimedia
 
 
       void
-      wave_out::out_open_ex(thread *pthreadCallback, unsigned int uiSamplesPerSec, unsigned int uiChannelCount, unsigned int uiBitsPerSample,
+      wave_out::out_open_ex(thread *pthreadCallback, ::u32 uiSamplesPerSec, ::u32 uiChannelCount, ::u32 uiBitsPerSample,
                             ::wave::enum_purpose epurpose)
       {
 
@@ -270,13 +270,13 @@ namespace multimedia
 //
 //         }
 
-         //unsigned int uBufferSize = _frames_to_bytes(m_hdl, m_framesPeriodSize);
+         //::u32 uBufferSize = _frames_to_bytes(m_hdl, m_framesPeriodSize);
 
 //         m_uiBufferTime = m_framesBuffer * 1000 * 1000 / uiSamplesPerSec;
 
          information() << "frame_count : " << m_iFrameByteCount;
 
-         unsigned int uBufferSize = _frames_to_bytes(m_iFrameByteCount);
+         ::u32 uBufferSize = _frames_to_bytes(m_iFrameByteCount);
 
          information() << "uBufferSize in bytes : " << uBufferSize;
 

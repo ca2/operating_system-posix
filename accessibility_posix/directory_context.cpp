@@ -418,7 +418,7 @@ namespace acme_windows
 
       listing.fix_flag();
 
-      unsigned int dwSize = ::GetLogicalDriveStringsW(0, nullptr);
+      ::u32 dwSize = ::GetLogicalDriveStringsW(0, nullptr);
 
       ::acme::malloc < LPWSTR > pszAlloc;
 
@@ -817,7 +817,7 @@ namespace acme_windows
 
    //   }
 
-   //   unsigned int dwAttrib;
+   //   ::u32 dwAttrib;
 
    //   dwAttrib = windows_get_file_attributes(pcszPath);
 
@@ -873,7 +873,7 @@ namespace acme_windows
 
       }
 
-      unsigned int dwAttrib;
+      ::u32 dwAttrib;
 
       dwAttrib = ::windows::get_file_attributes(str);
 
@@ -1341,7 +1341,7 @@ namespace acme_windows
    //   // strip attribute of NORMAL bit, our API doesn't have a "normal" bit.
    //   rStatus.m_attribute = (unsigned char)(findFileData.dwFileAttributes & ~FILE_ATTRIBUTE_NORMAL);
 
-   //   // get just the low unsigned int of the file int_size
+   //   // get just the low ::u32 of the file int_size
    //   ASSERT(findFileData.nFileSizeHigh == 0);
    //   rStatus.m_size = (int)findFileData.nFileSizeLow;
 

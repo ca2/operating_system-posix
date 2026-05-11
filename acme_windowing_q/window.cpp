@@ -260,7 +260,7 @@ namespace q
 
             //          get_display();
             //
-            //          unsigned int uEventMask =       XCB_EVENT_MASK_PROPERTY_CHANGE
+            //          ::u32 uEventMask =       XCB_EVENT_MASK_PROPERTY_CHANGE
             //                                 | XCB_EVENT_MASK_EXPOSURE
             //                                 | XCB_EVENT_MASK_BUTTON_PRESS
             //                                 | XCB_EVENT_MASK_BUTTON_RELEASE
@@ -284,7 +284,7 @@ namespace q
             //          int cx = pacmeuserinteraction->m_rectangle.width();
             //          int cy = pacmeuserinteraction->m_rectangle.height();
             //
-            //          unsigned int uaValueList[5];
+            //          ::u32 uaValueList[5];
             //
             //          uaValueList[0] = 0; // XCB_CW_BACK_PIXMAP
             //          uaValueList[1] = 0; // XCB_CW_BORDER_PIXEL

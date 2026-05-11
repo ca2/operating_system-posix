@@ -336,7 +336,7 @@ namespace node_gtk3
 //
 //      }
 
-      informationf("appindicator::init GtkMenu = %" PRI0xPTR, (long unsigned int) pgtkmenu);
+      informationf("appindicator::init GtkMenu = %" PRI0xPTR, (long ::u32) pgtkmenu);
 
       app_indicator_set_menu(m_pindicator, pgtkmenu);
 

@@ -288,7 +288,7 @@ namespace aura_posix
 
 
    //   int iIcon = I32_MINIMUM;
-   //   unsigned int uFlags = 0;
+   //   ::u32 uFlags = 0;
 
    //   SHFILEINFO shfi16;
    //   SHFILEINFO shfi48;

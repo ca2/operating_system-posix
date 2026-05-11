@@ -4,7 +4,7 @@
 //#include "exception.h"
 
 
-string get_error_message(unsigned int dwError);
+string get_error_message(::u32 dwError);
 
 
 //CLASS_DECL_ACME_WINDOWS bool __initialize();
@@ -30,7 +30,7 @@ string get_error_message(unsigned int dwError);
 
 
 //void CLASS_DECL_ACME_WINDOWS __cdecl _ca2_purecall();
-void CLASS_DECL_ACME_WINDOWS __cdecl _null_se_translator(unsigned int uiCode, EXCEPTION_POINTERS * ppointers);
+void CLASS_DECL_ACME_WINDOWS __cdecl _null_se_translator(::u32 uiCode, EXCEPTION_POINTERS * ppointers);
 bool CLASS_DECL_ACME_WINDOWS __windows_init();
 //int CLASS_DECL_ACME_WINDOWS __windows_main(::platform::system * psystem, ::create * pmaininitdata);
 
@@ -88,8 +88,8 @@ inline int __invariant_stricmp(const unichar *pwszLeft,const unichar *pwszRight)
 //
 //#define __set_dialog_control_id(oswindow, nID)     SetWindowLong(oswindow, GWL_ID, nID)
 //#define __set_dialog_control_id_(oswindow, nID)     oswindow->SetWindowLong(GWL_ID, nID)
-//#define __get_dialog_control_id(oswindow)         ((unsigned int)(unsigned short)::GetDlgCtrlID(oswindow))
-//#define __get_dialog_control_id_(oswindow)         ((unsigned int)(unsigned short)oswindow->GetDlgCtrlId())
+//#define __get_dialog_control_id(oswindow)         ((::u32)(unsigned short)::GetDlgCtrlID(oswindow))
+//#define __get_dialog_control_id_(oswindow)         ((::u32)(unsigned short)oswindow->GetDlgCtrlId())
 
 
 //#include "pipe.h"
@@ -115,7 +115,7 @@ CLASS_DECL_ACME_WINDOWS HINSTANCE __get_resource_handle();
 CLASS_DECL_ACME_WINDOWS void __set_resource_handle(HINSTANCE hInstResource);
 
 CLASS_DECL_ACME_WINDOWS HINSTANCE __get_resource_handle();
-CLASS_DECL_ACME_WINDOWS HINSTANCE __find_string_resource_handle(unsigned int nID);
+CLASS_DECL_ACME_WINDOWS HINSTANCE __find_string_resource_handle(::u32 nID);
 
 
 

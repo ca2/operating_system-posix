@@ -13,7 +13,7 @@
 //
 ///**********************************=> unix ************************************/
 //#ifndef _WIN32
-//void SleepInMs(unsigned int ms) {
+//void SleepInMs(::u32 ms) {
 //   struct timespec ts;
 //   ts.tv_sec = ms / 1000;
 //   ts.tv_nsec = ms % 1000 * 1000000;
@@ -21,7 +21,7 @@
 //   while (nanosleep(&ts, &ts) == -1 && errno == EINTR);
 //}
 //
-//void SleepInUs(unsigned int us) {
+//void SleepInUs(::u32 us) {
 //   struct timespec ts;
 //   ts.tv_sec = us / 1000000;
 //   ts.tv_nsec = us % 1000000 * 1000;
@@ -53,11 +53,11 @@
 //
 ///**********************************=> win *************************************/
 //#ifdef _WIN32
-//void SleepInMs(unsigned int ms) {
+//void SleepInMs(::u32 ms) {
 //   ::sleep(ms);
 //}
 //
-//void SleepInUs(unsigned int us) {
+//void SleepInUs(::u32 us) {
 //   ::LARGE_INTEGER ft;
 //   ft.QuadPart = -static_cast<long long>(us * 10);  // '-' using relative time
 //

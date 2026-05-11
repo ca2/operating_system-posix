@@ -53,7 +53,7 @@ struct mad_header {
   enum mad_emphasis emphasis;		/* de-emphasis to use (see above) */
 
   unsigned long bitrate;		/* stream bitrate (bps) */
-  unsigned int samplerate;		/* sampling frequency (Hz) */
+  ::u32 samplerate;		/* sampling frequency (Hz) */
 
   unsigned short crc_check;		/* frame CRC accumulator */
   unsigned short crc_target;		/* final target CRC checksum */

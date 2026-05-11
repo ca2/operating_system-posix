@@ -2,12 +2,12 @@
 #include "acme/operating_system.h"
 
 //
-//bool CLASS_DECL_ACME __is_combo_box_control(HWND hwnd, unsigned int nStyle)
+//bool CLASS_DECL_ACME __is_combo_box_control(HWND hwnd, ::u32 nStyle)
 //{
 //   if (hwnd == nullptr)
 //      return false;
 //   // do cheap style compare first
-//   if ((unsigned int)(::GetWindowLong(hwnd, GWL_STYLE) & 0x0F) != nStyle)
+//   if ((::u32)(::GetWindowLong(hwnd, GWL_STYLE) & 0x0F) != nStyle)
 //      return false;
 //
 //   // do expensive classname compare next

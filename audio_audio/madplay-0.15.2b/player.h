@@ -136,16 +136,16 @@ struct player {
 
     struct filter *filters;
 
-    unsigned int channels_in;
-    unsigned int channels_out;
+    ::u32 channels_in;
+    ::u32 channels_out;
     enum player_channel select;
 
-    unsigned int speed_in;
-    unsigned int speed_out;
-    unsigned int speed_request;
+    ::u32 speed_in;
+    ::u32 speed_out;
+    ::u32 speed_request;
 
-    unsigned int precision_in;
-    unsigned int precision_out;
+    ::u32 precision_in;
+    ::u32 precision_out;
 
     char const *path;
     audio_ctlfunc_t *command;
@@ -181,7 +181,7 @@ struct player {
     unsigned long mute_frame;
 
     int vbr;
-    unsigned int bitrate;
+    ::u32 bitrate;
     unsigned long vbr_frames;
     unsigned long vbr_rate;
 

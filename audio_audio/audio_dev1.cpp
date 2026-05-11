@@ -51,7 +51,7 @@
 #endif
 
 #ifdef __DragonFly__
-typedef unsigned int nfds_t;
+typedef ::u32 nfds_t;
 #endif
 
 #define PCM_MAX_BUFFSIZE	2 * 16_KiB
@@ -101,9 +101,9 @@ static void	audio_dev_sigpipe(int);
 static int	audio_dev_output(struct audio_dev_ctx *, struct pcm_data *);
 static void	audio_dev_command(struct audio_dev_ctx *, int *);
 static void	audio_dev_slave(const_char_pointer ,struct audio_dev_ctx *);
-//static inline signed long audio_linear_dither(unsigned int, mad_fixed_t,
+//static inline signed long audio_linear_dither(::u32, mad_fixed_t,
 		    mad_fixed_t *);
-//static void	audio_convert_dither(unsigned char *, unsigned int,
+//static void	audio_convert_dither(unsigned char *, ::u32,
 		    mad_fixed_t const *, mad_fixed_t const *);
 
 
@@ -492,7 +492,7 @@ audio_dev_slave(const_char_pointer dev, struct audio_dev_ctx *ac)
 }
 
 static inline signed long
-audio_linear_dither(unsigned int bits, mad_fixed_t sample, mad_fixed_t *error)
+audio_linear_dither(::u32 bits, mad_fixed_t sample, mad_fixed_t *error)
 {
 	mad_fixed_t quantized;
 
@@ -518,7 +518,7 @@ audio_linear_dither(unsigned int bits, mad_fixed_t sample, mad_fixed_t *error)
 }
 
 static void
-audio_convert_dither(unsigned char *dest, unsigned int nsamples,
+audio_convert_dither(unsigned char *dest, ::u32 nsamples,
 	mad_fixed_t const *left, mad_fixed_t const *right)
 {
 	static mad_fixed_t dither[2];

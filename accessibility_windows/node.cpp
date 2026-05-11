@@ -91,7 +91,7 @@ void GetWindowsVersion(RTL_OSVERSIONINFOW &os_version)
 
 
 
-CLASS_DECL_ACME_WINDOWS void call_async(const scoped_string& strPath, const scoped_string& strParam, const scoped_string& strDir, ::e_display edisplay, bool bPrivileged, unsigned int* puiPid);
+CLASS_DECL_ACME_WINDOWS void call_async(const scoped_string& strPath, const scoped_string& strParam, const scoped_string& strDir, ::e_display edisplay, bool bPrivileged, ::u32* puiPid);
 
 
 namespace windows
@@ -266,7 +266,7 @@ namespace acme_windows
    }
 
 
-   //void node::call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid)
+   //void node::call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, bool bPrivileged, ::u32 * puiPid)
    //{
 
    //   /*auto estatus =*/ ::call_async(strPath, strParam, strDir, edisplay, bPrivileged, puiPid);
@@ -376,7 +376,7 @@ namespace acme_windows
    //
    //         key.open(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize");
    //
-   //         unsigned int dw;
+   //         ::u32 dw;
    //
    //         auto estatus = key._get("AppsUseLightTheme", dw);
    //
@@ -417,7 +417,7 @@ namespace acme_windows
    //
    //         key.open(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize");
    //
-   //         unsigned int dw;
+   //         ::u32 dw;
    //
    //         auto estatus = key._get("SystemUseLightTheme", dw);
    //
@@ -448,7 +448,7 @@ namespace acme_windows
    //   }
    //
    //
-   //   ::color::color node::get_default_color(unsigned long long u)
+   //   ::color::color node::get_default_color(::u64 u)
    //   {
    //
    //      switch (u)
@@ -474,7 +474,7 @@ namespace acme_windows
    //   }
    //
    //   
-   //   void node::set_console_colors(unsigned int dwScreenColors, unsigned int dwPopupColors, unsigned int dwWindowAlpha)
+   //   void node::set_console_colors(::u32 dwScreenColors, ::u32 dwPopupColors, ::u32 dwWindowAlpha)
    //   {
    //
    //      ::acme_windows::registry::key key(HKEY_CURRENT_USER, "Console", true);
@@ -492,7 +492,7 @@ namespace acme_windows
    //
    //      ::acme_windows::registry::key key(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", true);
    //
-   //      unsigned int dwSystemUseLightTheme;
+   //      ::u32 dwSystemUseLightTheme;
    //      if (bSet)
    //      {
    //         dwSystemUseLightTheme = 0;
@@ -513,7 +513,7 @@ namespace acme_windows
    //
    //      ::acme_windows::registry::key key(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", true);
    //
-   //      unsigned int dwAppsUseLightTheme;
+   //      ::u32 dwAppsUseLightTheme;
    //      if (bSet)
    //      {
    //         dwAppsUseLightTheme = 0;
@@ -543,7 +543,7 @@ namespace acme_windows
    //
    //         DYNAMIC_TIME_ZONE_INFORMATION i = {};
    //
-   //         unsigned int dw = GetDynamicTimeZoneInformation(&i);
+   //         ::u32 dw = GetDynamicTimeZoneInformation(&i);
    //
    //         if (dw == TIME_ZONE_ID_STANDARD)
    //         {
@@ -889,8 +889,8 @@ namespace acme_windows
       {
          ::file::path str = directory_system()->userconfig() / "CrashDumps" / scopedstrModuleNameWithTheExeExtension;
          wstring wstr = str;
-         RegSetValueExW(k.m_hkeySub, L"DumpFolder", 0, REG_EXPAND_SZ, (unsigned char*)wstr.c_str(), unsigned int((wcslen(wstr) + 1) * sizeof(wchar_t)));
-         unsigned int dw = 10;
+         RegSetValueExW(k.m_hkeySub, L"DumpFolder", 0, REG_EXPAND_SZ, (unsigned char*)wstr.c_str(), ::u32((wcslen(wstr) + 1) * sizeof(wchar_t)));
+         ::u32 dw = 10;
          RegSetValueExW(k.m_hkeySub, L"DumpCount", 0, REG_DWORD, (unsigned char*)&dw, sizeof(dw));
          dw = 2;
          RegSetValueExW(k.m_hkeySub, L"DumpType", 0, REG_DWORD, (unsigned char*)&dw, sizeof(dw));
@@ -1079,7 +1079,7 @@ namespace acme_windows
 
       HANDLE hProcess;
 
-      //unsigned int i;
+      //::u32 i;
 
       DWORD dwProcess = (DWORD)processidentifier;
 
@@ -1570,7 +1570,7 @@ namespace acme_windows
 
 
 
-   //CLASS_DECL_ACME unsigned int get_current_process_id()
+   //CLASS_DECL_ACME ::u32 get_current_process_id()
    //{
    //
    //   return ::GetCurrentProcessId();
@@ -2401,8 +2401,8 @@ namespace acme_windows
          output_debug_string("Could not create or open a registrty key\n");
          throw ::exception(error_resource);
       }
-      RegSetValueExW(hkey, L"", 0, REG_SZ, (unsigned char*)desc.c_str(), unsigned int(desc.length() * sizeof(wchar_t))); // default vlaue is description of file extension
-      RegSetValueExW(hkey, L"ContentType", 0, REG_SZ, (unsigned char*)content_type.c_str(), unsigned int(content_type.length() * sizeof(wchar_t))); // default vlaue is description of file extension
+      RegSetValueExW(hkey, L"", 0, REG_SZ, (unsigned char*)desc.c_str(), ::u32(desc.length() * sizeof(wchar_t))); // default vlaue is description of file extension
+      RegSetValueExW(hkey, L"ContentType", 0, REG_SZ, (unsigned char*)content_type.c_str(), ::u32(content_type.length() * sizeof(wchar_t))); // default vlaue is description of file extension
       RegCloseKey(hkey);
 
 
@@ -2414,7 +2414,7 @@ namespace acme_windows
          output_debug_string("Could not create or open a registrty key\n");
          throw ::exception(error_resource);
       }
-      RegSetValueExW(hkey, L"", 0, REG_SZ, (unsigned char*)app.c_str(), unsigned int(app.length() * sizeof(wchar_t)));
+      RegSetValueExW(hkey, L"", 0, REG_SZ, (unsigned char*)app.c_str(), ::u32(app.length() * sizeof(wchar_t)));
       RegCloseKey(hkey);
 
 
@@ -2425,7 +2425,7 @@ namespace acme_windows
          output_debug_string("Could not create or open a registrty key\n");
          throw ::exception(error_resource);
       }
-      RegSetValueExW(hkey, L"", 0, REG_SZ, (unsigned char*)icon.c_str(), unsigned int(icon.length() * sizeof(wchar_t)));
+      RegSetValueExW(hkey, L"", 0, REG_SZ, (unsigned char*)icon.c_str(), ::u32(icon.length() * sizeof(wchar_t)));
       RegCloseKey(hkey);
 
       ::file::path pathFile(directory_system()->stage(scopedstrAppIdHandler, process_platform_name(), process_configuration_name()) / "spa_register.txt");
@@ -2553,7 +2553,7 @@ namespace acme_windows
 
 
 
-   HICON node::extract_icon(HINSTANCE hInst, const ::scoped_string & scopedstrExeFileName, unsigned int nIconIndex)
+   HICON node::extract_icon(HINSTANCE hInst, const ::scoped_string & scopedstrExeFileName, ::u32 nIconIndex)
 
    {
 
@@ -2601,7 +2601,7 @@ namespace acme_windows
    }
 
 
-   //HICON node::extract_icon(HINSTANCE hInst, const ::scoped_string & scopedstrExeFileName, unsigned int nIconIndex)
+   //HICON node::extract_icon(HINSTANCE hInst, const ::scoped_string & scopedstrExeFileName, ::u32 nIconIndex)
 
    //{
 
@@ -3670,7 +3670,7 @@ namespace acme_windows
    //}
 
 
-   unsigned long long node::translate_processor_affinity(int iOrder)
+   ::u64 node::translate_processor_affinity(int iOrder)
    {
 
       DWORD_PTR dwProcessAffinityMask;
@@ -3835,7 +3835,7 @@ namespace acme_windows
    }
 
 
-   void node::call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, bool bPrivileged, unsigned int* puiPid)
+   void node::call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, bool bPrivileged, ::u32* puiPid)
    {
 
       SHELLEXECUTEINFOW info = {};
@@ -3946,7 +3946,7 @@ namespace acme_windows
 
       }
 
-      set["pid"] = (unsigned int) ::GetProcessId(infoa.hProcess);
+      set["pid"] = (::u32) ::GetProcessId(infoa.hProcess);
 
       DWORD dwExitCode = (DWORD)-1;
 
@@ -3988,7 +3988,7 @@ namespace acme_windows
             auto TerminateProcess_GetLastError = ::GetLastError();
 
             set["TerminateProcess_return"] = TerminateProcess_return;
-            set["TerminateProcess_GetLastError"] = (unsigned int)TerminateProcess_GetLastError;
+            set["TerminateProcess_GetLastError"] = (::u32)TerminateProcess_GetLastError;
 
          }
 
@@ -4876,7 +4876,7 @@ namespace acme_windows
 
       DWORD dw;
 
-      unsigned int dwResSize = GetFileVersionInfoSizeW(
+      ::u32 dwResSize = GetFileVersionInfoSizeW(
          wstrModulePath,
          &dw);
 
@@ -4891,7 +4891,7 @@ namespace acme_windows
             dwResSize,
             memory.data()))
          {
-            unsigned int cbTranslate;
+            ::u32 cbTranslate;
             struct LANGANDCODEPAGE
             {
                unsigned short wLanguage;
@@ -4910,7 +4910,7 @@ namespace acme_windows
             for (int i = 0; i < 1; i++)
             {
                wchar_t* lpwsz;
-               unsigned int uSize;
+               ::u32 uSize;
 
                wstrKey.formatf(
                   TEXT("\\StringFileInfo\\%04x%04x\\FileDescription"),

@@ -37,7 +37,7 @@
 #endif
 
 #ifdef __DragonFly__
-typedef unsigned int nfds_t;
+typedef ::u32 nfds_t;
 #endif
 
 
@@ -111,7 +111,7 @@ namespace multimedia
       }
 
 
-      void wave_out::out_open_ex(thread *pthreadCallback, unsigned int uiSamplesPerSec, unsigned int uiChannelCount, unsigned int uiBitsPerSample,
+      void wave_out::out_open_ex(thread *pthreadCallback, ::u32 uiSamplesPerSec, ::u32 uiChannelCount, ::u32 uiBitsPerSample,
                             ::wave::enum_purpose epurpose)
       {
 
@@ -223,13 +223,13 @@ namespace multimedia
 //
 //         }
 
-         //unsigned int uBufferSize = _frames_to_bytes(m_hdl, m_framesPeriodSize);
+         //::u32 uBufferSize = _frames_to_bytes(m_hdl, m_framesPeriodSize);
 
 //         m_uiBufferTime = m_framesBuffer * 1000 * 1000 / uiSamplesPerSec;
 
          information() << "frame_count : " << m_iFrameCount;
 
-         unsigned int uBufferSize = _frames_to_bytes(m_iFrameCount);
+         ::u32 uBufferSize = _frames_to_bytes(m_iFrameCount);
 
          information() << "uBufferSize in bytes : " << uBufferSize;
 

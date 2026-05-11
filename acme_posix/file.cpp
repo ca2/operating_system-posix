@@ -73,7 +73,7 @@ namespace acme_posix
 
    //    rStatus.m_attribute = 0;
 
-   //    // get just the low unsigned int of the file int_size
+   //    // get just the low ::u32 of the file int_size
    //    //ASSERT(findFileData.nFileSizeHigh == 0);
    //    //rStatus.m_size = (int)findFileData.nFileSizeLow;
 
@@ -101,7 +101,7 @@ namespace acme_posix
    file::file()
    {
 
-      m_iFile = (unsigned int) hFileNull;
+      m_iFile = (::u32) hFileNull;
       m_iPutByteBackCount = 0;
 
    }
@@ -144,7 +144,7 @@ namespace acme_posix
 
       // ::collection::map_base read/write mode
       ASSERT((::file::e_open_read | ::file::e_open_write | ::file::e_open_read_write) == 3);
-      unsigned int dwFlags =  0;
+      ::u32 dwFlags =  0;
       switch (eopen & 3)
       {
       case ::file::e_open_read:
@@ -162,7 +162,7 @@ namespace acme_posix
       }
 
       // ::collection::map_base share mode
-      //unsigned int dwShareMode = 0;
+      //::u32 dwShareMode = 0;
       switch (eopen & 0x70)    // ::collection::map_base compatibility mode to exclusive
       {
       default:
@@ -189,7 +189,7 @@ namespace acme_posix
             dwFlags |= O_TRUNC;
       }
 
-      unsigned int dwPermission = 0;
+      ::u32 dwPermission = 0;
 
       dwPermission |= S_IRUSR | S_IWUSR | S_IXUSR;
       dwPermission |= S_IRGRP | S_IWGRP | S_IXGRP;
@@ -224,7 +224,7 @@ namespace acme_posix
 
          auto errorcode = cerrornumber.error_code();
          
-         m_iFile = (unsigned int)hFileNull;
+         m_iFile = (::u32)hFileNull;
 
          m_path.clear();
 
@@ -523,11 +523,11 @@ namespace acme_posix
       
 #endif
 
-      filesize posNew = ::lseek(m_iFile, lLoOffset, (unsigned int)eseek);
+      filesize posNew = ::lseek(m_iFile, lLoOffset, (::u32)eseek);
       
 #else
       
-      filesize posNew = ::lseek64(m_iFile, lLoOffset, (unsigned int)eseek);
+      filesize posNew = ::lseek64(m_iFile, lLoOffset, (::u32)eseek);
       
 #endif
 
@@ -610,7 +610,7 @@ namespace acme_posix
          }
       }
 
-      m_iFile = (unsigned int) hFileNull;
+      m_iFile = (::u32) hFileNull;
       m_path.clear();
 
       if (bError)
@@ -638,7 +638,7 @@ namespace acme_posix
    //   {
    //      // close but ignore errors
    //      ::close(m_iFile);
-   //      m_iFile = (unsigned int)hFileNull;
+   //      m_iFile = (::u32)hFileNull;
    //   }
    //   m_strFileName.empty();
    //}
@@ -715,7 +715,7 @@ namespace acme_posix
    }
 
    //// file does not support direct buffering (CMemFile does)
-   //unsigned long long file::GetBufferPtr(unsigned int nCommand, unsigned long long /*nCount*/,
+   //::u64 file::GetBufferPtr(::u32 nCommand, ::u64 /*nCount*/,
    //                            void ** /*ppBufStart*/, void ** /*ppBufMax*/)
    //{
    //   ASSERT(nCommand == bufferCheck);
@@ -758,7 +758,7 @@ namespace acme_posix
    //   
    //   ::file::file::dump(dumpcontext);
 
-   //   //dumpcontext << "with handle " << (unsigned int)m_iFile;
+   //   //dumpcontext << "with handle " << (::u32)m_iFile;
    //   //dumpcontext << " and name \"" << m_strFileName << "\"";
    //   //dumpcontext << "\n";
 

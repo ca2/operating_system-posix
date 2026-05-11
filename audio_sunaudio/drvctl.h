@@ -33,6 +33,6 @@
 #include <sys/drvctlio.h>
 
 int	drvctl_foreach(int, const_char_pointer ,
-	    void (*)(void *, const_char_pointer ,const_char_pointer ,unsigned int), void *);
+	    void (*)(void *, const_char_pointer ,const_char_pointer ,::u32), void *);
 
 #endif /* !_HAVE_DRVCTL_H */

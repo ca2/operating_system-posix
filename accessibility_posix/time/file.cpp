@@ -16,7 +16,7 @@ int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinstanc
    HRSRC hrsrc = FindResource(hinstance, MAKEINTRESOURCE(nID), pcszType);
 
    HGLOBAL hglobalResource;
-   unsigned int dwResourseSize;
+   ::u32 dwResourseSize;
    int_bool bOk;
    DWORD * pResource;
    FILE * file;
@@ -74,7 +74,7 @@ pacmedir->create(::file_path_folder(pszFile));
 int_bool file_system()->exists(const_char_pointer path1)
 {
 
-   unsigned int dwFileAttributes = windows_get_file_attributes(path1);
+   ::u32 dwFileAttributes = windows_get_file_attributes(path1);
 
    if (dwFileAttributes == INVALID_FILE_ATTRIBUTES || (dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
    {
@@ -115,7 +115,7 @@ pacmedir->create(::file_path_folder(path));
    else
       dwWrite = len;
 
-   auto dwWritten = fwrite(contents, 1, (unsigned int) dwWrite, file);
+   auto dwWritten = fwrite(contents, 1, (::u32) dwWrite, file);
 
    int_bool bOk = dwWritten == dwWrite;
 
@@ -136,9 +136,9 @@ filesize file_length_dup(const_char_pointer path)
 
    DWORD dwHi = 0;
 
-   unsigned long long u = GetFileSize(hfile, &dwHi);
+   ::u64 u = GetFileSize(hfile, &dwHi);
 
-   u |= ((unsigned long long)dwHi) << 32ULL;
+   u |= ((::u64)dwHi) << 32ULL;
 
    CloseHandle(hfile);
 
@@ -233,7 +233,7 @@ int_bool file_is_equal_path_dup(const scoped_string & str1, const scoped_string 
 struct PROCESS_INFO_t
 {
    wstring csProcess;
-   unsigned int dwImageListIndex;
+   ::u32 dwImageListIndex;
 };
 
 
@@ -339,7 +339,7 @@ struct PROCESS_INFO_t
 ////
 ////typedef struct _SYSTEM_HANDLE_INFORMATION
 ////{
-////   unsigned int         dwCount;
+////   ::u32         dwCount;
 ////   SYSTEM_HANDLE Handles[1];
 ////} SYSTEM_HANDLE_INFORMATION, *PSYSTEM_HANDLE_INFORMATION, **PPSYSTEM_HANDLE_INFORMATION;
 ////
@@ -396,10 +396,10 @@ struct PROCESS_INFO_t
 ////         }
 ////         CloseHandle( hProcess );
 ////      }
-////      //unsigned int dwRet = pGetFinalPathNameByHandle( hDup, pThreadParam->pPath, MAX_PATH, 0 );
+////      //::u32 dwRet = pGetFinalPathNameByHandle( hDup, pThreadParam->pPath, MAX_PATH, 0 );
 ////
-////      //unsigned int dwRet = GetFileInformationByHandleEx(hDup, FileNameInfo, pinfo, MAX_PATH * 8);
-////      unsigned int dwRet = GetFinalPathNameByHandleW( hDup, pThreadParam->pPath, MAX_PATH, 0 );
+////      //::u32 dwRet = GetFileInformationByHandleEx(hDup, FileNameInfo, pinfo, MAX_PATH * 8);
+////      ::u32 dwRet = GetFinalPathNameByHandleW( hDup, pThreadParam->pPath, MAX_PATH, 0 );
 ////
 ////      //wcsncpy(pThreadParam->pPath, pinfo->FileName, pinfo->FileNameLength);
 ////
@@ -457,7 +457,7 @@ struct PROCESS_INFO_t
 ////
 ////   // Get the list_base of all handles in the file_system
 ////   PSYSTEM_HANDLE_INFORMATION pSysHandleInformation = ___new SYSTEM_HANDLE_INFORMATION;
-////   unsigned int size = sizeof(SYSTEM_HANDLE_INFORMATION);
+////   ::u32 size = sizeof(SYSTEM_HANDLE_INFORMATION);
 ////   DWORD needed = 0;
 ////   NTSTATUS status = NtQuerySystemInformation( SystemHandleInformation, pSysHandleInformation, size, &needed );
 ////   if( !NT_SUCCESS(status))
@@ -553,7 +553,7 @@ struct PROCESS_INFO_t
 ////   }
 ////
 ////   // Walk through the handle list_base
-////   for ( unsigned int i = 0; i < pSysHandleInformation->dwCount; i++ )
+////   for ( ::u32 i = 0; i < pSysHandleInformation->dwCount; i++ )
 ////   {
 ////      SYSTEM_HANDLE& sh = pSysHandleInformation->Handles[i];
 ////      if( sh.bObjectType != nFileType )// Under windows XP file handle is of type 28
@@ -665,7 +665,7 @@ struct PROCESS_INFO_t
 ////      bShortPath = true;
 ////   }
 ////
-////   unsigned int dwsize = 300;
+////   ::u32 dwsize = 300;
 ////   PDWORD pDwId = (PDWORD)___new unsigned char[dwsize];
 ////   DWORD dwReturned = dwsize;
 ////   // Enum all the process first
@@ -680,7 +680,7 @@ struct PROCESS_INFO_t
 ////      dwsize += 50;
 ////      pDwId = (PDWORD)___new unsigned char[dwsize];
 ////   }
-////   int nCount = dwReturned / sizeof(unsigned int);
+////   int nCount = dwReturned / sizeof(::u32);
 ////   int nItemCount = -1;
 ////   // Enumerate modules of the above process
 ////   for( int nIdx = 0; nIdx < nCount; nIdx++ )
@@ -1031,7 +1031,7 @@ bool GetDrive(const scoped_string & strDosName, string& csDrive, bool bDriveLett
 //      HINSTANCE hModule= __get_instance_handle();
 //      HRSRC hRsrc = FindResource(hModule, MAKEINTRESOURCE(DRVIER_ID),_T("BINARY"));
 //      HGLOBAL hDrvRsrc = LoadResource(hModule, hRsrc);
-//      unsigned int dwDriverSize = SizeofResource(hModule, hRsrc);
+//      ::u32 dwDriverSize = SizeofResource(hModule, hRsrc);
 //      LPVOID pvDriver = LockResource(hDrvRsrc);
 //
 //      CFile File;
@@ -1090,7 +1090,7 @@ bool GetDrive(const scoped_string & strDosName, string& csDrive, bool bDriveLett
 //
 //   if (!StartService(hService, 0, nullptr))
 //   {
-//      unsigned int dwLastError = GetLastError();
+//      ::u32 dwLastError = GetLastError();
 //      if (dwLastError != ERROR_SERVICE_ALREADY_RUNNING)
 //      {
 //         DeleteService(hService);
@@ -1168,7 +1168,7 @@ namespace file
 #ifdef WINDOWS
 
 
-   //bool exception::get_error_message(string & str, unsigned int * pnHelpContext)
+   //bool exception::get_error_message(string & str, ::u32 * pnHelpContext)
    //{
 
    //   // if (pnHelpContext != nullptr)
@@ -1238,7 +1238,7 @@ namespace file
 //{
 //
 //
-//   unsigned int dwFileAttributes = GetFileAttributesA(path1);
+//   ::u32 dwFileAttributes = GetFileAttributesA(path1);
 //
 //   if (dwFileAttributes == INVALID_FILE_ATTRIBUTES || (dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
 //   {

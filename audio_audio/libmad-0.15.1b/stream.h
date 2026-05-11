@@ -71,11 +71,11 @@ struct mad_stream {
   struct mad_bitptr ptr;		/* current processing bit pointer */
 
   struct mad_bitptr anc_ptr;		/* ancillary bits pointer */
-  unsigned int anc_bitlen;		/* number of ancillary bits */
+  ::u32 anc_bitlen;		/* number of ancillary bits */
 
   unsigned char (*main_data)[MAD_BUFFER_MDLEN];
 					/* Layer III main_data() */
-  unsigned int md_len;			/* bytes in main_data */
+  ::u32 md_len;			/* bytes in main_data */
 
   int options;				/* decoding options (see below) */
   enum mad_error error;			/* error code (see above) */

@@ -71,8 +71,8 @@ namespace acme_posix
 
       //virtual bool PASCAL GetStatus(const_char_pointer lpszFileName, ::file::file_status& rStatus);
 
-      //unsigned long long ReadHuge(void * lpBuffer, unsigned long long dwCount);
-      //void WriteHuge(const void * lpBuffer, unsigned long long dwCount);
+      //::u64 ReadHuge(void * lpBuffer, ::u64 dwCount);
+      //void WriteHuge(const void * lpBuffer, ::u64 dwCount);
 
       //virtual file_pointer Duplicate() const;
 
@@ -97,7 +97,7 @@ namespace acme_posix
 
       bool is_opened() const override;
 
-      //unsigned long long GetBufferPtr(unsigned int nCommand, unsigned long long nCount = 0, void ** ppBufStart = nullptr, void ** ppBufMax = nullptr);
+      //::u64 GetBufferPtr(::u32 nCommand, ::u64 nCount = 0, void ** ppBufStart = nullptr, void ** ppBufMax = nullptr);
 
       [[noreturn]]virtual void throw_file_errno_exception(const ::scoped_string & scopedstr = nullptr, c_error_number cerrornumber = {}) const;
 

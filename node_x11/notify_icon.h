@@ -33,7 +33,7 @@ namespace node_gtk3
 //      };
 
 
-      //unsigned int                                             m_uiId;
+      //::u32                                             m_uiId;
       //bool                                              m_bCreated;
       //string                                            m_strId;
 //#ifdef WINDOWS_DESKTOP

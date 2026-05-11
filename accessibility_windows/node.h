@@ -53,7 +53,7 @@ namespace acme_windows
       //virtual ::file::path roaming() override;
 
 
-      //void call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, bool bPrivileged, unsigned int* puiPid = nullptr) override;
+      //void call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, bool bPrivileged, ::u32* puiPid = nullptr) override;
 
 
       //void initialize_integration();
@@ -163,12 +163,12 @@ namespace acme_windows
 
       void set_environment_variable(const ::scoped_string & scopedstrEnvironmentVariable, const ::scoped_string & scopedstrValue) override;
 
-      //virtual unsigned int       get_file_attributes(const ::scoped_string & scopedstrFileName);
+      //virtual ::u32       get_file_attributes(const ::scoped_string & scopedstrFileName);
       //virtual ::file::path       get_current_directory();
       virtual int              reg_query_value(HKEY hkey, const ::scoped_string & scopedstrSubKey, string & str);
-      virtual  HICON             extract_icon(HINSTANCE hInst, const ::scoped_string & scopedstrExeFileName, unsigned int nIconIndex);
+      virtual  HICON             extract_icon(HINSTANCE hInst, const ::scoped_string & scopedstrExeFileName, ::u32 nIconIndex);
       virtual  void              delete_file(const ::file::path & path);
-      //virtual  int     get_menu_string(HMENU hMenu, unsigned int uDItem, string& str, unsigned int flags);
+      //virtual  int     get_menu_string(HMENU hMenu, ::u32 uDItem, string& str, ::u32 flags);
       //virtual  void        time_to_filetime(::matter* pobject, const ::earth::time& time, LPFILETIME pFileTime);
 
 
@@ -230,7 +230,7 @@ namespace acme_windows
       int get_current_process_affinity_order() override;
 
 
-      void call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, bool bPrivileged, unsigned int * puiPid = nullptr) override;
+      void call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, bool bPrivileged, ::u32 * puiPid = nullptr) override;
       void call_sync(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, const class time & timeTimeout, ::property_set & set, int * piExitCode) override;
 
 
@@ -262,7 +262,7 @@ namespace acme_windows
       int get_current_process_maximum_affinity() override;
 
       //int get_current_process_affinity_order() override;
-      unsigned long long translate_processor_affinity(int i) override;
+      ::u64 translate_processor_affinity(int i) override;
 
 
       void _node_file_dialog(::file::file_dialog * pdialog) override;

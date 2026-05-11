@@ -22,6 +22,6 @@
 # ifndef CRC_H
 # define CRC_H
 
-unsigned short crc_compute(char const *, unsigned int, unsigned short);
+unsigned short crc_compute(char const *, ::u32, unsigned short);
 
 # endif

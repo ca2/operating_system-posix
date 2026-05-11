@@ -21,7 +21,7 @@ namespace acme_posix
 
    // #ifdef WINDOWS
 
-   //       unsigned int                   m_dwLastError;
+   //       ::u32                   m_dwLastError;
    //       bool                    m_bResourceException;
 
    // #else

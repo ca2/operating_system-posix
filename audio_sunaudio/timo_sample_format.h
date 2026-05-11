@@ -26,7 +26,7 @@
  * 21-23  3 bits >> 3  0-7 (* 8 = 0-56)
  * 24-31  8 channels   0-255
  */
-typedef unsigned int sample_format_t;
+typedef ::u32 sample_format_t;
 
 #define SF_BIGENDIAN_MASK	0x00000001
 #define SF_SIGNED_MASK		0x00000002

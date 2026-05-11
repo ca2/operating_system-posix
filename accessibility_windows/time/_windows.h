@@ -69,10 +69,10 @@
 
 // }
 
-// CLASS_DECL_ACME int_bool HFILE_set_size(HANDLE h, unsigned long long iSize);
+// CLASS_DECL_ACME int_bool HFILE_set_size(HANDLE h, ::u64 iSize);
 
 // #ifdef WINDOWS
-// CLASS_DECL_ACME int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinst, unsigned int nID, LPCTSTR pcszType);
+// CLASS_DECL_ACME int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinst, ::u32 nID, LPCTSTR pcszType);
 
 // #endif
 
@@ -147,7 +147,7 @@
 // inline void __copy(payload * ppayload, const LPDWORD * lppdw)
 // {
 
-//    ppayload->operator = ((unsigned int *)*lppdw);
+//    ppayload->operator = ((::u32 *)*lppdw);
 
 // }
 
@@ -162,7 +162,7 @@
 // inline void __copy(payload * ppayload, const DWORD * pdw)
 // {
 
-//    ppayload->operator = ((unsigned int)*pdw);
+//    ppayload->operator = ((::u32)*pdw);
 
 // }
 
@@ -170,7 +170,7 @@
 // //inline void __copy(LPDWORD * ppdw, const payload * ppayload)
 // //{
 // //
-// //   *ppdw = (LPDWORD) (unsigned int*) *ppayload;
+// //   *ppdw = (LPDWORD) (::u32*) *ppayload;
 // //
 // //}
 
@@ -185,14 +185,14 @@
 // inline void __copy(DWORD * pdw, const payload * ppayload)
 // {
 
-//    *pdw = ppayload->unsigned int();
+//    *pdw = ppayload->::u32();
 
 // }
 
 
 
 // CLASS_DECL_ACME ::file::path module(HMODULE pmoduleosdata = nullptr);
-// CLASS_DECL_ACME string read_resource_as_string(hinstance hinst, unsigned int nID, const_char_pointer pcszType, character_count iReadAtMostByteCount = -1);
+// CLASS_DECL_ACME string read_resource_as_string(hinstance hinst, ::u32 nID, const_char_pointer pcszType, character_count iReadAtMostByteCount = -1);
 // CLASS_DECL_ACME bool read_resource_as_memory(memory & m, HINSTANCE hinst, DWORD nID, const_char_pointer pcszType, character_count iReadAtMostByteCount = -1);
 
 
@@ -208,7 +208,7 @@
 // inline comptr < IStream > create_istream(const memory_base & memory)
 // {
 
-//    return ::SHCreateMemStream(memory.get_data(), (unsigned int)memory.get_size());
+//    return ::SHCreateMemStream(memory.get_data(), (::u32)memory.get_size());
 
 // }
 
@@ -226,7 +226,7 @@
 // CLASS_DECL_ACME BSTR SetSysString(BSTR * pbstr, const ::scoped_string & scopedstr);
 
 
-// CLASS_DECL_ACME int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinst, unsigned int nID, LPCTSTR pcszType);
+// CLASS_DECL_ACME int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinst, ::u32 nID, LPCTSTR pcszType);
 
 
 // #include "acme/os/windows/exception_engine.h"

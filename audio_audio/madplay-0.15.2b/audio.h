@@ -56,14 +56,14 @@ union audio_control {
 
   struct audio_config {
     enum audio_command command;
-    unsigned int channels;
-    unsigned int speed;
-    unsigned int precision;
+    ::u32 channels;
+    ::u32 speed;
+    ::u32 precision;
   } config;
 
   struct audio_play {
     enum audio_command command;
-    unsigned int nsamples;
+    ::u32 nsamples;
     mad_fixed_t const *samples[2];
     enum audio_mode mode;
     struct audio_stats *stats;
@@ -111,16 +111,16 @@ audio_ctlfunc_t audio_wave;
 
 void audio_control_init(union audio_control *, enum audio_command);
 
-signed long audio_linear_round(unsigned int, mad_fixed_t,
+signed long audio_linear_round(::u32, mad_fixed_t,
 			       struct audio_stats *);
-signed long audio_linear_dither(unsigned int, mad_fixed_t,
+signed long audio_linear_dither(::u32, mad_fixed_t,
 				struct audio_dither *, struct audio_stats *);
 
 unsigned char audio_mulaw_round(mad_fixed_t, struct audio_stats *);
 unsigned char audio_mulaw_dither(mad_fixed_t, struct audio_dither *,
 				 struct audio_stats *);
 
-typedef unsigned int audio_pcmfunc_t(unsigned char *, unsigned int,
+typedef ::u32 audio_pcmfunc_t(unsigned char *, ::u32,
 				     mad_fixed_t const *, mad_fixed_t const *,
 				     enum audio_mode, struct audio_stats *);
 

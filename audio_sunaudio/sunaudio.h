@@ -75,7 +75,7 @@ namespace multimedia
          ~sun_object();
    
 
-         int sunaudio_open(int precision, unsigned int rate, unsigned char channels);
+         int sunaudio_open(int precision, ::u32 rate, unsigned char channels);
 
          int sunaudio_close();
 

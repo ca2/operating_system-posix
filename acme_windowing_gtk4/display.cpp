@@ -2316,7 +2316,7 @@ namespace gtk4
          // }
          //
          //
-         // void display::__handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, unsigned int millis)
+         // void display::__handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, ::u32 millis)
          // {
          //
          //    ::int_point pointCursor((int) x, (int) y);
@@ -2417,7 +2417,7 @@ namespace gtk4
          // }
          //
          //
-         // void display::__handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int millis)
+         // void display::__handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis)
          // {
          //
          //    if (m_pwindowPointerCapture)

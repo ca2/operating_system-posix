@@ -218,8 +218,8 @@ namespace acme_windows
 
 
    void WINAPI pipe::read_complete(
-   unsigned int dwErrorCode,
-   unsigned int dwNumberOfBytesTransfered,
+   ::u32 dwErrorCode,
+   ::u32 dwNumberOfBytesTransfered,
    LPOVERLAPPED pOverlapped
 
    )

@@ -88,7 +88,7 @@ namespace windowing_gtk3
       //static Atom                                s_atomLongStyleEx;
       ::int_rectangle_array                        m_rectangleaRedraw;
       ::pointer<::xim::keyboard>                   m_pximkeyboard;
-      //unsigned long long                                        m_uLastNetWmSyncRequest;
+      //::u64                                        m_uLastNetWmSyncRequest;
       ::int_rectangle                              m_rectangleXShm;
       //bool                                         m_bFirstConfigure;
       //bool                                         m_bXShmPutImagePending;
@@ -122,8 +122,8 @@ namespace windowing_gtk3
          bool _on_focus_out(GtkWidget *widget, GdkEventFocus *event) override;
          bool _on_key_press(GtkWidget *widget, GdkEventKey *event) override;
          bool _on_key_release(GtkWidget *widget, GdkEventKey *event) override;
-         virtual void _on_gtk_key_pressed(unsigned long long uGtkKey, unsigned long long uGtkKeyCode);
-         virtual void _on_gtk_key_released(unsigned long long uGtkKey, unsigned long long uGtkKeyCode);
+         virtual void _on_gtk_key_pressed(::u64 uGtkKey, ::u64 uGtkKeyCode);
+         virtual void _on_gtk_key_released(::u64 uGtkKey, ::u64 uGtkKeyCode);
 
 
          bool _on_gtk_scroll(GtkWidget * pwidget, GdkEventScroll * pscroll) override;
@@ -186,7 +186,7 @@ namespace windowing_gtk3
 //
 //      virtual ::e_status initialize_x11_window(::windowing_gtk3::display * pdisplay, ::Window window, ::Visual *pvisual, int iDepth, int iScreen, Colormap colormap);
 
-//      virtual void send_client_event(Atom atom, unsigned int numArgs, ...);
+//      virtual void send_client_event(Atom atom, ::u32 numArgs, ...);
       virtual int store_name(const_char_pointer psz);
       virtual int select_input(int iInput);
       virtual int select_all_input();
@@ -244,8 +244,8 @@ namespace windowing_gtk3
       bool screen_to_client(::int_point * ppoint) override;
 
 
-      //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);
-      //virtual bool _set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);
+      //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,::u32 nFlags);
+      //virtual bool _set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,::u32 nFlags);
       
 
       bool is_destroying() override;
@@ -375,7 +375,7 @@ namespace windowing_gtk3
 //      virtual ::e_status x11_post_message(MESSAGE & msg);
 //      virtual ::e_status post_ui_message(const MESSAGE & message);
       //virtual bool x11_process_event(osdisplay_data * pdisplaydata, XEvent * pevent, XGenericEventCookie *cookie);
-      //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, int x, int y, int cx, int cy, unsigned int nFlags);
+      //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, int x, int y, int cx, int cy, ::u32 nFlags);
       virtual ::e_status window_rectangle( ::int_rectangle * prectangle);
       virtual ::e_status rectangle(::int_rectangle * prectangle);
       //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::int_rectangle & rectangle);
@@ -410,15 +410,15 @@ namespace windowing_gtk3
 //
 //
       // virtual void __handle_pointer_enter(::wl_pointer * pwlpointer);
-      // virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, unsigned int millis);
+      // virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis);
       // virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_gtk3::window * pwaylandwindowLeave);
       //
-      // virtual void __handle_pointer_button(::wl_pointer * pwlpointer, unsigned int linux_button, unsigned int pressed, unsigned int millis);
+      // virtual void __handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis);
 //
 //
 //      virtual void __defer_update_wayland_buffer();
 //
-//      virtual void __handle_xdg_surface_configure(unsigned int serial);
+//      virtual void __handle_xdg_surface_configure(::u32 serial);
 //
       //virtual void __handle_xdg_toplevel_configure(int width, int height, ::wl_array * pwlarrayState);
 //

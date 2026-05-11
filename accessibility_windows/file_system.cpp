@@ -156,7 +156,7 @@ namespace acme_windows
 
       WCHAR pPathBuffer[MAX_PATH * 16];
 
-      unsigned int dwRetVal = GetTempPathW(sizeof(pPathBuffer) / sizeof(WCHAR), pPathBuffer);
+      ::u32 dwRetVal = GetTempPathW(sizeof(pPathBuffer) / sizeof(WCHAR), pPathBuffer);
 
       if (dwRetVal > sizeof(pPathBuffer) || (dwRetVal == 0))
       {
@@ -217,18 +217,18 @@ namespace acme_windows
 //
 //      memsize pos = 0;
 //
-//      unsigned int dw = 0;
+//      ::u32 dw = 0;
 //
-//      unsigned int dwWrite;
+//      ::u32 dwWrite;
 //
 //      memsize uiWrittenTotal = 0;
 //
 //      while (pos < nCount)
 //      {
 //
-//         dwWrite = (unsigned int)minimum(nCount - uiWrittenTotal, 0xffffffffu);
+//         dwWrite = (::u32)minimum(nCount - uiWrittenTotal, 0xffffffffu);
 //
-//         dw = (unsigned int)(fwrite(&((unsigned char *)pdata)[pos], 1, dwWrite, file));
+//         dw = (::u32)(fwrite(&((unsigned char *)pdata)[pos], 1, dwWrite, file));
 //
 //
 //         if (dw != dwWrite)
@@ -278,7 +278,7 @@ namespace acme_windows
 //
 //#else
 //
-//      unsigned int dw = 0;
+//      ::u32 dw = 0;
 //
 //      dw = ::fwrite(pdata, 1, (size_t)nCount, file);
 //

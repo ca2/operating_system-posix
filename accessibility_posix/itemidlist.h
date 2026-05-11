@@ -57,7 +57,7 @@ public:
    itemidlist & remove_last_item_id() ;
    LPITEMIDLIST detach();
    int icon_index(int uFlags = SHGFI_PIDL | SHGFI_SYSICONINDEX | SHGFI_SMALLICON) const;
-   string display_name(unsigned int dwFlags = SHGDN_NORMAL) const;//Retrieve pidl's dislpay name.
+   string display_name(::u32 dwFlags = SHGDN_NORMAL) const;//Retrieve pidl's dislpay name.
    //Copy a pidl due to the count number.
    //nCount=-1 indicate copy all pidl.
    itemidlist left(int nCount = -1) const;
@@ -109,7 +109,7 @@ public:
    static void _free(LPITEMIDLIST& pidl);
    static LPITEMIDLIST _full(IShellFolder * psf, LPCITEMIDLIST lpi);
 
-   static string _display_name(IShellFolder * psf, LPCITEMIDLIST lpi, unsigned int dwFlags);
+   static string _display_name(IShellFolder * psf, LPCITEMIDLIST lpi, ::u32 dwFlags);
 
    static HRESULT _GetUIObjectOf(REFIID riid, LPVOID* ppOut, LPITEMIDLIST pidlf, HWND hWnd);
    static LPITEMIDLIST _copy(LPCITEMIDLIST pidlOrg, int nCount);

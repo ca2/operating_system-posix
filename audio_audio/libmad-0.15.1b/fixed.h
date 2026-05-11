@@ -26,7 +26,7 @@
 typedef   signed int mad_fixed_t;
 
 typedef   signed int mad_fixed64hi_t;
-typedef unsigned int mad_fixed64lo_t;
+typedef ::u32 mad_fixed64lo_t;
 # else
 typedef   signed long mad_fixed_t;
 

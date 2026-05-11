@@ -937,10 +937,10 @@ namespace x11
 //            Window windowRoot = 0;
 //            int x = 0;
 //            int y = 0;
-//            unsigned int w = 0;
-//            unsigned int h = 0;
-//            unsigned int border = 0;
-//            unsigned int depth = 0;
+//            ::u32 w = 0;
+//            ::u32 h = 0;
+//            ::u32 border = 0;
+//            ::u32 depth = 0;
 //
 //            auto status = XGetGeometry(m_px11display->m_pDisplay, m_window, &windowRoot, &x, &y, &w,
 //                                &h, &border, &depth);
@@ -967,10 +967,10 @@ namespace x11
             Window windowRoot = 0;
             int x = 0;
             int y = 0;
-            unsigned int w = 0;
-            unsigned int h = 0;
-            unsigned int border = 0;
-            unsigned int depth = 0;
+            ::u32 w = 0;
+            ::u32 h = 0;
+            ::u32 border = 0;
+            ::u32 depth = 0;
 
             auto status = XGetGeometry(m_px11display->m_pDisplay, m_window, &windowRoot, &x, &y, &w,
                                        &h, &border, &depth);
@@ -1185,7 +1185,7 @@ namespace x11
 
       Atom *patoms = nullptr;
 
-      long unsigned int num_items = 0;
+      long ::u32 num_items = 0;
 
       XGetWindowProperty(__x11_display(), __x11_window(), atomList, 0, 1024,
                          False, XA_ATOM, &actual_type, &actual_format,

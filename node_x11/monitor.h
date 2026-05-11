@@ -31,8 +31,8 @@ namespace node_x11
       void update_cache() override;
 
 
-      virtual unsigned int monitor_color_temperature() override;
-      virtual bool adjust_monitor( unsigned int dwTemperature, double dBrightness, double dwGamma) override;
+      virtual ::u32 monitor_color_temperature() override;
+      virtual bool adjust_monitor( ::u32 dwTemperature, double dBrightness, double dwGamma) override;
 
 
       ::int_rectangle monitor_rectangle() override;
