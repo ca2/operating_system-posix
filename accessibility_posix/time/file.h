@@ -18,7 +18,7 @@ bool GetDrive(const_char_pointer lpDeviceFileName, string & fsFileName, bool bDr
 #endif
 
 
-int_bool StopAndUninstallDrv( HANDLE hDrvHandle );
+::i32_bool StopAndUninstallDrv( HANDLE hDrvHandle );
 
 HANDLE ExtractAndInstallDrv();
 
@@ -27,5 +27,5 @@ int ftruncate(int file, filesize len);
 
 
 
-//CLASS_DECL_ACME int_bool ensure_file_size_handle(HANDLE h, ::u64 iSize);
-//CLASS_DECL_ACME int_bool get_filetime(HANDLE hFile, LPFILETIME lpCreationTime, LPFILETIME lpLastAccessTime, LPFILETIME lpLastWriteTime);
+//CLASS_DECL_ACME ::i32_bool ensure_file_size_handle(HANDLE h, ::u64 iSize);
+//CLASS_DECL_ACME ::i32_bool get_filetime(HANDLE hFile, LPFILETIME lpCreationTime, LPFILETIME lpLastAccessTime, LPFILETIME lpLastWriteTime);

@@ -162,7 +162,7 @@ size_t engine_symbol(char* sz, int n, OS_DWORD* pdisplacement, OS_DWORD dwAddres
 // // #define SYM_ENGINE_TRACE_SPIN_COUNT
 // #endif //__DEBUG
 
-int_bool __stdcall engine_ReadProcessMemory(HANDLE      hProcess,
+::i32_bool __stdcall engine_ReadProcessMemory(HANDLE      hProcess,
    DWORD64     qwBaseAddress,
    PVOID       pBuffer,
 
@@ -188,7 +188,7 @@ _Out_ LPDWORD pNumberOfBytesRead
 );*/
 
 
-int_bool __stdcall engine_ReadProcessMemory(
+::i32_bool __stdcall engine_ReadProcessMemory(
    HANDLE      hProcess,
    DWORD64     qwBaseAddress,
    PVOID       pBuffer,
@@ -218,7 +218,7 @@ int_bool __stdcall engine_ReadProcessMemory(
 
 #ifndef FAST_STACK_TRACE
 
-int_bool __stdcall engine_ReadProcessMemory32(HANDLE hProcess, ::u32 qwBaseAddress, PVOID pBuffer, ::u32 nSize, LPDWORD lpNumberOfBytesRead)
+::i32_bool __stdcall engine_ReadProcessMemory32(HANDLE hProcess, ::u32 qwBaseAddress, PVOID pBuffer, ::u32 nSize, LPDWORD lpNumberOfBytesRead)
 
 {
 
@@ -239,7 +239,7 @@ int_bool __stdcall engine_ReadProcessMemory32(HANDLE hProcess, ::u32 qwBaseAddre
 
 /*
 #else
-int_bool __stdcall My_ReadProcessMemory (HANDLE, const void * pBaseAddress, LPVOID lpBuffer, ::u32 nSize, SIZE_T * lpNumberOfBytesRead)
+::i32_bool __stdcall My_ReadProcessMemory (HANDLE, const void * pBaseAddress, LPVOID lpBuffer, ::u32 nSize, SIZE_T * lpNumberOfBytesRead)
 
 {
 return ReadProcessMemory(GetCurrentProcess(), pBaseAddress, lpBuffer, nSize, lpNumberOfBytesRead) != false;
@@ -1419,7 +1419,7 @@ namespace  windows
 {
 
 
-   typedef int_bool(__stdcall* PReadProcessMemoryRoutine)(
+   typedef ::i32_bool(__stdcall* PReadProcessMemoryRoutine)(
       HANDLE      hProcess,
       DWORD64     qwBaseAddress,
       PVOID       pBuffer,

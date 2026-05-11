@@ -173,7 +173,7 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const i3
 //Window g_windowX11Client = 0;
 //
 //
-//int_bool _x11_get_cursor_pos(Display * d, ::i32_point * ppointCursor);
+//::i32_bool _x11_get_cursor_pos(Display * d, ::i32_point * ppointCursor);
 //
 //
 ////extern ::pointer< ::mutex >g_pmutexX11Runnable;
@@ -191,10 +191,10 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const i3
 ////void wm_toolwindow(oswindow w, bool bToolWindow);
 ////void wm_state_hidden(oswindow w, bool bSet);
 ////void wm_state_hidden_raw(oswindow w, bool bSet);
-////CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(::acme::windowing::window * pacmewindowingwindow);
+////CLASS_DECL_AURA ::i32_bool mq_remove_window_from_all_queues(::acme::windowing::window * pacmewindowingwindow);
 ////
 ////
-////int_bool x11_get_cursor_pos(::i32_point * ppointCursor);
+////::i32_bool x11_get_cursor_pos(::i32_point * ppointCursor);
 //
 //
 //
@@ -652,7 +652,7 @@ namespace windowing_wayland
 //   }
 
 
-// int_bool is_window_occluded(::acme::windowing::window * pacmewindowingwindow)
+// ::i32_bool is_window_occluded(::acme::windowing::window * pacmewindowingwindow)
 // {
 
 //    synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -850,7 +850,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 
 
-//int_bool IsWindowVisibleRaw(oswindow w)
+//::i32_bool IsWindowVisibleRaw(oswindow w)
 //{
 //
 //   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);

@@ -69,10 +69,10 @@
 
 // }
 
-// CLASS_DECL_ACME int_bool HFILE_set_size(HANDLE h, ::u64 iSize);
+// CLASS_DECL_ACME ::i32_bool HFILE_set_size(HANDLE h, ::u64 iSize);
 
 // #ifdef WINDOWS
-// CLASS_DECL_ACME int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinst, ::u32 nID, LPCTSTR pcszType);
+// CLASS_DECL_ACME ::i32_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinst, ::u32 nID, LPCTSTR pcszType);
 
 // #endif
 
@@ -226,7 +226,7 @@
 // CLASS_DECL_ACME BSTR SetSysString(BSTR * pbstr, const ::scoped_string & scopedstr);
 
 
-// CLASS_DECL_ACME int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinst, ::u32 nID, LPCTSTR pcszType);
+// CLASS_DECL_ACME ::i32_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinst, ::u32 nID, LPCTSTR pcszType);
 
 
 // #include "acme/os/windows/exception_engine.h"

@@ -720,7 +720,7 @@ namespace acme_posix
 
 
    //
-   //int_bool file_is_equal_path_dup(const_char_pointer psz1, const_char_pointer psz2)
+   //::i32_bool file_is_equal_path_dup(const_char_pointer psz1, const_char_pointer psz2)
    //{
    //      if (case_insensitive_ansi_compare(scopedstr1, psz2) == 0)
    //         return true;
@@ -753,7 +753,7 @@ namespace acme_posix
 
    //
    //
-   //int_bool file_path_is_equal(const_char_pointer psz1, const_char_pointer psz2)
+   //::i32_bool file_path_is_equal(const_char_pointer psz1, const_char_pointer psz2)
    //{
    //
    //      const int iBufSize = MAX_PATH * 8;

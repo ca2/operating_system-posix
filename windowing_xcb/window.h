@@ -101,7 +101,7 @@ namespace windowing_xcb
 
       bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize) override;
 
-      virtual int_bool IsWindowVisibleRaw();
+      virtual ::i32_bool IsWindowVisibleRaw();
 
       virtual void set_user_interaction(::windowing::window * pinteraction);
 

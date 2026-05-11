@@ -112,7 +112,7 @@ namespace windowing_gtk3
       //virtual HCURSOR load_default_cursor(e_cursor ecursor) override;
       virtual ::pointer<::windowing::cursor>load_default_cursor(enum_cursor ecursor) override;
 
-      //virtual int_bool window_set_mouse_cursor(window * pwindow, HCURSOR hcursor) override;
+      //virtual ::i32_bool window_set_mouse_cursor(window * pwindow, HCURSOR hcursor) override;
 
       //virtual bool set_window_icon(window * pwindow, const ::file::path & path) override;
 

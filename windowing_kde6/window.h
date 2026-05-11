@@ -308,7 +308,7 @@ namespace windowing_kde6
 ////      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
 ////      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
 ////      //virtual oswindow set_xxxcapture( WINDOWING_X11_WINDOW_MEMBER );
-////      //virtual int_bool release_xxxcapture();
+////      //virtual ::i32_bool release_xxxcapture();
 ////      //virtual oswindow set_keyboard_focus( WINDOWING_X11_WINDOW_MEMBER );
 ////      //virtual void x11_check_status(int status, unsigned long window);
 ////      //virtual unsigned long x11_get_long_property( WINDOWING_X11_WINDOW_MEMBER char* property_name);
@@ -322,9 +322,9 @@ namespace windowing_kde6
 ////      virtual ::windowing::window * get_window( WINDOWING_X11_WINDOW_MEMBER enum_relative erelative);
 //
 //      void destroy_window() override;
-//      //virtual int_bool destroy_window( WINDOWING_X11_WINDOW_MEMBER );
+//      //virtual ::i32_bool destroy_window( WINDOWING_X11_WINDOW_MEMBER );
 //      bool is_window() override;
-//      //virtual int_bool is_window( WINDOWING_X11_WINDOW_MEMBER );
+//      //virtual ::i32_bool is_window( WINDOWING_X11_WINDOW_MEMBER );
 //
 //      void set_window_text(const ::scoped_string & scopedstr) override;
 //
@@ -367,10 +367,10 @@ namespace windowing_kde6
 ////      virtual void wm_dockwindow( WINDOWING_X11_WINDOW_MEMBER bool bDockWindow);
 ////      virtual void wm_nodecorations( WINDOWING_X11_WINDOW_MEMBER int bMap);
 ////      virtual void _wm_nodecorations( WINDOWING_X11_WINDOW_MEMBER int bMap);
-////      virtual int_bool _wm_is_window_visible_unlocked( WINDOWING_X11_WINDOW_MEMBER);
+////      virtual ::i32_bool _wm_is_window_visible_unlocked( WINDOWING_X11_WINDOW_MEMBER);
 ////      virtual void wm_iconify_window( WINDOWING_X11_WINDOW_MEMBER );
-////      //virtual int_bool IsWindowVisibleRaw( WINDOWING_X11_WINDOW_MEMBER);
-////      //virtual int_bool IsWindowVisibleRaw(oswindow w);
+////      //virtual ::i32_bool IsWindowVisibleRaw( WINDOWING_X11_WINDOW_MEMBER);
+////      //virtual ::i32_bool IsWindowVisibleRaw(oswindow w);
 //////      virtual Atom * wm_get_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, unsigned long int * pnum_items);
 //////      virtual int wm_test_list_raw( WINDOWING_X11_WINDOW_MEMBER Atom atomList, Atom atomFlag);
 //////      virtual int wm_test_state_raw( WINDOWING_X11_WINDOW_MEMBER const_char_pointer pszNetStateFlag);

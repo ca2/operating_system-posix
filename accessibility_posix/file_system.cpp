@@ -282,7 +282,7 @@ namespace acme_windows
 //
 //      dw = ::fwrite(pdata, 1, (size_t)nCount, file);
 //
-//      int_bool bOk = dw == nCount;
+//      ::i32_bool bOk = dw == nCount;
 //
 //      if (puiWritten != nullptr)
 //      {

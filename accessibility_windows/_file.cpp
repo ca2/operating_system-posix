@@ -61,7 +61,7 @@ CLASS_DECL_ACME_WINDOWS const void* get_resource_pointer(HINSTANCE hinstance, DW
    }
 
    HGLOBAL hglobalResource;
-   int_bool bOk;
+   ::i32_bool bOk;
    DWORD* pResource;
 
    if (hrsrc == nullptr)

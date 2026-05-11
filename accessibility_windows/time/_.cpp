@@ -177,7 +177,7 @@ int GetVersion_ex1()
 
 
 
-int_bool is_windows_98_or_lesser()
+::i32_bool is_windows_98_or_lesser()
 {
 
 //#if defined(_WIN32_WINNT) && (_WIN32_WINNT >= _WIN32_WINNT_WIN7) // Windows 7 or greater
@@ -202,7 +202,7 @@ int_bool is_windows_98_or_lesser()
 
 }
 
-int_bool is_windows_nt()
+::i32_bool is_windows_nt()
 {
 
 #if defined(_WIN32_WINNT) && (_WIN32_WINNT >= _WIN32_WINNT_WINXP) // winxp or greater
@@ -218,7 +218,7 @@ int_bool is_windows_nt()
 }
 
 
-int_bool is_windows_7_or_lower()
+::i32_bool is_windows_7_or_lower()
 {
 
    return !IsWindows8OrGreater();
@@ -226,7 +226,7 @@ int_bool is_windows_7_or_lower()
 }
 
 
-int_bool is_windows_8_or_greater()
+::i32_bool is_windows_8_or_greater()
 {
 
 #if defined(_WIN32_WINNT) && (_WIN32_WINNT >= _WIN32_WINNT_WINXP) // winxp or greater
@@ -251,7 +251,7 @@ int_bool is_windows_8_or_greater()
 }
 
 
-//int_bool is_windows_vista_or_greater()
+//::i32_bool is_windows_vista_or_greater()
 //{
 //
 //#if defined(_WIN32_WINNT) && (_WIN32_WINNT >= _WIN32_WINNT_WINXP) // winxp or greater
@@ -274,7 +274,7 @@ int_bool is_windows_8_or_greater()
 //}
 
 
-//int_bool is_windows_xp_or_greater()
+//::i32_bool is_windows_xp_or_greater()
 //{
 //
 //#if defined(_WIN32_WINNT) && (_WIN32_WINNT >= _WIN32_WINNT_WINXP) // winxp or greater
@@ -297,7 +297,7 @@ int_bool is_windows_8_or_greater()
 //}
 //
 //
-//int_bool is_windows_2000_or_greater()
+//::i32_bool is_windows_2000_or_greater()
 //{
 //
 //#if defined(_WIN32_WINNT) && (_WIN32_WINNT >= _WIN32_WINNT_WINXP) // winxp or greater
@@ -320,7 +320,7 @@ int_bool is_windows_8_or_greater()
 //}
 
 
-int_bool is_windows_nt_lesser_than_2000()
+::i32_bool is_windows_nt_lesser_than_2000()
 {
 
 #if defined(_WIN32_WINNT) && (_WIN32_WINNT >= _WIN32_WINNT_WINXP) // winxp or greater
@@ -347,7 +347,7 @@ int_bool is_windows_nt_lesser_than_2000()
 }
 
 
-int_bool is_windows_native_unicode()
+::i32_bool is_windows_native_unicode()
 {
 
 #if defined(_WIN32_WINNT) && (_WIN32_WINNT >= _WIN32_WINNT_WINXP) // winxp or greater
@@ -356,7 +356,7 @@ int_bool is_windows_native_unicode()
 
 #else
 
-   static int_bool s_bNativeUnicode = -1;
+   static ::i32_bool s_bNativeUnicode = -1;
 
    if (bNativeUnicode == -1)
    {
@@ -458,10 +458,10 @@ bool __is_valid_atom(const wchar_t * psz)
 }
 
 
-int_bool IsWow64()
+::i32_bool IsWow64()
 {
 
-   int_bool bIsWow64 = false;
+   ::i32_bool bIsWow64 = false;
 
    if (!IsWow64Process(GetCurrentProcess(), &bIsWow64))
    {
@@ -473,11 +473,11 @@ int_bool IsWow64()
 }
 
 
-int_bool EnableTokenPrivilege(LPCTSTR pszPrivilege)
+::i32_bool EnableTokenPrivilege(LPCTSTR pszPrivilege)
 {
    
    // do it only once
-   static int_bool bEnabled = false;
+   static ::i32_bool bEnabled = false;
 
    if (bEnabled)
    {

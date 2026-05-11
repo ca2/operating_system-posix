@@ -4,10 +4,10 @@
 
 
 
-CLASS_DECL_ACME int_bool IsWow64();
+CLASS_DECL_ACME ::i32_bool IsWow64();
 
 
-int_bool EnableTokenPrivilege(LPCTSTR pszPrivilege);
+::i32_bool EnableTokenPrivilege(LPCTSTR pszPrivilege);
 
 
 #define IOCTL_LISTDRV_BUFFERED_IO		\

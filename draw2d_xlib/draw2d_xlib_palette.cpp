@@ -45,7 +45,7 @@ namespace draw2d_xlib
 
    /*
 
-      int_bool palette::CreatePalette(LPLOGPALETTE lpLogPalette)
+      ::i32_bool palette::CreatePalette(LPLOGPALETTE lpLogPalette)
       {
 
       //   return Attach(::CreatePalette(lpLogPalette));
@@ -60,7 +60,7 @@ namespace draw2d_xlib
 
    /*
 
-      int_bool palette::CreateHalftonePalette(::image::image *pimage)
+      ::i32_bool palette::CreateHalftonePalette(::image::image *pimage)
       {
 
          //ASSERT(pgraphics != nullptr && (dynamic_cast<::win::graphics * >(pgraphics))->get_handle1() != nullptr);
@@ -119,7 +119,7 @@ namespace draw2d_xlib
 
    /*
 
-      int_bool palette::ResizePalette(::u32 nNumEntries)
+      ::i32_bool palette::ResizePalette(::u32 nNumEntries)
       {
 
          //ASSERT(get_os_data() != nullptr);

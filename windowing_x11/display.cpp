@@ -444,7 +444,7 @@ namespace windowing_x11
 
          information() << "XUngrabPointer";
 
-         int_bool bRet = XUngrabPointer(m_pDisplay, CurrentTime) != false;
+         ::i32_bool bRet = XUngrabPointer(m_pDisplay, CurrentTime) != false;
 
          _on_capture_changed_to(nullptr);
 

@@ -4620,7 +4620,7 @@ namespace windowing_x11
    }
 
 
-//   int_bool window::show_window(
+//   ::i32_bool window::show_window(
 //                        const ::e_display &edisplay,
 //                        const ::user::e_activation &useractivation
 //   )
@@ -5812,7 +5812,7 @@ auto pwindowing = system()->acme_windowing();
 //   }
 
 //// should be called in user_thread
-//   int_bool window::x11_get_window_rect(::i32_rectangle *prectangle)
+//   ::i32_bool window::x11_get_window_rect(::i32_rectangle *prectangle)
 //   {
 //
 //      XWindowAttributes attrs;
@@ -5853,7 +5853,7 @@ auto pwindowing = system()->acme_windowing();
 //
 //   }
 
-//   int_bool window::this->rectangle(::i32_rectangle *prectangle)
+//   ::i32_bool window::this->rectangle(::i32_rectangle *prectangle)
 //   {
 //
 //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);

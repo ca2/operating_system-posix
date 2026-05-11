@@ -767,7 +767,7 @@ namespace windowing_wayland
 //   }
 //
 //
-//   //int_bool IsWindowVisibleRaw(Display *Display(), Window window);
+//   //::i32_bool IsWindowVisibleRaw(Display *Display(), Window window);
 //
 //
 //   /// must be run in x11 thread (user thread)
@@ -819,7 +819,7 @@ namespace windowing_wayland
 //
 //
 //   /// must be run in x11 thread (user thread)
-//   int_bool window::_wm_is_window_visible_unlocked()
+//   ::i32_bool window::_wm_is_window_visible_unlocked()
 //   {
 //
 //      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);

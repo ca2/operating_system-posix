@@ -306,7 +306,7 @@ namespace windowing_q5
 // //      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
 // //      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
 // //      //virtual oswindow set_xxxcapture( WINDOWING_X11_WINDOW_MEMBER );
-// //      //virtual int_bool release_xxxcapture();
+// //      //virtual ::i32_bool release_xxxcapture();
 // //      //virtual oswindow set_keyboard_focus( WINDOWING_X11_WINDOW_MEMBER );
 // //      //virtual void x11_check_status(int status, unsigned long window);
 // //      //virtual unsigned long x11_get_long_property( WINDOWING_X11_WINDOW_MEMBER char* property_name);
@@ -320,9 +320,9 @@ namespace windowing_q5
 // //      virtual ::windowing::window * get_window( WINDOWING_X11_WINDOW_MEMBER enum_relative erelative);
 //
 //       void destroy_window() override;
-//       //virtual int_bool destroy_window( WINDOWING_X11_WINDOW_MEMBER );
+//       //virtual ::i32_bool destroy_window( WINDOWING_X11_WINDOW_MEMBER );
 //       bool is_window() override;
-//       //virtual int_bool is_window( WINDOWING_X11_WINDOW_MEMBER );
+//       //virtual ::i32_bool is_window( WINDOWING_X11_WINDOW_MEMBER );
 //
 //       void set_window_text(const ::scoped_string & scopedstr) override;
 //

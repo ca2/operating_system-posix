@@ -9,7 +9,7 @@
 
 
 
-int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinstance, DWORD nID, LPCTSTR pcszType)
+::i32_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinstance, DWORD nID, LPCTSTR pcszType)
 
 {
 
@@ -17,7 +17,7 @@ int_bool read_resource_as_file(const scoped_string & strFile, HINSTANCE hinstanc
 
    HGLOBAL hglobalResource;
    ::u32 dwResourseSize;
-   int_bool bOk;
+   ::i32_bool bOk;
    DWORD * pResource;
    FILE * file;
 
@@ -71,7 +71,7 @@ pacmedir->create(::file_path_folder(pszFile));
 }
 
 
-int_bool file_system()->exists(const_char_pointer path1)
+::i32_bool file_system()->exists(const_char_pointer path1)
 {
 
    ::u32 dwFileAttributes = windows_get_file_attributes(path1);
@@ -88,7 +88,7 @@ int_bool file_system()->exists(const_char_pointer path1)
 }
 
 
-int_bool file_system()->put_contents(const_char_pointer path, const_char_pointer contents, memsize len)
+::i32_bool file_system()->put_contents(const_char_pointer path, const_char_pointer contents, memsize len)
 {
 
             auto psystem = system();
@@ -117,7 +117,7 @@ pacmedir->create(::file_path_folder(path));
 
    auto dwWritten = fwrite(contents, 1, (::u32) dwWrite, file);
 
-   int_bool bOk = dwWritten == dwWrite;
+   ::i32_bool bOk = dwWritten == dwWrite;
 
    fclose(file);
 
@@ -147,7 +147,7 @@ filesize file_length_dup(const_char_pointer path)
 }
 
 
-int_bool file_is_equal_path_dup(const scoped_string & str1, const scoped_string & str2)
+::i32_bool file_is_equal_path_dup(const scoped_string & str1, const scoped_string & str2)
 {
 
    const int iBufSize = MAX_PATH * 8;
@@ -781,7 +781,7 @@ int ftruncate(int file, filesize len)
 
 
 
-int_bool ensure_file_size_fd(int fd, size_t iSize)
+::i32_bool ensure_file_size_fd(int fd, size_t iSize)
 {
 
    if(ftruncate(fd, iSize) == -1)
@@ -791,7 +791,7 @@ int_bool ensure_file_size_fd(int fd, size_t iSize)
 
 }
 
-int_bool FILE_set_size(FILE * file, size_t iSize)
+::i32_bool FILE_set_size(FILE * file, size_t iSize)
 {
 
    return ensure_file_size_fd(_fileno(file), iSize);
@@ -830,7 +830,7 @@ int_bool FILE_set_size(FILE * file, size_t iSize)
 
 
 
-int_bool file_set_length(const_char_pointer lpszName, size_t iSize)
+::i32_bool file_set_length(const_char_pointer lpszName, size_t iSize)
 {
 
    wstring wstr(lpszName);
@@ -856,7 +856,7 @@ int_bool file_set_length(const_char_pointer lpszName, size_t iSize)
 }
 
 
-int_bool file_move(const scoped_string & strNewName, const scoped_string & strOldName)
+::i32_bool file_move(const scoped_string & strNewName, const scoped_string & strOldName)
 {
 
    wstring wstrOldName(pszOldName);
@@ -875,7 +875,7 @@ int_bool file_move(const scoped_string & strNewName, const scoped_string & strOl
 }
 
 
-int_bool file_delete(const scoped_string & strFileName)
+::i32_bool file_delete(const scoped_string & strFileName)
 {
 
    wstring wstrFileName(pszFileName);
@@ -1119,14 +1119,14 @@ bool GetDrive(const scoped_string & strDosName, string& csDrive, bool bDriveLett
 //}
 //
 //// Function stops the service and then deletes it.
-//int_bool StopAndUninstallDrv(HANDLE hDrvHandle)
+//::i32_bool StopAndUninstallDrv(HANDLE hDrvHandle)
 //{
 //   CloseHandle(hDrvHandle);
 //   SC_HANDLE hSCManager = OpenSCManager(nullptr, nullptr, SC_MANAGER_ALL_ACCESS);
 //   SC_HANDLE hService = OpenServiceW(hSCManager, DRV_NAME, SERVICE_ALL_ACCESS);
 //   SERVICE_STATUS  stSrvStatus = { 0 };
 //   ControlService(hService, SERVICE_CONTROL_STOP, &stSrvStatus);
-//   int_bool bDeleted = DeleteService(hService);
+//   ::i32_bool bDeleted = DeleteService(hService);
 //   CloseServiceHandle(hService);
 //   CloseServiceHandle(hSCManager);
 //   return bDeleted;
@@ -1234,7 +1234,7 @@ namespace file
 
 //
 //
-//int_bool file_exists_raw(const_char_pointer path1)
+//::i32_bool file_exists_raw(const_char_pointer path1)
 //{
 //
 //

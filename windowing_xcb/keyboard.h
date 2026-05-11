@@ -24,9 +24,9 @@ namespace windowing_xcb
       ::collection::index                                     m_iSoftwareKeyboardEventId;
 
 
-      ::int_map < ::user::enum_key >              m_mapExt;
-      ::int_map < ::user::enum_key >              m_mapScan;
-      ::int_map < ::user::enum_key >              m_mapKey;
+      ::i32_map < ::user::enum_key >              m_mapExt;
+      ::i32_map < ::user::enum_key >              m_mapScan;
+      ::i32_map < ::user::enum_key >              m_mapKey;
       //::pointer<keyboard_layout>                   m_playout;
 
       keyboard();

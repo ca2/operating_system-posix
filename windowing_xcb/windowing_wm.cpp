@@ -896,7 +896,7 @@ namespace windowing_xcb
 
 
    /// must be run in x11 thread (user thread)
-   int_bool window::IsWindowVisibleRaw()
+   ::i32_bool window::IsWindowVisibleRaw()
    {
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);

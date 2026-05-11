@@ -486,7 +486,7 @@ namespace windowing_q5
 // // //
 // // //         information() << "XUngrabPointer";
 // // //
-// // //         int_bool bRet = XUngrabPointer(Display(), CurrentTime) != false;
+// // //         ::i32_bool bRet = XUngrabPointer(Display(), CurrentTime) != false;
 // // //
 // // //         _on_capture_changed_to(nullptr);
 // // //

@@ -4300,7 +4300,7 @@ namespace windowing_lxq1
 //    }
 //
 //
-//    //   int_bool window::show_window(
+//    //   ::i32_bool window::show_window(
 //    //                        const ::e_display &edisplay,
 //    //                        const ::user::e_activation &useractivation
 //    //   )

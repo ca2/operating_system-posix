@@ -151,7 +151,7 @@ xcb_window_t g_windowXcbClient = 0;
 
 
 
-int_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::i32_point * ppointCursor);
+::i32_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::i32_point * ppointCursor);
 
 
 //extern ::pointer< ::mutex >g_pmutexXcbRunnable;
@@ -169,10 +169,10 @@ int_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::i32_point * ppointCursor);
 //void wm_toolwindow(oswindow w, bool bToolWindow);
 //void wm_state_hidden(oswindow w, bool bSet);
 //void wm_state_hidden_raw(oswindow w, bool bSet);
-//CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(::acme::windowing::window * pacmewindowingwindow);
+//CLASS_DECL_AURA ::i32_bool mq_remove_window_from_all_queues(::acme::windowing::window * pacmewindowingwindow);
 //
 //
-//int_bool xcb_get_cursor_pos(::i32_point * ppointCursor);
+//::i32_bool xcb_get_cursor_pos(::i32_point * ppointCursor);
 
 
 
@@ -427,7 +427,7 @@ namespace windowing_xcb
 
 
 
-// int_bool is_window_occluded(::acme::windowing::window * pacmewindowingwindow)
+// ::i32_bool is_window_occluded(::acme::windowing::window * pacmewindowingwindow)
 // {
 
 //    synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -625,7 +625,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 
-//int_bool IsWindowVisibleRaw(oswindow w)
+//::i32_bool IsWindowVisibleRaw(oswindow w)
 //{
 //
 //   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -861,7 +861,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
 //
-//int_bool WINAPI SetWindowPos(oswindow hWnd,oswindow hWndInsertAfter,int X,int Y,int cx,int cy,::u32 uFlags)
+//::i32_bool WINAPI SetWindowPos(oswindow hWnd,oswindow hWndInsertAfter,int X,int Y,int cx,int cy,::u32 uFlags)
 //{
 //
 //   return hWnd->set_window_position(hWndInsertAfter, X, Y, cx, cy, uFlags);
@@ -1085,7 +1085,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
    //
-//int_bool set_foreground_window(::acme::windowing::window * pacmewindowingwindow)
+//::i32_bool set_foreground_window(::acme::windowing::window * pacmewindowingwindow)
 //{
 //
 //   if(!::is_window(oswindow))
@@ -1154,7 +1154,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //
 //
-//int_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::i32_point * ppointCursor);
+//::i32_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::i32_point * ppointCursor);
 //
 
 
@@ -1167,10 +1167,10 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //void wm_toolwindow(oswindow w, bool bToolWindow);
 //void wm_state_hidden(oswindow w, bool bSet);
 //void wm_state_hidden_raw(oswindow w, bool bSet);
-//CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(::acme::windowing::window * pacmewindowingwindow);
+//CLASS_DECL_AURA ::i32_bool mq_remove_window_from_all_queues(::acme::windowing::window * pacmewindowingwindow);
 //
 //
-//int_bool xcb_get_cursor_pos(::i32_point * ppointCursor);
+//::i32_bool xcb_get_cursor_pos(::i32_point * ppointCursor);
 //
 
 //

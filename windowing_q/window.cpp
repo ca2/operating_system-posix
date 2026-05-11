@@ -3448,7 +3448,7 @@ namespace windowing_q
    }
 
 
-   //   int_bool window::show_window(
+   //   ::i32_bool window::show_window(
    //                        const ::e_display &edisplay,
    //                        const ::user::e_activation &useractivation
    //   )
@@ -4408,7 +4408,7 @@ namespace windowing_q
    //   }
 
    //// should be called in user_thread
-   //   int_bool window::x11_get_window_rect(::i32_rectangle *prectangle)
+   //   ::i32_bool window::x11_get_window_rect(::i32_rectangle *prectangle)
    //   {
    //
    //      XWindowAttributes attrs;
@@ -4449,7 +4449,7 @@ namespace windowing_q
    //
    //   }
 
-   //   int_bool window::this->rectangle(::i32_rectangle *prectangle)
+   //   ::i32_bool window::this->rectangle(::i32_rectangle *prectangle)
    //   {
    //
    //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
