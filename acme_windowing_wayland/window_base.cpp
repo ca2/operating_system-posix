@@ -666,7 +666,7 @@ namespace nano
 
             auto pwindowbaseParent = owner_window();
 
-            ::int_rectangle rectangleAnchor;
+            ::i32_rectangle rectangleAnchor;
 
             rectangleAnchor.set_dimension(
                -sizeScreen.cx,
@@ -1070,7 +1070,7 @@ namespace nano
          //      {
          //
          //
-         //         ::int_point                                  m_pointWindowDragStart;
+         //         ::i32_point                                  m_pointWindowDragStart;
          //
          //
          //         if (linux_button == BTN_LEFT)
@@ -1168,7 +1168,7 @@ namespace nano
          ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
          ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
          ////
-         ////      ::int_rectangle r;
+         ////      ::i32_rectangle r;
          ////
          ////      window_rectangle(msg.oswindow, &r);
          ////
@@ -1341,7 +1341,7 @@ namespace nano
 
          ::string strType = ::type(get_interface_client_particle()).name();
 
-         ::int_size size(width, height);
+         ::i32_size size(width, height);
 
          information()
 

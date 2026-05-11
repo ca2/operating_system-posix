@@ -41,7 +41,7 @@ namespace cairo
          }
 
 
-         ::int_size icon::size() const
+         ::i32_size icon::size() const
          {
 
             if (!m_pcairosurface)

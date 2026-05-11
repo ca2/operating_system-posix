@@ -43,7 +43,7 @@ namespace x11
 
             bool m_bMouseCaptured;
             Window m_windowActive;
-            ::int_rectangle m_rectangleMouseCapture;
+            ::i32_rectangle m_rectangleMouseCapture;
             ::int_rectangle_array_base m_rectangleaMonitor;
 
             bool                                      m_bUnhook;
@@ -96,7 +96,7 @@ namespace x11
             virtual void _enumerate_monitors();
 
 
-            ::int_size get_main_screen_size() override;
+            ::i32_size get_main_screen_size() override;
 
 
             virtual ::Display* __x11_display();

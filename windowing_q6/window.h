@@ -40,7 +40,7 @@ namespace windowing_q6
    public:
 
       //
-      // //::int_point m_pointCursor2;
+      // //::i32_point m_pointCursor2;
       // //typedef struct {
       // bool moving;
       // bool resizing;
@@ -51,10 +51,10 @@ namespace windowing_q6
       // int start_height;
       // int start_window_x;
       // int start_window_y;
-      // //::int_size m_sizeOnSize;
+      // //::i32_size m_sizeOnSize;
       // //} ResizeData;
       //
-      // //::int_point                                  m_pointPointer;
+      // //::i32_point                                  m_pointPointer;
       // //XWindowAttributes                            m_attr;
       // //XVisualInfo                                  m_visualinfo;
       // //void *                                       m_pgdkwindow;
@@ -77,10 +77,10 @@ namespace windowing_q6
       // //Colormap                                   m_colormap;
       // class ::time m_timeLastMouseMove;
       // //Window                                     m_parent;
-      // //::int_rectangle                              m_rect;
+      // //::i32_rectangle                              m_rect;
       // //string                                       m_strWMClass;
       // //int                                          m_iaNetWmState2[::x11::e_atom_net_wm_state_last-::x11::e_atom_net_wm_state_first+1];
-      // //::int_point                                m_pointCursor;
+      // //::i32_point                                m_pointCursor;
       // //XSyncCounter                                 m_xsynccounterNetWmSync;
       // //XSyncValue                                   m_xsyncvalueNetWmSync;
       // //XSyncValue                                   m_xsyncvalueNetWmSyncPending;
@@ -98,7 +98,7 @@ namespace windowing_q6
       // ::int_rectangle_array m_rectangleaRedraw;
       // ::pointer<::xim::keyboard> m_pximkeyboard;
       // //::u64                                        m_uLastNetWmSyncRequest;
-      // ::int_rectangle m_rectangleXShm;
+      // ::i32_rectangle m_rectangleXShm;
       // //bool                                         m_bFirstConfigure;
       // //bool                                         m_bXShmPutImagePending;
       // //QWidget *m_pqwidget;

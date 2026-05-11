@@ -11,7 +11,7 @@ namespace draw2d_xlib
    public:
 
 //      xlib_surface_t *       m_psurface;
-      ::int_rectangle                  m_rectangleBoundingBoxInternal;
+      ::i32_rectangle                  m_rectangleBoundingBoxInternal;
 
 
 // xxx     Gdiplus::Region *       m_pregion;
@@ -27,11 +27,11 @@ namespace draw2d_xlib
 
 
       /*bool CreateRectRgn(int x1, int y1, int x2, int y2);
-      bool CreateRectRgnIndirect(const ::int_rectangle & rectangle);
+      bool CreateRectRgnIndirect(const ::i32_rectangle & rectangle);
       bool CreateEllipticRgn(int x1, int y1, int x2, int y2);
-      bool CreateEllipticRgnIndirect(const ::int_rectangle & rectangle);
-      bool CreatePolygonRgn(::int_point * lpPoints, int nCount, int nMode);
-      bool CreatePolyPolygonRgn(::int_point * lpPoints, LPINT lpPolyCounts,
+      bool CreateEllipticRgnIndirect(const ::i32_rectangle & rectangle);
+      bool CreatePolygonRgn(::i32_point * lpPoints, int nCount, int nMode);
+      bool CreatePolyPolygonRgn(::i32_point * lpPoints, LPINT lpPolyCounts,
             int nCount, int nPolyFillMode);
       bool CreateRoundRectRgn(int x1, int y1, int x2, int y2, int x3, int y3);
       bool CreateFromPath(::image::image *pimage);
@@ -40,16 +40,16 @@ namespace draw2d_xlib
 
       
       //void SetRectRgn(int x1, int y1, int x2, int y2);
-      //void SetRectRgn(const ::int_rectangle & rectangle);
+      //void SetRectRgn(const ::i32_rectangle & rectangle);
       //int CombineRgn(const ::draw2d::region* pRgn1, const ::draw2d::region* pRgn2, int nCombineMode);
       //int CopyRgn(const ::draw2d::region* pRgnSrc);
       //bool EqualRgn(const ::draw2d::region* pRgn) const;
       //int OffsetRgn(int x, int y);
-      //int OffsetRgn(const ::int_point & point);
-      //int GetRgnBox(::int_rectangle * prectangle) const;
+      //int OffsetRgn(const ::i32_point & point);
+      //int GetRgnBox(::i32_rectangle * prectangle) const;
       //bool PtInRegion(int x, int y) const;
-      //bool PtInRegion(const ::int_point & point) const;
-      //bool RectInRegion(const ::int_rectangle & rectangle) const;
+      //bool PtInRegion(const ::i32_point & point) const;
+      //bool RectInRegion(const ::i32_rectangle & rectangle) const;
 // xxx      int GetRegionData(LPRGNDATA lpRgnData, int nCount) const;
 
       /*      bool get(xlib_t * pdc);

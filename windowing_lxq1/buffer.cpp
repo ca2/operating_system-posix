@@ -74,7 +74,7 @@ namespace windowing_lxq1
    }
 
 
-   // void buffer::_map_shared_memory(const ::int_size & size)
+   // void buffer::_map_shared_memory(const ::i32_size & size)
    // {
    //
    //    if(!m_bUseXShmIfAvailable)
@@ -229,7 +229,7 @@ namespace windowing_lxq1
 //    }
 //
 //
-//    bool buffer::create_os_buffer(const ::int_size & size, int iStrideParam)
+//    bool buffer::create_os_buffer(const ::i32_size & size, int iStrideParam)
 //    {
 //
 // //      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -1117,7 +1117,7 @@ namespace windowing_lxq1
 // // //
 // // //      }
 // // //
-// // //      ::int_size sizeDesign = m_pimpl->m_puserinteraction->const_layout().design().size();
+// // //      ::i32_size sizeDesign = m_pimpl->m_puserinteraction->const_layout().design().size();
 // // //
 // // //      if (sizeDesign != sizeBitBlitting)
 // // //      {

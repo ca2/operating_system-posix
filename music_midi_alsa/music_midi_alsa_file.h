@@ -93,7 +93,7 @@ namespace music
 
          int32_t CalcMelodyTrack(::music::midi::happenings ** ppEvents, imedia::position_array & ticka);
 
-         int32_t WorkCalcMelodyTrack(::music::midi::happenings ** ppEvents, imedia::position_array & positiona, ::int_array_base & iaTokenLine);
+         int32_t WorkCalcMelodyTrack(::music::midi::happenings ** ppEvents, imedia::position_array & positiona, ::i32_array_base & iaTokenLine);
 
          int32_t GetFormat();
 

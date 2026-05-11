@@ -112,7 +112,7 @@ namespace gtk4
             // m_pxdgtoplevelMouseCapture = nullptr;
             // //wayland_buffer m_waylandbufferMouseCapture;
             // m_bMouseCaptured = false;
-            // //::int_rectangle m_rectangleMouseCapture;
+            // //::i32_rectangle m_rectangleMouseCapture;
             // m_uLastButtonSerial = 0;
             // m_uLastPointerSerial = 0;
             // m_uLastSeatSerial = 0;
@@ -754,7 +754,7 @@ namespace gtk4
 
             }
 
-            ::int_rectangle rectangleMainScreen;
+            ::i32_rectangle rectangleMainScreen;
 
             //      auto pscreen = DefaultScreenOfDisplay(m_pdisplay);
             //
@@ -849,7 +849,7 @@ namespace gtk4
          //   }
 
 
-         ::int_size display::get_main_screen_size()
+         ::i32_size display::get_main_screen_size()
          {
 
             //      auto snum = DefaultScreen(m_pdisplay);
@@ -1654,7 +1654,7 @@ namespace gtk4
          //    // m_pxdgtoplevelMouseCapture = nullptr;
          //    // //wayland_buffer m_waylandbufferMouseCapture;
          //    // m_bMouseCaptured = false;
-         //    // //::int_rectangle m_rectangleMouseCapture;
+         //    // //::i32_rectangle m_rectangleMouseCapture;
          //    // m_uLastButtonSerial = 0;
          //    // m_uLastPointerSerial = 0;
          //    // m_uLastSeatSerial = 0;
@@ -1920,7 +1920,7 @@ namespace gtk4
        gdk_monitor_get_geometry(monitor, &geometry);
 
        // Print monitor geometry details
-       ::int_rectangle r;
+       ::i32_rectangle r;
        informationf("Monitor %u: x = %d, y = %d, width = %d, height = %d\n",
               i, geometry.x, geometry.y, geometry.width, geometry.height);
        ::copy(r, geometry);
@@ -2082,7 +2082,7 @@ namespace gtk4
          // }
          //
          //
-         // void display::update_wayland_buffer(buffer & waylandbuffer, const ::int_size & size)
+         // void display::update_wayland_buffer(buffer & waylandbuffer, const ::i32_size & size)
          // {
          //
          //    //wayland_buffer waylandbuffer{};
@@ -2319,7 +2319,7 @@ namespace gtk4
          // void display::__handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, ::u32 millis)
          // {
          //
-         //    ::int_point pointCursor((int) x, (int) y);
+         //    ::i32_point pointCursor((int) x, (int) y);
          //
          //    if (m_pwindowPointerCapture)
          //    {

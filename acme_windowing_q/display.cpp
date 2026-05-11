@@ -177,7 +177,7 @@ namespace q
          }
 
 
-         ::int_size display::get_main_screen_size()
+         ::i32_size display::get_main_screen_size()
          {
 
 

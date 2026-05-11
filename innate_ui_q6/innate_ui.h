@@ -36,8 +36,8 @@ namespace innate_ui_q6
       //
       // //virtual LRESULT _window_procedure(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
       //
-      // //virtual void _defer_show_system_menu(HWND hwnd, const ::int_point & pointAbsolute);
-      // //::pointer < ::innate_ui::icon > innate_ui_icon(const ::payload & payloadFile, const ::int_size & size) override;
+      // //virtual void _defer_show_system_menu(HWND hwnd, const ::i32_point & pointAbsolute);
+      // //::pointer < ::innate_ui::icon > innate_ui_icon(const ::payload & payloadFile, const ::i32_size & size) override;
 
    };
 

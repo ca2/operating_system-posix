@@ -303,7 +303,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
+   bool display::get_monitor_rectangle(::collection::index iMonitor, ::i32_rectangle & rectangle)
    {
 
       return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
@@ -311,7 +311,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::get_workspace_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
+   bool display::get_workspace_rectangle(::collection::index iMonitor, ::i32_rectangle & rectangle)
    {
 
       return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
@@ -549,7 +549,7 @@ namespace windowing_xcb
    }
 
 
-   ::int_point display::_get_mouse_cursor_position()
+   ::i32_point display::_get_mouse_cursor_position()
    {
 
       xcb_window_t root_return;
@@ -577,7 +577,7 @@ namespace windowing_xcb
 
       windowing_output_debug_string("::GetCursorPos 2");
 
-      ::int_point pointCursor;
+      ::i32_point pointCursor;
 
       pointCursor.x = preply->root_x;
 
@@ -982,12 +982,12 @@ namespace windowing_xcb
    }
 
 
-   ::int_rectangle display::_window_get_frame_extents(xcb_window_t window)
+   ::i32_rectangle display::_window_get_frame_extents(xcb_window_t window)
    {
 
       synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      ::int_rectangle r;
+      ::i32_rectangle r;
 
       auto property = intern_atom("_NET_FRAME_EXTENTS"); // l, r, t, b CARDINAL[4]/32bit
 
@@ -1027,7 +1027,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status display::_window_get_window_rectangle(xcb_window_t window, ::int_rectangle * prectangle)
+   ::e_status display::_window_get_window_rectangle(xcb_window_t window, ::i32_rectangle * prectangle)
    {
 
       auto geometry = _window_get_geometry(window);
@@ -1051,7 +1051,7 @@ namespace windowing_xcb
    }
 
 
-   ::e_status display::_window_get_client_rectangle(xcb_window_t window, ::int_rectangle * prectangle)
+   ::e_status display::_window_get_client_rectangle(xcb_window_t window, ::i32_rectangle * prectangle)
    {
 
       auto geometry = _window_get_geometry(window);
@@ -1083,7 +1083,7 @@ namespace windowing_xcb
    }
 
 
-   bool display::point_is_window_origin(::int_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
+   bool display::point_is_window_origin(::i32_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
    {
 
       bool bIsOrigin = false;
@@ -1127,14 +1127,14 @@ namespace windowing_xcb
 
                           windowa = _window_enumerate();
 
-                          ::int_rectangle rectangleTest;
+                          ::i32_rectangle rectangleTest;
 
                           for (::collection::index i = 0; i < windowa.get_size(); i++)
                           {
 
                              //string strItem = ::_window_get(xcb_connection(), windowa[i]);
 
-                             ::int_rectangle rectangleHigher;
+                             ::i32_rectangle rectangleHigher;
 
                              if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->xcb_window())
                              {
@@ -1146,9 +1146,9 @@ namespace windowing_xcb
                              if (_window_get_window_rectangle(windowa[i], &rectangleHigher))
                              {
 
-                                ::int_rectangle rectangleHitTest;
+                                ::i32_rectangle rectangleHitTest;
 
-                                rectangleHitTest.set(rectangleHigher.origin(), ::int_size());
+                                rectangleHitTest.set(rectangleHigher.origin(), ::i32_size());
 
                                 rectangleHitTest.inflate(iMargin + 1);
 

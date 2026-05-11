@@ -397,7 +397,7 @@ namespace kde5
       //
       //   for (int i = 0; i < m_iButtonCount; i++)
       //   {
-      //      if (m_buttona[i].m_rectangle.contains(int_point(x, y)))
+      //      if (m_buttona[i].m_rectangle.contains(i32_point(x, y)))
       //      {
       //
       //         return m_buttona[i].m_edialogresult;
@@ -818,7 +818,7 @@ namespace kde5
       //       if (!m_psurface)
       //       {
       //
-      //          int_rectangle rectangleX;
+      //          i32_rectangle rectangleX;
       //
       //          get_client_rectangle(rectangleX);
       //
@@ -1189,7 +1189,7 @@ namespace kde5
       // }
 
 
-      void window::set_position_unlocked(const ::int_point & point)
+      void window::set_position_unlocked(const ::i32_point & point)
       {
 
             m_pqwidget->move(point.x, point.y);
@@ -1197,7 +1197,7 @@ namespace kde5
       }
 
 
-         void window::set_size_unlocked(const ::int_size & size)
+         void window::set_size_unlocked(const ::i32_size & size)
          {
 
            m_pqwidget->resize(size.cx, size.cy);
@@ -1332,7 +1332,7 @@ namespace kde5
       // }
 
       //
-      // void window::get_client_rectangle(::int_rectangle & rectangle)
+      // void window::get_client_rectangle(::i32_rectangle & rectangle)
       // {
       //
       //    xcb_get_geometry_reply_t geometry;
@@ -1347,10 +1347,10 @@ namespace kde5
       // }
 
 
-      ::int_rectangle window::get_window_rectangle()
+      ::i32_rectangle window::get_window_rectangle()
       {
 
-         ::int_rectangle rectangle;
+         ::i32_rectangle rectangle;
 
          auto qrect = m_pqwidget->rect();
 
@@ -2031,7 +2031,7 @@ m_pqwidget->move(p);
 
          //auto puserinteraction = pimpl->m_puserinteraction;
 
-         //::int_size s(cx, cy);
+         //::i32_size s(cx, cy);
 
          set_interface_client_size({cx, cy});
 
@@ -2040,7 +2040,7 @@ m_pqwidget->move(p);
       }
 
 
-      void window::set_interface_client_size(const ::int_size & sizeWindow)
+      void window::set_interface_client_size(const ::i32_size & sizeWindow)
       {
 
          m_sizeWindow = sizeWindow;
@@ -2052,7 +2052,7 @@ m_pqwidget->move(p);
          //
          // }
 
-         int_rectangle r;
+         i32_rectangle r;
 
          r = m_pacmeuserinteraction->get_client_rectangle();
 
@@ -2119,7 +2119,7 @@ m_pqwidget->move(p);
    //    //g_print("Option 1 selected from popover menu!\n");
    // }
 
-      //   ::int_size window::get_main_screen_size()
+      //   ::i32_size window::get_main_screen_size()
       //   {
       //
       //      return m_pdisplay->get_main_screen_size();

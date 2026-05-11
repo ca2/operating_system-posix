@@ -51,7 +51,7 @@ namespace windowing_q5
       virtual public ::q5::acme::windowing::window
    {
    public:
-// //::int_point m_pointCursor2;
+// //::i32_point m_pointCursor2;
 //          //typedef struct {
 //          bool moving;
 //          bool resizing;
@@ -62,10 +62,10 @@ namespace windowing_q5
 //          int start_height;
 //          int start_window_x;
 //          int start_window_y;
-//          ::int_size m_sizeOnSize;
+//          ::i32_size m_sizeOnSize;
 //          //} ResizeData;
 //
-//       //::int_point                                  m_pointPointer;
+//       //::i32_point                                  m_pointPointer;
 //       //XWindowAttributes                            m_attr;
 //       //XVisualInfo                                  m_visualinfo;
 //       //void *                                       m_pgdkwindow;
@@ -88,10 +88,10 @@ namespace windowing_q5
 //       //Colormap                                   m_colormap;
 //       class ::time                                 m_timeLastMouseMove;
 //       //Window                                     m_parent;
-//       //::int_rectangle                              m_rect;
+//       //::i32_rectangle                              m_rect;
 //       //string                                       m_strWMClass;
 //       //int                                          m_iaNetWmState2[::x11::e_atom_net_wm_state_last-::x11::e_atom_net_wm_state_first+1];
-//       //::int_point                                m_pointCursor;
+//       //::i32_point                                m_pointCursor;
 //       //XSyncCounter                                 m_xsynccounterNetWmSync;
 //       //XSyncValue                                   m_xsyncvalueNetWmSync;
 //       //XSyncValue                                   m_xsyncvalueNetWmSyncPending;
@@ -109,7 +109,7 @@ namespace windowing_q5
 //       ::int_rectangle_array                        m_rectangleaRedraw;
 //       ::pointer<::xim::keyboard>                   m_pximkeyboard;
 //       //::u64                                        m_uLastNetWmSyncRequest;
-//       ::int_rectangle                              m_rectangleXShm;
+//       ::i32_rectangle                              m_rectangleXShm;
 //       //bool                                         m_bFirstConfigure;
 //       //bool                                         m_bXShmPutImagePending;
 //          //QWidget *m_pqwidget;
@@ -210,7 +210,7 @@ namespace windowing_q5
 //
 //       void exit_iconify() override;
 //
-//       void full_screen(const ::int_rectangle & rect = {}) override;
+//       void full_screen(const ::i32_rectangle & rect = {}) override;
 //
 //       void exit_full_screen() override;
 //
@@ -228,8 +228,8 @@ namespace windowing_q5
 //       //::oswindow get_parent_oswindow() const override;
 //
 //       //void _main_send(const ::procedure & procedure) override;
-// //      ::int_point get_mouse_cursor_host_position() override;
-// //      ::int_point get_mouse_cursor_absolute_position() override;
+// //      ::i32_point get_mouse_cursor_host_position() override;
+// //      ::i32_point get_mouse_cursor_absolute_position() override;
 //
 //
 //       //virtual ::Window get_parent_handle() const;
@@ -239,7 +239,7 @@ namespace windowing_q5
 //
 //          //void _on_initialize_system_menu_button(GtkWidget * pbutton, const ::scoped_string & scopedstrAtom);
 //
-//       bool screen_to_client(::int_point * ppoint) override;
+//       bool screen_to_client(::i32_point * ppoint) override;
 //
 //
 //       void _main_post(const ::procedure & procedure) override;
@@ -303,8 +303,8 @@ namespace windowing_q5
 // //      //virtual Atom get_window_long_atom(int nIndex);
 // //      virtual void _mapped_net_state_unlocked(bool add,  WINDOWING_X11_WINDOW_MEMBER int iScreen, Atom state1, Atom state2);
 // //      //virtual void unmapped_net_state_raw( WINDOWING_X11_WINDOW_MEMBER ...);
-// //      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
-// //      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
+// //      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
+// //      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
 // //      //virtual oswindow set_xxxcapture( WINDOWING_X11_WINDOW_MEMBER );
 // //      //virtual int_bool release_xxxcapture();
 // //      //virtual oswindow set_keyboard_focus( WINDOWING_X11_WINDOW_MEMBER );
@@ -394,8 +394,8 @@ namespace windowing_q5
 //       //::particle * get_interface_client_particle() override; // m_pwindow->m_puserinteraction
 //       //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx
 //       //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy
-//       //virtual ::int_size get_window_size() = 0; // m_sizeWindow
-//       // virtual void set_interface_client_size(const ::int_size & sizeWindow) override; // set_size
+//       //virtual ::i32_size get_window_size() = 0; // m_sizeWindow
+//       // virtual void set_interface_client_size(const ::i32_size & sizeWindow) override; // set_size
 //       //
 //       // virtual bool is_window_stored_iconic() override; // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
 //       // virtual void window_maximize() override; // m_pwindow->m_puserinteraction->display(::e_display_zoomed);
@@ -413,10 +413,10 @@ namespace windowing_q5
 //
 //          //virtual bool _unlocked_gtk_is_x11();
 //          //virtual bool _unlocked_gtk_is_wayland();
-//          virtual ::int_rectangle _unlocked_defer_get_window_rectangle();
-//          virtual void _unlocked_defer_set_window_position(const ::int_point & point);
-//          virtual void _unlocked_defer_set_window_position(const ::int_point & point, const ::int_size & size);
-//          virtual void _unlocked_defer_set_window_size(const ::int_size & size);
+//          virtual ::i32_rectangle _unlocked_defer_get_window_rectangle();
+//          virtual void _unlocked_defer_set_window_position(const ::i32_point & point);
+//          virtual void _unlocked_defer_set_window_position(const ::i32_point & point, const ::i32_size & size);
+//          virtual void _unlocked_defer_set_window_size(const ::i32_size & size);
 //          //virtual void _unlocked_defer_start_resize(enum_window_edge eedge, GtkGestureClick * pclick, double x, double y);
 //
 //

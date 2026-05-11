@@ -73,7 +73,7 @@ namespace acme_posix
 
    //    rStatus.m_attribute = 0;
 
-   //    // get just the low ::u32 of the file int_size
+   //    // get just the low ::u32 of the file i32_size
    //    //ASSERT(findFileData.nFileSizeHigh == 0);
    //    //rStatus.m_size = (int)findFileData.nFileSizeLow;
 
@@ -850,7 +850,7 @@ namespace acme_posix
             throw_file_errno_exception("fstat != 0");
 
          }
-         // get time ::e_seek_current file int_size
+         // get time ::e_seek_current file i32_size
          /*FILETIME ftCreate, ftAccess, ftModify;
          if (!::GetFileTime((HANDLE)m_iFile, &ftCreate, &ftAccess, &ftModify))
             return false;*/

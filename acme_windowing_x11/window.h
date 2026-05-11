@@ -68,8 +68,8 @@ namespace x11
             //bool                                       m_bNcActive;
 
             manual_reset_happening                       m_happeningEnd;
-            //int_rectangle                              m_rectangle;
-            //int_rectangle                              m_rectangleX;
+            //i32_rectangle                              m_rectangle;
+            //i32_rectangle                              m_rectangleX;
 
             //pointer_array < ::micro::child >      m_childa;
             //::atom                                     m_atomLeftButtonDown;
@@ -156,13 +156,13 @@ namespace x11
 
             //virtual LRESULT window_procedure(UINT message, WPARAM wparam, LPARAM lparam);
 
-            //void set_position_unlocked(const ::int_point & point) override;
+            //void set_position_unlocked(const ::i32_point & point) override;
 
             void redraw() override;
 
-            //void get_client_rectangle(::int_rectangle & rectangle) override;
+            //void get_client_rectangle(::i32_rectangle & rectangle) override;
 
-            ::int_rectangle get_window_rectangle() override;
+            ::i32_rectangle get_window_rectangle() override;
 
 
             virtual void set_foreground_window();

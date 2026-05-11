@@ -87,17 +87,17 @@ namespace windowing_x11
 
 
       void destroy() override;
-      ::int_size get_main_screen_size() override;
+      ::i32_size get_main_screen_size() override;
 
-      bool get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
+      bool get_monitor_rectangle(::collection::index iMonitor, ::i32_rectangle & rectangle) override;
 
-      bool get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
+      bool get_workspace_rectangle(::collection::index iWorkspace, ::i32_rectangle & rectangle) override;
 
       //virtual ::windowing::window * get_mouse_capture();
 
       virtual ::e_status release_mouse_capture();
 
-      ::int_point _get_mouse_cursor_position() override;
+      ::i32_point _get_mouse_cursor_position() override;
 
       // Atom intern_atom(const_char_pointer pszAtomName, bool bCreate);
       //
@@ -115,7 +115,7 @@ namespace windowing_x11
 
       virtual ::windowing_x11::window * _x11_get_active_window(::thread * pthread);
 
-      //virtual bool get_cursor_position(::int_point * ppointCursor);
+      //virtual bool get_cursor_position(::i32_point * ppointCursor);
 
       virtual comparable_array < Window > x11_window_list();
 
@@ -125,7 +125,7 @@ namespace windowing_x11
       virtual Pixmap x11_create_pixmap(::image::image_pointer pimage);
       virtual XImage * x11_create_image(::image::image_pointer pimage);
 
-      virtual bool point_is_window_origin(::int_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
+      virtual bool point_is_window_origin(::i32_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
 
       virtual Picture xrender_create_picture(::image::image_pointer pimage);
 

@@ -53,7 +53,7 @@ namespace gtk3
             void run() override;
 
 
-            ::int_size get_main_screen_size() override;
+            ::i32_size get_main_screen_size() override;
 
 
             virtual void _gtk3_release_mouse_capture();

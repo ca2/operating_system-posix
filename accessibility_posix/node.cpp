@@ -3242,7 +3242,7 @@ namespace acme_windows
       //if (!CreateProcessW(
       //   (WCHAR *)wstr1.c_str(), (WCHAR*)wstr2.c_str(), 
       //   NULL, NULL, TRUE, EXTENDED_STARTUPINFO_PRESENT | CREATE_NEW_CONSOLE, NULL, NULL,
-      //   &pcreateprocess->m_si.StartupInfo, &pcreateprocess->m_pi))
+      //   &pcreateprocess->m_si.StartupInfo, &pcreateprocess->m_processinformation))
       //{
 
       //   //::CloseHandle(hOutRd);
@@ -3368,7 +3368,7 @@ namespace acme_windows
 ////      //if (!CreateProcessW(
 ////      //   (WCHAR *)wstr1.c_str(), (WCHAR*)wstr2.c_str(), 
 ////      //   NULL, NULL, TRUE, EXTENDED_STARTUPINFO_PRESENT | CREATE_NEW_CONSOLE, NULL, NULL,
-////      //   &pcreateprocess->m_si.StartupInfo, &pcreateprocess->m_pi))
+////      //   &pcreateprocess->m_si.StartupInfo, &pcreateprocess->m_processinformation))
 ////      //{
 ////
 ////      //   //::CloseHandle(hOutRd);
@@ -3527,7 +3527,7 @@ namespace acme_windows
    //   while (::task_get_run())
    //   {
 
-   //      auto result = WaitForSingleObject(m_pi.hProcess, 100);
+   //      auto result = WaitForSingleObject(m_processinformation.hProcess, 100);
 
    //      if (result == WAIT_OBJECT_0)
    //      {
@@ -5534,7 +5534,7 @@ namespace acme_windows
    }
 
    
-   ::int_size node::get_main_monitor_size()
+   ::i32_size node::get_main_monitor_size()
    {
    
       auto wDisplay = ::GetSystemMetrics(SM_CXSCREEN);

@@ -53,7 +53,7 @@
 //list_base < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
 
 
-//::int_point g_pointX11Cursor;
+//::i32_point g_pointX11Cursor;
 
 
 //message_queue * aaa_get_message_queue(itask idthread, bool bCreate);
@@ -62,7 +62,7 @@
 void oswindow_set_active_window(::acme::windowing::window * pacmewindowingwindow);
 
 
-CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const int_point & pointCursor);
+CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const i32_point & pointCursor);
 
 //bool is_return_key(XIRawEvent * happening)
 //{
@@ -173,7 +173,7 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const in
 //Window g_windowX11Client = 0;
 //
 //
-//int_bool _x11_get_cursor_pos(Display * d, ::int_point * ppointCursor);
+//int_bool _x11_get_cursor_pos(Display * d, ::i32_point * ppointCursor);
 //
 //
 ////extern ::pointer< ::mutex >g_pmutexX11Runnable;
@@ -194,7 +194,7 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const in
 ////CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(::acme::windowing::window * pacmewindowingwindow);
 ////
 ////
-////int_bool x11_get_cursor_pos(::int_point * ppointCursor);
+////int_bool x11_get_cursor_pos(::i32_point * ppointCursor);
 //
 //
 //
@@ -554,7 +554,7 @@ namespace windowing_wayland
 //   }
 
 
-//   bool display::point_is_window_origin(::int_point pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
+//   bool display::point_is_window_origin(::i32_point pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
 //   {
 //
 //      bool bIsOrigin = false;
@@ -607,14 +607,14 @@ namespace windowing_wayland
 //
 //                  }
 //
-//                  ::int_rectangle rectangleTest;
+//                  ::i32_rectangle rectangleTest;
 //
 //                  for (::collection::index i = 0; i < windowa.get_size(); i++)
 //                  {
 //
 //                     string strItem = ::x11_get_name(Display(), windowa[i]);
 //
-//                     ::int_rectangle rectangleHigher;
+//                     ::i32_rectangle rectangleHigher;
 //
 //                     if (::is_set(pwindowx11Exclude) && windowa[i] == pwindowx11Exclude->Window())
 //                     {
@@ -626,9 +626,9 @@ namespace windowing_wayland
 //                     if (::x11_get_window_rect(Display(), windowa[i], rectangleHigher))
 //                     {
 //
-//                        ::int_rectangle rectangleHitTest;
+//                        ::i32_rectangle rectangleHitTest;
 //
-//                        rectangleHitTest.set(rectangleHigher.origin(), ::int_size());
+//                        rectangleHitTest.set(rectangleHigher.origin(), ::i32_size());
 //
 //                        rectangleHitTest.inflate(iMargin + 1);
 //
@@ -703,7 +703,7 @@ namespace windowing_wayland
 
 //    }
 
-//    ::int_rectangle rectangle;
+//    ::i32_rectangle rectangle;
 
 //    x11_get_window_rect(display, oswindow->window(), rectangle);
 
@@ -711,14 +711,14 @@ namespace windowing_wayland
 
 //    string strTopic = x11_get_name(display, oswindow->window());
 
-//    ::int_rectangle rectangleTest;
+//    ::i32_rectangle rectangleTest;
 
 //    for(iFind++; iFind < windowa.get_size(); iFind++)
 //    {
 
 //       string strItem = x11_get_name(display, windowa[iFind]);
 
-//       ::int_rectangle rectangleHigher;
+//       ::i32_rectangle rectangleHigher;
 
 //       if(x11_get_window_rect(display, windowa[iFind], rectangleHigher))
 //       {
@@ -814,12 +814,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 #define SIZEY  50
 
 
-//void message_box_paint(::draw2d::graphics_pointer & pgraphics, string_array_base & stra, bool_array  & baTab, ::int_array_base  & ya,::int_size * psize)
+//void message_box_paint(::draw2d::graphics_pointer & pgraphics, string_array_base & stra, bool_array  & baTab, ::i32_array_base  & ya,::i32_size * psize)
 //{
 //
 //   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//   pgraphics->fill_rectangle(::int_rectangle(*psize), rgb(84, 90, 80));
+//   pgraphics->fill_rectangle(::i32_rectangle(*psize), rgb(84, 90, 80));
 //
 //   ::draw2d::brush_pointer pen(e_create_new);
 //
@@ -1897,7 +1897,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////                           if (pinteraction->m_timeMouseMovePeriod > 0_s)
 ////                           {
 ////
-////                              ::int_size sizeDistance(
+////                              ::i32_size sizeDistance(
 ////                                 (pinteraction->m_pointMouseMoveSkip.x - pinteraction->m_pointMouseMove.x),
 ////                                 (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
 ////
@@ -2001,7 +2001,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //            //informationf("windowing_11 Expose");
 //
 ////#ifdef FREEBSD
-//            ::int_rectangle rectangleRedraw;
+//            ::i32_rectangle rectangleRedraw;
 //
 //            rectangleRedraw.left = e.xexpose.x;
 //            rectangleRedraw.top = e.xexpose.y;
@@ -2567,7 +2567,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                        //information() << "X11 ConfigureNotify Win, cx, cy : " << e.xconfigure.window << ", "
 //                          //            <<  ;
 //
-//                        ::int_point point(e.xconfigure.x, e.xconfigure.y);
+//                        ::i32_point point(e.xconfigure.x, e.xconfigure.y);
 //
 ////                     //if(point != msg.oswindow->m_point)
 ////                     {
@@ -2578,9 +2578,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////
 ////                     }
 //
-//                        ::int_size size(e.xconfigure.width, e.xconfigure.height);
+//                        ::i32_size size(e.xconfigure.width, e.xconfigure.height);
 //
-//                        ::int_rectangle rectangle(point, size);
+//                        ::i32_rectangle rectangle(point, size);
 //
 //                        //if(size != msg.oswindow->m_size)
 //                        {
@@ -2722,7 +2722,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
 ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
 ////
-////      ::int_rectangle r;
+////      ::i32_rectangle r;
 ////
 ////      window_rectangle(msg.oswindow, &r);
 ////
@@ -3337,7 +3337,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 } // namespace windowing_wayland
 
 
-//bool x11_get_client_rect(Display * pdisplay, Window window, ::int_rectangle * prectangle)
+//bool x11_get_client_rect(Display * pdisplay, Window window, ::i32_rectangle * prectangle)
 //{
 //
 //   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -3385,7 +3385,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //}
 //
 //
-//bool x11_get_window_rect(Display * d, Window window, ::int_rectangle * prectangle)
+//bool x11_get_window_rect(Display * d, Window window, ::i32_rectangle * prectangle)
 //{
 //
 //   XWindowAttributes attrs;

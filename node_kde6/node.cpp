@@ -253,7 +253,7 @@ namespace node_kde6
 
       //system()->m_htask = nullptr;
 
-      //system()->m_taskindex.m_i = 0;
+      //system()->m_taskindex.m_i32 = 0;
 
       //system()->branch();
 

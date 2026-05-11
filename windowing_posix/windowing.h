@@ -28,8 +28,8 @@ namespace windowing_posix
 
 
       //void _defer_position_and_size_message(::acme::windowing::window * pacmewindowingwindow);
-      virtual void _configure_message(::windowing::window * pwindow, const ::int_rectangle & rectangle);
-      //virtual void _size_message(::windowing::window * pwindow, const ::int_size & size);
+      virtual void _configure_message(::windowing::window * pwindow, const ::i32_rectangle & rectangle);
+      //virtual void _size_message(::windowing::window * pwindow, const ::i32_size & size);
 
 
 //      virtual void _on_wm_state_change(::windowing::window * pxwindow);

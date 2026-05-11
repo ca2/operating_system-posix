@@ -769,7 +769,7 @@ namespace wayland
             m_pxdgtoplevelMouseCapture = nullptr;
             //wayland_buffer m_waylandbufferMouseCapture;
             m_bMouseCaptured = false;
-            //::int_rectangle m_rectangleMouseCapture;
+            //::i32_rectangle m_rectangleMouseCapture;
             m_uLastButtonSerial = 0;
             m_uLastPointerSerial = 0;
             m_uLastSeatSerial = 0;
@@ -1253,7 +1253,7 @@ namespace wayland
          }
 
 
-         void display_base::update_wayland_buffer(buffer & waylandbuffer, const ::int_size & size)
+         void display_base::update_wayland_buffer(buffer & waylandbuffer, const ::i32_size & size)
          {
 
             //wayland_buffer waylandbuffer{};
@@ -1490,7 +1490,7 @@ namespace wayland
          void display_base::__handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, ::u32 millis)
          {
 
-            ::int_point pointCursor((int) x, (int) y);
+            ::i32_point pointCursor((int) x, (int) y);
 
             if (m_pwindowPointerCapture)
             {

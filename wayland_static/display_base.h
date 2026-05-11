@@ -55,7 +55,7 @@ namespace wayland
                 ::xdg_toplevel * m_pxdgtoplevelMouseCapture;
                 buffer m_bufferMouseCapture;
                 bool m_bMouseCaptured ;
-                ::int_rectangle m_rectangleMouseCapture;
+                ::i32_rectangle m_rectangleMouseCapture;
                 ::u32 m_uLastButtonSerial;
                 ::u32 m_uLastPointerSerial;
                 ::u32 m_uLastSeatSerial;
@@ -129,7 +129,7 @@ namespace wayland
                 //      void erase_window(nano_window_base * pwindow);
 
                 void destroy_wayland_buffer(buffer & waylandbuffer);
-                void update_wayland_buffer(buffer & waylandbuffer, const ::int_size & size);
+                void update_wayland_buffer(buffer & waylandbuffer, const ::i32_size & size);
                 void update_wayland_buffer(buffer & waylandbuffer, ::pixmap * ppixmap);
 
 

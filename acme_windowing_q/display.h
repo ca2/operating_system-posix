@@ -57,7 +57,7 @@ namespace q
             void run() override;
 
 
-            ::int_size get_main_screen_size() override;
+            ::i32_size get_main_screen_size() override;
 
 
             bool is_dark_mode_through_theming() override;

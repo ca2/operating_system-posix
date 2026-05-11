@@ -99,9 +99,9 @@ namespace windowing_xcb
 
       virtual bool is_null() const;
 
-      bool get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
+      bool get_monitor_rectangle(::collection::index iMonitor, ::i32_rectangle & rectangle) override;
 
-      bool get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
+      bool get_workspace_rectangle(::collection::index iWorkspace, ::i32_rectangle & rectangle) override;
 
       //virtual ::e_status release_mouse_capture();
 
@@ -111,14 +111,14 @@ namespace windowing_xcb
 
       virtual ::windowing_xcb::window * _get_active_window(::thread * pthread);
 
-      //virtual bool get_cursor_position(::int_point * ppointCursor);
+      //virtual bool get_cursor_position(::i32_point * ppointCursor);
 
-      ::int_point _get_mouse_cursor_position() override;
-
-
+      ::i32_point _get_mouse_cursor_position() override;
 
 
-      virtual bool point_is_window_origin(::int_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
+
+
+      virtual bool point_is_window_origin(::i32_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
 
 
       virtual ::e_status _request_check(xcb_void_cookie_t cookie);
@@ -144,9 +144,9 @@ namespace windowing_xcb
       virtual string _window_get_name(xcb_window_t window);
       virtual status < xcb_get_window_attributes_reply_t > _window_get_window_attributes(xcb_window_t window);
       virtual status < xcb_get_geometry_reply_t > _window_get_geometry(xcb_window_t window);
-      virtual ::int_rectangle _window_get_frame_extents(xcb_window_t window);
-      virtual ::e_status _window_get_window_rectangle(xcb_window_t window, ::int_rectangle * prectangle);
-      virtual ::e_status _window_get_client_rectangle(xcb_window_t window, ::int_rectangle * prectangle);
+      virtual ::i32_rectangle _window_get_frame_extents(xcb_window_t window);
+      virtual ::e_status _window_get_window_rectangle(xcb_window_t window, ::i32_rectangle * prectangle);
+      virtual ::e_status _window_get_client_rectangle(xcb_window_t window, ::i32_rectangle * prectangle);
 
 
       //virtual xcb_font_t _create_font_cursor(uint16_t glyph);

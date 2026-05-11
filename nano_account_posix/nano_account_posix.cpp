@@ -49,7 +49,7 @@ namespace posix
 
             auto puser = create_newø<::nano::account::user>();
 
-            auto ppasswd = getpwuid(pid->m_i);
+            auto ppasswd = getpwuid(pid->m_i32);
 
             puser->m_strName = ppasswd->pw_name;
 
@@ -87,7 +87,7 @@ namespace posix
 
             auto pid =create_newø<::nano::account::id>();
 
-            pid->m_i = i;
+            pid->m_i32 = i;
 
             return pid;
 

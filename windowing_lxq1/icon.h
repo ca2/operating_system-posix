@@ -18,7 +18,7 @@ namespace windowing_lxq1
    public:
 
 
-      //array < concrete < ::int_size > >         m_sizea;
+      //array < concrete < ::i32_size > >         m_sizea;
 
       //int_size_array                               m_sizea;
 
@@ -36,7 +36,7 @@ namespace windowing_lxq1
       // void get_sizes(::int_size_array & a) override;
       //
       //
-      // void * get_os_data(const ::int_size & size) const override;
+      // void * get_os_data(const ::i32_size & size) const override;
       //
       //
       // virtual void load_matter(const ::scoped_string & scopedstrPath) override;
@@ -44,7 +44,7 @@ namespace windowing_lxq1
       // virtual void load_file(const ::scoped_string & scopedstrPath) override;
       //
       //
-      // virtual ::image::image_pointer get_image(const ::int_size & size) override;
+      // virtual ::image::image_pointer get_image(const ::i32_size & size) override;
 
       
    };

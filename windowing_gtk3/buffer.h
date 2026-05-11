@@ -32,7 +32,7 @@ namespace windowing_gtk3
       bool                 m_bXShmChecked;
       bool                 m_bXShm;
       //XShmSegmentInfo      m_xshmsegmentinfo;
-      ::int_size           m_sizeLastBitBlitting;
+      ::i32_size           m_sizeLastBitBlitting;
       bool                 m_bUseXShmIfAvailable;
       bool                 m_bXShmPutImagePending;
       //::pointer < ::mutex >                         m_pmutexPixmap;
@@ -41,7 +41,7 @@ namespace windowing_gtk3
       //memory                        m_mem;
       //XImage *                      m_pimage;
       //bool                          m_bMapped;
-      ::int_rectangle      m_rectangleLast;
+      ::i32_rectangle      m_rectangleLast;
       //::wl_callback*m_pwlcallbackFrame;
       //::image::image_pointer                         m_pimage;
       //interlocked_long_long                              m_interlockedPostedScreenUpdate;
@@ -63,11 +63,11 @@ namespace windowing_gtk3
 
       bool update_buffer(::graphics::buffer_item * pbufferitem) override;
 
-      virtual bool create_os_buffer(const ::int_size & size, int iStride = -1);
+      virtual bool create_os_buffer(const ::i32_size & size, int iStride = -1);
       virtual void destroy_os_buffer();
 
 
-      virtual void _map_shared_memory(const ::int_size & size);
+      virtual void _map_shared_memory(const ::i32_size & size);
 
 
 //      virtual bool create_os_buffer(::image::image *pimage);

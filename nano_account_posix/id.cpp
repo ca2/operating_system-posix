@@ -20,7 +20,7 @@ namespace posix
          id::id()
          {
 
-            m_i = -;
+            m_i32 = -;
             1
 
          }
@@ -45,7 +45,7 @@ namespace posix
 
             }
 
-            return m_i == pid->m_i;
+            return m_i32 == pid->m_i32;
 
          }
 
@@ -62,7 +62,7 @@ namespace posix
 
             }
 
-            return m_i < pid->m_i;
+            return m_i32 < pid->m_i32;
 
          }
 
@@ -70,7 +70,7 @@ namespace posix
          ::string id::as_string()
          {
 
-            return ::as_string(m_i);
+            return ::as_string(m_i32);
 
          }
 

@@ -218,7 +218,7 @@ namespace windowing_q
 
       ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
 
-      ::int_point p(x, y);
+      ::i32_point p(x, y);
 
       if (m_pointWindow != p)
       {
@@ -250,7 +250,7 @@ namespace windowing_q
 
       ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
 
-      ::int_size s(cx, cy);
+      ::i32_size s(cx, cy);
 
       if (m_sizeWindow != s)
       {
@@ -2047,7 +2047,7 @@ namespace windowing_q
       //      for (int i = 0; i < c; i++)
       //      {
       //
-      //         pcr[i + 2] = image1->image32()[i].m_ui;
+      //         pcr[i + 2] = image1->image32()[i].m_u32;
       //
       //      }
       //
@@ -2282,7 +2282,7 @@ namespace windowing_q
    // }
 
 
-   //   ::int_point window::get_mouse_cursor_host_position()
+   //   ::i32_point window::get_mouse_cursor_host_position()
    //   {
    //
    //      return m_pointCursor;
@@ -2290,7 +2290,7 @@ namespace windowing_q
    //   }
    //
    //
-   //   ::int_point window::get_mouse_cursor_absolute_position()
+   //   ::i32_point window::get_mouse_cursor_absolute_position()
    //   {
    //
    //      return m_pointCursorHost;
@@ -2706,9 +2706,9 @@ namespace windowing_q
    //   }
 
 
-   void window::full_screen(const ::int_rectangle& rectangle)
+   void window::full_screen(const ::i32_rectangle& rectangle)
    {
-      ::int_rectangle rBest;
+      ::i32_rectangle rBest;
 
       auto pqdisplay = q_display();
 
@@ -2749,7 +2749,7 @@ namespace windowing_q
       //
       //      }
       //
-      //      ::int_rectangle rWindow;
+      //      ::i32_rectangle rWindow;
       //
       //      rWindow.left = attr.x;
       //      rWindow.top = attr.y;
@@ -2915,13 +2915,13 @@ namespace windowing_q
    //   }
 
 
-   bool window::client_to_screen(::int_point* ppoint)
+   bool window::client_to_screen(::i32_point* ppoint)
    {
       return true;
    }
 
 
-   bool window::screen_to_client(::int_point* ppoint)
+   bool window::screen_to_client(::i32_point* ppoint)
    {
       return true;
    }
@@ -3130,10 +3130,10 @@ namespace windowing_q
    }
 
 
-   //   void oswindow_data::wm_full_screen(const ::int_rectangle & rectangle)
+   //   void oswindow_data::wm_full_screen(const ::i32_rectangle & rectangle)
    //   {
    //
-   //      ::int_rectangle rBest;
+   //      ::i32_rectangle rBest;
    //
    //      int iMonitor = best_xinerama_monitor(puserinteraction, rectangle, rBest);
    //
@@ -3163,7 +3163,7 @@ namespace windowing_q
    //
    //      }
    //
-   //      ::int_rectangle rWindow;
+   //      ::i32_rectangle rWindow;
    //
    //      rWindow.left      = attr.x;
    //      rWindow.top       = attr.y;
@@ -3635,7 +3635,7 @@ namespace windowing_q
    //   }
    //
    //
-   //   bool window::x11_get_window_rect(::int_rectangle * prectangle)
+   //   bool window::x11_get_window_rect(::i32_rectangle * prectangle)
    //   {
    //
    //      return ::x11_get_window_rect(Display(), Window(), prectangle);
@@ -3643,7 +3643,7 @@ namespace windowing_q
    //   }
 
 
-   ::e_status window::window_rectangle(::int_rectangle* prectangle)
+   ::e_status window::window_rectangle(::i32_rectangle* prectangle)
    {
       //return x11_get_window_rect(prectangle) ? ::success : ::error_failed;
 
@@ -3651,7 +3651,7 @@ namespace windowing_q
    }
 
 
-   //   bool window::x11_get_client_rect(::int_rectangle * prectangle)
+   //   bool window::x11_get_client_rect(::i32_rectangle * prectangle)
    //   {
    //
    //      //return ::x11_get_client_rect(Display(), Window(), prectangle);
@@ -3661,7 +3661,7 @@ namespace windowing_q
    //   }
 
 
-   ::e_status window::rectangle(::int_rectangle* prectangle)
+   ::e_status window::rectangle(::i32_rectangle* prectangle)
    {
       //return x11_get_client_rect(prectangle) ? ::success : error_failed;
       return ::success;
@@ -3705,7 +3705,7 @@ namespace windowing_q
    ////
    ////      }
    ////
-   ////      ::int_rectangle rectangle;
+   ////      ::i32_rectangle rectangle;
    ////
    ////      x11_get_window_rect(&rectangle);
    ////
@@ -3713,14 +3713,14 @@ namespace windowing_q
    ////
    //////string strTopic = x11_get_name(x11_display(), Window());
    ////
-   ////      ::int_rectangle rectangleTest;
+   ////      ::i32_rectangle rectangleTest;
    ////
    ////      for (iFind++; iFind < windowa.get_size(); iFind++)
    ////      {
    ////
    //////string strItem = x11_get_name(x11_display(), windowa[iFind]);
    ////
-   ////         ::int_rectangle rectangleHigher;
+   ////         ::i32_rectangle rectangleHigher;
    ////
    ////         if (::x11_get_window_rect(Display(), windowa[iFind], &rectangleHigher))
    ////         {
@@ -4408,7 +4408,7 @@ namespace windowing_q
    //   }
 
    //// should be called in user_thread
-   //   int_bool window::x11_get_window_rect(::int_rectangle *prectangle)
+   //   int_bool window::x11_get_window_rect(::i32_rectangle *prectangle)
    //   {
    //
    //      XWindowAttributes attrs;
@@ -4449,7 +4449,7 @@ namespace windowing_q
    //
    //   }
 
-   //   int_bool window::this->rectangle(::int_rectangle *prectangle)
+   //   int_bool window::this->rectangle(::i32_rectangle *prectangle)
    //   {
    //
    //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -4935,7 +4935,7 @@ namespace windowing_q
    //       if (pressed == WL_POINTER_BUTTON_STATE_PRESSED)
    //       {
    //
-   //          ::int_point m_pointWindowDragStart;
+   //          ::i32_point m_pointWindowDragStart;
    //
    //          if (linux_button == BTN_LEFT)
    //          {
@@ -5031,7 +5031,7 @@ namespace windowing_q
    // //      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
    // //      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
    // //
-   // //      ::int_rectangle r;
+   // //      ::i32_rectangle r;
    // //
    // //      window_rectangle(msg.oswindow, &r);
    // //
@@ -5204,7 +5204,7 @@ namespace windowing_q
    //
    // //      ::string strType = ::type(puserinteraction).name();
    // //
-   // //      ::int_size size(width, height);
+   // //      ::i32_size size(width, height);
    // //
    // //      information()
    // //
@@ -5909,8 +5909,8 @@ namespace windowing_q
    // }
    //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx
    //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy
-   //virtual ::int_size get_window_size() = 0; // m_sizeWindow
-   // void window::set_interface_client_size(const ::int_size & sizeWindow) // set_size
+   //virtual ::i32_size get_window_size() = 0; // m_sizeWindow
+   // void window::set_interface_client_size(const ::i32_size & sizeWindow) // set_size
    // {
    //
    //    puserinteraction->set_size(sizeWindow);
@@ -6082,7 +6082,7 @@ main_post([this]()
    // }
    //
 
-   ::int_rectangle window::_unlocked_defer_get_window_rectangle()
+   ::i32_rectangle window::_unlocked_defer_get_window_rectangle()
    {
 
       // Window   xw = GDK_SURFACE_XID (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
@@ -6099,7 +6099,7 @@ main_post([this]()
       //
       //       XGetWindowAttributes(xd, xw, &attrs);
       //
-      //       ::int_rectangle r;
+      //       ::i32_rectangle r;
       //
       //       r.left  = attrs.x;
       //       r.top  = attrs.y;
@@ -6115,7 +6115,7 @@ main_post([this]()
    }
 
 
-   void window::_unlocked_defer_set_window_position(const ::int_point& point)
+   void window::_unlocked_defer_set_window_position(const ::i32_point& point)
    {
 
       // Window   xw = GDK_SURFACE_XID (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
@@ -6137,7 +6137,7 @@ main_post([this]()
    }
 
 
-   void window::_unlocked_defer_set_window_position(const ::int_point& point, const ::int_size& size)
+   void window::_unlocked_defer_set_window_position(const ::i32_point& point, const ::i32_size& size)
    {
 
       // Window   xw = GDK_SURFACE_XID (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
@@ -6159,7 +6159,7 @@ main_post([this]()
    }
 
 
-   void window::_unlocked_defer_set_window_size(const ::int_size& size)
+   void window::_unlocked_defer_set_window_size(const ::i32_size& size)
    {
 
       // Window   xw = GDK_SURFACE_XID (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));

@@ -85,7 +85,7 @@ namespace wayland
             ::unistd::file    m_unistdfile;
             memsize           m_memsize2;
             memsize           m_memsizeStorage;
-            ::int_size        m_size;
+            ::i32_size        m_size;
             int             m_stride;
 
 

@@ -34,7 +34,7 @@ namespace windowing_wayland
    public:
 
 
-      //::int_point                                  m_pointPointer;
+      //::i32_point                                  m_pointPointer;
       //XWindowAttributes                            m_attr;
       //XVisualInfo                                  m_visualinfo;
       void *                                       m_pgdkwindow;
@@ -57,10 +57,10 @@ namespace windowing_wayland
       //Colormap                                   m_colormap;
       class ::time                                 m_timeLastMouseMove;
       //Window                                     m_parent;
-      //::int_rectangle                              m_rect;
+      //::i32_rectangle                              m_rect;
       //string                                       m_strWMClass;
       //int                                          m_iaNetWmState2[::x11::e_atom_net_wm_state_last-::x11::e_atom_net_wm_state_first+1];
-      //::int_point                                m_pointCursor;
+      //::i32_point                                m_pointCursor;
       //XSyncCounter                                 m_xsynccounterNetWmSync;
       //XSyncValue                                   m_xsyncvalueNetWmSync;
       //XSyncValue                                   m_xsyncvalueNetWmSyncPending;
@@ -78,7 +78,7 @@ namespace windowing_wayland
       ::int_rectangle_array                        m_rectangleaRedraw;
       ::pointer<::xim::keyboard>                   m_pximkeyboard;
       //::u64                                        m_uLastNetWmSyncRequest;
-      ::int_rectangle                              m_rectangleXShm;
+      ::i32_rectangle                              m_rectangleXShm;
       //bool                                         m_bFirstConfigure;
       //bool                                         m_bXShmPutImagePending;
 
@@ -147,7 +147,7 @@ namespace windowing_wayland
 
       void exit_iconify() override;
 
-      void full_screen(const ::int_rectangle & rect = {}) override;
+      void full_screen(const ::i32_rectangle & rect = {}) override;
 
       void exit_full_screen() override;
 
@@ -165,8 +165,8 @@ namespace windowing_wayland
       ::oswindow get_parent_oswindow() const override;
 
 
-//      ::int_point get_mouse_cursor_host_position() override;
-//      ::int_point get_mouse_cursor_absolute_position() override;
+//      ::i32_point get_mouse_cursor_host_position() override;
+//      ::i32_point get_mouse_cursor_absolute_position() override;
 
 
       //virtual ::Window get_parent_handle() const;
@@ -183,9 +183,9 @@ namespace windowing_wayland
       //void _show_window_unlocked(const ::e_display & edisplay, const ::user::e_activation & useractivation) override;
       //virtual iptr get_window_long_ptr(int nIndex);
       //virtual iptr set_window_long_ptr(int nIndex, iptr l);
-      virtual bool client_to_screen(::int_point * ppoint) override;
+      virtual bool client_to_screen(::i32_point * ppoint) override;
 
-      bool screen_to_client(::int_point * ppoint) override;
+      bool screen_to_client(::i32_point * ppoint) override;
 
 
       //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,::u32 nFlags);
@@ -236,8 +236,8 @@ namespace windowing_wayland
 //      //virtual Atom get_window_long_atom(int nIndex);
 //      virtual void _mapped_net_state_unlocked(bool add,  WINDOWING_X11_WINDOW_MEMBER int iScreen, Atom state1, Atom state2);
 //      //virtual void unmapped_net_state_raw( WINDOWING_X11_WINDOW_MEMBER ...);
-//      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
-//      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
+//      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
+//      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
 //      //virtual oswindow set_xxxcapture( WINDOWING_X11_WINDOW_MEMBER );
 //      //virtual int_bool release_xxxcapture();
 //      //virtual oswindow set_keyboard_focus( WINDOWING_X11_WINDOW_MEMBER );
@@ -272,9 +272,9 @@ namespace windowing_wayland
       bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize);
 
 
-      virtual ::e_status window_rectangle( ::int_rectangle * prectangle);
-      virtual ::e_status rectangle(::int_rectangle * prectangle);
-      //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::int_rectangle & rectangle);
+      virtual ::e_status window_rectangle( ::i32_rectangle * prectangle);
+      virtual ::e_status rectangle(::i32_rectangle * prectangle);
+      //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::i32_rectangle & rectangle);
 
       //virtual ::e_status x11_store_name(const_char_pointer pszName);
       //virtual ::e_status set_foreground_window();
@@ -287,7 +287,7 @@ namespace windowing_wayland
       void __update_graphics_buffer() override;
       //void _window_request_presentation_locked() override;
 
-      //void _on_configure_notify_unlocked(const ::int_rectangle & rectangle) override;
+      //void _on_configure_notify_unlocked(const ::i32_rectangle & rectangle) override;
 
 
       bool is_active_window() const override;
@@ -343,8 +343,8 @@ namespace windowing_wayland
       ::particle * get_interface_client_particle() override; // m_pwindow->m_puserinteraction
       //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx
       //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy
-      //virtual ::int_size get_window_size() = 0; // m_sizeWindow
-      virtual void set_interface_client_size(const ::int_size & sizeWindow) override; // set_size
+      //virtual ::i32_size get_window_size() = 0; // m_sizeWindow
+      virtual void set_interface_client_size(const ::i32_size & sizeWindow) override; // set_size
 
       virtual bool is_window_stored_iconic() override; // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
       virtual void window_maximize() override; // m_pwindow->m_puserinteraction->display(::e_display_zoomed);

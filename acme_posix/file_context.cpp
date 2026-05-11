@@ -67,7 +67,7 @@ namespace acme_posix
 
          payloadLength = (iptr)stat.st_size;
 
-         ((::file::path &)path).m_iSize = payloadLength.m_ll;
+         ((::file::path &)path).m_iSize = payloadLength.m_i64;
 
       }
 

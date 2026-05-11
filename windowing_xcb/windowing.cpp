@@ -1026,7 +1026,7 @@ namespace windowing_xcb
 //                        if (throttling.m_timeMouseMovePeriod > 0_s)
 //                        {
 //
-//                           ::int_size sizeDistance(
+//                           ::i32_size sizeDistance(
 //                              (throttling.m_pointMouseMoveSkip.x - throttling.m_pointMouseMove.x),
 //                              (throttling.m_pointMouseMoveSkip.y - throttling.m_pointMouseMove.y));
 //
@@ -1155,7 +1155,7 @@ namespace windowing_xcb
 
                status<xcb_get_geometry_reply_t> geometryFound;
 
-               ::int_rectangle rectangleFoundFrameExtents;
+               ::i32_rectangle rectangleFoundFrameExtents;
 
                for (int i = list_base.get_upper_bound(); i >= 0; i--)
                {
@@ -1774,9 +1774,9 @@ namespace windowing_xcb
 
             auto pconfigure = (xcb_configure_notify_happening_t *) pgenericevent;
 
-            ::int_point point(pconfigure->x, pconfigure->y);
+            ::i32_point point(pconfigure->x, pconfigure->y);
 
-            ::int_size size(pconfigure->width, pconfigure->height);
+            ::i32_size size(pconfigure->width, pconfigure->height);
 
             if (pconfigure->window == m_pdisplay->m_pxcbdisplay->m_windowRoot)
             {
@@ -1902,7 +1902,7 @@ namespace windowing_xcb
 if(bSentResponse)
 {
 
-   ::int_rectangle rectangleWindow;
+   ::i32_rectangle rectangleWindow;
 
    rectangleWindow.left = pconfigure->x;
    rectangleWindow.top = pconfigure->y;
@@ -1915,7 +1915,7 @@ if(bSentResponse)
                  << pconfigure->x << ", " << pconfigure->y
                  << ", wh : " << pconfigure->width << ", " << pconfigure->height;
 
-   ::int_point point(pconfigure->x, pconfigure->y);
+   ::i32_point point(pconfigure->x, pconfigure->y);
 
 //               if (point != oswindow->m_pointWindow)
 //               {
@@ -1926,9 +1926,9 @@ if(bSentResponse)
 //
 //               }
 
-   ::int_size size(pconfigure->width, pconfigure->height);
+   ::i32_size size(pconfigure->width, pconfigure->height);
 
-   ::int_rectangle rectangle(point, size);
+   ::i32_rectangle rectangle(point, size);
 
 //               if (size != oswindow->m_size)
 //               {
@@ -2614,9 +2614,9 @@ if(bSentResponse)
 //
 //      auto geometry = m_pdisplay->_window_get_geometry(window);
 //
-//      auto pointWindow = ::int_point(geometry.x, geometry.y);
+//      auto pointWindow = ::i32_point(geometry.x, geometry.y);
 //
-//      auto sizeWindow = ::int_size(geometry.width, geometry.height);
+//      auto sizeWindow = ::i32_size(geometry.width, geometry.height);
 //
 //      ::acme::windowing::window * pacmewindowingwindow = m_pdisplay->_window(window);
 //

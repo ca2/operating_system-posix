@@ -363,7 +363,7 @@ namespace innate_ui_gtk3
    }
 
 
-   void window::set_position(const ::int_point & pointParam)
+   void window::set_position(const ::i32_point & pointParam)
    {
 
       auto point = pointParam;
@@ -411,7 +411,7 @@ namespace innate_ui_gtk3
 
    }
 
-   void window::set_size(const ::int_size & sizeParam)
+   void window::set_size(const ::i32_size & sizeParam)
    {
 
       auto size = sizeParam;
@@ -433,7 +433,7 @@ namespace innate_ui_gtk3
    }
 
 
-   void window::adjust_for_client_size(const ::int_size & sizeParam)
+   void window::adjust_for_client_size(const ::i32_size & sizeParam)
    {
 
       auto size = sizeParam;

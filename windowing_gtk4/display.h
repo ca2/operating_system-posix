@@ -50,7 +50,7 @@ namespace windowing_gtk4
 
       bool has_readily_gettable_absolute_pointer_position() const override;
 
-      ::int_size get_main_screen_size() override;
+      ::i32_size get_main_screen_size() override;
 
       virtual void lock_display();
 
@@ -60,13 +60,13 @@ namespace windowing_gtk4
 
       virtual bool is_null() const;
 
-      bool get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
+      bool get_monitor_rectangle(::collection::index iMonitor, ::i32_rectangle & rectangle) override;
 
-      bool get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
+      bool get_workspace_rectangle(::collection::index iWorkspace, ::i32_rectangle & rectangle) override;
 
       //void release_mouse_capture() override;
 
-      virtual bool get_cursor_position(::int_point * ppointCursor);
+      virtual bool get_cursor_position(::i32_point * ppointCursor);
 
       void _on_wallpaper_change() override;
 

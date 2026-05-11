@@ -115,7 +115,7 @@ namespace windowing_xcb
    }
 
 
-   bool buffer::create_os_buffer(const ::int_size & size, int iStrideParam)
+   bool buffer::create_os_buffer(const ::i32_size & size, int iStrideParam)
    {
 
 //      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -203,7 +203,7 @@ namespace windowing_xcb
    }
 
 
-   void buffer::_map_shared_memory(const ::int_size & size)
+   void buffer::_map_shared_memory(const ::i32_size & size)
    {
 
       if (!m_bUseXShmIfAvailable)

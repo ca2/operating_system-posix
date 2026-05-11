@@ -2122,7 +2122,7 @@ namespace gtk4
    }
 
 
-   ::int_size window::get_window_size() // m_sizeWindow
+   ::i32_size window::get_window_size() // m_sizeWindow
    {
 
       return m_sizeWindow;
@@ -2165,12 +2165,12 @@ namespace gtk4
    }
 
 
-   void window::set_interface_client_size(const ::int_size& sizeWindow) // set_size
+   void window::set_interface_client_size(const ::i32_size& sizeWindow) // set_size
    {
 
       m_sizeWindow = sizeWindow;
 
-      int_rectangle rClient;
+      i32_rectangle rClient;
 
       rClient = m_pacmeuserinteraction->get_client_rectangle();
 
@@ -2432,7 +2432,7 @@ namespace gtk4
    }
 
 
-   ::int_rectangle window::get_window_rectangle_unlocked()
+   ::i32_rectangle window::get_window_rectangle_unlocked()
    {
 
       return {};
@@ -2440,7 +2440,7 @@ namespace gtk4
    }
 
 
-   void window::set_position_unlocked(const ::int_point& point)
+   void window::set_position_unlocked(const ::i32_point& point)
    {
 
    }

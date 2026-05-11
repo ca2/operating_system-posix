@@ -96,7 +96,7 @@ window_map                                               m_windowmap;
             //void aaa_display_send(const ::procedure & procedure);
             //bool aaa_display_posted_routine_step();
 
-            ::int_size get_main_screen_size() override;
+            ::i32_size get_main_screen_size() override;
 
 
             //void release_mouse_capture() override;

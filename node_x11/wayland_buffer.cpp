@@ -57,7 +57,7 @@ namespace windowing_wayland
    }
 
 
-   void wayland_buffer::_map_shared_memory(const ::int_size & size)
+   void wayland_buffer::_map_shared_memory(const ::i32_size & size)
    {
 
       if(!m_bUseXShmIfAvailable)
@@ -203,7 +203,7 @@ namespace windowing_wayland
    }
 
 
-   bool wayland_buffer::create_os_buffer(const ::int_size & size, int iStrideParam)
+   bool wayland_buffer::create_os_buffer(const ::i32_size & size, int iStrideParam)
    {
 
 //      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -1091,7 +1091,7 @@ namespace windowing_wayland
 //
 //      }
 //
-//      ::int_size sizeDesign = m_pimpl->m_puserinteraction->const_layout().design().size();
+//      ::i32_size sizeDesign = m_pimpl->m_puserinteraction->const_layout().design().size();
 //
 //      if (sizeDesign != sizeBitBlitting)
 //      {

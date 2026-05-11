@@ -342,8 +342,8 @@ namespace acme_windows
       if (m_hErrWr) ::CloseHandle(m_hErrWr);
       if (m_hInRd) ::CloseHandle(m_hInRd);
       if (m_hInWr) ::CloseHandle(m_hInWr);
-      if (m_pi.hProcess)::CloseHandle(m_pi.hProcess);
-      if (m_pi.hThread)::CloseHandle(m_pi.hThread);
+      if (m_processinformation.hProcess)::CloseHandle(m_processinformation.hProcess);
+      if (m_processinformation.hThread)::CloseHandle(m_processinformation.hThread);
       if (m_hpcon) ::ClosePseudoConsole(m_hpcon);
       //::CloseHandle(hInWr);
 
@@ -720,7 +720,7 @@ namespace acme_windows
 
 
 
-      ZeroMemory(&m_pi, sizeof(m_pi));
+      ZeroMemory(&m_processinformation, sizeof(m_processinformation));
 
    }
 
@@ -841,7 +841,7 @@ namespace acme_windows
          NULL,
          pszWorkingDirectory,
          &m_si.StartupInfo,
-         &m_pi))
+         &m_processinformation))
       {
 
          auto lasterror = ::windows::get_last_error();
@@ -1084,7 +1084,7 @@ namespace acme_windows
 
       // Handles for WaitForMultipleObjects
       HANDLE hConsole = GetStdHandle(STD_INPUT_HANDLE);
-      HANDLE handlesConsole[2] = { hConsole, m_pi.hProcess };
+      HANDLE handlesConsole[2] = { hConsole, m_processinformation.hProcess };
 
       string_array straOutput;
 
@@ -1093,7 +1093,7 @@ namespace acme_windows
       while (!bFinished)
       {
 
-         if (::GetExitCodeProcess(m_pi.hProcess, &m_dwExitCode2))
+         if (::GetExitCodeProcess(m_processinformation.hProcess, &m_dwExitCode2))
          {
 
             if (m_dwExitCode2 != STILL_ACTIVE)

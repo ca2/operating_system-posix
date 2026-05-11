@@ -61,7 +61,7 @@ namespace g
 
             void _enumerate_monitors() override;
 
-            //void _on_monitor(int iIndex, const ::int_rectangle & rectangle, const ::int_rectangle & rectangleWorkspace) override;
+            //void _on_monitor(int iIndex, const ::i32_rectangle & rectangle, const ::i32_rectangle & rectangleWorkspace) override;
 
 
             ::string _get_wallpaper(::collection::index iMonitorIndex) override;

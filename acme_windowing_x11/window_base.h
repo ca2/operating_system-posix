@@ -33,13 +33,13 @@ namespace x11
             ~window_base() override;
 
 
-            void set_rectangle_unlocked(const ::int_rectangle & rectangle) override;
-            void set_position_unlocked(const ::int_point & point) override;
-            void set_size_unlocked(const ::int_size & size) override;
+            void set_rectangle_unlocked(const ::i32_rectangle & rectangle) override;
+            void set_position_unlocked(const ::i32_point & point) override;
+            void set_size_unlocked(const ::i32_size & size) override;
 
-            ::int_rectangle get_window_rectangle_unlocked() override;
+            ::i32_rectangle get_window_rectangle_unlocked() override;
 
-            virtual void _defer_translate_to_absolute_coordinates_unlocked(::int_point & point);
+            virtual void _defer_translate_to_absolute_coordinates_unlocked(::i32_point & point);
 
 
          };

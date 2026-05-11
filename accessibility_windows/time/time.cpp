@@ -110,7 +110,7 @@
 //   }
 //
 //   /* Set timer properties */
-//   li.QuadPart = -(nanosecond.m_i / 100LL );
+//   li.QuadPart = -(nanosecond.m_i32 / 100LL );
 //
 //   if (!SetWaitableTimer(timer, &li, 0, nullptr, nullptr, false))
 //   {

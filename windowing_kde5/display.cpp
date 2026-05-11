@@ -448,7 +448,7 @@ namespace windowing_kde5
    // }
    //
    //
-   // bool display::get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
+   // bool display::get_monitor_rectangle(::collection::index iMonitor, ::i32_rectangle & rectangle)
    // {
    //
    //    return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
@@ -456,7 +456,7 @@ namespace windowing_kde5
    // }
    //
    //
-   // bool display::get_workspace_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle)
+   // bool display::get_workspace_rectangle(::collection::index iMonitor, ::i32_rectangle & rectangle)
    // {
    //
    //    return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
@@ -771,7 +771,7 @@ namespace windowing_kde5
 // //   }
 // //
 //
-//    bool display::get_cursor_position(::int_point * ppointCursor)
+//    bool display::get_cursor_position(::i32_point * ppointCursor)
 //    {
 //
 // //      Window root_return;
@@ -960,7 +960,7 @@ namespace windowing_kde5
 // //   }
 //
 //
-// //   bool display::point_is_window_origin(::int_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
+// //   bool display::point_is_window_origin(::i32_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin)
 // //   {
 // //
 // //      bool bIsOrigin = false;
@@ -1006,14 +1006,14 @@ namespace windowing_kde5
 // //
 // //                          auto windowa = x11_window_list();
 // //
-// //                          ::int_rectangle rectangleTest;
+// //                          ::i32_rectangle rectangleTest;
 // //
 // //                          for (::collection::index i = 0; i < windowa.get_size(); i++)
 // //                          {
 // //
 // //                             string strItem = ::x11_get_name(Display(), windowa[i]);
 // //
-// //                             ::int_rectangle rectangleHigher;
+// //                             ::i32_rectangle rectangleHigher;
 // //
 // //                             if (::is_set(pwindowxcbExclude) && windowa[i] == pwindowxcbExclude->Window())
 // //                             {
@@ -1025,9 +1025,9 @@ namespace windowing_kde5
 // //                             if (::x11_get_window_rect(Display(), windowa[i], &rectangleHigher))
 // //                             {
 // //
-// //                                ::int_rectangle rectangleHitTest;
+// //                                ::i32_rectangle rectangleHitTest;
 // //
-// //                                rectangleHitTest.set(rectangleHigher.origin(), ::int_size());
+// //                                rectangleHitTest.set(rectangleHigher.origin(), ::i32_size());
 // //
 // //                                rectangleHitTest.inflate(iMargin + 1);
 // //
@@ -1103,7 +1103,7 @@ namespace windowing_kde5
 // //   }
 // //
 // //
-// //   void display::update_wayland_buffer(wayland_buffer &waylandbuffer, const ::int_size & size)
+// //   void display::update_wayland_buffer(wayland_buffer &waylandbuffer, const ::i32_size & size)
 // //   {
 // //
 // //      //wayland_buffer waylandbuffer{};
@@ -1242,7 +1242,7 @@ namespace windowing_kde5
 // //   void display::__handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, ::u32 millis)
 // //   {
 // //
-// //      ::int_point pointCursor((int)x, (int)y);
+// //      ::i32_point pointCursor((int)x, (int)y);
 // //
 // //      if(m_pwindowPointerCapture)
 // //      {
@@ -1579,7 +1579,7 @@ namespace windowing_kde5
 //
 //    }
 
-   ::int_size display::get_main_screen_size()
+   ::i32_size display::get_main_screen_size()
    {
 
 return ::kde5::acme::windowing::display::get_main_screen_size();

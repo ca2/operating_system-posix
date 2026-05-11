@@ -17,7 +17,7 @@ namespace acme_windows
 
 
       STARTUPINFOEX m_si = {};
-      PROCESS_INFORMATION m_pi = {};
+      PROCESS_INFORMATION m_processinformation = {};
       ::memory m_memoryAttrList;
       bool m_bInteractive = false;
 

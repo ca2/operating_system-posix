@@ -634,7 +634,7 @@ namespace acme_posix
 //
 //      }
 //
-//      if ((output.m_i = ::open(pathNew, flags, 0666)) == -1)
+//      if ((output.m_i32 = ::open(pathNew, flags, 0666)) == -1)
 //      {
 //
 //         auto cerrornumber = c_error_number();
@@ -646,7 +646,7 @@ namespace acme_posix
 //      }
 //
 //
-//      if ((input.m_i = ::open(pathSrc, O_RDONLY)) == -1)
+//      if ((input.m_i32 = ::open(pathSrc, O_RDONLY)) == -1)
 //      {
 //
 //         auto cerrornumber = c_error_number();
@@ -657,7 +657,7 @@ namespace acme_posix
 //
 //      }
 //
-//      off_t filesize = lseek(input.m_i, 0, SEEK_END);
+//      off_t filesize = lseek(input.m_i32, 0, SEEK_END);
 //
 //      if(filesize < 0)
 //      {
@@ -670,7 +670,7 @@ namespace acme_posix
 //
 //      }
 //
-//      if(ftruncate(output.m_i, filesize) < 0)
+//      if(ftruncate(output.m_i32, filesize) < 0)
 //      {
 //
 //         auto cerrornumber = c_error_number();
@@ -681,7 +681,7 @@ namespace acme_posix
 //
 //      }
 //
-//      if ((source = mmap(0, filesize, PROT_READ, MAP_PRIVATE, input.m_i, 0)) == (void *)-1)
+//      if ((source = mmap(0, filesize, PROT_READ, MAP_PRIVATE, input.m_i32, 0)) == (void *)-1)
 //      {
 //
 //         auto cerrornumber = c_error_number();
@@ -693,7 +693,7 @@ namespace acme_posix
 //      }
 //
 //
-//      if ((target = mmap(0, filesize, PROT_WRITE, MAP_PRIVATE, output.m_i, 0)) == (void *)-1)
+//      if ((target = mmap(0, filesize, PROT_WRITE, MAP_PRIVATE, output.m_i32, 0)) == (void *)-1)
 //      {
 //
 //         auto cerrornumber = c_error_number();

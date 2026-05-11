@@ -6,7 +6,7 @@ namespace draw2d_xlib
 
    bitmap::bitmap(::particle * pparticle) :
       ::object(pparticle) // ,
-//      m_ui(pparticle)
+//      m_u32(pparticle)
    {
 
       m_pixmap = None;
@@ -67,23 +67,23 @@ namespace draw2d_xlib
          ::memory_copy(m_mem.get_data(), pdata, iStride * cy);
       }
 
-//      if(m_ui.m_window == nullptr)
+//      if(m_u32.m_window == nullptr)
 //      {
 //
-//         int_rectangle rectangle(100, 100, 200, 200);
+//         i32_rectangle rectangle(100, 100, 200, 200);
 //
-//         m_ui.create_window(rectangle);
+//         m_u32.create_window(rectangle);
 //
 //      }
 
-//      if(m_ui.m_window == nullptr)
+//      if(m_u32.m_window == nullptr)
 //      {
 //
 //         return false;
 //
 //      }
 
-//      ::oswindow window = m_ui.m_window;
+//      ::oswindow window = m_u32.m_window;
 //
 //      m_pixmap = XCreatePixmap(window->display(), window->window(), cx, cy, window->m_iDepth);
 //
@@ -159,23 +159,23 @@ namespace draw2d_xlib
 
       }
 
-//      if(m_ui.m_window == nullptr)
+//      if(m_u32.m_window == nullptr)
 //      {
 //
-//         int_rectangle rectangle(100, 100, 200, 200);
+//         i32_rectangle rectangle(100, 100, 200, 200);
 //
-//         m_ui.create_window(rectangle);
+//         m_u32.create_window(rectangle);
 //
 //      }
 //
-//      if(m_ui.m_window == nullptr)
+//      if(m_u32.m_window == nullptr)
 //      {
 //
 //         return false;
 //
 //      }
 
-//      ::oswindow window = m_ui.m_window;
+//      ::oswindow window = m_u32.m_window;
 
 ////      m_pixmap = XCreatePixmap(window->display(), window->window(), cx, cy, window->m_iDepth);
 //
@@ -237,24 +237,24 @@ namespace draw2d_xlib
 
    }
 
-   int_size bitmap::SetBitmapDimension(int nWidth, int nHeight)
+   i32_size bitmap::SetBitmapDimension(int nWidth, int nHeight)
    {
 
 
       throw ::not_implemented();
 
-      //::int_size size;
+      //::i32_size size;
       //VERIFY(::SetBitmapDimensionEx((HBITMAP)get_handle(), nWidth, nHeight, &size));
       //return size;
-      return ::int_size(0, 0);
+      return ::i32_size(0, 0);
 
    }
 
-   int_size bitmap::GetBitmapDimension() const
+   i32_size bitmap::GetBitmapDimension() const
    {
 
       if(m_pixmap == nullptr)
-         return ::int_size(0, 0);
+         return ::i32_size(0, 0);
 
       return m_size;
 
@@ -401,7 +401,7 @@ namespace draw2d_xlib
 
 //      xlib_surface_destroy(m_pixmap);
 
-//      XFreePixmap(m_ui.m_window->display(), m_pixmap);
+//      XFreePixmap(m_u32.m_window->display(), m_pixmap);
 
       m_pixmap = None;
 

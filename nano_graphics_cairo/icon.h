@@ -18,7 +18,7 @@ virtual public ::nano::graphics::icon{
     icon();
     ~icon();
 
-   ::int_size size() const override;
+   ::i32_size size() const override;
 
 
    void load_image_file(const void *p, memsize size) override;

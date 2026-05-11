@@ -108,7 +108,7 @@ namespace node_x11
 
       gdk_monitor_get_geometry(pmonitor, &rect);
 
-      ::int_rectangle rectangle;
+      ::i32_rectangle rectangle;
 
       //sleep(15_s);
 
@@ -158,7 +158,7 @@ namespace node_x11
 //   }
 
 
-   ::int_rectangle monitor::monitor_rectangle()
+   ::i32_rectangle monitor::monitor_rectangle()
    {
 
 //       user_send([this]()
@@ -178,7 +178,7 @@ namespace node_x11
    }
 
 
-//   ::int_rectangle monitor::_workspace_rectangle()
+//   ::i32_rectangle monitor::_workspace_rectangle()
 //   {
 //
 //      //auto predicate = [this]()

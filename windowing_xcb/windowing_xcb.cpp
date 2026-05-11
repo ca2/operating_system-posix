@@ -39,7 +39,7 @@
 void oswindow_set_active_window(::acme::windowing::window * pacmewindowingwindow);
 
 
-CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const int_point & pointCursor);
+CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const i32_point & pointCursor);
 
 //bool is_return_key(XIRawEvent *happening)
 //{
@@ -151,7 +151,7 @@ xcb_window_t g_windowXcbClient = 0;
 
 
 
-int_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::int_point * ppointCursor);
+int_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::i32_point * ppointCursor);
 
 
 //extern ::pointer< ::mutex >g_pmutexXcbRunnable;
@@ -172,7 +172,7 @@ int_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::int_point * ppointCursor);
 //CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(::acme::windowing::window * pacmewindowingwindow);
 //
 //
-//int_bool xcb_get_cursor_pos(::int_point * ppointCursor);
+//int_bool xcb_get_cursor_pos(::i32_point * ppointCursor);
 
 
 
@@ -478,7 +478,7 @@ namespace windowing_xcb
 
 //    }
 
-//    ::int_rectangle rectangle;
+//    ::i32_rectangle rectangle;
 
 //    xcb_get_window_rect(display, oswindow->window(), rectangle);
 
@@ -486,14 +486,14 @@ namespace windowing_xcb
 
 //    string strTopic = xcb_get_name(display, oswindow->window());
 
-//    ::int_rectangle rectangleTest;
+//    ::i32_rectangle rectangleTest;
 
 //    for(iFind++; iFind < windowa.get_size(); iFind++)
 //    {
 
 //       string strItem = xcb_get_name(display, windowa[iFind]);
 
-//       ::int_rectangle rectangleHigher;
+//       ::i32_rectangle rectangleHigher;
 
 //       if(xcb_get_window_rect(display, windowa[iFind], rectangleHigher))
 //       {
@@ -589,12 +589,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 #define SIZEY  50
 
 
-//void message_box_paint(::draw2d::graphics_pointer & pgraphics, string_array_base & stra, bool_array  & baTab, ::int_array_base  & ya,::int_size * psize)
+//void message_box_paint(::draw2d::graphics_pointer & pgraphics, string_array_base & stra, bool_array  & baTab, ::i32_array_base  & ya,::i32_size * psize)
 //{
 //
 //   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//   pgraphics->fill_rectangle(::int_rectangle(*psize), rgb(84, 90, 80));
+//   pgraphics->fill_rectangle(::i32_rectangle(*psize), rgb(84, 90, 80));
 //
 //   ::draw2d::brush_pointer pen(e_create_new);
 //
@@ -1149,12 +1149,12 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //void oswindow_set_active_window(::acme::windowing::window * pacmewindowingwindow);
 //
 //
-//CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const int_point & pointCursor);
+//CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const i32_point & pointCursor);
 //
 //
 //
 //
-//int_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::int_point * ppointCursor);
+//int_bool _xcb_get_cursor_pos(xcb_connection_t * d, ::i32_point * ppointCursor);
 //
 
 
@@ -1170,7 +1170,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(::acme::windowing::window * pacmewindowingwindow);
 //
 //
-//int_bool xcb_get_cursor_pos(::int_point * ppointCursor);
+//int_bool xcb_get_cursor_pos(::i32_point * ppointCursor);
 //
 
 //
@@ -1341,7 +1341,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //}
 //
 //
-//bool xcb_get_client_rect(xcb_connection_t * pdisplay, xcb_window_t window, ::int_rectangle *prectangle)
+//bool xcb_get_client_rect(xcb_connection_t * pdisplay, xcb_window_t window, ::i32_rectangle *prectangle)
 //{
 //
 //   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -1376,7 +1376,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 //
 //
-//bool xcb_get_window_rect(xcb_connection_t * d, xcb_window_t window, ::int_rectangle * prectangle)
+//bool xcb_get_window_rect(xcb_connection_t * d, xcb_window_t window, ::i32_rectangle * prectangle)
 //{
 //
 //   XWindowAttributes attrs;

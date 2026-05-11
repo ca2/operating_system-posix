@@ -744,9 +744,9 @@ namespace acme_posix
 
          timespec delay;
 
-         delay.tv_sec = time.m_i;
+         delay.tv_sec = time.m_i32;
 
-         delay.tv_nsec = time.m_i;
+         delay.tv_nsec = time.m_i32;
 
          int ret = sem_timedwait(m_psem, &delay);
 
@@ -913,9 +913,9 @@ namespace acme_posix
 
          timespec timeout;
 
-         timeout.tv_sec = time.m_i;
+         timeout.tv_sec = time.m_i32;
 
-         timeout.tv_nsec = time.m_i;
+         timeout.tv_nsec = time.m_i32;
 
          struct sembuf operation[1] ;
 

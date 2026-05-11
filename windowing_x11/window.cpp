@@ -669,8 +669,8 @@ namespace windowing_x11
                               informationf("windowing_x11::window::create_window docking appearance");
 
                               // window managers generally "don't like" windows that starts "docked/snapped".
-                              // initial (XCreateWindow) int_size and position maybe not be honored.
-                              // so requesting the same change again in a effort to set the "docked/snapped" int_size and position.
+                              // initial (XCreateWindow) i32_size and position maybe not be honored.
+                              // so requesting the same change again in a effort to set the "docked/snapped" i32_size and position.
 
                               //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
                               //                  pusersystem->m_createstruct.cx, pusersystem->m_createstruct.cy, SWP_SHOWWINDOW);
@@ -696,7 +696,7 @@ namespace windowing_x11
 //      //if(pshowwindow->m_bShow)
 //      {
 //
-//         //::int_rectangle rect32;
+//         //::i32_rectangle rect32;
 //
 //         //(::window_rectangle((oswindow) get_handle(), rect32))
 //         {
@@ -1406,8 +1406,8 @@ namespace windowing_x11
                               informationf("windowing_x11::window::create_window docking appearance");
 
                               // window managers generally "don't like" windows that starts "docked/snapped".
-                              // initial (XCreateWindow) int_size and position maybe not be honored.
-                              // so requesting the same change again in a effort to set the "docked/snapped" int_size and position.
+                              // initial (XCreateWindow) i32_size and position maybe not be honored.
+                              // so requesting the same change again in a effort to set the "docked/snapped" i32_size and position.
 
                               //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
                               //                  pusersystem->m_createstruct.cx, pusersystem->m_createstruct.cy, SWP_SHOWWINDOW);
@@ -2204,7 +2204,7 @@ namespace windowing_x11
                   for (int i = 0; i < c; i++)
                   {
 
-                     pcr[i + 2] = image1->image32()[i].m_ui;
+                     pcr[i + 2] = image1->image32()[i].m_u32;
 
                   }
 
@@ -2488,7 +2488,7 @@ namespace windowing_x11
    // }
 
 
-//   ::int_point window::get_mouse_cursor_position()
+//   ::i32_point window::get_mouse_cursor_position()
 //   {
 //
 //      return m_pointCursor;
@@ -2949,7 +2949,7 @@ namespace windowing_x11
 //   }
 
 
-   void window::full_screen(const ::int_rectangle &rectangle)
+   void window::full_screen(const ::i32_rectangle &rectangle)
    {
 
       auto r = rectangle;
@@ -2957,7 +2957,7 @@ namespace windowing_x11
       system()->acme_windowing()->send([this, r]()
                {
 
-                  ::int_rectangle rBest;
+                  ::i32_rectangle rBest;
 
          auto px11display = x11_display();
 
@@ -2993,7 +2993,7 @@ namespace windowing_x11
 
 
 
-                  ::int_rectangle rWindow;
+                  ::i32_rectangle rWindow;
 
                   rWindow.left = attr.x;
                   rWindow.top = attr.y;
@@ -3189,7 +3189,7 @@ namespace windowing_x11
 //   }
 
 
-   bool window::client_to_screen(::int_point *ppoint)
+   bool window::client_to_screen(::i32_point *ppoint)
    {
 
       return true;
@@ -3197,7 +3197,7 @@ namespace windowing_x11
    }
 
 
-   bool window::screen_to_client(::int_point *ppoint)
+   bool window::screen_to_client(::i32_point *ppoint)
    {
 
       return true;
@@ -3425,10 +3425,10 @@ namespace windowing_x11
    }
 
 
-//   void oswindow_data::wm_full_screen(const ::int_rectangle & rectangle)
+//   void oswindow_data::wm_full_screen(const ::i32_rectangle & rectangle)
 //   {
 //
-//      ::int_rectangle rBest;
+//      ::i32_rectangle rBest;
 //
 //      int iMonitor = best_xinerama_monitor(puserinteraction, rectangle, rBest);
 //
@@ -3458,7 +3458,7 @@ namespace windowing_x11
 //
 //      }
 //
-//      ::int_rectangle rWindow;
+//      ::i32_rectangle rWindow;
 //
 //      rWindow.left      = attr.x;
 //      rWindow.top       = attr.y;
@@ -4851,7 +4851,7 @@ namespace windowing_x11
    }
 
 
-   bool window::x11_get_window_rect(::int_rectangle *prectangle)
+   bool window::x11_get_window_rect(::i32_rectangle *prectangle)
    {
 
       return ::x11_get_window_rect(Display(), Window(), prectangle);
@@ -4859,7 +4859,7 @@ namespace windowing_x11
    }
 
 
-   ::e_status window::window_rectangle(::int_rectangle *prectangle)
+   ::e_status window::window_rectangle(::i32_rectangle *prectangle)
    {
 
       return x11_get_window_rect(prectangle) ? ::success : ::error_failed;
@@ -4867,7 +4867,7 @@ namespace windowing_x11
    }
 
 
-   bool window::x11_get_client_rect(::int_rectangle *prectangle)
+   bool window::x11_get_client_rect(::i32_rectangle *prectangle)
    {
 
       return ::x11_get_client_rect(Display(), Window(), prectangle);
@@ -4875,7 +4875,7 @@ namespace windowing_x11
    }
 
 
-   ::e_status window::rectangle(::int_rectangle *prectangle)
+   ::e_status window::rectangle(::i32_rectangle *prectangle)
    {
 
       return x11_get_client_rect(prectangle) ? ::success : error_failed;
@@ -4925,7 +4925,7 @@ namespace windowing_x11
 
                   }
 
-                  ::int_rectangle rectangle;
+                  ::i32_rectangle rectangle;
 
                   x11_get_window_rect(&rectangle);
 
@@ -4933,14 +4933,14 @@ namespace windowing_x11
 
 //string strTopic = x11_get_name(x11_display(), Window());
 
-                  ::int_rectangle rectangleTest;
+                  ::i32_rectangle rectangleTest;
 
                   for (iFind++; iFind < windowa.get_size(); iFind++)
                   {
 
 //string strItem = x11_get_name(x11_display(), windowa[iFind]);
 
-                     ::int_rectangle rectangleHigher;
+                     ::i32_rectangle rectangleHigher;
 
                      if (::x11_get_window_rect(Display(), windowa[iFind], &rectangleHigher))
                      {
@@ -5812,7 +5812,7 @@ auto pwindowing = system()->acme_windowing();
 //   }
 
 //// should be called in user_thread
-//   int_bool window::x11_get_window_rect(::int_rectangle *prectangle)
+//   int_bool window::x11_get_window_rect(::i32_rectangle *prectangle)
 //   {
 //
 //      XWindowAttributes attrs;
@@ -5853,7 +5853,7 @@ auto pwindowing = system()->acme_windowing();
 //
 //   }
 
-//   int_bool window::this->rectangle(::int_rectangle *prectangle)
+//   int_bool window::this->rectangle(::i32_rectangle *prectangle)
 //   {
 //
 //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -6003,7 +6003,7 @@ auto pwindowing = system()->acme_windowing();
 //   }
 
 
-//   void window::_on_configure_notify_unlocked(const ::int_rectangle & rectangle)
+//   void window::_on_configure_notify_unlocked(const ::i32_rectangle & rectangle)
 //   {
 //
 //   }

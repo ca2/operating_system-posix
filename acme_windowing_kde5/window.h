@@ -44,8 +44,8 @@ namespace kde5
             //bool                          m_bNcActive;
 
   //          manual_reset_happening                        m_happeningEnd;
-            //int_rectangle                 m_rectangle;
-            //int_rectangle                 m_rectangleX;
+            //i32_rectangle                 m_rectangle;
+            //i32_rectangle                 m_rectangleX;
 
             //pointer_array < ::micro::child >   m_childa;
             //::atom                          m_atomLeftButtonDown;
@@ -147,17 +147,17 @@ namespace kde5
             // //virtual LRESULT window_procedure(UINT message, WPARAM wparam, LPARAM lparam);
 
 
-            void set_interface_client_size(const ::int_size & sizeWindow) override;
+            void set_interface_client_size(const ::i32_size & sizeWindow) override;
 
-            void set_position_unlocked(const ::int_point & point) override;
+            void set_position_unlocked(const ::i32_point & point) override;
 
-            void set_size_unlocked(const ::int_size & size) override;
+            void set_size_unlocked(const ::i32_size & size) override;
 
             void redraw() override;
 
-            //void get_client_rectangle(::int_rectangle & rectangle) override;
+            //void get_client_rectangle(::i32_rectangle & rectangle) override;
 
-            ::int_rectangle get_window_rectangle() override;
+            ::i32_rectangle get_window_rectangle() override;
 
             // void set_mouse_capture() override;
 
@@ -168,7 +168,7 @@ namespace kde5
             //virtual void _get_geometry(xcb_get_geometry_reply_t * pgeometry);
 
 
-            //::int_size get_main_screen_size() override;
+            //::i32_size get_main_screen_size() override;
             void defer_show_system_menu(::user::mouse *pmouse) override;
 
             //void set_mouse_capture() override;

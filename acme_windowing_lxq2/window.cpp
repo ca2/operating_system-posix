@@ -413,7 +413,7 @@ namespace lxq2
 //          //
 //          //   for (int i = 0; i < m_iButtonCount; i++)
 //          //   {
-//          //      if (m_buttona[i].m_rectangle.contains(int_point(x, y)))
+//          //      if (m_buttona[i].m_rectangle.contains(i32_point(x, y)))
 //          //      {
 //          //
 //          //         return m_buttona[i].m_edialogresult;
@@ -800,7 +800,7 @@ namespace lxq2
 //          //       if (!m_psurface)
 //          //       {
 //          //
-//          //          int_rectangle rectangleX;
+//          //          i32_rectangle rectangleX;
 //          //
 //          //          get_client_rectangle(rectangleX);
 //          //
@@ -1172,7 +1172,7 @@ namespace lxq2
 //          // }
 //
 //
-//          void window::set_position_unlocked(const ::int_point & point)
+//          void window::set_position_unlocked(const ::i32_point & point)
 //          {
 //
 //             m_pqwidget->move(point.x, point.y);
@@ -1180,7 +1180,7 @@ namespace lxq2
 //          }
 //
 //
-//          void window::set_size_unlocked(const ::int_size & size)
+//          void window::set_size_unlocked(const ::i32_size & size)
 //          {
 //
 //             m_pqwidget->resize(size.cx, size.cy);
@@ -1258,7 +1258,7 @@ namespace lxq2
 //          // }
 //
 //          //
-//          // void window::get_client_rectangle(::int_rectangle & rectangle)
+//          // void window::get_client_rectangle(::i32_rectangle & rectangle)
 //          // {
 //          //
 //          //    xcb_get_geometry_reply_t geometry;
@@ -1273,10 +1273,10 @@ namespace lxq2
 //          // }
 //
 //
-//          ::int_rectangle window::get_window_rectangle()
+//          ::i32_rectangle window::get_window_rectangle()
 //          {
 //
-//             ::int_rectangle rectangle;
+//             ::i32_rectangle rectangle;
 //
 //             auto qrect = m_pqwidget->rect();
 //
@@ -1812,7 +1812,7 @@ namespace lxq2
 //
 //             //auto puserinteraction = pimpl->m_puserinteraction;
 //
-//             //::int_size s(cx, cy);
+//             //::i32_size s(cx, cy);
 //
 //             set_interface_client_size({cx, cy});
 //
@@ -1828,7 +1828,7 @@ namespace lxq2
 //          }
 //
 //
-//          void window::set_interface_client_size(const ::int_size & sizeWindow)
+//          void window::set_interface_client_size(const ::i32_size & sizeWindow)
 //          {
 //
 //             m_sizeWindow = sizeWindow;
@@ -1840,7 +1840,7 @@ namespace lxq2
 //             //
 //             // }
 //
-//             int_rectangle r;
+//             i32_rectangle r;
 //
 //             ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
 //
@@ -1914,7 +1914,7 @@ namespace lxq2
 //          //    //g_print("Option 1 selected from popover menu!\n");
 //          // }
 //
-//          //   ::int_size window::get_main_screen_size()
+//          //   ::i32_size window::get_main_screen_size()
 //          //   {
 //          //
 //          //      return m_pdisplay->get_main_screen_size();

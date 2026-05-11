@@ -59,10 +59,10 @@ namespace windowing_x11
       //Colormap                                   m_colormap;
       class ::time                                 m_timeLastMouseMove;
       //Window                                     m_parent;
-      ::int_rectangle                              m_rect;
+      ::i32_rectangle                              m_rect;
       string                                       m_strWMClass;
       int                                          m_iaNetWmState2[::x11::e_atom_net_wm_state_last-::x11::e_atom_net_wm_state_first+1];
-      //::int_point                                m_pointCursor;
+      //::i32_point                                m_pointCursor;
       enum_net_wm_sync                             m_enetwmsync;
       XSyncCounter                                 m_xsynccounterNetWmSync;
       XSyncValue                                   m_xsyncvalueNetWmSync;
@@ -81,7 +81,7 @@ namespace windowing_x11
       ::int_rectangle_array                        m_rectangleaRedraw;
       ::pointer<::xim::keyboard>                   m_pximkeyboard;
       //::u64                                        m_uLastNetWmSyncRequest;
-      ::int_rectangle                              m_rectangleXShm;
+      ::i32_rectangle                              m_rectangleXShm;
       //bool                                         m_bXShmPutImagePending;
 
 
@@ -150,7 +150,7 @@ void on_initialize_particle() override;
 
       void exit_iconify() override;
 
-      void full_screen(const ::int_rectangle & rect = {}) override;
+      void full_screen(const ::i32_rectangle & rect = {}) override;
 
       void exit_full_screen() override;
 
@@ -171,8 +171,8 @@ void on_initialize_particle() override;
       //virtual ::Window get_parent_handle();
       //::oswindow get_parent_oswindow() const override;
 
-//      ::int_point get_mouse_cursor_host_position() override;
-//      ::int_point get_mouse_cursor_absolute_position() override;
+//      ::i32_point get_mouse_cursor_host_position() override;
+//      ::i32_point get_mouse_cursor_absolute_position() override;
 
       //virtual ::Window get_parent_handle() const;
 
@@ -195,9 +195,9 @@ void on_initialize_particle() override;
       //void _show_window_unlocked(const ::e_display & edisplay, const ::user::e_activation & useractivation) override;
       //virtual iptr get_window_long_ptr(int nIndex);
       //virtual iptr set_window_long_ptr(int nIndex, iptr l);
-      virtual bool client_to_screen(::int_point * ppoint) override;
+      virtual bool client_to_screen(::i32_point * ppoint) override;
 
-      bool screen_to_client(::int_point * ppoint) override;
+      bool screen_to_client(::i32_point * ppoint) override;
 
 
       //virtual bool set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy, const ::user::e_activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize, ::e_display edisplay) ;
@@ -243,8 +243,8 @@ void on_initialize_particle() override;
       //virtual Atom get_window_long_atom(int nIndex);
       virtual void _mapped_net_state_unlocked(bool add,  WINDOWING_X11_WINDOW_MEMBER int iScreen, Atom state1, Atom state2);
       //virtual void unmapped_net_state_raw( WINDOWING_X11_WINDOW_MEMBER ...);
-      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
-      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
+      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
+      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
       //virtual oswindow set_xxxcapture( WINDOWING_X11_WINDOW_MEMBER );
       //virtual int_bool release_xxxcapture();
       //virtual oswindow set_keyboard_focus( WINDOWING_X11_WINDOW_MEMBER );
@@ -321,9 +321,9 @@ void on_initialize_particle() override;
       //virtual ::e_status post_ui_message(const MESSAGE & message);
       //virtual bool x11_process_event(osdisplay_data * pdisplaydata, XEvent * pevent, XGenericEventCookie *cookie);
       //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, int x, int y, int cx, int cy, ::u32 nFlags);
-      virtual ::e_status window_rectangle( WINDOWING_X11_WINDOW_MEMBER ::int_rectangle * prectangle);
-      virtual ::e_status rectangle(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
-      //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::int_rectangle & rectangle);
+      virtual ::e_status window_rectangle( WINDOWING_X11_WINDOW_MEMBER ::i32_rectangle * prectangle);
+      virtual ::e_status rectangle(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
+      //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::i32_rectangle & rectangle);
 
       virtual ::e_status x11_store_name(const_char_pointer pszName);
       void set_foreground_window() override;
@@ -339,7 +339,7 @@ void on_initialize_particle() override;
 
       void __update_graphics_buffer() override;
       //void _window_request_presentation_locked() override;
-      //void _on_configure_notify_unlocked(const ::int_rectangle & rectangle) override;
+      //void _on_configure_notify_unlocked(const ::i32_rectangle & rectangle) override;
 
       bool is_window_active() override;
 

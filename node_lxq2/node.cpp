@@ -246,7 +246,7 @@ namespace node_lxq2
 
       //system()->m_htask = nullptr;
 
-      //system()->m_taskindex.m_i = 0;
+      //system()->m_taskindex.m_i32 = 0;
 
       //system()->branch();
 

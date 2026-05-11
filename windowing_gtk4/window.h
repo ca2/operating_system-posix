@@ -99,7 +99,7 @@ namespace windowing_gtk4
 
       void exit_iconify() override;
 
-      void full_screen(const ::int_rectangle & rect = {}) override;
+      void full_screen(const ::i32_rectangle & rect = {}) override;
 
       void exit_full_screen() override;
 
@@ -127,9 +127,9 @@ namespace windowing_gtk4
 
       bool _is_window_visible_unlocked() override;
 
-      virtual bool client_to_screen(::int_point * ppoint) override;
+      virtual bool client_to_screen(::i32_point * ppoint) override;
 
-      bool screen_to_client(::int_point * ppoint) override;
+      bool screen_to_client(::i32_point * ppoint) override;
 
       bool is_destroying() override;
 
@@ -189,9 +189,9 @@ namespace windowing_gtk4
 
       bool _strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize) override;
 
-      virtual ::e_status window_rectangle(::int_rectangle * prectangle);
+      virtual ::e_status window_rectangle(::i32_rectangle * prectangle);
 
-      virtual ::e_status rectangle(::int_rectangle * prectangle);
+      virtual ::e_status rectangle(::i32_rectangle * prectangle);
 
       void __update_graphics_buffer() override;
 
@@ -229,13 +229,13 @@ namespace windowing_gtk4
 
       virtual void _set_cursor_from_name(const ::scoped_string & scopedstr);
 
-      virtual ::int_rectangle _unlocked_defer_get_window_rectangle();
+      virtual ::i32_rectangle _unlocked_defer_get_window_rectangle();
 
-      virtual void _unlocked_defer_set_window_position(const ::int_point & point);
+      virtual void _unlocked_defer_set_window_position(const ::i32_point & point);
 
-      virtual void _unlocked_defer_set_window_position(const ::int_point & point, const ::int_size & size);
+      virtual void _unlocked_defer_set_window_position(const ::i32_point & point, const ::i32_size & size);
 
-      virtual void _unlocked_defer_set_window_size(const ::int_size & size);
+      virtual void _unlocked_defer_set_window_size(const ::i32_size & size);
 
       void main_send(const ::procedure & procedure) override;
 

@@ -430,7 +430,7 @@ namespace innate_ui_motif
    }
 
 
-   void window::set_position(const ::int_point & pointParam)
+   void window::set_position(const ::i32_point & pointParam)
    {
 
       auto point = pointParam;
@@ -481,7 +481,7 @@ XtVaSetValues(m_widget, XtNx, point.x, XtNy, point.y, NULL); // Similar to gtk_f
 
    }
 
-   void window::set_size(const ::int_size & sizeParam)
+   void window::set_size(const ::i32_size & sizeParam)
    {
 
       auto size = sizeParam;
@@ -505,7 +505,7 @@ XtVaSetValues(m_widget, XtNx, point.x, XtNy, point.y, NULL); // Similar to gtk_f
    }
 
 
-   void window::adjust_for_client_size(const ::int_size & sizeParam)
+   void window::adjust_for_client_size(const ::i32_size & sizeParam)
    {
 
       auto size = sizeParam;

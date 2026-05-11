@@ -53,7 +53,7 @@ namespace gtk4
             bool m_bOwnDisplay;
 
             bool m_bMouseCaptured;
-            ::int_rectangle m_rectangleMouseCapture;
+            ::i32_rectangle m_rectangleMouseCapture;
             ::int_size_array m_sizeaMonitor;
 
             //::pointer<::gtk4::acme::windowing::window> m_pwindowPointerEnter;
@@ -141,7 +141,7 @@ namespace gtk4
             //void aaa_display_send(const ::procedure & procedure);
             //bool aaa_display_posted_routine_step();
 
-            ::int_size get_main_screen_size() override;
+            ::i32_size get_main_screen_size() override;
    //static display_base * get(::particle * pparticle, bool bBranch = true, ::GdkDisplay * pgdkdisplay = nullptr);
 
 
@@ -199,7 +199,7 @@ namespace gtk4
             //      void erase_window(nano_window_base * pwindow);
 
             //void destroy_wayland_buffer(buffer & waylandbuffer);
-            //void update_wayland_buffer(buffer & waylandbuffer, const ::int_size & size);
+            //void update_wayland_buffer(buffer & waylandbuffer, const ::i32_size & size);
             //void update_wayland_buffer(buffer & waylandbuffer, ::pixmap * ppixmap);
 
 

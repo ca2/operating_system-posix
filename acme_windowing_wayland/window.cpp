@@ -119,7 +119,7 @@ namespace wayland
          }
 
 
-         ::int_size window::get_window_size() // m_sizeWindow
+         ::i32_size window::get_window_size() // m_sizeWindow
          {
 
             return m_sizeWindow;
@@ -127,7 +127,7 @@ namespace wayland
          }
 
 
-         void window::set_interface_client_size(const ::int_size & sizeWindow) // set_size
+         void window::set_interface_client_size(const ::i32_size & sizeWindow) // set_size
          {
 
             m_sizeWindow = sizeWindow;
@@ -139,7 +139,7 @@ namespace wayland
 
             }
 
-            int_rectangle r;
+            i32_rectangle r;
 
             get_client_rectangle(r);
 
@@ -592,7 +592,7 @@ namespace wayland
          //         if (!m_psurface)
          //         {
          //
-         //            int_rectangle r;
+         //            i32_rectangle r;
          //
          //            get_client_rectangle(r);
          //
@@ -833,7 +833,7 @@ namespace wayland
          }
 
 
-         void window::move_to(const ::int_point & point)
+         void window::move_to(const ::i32_point & point)
          {
 
             //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x, point.y);
@@ -863,7 +863,7 @@ namespace wayland
          }
 
 
-         void window::get_client_rectangle(::int_rectangle & rectangle)
+         void window::get_client_rectangle(::i32_rectangle & rectangle)
          {
 
             //      rectangle.left = 0;
@@ -894,7 +894,7 @@ namespace wayland
          }
 
 
-         void window::get_window_rectangle(::int_rectangle & rectangle)
+         void window::get_window_rectangle(::i32_rectangle & rectangle)
          {
 
             //      Window windowRoot = 0;
@@ -962,7 +962,7 @@ namespace wayland
          }
 
 
-         //   ::int_size window::get_main_screen_size()
+         //   ::i32_size window::get_main_screen_size()
          //   {
          //
          //      return m_pdisplay->get_main_screen_size();
@@ -1149,7 +1149,7 @@ namespace wayland
             {
                //
                //
-               //         ::int_point                                  m_pointWindowDragStart;
+               //         ::i32_point                                  m_pointWindowDragStart;
                //
                //
                if (linux_button == BTN_LEFT)
@@ -1257,7 +1257,7 @@ namespace wayland
             ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
             ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
             ////
-            ////      ::int_rectangle r;
+            ////      ::i32_rectangle r;
             ////
             ////      window_rectangle(msg.oswindow, &r);
             ////

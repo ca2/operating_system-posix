@@ -35,7 +35,7 @@ namespace windowing_posix
    //   void windowing::_defer_position_and_size_message(::acme::windowing::window * pacmewindowingwindow)
 //   {
 //
-//      //::int_rectangle rectangle;
+//      //::i32_rectangle rectangle;
 //
 //      //::x11_get_window_rect(m_pdisplay->Display(), (Window) oswindow->get_os_data(), &rectangle);
 //
@@ -46,7 +46,7 @@ namespace windowing_posix
 //   }
 
 
-   void windowing::_configure_message(::windowing::window * pwindow, const ::int_rectangle & rectangle)
+   void windowing::_configure_message(::windowing::window * pwindow, const ::i32_rectangle & rectangle)
    {
 
       // ::user::prototype_impl * pimpl = pwindow->m_pwindow;
@@ -70,7 +70,7 @@ namespace windowing_posix
    }
 
 
-//   void windowing::_size_message(::windowing::window * pwindow, const ::int_size & size)
+//   void windowing::_size_message(::windowing::window * pwindow, const ::i32_size & size)
 //   {
 //
 //      //if(pwindow->m_size != size)

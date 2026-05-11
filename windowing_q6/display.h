@@ -128,9 +128,9 @@ namespace windowing_q6
 //
 //       virtual bool is_null() const;
 //
-//       bool _get_monitor_rectangle(::collection::index iMonitor, ::int_rectangle & rectangle) override;
+//       bool _get_monitor_rectangle(::collection::index iMonitor, ::i32_rectangle & rectangle) override;
 //
-//       bool _get_workspace_rectangle(::collection::index iWorkspace, ::int_rectangle & rectangle) override;
+//       bool _get_workspace_rectangle(::collection::index iWorkspace, ::i32_rectangle & rectangle) override;
 //
 //       //virtual ::windowing::window * get_mouse_capture();
 //
@@ -148,10 +148,10 @@ namespace windowing_q6
 // //      Atom net_wm_state_atom(bool bCreate);
 //
 //
-//          ::int_size get_main_screen_size() override;
+//          ::i32_size get_main_screen_size() override;
 //
 //
-//       virtual bool get_cursor_position(::int_point * ppointCursor);
+//       virtual bool get_cursor_position(::i32_point * ppointCursor);
 //
 //       //virtual comparable_array < Window > x11_window_list();
 //
@@ -161,7 +161,7 @@ namespace windowing_q6
 // //      virtual Pixmap x11_create_pixmap(::image::image_pointer pimage);
 // //      virtual XImage * x11_create_image(::image::image_pointer pimage);
 //
-//       //virtual bool point_is_window_origin(::int_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
+//       //virtual bool point_is_window_origin(::i32_point pointHitTest, ::windowing::window * pwindowExclude, int iMargin);
 //
 //       ///virtual Picture xrender_create_picture(::image::image_pointer pimage);
 //

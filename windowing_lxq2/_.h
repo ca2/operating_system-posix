@@ -34,7 +34,7 @@ namespace windowing_lxq2
 // #include <QRect>
 //
 //
-// inline void copy(::int_rectangle & rectangleTarget, const QRect & qrect)
+// inline void copy(::i32_rectangle & rectangleTarget, const QRect & qrect)
 // {
 //
 //    rectangleTarget.left = qrect.x;

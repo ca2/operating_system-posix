@@ -557,7 +557,7 @@ gtk_im_context_commit (
 
       auto puserinteraction = user_interaction();
 
-      ::int_size s(cx, cy);
+      ::i32_size s(cx, cy);
 
       bool bChanged = m_sizeOnSize != s;
 
@@ -949,7 +949,7 @@ gtk_im_context_commit (
 
             informationf("_on_button_pressed(%0.2f, %0.2f)", x, y);
 
-            ::int_point pointCursor(x, y);
+            ::i32_point pointCursor(x, y);
 
             pmouse->m_pointHost = pointCursor;
 
@@ -1008,7 +1008,7 @@ gtk_im_context_commit (
 
             informationf("_on_button_released(%0.2f, %0.2f)", x, y);
 
-            ::int_point pointCursor(x, y);
+            ::i32_point pointCursor(x, y);
 
             pmouse->m_pointHost = pointCursor;
 
@@ -1106,7 +1106,7 @@ gtk_im_context_commit (
 //
 //         }
 
-         ::int_point pointCursor(x, y);
+         ::i32_point pointCursor(x, y);
 
          pmouse->m_pointHost = pointCursor;
 
@@ -1610,10 +1610,10 @@ on_text(scopedstr, scopedstr.size());
    }
 
 
-   void window::full_screen(const ::int_rectangle & rectangle)
+   void window::full_screen(const ::i32_rectangle & rectangle)
    {
 
-      ::int_rectangle rBest;
+      ::i32_rectangle rBest;
 
       auto pgtk4display = gtk4_display();
 
@@ -1645,7 +1645,7 @@ on_text(scopedstr, scopedstr.size());
    }
 
 
-   bool window::client_to_screen(::int_point * ppoint)
+   bool window::client_to_screen(::i32_point * ppoint)
    {
 
       return true;
@@ -1653,7 +1653,7 @@ on_text(scopedstr, scopedstr.size());
    }
 
 
-   bool window::screen_to_client(::int_point * ppoint)
+   bool window::screen_to_client(::i32_point * ppoint)
    {
 
       return true;
@@ -1908,7 +1908,7 @@ on_text(scopedstr, scopedstr.size());
    }
 
 
-   ::e_status window::window_rectangle(::int_rectangle * prectangle)
+   ::e_status window::window_rectangle(::i32_rectangle * prectangle)
    {
 
       return ::success;
@@ -1916,7 +1916,7 @@ on_text(scopedstr, scopedstr.size());
    }
 
 
-   ::e_status window::rectangle(::int_rectangle * prectangle)
+   ::e_status window::rectangle(::i32_rectangle * prectangle)
    {
 
       return ::success;
@@ -2416,7 +2416,7 @@ on_text(scopedstr, scopedstr.size());
    }
 
 
-   ::int_rectangle window::_unlocked_defer_get_window_rectangle()
+   ::i32_rectangle window::_unlocked_defer_get_window_rectangle()
    {
 
 //      Window xw = GDK_SURFACE_XID (GDK_SURFACE(gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget))));
@@ -2433,7 +2433,7 @@ on_text(scopedstr, scopedstr.size());
 //
 //            XGetWindowAttributes(xd, xw, &attrs);
 //
-//            ::int_rectangle r;
+//            ::i32_rectangle r;
 //
 //            r.left = attrs.x;
 //            r.top = attrs.y;
@@ -2449,7 +2449,7 @@ on_text(scopedstr, scopedstr.size());
    }
 
 
-   void window::_unlocked_defer_set_window_position(const ::int_point & point)
+   void window::_unlocked_defer_set_window_position(const ::i32_point & point)
    {
 
 //      Window xw = GDK_SURFACE_XID (GDK_SURFACE(gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget))));
@@ -2471,7 +2471,7 @@ on_text(scopedstr, scopedstr.size());
    }
 
 
-   void window::_unlocked_defer_set_window_position(const ::int_point & point, const ::int_size & size)
+   void window::_unlocked_defer_set_window_position(const ::i32_point & point, const ::i32_size & size)
    {
 
 //      Window xw = GDK_SURFACE_XID (GDK_SURFACE(gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget))));
@@ -2493,7 +2493,7 @@ on_text(scopedstr, scopedstr.size());
    }
 
 
-   void window::_unlocked_defer_set_window_size(const ::int_size & size)
+   void window::_unlocked_defer_set_window_size(const ::i32_size & size)
    {
 
 //      Window xw = GDK_SURFACE_XID (GDK_SURFACE(gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget))));
@@ -2656,7 +2656,7 @@ return false;
          {
             //g_print("Scroll event: dx=%.2f, dy=%.2f, cursor position: x=%.2f, y=%.2f\n", dx, dy, x, y);
 
-            ::int_point pointCursor(x, y);
+            ::i32_point pointCursor(x, y);
 
             pmouse->m_pointHost = pointCursor;
 
