@@ -82,7 +82,7 @@ namespace posix
          }
 
 
-         ::pointer < ::nano::account::id > account::_create_id(long long i)
+         ::pointer < ::nano::account::id > account::_create_id(::i64 i)
          {
 
             auto pid =create_newø<::nano::account::id>();

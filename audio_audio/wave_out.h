@@ -109,7 +109,7 @@ extern const struct audio_dev_backend audio_dev_arts;
 
 
 struct audio_dev_ctx {
-	long long		ac_slave_pid = 0;
+	::i64		ac_slave_pid = 0;
 	const struct audio_dev_backend *ac_device;
 	void		*ac_devarg = nullptr;
 	int		ac_paused = true;
@@ -210,9 +210,9 @@ int m_fd;
 
          void audio_dev_slave(const_char_pointer dev);
 
-         long long audio_dev_buffer_time();
+         ::i64 audio_dev_buffer_time();
 
-         long long audio_dev_played_time();
+         ::i64 audio_dev_played_time();
          
          
       };

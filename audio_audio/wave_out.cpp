@@ -1332,7 +1332,7 @@ static const audio_dev_backend *audio_dev_backends[] = {
       }
 
 
-      long long wave_out::audio_dev_buffer_time()
+      ::i64 wave_out::audio_dev_buffer_time()
       {
          
          if (!m_pdata->m_iDataSampleRate)
@@ -1349,7 +1349,7 @@ static const audio_dev_backend *audio_dev_backends[] = {
       }
 
 
-		long long wave_out::audio_dev_played_time()
+		::i64 wave_out::audio_dev_played_time()
 		{
 
 			if (!m_pdata->m_iDataSampleRate)

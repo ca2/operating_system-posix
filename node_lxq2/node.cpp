@@ -657,7 +657,7 @@ namespace node_lxq2
 
    }
 
-//   void * node::node_wrap_window(void * pvoidDisplay, long long window)
+//   void * node::node_wrap_window(void * pvoidDisplay, ::i64 window)
 //   {
 //
 //      Display * pdisplay = (Display *) pvoidDisplay;

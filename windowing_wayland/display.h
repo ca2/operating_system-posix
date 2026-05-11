@@ -73,10 +73,10 @@ namespace windowing_wayland
 #ifdef _DEBUG
 
 
-      virtual long long get_ref_count();
-      virtual long long increment_reference_count() override;
-      virtual long long decrement_reference_count() override;
-      virtual long long release() override;
+      virtual ::i64 get_ref_count();
+      virtual ::i64 increment_reference_count() override;
+      virtual ::i64 decrement_reference_count() override;
+      virtual ::i64 release() override;
 
 
 #endif

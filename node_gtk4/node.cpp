@@ -117,10 +117,10 @@ cairo_surface_t * __cairo_create_image_argb32_surface(::memory & m, int w, int h
 
    auto data = (unsigned char *) cairo_image_surface_get_data(psurface);
 
-   long long r = 0;
-   long long g = 0;
-   long long b = 0;
-   long long a = 0;
+   ::i64 r = 0;
+   ::i64 g = 0;
+   ::i64 b = 0;
+   ::i64 a = 0;
 
    for (int n = 0; n < h; n++)
    {
@@ -1210,7 +1210,7 @@ namespace node_gtk4
 
 
 
-//   void * node::node_wrap_window(void * pvoidDisplay, long long window)
+//   void * node::node_wrap_window(void * pvoidDisplay, ::i64 window)
 //   {
 //
 //      Display * pdisplay = (Display *) pvoidDisplay;

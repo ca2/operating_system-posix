@@ -153,7 +153,7 @@ namespace windowing_q
 #ifdef _DEBUG
 
 
-   long long display::get_ref_count()
+   ::i64 display::get_ref_count()
    {
 
       return m_countReference;
@@ -161,7 +161,7 @@ namespace windowing_q
    }
 
 
-   long long display::increment_reference_count()
+   ::i64 display::increment_reference_count()
    {
 
       return ::q::acme::windowing::display::increment_reference_count();
@@ -169,7 +169,7 @@ namespace windowing_q
    }
 
 
-   long long display::decrement_reference_count()
+   ::i64 display::decrement_reference_count()
    {
 
       return ::q::acme::windowing::display::decrement_reference_count();
@@ -177,7 +177,7 @@ namespace windowing_q
    }
 
 
-   long long display::release()
+   ::i64 display::release()
    {
 
       return ::q::acme::windowing::display::release();

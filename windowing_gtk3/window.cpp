@@ -7020,7 +7020,7 @@ namespace windowing_gtk3
    }
 
 
-   long long window::_001GetTopLeftWeightedOccludedOpaqueArea()
+   ::i64 window::_001GetTopLeftWeightedOccludedOpaqueArea()
    {
 
       if (m_bActiveWindow)

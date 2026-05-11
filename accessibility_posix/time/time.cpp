@@ -59,7 +59,7 @@
 //
 //void SleepInUs(::u32 us) {
 //   ::LARGE_INTEGER ft;
-//   ft.QuadPart = -static_cast<long long>(us * 10);  // '-' using relative time
+//   ft.QuadPart = -static_cast<::i64>(us * 10);  // '-' using relative time
 //
 //   ::HANDLE timer = ::CreateWaitableTimer(nullptr, true, nullptr);
 //   ::SetWaitableTimer(timer, &ft, 0, nullptr, nullptr, 0);

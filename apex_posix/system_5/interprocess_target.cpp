@@ -236,7 +236,7 @@ namespace system_5
 //      }
 //
 
-//      void interprocess_handler::receiver::on_ipc_post(interprocess_handler * prx, long long a, long long b)
+//      void interprocess_handler::receiver::on_ipc_post(interprocess_handler * prx, ::i64 a, ::i64 b)
 //      {
 //
 //      }
@@ -276,7 +276,7 @@ namespace system_5
 //   }
 //
 //
-//   void interprocess_target::on_interprocess_post(long long a, long long b)
+//   void interprocess_target::on_interprocess_post(::i64 a, ::i64 b)
 //   {
 //
 //      if (m_preceiver != nullptr)

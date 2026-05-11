@@ -67,9 +67,9 @@ namespace multimedia
 
          ::string m_strDevice;
    
-         long long m_llWrittenBytes;
+         ::i64 m_llWrittenBytes;
          
-         long long m_iLastSecond;
+         ::i64 m_iLastSecond;
 
          sun_object();
          ~sun_object();

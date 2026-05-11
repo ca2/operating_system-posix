@@ -2546,7 +2546,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             if (px11window && px11window->m_window == (Window) pevent->xunmap.window && !px11window->has_flag(e_flag_destroying))
             {
 
-//               auto iWindow = px11window->payload("destroying_window").as_long_long();
+//               auto iWindow = px11window->payload("destroying_window").as_i64();
 
 //               auto windowDestroying = (Window) iWindow;
 

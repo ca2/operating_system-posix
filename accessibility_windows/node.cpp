@@ -1331,7 +1331,7 @@ namespace acme_windows
    //      if (entry.th32ProcessID != 0 && strPath.case_insensitive_order(pathModule) == 0)
    //      {
 
-   //         iaPid.add((long long)entry.th32ProcessID);
+   //         iaPid.add((::i64)entry.th32ProcessID);
 
    //      }
 
@@ -1342,7 +1342,7 @@ namespace acme_windows
    //      if (entry.th32ProcessID != 0 && ::file::path(strPath) == pathModule)
    //      {
 
-   //         iaPid.add((long long)entry.th32ProcessID);
+   //         iaPid.add((::i64)entry.th32ProcessID);
 
    //      }
 
@@ -2801,7 +2801,7 @@ namespace acme_windows
    }
 
 
-   long long node::current_process_identifier()
+   ::i64 node::current_process_identifier()
    {
 
       return ::GetCurrentProcessId();

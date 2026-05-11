@@ -476,7 +476,7 @@ namespace windowing_gtk3
       void switch_to_this_window(bool b) override;
 
 
-      long long _001GetTopLeftWeightedOccludedOpaqueArea() override;
+      ::i64 _001GetTopLeftWeightedOccludedOpaqueArea() override;
 
 
    };

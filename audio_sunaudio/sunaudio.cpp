@@ -417,7 +417,7 @@ sun_object::sunaudio_flush()
        m_audioinfo.play.sample_rate *
        m_audioinfo.play.precision);
        
-      long long lNewSecond = (long long) dSeconds;
+      ::i64 lNewSecond = (::i64) dSeconds;
       
       if(lNewSecond != m_iLastSecond)
       {

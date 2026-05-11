@@ -8,9 +8,9 @@
 #include <sys/time.h>
 
 
-long long timestamp2ns(snd_htimestamp_t t)
+::i64 timestamp2ns(snd_htimestamp_t t)
 {
-   long long nsec;
+   ::i64 nsec;
 
    nsec = t.tv_sec * 1000000000;
    nsec += t.tv_nsec;
@@ -20,10 +20,10 @@ long long timestamp2ns(snd_htimestamp_t t)
 }
 
 
-long long timediff(snd_htimestamp_t t1, snd_htimestamp_t t2)
+::i64 timediff(snd_htimestamp_t t1, snd_htimestamp_t t2)
 {
 
-   long long nsec1, nsec2;
+   ::i64 nsec1, nsec2;
 
    nsec1 = timestamp2ns(t1);
    nsec2 = timestamp2ns(t2);

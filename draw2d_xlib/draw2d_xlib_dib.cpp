@@ -323,7 +323,7 @@ namespace draw2d_xlib
    //void image::from_alpha()
    //{
    //   unsigned char *dst=(unsigned char*)m_pcolorref;
-   //   long long size = cx * cy;
+   //   ::i64 size = cx * cy;
 
    //   while ( size-- )
    //   {
@@ -570,11 +570,11 @@ namespace draw2d_xlib
 
    //void image::color::e_channel_invert(color::color::color::rgba::echannel echannel)
    //{
-   //   long long int_size   = cx * cy;
-   //   register long long long_long_size = size / 64;
+   //   ::i64 int_size   = cx * cy;
+   //   register ::i64 long_long_size = size / 64;
    //   unsigned char * lpb = (unsigned char *) m_pcolorref;
    //   lpb += ((int)echannel) % 4;
-   //   register long long i = 0;
+   //   register ::i64 i = 0;
    //   for(; i < long_long_size; i++)
    //   {
    //      lpb[4 *  0] = 255 - lpb[4 *  0];
@@ -656,13 +656,13 @@ namespace draw2d_xlib
    //{
    //   if(dRate < 0)
    //      return;
-   //   register long long size = area();
+   //   register ::i64 size = area();
    //   unsigned char * lpb = (unsigned char *) get_data();
    //   lpb += ((int)echannel) % 4;
    //   register int iDiv = 256 * 256;
    //   register int iMul = (int) (dRate * ((double) iDiv));
    //   register int iRes;
-   //   for(register long long i = 0; i < size; i++)
+   //   for(register ::i64 i = 0; i < size; i++)
    //   {
    //      iRes = *lpb * iMul / iDiv;
    //      *lpb = (unsigned char) (iRes > 255 ? 255 : iRes);
@@ -1399,7 +1399,7 @@ namespace draw2d_xlib
 //   void image::transparent_color(::color::color color)
 //   {
 //      color32_t crFind = color.get_rgb();
-//      long long size = area();
+//      ::i64 size = area();
 //
 //      for ( int i=0; i<int_size; i++ )
 //         if((m_pcolorref[i] & 0x00ffffff) == crFind)
@@ -2520,22 +2520,22 @@ namespace draw2d_xlib
 
    //int image::cos(int i, int iAngle)
    //{
-   //   return (int) (((long long) i * CosN[iAngle]) >> 31);
+   //   return (int) (((::i64) i * CosN[iAngle]) >> 31);
    //}
 
    //int image::sin(int i, int iAngle)
    //{
-   //   return (int) (((long long) i * SinN[iAngle]) >> 31);
+   //   return (int) (((::i64) i * SinN[iAngle]) >> 31);
    //}
 
    //int image::cos10(int i, int iAngle)
    //{
-   //   return (int) (((long long) i * Cos10N[iAngle]) >> 34);
+   //   return (int) (((::i64) i * Cos10N[iAngle]) >> 34);
    //}
 
    //int image::sin10(int i, int iAngle)
    //{
-   //   return (int) (((long long) i * Sin10N[iAngle]) >> 34);
+   //   return (int) (((::i64) i * Sin10N[iAngle]) >> 34);
    //}
 
    //int image::width()

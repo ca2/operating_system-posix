@@ -150,7 +150,7 @@ namespace windowing_gtk4
 #ifdef _DEBUG
 
 
-   long long display::get_ref_count()
+   ::i64 display::get_ref_count()
    {
 
       return m_countReference;
@@ -158,7 +158,7 @@ namespace windowing_gtk4
    }
 
 
-   long long display::increment_reference_count()
+   ::i64 display::increment_reference_count()
    {
 
 #ifdef WINDOWS
@@ -180,7 +180,7 @@ namespace windowing_gtk4
    }
 
 
-   long long display::decrement_reference_count()
+   ::i64 display::decrement_reference_count()
    {
 
 #ifdef WINDOWS
@@ -202,10 +202,10 @@ namespace windowing_gtk4
    }
 
 
-   long long display::release()
+   ::i64 display::release()
    {
 
-      long long i = decrement_reference_count();
+      ::i64 i = decrement_reference_count();
 
       return i;
 

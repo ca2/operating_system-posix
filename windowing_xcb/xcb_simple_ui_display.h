@@ -70,9 +70,9 @@ public:
    ~simple_ui_display();
 
 
-   virtual long long increment_reference_count();
-   virtual long long decrement_reference_count();
-   virtual long long release();
+   virtual ::i64 increment_reference_count();
+   virtual ::i64 decrement_reference_count();
+   virtual ::i64 release();
 
 
    void common_construct();

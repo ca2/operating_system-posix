@@ -677,7 +677,7 @@ namespace windowing_xcb
 ////               sizeof(color32_t) * 8,
 ////               pimage->scan_size());
 ////
-//         //pimage->payload("pximage") = (long long) pximage;
+//         //pimage->payload("pximage") = (::i64) pximage;
 //
 //      }
 

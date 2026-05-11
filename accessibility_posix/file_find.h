@@ -38,7 +38,7 @@ namespace acme_windows
 
 
       
-      long long get_length() const;
+      ::i64 get_length() const;
       virtual ::file::path GetFileName() const;
       virtual ::file::path GetFilePath() const;
       virtual string GetFileTitle() const;
@@ -143,11 +143,11 @@ namespace acme_windows
 
    }
 
-   inline long long file_find::get_length() const
+   inline ::i64 file_find::get_length() const
    {
 
       if (m_pFoundInfo != nullptr)
-         return m_pFoundInfo->nFileSizeLow + (((long long)m_pFoundInfo->nFileSizeHigh) << 32);
+         return m_pFoundInfo->nFileSizeLow + (((::i64)m_pFoundInfo->nFileSizeHigh) << 32);
       else
          return 0;
 

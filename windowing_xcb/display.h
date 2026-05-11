@@ -63,10 +63,10 @@ namespace windowing_xcb
 #ifdef _DEBUG
 
 
-      virtual long long get_ref_count();
-      long long increment_reference_count() override;
-      long long decrement_reference_count() override;
-      long long release() override;
+      virtual ::i64 get_ref_count();
+      ::i64 increment_reference_count() override;
+      ::i64 decrement_reference_count() override;
+      ::i64 release() override;
 
 
 #endif

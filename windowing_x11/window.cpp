@@ -5397,7 +5397,7 @@ namespace windowing_x11
 
   //                   m_pacmewindowingwindow = nullptr;
 
-//                     payload("destroying_window") = (long long) Window();
+//                     payload("destroying_window") = (::i64) Window();
 
                      set_flag(e_flag_destroying);
 

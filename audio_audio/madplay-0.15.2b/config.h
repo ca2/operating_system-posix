@@ -138,7 +138,7 @@
 /* Define if you have the 'long double' type. */
 #define HAVE_LONG_DOUBLE 1
 
-/* Define if you have the 'long long' type. */
+/* Define if you have the '::i64' type. */
 #define HAVE_LONG_LONG 1
 
 /* Define to 1 if you have the <machine/soundcard.h> header file. */
