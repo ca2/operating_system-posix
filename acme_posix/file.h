@@ -2,7 +2,7 @@
 
 
 #include "acme/filesystem/file/file.h"
-#include "acme/operating_system/shared_posix/c_error_number.h"
+#include "acme/operating_system/shared_posix/c_errno.h"
 
 
 namespace acme_posix
@@ -99,7 +99,7 @@ namespace acme_posix
 
       //::u64 GetBufferPtr(::u32 nCommand, ::u64 nCount = 0, void ** ppBufStart = nullptr, void ** ppBufMax = nullptr);
 
-      [[noreturn]]virtual void throw_file_errno_exception(const ::scoped_string & scopedstr = nullptr, c_error_number cerrornumber = {}) const;
+      [[noreturn]]virtual void throw_file_errno_exception(const ::scoped_string & scopedstr = nullptr, c_errno cerrno = {}) const;
 
       class ::time modification_time() override;
       

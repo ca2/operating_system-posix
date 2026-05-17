@@ -5,7 +5,7 @@
 #include "framework.h"
 #include "directory_system.h"
 #include "path_system.h"
-#include "acme/operating_system/shared_posix/c_error_number.h"
+#include "acme/operating_system/shared_posix/c_errno.h"
 #if defined( FREEBSD) || defined(OPENBSD)
 //#define __XSI_VISIBLE 1
 #include <unistd.h>
@@ -237,9 +237,9 @@ void path_system::create_symbolic_link(const ::scoped_string & scopedstrLink, co
       // symlink(existing_file, new_link_name)
       if (symlink(pathSource, pathTarget) == -1)
       {
-         ::c_error_number cerrornumber;
+         ::c_errno cerrno;
          // Handle error, for example, throw an exception
-         throw ::exception(error_failed, {cerrornumber}, "Failed to create symlink");
+         throw ::exception(error_failed, {cerrno}, "Failed to create symlink");
       }
    }
 

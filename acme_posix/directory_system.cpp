@@ -10,7 +10,7 @@
 #include "acme/nano/account/account.h"
 #include "acme/nano/account/user.h"
 #include "acme/operating_system/summary.h"
-#include "acme/operating_system/shared_posix/c_error_number.h"
+#include "acme/operating_system/shared_posix/c_errno.h"
 #include "acme/platform/node.h"
 #include "acme/_operating_system.h"
 
@@ -576,9 +576,9 @@ namespace acme_posix
 
       if (::is_null(pszCurrentDirName)) {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         auto estatus = cerrornumber.failed_estatus();
+         auto estatus = cerrno.failed_estatus();
 
          throw ::exception(estatus, "posix::directory_system::get_current");
 
@@ -598,9 +598,9 @@ namespace acme_posix
 
       if (iError) {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         auto estatus = cerrornumber.failed_estatus();
+         auto estatus = cerrno.failed_estatus();
 
          throw ::exception(estatus, "posix::directory_system::change_current");
 

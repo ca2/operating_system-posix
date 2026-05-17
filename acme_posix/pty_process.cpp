@@ -185,9 +185,9 @@ void pty_process::set_stdin_non_blocking()
    if (m_flagsStdIn == -1)
    {
 
-      auto cerrornumber = c_error_number();
+      auto cerrno = c_errno();
 
-      auto estatus = cerrornumber.estatus();
+      auto estatus = cerrno.estatus();
 
       throw ::exception(estatus);
 
@@ -197,9 +197,9 @@ void pty_process::set_stdin_non_blocking()
    if (fcntl(iStdIn, F_SETFL, m_flagsStdIn | O_NONBLOCK) == -1)
    {
 
-      auto cerrornumber = c_error_number();
+      auto cerrno = c_errno();
 
-      auto estatus = cerrornumber.estatus();
+      auto estatus = cerrno.estatus();
 
       throw ::exception(estatus);
 

@@ -218,11 +218,11 @@ namespace acme_posix
       if(hFile == -1)
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         m_estatus = cerrornumber.estatus();
+         m_estatus = cerrno.estatus();
 
-         auto errorcode = cerrornumber.error_code();
+         auto errorcode = cerrno.error_code();
          
          m_iFile = (::u32)hFileNull;
 
@@ -370,11 +370,11 @@ namespace acme_posix
             
             throw_file_errno_exception("::read < 0");
             
-//            auto cerrornumber = c_error_number();
+//            auto cerrno = c_errno();
 //
-//            auto estatus = cerrornumber.estatus();
+//            auto estatus = cerrno.estatus();
 //
-//            auto errorcode = cerrornumber.error_code();
+//            auto errorcode = cerrno.error_code();
 //
 //            throw ::file::exception(estatus, errorcode, m_path, m_eopen, "::read < 0");
 
@@ -439,11 +439,11 @@ namespace acme_posix
          if (amountWrittenNow < 0)
          {
 
-//            auto cerrornumber = c_error_number();
+//            auto cerrno = c_errno();
 //
-//            auto estatus = cerrornumber.estatus();
+//            auto estatus = cerrno.estatus();
 //
-//            auto errorcode = cerrornumber.error_code();
+//            auto errorcode = cerrno.error_code();
 //
 //            throw ::file::exception(estatus, errorcode, m_path, m_eopen, "::write < 0");
             
@@ -497,7 +497,7 @@ namespace acme_posix
 
          //auto estatus = error_bad_argument;
 
-         //auto errorcode = cerrornumber.error_code();
+         //auto errorcode = cerrno.error_code();
 
          //throw ::file::exception(estatus, errorcode, m_path, m_eopen, "m_iFile == hFileNull");
 
@@ -567,11 +567,11 @@ namespace acme_posix
 
          throw_file_errno_exception("lseek64 < 0");
        
-         //auto cerrornumber = c_error_number();
+         //auto cerrno = c_errno();
 
-         //auto estatus = cerrornumber.estatus();
+         //auto estatus = cerrno.estatus();
 
-         //auto errorcode = cerrornumber.error_code();
+         //auto errorcode = cerrno.error_code();
 
          //throw ::file::exception(estatus, errorcode, m_path, "lseek64 < 0", m_eopen);
 
@@ -616,13 +616,13 @@ namespace acme_posix
       if (bError)
       {
 
-         throw_file_errno_exception("::close == -1", {c_error_number_t{}, iErrNo});
+         throw_file_errno_exception("::close == -1", {c_errno_t{}, iErrNo});
 
-         //auto cerrornumber = c_error_number();
+         //auto cerrno = c_errno();
 
-         //auto estatus = cerrornumber.estatus();
+         //auto estatus = cerrno.estatus();
 
-         //auto errorcode = cerrornumber.error_code();
+         //auto errorcode = cerrno.error_code();
 
          //throw ::file::exception(estatus, errorcode, m_path, , m_eopen);
 
@@ -679,11 +679,11 @@ namespace acme_posix
 
          throw_file_errno_exception("ftruncate == -1");
 
-         //auto cerrornumber = c_error_number();
+         //auto cerrno = c_errno();
 
-         //auto estatus = cerrornumber.estatus();
+         //auto estatus = cerrno.estatus();
 
-         //auto errorcode = cerrornumber.error_code();
+         //auto errorcode = cerrno.error_code();
 
          //throw ::file::exception(estatus, errorcode, m_path,  "ftruncate == -1", m_eopen);
 
@@ -898,10 +898,10 @@ namespace acme_posix
    //}
 
 
-   void file::throw_file_errno_exception(const ::scoped_string & scopedstr, c_error_number cerrornumber) const
+   void file::throw_file_errno_exception(const ::scoped_string & scopedstr, c_errno cerrno) const
    {
 
-      ::throw_file_errno_exception(m_path, m_eopen, scopedstr, cerrornumber);
+      ::throw_file_errno_exception(m_path, m_eopen, scopedstr, cerrno);
 
       //if (iErrNo == 0)
       //{
@@ -910,9 +910,9 @@ namespace acme_posix
 
       //}
 
-      //auto estatus = cerrornumber.estatus();
+      //auto estatus = cerrno.estatus();
 
-      //auto errorcode = cerrornumber.error_code();
+      //auto errorcode = cerrno.error_code();
 
       //throw ::file::exception(estatus, errorcode, m_path, m_eopen, scopedstr);
 
@@ -927,9 +927,9 @@ namespace acme_posix
       if(fstat(m_iFile, &statAttribute))
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         //auto estatus = cerrornumber.estatus();
+         //auto estatus = cerrno.estatus();
 
          string strMessage;
 
@@ -937,7 +937,7 @@ namespace acme_posix
 
          //throw ::exception(estatus, strMessage);
          
-         ::throw_file_errno_exception(m_path, m_eopen, strMessage, cerrornumber);
+         ::throw_file_errno_exception(m_path, m_eopen, strMessage, cerrno);
 
 
       }
@@ -971,9 +971,9 @@ namespace acme_posix
       //if(stat(path, &statAttribute))
       //{
 
-      //   auto cerrornumber = c_error_number();
+      //   auto cerrno = c_errno();
 
-      //   auto estatus = cerrornumber.estatus();
+      //   auto estatus = cerrno.estatus();
 
       //   string strMessage;
 
@@ -1006,15 +1006,15 @@ namespace acme_posix
             //if(utime(path, &utimbuf))
             //{
             
-            auto cerrornumber = c_error_number();
+            auto cerrno = c_errno();
             
-            //auto estatus = cerrornumber.estatus();
+            //auto estatus = cerrno.estatus();
             
             string strMessage;
             
             strMessage = "Failed to set file modification time";
             
-            ::throw_file_errno_exception(m_path, m_eopen, strMessage, cerrornumber);
+            ::throw_file_errno_exception(m_path, m_eopen, strMessage, cerrno);
             
          }
 //#ifdef __APPLE__
@@ -1038,9 +1038,9 @@ namespace acme_posix
 //            //if(utime(path, &utimbuf))
 //            //{
 //            
-//            auto cerrornumber = c_error_number();
+//            auto cerrno = c_errno();
 //            
-//            //auto estatus = cerrornumber.estatus();
+//            //auto estatus = cerrno.estatus();
 //            
 //            string strMessage;
 //            

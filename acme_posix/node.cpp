@@ -791,9 +791,9 @@ namespace acme_posix
          if (kill(pid, 0) == -1)
          {
 
-            auto cerrornumber = c_error_number();
+            auto cerrno = c_errno();
 
-            if (cerrornumber == ESRCH) // No process can be found corresponding to processId
+            if (cerrno == ESRCH) // No process can be found corresponding to processId
             {
 
                break;
@@ -1500,9 +1500,9 @@ namespace acme_posix
       if (iError != 0)
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         estatus = cerrornumber.estatus();
+         estatus = cerrno.estatus();
 
          throw ::exception(estatus);
 
@@ -1515,9 +1515,9 @@ namespace acme_posix
       if (iError != 0)
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         estatus = cerrornumber.estatus();
+         estatus = cerrno.estatus();
 
          throw ::exception(estatus);
 
@@ -1533,9 +1533,9 @@ namespace acme_posix
          if (iError != 0)
          {
 
-            auto cerrornumber = c_error_number();
+            auto cerrno = c_errno();
 
-            estatus = cerrornumber.estatus();
+            estatus = cerrno.estatus();
 
             throw ::exception(estatus);
 
@@ -2050,9 +2050,9 @@ namespace acme_posix
       if (iError != 0)
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         estatus = cerrornumber.estatus();
+         estatus = cerrno.estatus();
 
          throw ::exception(estatus);
 
@@ -2071,9 +2071,9 @@ namespace acme_posix
       if (iError != 0)
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
    
-         estatus = cerrornumber.estatus();
+         estatus = cerrno.estatus();
 
          throw ::exception(estatus);
 
@@ -2093,9 +2093,9 @@ namespace acme_posix
          if (iError != 0)
          {
 
-            auto cerrornumber = c_error_number();
+            auto cerrno = c_errno();
 
-            estatus = cerrornumber.estatus();
+            estatus = cerrno.estatus();
 
             throw ::exception(estatus);
 
@@ -2105,16 +2105,16 @@ namespace acme_posix
          // Make stdin non-blocking
          flagsStdIn = fcntl(STDIN_FILENO, F_GETFL, 0);
          if (flagsStdIn == -1) {
-            auto cerrornumber = c_error_number();
+            auto cerrno = c_errno();
 
-            estatus = cerrornumber.estatus();
+            estatus = cerrno.estatus();
 
             throw ::exception(estatus);
          }
          if (fcntl(STDIN_FILENO, F_SETFL, flagsStdIn | O_NONBLOCK) == -1) {
-            auto cerrornumber = c_error_number();
+            auto cerrno = c_errno();
 
-            estatus = cerrornumber.estatus();
+            estatus = cerrno.estatus();
 
             throw ::exception(estatus);
          }
@@ -2266,7 +2266,7 @@ namespace acme_posix
 //      if (iError != 0)
 //      {
 //
-//         auto cerrornumber = c_error_number();
+//         auto cerrno = c_errno();
 //
 //         estatus = errno_status(iErrNo);
 //
@@ -2807,9 +2807,9 @@ namespace acme_posix
          if (fcntl(STDIN_FILENO, F_SETFL, flagsStdIn) == -1)
          {
 
-            auto cerrornumber = c_error_number();
+            auto cerrno = c_errno();
 
-            estatus = cerrornumber.estatus();
+            estatus = cerrno.estatus();
 
             throw ::exception(estatus);
          }

@@ -5,7 +5,7 @@
 #include "mutex.h"
 #include "acme/_operating_system.h"
 #include "acme/prototype/time/timespec.h"
-#include "acme/operating_system/shared_posix/c_error_number.h"
+#include "acme/operating_system/shared_posix/c_errno.h"
 #include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/platform/system.h"
 ////#include "acme/exception/exception.h"
@@ -344,13 +344,13 @@ namespace acme_posix
          if(m_iFd < 0)
          {
 
-            auto cerrornumber = c_error_number();
+            auto cerrno = c_errno();
 
             //const_char_pointer pszError = strerror(iErr);
             
-            auto estatus = cerrornumber.estatus();
+            auto estatus = cerrno.estatus();
             
-            auto error_code = cerrornumber.error_code();
+            auto error_code = cerrno.error_code();
 
             throw ::exception(estatus, {error_code}, "Failed to create named mutex");
 

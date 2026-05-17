@@ -7,7 +7,7 @@
 #include "acme/exception/interface_only.h"
 #include "acme/filesystem/file/exception.h"
 #include "acme/operating_system/ansi/int_handle.h"
-#include "acme/operating_system/shared_posix/c_error_number.h"
+#include "acme/operating_system/shared_posix/c_errno.h"
 #include "acme/operating_system/shared_posix/stdio_file.h"
 #include "acme/platform/node.h"
 #include "acme/platform/system.h"
@@ -114,11 +114,11 @@ namespace acme_posix
       if (rc)
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         auto estatus = cerrornumber.estatus();
+         auto estatus = cerrno.estatus();
 
-         auto error_code = cerrornumber.error_code();
+         auto error_code = cerrno.error_code();
       
          throw ::file::exception(estatus, error_code, path, ::file::e_open_none, "utimes");
 
@@ -193,9 +193,9 @@ namespace acme_posix
       if (ftruncate(iFileDescriptor, size) == -1)
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         auto estatus = cerrornumber.estatus();
+         auto estatus = cerrno.estatus();
 
          throw ::exception(estatus, "::posix::file_system::set_size");
 
@@ -228,9 +228,9 @@ namespace acme_posix
       if (fstat(iFileDescriptor, &st) == -1)
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         auto estatus = cerrornumber.failed_estatus();
+         auto estatus = cerrno.failed_estatus();
 
          ::close(iFileDescriptor);
          
@@ -309,9 +309,9 @@ namespace acme_posix
 
          }
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
          
-         auto estatus = cerrornumber.failed_estatus();
+         auto estatus = cerrno.failed_estatus();
 
          throw ::exception(estatus, "posix::file_system::as_string");
 
@@ -329,9 +329,9 @@ namespace acme_posix
 
          }
 
-         auto cerrornumber = pfile->c_error_number();
+         auto cerrno = pfile->c_errno();
 
-         auto estatus = cerrornumber.failed_estatus();
+         auto estatus = cerrno.failed_estatus();
 
          throw ::exception(estatus, "posix::file_system::as_string");
          
@@ -434,9 +434,9 @@ namespace acme_posix
          if(iRead < iToRead && iToRead > 0)
          {
 
-            auto cerrornumber = pfile->c_error_number();
+            auto cerrno = pfile->c_errno();
 
-            if(cerrornumber.m_iErrorNumber)
+            if(cerrno.m_iErrNo)
             {
 
                throw ::exception(error_io);
@@ -458,9 +458,9 @@ namespace acme_posix
       if (pfile == nullptr)
       {
          
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
          
-         auto estatus = cerrornumber.failed_estatus();
+         auto estatus = cerrno.failed_estatus();
 
          throw ::exception(estatus, "posix::file_system::as_memory");
 
@@ -492,11 +492,11 @@ namespace acme_posix
       if(stat(path, &st) != 0)
       {
          
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
          
-         auto estatus = cerrornumber.failed_estatus();
+         auto estatus = cerrno.failed_estatus();
          
-         auto errorcode = cerrornumber.error_code();
+         auto errorcode = cerrno.error_code();
          
          throw ::file::exception(estatus, errorcode, path, ::file::e_open_none, "stat != 0");
          
@@ -637,9 +637,9 @@ namespace acme_posix
 //      if ((output.m_i32 = ::open(pathNew, flags, 0666)) == -1)
 //      {
 //
-//         auto cerrornumber = c_error_number();
+//         auto cerrno = c_errno();
 //
-//         auto estatus = cerrornumber.failed_estatus();
+//         auto estatus = cerrno.failed_estatus();
 //
 //         throw ::exception(estatus, "Error opening file : \"" + string(pathNew) + "\"");
 //
@@ -649,9 +649,9 @@ namespace acme_posix
 //      if ((input.m_i32 = ::open(pathSrc, O_RDONLY)) == -1)
 //      {
 //
-//         auto cerrornumber = c_error_number();
+//         auto cerrno = c_errno();
 //
-//         auto estatus = cerrornumber.failed_estatus();
+//         auto estatus = cerrno.failed_estatus();
 //
 //         throw ::exception(estatus, "Error opening file : \"" + string(pathSrc) + "\"");
 //
@@ -662,9 +662,9 @@ namespace acme_posix
 //      if(filesize < 0)
 //      {
 //
-//         auto cerrornumber = c_error_number();
+//         auto cerrno = c_errno();
 //
-//         auto estatus = cerrornumber.failed_estatus();
+//         auto estatus = cerrno.failed_estatus();
 //
 //         throw ::exception(estatus, "Error lseek file : \"" + string(pathSrc) + "\"");
 //
@@ -673,9 +673,9 @@ namespace acme_posix
 //      if(ftruncate(output.m_i32, filesize) < 0)
 //      {
 //
-//         auto cerrornumber = c_error_number();
+//         auto cerrno = c_errno();
 //
-//         auto estatus = cerrornumber.failed_estatus();
+//         auto estatus = cerrno.failed_estatus();
 //
 //         throw ::exception(estatus, "Failed to set output file size : \"" + string(pathNew) + "\"");
 //
@@ -684,9 +684,9 @@ namespace acme_posix
 //      if ((source = mmap(0, filesize, PROT_READ, MAP_PRIVATE, input.m_i32, 0)) == (void *)-1)
 //      {
 //
-//         auto cerrornumber = c_error_number();
+//         auto cerrno = c_errno();
 //
-//         auto estatus = cerrornumber.failed_estatus();
+//         auto estatus = cerrno.failed_estatus();
 //
 //         throw ::exception(estatus, "Error mapping input file : \"" + string(pathSrc) + "\"");
 //
@@ -696,9 +696,9 @@ namespace acme_posix
 //      if ((target = mmap(0, filesize, PROT_WRITE, MAP_PRIVATE, output.m_i32, 0)) == (void *)-1)
 //      {
 //
-//         auto cerrornumber = c_error_number();
+//         auto cerrno = c_errno();
 //
-//         auto estatus = cerrornumber.failed_estatus();
+//         auto estatus = cerrno.failed_estatus();
 //
 //         throw ::exception(estatus, "Error mapping output file: \"" + string(pathNew) + "\"");
 //
@@ -871,9 +871,9 @@ namespace acme_posix
       if (pfile == nullptr)
       {
          
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
          
-         auto estatus = cerrornumber.failed_estatus();
+         auto estatus = cerrno.failed_estatus();
 
          throw ::exception(estatus);
 
@@ -923,9 +923,9 @@ namespace acme_posix
       if(stat(path, &statAttribute))
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         auto estatus = cerrornumber.estatus();
+         auto estatus = cerrno.estatus();
 
          string strMessage;
 
@@ -964,9 +964,9 @@ namespace acme_posix
       //if(stat(path, &statAttribute))
       //{
 
-      //   auto cerrornumber = c_error_number();
+      //   auto cerrno = c_errno();
 
-      //   auto estatus = cerrornumber.estatus();
+      //   auto estatus = cerrno.estatus();
 
       //   string strMessage;
 
@@ -998,9 +998,9 @@ namespace acme_posix
             //if(utime(path, &utimbuf))
             //{
             
-            auto cerrornumber = c_error_number();
+            auto cerrno = c_errno();
             
-            auto estatus = cerrornumber.estatus();
+            auto estatus = cerrno.estatus();
             
             string strMessage;
             
@@ -1018,9 +1018,9 @@ namespace acme_posix
          if(stat(path, &statAttribute))
          {
 
-            auto cerrornumber = c_error_number();
+            auto cerrno = c_errno();
 
-            auto estatus = cerrornumber.estatus();
+            auto estatus = cerrno.estatus();
 
             string strMessage;
 
@@ -1050,9 +1050,9 @@ namespace acme_posix
          if(utimes(path, times))
          {
             
-            auto cerrornumber = c_error_number();
+            auto cerrno = c_errno();
             
-            auto estatus = cerrornumber.estatus();
+            auto estatus = cerrno.estatus();
             
             string strMessage;
             
@@ -1073,9 +1073,9 @@ namespace acme_posix
         if (::unlink(path) == -1)
         {
 
-            auto cerrornumber = c_error_number();
+            auto cerrno = c_errno();
 
-            auto estatus = cerrornumber.estatus();
+            auto estatus = cerrno.estatus();
 
             if(estatus != error_file_not_found)
             {
@@ -1109,11 +1109,11 @@ namespace acme_posix
       if (pfile == nullptr)
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         auto estatus = cerrornumber.estatus();
+         auto estatus = cerrno.estatus();
          
-         throw ::file::exception(estatus, cerrornumber, path, ::file::e_open_write, "!fopen");
+         throw ::file::exception(estatus, cerrno, path, ::file::e_open_write, "!fopen");
 
       }
 
