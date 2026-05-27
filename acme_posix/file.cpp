@@ -648,7 +648,7 @@ namespace acme_posix
       ASSERT_OK(this);
       ASSERT(m_iFile != hFileNull);
 
-      /*if (!::LockFile((HANDLE)m_iFile, lower_unsigned_int(dwPos), upper_unsigned_int(dwPos), lower_unsigned_int(dwCount), upper_unsigned_int(dwCount)))
+      /*if (!::LockFile((HANDLE)m_iFile, lower_u32(dwPos), upper_u32(dwPos), lower_u32(dwCount), upper_u32(dwCount)))
          ::file::throw_os_error( (int)::get_last_error());*/
    }
 
@@ -657,7 +657,7 @@ namespace acme_posix
       ASSERT_OK(this);
       ASSERT(m_iFile != hFileNull);
 
-      /*      if (!::UnlockFile((HANDLE)m_iFile,  lower_unsigned_int(dwPos), upper_unsigned_int(dwPos), lower_unsigned_int(dwCount), upper_unsigned_int(dwCount)))
+      /*      if (!::UnlockFile((HANDLE)m_iFile,  lower_u32(dwPos), upper_u32(dwPos), lower_u32(dwCount), upper_u32(dwCount)))
                ::file::throw_os_error( (int)::get_last_error());*/
    }
 

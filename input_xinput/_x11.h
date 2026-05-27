@@ -64,7 +64,7 @@ public:
 
       auto opacity = color.byte_opacity();
 
-      m_u32 = make_unsigned_int(
+      m_u32 = make_u32(
               color.byte_blue() * opacity / 255,
               color.byte_green() * opacity / 255,
               color.byte_red() * opacity / 255,
