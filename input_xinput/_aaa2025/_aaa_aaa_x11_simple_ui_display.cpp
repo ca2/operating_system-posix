@@ -347,14 +347,14 @@ void simple_ui_display::on_expose(Display * pdisplay)
 
             XGlyphInfo & rText = pbutton->m_infoText;
 
-            ::int_rectangle & rButtonOuter = pbutton->m_rect;
+            ::i32_rectangle & rButtonOuter = pbutton->m_rect;
 
             rButtonOuter.right = right;
             rButtonOuter.left = right - m_iButtonWidth;
             rButtonOuter.top = m_iButtonTop;
             rButtonOuter.bottom = m_iButtonTop + m_iButtonHeight;
 
-            ::int_rectangle rButton = rButtonOuter;
+            ::i32_rectangle rButton = rButtonOuter;
 
             rButton.deflate(1, 1);
 
@@ -432,7 +432,7 @@ void simple_ui_display::on_expose(Display * pdisplay)
 
             XftDrawRect(m_pdraw, &colorBack, rButton.left, rButton.top, rButton.width(), rButton.height());
 
-            ::int_rectangle rectangleText(rButton);
+            ::i32_rectangle rectangleText(rButton);
 
             rectangleText.deflate(m_iButtonHPadding, m_iButtonVPadding);
 

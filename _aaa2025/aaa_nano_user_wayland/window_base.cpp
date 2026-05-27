@@ -666,7 +666,7 @@ namespace nano
 
             auto pwindowbaseParent = owner_window();
 
-            ::int_rectangle rectangleAnchor;
+            ::i32_rectangle rectangleAnchor;
 
             rectangleAnchor.set_dimension(
                -sizeScreen.cx,
@@ -1168,7 +1168,7 @@ namespace nano
          ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
          ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
          ////
-         ////      ::int_rectangle r;
+         ////      ::i32_rectangle r;
          ////
          ////      window_rectangle(msg.oswindow, &r);
          ////

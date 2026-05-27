@@ -55,7 +55,7 @@ namespace wayland
                 ::xdg_toplevel * m_pxdgtoplevelMouseCapture;
                 buffer m_bufferMouseCapture;
                 bool m_bMouseCaptured ;
-                ::int_rectangle m_rectangleMouseCapture;
+                ::i32_rectangle m_rectangleMouseCapture;
                 unsigned int m_uLastButtonSerial;
                 unsigned int m_uLastPointerSerial;
                 unsigned int m_uLastSeatSerial;

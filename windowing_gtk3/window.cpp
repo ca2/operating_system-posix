@@ -1401,7 +1401,7 @@ namespace windowing_gtk3
       //
       //_create_window();
       ////
-      ////         //auto rectangleWindow = ::int_rectangle_dimension(x, y, cx, cy);
+      ////         //auto rectangleWindow = ::i32_rectangle_dimension(x, y, cx, cy);
       ////
       ////         //m_pwindow->puserinteraction->place(rectangleWindow);
       ////         m_pgtkwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -4440,7 +4440,7 @@ namespace windowing_gtk3
    }
 
 
-   //   void window::upper_window_rects(int_rectangle_array & ra)
+   //   void window::upper_window_rects(i32_rectangle_array & ra)
    //   {
    //
    //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);

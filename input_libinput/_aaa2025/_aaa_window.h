@@ -54,7 +54,7 @@ namespace windowing_x11
       //Colormap                                   m_colormap;
       class ::time                                 m_timeLastMouseMove;
       //Window                                     m_parent;
-      ::int_rectangle                              m_rect;
+      ::i32_rectangle                              m_rect;
       string                                       m_strWMClass;
       int                                          m_iaNetWmState2[::x11::e_atom_net_wm_state_last-::x11::e_atom_net_wm_state_first+1];
       //::int_point                                m_pointCursor;
@@ -72,10 +72,10 @@ namespace windowing_x11
       //static Atom                                s_atomLongType;
       //static Atom                                s_atomLongStyle;
       //static Atom                                s_atomLongStyleEx;
-      ::int_rectangle_array                        m_rectangleaRedraw;
+      ::i32_rectangle_array                        m_rectangleaRedraw;
       ::pointer<::xim::keyboard>                   m_pximkeyboard;
       //unsigned long long                                        m_uLastNetWmSyncRequest;
-      ::int_rectangle                              m_rectangleXShm;
+      ::i32_rectangle                              m_rectangleXShm;
       //bool                                         m_bXShmPutImagePending;
 
 
@@ -135,7 +135,7 @@ namespace windowing_x11
 
       void exit_iconify() override;
 
-      void full_screen(const ::int_rectangle & rect = {}) override;
+      void full_screen(const ::i32_rectangle & rect = {}) override;
 
       void exit_full_screen() override;
 
@@ -218,8 +218,8 @@ namespace windowing_x11
       //virtual Atom get_window_long_atom(int nIndex);
       virtual void _mapped_net_state_unlocked(bool add,  WINDOWING_X11_WINDOW_MEMBER int iScreen, Atom state1, Atom state2);
       //virtual void unmapped_net_state_raw( WINDOWING_X11_WINDOW_MEMBER ...);
-      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
-      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
+      virtual bool x11_get_window_rect(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
+      virtual bool x11_get_client_rect(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
       //virtual oswindow set_xxxcapture( WINDOWING_X11_WINDOW_MEMBER );
       //virtual int_bool release_mouse_capture();
       //virtual oswindow set_keyboard_focus( WINDOWING_X11_WINDOW_MEMBER );
@@ -227,7 +227,7 @@ namespace windowing_x11
       //virtual unsigned long x11_get_long_property( WINDOWING_X11_WINDOW_MEMBER char* property_name);
       virtual string x11_get_name( WINDOWING_X11_WINDOW_MEMBER );
       //virtual ::e_status set_active_window();
-      virtual void upper_window_rects( WINDOWING_X11_WINDOW_MEMBER  int_rectangle_array & ra);
+      virtual void upper_window_rects( WINDOWING_X11_WINDOW_MEMBER  i32_rectangle_array & ra);
       //virtual oswindow set_active_window( WINDOWING_X11_WINDOW_MEMBER );
 //      virtual  WINDOWING_X11_WINDOW_MEMBER _get_if_found(Window w);
       //virtual oswindow get_parent( WINDOWING_X11_WINDOW_MEMBER );
@@ -297,9 +297,9 @@ namespace windowing_x11
       virtual ::e_status post_ui_message(const MESSAGE & message);
       //virtual bool x11_process_event(osdisplay_data * pdisplaydata, XEvent * pevent, XGenericEventCookie *cookie);
       //virtual ::e_status set_window_position( WINDOWING_X11_WINDOW_MEMBER const ::zorder & zorder, int x, int y, int cx, int cy, unsigned int nFlags);
-      virtual ::e_status window_rectangle( WINDOWING_X11_WINDOW_MEMBER ::int_rectangle * prectangle);
-      virtual ::e_status rectangle(  WINDOWING_X11_WINDOW_MEMBER  ::int_rectangle * prectangle);
-      //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::int_rectangle & rectangle);
+      virtual ::e_status window_rectangle( WINDOWING_X11_WINDOW_MEMBER ::i32_rectangle * prectangle);
+      virtual ::e_status rectangle(  WINDOWING_X11_WINDOW_MEMBER  ::i32_rectangle * prectangle);
+      //virtual ::e_status wm_full_screen( WINDOWING_X11_WINDOW_MEMBER const ::i32_rectangle & rectangle);
 
       virtual ::e_status x11_store_name(const_char_pointer pszName);
       //virtual ::e_status set_foreground_window();

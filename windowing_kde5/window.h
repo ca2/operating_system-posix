@@ -106,7 +106,7 @@ namespace windowing_kde5
       // //static Atom                                s_atomLongType;
       // //static Atom                                s_atomLongStyle;
       // //static Atom                                s_atomLongStyleEx;
-      // ::int_rectangle_array                        m_rectangleaRedraw;
+      // ::i32_rectangle_array                        m_rectangleaRedraw;
       // ::pointer<::xim::keyboard>                   m_pximkeyboard;
       // //::u64                                        m_uLastNetWmSyncRequest;
       // ::i32_rectangle                              m_rectangleXShm;
@@ -325,7 +325,7 @@ namespace windowing_kde5
 // //      //virtual unsigned long x11_get_long_property( WINDOWING_X11_WINDOW_MEMBER char* property_name);
 // //      virtual string x11_get_name( WINDOWING_X11_WINDOW_MEMBER );
 // //      //virtual ::e_status set_active_window();
-// //      virtual void upper_window_rects( WINDOWING_X11_WINDOW_MEMBER  int_rectangle_array & ra);
+// //      virtual void upper_window_rects( WINDOWING_X11_WINDOW_MEMBER  i32_rectangle_array & ra);
 // //      //virtual oswindow set_active_window( WINDOWING_X11_WINDOW_MEMBER );
 // ////      virtual  WINDOWING_X11_WINDOW_MEMBER _get_if_found(Window w);
 // //      //virtual oswindow get_parent( WINDOWING_X11_WINDOW_MEMBER );

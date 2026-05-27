@@ -575,7 +575,7 @@ namespace x11
 
             }
 
-            ::int_rectangle rectangleMainScreen;
+            ::i32_rectangle rectangleMainScreen;
 
             auto pscreen = DefaultScreenOfDisplay(m_pdisplay);
 

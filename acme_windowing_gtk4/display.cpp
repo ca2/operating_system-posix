@@ -1877,7 +1877,7 @@ namespace gtk4
       // //         //logMsg("work area: %ld:%ld:%ld:%ld", workArea[0], workArea[1], workArea[2], workArea[3]);
       // //         for(int iPos = 0; iPos + 3 < items; iPos+=4)
       // //         {
-      // //            m_rectangleaWorkAreas.add(::int_rectangle_dimension(
+      // //            m_rectangleaWorkAreas.add(::i32_rectangle_dimension(
       // //               workArea[iPos], workArea[iPos+1],
       // //               workArea[iPos+2], workArea[iPos+3]));
       // //         }

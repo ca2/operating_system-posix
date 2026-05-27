@@ -12,7 +12,7 @@ public:
 
    string               m_strLabel;
    bool                 m_bTextRect;
-   ::int_rectangle               m_rect;
+   ::i32_rectangle               m_rect;
    XGlyphInfo           m_infoText;
    bool                 m_bPress;
    bool                 m_bHover;

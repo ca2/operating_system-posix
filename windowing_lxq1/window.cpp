@@ -1719,7 +1719,7 @@ namespace windowing_lxq1
 // //
 // //         m_sizeWindow.cy = cy;
 // //
-// //         //auto rectangleWindow = ::int_rectangle_dimension(x, y, cx, cy);
+// //         //auto rectangleWindow = ::i32_rectangle_dimension(x, y, cx, cy);
 // //
 // //         //puserinteraction->place(rectangleWindow);
 // //
@@ -4521,7 +4521,7 @@ namespace windowing_lxq1
 //    }
 //
 //
-//    //   void window::upper_window_rects(int_rectangle_array & ra)
+//    //   void window::upper_window_rects(i32_rectangle_array & ra)
 //    //   {
 //    //
 //    //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);

@@ -44,7 +44,7 @@ namespace x11
             bool m_bMouseCaptured;
             Window m_windowActive;
             ::i32_rectangle m_rectangleMouseCapture;
-            ::int_rectangle_array_base m_rectangleaMonitor;
+            ::i32_rectangle_array_base m_rectangleaMonitor;
 
             bool                                      m_bUnhook;
             //::map<::x11::enum_atom, Atom> m_mapEnumAtom;

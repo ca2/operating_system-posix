@@ -47,8 +47,8 @@ namespace x11
             //bool                                       m_bNcActive;
 
             manual_reset_happening                           m_happeningEnd;
-            //int_rectangle                              m_rectangle;
-            //int_rectangle                              m_rectangleX;
+            //i32_rectangle                              m_rectangle;
+            //i32_rectangle                              m_rectangleX;
 
             //pointer_array < ::micro::child >      m_childa;
             //::atom                                     m_atomLeftButtonDown;
@@ -131,9 +131,9 @@ namespace x11
 
             void redraw() override;
 
-            //void get_client_rectangle(::int_rectangle & rectangle) override;
+            //void get_client_rectangle(::i32_rectangle & rectangle) override;
 
-            ::int_rectangle get_window_rectangle() override;
+            ::i32_rectangle get_window_rectangle() override;
 
             void set_capture() override;
 

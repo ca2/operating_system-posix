@@ -48,8 +48,8 @@ namespace wayland
             //bool                           m_bNcActive;
 
             manual_reset_happening               m_happeningEnd;
-            //int_rectangle                  m_rectangle;
-            //int_rectangle                  m_rectangleX;
+            //i32_rectangle                  m_rectangle;
+            //i32_rectangle                  m_rectangleX;
 
             //pointer_array < ::micro::child >   m_childa;
             //::atom                         m_atomLeftButtonDown;
@@ -144,9 +144,9 @@ namespace wayland
 
             void redraw() override;
 
-            void get_client_rectangle(::int_rectangle & rectangle) override;
+            void get_client_rectangle(::i32_rectangle & rectangle) override;
 
-            void get_window_rectangle(::int_rectangle & rectangle) override;
+            void get_window_rectangle(::i32_rectangle & rectangle) override;
 
             void set_capture() override;
 

@@ -24,8 +24,8 @@ namespace node_gtk_based
 
 
       //::collection::index                                               m_iIndex;
-      //::int_rectangle                                       m_rectangle;
-      //::int_rectangle                                       m_rectangleWorkspace;
+      //::i32_rectangle                                       m_rectangle;
+      //::i32_rectangle                                       m_rectangleWorkspace;
 
 
       monitor();
@@ -44,8 +44,8 @@ namespace node_gtk_based
       bool adjust_monitor( unsigned int dwTemperature, double dBrightness, double dwGamma) override;
 
 
-//      virtual ::e_status get_monitor_rectangle(::int_rectangle * prectangle) override;
-//      virtual ::e_status get_workspace_rectangle(::int_rectangle * prectangle) override;
+//      virtual ::e_status get_monitor_rectangle(::i32_rectangle * prectangle) override;
+//      virtual ::e_status get_workspace_rectangle(::i32_rectangle * prectangle) override;
 //
 //
 //      virtual ::e_status _get_monitor_rectangle();

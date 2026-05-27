@@ -749,7 +749,7 @@ namespace kde5
       //       if (!m_psurface)
       //       {
       //
-      //          int_rectangle rectangleX;
+      //          i32_rectangle rectangleX;
       //
       //          get_client_rectangle(rectangleX);
       //
@@ -1199,7 +1199,7 @@ namespace kde5
       }
 
       //
-      // void window::get_client_rectangle(::int_rectangle & rectangle)
+      // void window::get_client_rectangle(::i32_rectangle & rectangle)
       // {
       //
       //    xcb_get_geometry_reply_t geometry;
@@ -1214,10 +1214,10 @@ namespace kde5
       // }
 
 
-      ::int_rectangle window::get_window_rectangle()
+      ::i32_rectangle window::get_window_rectangle()
       {
 
-         ::int_rectangle rectangle;
+         ::i32_rectangle rectangle;
 
          auto qrect = m_pqwidget->rect();
 
@@ -1685,7 +1685,7 @@ m_pqwidget->move(p);
          //
          // }
 
-         int_rectangle r;
+         i32_rectangle r;
 
          m_puserinteractionbase->get_client_rectangle(r);
 

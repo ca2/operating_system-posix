@@ -607,14 +607,14 @@ namespace windowing_kde5
 //
 //                  }
 //
-//                  ::int_rectangle rectangleTest;
+//                  ::i32_rectangle rectangleTest;
 //
 //                  for (::collection::index i = 0; i < windowa.get_size(); i++)
 //                  {
 //
 //                     string strItem = ::x11_get_name(Display(), windowa[i]);
 //
-//                     ::int_rectangle rectangleHigher;
+//                     ::i32_rectangle rectangleHigher;
 //
 //                     if (::is_set(pwindowx11Exclude) && windowa[i] == pwindowx11Exclude->Window())
 //                     {
@@ -626,7 +626,7 @@ namespace windowing_kde5
 //                     if (::x11_get_window_rect(Display(), windowa[i], rectangleHigher))
 //                     {
 //
-//                        ::int_rectangle rectangleHitTest;
+//                        ::i32_rectangle rectangleHitTest;
 //
 //                        rectangleHitTest.set(rectangleHigher.origin(), ::int_size());
 //
@@ -703,7 +703,7 @@ namespace windowing_kde5
 
 //    }
 
-//    ::int_rectangle rectangle;
+//    ::i32_rectangle rectangle;
 
 //    x11_get_window_rect(display, oswindow->window(), rectangle);
 
@@ -711,14 +711,14 @@ namespace windowing_kde5
 
 //    string strTopic = x11_get_name(display, oswindow->window());
 
-//    ::int_rectangle rectangleTest;
+//    ::i32_rectangle rectangleTest;
 
 //    for(iFind++; iFind < windowa.get_size(); iFind++)
 //    {
 
 //       string strItem = x11_get_name(display, windowa[iFind]);
 
-//       ::int_rectangle rectangleHigher;
+//       ::i32_rectangle rectangleHigher;
 
 //       if(x11_get_window_rect(display, windowa[iFind], rectangleHigher))
 //       {
@@ -819,7 +819,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 //
-//   pgraphics->fill_rectangle(::int_rectangle(*psize), rgb(84, 90, 80));
+//   pgraphics->fill_rectangle(::i32_rectangle(*psize), rgb(84, 90, 80));
 //
 //   ::draw2d::brush_pointer pen(e_create_new);
 //
@@ -2001,7 +2001,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //            //informationf("windowing_11 Expose");
 //
 ////#ifdef FREEBSD
-//            ::int_rectangle rectangleRedraw;
+//            ::i32_rectangle rectangleRedraw;
 //
 //            rectangleRedraw.left = e.xexpose.x;
 //            rectangleRedraw.top = e.xexpose.y;
@@ -2562,7 +2562,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //                        ::int_size size(e.xconfigure.width, e.xconfigure.height);
 //
-//                        ::int_rectangle rectangle(point, size);
+//                        ::i32_rectangle rectangle(point, size);
 //
 //                        //if(size != msg.oswindow->m_size)
 //                        {
@@ -2704,7 +2704,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
 ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
 ////
-////      ::int_rectangle r;
+////      ::i32_rectangle r;
 ////
 ////      window_rectangle(msg.oswindow, &r);
 ////
@@ -3339,7 +3339,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 } // namespace windowing_kde5
 
 
-//bool x11_get_client_rect(Display * pdisplay, Window window, ::int_rectangle * prectangle)
+//bool x11_get_client_rect(Display * pdisplay, Window window, ::i32_rectangle * prectangle)
 //{
 //
 //   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -3387,7 +3387,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //}
 //
 //
-//bool x11_get_window_rect(Display * d, Window window, ::int_rectangle * prectangle)
+//bool x11_get_window_rect(Display * d, Window window, ::i32_rectangle * prectangle)
 //{
 //
 //   XWindowAttributes attrs;

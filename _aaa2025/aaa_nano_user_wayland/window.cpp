@@ -139,7 +139,7 @@ namespace wayland
 
             }
 
-            int_rectangle r;
+            i32_rectangle r;
 
             get_client_rectangle(r);
 
@@ -592,7 +592,7 @@ namespace wayland
          //         if (!m_psurface)
          //         {
          //
-         //            int_rectangle r;
+         //            i32_rectangle r;
          //
          //            get_client_rectangle(r);
          //
@@ -863,7 +863,7 @@ namespace wayland
          }
 
 
-         void window::get_client_rectangle(::int_rectangle & rectangle)
+         void window::get_client_rectangle(::i32_rectangle & rectangle)
          {
 
             //      rectangle.left = 0;
@@ -894,7 +894,7 @@ namespace wayland
          }
 
 
-         void window::get_window_rectangle(::int_rectangle & rectangle)
+         void window::get_window_rectangle(::i32_rectangle & rectangle)
          {
 
             //      Window windowRoot = 0;
@@ -1257,7 +1257,7 @@ namespace wayland
             ////      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
             ////      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
             ////
-            ////      ::int_rectangle r;
+            ////      ::i32_rectangle r;
             ////
             ////      window_rectangle(msg.oswindow, &r);
             ////

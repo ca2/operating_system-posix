@@ -100,8 +100,8 @@ GtkWidget*m_pgtkwidget;
                         //bool                           m_bNcActive;
 
                         manual_reset_happening               m_happeningEnd;
-                        //int_rectangle                  m_rectangle;
-                        //int_rectangle                  m_rectangleX;
+                        //i32_rectangle                  m_rectangle;
+                        //i32_rectangle                  m_rectangleX;
 
                         //pointer_array < ::micro::child >   m_childa;
                         //::atom                         m_atomLeftButtonDown;
@@ -317,9 +317,9 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
 
             void redraw() override;
 
-            // void get_client_rectangle(::int_rectangle & rectangle) override;
+            // void get_client_rectangle(::i32_rectangle & rectangle) override;
             //
-            // void get_window_rectangle(::int_rectangle & rectangle) override;
+            // void get_window_rectangle(::i32_rectangle & rectangle) override;
 
             void set_capture() override;
 
@@ -345,7 +345,7 @@ void defer_show_system_menu(::user::mouse * pmouse) override;
             // void _on_motion_notify(GtkEventControllerMotion* pcontroller, double x, double y) override;
             // void _on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y) override;
 
-            ::int_rectangle get_window_rectangle_unlocked() override;
+            ::i32_rectangle get_window_rectangle_unlocked() override;
             void set_position_unlocked(const ::int_point & point) override;
 
 

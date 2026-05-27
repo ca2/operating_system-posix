@@ -57,7 +57,7 @@ namespace user
 //}
 
 
-//CLASS_DECL_ACME bool GetPrimaryMonitorRect(::int_rectangle * lprect)
+//CLASS_DECL_ACME bool GetPrimaryMonitorRect(::i32_rectangle * lprect)
 //{
 //
 //   MONITORINFO mi;

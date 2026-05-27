@@ -710,7 +710,7 @@ return FALSE;
             if (windowing_bias() == ::windowing::e_bias_linux_mint_x_cinnamon_22_1)
             {
 
-               __m_rectangleRequest = ::int_rectangle_dimension(x, y, cx, cy);
+               __m_rectangleRequest = ::i32_rectangle_dimension(x, y, cx, cy);
 
                __m_iAttemptToSetPosition = 1;
 
@@ -2130,7 +2130,7 @@ m_phappeningLastMouseUp = pevent;
 
             information() << "gtk_window_get_size : cx, cy " << cx << ", " << cy;
 
-            auto rectangle = int_rectangle_dimension(x, y, cx, cy);
+            auto rectangle = i32_rectangle_dimension(x, y, cx, cy);
 
             information() << "get_window_rectangle " << rectangle;
 

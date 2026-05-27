@@ -95,7 +95,7 @@ namespace windowing_q6
       // //static Atom                                s_atomLongType;
       // //static Atom                                s_atomLongStyle;
       // //static Atom                                s_atomLongStyleEx;
-      // ::int_rectangle_array m_rectangleaRedraw;
+      // ::i32_rectangle_array m_rectangleaRedraw;
       // ::pointer<::xim::keyboard> m_pximkeyboard;
       // //::u64                                        m_uLastNetWmSyncRequest;
       // ::i32_rectangle m_rectangleXShm;

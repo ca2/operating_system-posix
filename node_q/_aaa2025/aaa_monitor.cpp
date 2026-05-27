@@ -130,7 +130,7 @@
 //   }
 //
 //
-//   void monitor::get_monitor_rectangle(::int_rectangle *prectangle)
+//   void monitor::get_monitor_rectangle(::i32_rectangle *prectangle)
 //   {
 //
 //      //auto estatus =
@@ -160,7 +160,7 @@
 //   }
 //
 //
-//   void monitor::get_workspace_rectangle(::int_rectangle *prectangle)
+//   void monitor::get_workspace_rectangle(::i32_rectangle *prectangle)
 //   {
 //
 //      //auto estatus =

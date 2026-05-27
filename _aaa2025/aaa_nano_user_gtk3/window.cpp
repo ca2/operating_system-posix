@@ -987,7 +987,7 @@ namespace gtk3
             //
             // }
 
-            int_rectangle r;
+            i32_rectangle r;
 
             m_puserinteractionbase->get_client_rectangle(r);
 
@@ -1165,7 +1165,7 @@ namespace gtk3
 //               if (!m_psurface)
 //               {
 //
-//                  int_rectangle r;
+//                  i32_rectangle r;
 //
 //                  get_client_rectangle(r);
 //
@@ -1443,7 +1443,7 @@ namespace gtk3
          }
 
 
-//         void window::get_client_rectangle(::int_rectangle & rectangle)
+//         void window::get_client_rectangle(::i32_rectangle & rectangle)
 //         {
 //
 //            rectangle.left = 0;
@@ -1474,7 +1474,7 @@ namespace gtk3
 //         }
 //
 
-         ::int_rectangle window::get_window_rectangle()
+         ::i32_rectangle window::get_window_rectangle()
          {
 
             int x = 0;
@@ -1489,7 +1489,7 @@ namespace gtk3
 
             gtk_window_get_size(GTK_WINDOW(m_pgtkwidget), &cx, &cy);
 
-            auto rectangle = int_rectangle_dimension(x, y, cx, cy);
+            auto rectangle = i32_rectangle_dimension(x, y, cx, cy);
 
             return rectangle;
 

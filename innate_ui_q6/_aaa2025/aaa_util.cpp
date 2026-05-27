@@ -48,7 +48,7 @@
 //            (::GetWindowLong(oswindow_Child, GWL_STYLE) & WS_VISIBLE))
 //      {
 //         // see if int_point hits the child interaction_impl
-//         ::int_rectangle rectangle;
+//         ::i32_rectangle rectangle;
 //         ::GetWindowRect(oswindow_Child, (RECT *) &rectangle);
 //         if (rectangle.contains(point))
 //            return oswindow_Child;

@@ -1995,7 +1995,7 @@ namespace windowing_xcb
 
             }
 
-            information() << "window::_set_window_position_unlocked _move_resize_unlocked " << ::int_rectangle_dimension(x, y, cx, cy);
+            information() << "window::_set_window_position_unlocked _move_resize_unlocked " << ::i32_rectangle_dimension(x, y, cx, cy);
 
             estatus = _move_resize_unlocked(x, y, cx, cy);
 
@@ -2416,7 +2416,7 @@ namespace windowing_xcb
 
             }
 
-            information() << "window::_strict_set_window_position_unlocked _move_resize_unlocked " << ::int_rectangle_dimension(x, y, cx, cy);
+            information() << "window::_strict_set_window_position_unlocked _move_resize_unlocked " << ::i32_rectangle_dimension(x, y, cx, cy);
 
             estatus = _move_resize_unlocked(x, y, cx, cy);
 
@@ -2704,12 +2704,12 @@ namespace windowing_xcb
    }
 
 
-   ::int_rectangle_array window::upper_window_rects()
+   ::i32_rectangle_array window::upper_window_rects()
    {
 
       synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      int_rectangle_array recta;
+      i32_rectangle_array recta;
 
       windowing_output_debug_string("::GetFocus 1");
 
@@ -3707,7 +3707,7 @@ namespace windowing_xcb
 
       }
 
-      information() << "window::_move_resize " << ::int_rectangle_dimension(x, y, cx, cy);
+      information() << "window::_move_resize " << ::i32_rectangle_dimension(x, y, cx, cy);
 
       user_post([x, y, cx, cy, this]
                                    {
@@ -3777,7 +3777,7 @@ namespace windowing_xcb
 
       ::u32 ua[] = {(::u32) x, (::u32) y, (::u32) cx, (::u32) cy};
 
-      information() << "windowing_xcb::window _move_resize_unlocked : " << m_window << ", " << ::int_rectangle_dimension(x, y, cx, cy);
+      information() << "windowing_xcb::window _move_resize_unlocked : " << m_window << ", " << ::i32_rectangle_dimension(x, y, cx, cy);
 
       auto cookie = xcb_configure_window(xcb_connection(), m_window, mask, ua);
 

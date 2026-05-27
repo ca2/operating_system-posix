@@ -1518,7 +1518,7 @@ namespace gtk4
 
             m_sizeWindow = sizeWindow;
 
-            int_rectangle r;
+            i32_rectangle r;
 
             m_puserinteractionbase->get_client_rectangle(r);
 
@@ -1774,7 +1774,7 @@ namespace gtk4
          // }
 
 
-         ::int_rectangle window::get_window_rectangle_unlocked()
+         ::i32_rectangle window::get_window_rectangle_unlocked()
          {
 
 //            if (gtk4_display()->is_x11())

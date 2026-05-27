@@ -62,7 +62,7 @@ namespace x11
 //         }
 
 
-         void window_base::set_rectangle_unlocked(const ::int_rectangle & rectangle)
+         void window_base::set_rectangle_unlocked(const ::i32_rectangle & rectangle)
          {
 
             auto handle = _x11_handle();
@@ -97,7 +97,7 @@ namespace x11
          }
 
 
-         ::int_rectangle window_base::get_window_rectangle_unlocked()
+         ::i32_rectangle window_base::get_window_rectangle_unlocked()
          {
 
             auto handle = _x11_handle();
@@ -127,7 +127,7 @@ namespace x11
 
             }
 
-            ::int_rectangle rectangle;
+            ::i32_rectangle rectangle;
 
             rectangle.left = x;
             rectangle.top = y;

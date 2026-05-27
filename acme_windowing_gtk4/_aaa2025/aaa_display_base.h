@@ -45,7 +45,7 @@ namespace gtk4
             bool m_bOwnDisplay;
 
             bool m_bMouseCaptured;
-            ::int_rectangle m_rectangleMouseCapture;
+            ::i32_rectangle m_rectangleMouseCapture;
             ::int_size_array m_sizeaMonitor;
 
             //::pointer<::gtk4::acme::windowing::window> m_pwindowPointerEnter;
