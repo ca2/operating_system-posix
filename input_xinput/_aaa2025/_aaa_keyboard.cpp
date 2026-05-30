@@ -283,7 +283,7 @@ namespace windowing_x11
 
       //int iScan;
 
-      //::user::enum_key ekey;
+      //const ::user::e_key & ekey;
 
       //::type typeinfoKey = typeid(::user::enum_key );
 
@@ -468,7 +468,7 @@ namespace windowing_x11
 
    //}
 
-   //string keyboard::process_key(::user::enum_key ekey)
+   //string keyboard::process_key(const ::user::e_key & ekey)
    //{
 
    //   if(m_playout == nullptr)

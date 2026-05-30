@@ -2320,7 +2320,7 @@ if(bSentResponse)
 
             }
 
-            ::user::enum_key ekey = ::x11::keysym_to_userkey(keysym);
+            const ::user::e_key & ekey = ::x11::keysym_to_userkey(keysym);
 
             if (bRet)
             {

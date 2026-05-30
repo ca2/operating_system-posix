@@ -2368,7 +2368,7 @@ on_text(scopedstr, scopedstr.size());
 
          auto & sketch = puserinteraction->layout().m_statea[::user::e_layout_sketch];
 
-         enum_display edisplayCurrent = defer_window_get_best_display_deduction();
+         const  ::e_display & edisplayCurrent = defer_window_get_best_display_deduction();
 
          auto & window = puserinteraction->layout().m_statea[::user::e_layout_window];
 

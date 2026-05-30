@@ -43,7 +43,7 @@ namespace windowing_x11
 
       //string process_key(key * pkey);
 
-      //string process_key(::user::enum_key ekey);
+      //string process_key(const ::user::e_key & ekey);
 
       //string process_char(const_char_pointer pszChar);
 
