@@ -145,7 +145,7 @@ namespace acme_posix
       // ::collection::map_base read/write mode
       ASSERT((::file::e_open_read | ::file::e_open_write | ::file::e_open_read_write) == 3);
       ::u32 dwFlags =  0;
-      switch (eopen & 3)
+      switch (eopen & ::file::e_open_read_write)
       {
       case ::file::e_open_read:
          dwFlags |=  O_RDONLY;
@@ -163,7 +163,7 @@ namespace acme_posix
 
       // ::collection::map_base share mode
       //::u32 dwShareMode = 0;
-      switch (eopen & 0x70)    // ::collection::map_base compatibility mode to exclusive
+      switch (eopen & ::file::e_open_share_mask)    // ::collection::map_base compatibility mode to exclusive
       {
       default:
          ASSERT(false);  // invalid share mode?

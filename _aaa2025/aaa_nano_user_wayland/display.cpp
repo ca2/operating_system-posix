@@ -699,7 +699,7 @@ namespace nano
       //   }
 
 
-      ::int_size display::get_main_screen_size()
+      ::i32_size display::get_main_screen_size()
       {
 
          //      auto snum = DefaultScreen(m_pdisplay);

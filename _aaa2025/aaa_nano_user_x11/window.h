@@ -127,7 +127,7 @@ namespace x11
 
             //virtual LRESULT window_procedure(UINT message, WPARAM wparam, LPARAM lparam);
 
-            //void set_position_unlocked(const ::int_point & point) override;
+            //void set_position_unlocked(const ::i32_point & point) override;
 
             void redraw() override;
 

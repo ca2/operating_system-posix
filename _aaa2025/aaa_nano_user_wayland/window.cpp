@@ -119,7 +119,7 @@ namespace wayland
          }
 
 
-         ::int_size window::get_window_size() // m_sizeWindow
+         ::i32_size window::get_window_size() // m_sizeWindow
          {
 
             return m_sizeWindow;
@@ -127,7 +127,7 @@ namespace wayland
          }
 
 
-         void window::set_interface_client_size(const ::int_size & sizeWindow) // set_size
+         void window::set_interface_client_size(const ::i32_size & sizeWindow) // set_size
          {
 
             m_sizeWindow = sizeWindow;
@@ -833,7 +833,7 @@ namespace wayland
          }
 
 
-         void window::move_to(const ::int_point & point)
+         void window::move_to(const ::i32_point & point)
          {
 
             //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x, point.y);
@@ -962,7 +962,7 @@ namespace wayland
          }
 
 
-         //   ::int_size window::get_main_screen_size()
+         //   ::i32_size window::get_main_screen_size()
          //   {
          //
          //      return m_pdisplay->get_main_screen_size();
@@ -1149,7 +1149,7 @@ namespace wayland
             {
                //
                //
-               //         ::int_point                                  m_pointWindowDragStart;
+               //         ::i32_point                                  m_pointWindowDragStart;
                //
                //
                if (linux_button == BTN_LEFT)

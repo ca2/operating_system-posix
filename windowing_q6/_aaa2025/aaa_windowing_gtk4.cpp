@@ -53,7 +53,7 @@
 //list < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
 
 
-//::int_point g_pointX11Cursor;
+//::i32_point g_pointX11Cursor;
 
 
 //message_queue * aaa_get_message_queue(itask idthread, bool bCreate);
@@ -62,7 +62,7 @@
 void oswindow_set_active_window(::acme::windowing::window * pacmewindowingwindow);
 
 void os_post_quit(GApplication * pgapplication);
-CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const int_point & pointCursor);
+CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const i32_point & pointCursor);
 
 //bool is_return_key(XIRawEvent * happening)
 //{
@@ -173,7 +173,7 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const in
 //Window g_windowX11Client = 0;
 //
 //
-//int_bool _x11_get_cursor_pos(Display * d, ::int_point * ppointCursor);
+//int_bool _x11_get_cursor_pos(Display * d, ::i32_point * ppointCursor);
 //
 //
 ////extern ::pointer< ::mutex >g_pmutexX11Runnable;
@@ -194,7 +194,7 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const in
 ////CLASS_DECL_AURA int_bool mq_remove_window_from_all_queues(::acme::windowing::window * pacmewindowingwindow);
 ////
 ////
-////int_bool x11_get_cursor_pos(::int_point * ppointCursor);
+////int_bool x11_get_cursor_pos(::i32_point * ppointCursor);
 //
 //
 //
@@ -554,7 +554,7 @@ namespace windowing_kde5
 //   }
 
 
-//   bool display::point_is_window_origin(::int_point pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
+//   bool display::point_is_window_origin(::i32_point pointHitTest, ::windowing::window *pwindowExclude, int iMargin)
 //   {
 //
 //      bool bIsOrigin = false;
@@ -628,7 +628,7 @@ namespace windowing_kde5
 //
 //                        ::i32_rectangle rectangleHitTest;
 //
-//                        rectangleHitTest.set(rectangleHigher.origin(), ::int_size());
+//                        rectangleHitTest.set(rectangleHigher.origin(), ::i32_size());
 //
 //                        rectangleHitTest.inflate(iMargin + 1);
 //
@@ -814,7 +814,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 #define SIZEY  50
 
 
-//void message_box_paint(::draw2d::graphics_pointer & pgraphics, string_array_base & stra, bool_array  & baTab, ::int_array  & ya,::int_size * psize)
+//void message_box_paint(::draw2d::graphics_pointer & pgraphics, string_array_base & stra, bool_array  & baTab, ::int_array  & ya,::i32_size * psize)
 //{
 //
 //   synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -1897,7 +1897,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////                           if (pinteraction->m_timeMouseMovePeriod > 0_s)
 ////                           {
 ////
-////                              ::int_size sizeDistance(
+////                              ::i32_size sizeDistance(
 ////                                 (pinteraction->m_pointMouseMoveSkip.x - pinteraction->m_pointMouseMove.x),
 ////                                 (pinteraction->m_pointMouseMoveSkip.y - pinteraction->m_pointMouseMove.y));
 ////
@@ -2546,7 +2546,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //                        //information() << "X11 ConfigureNotify Win, cx, cy : " << e.xconfigure.window << ", "
 //                          //            <<  ;
 //
-//                        ::int_point point(e.xconfigure.x, e.xconfigure.y);
+//                        ::i32_point point(e.xconfigure.x, e.xconfigure.y);
 //
 ////                     //if(point != msg.oswindow->m_point)
 ////                     {
@@ -2557,7 +2557,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 ////
 ////                     }
 //
-//                        ::int_size size(e.xconfigure.width, e.xconfigure.height);
+//                        ::i32_size size(e.xconfigure.width, e.xconfigure.height);
 //
 //                        ::i32_rectangle rectangle(point, size);
 //

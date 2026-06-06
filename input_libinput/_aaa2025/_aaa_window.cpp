@@ -606,8 +606,8 @@ namespace windowing_x11
                {
 
                   // window managers generally "don't like" windows that starts "docked/snapped".
-                  // initial (XCreateWindow) int_size and position maybe not be honored.
-                  // so requesting the same change again in a effort to set the "docked/snapped" int_size and position.
+                  // initial (XCreateWindow) i32_size and position maybe not be honored.
+                  // so requesting the same change again in a effort to set the "docked/snapped" i32_size and position.
 
                   //set_window_position(e_zorder_top, pusersystem->m_createstruct.x, pusersystem->m_createstruct.y,
                   //                  pusersystem->m_createstruct.cx, pusersystem->m_createstruct.cy, SWP_SHOWWINDOW);
@@ -1549,7 +1549,7 @@ namespace windowing_x11
    }
 
 
-//   ::int_point window::get_mouse_cursor_position()
+//   ::i32_point window::get_mouse_cursor_position()
 //   {
 //
 //      return m_pointCursor;
@@ -2176,7 +2176,7 @@ namespace windowing_x11
 //   }
 
 
-   bool window::client_to_screen(::int_point * ppoint)
+   bool window::client_to_screen(::i32_point * ppoint)
    {
 
       return true;
@@ -2184,7 +2184,7 @@ namespace windowing_x11
    }
 
 
-   bool window::screen_to_client(::int_point * ppoint)
+   bool window::screen_to_client(::i32_point * ppoint)
    {
 
       return true;

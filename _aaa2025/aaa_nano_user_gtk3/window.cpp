@@ -975,7 +975,7 @@ namespace gtk3
 
 
 
-         void window::set_interface_client_size(const ::int_size & sizeWindow) // set_size
+         void window::set_interface_client_size(const ::i32_size & sizeWindow) // set_size
          {
 
             m_sizeWindow = sizeWindow;
@@ -1394,7 +1394,7 @@ namespace gtk3
 //         }
 
 
-         void window::set_position_unlocked(const ::int_point &point)
+         void window::set_position_unlocked(const ::i32_point &point)
          {
             //display_lock displaylock(m_pdisplay->m_pdisplay);
 
@@ -1405,7 +1405,7 @@ namespace gtk3
          }
 
 
-         void window::set_size_unlocked(const ::int_size &size)
+         void window::set_size_unlocked(const ::i32_size &size)
          {
 
             gtk_window_resize(GTK_WINDOW(m_pgtkwidget), size.cx, size.cy);
@@ -1607,7 +1607,7 @@ namespace gtk3
 
          }
 
-         //   ::int_size window::get_main_screen_size()
+         //   ::i32_size window::get_main_screen_size()
          //   {
          //
          //      return m_pdisplay->get_main_screen_size();

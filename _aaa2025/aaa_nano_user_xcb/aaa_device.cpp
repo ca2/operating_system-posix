@@ -102,7 +102,7 @@ namespace xcb
    }
 
 
-   ::int_size ::nano::graphics::device::get_text_extents(const ::scoped_string & scopedstr, ::nano::graphics::font * pnanofont)
+   ::i32_size ::nano::graphics::device::get_text_extents(const ::scoped_string & scopedstr, ::nano::graphics::font * pnanofont)
    {
 
       cairo_set_antialias(m_pdc, CAIRO_ANTIALIAS_SUBPIXEL);

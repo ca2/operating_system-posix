@@ -117,7 +117,7 @@ namespace xcb
 
             //virtual LRESULT window_procedure(UINT message, WPARAM wparam, LPARAM lparam);
 
-            void move_to(const ::int_point & point) override;
+            void move_to(const ::i32_point & point) override;
 
             void redraw() override;
 
@@ -134,7 +134,7 @@ namespace xcb
             virtual void _get_geometry(xcb_get_geometry_reply_t * pgeometry);
 
 
-            //::int_size get_main_screen_size() override;
+            //::i32_size get_main_screen_size() override;
 
 
          };

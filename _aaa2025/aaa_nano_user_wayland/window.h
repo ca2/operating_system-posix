@@ -56,8 +56,8 @@ namespace wayland
             //::atom                         m_atomLeftButtonUp;
             //::atom                         m_atomResult;
             //::pointer<::micro::child>          m_pchildFocus;
-            //::int_size                     m_sizeWindow;
-            //::int_size                     m_sizeRequest;
+            //::i32_size                     m_sizeWindow;
+            //::i32_size                     m_sizeRequest;
 
 
             window();
@@ -67,8 +67,8 @@ namespace wayland
             virtual ::particle * get_interface_client_particle(); // m_pwindow->m_puserinteraction
             virtual void set_window_width(int iWidth); // m_sizeWindow.cx
             virtual void set_window_height(int iHeight); // m_sizeWindow.cy
-            virtual ::int_size get_window_size(); // m_sizeWindow
-            virtual void set_interface_client_size(const ::int_size & sizeWindow); // m_sizeWindow
+            virtual ::i32_size get_window_size(); // m_sizeWindow
+            virtual void set_interface_client_size(const ::i32_size & sizeWindow); // m_sizeWindow
 
             virtual bool is_window_stored_iconic(); // m_pwindow->m_puserinteraction->const_layout().window().display() == e_display_iconic
             virtual void window_maximize(); // m_pwindow->m_puserinteraction->display(::e_display_zoomed);
@@ -140,7 +140,7 @@ namespace wayland
 
             //virtual LRESULT window_procedure(UINT message, WPARAM wparam, LPARAM lparam);
 
-            void move_to(const ::int_point & point) override;
+            void move_to(const ::i32_point & point) override;
 
             void redraw() override;
 
@@ -158,7 +158,7 @@ namespace wayland
             bool defer_perform_entire_reposition_process(::user::mouse * pmouse) override;
 
 
-            //::int_size get_main_screen_size() override;
+            //::i32_size get_main_screen_size() override;
 
 
             void __handle_pointer_enter(::wl_pointer * pwlpointer) override;

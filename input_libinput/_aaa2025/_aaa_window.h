@@ -57,7 +57,7 @@ namespace windowing_x11
       ::i32_rectangle                              m_rect;
       string                                       m_strWMClass;
       int                                          m_iaNetWmState2[::x11::e_atom_net_wm_state_last-::x11::e_atom_net_wm_state_first+1];
-      //::int_point                                m_pointCursor;
+      //::i32_point                                m_pointCursor;
       XSyncCounter                                 m_xsynccounterNetWmSync;
       XSyncValue                                   m_xsyncvalueNetWmSync;
       XSyncValue                                   m_xsyncvalueNetWmSyncPending;
@@ -152,8 +152,8 @@ namespace windowing_x11
       //virtual ::Window get_parent_handle();
       ::oswindow get_parent_oswindow() const override;
 
-//      ::int_point get_mouse_cursor_host_position() override;
-//      ::int_point get_mouse_cursor_absolute_position() override;
+//      ::i32_point get_mouse_cursor_host_position() override;
+//      ::i32_point get_mouse_cursor_absolute_position() override;
 
       //virtual ::Window get_parent_handle() const;
 
@@ -172,9 +172,9 @@ namespace windowing_x11
       //void _show_window_unlocked(const ::e_display & edisplay, const ::user::e_activation & useractivation) override;
       //virtual iptr get_window_long_ptr(int nIndex);
       //virtual iptr set_window_long_ptr(int nIndex, iptr l);
-      virtual bool client_to_screen(::int_point * ppoint) override;
+      virtual bool client_to_screen(::i32_point * ppoint) override;
 
-      bool screen_to_client(::int_point * ppoint) override;
+      bool screen_to_client(::i32_point * ppoint) override;
 
 
       //virtual bool set_window_pos(class::zorder zorder, int x, int y, int cx, int cy,unsigned int nFlags);

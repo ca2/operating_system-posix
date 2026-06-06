@@ -120,7 +120,7 @@
 //         }
 //
 //
-//         ::int_size window::get_window_size() // m_sizeWindow
+//         ::i32_size window::get_window_size() // m_sizeWindow
 //         {
 //
 //            return m_sizeWindow;
@@ -133,7 +133,7 @@
 //set_interface_client_size({cx, cy});
 //
 //         }
-//         void window::set_interface_client_size(const ::int_size & sizeWindow) // set_size
+//         void window::set_interface_client_size(const ::i32_size & sizeWindow) // set_size
 //         {
 //
 //            m_sizeWindow = sizeWindow;
@@ -864,7 +864,7 @@
 //         }
 //
 //
-//         void window::move_to(const ::int_point & point)
+//         void window::move_to(const ::i32_point & point)
 //         {
 //
 //            //::XMoveWindow(m_pdisplay->m_pdisplay, m_window, point.x, point.y);
@@ -993,7 +993,7 @@
 //         }
 //
 //
-//         // //   ::int_size window::get_main_screen_size()
+//         // //   ::i32_size window::get_main_screen_size()
 //         // //   {
 //         // //
 //         // //      return m_pdisplay->get_main_screen_size();
@@ -1047,7 +1047,7 @@
 //         {
 //            //
 //            //
-//            //         ::int_point                                  m_pointWindowDragStart;
+//            //         ::i32_point                                  m_pointWindowDragStart;
 //            //
 //            //
 //            guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
@@ -1261,7 +1261,7 @@
 //         // {
 //         //    //
 //         //    //
-//         //    //         ::int_point                                  m_pointWindowDragStart;
+//         //    //         ::i32_point                                  m_pointWindowDragStart;
 //         //    //
 //         //    //
 //         //    if (linux_button == BTN_LEFT)
@@ -1651,7 +1651,7 @@
 //         //    {
 //         //       //
 //         //       //
-//         //       //         ::int_point                                  m_pointWindowDragStart;
+//         //       //         ::i32_point                                  m_pointWindowDragStart;
 //         //       //
 //         //       //
 //         //       if (linux_button == BTN_LEFT)

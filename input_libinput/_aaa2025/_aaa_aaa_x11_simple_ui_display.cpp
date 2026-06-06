@@ -728,7 +728,7 @@ bool simple_ui_display::process_event(Display * pdisplay, XEvent & e, XGenericEv
       else if (e.type == aaaMotionNotify)
       {
 
-         ::int_point point(e.xmotion.x, e.xmotion.y);
+         ::i32_point point(e.xmotion.x, e.xmotion.y);
 
          bool bRedraw = false;
 
@@ -759,7 +759,7 @@ bool simple_ui_display::process_event(Display * pdisplay, XEvent & e, XGenericEv
       else if(e.type == ButtonPress)
       {
 
-         ::int_point point(e.xbutton.x, e.xbutton.y);
+         ::i32_point point(e.xbutton.x, e.xbutton.y);
 
          bool bRedraw = false;
 
@@ -790,7 +790,7 @@ bool simple_ui_display::process_event(Display * pdisplay, XEvent & e, XGenericEv
       else if(e.type == ButtonRelease)
       {
 
-         ::int_point point(e.xbutton.x, e.xbutton.y);
+         ::i32_point point(e.xbutton.x, e.xbutton.y);
 
          bool bRedraw = false;
 

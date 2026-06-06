@@ -53,7 +53,7 @@ namespace windowing_x11
    }
 
 
-   void * icon::get_os_data(const ::int_size & size) const
+   void * icon::get_os_data(const ::i32_size & size) const
    {
 
       return nullptr;
@@ -113,7 +113,7 @@ namespace windowing_x11
    }
 
 
-   ::image::image_pointer icon::get_image(const ::int_size& size)
+   ::image::image_pointer icon::get_image(const ::i32_size& size)
    {
 
       throw ::interface_only();
@@ -123,7 +123,7 @@ namespace windowing_x11
    }
 
 
-   void icon::get_sizes(::int_size_array & a)
+   void icon::get_sizes(::i32_size_array & a)
    {
 
 

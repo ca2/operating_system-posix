@@ -1211,7 +1211,7 @@ namespace gtk4
          // }
          //
          //
-         // void display_base::update_wayland_buffer(buffer & waylandbuffer, const ::int_size & size)
+         // void display_base::update_wayland_buffer(buffer & waylandbuffer, const ::i32_size & size)
          // {
          //
          //    //wayland_buffer waylandbuffer{};
@@ -1448,7 +1448,7 @@ namespace gtk4
          // void display_base::__handle_pointer_motion(::wl_pointer * pwlpointer, double x, double y, unsigned int millis)
          // {
          //
-         //    ::int_point pointCursor((int) x, (int) y);
+         //    ::i32_point pointCursor((int) x, (int) y);
          //
          //    if (m_pwindowPointerCapture)
          //    {

@@ -123,7 +123,7 @@ namespace windowing_gtk4
    }
 
 
-   void icon::get_sizes(::int_size_array & a)
+   void icon::get_sizes(::i32_size_array & a)
    {
 
 

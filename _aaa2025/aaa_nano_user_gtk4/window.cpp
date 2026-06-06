@@ -1472,7 +1472,7 @@ namespace gtk4
          }
 
 
-         ::int_size window::get_window_size() // m_sizeWindow
+         ::i32_size window::get_window_size() // m_sizeWindow
          {
 
             return m_sizeWindow;
@@ -1513,7 +1513,7 @@ namespace gtk4
          }
 
 
-         void window::set_interface_client_size(const ::int_size & sizeWindow) // set_size
+         void window::set_interface_client_size(const ::i32_size & sizeWindow) // set_size
          {
 
             m_sizeWindow = sizeWindow;
@@ -1789,7 +1789,7 @@ namespace gtk4
          }
 
 
-         void window::set_position_unlocked(const ::int_point & point)
+         void window::set_position_unlocked(const ::i32_point & point)
          {
 
 //            if (gtk4_display()->is_x11())
@@ -1830,7 +1830,7 @@ namespace gtk4
          }
 
 
-//         void window::_defer_translate_to_absolute_coordinates_unlocked(::int_point & point)
+//         void window::_defer_translate_to_absolute_coordinates_unlocked(::i32_point & point)
 //         {
 //
 //            //GdkSurface * surface = GDK_SURFACE(gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget)));

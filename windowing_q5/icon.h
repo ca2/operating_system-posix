@@ -21,7 +21,7 @@ namespace windowing_q5
 
       //array < concrete < ::i32_size > >         m_sizea;
 
-      int_size_array                               m_sizea;
+      i32_size_array                               m_sizea;
 
 
       icon();
@@ -34,7 +34,7 @@ namespace windowing_q5
       void set_tray_icon_name(const ::scoped_string & scopedstrTrayIconName) override;
 
 
-      void get_sizes(::int_size_array & a) override;
+      void get_sizes(::i32_size_array & a) override;
 
 
       void * get_os_data(const ::i32_size & size) const override;

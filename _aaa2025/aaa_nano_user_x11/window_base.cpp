@@ -77,7 +77,7 @@ namespace x11
          }
 
 
-         void window_base::set_position_unlocked(const ::int_point & point)
+         void window_base::set_position_unlocked(const ::i32_point & point)
          {
 
             auto handle = _x11_handle();
@@ -87,7 +87,7 @@ namespace x11
          }
 
 
-         void window_base::set_size_unlocked(const ::int_size & size)
+         void window_base::set_size_unlocked(const ::i32_size & size)
          {
 
             auto handle = _x11_handle();
@@ -139,7 +139,7 @@ namespace x11
          }
 
 
-         void window_base::_defer_translate_to_absolute_coordinates_unlocked(::int_point & point)
+         void window_base::_defer_translate_to_absolute_coordinates_unlocked(::i32_point & point)
          {
 
             auto handle = _x11_handle();

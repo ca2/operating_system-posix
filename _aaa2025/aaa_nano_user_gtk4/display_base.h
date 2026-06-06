@@ -70,7 +70,7 @@ GdkDisplay*m_pgdkdisplay;
                 // //::wl_keyboard * m_pwlkeyboard;
                 // ::wl_surface * m_pwlsurfaceKeyboardEnter;
                 // ::comparable_array < ::wl_output * > m_wloutputa;
-                ::int_size_array                       m_sizeaMonitor;
+                ::i32_size_array                       m_sizeaMonitor;
                 //::comparable_array < ::xdg_output * > m_xdgoutputa;
 
                 //::double_point m_pointPointer;
@@ -135,7 +135,7 @@ GdkDisplay*m_pgdkdisplay;
                 //      void erase_window(nano_window_base * pwindow);
 
                 //void destroy_wayland_buffer(buffer & waylandbuffer);
-                //void update_wayland_buffer(buffer & waylandbuffer, const ::int_size & size);
+                //void update_wayland_buffer(buffer & waylandbuffer, const ::i32_size & size);
                 //void update_wayland_buffer(buffer & waylandbuffer, ::pixmap * ppixmap);
 
 

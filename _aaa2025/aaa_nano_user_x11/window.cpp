@@ -732,7 +732,7 @@ namespace x11
 //         }
 
 
-//         void window::move_to(const ::int_point & point)
+//         void window::move_to(const ::i32_point & point)
 //         {
 //            display_lock displaylock(m_pdisplay->m_pdisplay);
 //
@@ -874,7 +874,7 @@ namespace x11
          }
 
 
-         //   ::int_size window::get_main_screen_size()
+         //   ::i32_size window::get_main_screen_size()
          //   {
          //
          //      return m_pdisplay->get_main_screen_size();

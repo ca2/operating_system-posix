@@ -1070,7 +1070,7 @@ namespace nano
          //      {
          //
          //
-         //         ::int_point                                  m_pointWindowDragStart;
+         //         ::i32_point                                  m_pointWindowDragStart;
          //
          //
          //         if (linux_button == BTN_LEFT)
@@ -1341,7 +1341,7 @@ namespace nano
 
          ::string strType = ::type(get_interface_client_particle()).name();
 
-         ::int_size size(width, height);
+         ::i32_size size(width, height);
 
          information()
 

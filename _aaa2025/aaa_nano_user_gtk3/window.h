@@ -137,9 +137,9 @@ namespace gtk3
 
             //virtual LRESULT window_procedure(UINT message, WPARAM wparam, LPARAM lparam);
 
-            void set_position_unlocked(const ::int_point & point) override;
+            void set_position_unlocked(const ::i32_point & point) override;
 
-            void set_size_unlocked(const ::int_size & size) override;
+            void set_size_unlocked(const ::i32_size & size) override;
 
             void redraw() override;
 
@@ -158,8 +158,8 @@ namespace gtk3
             void defer_show_system_menu(::user::mouse * pmouse) override;
 
 
-            void set_interface_client_size(const ::int_size & sizeWindow) ;// set_size
-            //::int_size get_main_screen_size() override;
+            void set_interface_client_size(const ::i32_size & sizeWindow) ;// set_size
+            //::i32_size get_main_screen_size() override;
 
             //void on_a_system_menu_item(::operating_system::a_system_menu_item * psystemmenuitem);
 

@@ -48,7 +48,7 @@ inline void copy(Gdiplus::Point * ppoint1, const ::double_point * ppoint2)
 }
 
 
-inline void copy(Gdiplus::Point * ppoint1, const ::int_point * ppoint2)
+inline void copy(Gdiplus::Point * ppoint1, const ::i32_point * ppoint2)
 {
 
    ppoint1->X = (int)ppoint2->x;

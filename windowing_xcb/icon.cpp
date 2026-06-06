@@ -118,7 +118,7 @@ namespace windowing_xcb
    }
 
 
-   void icon::get_sizes(::int_size_array & a)
+   void icon::get_sizes(::i32_size_array & a)
    {
 
 
