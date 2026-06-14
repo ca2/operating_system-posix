@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "device.h"
+#include "context.h"
 #include "icon.h"
 #include "acme/nano/graphics/brush.h"
 #include "acme/nano/graphics/font.h"
@@ -11,7 +11,7 @@
 IMPLEMENT_FACTORY(nano_graphics_cairo)
 {
 
-   pfactory->add_factory_item < ::cairo::nano::graphics::device, ::nano::graphics::device >();
+   pfactory->add_factory_item < ::cairo::nano::graphics::context, ::nano::graphics::context >();
 
    pfactory->add_factory_item < ::nano::graphics::brush >();
    pfactory->add_factory_item < ::nano::graphics::font >();
@@ -23,6 +23,5 @@ IMPLEMENT_FACTORY(nano_graphics_cairo)
    pfactory->add_factory_item < ::nano::graphics::graphics>();
 
 }
-
 
 

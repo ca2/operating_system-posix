@@ -16,7 +16,7 @@ namespace cairo
    {
       namespace graphics
       {
-         class device;
+         class context;
 
 
       }
@@ -25,6 +25,5 @@ namespace cairo
 
 
 } // namespace cairo
-
 
 
