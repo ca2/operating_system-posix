@@ -70,7 +70,7 @@ namespace wayland
                 ::i32_size_array                       m_sizeaMonitor;
                 //::comparable_array < ::xdg_output * > m_xdgoutputa;
 
-                //::double_point m_pointPointer;
+                //::f64_point m_pointPointer;
 
                 //::u32 m_uLastPointerButton;
                 //::u32 m_uLastPointerState;

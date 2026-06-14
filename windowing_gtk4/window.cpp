@@ -391,7 +391,7 @@ gtk_im_context_commit (
 
          pgraphics->attach(cr);
 
-         ::double_rectangle r;
+         ::f64_rectangle r;
 
          int width = gtk_widget_get_width(widget);
 
@@ -1791,7 +1791,7 @@ on_text(scopedstr, scopedstr.size());
          if(is_window_visible())
          {
 
-            hide_window();
+            _hide_window();
 
          }
 
@@ -1802,7 +1802,7 @@ on_text(scopedstr, scopedstr.size());
          if(!is_window_visible())
          {
 
-            show_window();
+            _show_window();
 
          }
 
@@ -2211,7 +2211,7 @@ on_text(scopedstr, scopedstr.size());
    }
 
 
-   bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse)
+   bool window::defer_perform_entire_resizing_process(const ::experience::e_frame & eframeSizing, ::user::mouse * pmouse)
    {
 
       return ::gtk4::acme::windowing::window::defer_perform_entire_resizing_process(eframeSizing, pmouse);

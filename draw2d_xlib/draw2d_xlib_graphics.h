@@ -224,7 +224,7 @@ namespace draw2d_xlib
       i32_point GetCurrentPosition() const;
       using ::draw2d::graphics::MoveTo;
       i32_point MoveTo(int x, int y);
-      double_point MoveTo(double x, double y);
+      f64_point MoveTo(double x, double y);
       //    i32_point MoveTo(const ::i32_point & point);
       using ::draw2d::graphics::LineTo;
       bool LineTo(double x, double y);
@@ -289,10 +289,10 @@ namespace draw2d_xlib
       bool Pie(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4);
       bool Pie(const ::i32_rectangle & rectangle, const ::i32_point & pointStart, const ::i32_point & pointEnd);
 
-      virtual bool fill_polygon(const ::double_point * lpPoints, int nCount);
+      virtual bool fill_polygon(const ::f64_point * lpPoints, int nCount);
       virtual bool fill_polygon(const ::i32_point* lpPoints, int nCount);
 
-      virtual bool draw_polygon(const ::double_point * lpPoints, int nCount);
+      virtual bool draw_polygon(const ::f64_point * lpPoints, int nCount);
       virtual bool draw_polygon(const ::i32_point* lpPoints, int nCount);
 
 
@@ -366,9 +366,9 @@ namespace draw2d_xlib
       i32_size get_text_extent(const_char_pointer lpszString, character_count nCount, int iIndex) const;
       i32_size get_text_extent(const_char_pointer lpszString, character_count nCount) const;
       i32_size get_text_extent(const ::scoped_string & scopedstr) const;
-      bool get_text_extent(double_size & size, const_char_pointer lpszString, character_count nCount, int iIndex) const;
-      bool get_text_extent(double_size & size, const_char_pointer lpszString, character_count nCount) const;
-      bool get_text_extent(double_size & size, const ::scoped_string & scopedstr) const;
+      bool get_text_extent(f64_size & size, const_char_pointer lpszString, character_count nCount, int iIndex) const;
+      bool get_text_extent(f64_size & size, const_char_pointer lpszString, character_count nCount) const;
+      bool get_text_extent(f64_size & size, const ::scoped_string & scopedstr) const;
       i32_size GetOutputTextExtent(const_char_pointer lpszString, character_count nCount) const;
       i32_size GetOutputTextExtent(const ::scoped_string & scopedstr) const;
       i32_size GetTabbedTextExtent(const_char_pointer lpszString, character_count nCount, int nTabPositions, LPINT lpnTabStopPositions) const;

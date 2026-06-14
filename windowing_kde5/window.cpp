@@ -1944,7 +1944,7 @@ namespace windowing_kde5
 
             // pgraphics->attach(cr);
             // //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-            // ::double_rectangle r;
+            // ::f64_rectangle r;
             // int width = gtk_widget_get_width(widget);
             // int height = gtk_widget_get_height(widget);
             // r.left = 0;
@@ -1968,7 +1968,7 @@ namespace windowing_kde5
       }
 
 
-      // ::double_rectangle r;
+      // ::f64_rectangle r;
       //
       // r.left = 10;
       // r.top = 10;
@@ -3653,7 +3653,7 @@ namespace windowing_kde5
    //    //
    //    //         ::image::image_source imagesource(pimage->g(), pimage->rectangle());
    //    //
-   //    //         double_rectangle rectangle(image1->rectangle());
+   //    //         f64_rectangle rectangle(image1->rectangle());
    //    //
    //    //         ::image::image_drawing_options imagedrawingoptions(rectangle);
    //    //

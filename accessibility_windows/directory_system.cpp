@@ -994,7 +994,7 @@ bool windows_file_find_is_dots(const WIN32_FIND_DATAW & data)
       //
       //         }
       //
-      //         str = ::dir::pathfind(::file::path(str).folder(), "libacme.dylib", "rfs"); // readable - normal file - non zero double_size
+      //         str = ::dir::pathfind(::file::path(str).folder(), "libacme.dylib", "rfs"); // readable - normal file - non zero f64_size
       //
       //         if(str.has_character())
       //         {
@@ -1003,7 +1003,7 @@ bool windows_file_find_is_dots(const WIN32_FIND_DATAW & data)
       //
       //         }
       //
-      //         str = ::dir::pathfind(getenv("DYLD_LIBRARY_PATH"), "libacme.dylib", "rfs"); // readable - normal file - non zero double_size
+      //         str = ::dir::pathfind(getenv("DYLD_LIBRARY_PATH"), "libacme.dylib", "rfs"); // readable - normal file - non zero f64_size
       //
       //         if(str.has_character())
       //         {
@@ -1021,7 +1021,7 @@ bool windows_file_find_is_dots(const WIN32_FIND_DATAW & data)
       //
       //         }
       //
-      //         str = ::dir::pathfind(getenv("DYLD_FALLBACK_LIBRARY_PATH"), "libacme.dylib", "rfs"); // readable - normal file - non zero double_size
+      //         str = ::dir::pathfind(getenv("DYLD_FALLBACK_LIBRARY_PATH"), "libacme.dylib", "rfs"); // readable - normal file - non zero f64_size
       //
       //         if(str.has_character())
       //         {

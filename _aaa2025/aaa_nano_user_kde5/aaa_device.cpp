@@ -120,7 +120,7 @@ namespace xcb
    }
 
 
-   void ::nano::graphics::device::double_rectangle(const ::i32_rectangle & rectangle, ::nano::graphics::brush * pnanobrush, ::nano::graphics::pen * pnanopen)
+   void ::nano::graphics::device::f64_rectangle(const ::i32_rectangle & rectangle, ::nano::graphics::brush * pnanobrush, ::nano::graphics::pen * pnanopen)
    {
 
       cairo_set_antialias(m_pdc, CAIRO_ANTIALIAS_NONE);

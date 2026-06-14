@@ -464,7 +464,7 @@ namespace windowing_gtk3
 
             pgraphics->attach(cr);
             //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-            ::double_rectangle r;
+            ::f64_rectangle r;
             //int width = gtk_widget_get_allocated_width(widget);
             //int height = gtk_widget_get_allocated_height(widget);
             int width = m_sizeWindow.cx;
@@ -486,7 +486,7 @@ namespace windowing_gtk3
          }
 
 
-         // ::double_rectangle r;
+         // ::f64_rectangle r;
          //
          // r.left = 10;
          // r.top = 10;
@@ -2850,7 +2850,7 @@ namespace windowing_gtk3
       //
       //         ::image::image_source imagesource(pimage->g(), pimage->rectangle());
       //
-      //         double_rectangle rectangle(image1->rectangle());
+      //         f64_rectangle rectangle(image1->rectangle());
       //
       //         ::image::image_drawing_options imagedrawingoptions(rectangle);
       //

@@ -1108,7 +1108,7 @@ namespace draw2d_xlib
 
    }
 
-   bool graphics::fill_polygon(const ::double_point * pa, int iCount)
+   bool graphics::fill_polygon(const ::f64_point * pa, int iCount)
    {
 
       if(iCount <= 0)
@@ -1165,7 +1165,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::draw_polygon(const ::double_point * pa, int iCount)
+   bool graphics::draw_polygon(const ::f64_point * pa, int iCount)
    {
 
       if(iCount <= 0)
@@ -3903,14 +3903,14 @@ namespace draw2d_xlib
    }
 
 
-   double_point graphics::MoveTo(double x, double y)
+   f64_point graphics::MoveTo(double x, double y)
    {
 
       m_pdc->m_point.x = x;
 
       m_pdc->m_point.y = y;
 
-      return double_point(x, y);
+      return f64_point(x, y);
 
    }
 
@@ -4633,7 +4633,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::get_text_extent(double_size & size, const_char_pointer lpszString, character_count nCount, int iIndex) const
+   bool graphics::get_text_extent(f64_size & size, const_char_pointer lpszString, character_count nCount, int iIndex) const
    {
 
       synchronous_lock ml(&xlib_mutex());
@@ -4649,7 +4649,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::get_text_extent(double_size & size, const_char_pointer lpszString, character_count nCount) const
+   bool graphics::get_text_extent(f64_size & size, const_char_pointer lpszString, character_count nCount) const
    {
 
       return get_text_extent(size, lpszString, nCount, 0);
@@ -4657,7 +4657,7 @@ namespace draw2d_xlib
    }
 
 
-   bool graphics::get_text_extent(double_size & size, const ::scoped_string & scopedstr) const
+   bool graphics::get_text_extent(f64_size & size, const ::scoped_string & scopedstr) const
    {
 
       return get_text_extent(size, str, 0);

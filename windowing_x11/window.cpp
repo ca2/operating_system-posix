@@ -2173,7 +2173,7 @@ namespace windowing_x11
 
                      ::image::image_source imagesource(pimageTransport->g(), pimageTransport->rectangle());
 
-                     double_rectangle rectangle(image1->rectangle());
+                     f64_rectangle rectangle(image1->rectangle());
 
                      ::image::image_drawing_options imagedrawingoptions(rectangle);
 
