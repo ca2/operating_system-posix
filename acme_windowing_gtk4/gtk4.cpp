@@ -42,10 +42,10 @@ bool gtk4_is_session_dbus_available()
 //    return 0;
 // }
 
-GdkSurfaceEdge as_gdk_surface_edge(::experience::enum_frame eframeSizing)
+GdkSurfaceEdge as_gdk_surface_edge(const ::experience::e_frame & eframeSizing)
 {
 
-   switch (eframeSizing)
+   switch (eframeSizing.m_cflag)
    {
       case ::experience::e_frame_sizing_bottom:
          return GDK_SURFACE_EDGE_SOUTH;
@@ -71,24 +71,24 @@ GdkSurfaceEdge as_gdk_surface_edge(::experience::enum_frame eframeSizing)
 
 
 
-guint as_guint_button(::user::e_button_state ebuttonstate)
+guint as_guint_button(const ::user::e_key_state & ekeystate)
 {
 
    guint button = 1;
 
-   if (ebuttonstate & user::e_button_state_left)
+   if (ekeystate & user::e_key_state_left_button)
    {
 
       button = 1;
 
    }
-   else if (ebuttonstate & user::e_button_state_right)
+   else if (ekeystate & user::e_key_state_right_button)
    {
 
       button = 3;
 
    }
-   else if (ebuttonstate & user::e_button_state_middle)
+   else if (ekeystate & user::e_key_state_middle_button)
    {
 
       button = 2;

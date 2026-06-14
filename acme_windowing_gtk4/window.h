@@ -95,7 +95,7 @@ bool m_bHasFocusCached;
                         //GtkWidget *m_pgtkwidget;
                         //Window                           m_windowRoot;
                         //cairo_surface_t *              m_psurface;
-                        ::pointer<::nano::graphics::device>           m_pnanodevice;
+                        ::pointer<::nano::graphics::context>           m_pnanographicscontext;
                         //int                              m_iDepth;
                         //XVisualInfo                      m_visualinfo;
                         //Visual *                         m_pvisual;
@@ -233,7 +233,7 @@ virtual void _on_focus_changed(bool bHasFocus);
 
             bool defer_perform_entire_reposition_process(::user::mouse * pmouse) override;
 
-            bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse) override;
+            bool defer_perform_entire_resizing_process(const ::experience::e_frame & eframeSizing, ::user::mouse * pmouse) override;
 
 
             GMenu* _create_system_menu();
@@ -297,9 +297,13 @@ virtual void _on_focus_changed(bool bHasFocus);
 
             //void destroy() override;
 
-            void show_window() override;
+            //void show_window() override;
 
-            void hide_window() override;
+            //void hide_window() override;
+
+            virtual void _show_window();
+
+            virtual void _hide_window();
 
             //bool _on_event(XEvent *pevent) override;
 

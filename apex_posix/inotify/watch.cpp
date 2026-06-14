@@ -2,7 +2,7 @@
 #include "watch.h"
 #include "watcher.h"
 #include "acme/filesystem/watcher/action.h"
-#include "acme/operating_system/shared_posix/c_error_number.h"
+#include "acme/operating_system/shared_posix/c_errno.h"
 #include "acme/parallelization/synchronous_lock.h"
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -48,7 +48,9 @@ namespace inotify
       if (m_iFd < 0)
       {
 
-         errorf("Error: %s", c_error_number().get_error_description().c_str());
+         auto cerrno = c_errno();
+
+         errorf("Error: %s (%d)", cerrno.get_error_description().c_str(), cerrno.m_iErrNo);
 
       }
 
@@ -75,9 +77,9 @@ namespace inotify
       if (wd < 0)
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         auto strErrorDescription = cerrornumber.get_error_description();
+         auto strErrorDescription = cerrno.get_error_description();
 
          informationf("Error: os_watcher::add_watch at directory %s : (%s)", pathFolder.c_str(), strErrorDescription.c_str());
 
@@ -180,9 +182,9 @@ namespace inotify
       if (ret < 0)
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         if (cerrornumber == EINTR)
+         if (cerrno == EINTR)
          {
 
             sleep(200_ms);

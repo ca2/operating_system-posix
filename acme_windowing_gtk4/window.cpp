@@ -20,7 +20,7 @@
 #include "acme/constant/windowing2.h"
 #include "acme/graphics/image/pixmap.h"
 #include "acme/integrate/cairo.h"
-#include "acme/nano/graphics/device.h"
+#include "acme/nano/graphics/context.h"
 #include "acme/operating_system/a_system_menu.h"
 #include "acme/platform/application.h"
 #include "acme/platform/system.h"
@@ -451,7 +451,7 @@ namespace gtk4
          window::~window()
          {
 
-            m_pnanodevice.release();
+            m_pnanographicscontext.release();
 
          }
 
@@ -1921,7 +1921,7 @@ namespace gtk4
       else
       {
 
-         button = as_guint_button(pmouse->m_ebuttonstate);
+         button = as_guint_button(pmouse->m_keystate.m_ekeystate);
 
       }
 
@@ -1987,7 +1987,7 @@ namespace gtk4
    }
 
 
-   bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing,
+   bool window::defer_perform_entire_resizing_process(const ::experience::e_frame & eframeSizing,
                                                       ::user::mouse* pmouse)
    {
 
@@ -2004,7 +2004,7 @@ namespace gtk4
       else
       {
 
-         button = as_guint_button(pmouse->m_ebuttonstate);
+         button = as_guint_button(pmouse->m_keystate.m_ekeystate);
 
       }
 
@@ -2182,9 +2182,9 @@ namespace gtk4
 
       nano()->graphics();
 
-      constructø(m_pnanodevice);
+      constructø(m_pnanographicscontext);
 
-      m_pnanodevice->create(w, h);
+      m_pnanographicscontext->create(rClient.size());
 
    }
 
@@ -2259,22 +2259,22 @@ namespace gtk4
    void window::_on_cairo_draw(GtkWidget* widget, cairo_t* cr)
    {
 
-      m_pnanodevice->on_begin_draw();
+      m_pnanographicscontext->on_begin_draw();
 
       ::pointer<::micro::elemental> pelemental = m_pacmeuserinteraction;
 
       if (pelemental)
       {
 
-         pelemental->draw_background(m_pnanodevice);
+         pelemental->draw_background(m_pnanographicscontext);
 
-         pelemental->draw_foreground(m_pnanodevice);
+         pelemental->draw_foreground(m_pnanographicscontext);
 
       }
 
-      m_pnanodevice->on_end_draw();
+      m_pnanographicscontext->on_end_draw();
 
-      auto pixmap = m_pnanodevice->pixmap();
+      auto pixmap = m_pnanographicscontext->pixmap();
 
       auto psurface = cairo_surface_for_pixmap(pixmap);
 
@@ -2333,7 +2333,7 @@ namespace gtk4
    }
 
 
-   void window::show_window()
+   void window::_show_window()
    {
 
       __map();
@@ -2343,7 +2343,7 @@ namespace gtk4
    }
 
 
-   void window::hide_window()
+   void window::_hide_window()
    {
 
       __unmap();
@@ -2361,23 +2361,23 @@ namespace gtk4
    void window::_update_window()
    {
 
-      if (m_pnanodevice)
+      if (m_pnanographicscontext)
       {
 
-         m_pnanodevice->on_begin_draw();
+         m_pnanographicscontext->on_begin_draw();
 
          ::pointer<::micro::elemental> pelemental = m_pacmeuserinteraction;
 
          if (pelemental)
          {
 
-            pelemental->draw_background(m_pnanodevice);
+            pelemental->draw_background(m_pnanographicscontext);
 
-            pelemental->draw_foreground(m_pnanodevice);
+            pelemental->draw_foreground(m_pnanographicscontext);
 
          }
 
-         m_pnanodevice->on_end_draw();
+         m_pnanographicscontext->on_end_draw();
 
       }
 

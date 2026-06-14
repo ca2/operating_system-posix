@@ -2,7 +2,7 @@
 #include "framework.h"
 #include "interprocess_caller.h"
 #include "acme/filesystem/filesystem/file_system.h"
-#include "acme/operating_system/shared_posix/c_error_number.h"
+#include "acme/operating_system/shared_posix/c_errno.h"
 #include "acme/prototype/prototype/memory.h"
 
 
@@ -116,7 +116,7 @@ namespace system_5
       if ((result = msgsnd(m_iQueue, pdata, m.size() - sizeof(long), 0)) == -1)
       {
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
          throw ::exception(error_failed);
 

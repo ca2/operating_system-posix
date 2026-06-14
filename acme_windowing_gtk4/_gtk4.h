@@ -7,7 +7,7 @@
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
-
+#include "acme/user/experience/_constant.h"
 
 
 //Display * x11_get_display();
@@ -35,8 +35,8 @@
 
 
 
-CLASS_DECL_ACME_WINDOWING_GTK4 guint as_guint_button(::user::e_button_state ebuttonstate);
+CLASS_DECL_ACME_WINDOWING_GTK4 guint as_guint_button(const ::user::e_key_state & ekeystate);
 
-CLASS_DECL_ACME_WINDOWING_GTK4 GdkSurfaceEdge as_gdk_surface_edge(::experience::enum_frame eframeSizing);
+CLASS_DECL_ACME_WINDOWING_GTK4 GdkSurfaceEdge as_gdk_surface_edge(const ::experience::e_frame & eframeSizing);
 
 

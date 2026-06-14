@@ -2,7 +2,7 @@
 #include "framework.h"
 #include "interprocess_target.h"
 #include "acme/filesystem/filesystem/file_system.h"
-#include "acme/operating_system/shared_posix/c_error_number.h"
+#include "acme/operating_system/shared_posix/c_errno.h"
 #include "acme/platform/application.h"
 #include "acme/prototype/prototype/memory.h"
 
@@ -58,9 +58,9 @@ namespace system_5
 
          information() << "interprocess_target::create ftok failed";
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         auto estatus = cerrornumber.estatus();
+         auto estatus = cerrno.estatus();
 
          throw ::exception(estatus, "ftok(\"" + scopedstrChannel + "\", 'c') has failed");
 
@@ -74,9 +74,9 @@ namespace system_5
 
          information() << "interprocess_target::create msgget failed (1)";
 
-         auto cerrornumber = c_error_number();
+         auto cerrno = c_errno();
 
-         if(cerrornumber.m_iErrorNumber == EEXIST)
+         if(cerrno== EEXIST)
          {
 
             if ((m_iQueue = msgget(m_key,  0660)) == -1)
@@ -84,9 +84,9 @@ namespace system_5
 
                information() << "interprocess_target::create msgget failed(2)";
 
-               auto cerrornumber = c_error_number();
+               auto cerrno = c_errno();
 
-               auto estatus = cerrornumber.estatus();
+               auto estatus = cerrno.estatus();
 
                throw ::exception(estatus, "msgget has failed (2) channel : " + scopedstrChannel);
 
@@ -96,7 +96,7 @@ namespace system_5
          else
          {
 
-            if(cerrornumber.m_iErrorNumber == ENOSPC)
+            if(cerrno == ENOSPC)
             {
 
                information() << "interprocess_target::create msgget failed (3) : ENOSPC - A message queue has to be created but the system limit for the maximum number of message queues (MSGMNI) would be exceeded.";
@@ -105,13 +105,13 @@ namespace system_5
             else
             {
 
-               information() << "interprocess_target::create msgget failed (3) : " << cerrornumber.m_iErrorNumber << " (" << cerrornumber.name() << ", " << cerrornumber.get_error_description() << ")";
+               information() << "interprocess_target::create msgget failed (3) : " << cerrno << " (" << cerrno.name() << ", " << cerrno.get_error_description() << ")";
 
             }
 
-            auto estatus = cerrornumber.estatus();
+            auto estatus = cerrno.estatus();
 
-            throw ::exception(estatus, {cerrornumber},  "msgget has failed (3) channel : " + scopedstrChannel);
+            throw ::exception(estatus, {cerrno},  "msgget has failed (3) channel : " + scopedstrChannel);
 
          }
 
