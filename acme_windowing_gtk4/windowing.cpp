@@ -339,82 +339,82 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
          }
 
 
-         void windowing::user_send(const ::procedure& procedure)
-         {
-
-            if (::is_main_thread())
-            {
-
-               procedure();
-
-               return;
-
-            }
-
-            //__matter_send_procedure(this, this, &node::node_post, procedure);
-
-            //      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
-            //      {
-
-            auto pevent = allocateø manual_reset_happening();
-
-            user_post([ procedure, pevent ]
-            {
-
-               procedure();
-
-               pevent->set_happening();
-
-            });
-
-            if (!pevent->wait(procedure.timeout()))
-            {
-
-               if (::task_get_run())
-               {
-                  throw ::exception(error_timeout);
-               }
-               else
-               {
-
-                  information() << "thread terminating?!?!";
-
-               }
-               //pevent.release();
-
-               //return false;
-
-            }
-
-            ///return true;
-            //
-            //      }
-
-
-         }
-
-
-         // The function to be called in the main thread
-         static gboolean execute_on_main_thread(gpointer data)
-         {
-
-            auto* pprocedure = (::procedure*)data;
-
-            (*pprocedure)();
-
-            delete pprocedure;
-
-            return FALSE;
-         }
-
-
-         void windowing::user_post(const ::procedure& procedure)
-         {
-
-            // Safely update the GTK label in the main thread
-            g_main_context_invoke(NULL, execute_on_main_thread, øraw_new ::procedure(procedure));
-
-         }
+         // void windowing::user_send(const ::procedure& procedure)
+         // {
+         //
+         //    if (::is_main_thread())
+         //    {
+         //
+         //       procedure();
+         //
+         //       return;
+         //
+         //    }
+         //
+         //    //__matter_send_procedure(this, this, &node::node_post, procedure);
+         //
+         //    //      CLASS_DECL_ACME bool main_synchronous(const class time & time, const ::procedure & function)
+         //    //      {
+         //
+         //    auto pevent = allocateø manual_reset_happening();
+         //
+         //    user_post([ procedure, pevent ]
+         //    {
+         //
+         //       procedure();
+         //
+         //       pevent->set_happening();
+         //
+         //    });
+         //
+         //    if (!pevent->wait(procedure.timeout()))
+         //    {
+         //
+         //       if (::task_get_run())
+         //       {
+         //          throw ::exception(error_timeout);
+         //       }
+         //       else
+         //       {
+         //
+         //          information() << "thread terminating?!?!";
+         //
+         //       }
+         //       //pevent.release();
+         //
+         //       //return false;
+         //
+         //    }
+         //
+         //    ///return true;
+         //    //
+         //    //      }
+         //
+         //
+         // }
+         //
+         //
+         // // The function to be called in the main thread
+         // static gboolean execute_on_main_thread(gpointer data)
+         // {
+         //
+         //    auto* pprocedure = (::procedure*)data;
+         //
+         //    (*pprocedure)();
+         //
+         //    delete pprocedure;
+         //
+         //    return FALSE;
+         // }
+         //
+         //
+         // void windowing::user_post(const ::procedure& procedure)
+         // {
+         //
+         //    // Safely update the GTK label in the main thread
+         //    g_main_context_invoke(NULL, execute_on_main_thread, øraw_new ::procedure(procedure));
+         //
+         // }
 
 
          void windowing::main_send(const ::procedure& procedure)

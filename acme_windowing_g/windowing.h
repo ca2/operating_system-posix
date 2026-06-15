@@ -63,6 +63,11 @@ namespace g
 
             //virtual void _on_activate_gtk_application();
 
+            void windowing_post_quit() override;
+
+            void user_send(const ::procedure& procedure) override;
+
+            void user_post(const ::procedure& procedure) override;
 
 
          };

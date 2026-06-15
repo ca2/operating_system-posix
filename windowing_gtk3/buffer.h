@@ -83,7 +83,7 @@ namespace windowing_gtk3
 
       //void update_window();
 
-      bool _on_begin_draw(::graphics::buffer_item * pbufferitem) override;
+      bool _on_begin(::graphics::buffer_item * pbufferitem) override;
 
       //bool presentation_complete() override;
 

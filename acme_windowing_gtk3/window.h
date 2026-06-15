@@ -52,7 +52,7 @@ namespace gtk3
             //color32_t                     m_colorWindow;
             //string                        m_strTitle;
             //bool                          m_bNcActive;
-            ::pointer<::nano::graphics::device>           m_pnanodevice;
+            ::pointer<::nano::graphics::context>           m_pnanographicscontext;
             manual_reset_happening              m_happeningEnd;
             //i32_rectangle                 m_rectangle;
             //i32_rectangle                 m_rectangleX;
@@ -90,7 +90,7 @@ namespace gtk3
 
             void destroy_window() override;
 
-            void show_window() override;
+            virtual void _show_window();
 
             void set_mouse_capture() override;
 
@@ -122,7 +122,7 @@ namespace gtk3
 
             virtual void _on_configure(int x, int y, int cx, int cy);
 
-            virtual void _draw(::nano::graphics::device * pnanodevice);
+            virtual void _draw(::nano::graphics::context * pnanographicscontext);
 
             virtual void _on_a_system_menu_item_button_press(::operating_system::a_system_menu_item * pitem, GtkWidget * pwidget, GdkEventButton * peventbutton);
 
@@ -199,7 +199,7 @@ namespace gtk3
             bool is_window_zoomed() override;
             void window_minimize() override;
             void window_maximize() override;
-            void hide_window() override;
+            virtual void _hide_window();
 
             virtual void _on_configure();
 
