@@ -7,16 +7,16 @@
 //#include "acme/constant/user_key.h"
 //#include <gdk/gdkkeysyms.h>
 #include "acme/constant/user_key.h"
-
+#include "acme/user/experience/_constant.h"
 
 namespace q
 {
 
 
-   Qt::Edges as_qt_edges(::experience::enum_frame eframeSizing)
+   Qt::Edges as_qt_edges(const ::experience::e_frame & eframeSizing)
    {
 
-      switch (eframeSizing)
+      switch (eframeSizing.m_cflag)
       {
          case ::experience::e_frame_sizing_left:
             return Qt::Edge::LeftEdge;

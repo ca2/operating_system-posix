@@ -5379,7 +5379,7 @@ namespace windowing_q
    // }
 
 
-   bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse* pmouse)
+   bool window::defer_perform_entire_resizing_process(const ::experience::e_frame & eframeSizing, ::user::mouse* pmouse)
    {
 
       return ::q::acme::windowing::window::defer_perform_entire_resizing_process(eframeSizing, pmouse);

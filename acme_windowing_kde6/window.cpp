@@ -6,7 +6,7 @@
 #include "display.h"
 #include "acme/constant/user_message.h"
 #include "acme/integrate/qt.h"
-#include "acme/nano/graphics/device.h"
+#include "acme/nano/graphics/context.h"
 #include "acme/nano/nano.h"
 #include "acme/operating_system/a_system_menu.h"
 #include "acme/user/user/mouse.h"
@@ -88,7 +88,7 @@ namespace kde6
 
             //delete_drawing_objects();
 
-            m_pnanodevice.release();
+            m_pnanographicscontext.release();
 
             // if(m_psurface != nullptr)
             // {

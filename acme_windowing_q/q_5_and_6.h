@@ -4,13 +4,15 @@
 //
 #pragma once
 
+
 #include <QWindow>
+#include "acme/user/experience/_constant.h"
 
 
 namespace q
 {
 
-   Qt::Edges  as_qt_edges(::experience::enum_frame eframeSizing);
+   Qt::Edges  as_qt_edges(const ::experience::e_frame & eframeSizing);
 
 
    ::user::e_key user_key_from_qt_key(int iQtKey);

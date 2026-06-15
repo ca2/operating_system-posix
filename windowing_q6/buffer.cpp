@@ -1284,7 +1284,7 @@ namespace windowing_q6
    }
 
 
-   bool buffer::_on_begin_draw(::graphics::buffer_item * pbufferitem)
+   bool buffer::_on_begin(::graphics::buffer_item * pbufferitem)
    {
 
 //      auto pbufferitem = get_buffer_item();
@@ -1305,7 +1305,7 @@ namespace windowing_q6
 
       }
 
-      if(!double_buffer::_on_begin_draw(pbufferitem))
+      if(!double_buffer::_on_begin(pbufferitem))
       {
 
          return false;

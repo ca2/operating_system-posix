@@ -36,7 +36,7 @@ namespace q
             //::pointer<class display>                  m_pdisplay;
             //xcb_window_t                    m_window;
             //cairo_surface_t *               m_psurface;
-            ::pointer<::nano::graphics::device>       m_pnanodevice;
+            ::pointer<::nano::graphics::context>       m_pnanographicscontext;
             //::pointer<::nano::graphics::font>         m_pfont;
             //color32_t                     m_colorText;
             //color32_t                     m_colorFocus;
@@ -72,7 +72,7 @@ namespace q
 
             void destroy() override;
 
-            void show_window() override;
+            virtual void _show_window();
 
             //bool _on_event(xcb_generic_event_t *pevent) override;
 
@@ -83,7 +83,7 @@ namespace q
 
             ::e_status _raise_window();
 
-void hide_window() override;
+            virtual void _hide_window();
 
 
             void _on_mouse_press(QMouseEvent * pevent) override;
@@ -104,7 +104,7 @@ void hide_window() override;
 
             //virtual bool aaa_message_loop_step();
 
-            virtual void _draw(::nano::graphics::device * pnanodevice);
+            virtual void _draw(::nano::graphics::context * pnanographicscontext);
 
             //virtual void on_draw(::nano::graphics::device * pnanodevice);
 
@@ -118,7 +118,7 @@ void hide_window() override;
 
             bool defer_perform_entire_reposition_process(::user::mouse* pmouse) override;
 
-            bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing,
+            bool defer_perform_entire_resizing_process(const ::experience::e_frame & eframeSizing,
                                                                ::user::mouse* pmouse) override;
 
 
