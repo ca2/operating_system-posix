@@ -73,10 +73,11 @@ namespace gtk4
 
             ::color::color get_operating_system_background_color() override;
 
+            //void windowing_post_quit() override;
 
-            void user_post(const ::procedure& procedure) override;
+            //void user_post(const ::procedure& procedure) override;
 
-            void user_send(const ::procedure& procedure) override;
+            //void user_send(const ::procedure& procedure) override;
 
             void main_send(const ::procedure& procedure) override;
 
@@ -116,9 +117,6 @@ namespace gtk4
 
 
             bool handle_messages() override;
-
-
-            void windowing_post_quit() override;
 
 
             virtual void _on_startup_gtk_application();

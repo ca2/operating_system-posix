@@ -21,6 +21,30 @@
 #include "acme/operating_system/summary.h"
 #include "acme/parallelization/synchronous_lock.h"
 
+#define GDK_SURFACE_EDGE_NONE ((GdkSurfaceEdge)-1)
+#include <gtk/gtk.h>
+#include <gio/gio.h>
+
+bool gtk_is_session_dbus_available()
+{
+   GError *error = NULL;
+   GDBusConnection *connection =
+       g_bus_get_sync(G_BUS_TYPE_SESSION, NULL, &error);
+
+   if (connection != NULL)
+   {
+      g_object_unref(connection);
+      return true;
+   }
+
+   if (error != NULL)
+   {
+      g_printerr("Failed to connect to session bus: %s\n", error->message);
+      g_error_free(error);
+   }
+
+   return false;
+}
 
 namespace gtk3
 {
@@ -440,7 +464,18 @@ namespace gtk3
 
             system()->prepare_application();
 
-            information() << "gtk3::acme::windowing::windowing::run";
+             //int main(void) {
+                 //int jid = jail_getid(".");
+                 //if (jid < 0) {
+                   //  //perror("jail_getid");
+                    // information() << "Process is not in a jail?!?";
+                 //} else {
+                   //  informationf("Process is in jail ID: %d\n", jid);
+                 //}
+               //  return 0;
+             //}
+
+			   information() << "gtk4::acme::windowing::windowing::run";
 
             ::string strId = application()->m_strAppId;
 
@@ -448,9 +483,97 @@ namespace gtk3
 
             strId.find_replace("_", "-");
 
-            m_pgtkapplication = gtk_application_new(strId, G_APPLICATION_DEFAULT_FLAGS);
+            //gtk_init();
+
+            information() << "application id: " << strId;
+
+            ::set_main_user_thread();
+
+            //if (!g_dbus_is_address("unix:path=/tmp")) // or more properly:
+
+            int iExtraFlags = 0;
+
+            // ::string strDbusSessionBusAddress(node()->get_environment_variable("DBUS_SESSION_BUS_ADDRESS"));
+            //
+            // ::string strDbusFile;
+            //
+            // if(strDbusSessionBusAddress.begins_eat("unix:path="))
+            // {
+            //
+            //    strDbusFile = strDbusSessionBusAddress.get_word(",");
+            //
+            //    warning() <<  "D-Bus file should be: " << strDbusFile;
+            //
+            // }
+            //
+            // bool bDbusFileExists = file()->exists(strDbusFile);
+            //
+            // if(bDbusFileExists)
+            // {
+            //
+            //    information("D-Bus file exists (path=\"{}\")", strDbusFile);
+            //
+            // }
+            // else
+            // {
+            //
+            //    warning("D-Bus file doesn't exist (path=\"{}\")", strDbusFile);
+            //
+            // }
+
+            //bool bDbusSessionRunning =is_dbus_session_running();
+
+            bool bDbusSessionRunning = gtk_is_session_dbus_available();
+
+            if(bDbusSessionRunning)
+            {
+
+               //information("D-Bus session is running (dbus-daemon process found)");
+
+               information("Session D-Bus is available");
+
+            }
+            else
+            {
+
+               //warning("D-Bus session isn't running (dbus-daemon process not found)");
+
+               information("Session D-Bus is NOT available");
+
+            }
+
+            //if(!bDbusFileExists || !bDbusSessionRunning)
+            if(!bDbusSessionRunning)
+            {
+
+               warning() <<  "No D-Bus session detected — falling back to non-unique mode";
+
+               iExtraFlags = G_APPLICATION_NON_UNIQUE;
+
+            }
+
+#if GLIB_CHECK_VERSION(2,74,0)
+
+            m_pgtkapplication = gtk_application_new(strId,(GApplicationFlags)( iExtraFlags|G_APPLICATION_HANDLES_OPEN));
+
+#else
+
+            m_pgtkapplication = gtk_application_new(strId, (GApplicationFlags)( iExtraFlags|G_APPLICATION_HANDLES_OPEN));
+
+#endif
+
+            if (!m_pgtkapplication)
+            {
+
+               throw ::exception(error_failed);
+
+            }
+
+            information("connecting startup signal");
 
             g_signal_connect(m_pgtkapplication, "startup", G_CALLBACK(s_on_startup_gtk_application), this);
+
+            information("connecting activate signal");
 
             g_signal_connect(m_pgtkapplication, "activate", G_CALLBACK(s_on_activate_gtk_application), this);
 

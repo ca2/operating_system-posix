@@ -3924,7 +3924,7 @@ namespace windowing_gtk3
          if (is_window_visible())
          {
 
-            hide_window();
+            _hide_window();
 
          }
 
@@ -3935,7 +3935,7 @@ namespace windowing_gtk3
          if (!is_window_visible())
          {
 
-            show_window();
+            _show_window();
 
             if (useractivation.m_eactivation & ::user::e_activation_set_foreground)
             {
@@ -6544,7 +6544,7 @@ namespace windowing_gtk3
    //   }
    //
    //
-   bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse* pmouse)
+   bool window::defer_perform_entire_resizing_process(const ::experience::e_frame & eframeSizing, ::user::mouse* pmouse)
    {
 
       //return _perform_entire_resizing_process(eframeSizing);

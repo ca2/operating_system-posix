@@ -10,8 +10,7 @@
 #include "acme/graphics/image/pixmap.h"
 #include "acme/integrate/cairo.h"
 #include "acme/nano/nano.h"
-#include "acme/nano/graphics/device.h"
-#include "acme/nano/graphics/device.h"
+#include "acme/nano/graphics/context.h"
 #include "acme/user/micro/elemental.h"
 #include "acme/operating_system/a_system_menu.h"
 #include "acme/platform/application.h"
@@ -445,7 +444,7 @@ return FALSE;
          //~ }
 
 
-         void window::_draw(::nano::graphics::device * pnanodevice)
+         void window::_draw(::nano::graphics::context * pnanographicscontext)
          {
 			 
 			   ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
@@ -453,9 +452,9 @@ return FALSE;
             if(pelemental)
             {
 
-				   pelemental->draw_background(pnanodevice);
+				   pelemental->draw_background(pnanographicscontext);
 
-               pelemental->draw_foreground(pnanodevice);
+               pelemental->draw_foreground(pnanographicscontext);
 				
 			   }
 
@@ -1347,7 +1346,7 @@ m_phappeningLastMouseUp = pevent;
          void window::_on_cairo_draw(GtkWidget *widget, cairo_t *cr)
          {
 
-            if (!m_pnanodevice)
+            if (!m_pnanographicscontext)
             {
 
                cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 1.0);
@@ -1358,13 +1357,13 @@ m_phappeningLastMouseUp = pevent;
 
             }
 
-            m_pnanodevice->on_begin_draw();
+            m_pnanographicscontext->on_begin_draw();
 
-            _draw(m_pnanodevice);
+            _draw(m_pnanographicscontext);
 
-            m_pnanodevice->on_end_draw();
+            m_pnanographicscontext->on_end_draw();
 
-            auto pixmap = m_pnanodevice->pixmap();
+            auto pixmap = m_pnanographicscontext->pixmap();
 
             auto psurface = cairo_surface_for_pixmap(pixmap);
 
@@ -1444,9 +1443,9 @@ m_phappeningLastMouseUp = pevent;
 
             nano()->graphics();
 
-            constructø(m_pnanodevice);
+            constructø(m_pnanographicscontext);
 
-            m_pnanodevice->create(w, h);
+            m_pnanographicscontext->create({w, h});
 
 
          }
@@ -1510,7 +1509,7 @@ m_phappeningLastMouseUp = pevent;
 
 
 
-         void window::show_window()
+         void window::_show_window()
          {
 
             main_post([this]()
@@ -2338,7 +2337,7 @@ m_phappeningLastMouseUp = pevent;
 //         }
 
 
-         void window::hide_window()
+         void window::_hide_window()
          {
 
             __unmap();

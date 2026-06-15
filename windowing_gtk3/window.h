@@ -430,7 +430,7 @@ namespace windowing_gtk3
 
       bool defer_perform_entire_reposition_process(::user::mouse * pmouse) override;
 
-      bool defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing, ::user::mouse * pmouse) override;
+      bool defer_perform_entire_resizing_process(const ::experience::e_frame & eframeSizing, ::user::mouse * pmouse) override;
 
       void final_mouse_message_handling(::message::mouse * pmouse) override;
 
