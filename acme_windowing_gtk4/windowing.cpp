@@ -570,6 +570,8 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
 
                      auto prequest = pgtk4windowingsystem->create_newø<::request>();
 
+                     pgtk4windowingsystem->m_papplication->m_bPostedCommandLineFileOpen = true;
+
                      pgtk4windowingsystem->m_papplication->post_request(prequest);
 
                   }
