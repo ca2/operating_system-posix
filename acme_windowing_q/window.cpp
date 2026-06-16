@@ -7,7 +7,7 @@
 #include "acme/constant/user_message.h"
 #include "acme/constant/windowing2.h"
 #include "acme/integrate/qt.h"
-#include "acme/nano/graphics/device.h"
+#include "acme/nano/graphics/context.h"
 #include "acme/nano/nano.h"
 #include "acme/operating_system/a_system_menu.h"
 #include "acme/user/user/mouse.h"
@@ -90,7 +90,7 @@ namespace q
 
             //delete_drawing_objects();
 
-            m_pnanodevice.release();
+            m_pnanographicscontext.release();
 
             // if(m_psurface != nullptr)
             // {
@@ -177,7 +177,7 @@ namespace q
          }
 
 
-         void window::_draw(::nano::graphics::device * pnanodevice)
+         void window::_draw(::nano::graphics::context * pnanographicscontext)
          {
 
             auto pacmeuserinteraction = m_pacmeuserinteraction.m_p;
@@ -185,7 +185,7 @@ namespace q
             if (::is_set(pacmeuserinteraction))
             {
 
-               pacmeuserinteraction->_on_draw(pnanodevice);
+               pacmeuserinteraction->_on_draw(pnanographicscontext);
 
             }
 
@@ -644,7 +644,7 @@ namespace q
          //
 
 
-         void window::show_window()
+         void window::_show_window()
          {
 
             auto λ_show_window = [this]()
@@ -697,7 +697,7 @@ namespace q
          }
 
 
-         void window::hide_window()
+         void window::_hide_window()
          {
 
             _unmap_window();
@@ -1025,14 +1025,14 @@ namespace q
 
             ::cast<::micro::elemental> pelemental = m_pacmeuserinteraction;
 
-            if (m_pnanodevice && pelemental)
+            if (m_pnanographicscontext && pelemental)
             {
 
-               m_pnanodevice->on_begin_draw();
+               m_pnanographicscontext->on_begin_draw();
 
-               pelemental->on_draw(m_pnanodevice);
+               pelemental->on_draw(m_pnanographicscontext);
 
-               m_pnanodevice->on_end_draw();
+               m_pnanographicscontext->on_end_draw();
 
                //cairo_surface_flush(m_psurface);
 
@@ -1265,7 +1265,7 @@ namespace q
          void window::_on_qimage_draw(QImage * pqimage)
          {
 
-            if (::is_null(m_pnanodevice))
+            if (::is_null(m_pnanographicscontext))
             {
 
                return;
@@ -1277,11 +1277,11 @@ namespace q
             if (::is_set(pacmeuserinteraction))
             {
 
-               pacmeuserinteraction->_on_draw(m_pnanodevice);
+               pacmeuserinteraction->_on_draw(m_pnanographicscontext);
 
             }
 
-            auto pixmap = m_pnanodevice->pixmap();
+            auto pixmap = m_pnanographicscontext->pixmap();
 
             QImage image(
                (const uchar *) pixmap.m_pimage32,
@@ -1618,7 +1618,7 @@ namespace q
          }
 
 
-         bool window::defer_perform_entire_resizing_process(::experience::enum_frame eframeSizing,
+         bool window::defer_perform_entire_resizing_process(const ::experience::e_frame & eframeSizing,
                                                             ::user::mouse* pmouse)
          {
 
@@ -1970,9 +1970,9 @@ namespace q
 
                nano()->graphics();
 
-               constructø(m_pnanodevice);
+               constructø(m_pnanographicscontext);
 
-               m_pnanodevice->create(w, h);
+               m_pnanographicscontext->create({w, h});
 
             }
 

@@ -349,7 +349,7 @@ namespace windowing_q
       if(!m_pdisplay)
       {
 
-         system()->do_graphics_and_windowing_factory();
+         //system()->do_graphics_and_windowing_factory();
 
          m_pdisplay = system()->acme_windowing()->acme_display();
 

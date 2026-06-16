@@ -1277,7 +1277,7 @@ namespace windowing_q
    }
 
 
-   bool buffer::_on_begin_draw(::graphics::buffer_item * pbufferitem)
+   bool buffer::_on_begin(::graphics::buffer_item * pbufferitem)
    {
 
       auto pimageBuffer = pbufferitem->m_pimage2;
@@ -1294,7 +1294,7 @@ namespace windowing_q
 
       }
 
-      if(!double_buffer::_on_begin_draw(pbufferitem))
+      if(!double_buffer::_on_begin(pbufferitem))
       {
 
          return false;
