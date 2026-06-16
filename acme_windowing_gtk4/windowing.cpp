@@ -331,12 +331,12 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
          }
 
 
-         void windowing::windowing_post_quit()
-         {
-
-            g_idle_add(gtk_application_quit_callback, G_APPLICATION(m_pgtkapplication));
-
-         }
+         // void windowing::windowing_post_quit()
+         // {
+         //
+         //    g_idle_add(gtk_application_quit_callback, G_APPLICATION(m_pgtkapplication));
+         //
+         // }
 
 
          // void windowing::user_send(const ::procedure& procedure)

@@ -1671,7 +1671,8 @@ namespace windowing_gtk4
          GdkRectangle workarea{};
 
          gdk_monitor_get_geometry(monitor, &geometry);
-         gdk_monitor_get_workarea(monitor, &workarea);
+         gdk_monitor_get_geometry(monitor, &workarea);
+         //gdk_monitor_get_workarea(monitor, &workarea);
 
          informationf(
             "Monitor %u: geometry=(%d,%d,%d,%d), workarea=(%d,%d,%d,%d)\n",
