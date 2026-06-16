@@ -74,6 +74,9 @@ namespace gtk3
             void set_desktop_icon_theme(const ::scoped_string & scopedtrDesktopIconTheme) override;
 
 
+            void _enumerate_monitors() override;
+
+
          };
 
 

@@ -1101,6 +1101,42 @@ namespace gtk3
          // }
 
 
+         void display::_enumerate_monitors()
+         {
+            information() << "windowing_gtk3::display::open_display";
+
+            m_rectanglea.clear();
+
+            m_pgdkdisplay = gdk_display_get_default();
+
+            int n_monitors = gdk_display_get_n_monitors(m_pgdkdisplay);
+
+            for(int i = 0; i < n_monitors; ++i)
+            {
+               GdkMonitor * monitor = gdk_display_get_monitor(m_pgdkdisplay, i);
+
+               if(!monitor)
+               {
+                  continue;
+               }
+
+               GdkRectangle geometry;
+               gdk_monitor_get_geometry(monitor, &geometry);
+
+               int cx = geometry.width;
+               int cy = geometry.height;
+
+               informationf(
+                  "Monitor %d: x = %d, y = %d, width = %d, height = %d\n",
+                  i, geometry.x, geometry.y, geometry.width, geometry.height);
+
+               m_rectanglea.add({geometry.x, geometry.y, cx, cy});
+
+               // Do NOT g_object_unref(monitor) in GTK3 here.
+               // gdk_display_get_monitor() does not give you a new reference.
+            }
+         }
+
       } // namespace windowing
 
 

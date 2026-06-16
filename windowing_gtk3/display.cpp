@@ -1534,6 +1534,73 @@ namespace windowing_gtk3
    }
 
 
+   void display::_enumerate_monitors()
+   {
+
+      information() << "windowing_gtk3::display::_enumerate_monitors";
+
+      __check_refdbg
+
+      m_monitora.clear();
+
+      m_rectanglea.clear();
+
+      m_pgdkdisplay = gdk_display_get_default();
+
+      if(!m_pgdkdisplay)
+      {
+
+         return;
+
+      }
+
+      int n_monitors = gdk_display_get_n_monitors(m_pgdkdisplay);
+
+      for(int i = 0; i < n_monitors; i++)
+      {
+
+         GdkMonitor * monitor = gdk_display_get_monitor(m_pgdkdisplay, i);
+
+         if(!monitor)
+         {
+
+            continue;
+
+         }
+
+         auto pmonitor = create_newø < ::windowing::monitor >();
+
+         __check_refdbg
+
+         pmonitor->m_pdisplay = this;
+
+         GdkRectangle geometry{};
+         GdkRectangle workarea{};
+
+         gdk_monitor_get_geometry(monitor, &geometry);
+         gdk_monitor_get_workarea(monitor, &workarea);
+
+         informationf(
+            "Monitor %d: geometry=(%d,%d,%d,%d), workarea=(%d,%d,%d,%d)\n",
+            i,
+            geometry.x, geometry.y, geometry.width, geometry.height,
+            workarea.x, workarea.y, workarea.width, workarea.height);
+
+         ::copy(pmonitor->m_rectangle, geometry);
+         ::copy(pmonitor->m_rectangleWorkspace, workarea);
+
+         m_monitora.add(pmonitor);
+
+         m_rectanglea.add(pmonitor->m_rectangle);
+
+         // GTK3: borrowed reference, do not unref.
+
+         __check_refdbg
+
+      }
+
+   }
+
 
 } // namespace windowing_gtk3
 

@@ -70,6 +70,8 @@ namespace windowing_gtk4
 
       void _on_wallpaper_change() override;
 
+      void _enumerate_monitors() override;
+
    };
 
 

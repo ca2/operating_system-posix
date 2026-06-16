@@ -1624,6 +1624,76 @@ namespace windowing_gtk4
    }
 
 
+   void display::_enumerate_monitors()
+   {
+
+      information() << "windowing_gtk4::display::open_display";
+
+      __check_refdbg
+
+      m_monitora.clear();
+
+      m_rectanglea.clear();
+
+      m_pgdkdisplay = gdk_display_get_default();
+
+      if(!m_pgdkdisplay)
+      {
+
+         return;
+
+      }
+
+      auto * monitors = gdk_display_get_monitors(m_pgdkdisplay);
+
+      guint n_monitors = g_list_model_get_n_items(monitors);
+
+      for(guint i = 0; i < n_monitors; i++)
+      {
+
+         GdkMonitor * monitor =
+            GDK_MONITOR(g_list_model_get_item(monitors, i));
+
+         if(!monitor)
+         {
+
+            continue;
+
+         }
+
+         auto pmonitor = create_newø < ::windowing::monitor >();
+
+         __check_refdbg
+
+         pmonitor->m_pdisplay = this;
+
+         GdkRectangle geometry{};
+         GdkRectangle workarea{};
+
+         gdk_monitor_get_geometry(monitor, &geometry);
+         gdk_monitor_get_workarea(monitor, &workarea);
+
+         informationf(
+            "Monitor %u: geometry=(%d,%d,%d,%d), workarea=(%d,%d,%d,%d)\n",
+            i,
+            geometry.x, geometry.y, geometry.width, geometry.height,
+            workarea.x, workarea.y, workarea.width, workarea.height);
+
+         ::copy(pmonitor->m_rectangle, geometry);
+         ::copy(pmonitor->m_rectangleWorkspace, workarea);
+
+         m_monitora.add(pmonitor);
+
+         m_rectanglea.add(pmonitor->m_rectangle);
+
+         g_object_unref(monitor);
+
+         __check_refdbg
+
+      }
+
+   }
+
 
 } // namespace windowing_gtk4
 
