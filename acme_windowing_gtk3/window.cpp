@@ -2178,6 +2178,33 @@ m_phappeningLastMouseUp = pevent;
 //
 //         }
 
+         void window::redraw_window(const i32_rectangle *prectangle, void *pHRGN, ::i32 iRedrawFlags)
+         {
+
+            if (::is_null(prectangle))
+            {
+
+               gtk_widget_queue_draw(GTK_WIDGET(m_pgtkwidget));
+
+            }
+            else
+            {
+
+               auto x = prectangle->left;
+
+               auto y = prectangle->top;
+
+               auto w = prectangle->width();
+
+               auto h = prectangle->height();
+
+               gtk_widget_queue_draw_area(GTK_WIDGET(m_pgtkwidget),
+                              x, y, w, h);
+
+            }
+         }
+
+
          void window::defer_show_system_menu(::user::mouse * pmouse)
          {
 

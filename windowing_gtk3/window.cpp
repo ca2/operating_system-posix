@@ -849,9 +849,21 @@ namespace windowing_gtk3
 
          }
 
-         puserinteraction->set_need_redraw();
+         if (puserinteraction)
+         {
 
-         puserinteraction->post_redraw();
+            puserinteraction->set_need_redraw();
+
+            puserinteraction->post_redraw();
+
+         }
+         else
+         {
+
+            redraw_window(nullptr, nullptr, 0);
+
+         }
+
 
       }
 
@@ -1867,10 +1879,15 @@ namespace windowing_gtk3
 
       ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-      if (!(puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      if (puserinteraction)
       {
 
-         throw ::exception(error_failed);
+         if (!(puserinteraction->m_ewindowflag & e_window_flag_window_created))
+         {
+
+            throw ::exception(error_failed);
+
+         }
 
       }
 
@@ -1882,84 +1899,110 @@ namespace windowing_gtk3
 
       ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-      int x = puserinteraction->const_layout().sketch().origin().x;
+      bool bVisible = true;
 
-      int y = puserinteraction->const_layout().sketch().origin().y;
-
-      int cx = puserinteraction->const_layout().sketch().width();
-
-      int cy = puserinteraction->const_layout().sketch().height();
-
-      bool bVisible = puserinteraction->const_layout().sketch().is_screen_visible();
-
-      //puserinteractionbase = m_pwindow->puserinteraction;
-
-      //      if(pusersystem)
-      //      {
-      //
-      //         if (pusersystem->m_createstruct.x <= 0)
-      //         {
-      //
-      //            x = pusersystem->m_createstruct.x;
-      //
-      //         }
-      //
-      //         if (pusersystem->m_createstruct.y <= 0)
-      //         {
-      //
-      //            y = pusersystem->m_createstruct.y;
-      //
-      //         }
-      //
-      //         if (pusersystem->m_createstruct.cx <= 0)
-      //         {
-      //
-      //            cx = 1;
-      //
-      //         }
-      //
-      //         if (pusersystem->m_createstruct.cy <= 0)
-      //         {
-      //
-      //            cy = 1;
-      //
-      //         }
-      //
-      //         if (pusersystem->m_createstruct.style & WS_VISIBLE)
-      //         {
-      //
-      //            bVisible = true;
-      //
-      //         }
-      //
-      //      }
-
-      if (cx <= 0)
+      if (puserinteraction)
       {
 
-         cx = 1;
-      }
+         int x, y, cx, cy;
 
-      if (cy <= 0)
+         x = puserinteraction->const_layout().sketch().origin().x;
+
+         y = puserinteraction->const_layout().sketch().origin().y;
+
+         cx = puserinteraction->const_layout().sketch().width();
+
+         cy = puserinteraction->const_layout().sketch().height();
+
+         bVisible = puserinteraction->const_layout().sketch().is_screen_visible();
+
+
+         //puserinteractionbase = m_pwindow->puserinteraction;
+
+         //      if(pusersystem)
+         //      {
+         //
+         //         if (pusersystem->m_createstruct.x <= 0)
+         //         {
+         //
+         //            x = pusersystem->m_createstruct.x;
+         //
+         //         }
+         //
+         //         if (pusersystem->m_createstruct.y <= 0)
+         //         {
+         //
+         //            y = pusersystem->m_createstruct.y;
+         //
+         //         }
+         //
+         //         if (pusersystem->m_createstruct.cx <= 0)
+         //         {
+         //
+         //            cx = 1;
+         //
+         //         }
+         //
+         //         if (pusersystem->m_createstruct.cy <= 0)
+         //         {
+         //
+         //            cy = 1;
+         //
+         //         }
+         //
+         //         if (pusersystem->m_createstruct.style & WS_VISIBLE)
+         //         {
+         //
+         //            bVisible = true;
+         //
+         //         }
+         //
+         //      }
+
+         if (cx <= 0)
+         {
+
+            cx = 1;
+         }
+
+         if (cy <= 0)
+         {
+
+            cy = 1;
+         }
+
+         {
+
+            m_pointWindow.x = x;
+
+            m_pointWindow.y = y;
+         }
+
+         // m_pointWindowBestEffort.x = x;
+
+         // m_pointWindowBestEffort.y = y;
+
+         m_sizeWindow.cx = cx;
+
+         m_sizeWindow.cy = cy;
+
+      }
+      else
       {
 
-         cy = 1;
+         // x = m_pacmeuserinteraction->get_rectangle().left;
+         //
+         // y = puserinteraction->const_layout().sketch().origin().y;
+         //
+         // cx = puserinteraction->const_layout().sketch().width();
+         //
+         // cy = puserinteraction->const_layout().sketch().height();
+         //
+         // bVisible = puserinteraction->const_layout().sketch().is_screen_visible();
+         //
+         //
       }
 
-      {
-
-         m_pointWindow.x = x;
-
-         m_pointWindow.y = y;
-      }
-
-      // m_pointWindowBestEffort.x = x;
-
-      // m_pointWindowBestEffort.y = y;
-
-      m_sizeWindow.cx = cx;
-
-      m_sizeWindow.cy = cy;
 
       ::gtk3::acme::windowing::window::_create_window();
 
@@ -1981,7 +2024,7 @@ namespace windowing_gtk3
 
 		_enable_mouse_wheel_messages();
 
-      if (!(puserinteraction->m_ewindowflag & e_window_flag_destroyed))
+      if (!puserinteraction || !(puserinteraction->m_ewindowflag & e_window_flag_destroyed))
       {
 
          bamf_set_icon();
@@ -1998,24 +2041,34 @@ namespace windowing_gtk3
          else
          {
 
-            puserinteraction->const_layout().window().display() = e_display_none;
+            if (puserinteraction)
+            {
+
+               puserinteraction->const_layout().window().display() = e_display_none;
+
+            }
 
          }
 
          ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-         auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
-
-         if (lresult == -1)
+         if (puserinteraction)
          {
 
-            throw ::exception(error_failed);
+            auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
+
+            if (lresult == -1)
+            {
+
+               throw ::exception(error_failed);
+
+            }
+
+            puserinteraction->m_ewindowflag |= e_window_flag_window_created;
 
          }
 
-         puserinteraction->m_ewindowflag |= e_window_flag_window_created;
-
-         puserinteraction->set_flag(e_flag_task_started);
+         m_pacmeuserinteraction->set_flag(e_flag_task_started);
 
          //auto lresult2 = puserinteraction->send_message(e_message_after_create, 0, 0);
 
@@ -6983,7 +7036,12 @@ namespace windowing_gtk3
 
       ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-      puserinteraction->call_route_message(::user::e_message_show_window, 1);
+      if (puserinteraction)
+      {
+
+         puserinteraction->call_route_message(::user::e_message_show_window, 1);
+
+      }
 
    }
 
@@ -6993,7 +7051,12 @@ namespace windowing_gtk3
 
       ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-      puserinteraction->post_message(::user::e_message_show_window, 0);
+      if (puserinteraction)
+      {
+
+         puserinteraction->post_message(::user::e_message_show_window, 0);
+
+      }
 
    }
 

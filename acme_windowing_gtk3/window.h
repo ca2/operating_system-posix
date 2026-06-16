@@ -185,6 +185,8 @@ namespace gtk3
 
             virtual void __unmap();
 
+            void redraw_window(const i32_rectangle *prectangle, void *pHRGN, ::i32 iRedrawFlags) override;
+
             void defer_show_system_menu(::user::mouse * pmouse) override;
 
 
