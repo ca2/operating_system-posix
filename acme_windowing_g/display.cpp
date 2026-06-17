@@ -353,79 +353,181 @@ namespace g
 
          case ::windowing::e_operating_ambient_xfce:
          {
+        //
+        //
+        //     ::string strOutput;
+        //
+        //     try
+        //     {
+        //        strOutput = node()->get_posix_shell_command_output("xrandr --listmonitors");
+        //     }
+        //     catch (...)
+        //     {
+        //
+        //        auto pmessageboxpayload = message_box("xrandr failed. Is it installed? Cannot set wallpaper.");
+        //
+        //        send(pmessageboxpayload);
+        //
+        //        return;
+        //
+        //     }
+        //
+        //     ::string_array_base stra;
+        //
+        //     stra.add_lines(strOutput);
+        //
+        //     for (auto & str : stra)
+        //     {
+        //
+        //        str.trim();
+        //
+        //        information() << "xrandr --listmonitors output : " << str;
+        //
+        //        auto iFind = str.find_index('+');
+        //
+        //        if(iFind > 0)
+        //        {
+        //
+        //             auto iFind2 = str.index_of(str(iFind).find_first_character_in("\t\r\n "));
+        //
+        //             if(iFind2 > iFind)
+        //             {
+        //
+        //                 ::string strMonitorName = str.substr(iFind + 1, iFind2 - iFind - 1);
+        //
+        //                 //node()->command_system("xfconf-query -c xfce4-desktop -p " + str + " -s " + strLocalImagePath, 2_min);
+        //
+        // // Compose xfconf-query commands
+        //                 ::string strCommand;
+        //
+        //                 strCommand.formatf(
+        //     "xfconf-query -c xfce4-desktop -p \"/backdrop/screen0/monitor%s/workspace0/last-image\" -n -t string -s \"%s\"",
+        //     strMonitorName.c_str(), strLocalImagePath.c_str());
+        //                 node()->command_system(strCommand, 1_min);
+        //
+        //                 strCommand.formatf(
+        //     "xfconf-query -c xfce4-desktop -p \"/backdrop/screen0/monitor%s/workspace0/image-style\" -n -t int -s 3",
+        //     strMonitorName.c_str());
+        //                 node()->command_system(strCommand, 1_min);
+        //
+        //                 strCommand.formatf(
+        //     "xfconf-query -c xfce4-desktop -p \"/backdrop/screen0/monitor%s/workspace0/image-show\" -n -t bool -s true",
+        //     strMonitorName.c_str());
+        //                 node()->command_system(strCommand, 1_min);
+        //
+        //             }
+        //
+        //        }
+        //
+        //     }
+        //
+        //     //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
+        //     //          if(entry.contains("image-path") || entry.contains("last-image")){
+        //     //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
+        //     //      }
+        //     //}
+// ::string strLocalImagePath = scopedstrWallpaper;
+// //{
+//
+//    ::string strOutput;
+//
+//    try
+//    {
+//
+//       strOutput = node()->get_posix_shell_command_output(
+//          "xfconf-query -c xfce4-desktop -l");
+//
+//    }
+//    catch(...)
+//    {
+//
+//       auto pmessageboxpayload =
+//          message_box("xfconf-query failed. Is XFCE/xfconf installed? Cannot set wallpaper.");
+//
+//       send(pmessageboxpayload);
+//
+//       return;
+//
+//    }
+//
+//    ::string_array_base straProperty;
+//
+//    straProperty.add_lines(strOutput);
+//
+//    bool bSetAny = false;
+//
+//    for(auto & strProperty : straProperty)
+//    {
+//
+//       strProperty.trim();
+//
+//       if(strProperty.is_empty())
+//       {
+//
+//          continue;
+//
+//       }
+//
+//       information() << "xfce4-desktop property: " << strProperty;
+//
+//       bool bWallpaperProperty =
+//          strProperty.case_insensitive_ends_eat("/last-image")
+//          || strProperty.case_insensitive_ends_eat("/image-path");
+//
+//       if(!bWallpaperProperty)
+//       {
+//
+//          continue;
+//
+//       }
+//
+//       ::string strBase = strProperty;
+//
+//       if(strBase.case_insensitive_ends_eat("/last-image"))
+//       {
+//       }
+//       else if(strBase.case_insensitive_ends_eat("/image-path"))
+//       {
+//       }
+//
+//       auto set_property =
+//          [&](const ::string & strPropertyPath,
+//              const ::string & strType,
+//              const ::string & strValue)
+//       {
+//
+//          ::string strCommand;
+//
+//          strCommand.formatf(
+//             "xfconf-query -c xfce4-desktop "
+//             "-p \"%s\" -n -t %s -s \"%s\"",
+//             strPropertyPath.c_str(),
+//             strType.c_str(),
+//             strValue.c_str());
+//
+//          node()->command_system(strCommand, 1_min);
+//
+//       };
+//
+//       set_property(strProperty, "string", strLocalImagePath);
+//
+//       set_property(strBase + "/image-style", "int", "3");
+//       set_property(strBase + "/image-show", "bool", "true");
+//
+//       bSetAny = true;
+//
+//    }
+//
+//    if(!bSetAny)
+//    {
+//
+//       auto pmessageboxpayload =
+//          message_box("No XFCE backdrop image properties were found. Try setting a wallpaper once manually in XFCE, then run this again.");
+//
+//       send(pmessageboxpayload);
+//
+//    }
 
-
-            ::string strOutput;
-
-            try
-            {
-               strOutput = node()->get_posix_shell_command_output("xrandr --listmonitors");
-            }
-            catch (...)
-            {
-
-               auto pmessageboxpayload = message_box("xrandr failed. Is it installed? Cannot set wallpaper.");
-
-               send(pmessageboxpayload);
-
-               return;
-
-            }
-
-            ::string_array_base stra;
-
-            stra.add_lines(strOutput);
-
-            for (auto & str : stra)
-            {
-
-               str.trim();
-
-               information() << "xrandr --listmonitors output : " << str;
-
-               auto iFind = str.find_index('+');
-
-               if(iFind > 0)
-               {
-
-                    auto iFind2 = str.index_of(str(iFind).find_first_character_in("\t\r\n "));
-
-                    if(iFind2 > iFind)
-                    {
-
-                        ::string strMonitorName = str.substr(iFind + 1, iFind2 - iFind - 1);
-
-                        //node()->command_system("xfconf-query -c xfce4-desktop -p " + str + " -s " + strLocalImagePath, 2_min);
-
-        // Compose xfconf-query commands
-                        ::string strCommand;
-
-                        strCommand.formatf(
-            "xfconf-query -c xfce4-desktop -p \"/backdrop/screen0/monitor%s/workspace0/last-image\" -n -t string -s \"%s\"",
-            strMonitorName.c_str(), strLocalImagePath.c_str());
-                        node()->command_system(strCommand, 1_min);
-
-                        strCommand.formatf(
-            "xfconf-query -c xfce4-desktop -p \"/backdrop/screen0/monitor%s/workspace0/image-style\" -n -t int -s 3",
-            strMonitorName.c_str());
-                        node()->command_system(strCommand, 1_min);
-
-                        strCommand.formatf(
-            "xfconf-query -c xfce4-desktop -p \"/backdrop/screen0/monitor%s/workspace0/image-show\" -n -t bool -s true",
-            strMonitorName.c_str());
-                        node()->command_system(strCommand, 1_min);
-
-                    }
-
-               }
-
-            }
-
-            //        Q_FOREACH(QString entry, Global::getOutputOfCommand("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << "/backdrop" << "-l").split("\n")){
-            //          if(entry.contains("image-path") || entry.contains("last-image")){
-            //            QProcess::startDetached("xfconf-query", QStringList() << "-c" << "xfce4-desktop" << "-point" << entry << "-s" << image);
-            //      }
-            //}
 
          }
 
