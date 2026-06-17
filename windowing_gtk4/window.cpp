@@ -32,6 +32,7 @@
 //#include "windowing_system_wayland/xfree86_key.h"
 #include <gtk/gtk.h>
 #include <X11/Xlib.h>
+#include <gdk/gdk.h>
 
 
 //#include "../node_gtk/gtk_3_and_4.cpp"
@@ -1578,6 +1579,64 @@ on_text(scopedstr, scopedstr.size());
 
       return dynamic_cast < ::windowing_gtk4::display * > (system()->acme_windowing()->acme_display());
 
+   }
+
+
+   ::i32_rectangle window::get_screen_rectangle()
+   {
+
+      GtkNative * pgtknative = gtk_widget_get_native(m_pgtkwidget);
+
+      if(!pgtknative)
+      {
+
+        return ::windowing::window::get_window_rectangle();
+
+      }
+
+      GdkSurface * pgdksurface = gtk_native_get_surface(pgtknative);
+
+      if(!pgdksurface)
+      {
+
+        return ::windowing::window::get_window_rectangle();
+
+      }
+
+      GdkDisplay * pgdkdisplay = gdk_surface_get_display(pgdksurface);
+
+      if(!pgdkdisplay)
+      {
+
+        return ::windowing::window::get_window_rectangle();
+
+      }
+
+      GdkMonitor * pgdkmonitor = gdk_display_get_monitor_at_surface(
+               pgdkdisplay,
+               pgdksurface);
+
+      if(!pgdkmonitor)
+      {
+
+        return ::windowing::window::get_window_rectangle();
+
+      }
+
+       GdkRectangle gdkrectangle;
+       //gdk_screen_get_monitor_geometry(pgdkscreen, iMonitorIndex, &geometry);
+     gdk_monitor_get_geometry(
+            pgdkmonitor,
+            &gdkrectangle);
+       //int width  = geometry.width;
+       //int height = geometry.height;
+//return gdkrectangle;
+        return ::i32_rectangle_dimension(
+        gdkrectangle.x,
+        gdkrectangle.y,
+        gdkrectangle.width,
+        gdkrectangle.height
+        );
    }
 
 

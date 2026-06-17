@@ -227,6 +227,9 @@ namespace windowing_gtk3
       ::windowing_gtk3::windowing * gtk3_windowing();
       ::windowing_gtk3::display * gtk3_display();
 
+
+      ::i32_rectangle get_window_rectangle() override;
+
       void set_parent(::windowing::window * pwindowNewParent) override;
       //virtual ::e_status set_parent(::windowing::window * pwindowNewParent) override;
       //virtual bool get_state(long & lState);

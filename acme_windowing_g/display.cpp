@@ -322,6 +322,9 @@ namespace g
             else
             {
 
+
+                information("acme_windowing_g::display::_set_wallpaper : {}", strLocalImagePath);
+
                ::gdk::gsettings_set("org.gnome.desktop.background", "picture-uri",
                                                 "file://" + strLocalImagePath).ok();
 

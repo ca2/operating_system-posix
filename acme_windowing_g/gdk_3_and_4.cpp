@@ -179,6 +179,8 @@ namespace gdk
       if (settings == nullptr)
       {
 
+        information("gsettings_set g_settings_new failed for {}", scopedstrSchema);
+
          return error_failed;
 
       }
@@ -190,6 +192,7 @@ namespace gdk
       if(!bOk)
       {
 
+        information("gsettings_set g_settings_set_string failed for key: {} payload: {}", scopedstrKey, scopedstrValue);
          return error_failed;
 
       }

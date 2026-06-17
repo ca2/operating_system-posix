@@ -3233,6 +3233,46 @@ namespace windowing_gtk3
 
    }
 
+   ::i32_rectangle window::get_window_rectangle()
+   {
+
+
+   GdkWindow * pgdkwindow = gtk_widget_get_window(m_pgtkwidget);
+
+   if(!pgdkwindow)
+   {
+   return ::windowing::window::get_window_rectangle();
+
+   }
+
+   GdkDisplay * pgdkdisplay = gdk_window_get_display(pgdkwindow);
+
+       GdkMonitor * monitor =
+           gdk_display_get_monitor_at_window(pgdkdisplay, pgdkwindow);
+
+       if(!pgdkmonitor)
+       {
+       return ::windowing::window::get_window_rectangle();
+       }
+           GdkRectangle geometry;
+           gdk_monitor_get_geometry(monitor, &geometry);
+
+
+        return ::i32_rectangle_dimension(
+        geometry.x,
+        geometry.y,
+        geometry.width,
+        geometry.height
+        );
+           //int width  = geometry.width;
+           //int height = geometry.height;
+
+           //g_print("Monitor resolution: %dx%d\n", width, height);
+//       }
+
+
+   }
+
 
    //   ::Window window::get_parent_handle()
    //   {

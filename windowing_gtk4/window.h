@@ -117,6 +117,8 @@ namespace windowing_gtk4
 
       ::windowing_gtk4::display * gtk4_display();
 
+      ::i32_rectangle get_screen_rectangle() override;
+
       void _on_initialize_system_menu_button(GtkWidget * pbutton, const ::scoped_string & scopedstrAtom);
 
       void set_parent(::windowing::window * pwindowNewParent) override;
