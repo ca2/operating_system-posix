@@ -6,7 +6,7 @@
 #include "display.h"
 #include "acme/constant/user_message.h"
 #include "acme/integrate/qt.h"
-#include "acme/nano/graphics/device.h"
+#include "acme/nano/graphics/context.h"
 #include "acme/nano/nano.h"
 #include "acme/operating_system/a_system_menu.h"
 #include "acme/user/user/mouse.h"
@@ -89,7 +89,7 @@ namespace lxq2
 
             //delete_drawing_objects();
 
-            m_pnanodevice.release();
+            m_pnanographicscontext.release();
 
             // if(m_psurface != nullptr)
             // {
@@ -813,7 +813,7 @@ namespace lxq2
 //          //
 //          //          auto pdc = cairo_create(m_psurface);
 //          //
-//          //          m_pnanodevice = allocateø ::cairo::nano::graphics::device(pdc);
+//          //          m_pnanographicscontext = allocateø ::cairo::nano::graphics::device(pdc);
 //          //
 //          //       }
 //          //
@@ -1007,14 +1007,14 @@ namespace lxq2
 //
 //             ::cast<::micro::elemental> pelemental = m_pacmeuserinteraction;
 //
-//             if (m_pnanodevice && pelemental)
+//             if (m_pnanographicscontext && pelemental)
 //             {
 //
-//                m_pnanodevice->on_begin_draw();
+//                m_pnanographicscontext->on_begin_draw();
 //
-//                pelemental->on_draw(m_pnanodevice);
+//                pelemental->on_draw(m_pnanographicscontext);
 //
-//                m_pnanodevice->on_end_draw();
+//                m_pnanographicscontext->on_end_draw();
 //
 //                //cairo_surface_flush(m_psurface);
 //
@@ -1226,11 +1226,11 @@ namespace lxq2
 //             if (pelemental)
 //             {
 //
-//                pelemental->on_draw(m_pnanodevice);
+//                pelemental->on_draw(m_pnanographicscontext);
 //
 //             }
 //
-//             auto pixmap = m_pnanodevice->pixmap();
+//             auto pixmap = m_pnanographicscontext->pixmap();
 //
 //             QImage image(
 //                (const uchar *) pixmap.m_pimage32,
@@ -1859,9 +1859,9 @@ namespace lxq2
 //
 //                nano()->graphics();
 //
-//                constructø(m_pnanodevice);
+//                constructø(m_pnanographicscontext);
 //
-//                m_pnanodevice->create(w, h);
+//                m_pnanographicscontext->create(w, h);
 //
 //             }
 //
