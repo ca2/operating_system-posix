@@ -915,7 +915,7 @@ void pty_process::on_child_raw_stdout(const void * p, memsize s)
       if (m_strMarkerEcho.has_character())
       {
 
-         int iMarkerEchoSize = m_strMarkerEcho.size();
+         auto iMarkerEchoSize = m_strMarkerEcho.size();
 
          auto pfind = m_memoryBuffer.find(m_strMarkerEcho);
 

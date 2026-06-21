@@ -1262,11 +1262,11 @@ namespace draw2d_xlib
    bool graphics::rectangle(int x1, int y1, int x2, int y2)
    {
 
-      /*      Gdiplus::RectF float_rectangle((Gdiplus::REAL) x1, (Gdiplus::REAL) y1, (Gdiplus::REAL) (x2 - x1), (Gdiplus::REAL) (y2 - y1));
+      /*      Gdiplus::RectF f32_rectangle((Gdiplus::REAL) x1, (Gdiplus::REAL) y1, (Gdiplus::REAL) (x2 - x1), (Gdiplus::REAL) (y2 - y1));
 
-            bool bOk1 = m_pgraphics->FillRectangle(gdiplus_brush(), float_rectangle) == Gdiplus::Status::Ok;
+            bool bOk1 = m_pgraphics->FillRectangle(gdiplus_brush(), f32_rectangle) == Gdiplus::Status::Ok;
 
-            bool bOk2 = m_pgraphics->DrawRectangle(gdiplus_pen(), float_rectangle) == Gdiplus::Status::Ok;
+            bool bOk2 = m_pgraphics->DrawRectangle(gdiplus_pen(), f32_rectangle) == Gdiplus::Status::Ok;
 
             return bOk1 && bOk2;*/
 
