@@ -3490,7 +3490,9 @@ namespace acme_posix
 
          //system()->acme_windowing()->windowing_application_main_loop();
 
-         ::system()->acme_windowing()->call_main();
+         auto pacmewindowing = ::system()->acme_windowing();
+
+         pacmewindowing->call_main();
 
 
 
