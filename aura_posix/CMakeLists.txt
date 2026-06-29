@@ -69,31 +69,31 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
 
 
-   if(${WITH_XCB} OR ${WITH_X11})
-      list(APPEND extra_pkg_modules
-         #libstartupxxx-notification-1.0
-         xkbcommon
-         )
-
-   if(WITH_XCB)
-
-
-      list(APPEND extra_pkg_modules
-                  x11 x11-xcb
-         )
-
-
-   else()
-
-
-      list(APPEND extra_pkg_modules
-                  x11
-         )
-
-
-   endif()
-
-   endif()
+#   if(${WITH_XCB} OR ${WITH_X11})
+#      list(APPEND extra_pkg_modules
+#         #libstartupxxx-notification-1.0
+#         xkbcommon
+#         )
+#
+#   if(WITH_XCB)
+#
+#
+#      list(APPEND extra_pkg_modules
+#                  x11 x11-xcb
+#         )
+#
+#
+#   else()
+#
+#
+#      list(APPEND extra_pkg_modules
+#                  x11
+#         )
+#
+#
+#   endif()
+#
+#endif()
 
 
 
