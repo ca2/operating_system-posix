@@ -70,7 +70,7 @@ if(${WIN32})
        Credui)
 elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
 
-    #if(NOT DONT_USE_PKG_CONFIG)
+    #if(${USE_PKGCONFIG})
         #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 appindicator-0.1)
         #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 freetype2 kdexxx5)
         pkg_check_modules(${PROJECT_NAME}_PKGCONFIG freetype2)
