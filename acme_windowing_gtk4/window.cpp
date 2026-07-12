@@ -1049,7 +1049,7 @@ namespace gtk4
 
             information() << "Going to call on_create_window";
 
-            m_pacmeuserinteraction->on_create_window();
+            m_pacmeuserinteraction->message_call(::user::e_message_create);
 
          }
 

@@ -507,24 +507,24 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
          //
          //    }
 
-         static void s_on_startup_gtk_application(GApplication *, gpointer p)
+         static void s_on_gtk_application_startup(GApplication *, gpointer p)
          {
 
             auto* pgtk4windowingsystem = (::gtk4::acme::windowing::windowing*)p;
 
-            ::information() << "gtk4::acme::windowing::s_on_startup_gtk_application";
+            ::information() << "gtk4::acme::windowing::s_on_gtk_application_startup";
 
             pgtk4windowingsystem->_on_startup_gtk_application();
 
          }
 
 
-         static void s_on_activate_gtk_application(GtkApplication*, gpointer p)
+         static void s_on_gtk_application_activate(GtkApplication*, gpointer p)
          {
 
             auto* pgtk4windowingsystem = (::gtk4::acme::windowing::windowing*)p;
 
-            ::information() << "gtk4::acme::windowing::s_on_activate_gtk_application";
+            ::information() << "gtk4::acme::windowing::s_on_gtk_application_activate";
 
             // pgtk4windowingsystem->_hook_system_theme_change_callbacks();
             //
@@ -535,7 +535,7 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
          }
 
 
-         static void s_on_open_gtk_application(
+         static void s_on_gtk_application_open(
                                              GtkApplication *app,
                                              GFile **files,
                                              gint n_files,
@@ -545,7 +545,7 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
 
             auto* pgtk4windowingsystem = (::gtk4::acme::windowing::windowing*)p;
 
-            ::information() << "gtk4::acme::windowing::s_on_open_gtk_application";
+            ::information() << "gtk4::acme::windowing::s_on_gtk_application_open";
 
             // pgtk4windowingsystem->_hook_system_theme_change_callbacks();
             //
@@ -876,7 +876,7 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
          }
 
 
-         void windowing::_on_startup_gtk_application()
+         void windowing::_on_gtk_application_startup()
          {
 
             ::information() << "gtk4::acme::windowing::windowing::_on_startup_gtk_application";
@@ -898,6 +898,20 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
                g_application_hold(G_APPLICATION(m_pgtkapplication));
 
             }
+
+         }
+
+
+         void windowing::_on_gtk_application_activate()
+         {
+         }
+
+
+         void windowing::_on_gtk_application_open(const ::pointer_array < ::file::file > & filea)
+         {
+
+
+
 
          }
 
