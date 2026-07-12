@@ -3906,10 +3906,10 @@ namespace windowing_q
 
       if (!(puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
-         if (puserinteraction->const_layout().design().activation().m_eactivation == ::user::e_activation_default)
-         {
-            puserinteraction->layout().m_statea[::user::e_layout_sketch].activation().m_eactivation =::user::e_activation_set_active;
-         }
+         // if (puserinteraction->const_layout().design().activation().m_eactivation == ::user::e_activation_default)
+         // {
+         //    puserinteraction->layout().m_statea[::user::e_layout_sketch].activation().m_eactivation =::user::e_activation_set_active;
+         // }
 
          return;
       }
