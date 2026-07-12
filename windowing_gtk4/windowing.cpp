@@ -971,62 +971,62 @@ namespace windowing_gtk4
    //   }
 
 
-   void windowing::on_application_activate()
-   {
+   // void windowing::on_application_activate()
+   // {
+   //
+   //    ::gtk4::acme::windowing::windowing::on_application_activate();
+   //
+   //    // //g_object_ref(m_pgtkapplication);
+   //    //
+   //    // // auto pdisplay = createø<::windowing::display>();
+   //    // //
+   //    // // pdisplay->initialize_display(this);
+   //    // //
+   //    // // m_pdisplay = pdisplay;
+   //    // //
+   //    // // if (!pdisplay)
+   //    // // {
+   //    // //
+   //    // //    throw ::exception(error_no_interface,
+   //    // //                      "Failed to cast pdisplay to m_pdisplay at windowing_gtk4::windowing::initialize");
+   //    // //
+   //    // // }
+   //    // //
+   //    //
+   //    //
+   //    // information() << "node_gtk4::_on_activate_gtk_application going to user_post";
+   //    //
+   //    // // This seems not to work with "foreign" windows
+   //    // // (X11 windows not created with Gdk)
+   //    // //x11_add_filter();
+   //    //
+   //    // information() << "node_gtk4::_on_activate_gtk_application on user_post";
+   //    //
+   //    // //gtk_add_idle_source(this);
+   //    //
+   //    // // auto psystem = system();
+   //    // //
+   //    // // psystem->defer_post_initial_request();
+   //    //
+   //    // //system()->post_aaa_application_start();
+   //    // //system()->defer_post_aaa_application_start_file_open_request();
+   //    // //system()->post_aaa_application_started();
+   //    //
+   //    // //windowing_application_on_start();
+   //    //
+   //    // on_activate();
+   //    //
+   //    //
+   //
+   // }
 
-      ::gtk4::acme::windowing::windowing::on_application_activate();
 
-      // //g_object_ref(m_pgtkapplication);
-      //
-      // // auto pdisplay = createø<::windowing::display>();
-      // //
-      // // pdisplay->initialize_display(this);
-      // //
-      // // m_pdisplay = pdisplay;
-      // //
-      // // if (!pdisplay)
-      // // {
-      // //
-      // //    throw ::exception(error_no_interface,
-      // //                      "Failed to cast pdisplay to m_pdisplay at windowing_gtk4::windowing::initialize");
-      // //
-      // // }
-      // //
-      //
-      //
-      // information() << "node_gtk4::_on_activate_gtk_application going to user_post";
-      //
-      // // This seems not to work with "foreign" windows
-      // // (X11 windows not created with Gdk)
-      // //x11_add_filter();
-      //
-      // information() << "node_gtk4::_on_activate_gtk_application on user_post";
-      //
-      // //gtk_add_idle_source(this);
-      //
-      // // auto psystem = system();
-      // //
-      // // psystem->defer_post_initial_request();
-      //
-      // //system()->post_aaa_application_start();
-      // //system()->defer_post_aaa_application_start_file_open_request();
-      // //system()->post_aaa_application_started();
-      //
-      // //windowing_application_on_start();
-      //
-      // on_activate();
-      //
-      //
-
-   }
-
-
-   static void on_activate_gtk_application (GtkApplication *, gpointer p)
+   static void on_gtk_application_activate (GtkApplication *, gpointer p)
    {
 
       auto * pgtk4windowing=(::windowing_gtk4::windowing*) p;
 
-      pgtk4windowing->on_application_activate();
+      pgtk4windowing->_on_gtk_application_activate();
 
    }
 
