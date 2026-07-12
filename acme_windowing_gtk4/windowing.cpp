@@ -514,7 +514,7 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
 
             ::information() << "gtk4::acme::windowing::s_on_gtk_application_startup";
 
-            pgtk4windowingsystem->_on_startup_gtk_application();
+            pgtk4windowingsystem->_on_gtk_application_startup();
 
          }
 
@@ -530,7 +530,7 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
             //
             // pgtk4windowingsystem->fetch_dark_mode();
 
-            pgtk4windowingsystem->on_application_activate();
+            pgtk4windowingsystem->_on_gtk_application_activate();
 
          }
 
@@ -551,10 +551,14 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
             //
             // pgtk4windowingsystem->fetch_dark_mode();
 
-            pgtk4windowingsystem->on_application_activate();
+            //pgtk4windowingsystem->on_application_activate();
 
             if (files && n_files > 0)
             {
+
+               auto prequest = pgtk4windowingsystem->create_newø<::request>();
+
+               prequest->m_ecommand = e_command_file_open;
 
                for (int i = 0; i < n_files; i++)
                {
@@ -568,16 +572,17 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
 
                      pfileG->_attach_g_file(pgfile);
 
-                     auto prequest = pgtk4windowingsystem->create_newø<::request>();
+                     prequest->m_payloadFile.payload_array_reference().add(pfileG);
 
-                     pgtk4windowingsystem->m_papplication->m_bPostedCommandLineFileOpen = true;
+                     //pgtk4windowingsystem->m_papplication->m_bPostedCommandLineFileOpen = true;
 
-                     pgtk4windowingsystem->m_papplication->post_request(prequest);
+                     //pgtk4windowingsystem->m_papplication->post_request(prequest);
 
                   }
 
-
                }
+
+               pgtk4windowingsystem->m_papplication->post_request(prequest);
 
             }
 
@@ -728,11 +733,11 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
 
             }
 
-            g_signal_connect(m_pgtkapplication, "startup", G_CALLBACK(s_on_startup_gtk_application), this);
+            g_signal_connect(m_pgtkapplication, "startup", G_CALLBACK(s_on_gtk_application_startup), this);
 
-            g_signal_connect(m_pgtkapplication, "activate", G_CALLBACK(s_on_activate_gtk_application), this);
+            g_signal_connect(m_pgtkapplication, "activate", G_CALLBACK(s_on_gtk_application_activate), this);
 
-            g_signal_connect(m_pgtkapplication, "open", G_CALLBACK(s_on_open_gtk_application), this);
+            g_signal_connect(m_pgtkapplication, "open", G_CALLBACK(s_on_gtk_application_open), this);
 
             // // Retrieve system settings and listen for changes in dark mode preference
             // GtkSettings *settings = gtk_settings_get_default();
