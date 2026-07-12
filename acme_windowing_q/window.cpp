@@ -415,7 +415,7 @@ namespace q
             set_interface_client_size({cx, cy});
 
             //on_create_window();
-            m_pacmeuserinteraction->on_send_window_create_message();
+            m_pacmeuserinteraction->message_call(::user::e_message_create);
 
          }
 
