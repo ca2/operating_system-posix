@@ -301,7 +301,11 @@ namespace music
             if (scopedstrDevice.case_insensitive_order("alsa") == 0)
             {
 
-               return allocateø ::music::midi::sequencer(psequence, get_message_out(scopedstrDevice));
+               auto pmidisequencer = create_newø<::music::midi::sequencer>();
+
+               pmidisequencer->initialize_music_midi_sequencer(psequence, get_message_out(scopedstrDevice));
+
+               return pmidisequencer;
 
             }
 
@@ -316,7 +320,11 @@ namespace music
 
             auto pmessageout = get_message_out(scopedstrDevice);
 
-            return allocateø ::music::midi::sequencer(psequence, pmessageout);
+            auto pmidisequencer = createø < ::music::midi::sequencer>();
+
+            pmidisequencer->initialize_music_midi_sequencer(psequence, pmessageout);
+
+            return pmidisequencer;
 
          }
 
