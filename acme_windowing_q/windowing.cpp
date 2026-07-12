@@ -422,9 +422,6 @@ namespace q
          void windowing::run()
          {
 
-
-            system()->prepare_application();
-
             ::string strId = application()->m_strAppId;
 
             strId.find_replace("/", ".");
