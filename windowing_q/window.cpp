@@ -1084,44 +1084,92 @@ namespace windowing_q
 
          ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
 
-         auto pusersystem = puserinteraction->m_pusersystem;
+         //auto pusersystem = puserinteraction->m_pusersystem;
 
-         puserinteraction->m_bMessageOnlyWindow = false;
+         if (puserinteraction)
+         {
+
+            puserinteraction->m_bMessageOnlyWindow = false;
+
+         }
 
          auto pqwindowing = q_windowing();
 
          auto pdisplay = pqwindowing->m_pdisplay;
 
-         puserinteraction->m_pacmewindowingwindow = this;
+         if (puserinteraction)
+         {
+
+            puserinteraction->m_pacmewindowingwindow = this;
+
+         }
+         else
+         {
+
+            m_pacmeuserinteraction->m_pacmewindowingwindow = this;
+
+         }
 
          m_pacmewindowingdisplayWindow = pdisplay;
 
          information() << "window::create_window m_pdisplay : " << (::iptr)m_pacmewindowingdisplayWindow.m_p;
 
-         int x = puserinteraction->const_layout().sketch().origin().x;
+         int x = 0;
 
-         int y = puserinteraction->const_layout().sketch().origin().y;
+         int y = 0;
 
-         int cx = puserinteraction->const_layout().sketch().width();
+         int cx = 0;
 
-         int cy = puserinteraction->const_layout().sketch().height();
+         int cy = 0;
 
-         bool bVisible = puserinteraction->const_layout().sketch().is_screen_visible();
+         bool bVisible = true;
+
+         if (puserinteraction)
+         {
+
+            x = puserinteraction->const_layout().sketch().origin().x;
+
+            y = puserinteraction->const_layout().sketch().origin().y;
+
+            cx = puserinteraction->const_layout().sketch().width();
+
+            cy = puserinteraction->const_layout().sketch().height();
+
+            bVisible = puserinteraction->const_layout().sketch().is_screen_visible();
+
+         }
+         else
+         {
+
+            auto r = m_pacmeuserinteraction->get_rectangle();
+
+            x = r.left;
+
+            y = r.top;
+
+            cx = r.width();
+
+            cy = r.height();
+
+         }
 
          if (cx <= 0)
          {
+
             cx = 1;
+
          }
 
          if (cy <= 0)
          {
+
             cy = 1;
+
          }
 
+         m_pointWindow.x = x;
 
-         m_pointWindow.x = 0;
-
-         m_pointWindow.y = 0;
+         m_pointWindow.y = y;
 
          m_sizeWindow.cx = cx;
 
@@ -1133,9 +1181,9 @@ namespace windowing_q
 
          m_pqwidget->resize(cx, cy);
 
-         cx = maximum(cx, 800);
-
-         cy = maximum(cy, 400);
+         // cx = maximum(cx, 800);
+         //
+         // cy = maximum(cy, 400);
 
          m_sizeOnSize.cx = cx;
 
@@ -1145,7 +1193,12 @@ namespace windowing_q
 
          __refdbg_add_referer;
 
-         puserinteraction->increment_reference_count();
+         if (puserinteraction)
+         {
+
+            puserinteraction->increment_reference_count();
+
+         }
 
          bamf_set_icon();
 
@@ -1184,16 +1237,29 @@ namespace windowing_q
 
          ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
 
-         auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
-
-         if (lresult == -1)
+         if (puserinteraction)
          {
-            throw ::exception(error_failed);
+
+            auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
+
+            if (lresult == -1)
+            {
+
+               throw ::exception(error_failed);
+
+            }
+
+            puserinteraction->m_ewindowflag |= e_window_flag_window_created;
+
+            puserinteraction->set_flag(e_flag_task_started);
+
          }
+         else
+         {
 
-         puserinteraction->m_ewindowflag |= e_window_flag_window_created;
+            m_pacmeuserinteraction->message_call(::user::e_message_create);
 
-         puserinteraction->set_flag(e_flag_task_started);
+         }
 
       }
 

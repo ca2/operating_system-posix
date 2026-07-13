@@ -20,6 +20,7 @@
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
 //#include <X11/Xutil.h>
+#include <QTimer>
 
 
 namespace q
@@ -437,14 +438,14 @@ namespace q
             {
                if (state == Qt::ApplicationActive) {
                   // Application is now in the foreground/active
-                  m_papplication->post_request(nullptr);
+                  //m_papplication->post_request(nullptr);
                }
             };
 
 
             // Connect the application state change signal to your handler
-            QObject::connect(m_pqapplication, &QGuiApplication::applicationStateChanged,
-                             handleApplicationState);
+            //QObject::connect(m_pqapplication, &QGuiApplication::applicationStateChanged,
+              //               handleApplicationState);
 
             // void MyClass::handleApplicationState(Qt::ApplicationState state) {
             //    if (state == Qt::ApplicationActive) {
@@ -454,6 +455,11 @@ namespace q
 
             m_pqapplication->setQuitOnLastWindowClosed(false);
 
+            // This executes immediately after the event loop starts
+            QTimer::singleShot(0, m_pqapplication, [this]() {
+                //qDebug() << "The event loop has officially started!";
+                   m_papplication->post_request(nullptr);
+            });
             //on_application_activate();
 
             //_on_activate_kde_application();
