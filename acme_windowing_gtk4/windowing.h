@@ -119,9 +119,9 @@ namespace gtk4
             bool handle_messages() override;
 
 
-            virtual void _on_gtk_application_startup();
-            virtual void _on_gtk_application_activate();
-            virtual void _on_gtk_application_open(const ::pointer_array < ::file::file > & filea);
+            void _on_gtk_application_startup() override;
+            void _on_gtk_application_activate() override;
+            void _on_gtk_application_open(const ::pointer_array < ::file::file > & filea) override;
 
             //void _on_activate_gtk_application() override;
 

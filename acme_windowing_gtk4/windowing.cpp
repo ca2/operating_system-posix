@@ -909,6 +909,9 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
 
          void windowing::_on_gtk_application_activate()
          {
+
+            g::acme::windowing::windowing::_on_gtk_application_activate();
+
          }
 
 
