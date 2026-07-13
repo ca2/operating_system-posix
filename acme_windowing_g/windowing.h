@@ -70,6 +70,12 @@ namespace g
             void user_post(const ::procedure& procedure) override;
 
 
+            virtual void _on_gtk_application_startup();
+            virtual void _on_gtk_application_activate();
+            virtual void _on_gtk_application_open(const ::pointer_array < ::file::file > & filea);
+
+
+
          };
 
 

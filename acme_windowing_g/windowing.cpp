@@ -154,6 +154,43 @@ namespace g
          }
 
 
+         void windowing::_on_gtk_application_startup()
+         {
+
+
+         }
+
+
+         void windowing::_on_gtk_application_activate()
+         {
+
+            m_papplication->post_request(nullptr);
+
+         }
+
+
+         void windowing::_on_gtk_application_open(const ::pointer_array < ::file::file > & filea)
+         {
+
+            auto prequest = create_newø<::request>();
+
+            prequest->m_ecommand = ::e_command_file_open;
+
+            for (auto & pfile : filea)
+            {
+
+               prequest->m_payloadFile.payload_array_reference().add(pfile);
+
+            }
+
+            post_request(prequest);
+
+         }
+
+
+
+
+
          // void windowing::hook_operating_ambient_theme_change_callbacks()
          // {
          //
