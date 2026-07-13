@@ -437,7 +437,7 @@ namespace q
             {
                if (state == Qt::ApplicationActive) {
                   // Application is now in the foreground/active
-                  on_application_activate();
+                  m_papplication->post_request(nullptr);
                }
             };
 
@@ -454,7 +454,7 @@ namespace q
 
             m_pqapplication->setQuitOnLastWindowClosed(false);
 
-            on_application_activate();
+            //on_application_activate();
 
             //_on_activate_kde_application();
 
