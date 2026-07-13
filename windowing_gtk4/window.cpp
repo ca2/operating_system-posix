@@ -522,7 +522,18 @@ gtk_im_context_commit (
          else
          {
 
-            puserinteraction->display(::e_display_normal);
+            if (puserinteraction)
+            {
+
+               puserinteraction->display(::e_display_normal);
+
+            }
+            else
+            {
+
+               m_pacmeuserinteraction->show_window(::user_interface::e_show_window_show_normal);
+
+            }
 
             application()->fork([this]()
             {
@@ -1226,13 +1237,18 @@ on_text(scopedstr, scopedstr.size());
 
          auto puserinteraction = user_interaction();
 
-         puserinteraction->display(::e_display_normal);
+         if (puserinteraction)
+         {
 
-         puserinteraction->set_need_layout();
+            puserinteraction->display(::e_display_normal);
 
-         puserinteraction->set_need_redraw();
+            puserinteraction->set_need_layout();
 
-         puserinteraction->post_redraw();
+            puserinteraction->set_need_redraw();
+
+            puserinteraction->post_redraw();
+
+         }
 
       }
 
@@ -1277,26 +1293,38 @@ on_text(scopedstr, scopedstr.size());
 
       auto puserinteraction = user_interaction();
 
-      bool bVisible = puserinteraction->const_layout().sketch().is_screen_visible();
+      bool bVisible = true;
+
+      if (puserinteraction)
+      {
+
+         bVisible = puserinteraction->const_layout().sketch().is_screen_visible();
+
+      }
 
       //main_send([this, &bOk]()
       {
 
           ::windowing::window * pimpl = this;
 
-          auto pusersystem = puserinteraction->m_pusersystem;
+          // auto pusersystem = puserinteraction->m_pusersystem;
 
-          puserinteraction->m_bMessageOnlyWindow = false;
+         if (puserinteraction)
+         {
 
-          auto pgtk4windowing = gtk4_windowing();
+            puserinteraction->m_bMessageOnlyWindow = false;
 
-         ::pointer < ::windowing_gtk4::display > pdisplay = pgtk4windowing->m_pacmedisplay;
+         }
 
-         // auto pdisplay = pgtk4windowing->m_pdisplay;
+          // auto pgtk4windowing = gtk4_windowing();
 
-          //m_pwindow = pimpl;
+          // ::pointer < ::windowing_gtk4::display > pdisplay = pgtk4windowing->m_pacmedisplay;
 
-          puserinteraction->m_pacmewindowingwindow = this;
+          // auto pdisplay = pgtk4windowing->m_pdisplay;
+
+          // m_pwindow = pimpl;
+
+          m_pacmeuserinteraction->m_pacmewindowingwindow = this;
 
           //m_puserinteraction->m_puserinteractionTopLevel = m_pwindow->m_puserinteraction;
 
@@ -1412,16 +1440,29 @@ on_text(scopedstr, scopedstr.size());
 
          auto puserinteraction = user_interaction();
 
-         auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
-
-         if (lresult == -1)
+         if (puserinteraction)
          {
-            throw ::exception(error_failed);
+
+            auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
+
+            if (lresult == -1)
+            {
+
+               throw ::exception(error_failed);
+
+            }
+
+            puserinteraction->m_ewindowflag |= e_window_flag_window_created;
+
+            puserinteraction->set_flag(e_flag_task_started);
+
          }
+         else
+         {
 
-         puserinteraction->m_ewindowflag |= e_window_flag_window_created;
+            m_pacmeuserinteraction->message_call(::user::e_message_create);
 
-         puserinteraction->set_flag(e_flag_task_started);
+         }
 
       }
 
@@ -2376,21 +2417,26 @@ on_text(scopedstr, scopedstr.size());
    void window::on_window_shown()
    {
 
-      auto pshowwindow = create_newø < ::message::show_window >();
-
-      pshowwindow->m_eusermessage = ::user::e_message_show_window;
-
       auto puserinteraction = user_interaction();
 
-      pshowwindow->m_puserinteraction = puserinteraction;
+      if (puserinteraction)
+      {
 
-      pshowwindow->m_pwindow = this;
+         auto pshowwindow = create_newø < ::message::show_window >();
 
-      pshowwindow->m_operatingsystemwindow = this->operating_system_window();
+         pshowwindow->m_eusermessage = ::user::e_message_show_window;
 
-      pshowwindow->m_bShow = true;
+         pshowwindow->m_puserinteraction = puserinteraction;
 
-      puserinteraction->route_message(pshowwindow);
+         pshowwindow->m_pwindow = this;
+
+         pshowwindow->m_operatingsystemwindow = this->operating_system_window();
+
+         pshowwindow->m_bShow = true;
+
+         puserinteraction->route_message(pshowwindow);
+
+      }
 
    }
 
