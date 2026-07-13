@@ -462,7 +462,7 @@ namespace gtk3
 
             defer_init_gtk();
 
-            system()->prepare_application();
+            //system()->prepare_application();
 
              //int main(void) {
                  //int jid = jail_getid(".");

@@ -791,7 +791,8 @@ return FALSE;
             //              | GDK_KEY_RELEASE_MASK);
 
 
-            on_create_window();
+            //on_create_window();
+            m_pacmeuserinteraction->message_call(::user::e_message_create);
 
 
          }
