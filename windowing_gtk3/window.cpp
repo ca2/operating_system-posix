@@ -3247,7 +3247,7 @@ namespace windowing_gtk3
 
    GdkDisplay * pgdkdisplay = gdk_window_get_display(pgdkwindow);
 
-       GdkMonitor * monitor =
+       GdkMonitor * pgdkmonitor =
            gdk_display_get_monitor_at_window(pgdkdisplay, pgdkwindow);
 
        if(!pgdkmonitor)
@@ -3255,7 +3255,7 @@ namespace windowing_gtk3
        return ::windowing::window::get_window_rectangle();
        }
            GdkRectangle geometry;
-           gdk_monitor_get_geometry(monitor, &geometry);
+           gdk_monitor_get_geometry(pgdkmonitor, &geometry);
 
 
         return ::i32_rectangle_dimension(
@@ -4665,13 +4665,13 @@ namespace windowing_gtk3
       if (!(puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
 
-         if (puserinteraction->const_layout().design().activation().m_eactivation == ::user::e_activation_default)
-         {
-
-            puserinteraction->layout().m_statea[::user::e_layout_sketch].activation().m_eactivation =
-               ::user::e_activation_set_active;
-
-         }
+         // if (puserinteraction->const_layout().design().activation().m_eactivation == ::user::e_activation_default)
+         // {
+         //
+         //    puserinteraction->layout().m_statea[::user::e_layout_sketch].activation().m_eactivation =
+         //       ::user::e_activation_set_active;
+         //
+         // }
 
          return;
 

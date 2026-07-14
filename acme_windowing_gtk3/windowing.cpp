@@ -325,7 +325,7 @@ namespace gtk3
 
             //pgtk3windowingsystem->_fetch_dark_mode();
 
-            pgtk3windowingsystem->on_application_activate();
+            pgtk3windowingsystem->_on_gtk_application_activate();
 
          }
 
