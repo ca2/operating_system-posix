@@ -1,27 +1,734 @@
+// Created by camilo on 2026-07-14 03:19 <3ThomasBorregaardSørensen!! Mummi!! Bilbo!!
 #include "framework.h"
-#include "_.h"
-#include "aura/os/freebsd/_linux.h"
-//#include "apex/os/freebsd/gnome_gnome.h"
-#include "aura/node/freebsd/_linux.h"
-#include "clipboard_data.h"
+#include "copydesk.h"
+#include "acme/windowing/windowing.h"
+#include "aura_posix/clipboard_data.h"
+#include "aura/graphics/image/context.h"
+#include "aura/platform/system.h"
+#include "aura/platform/node.h"
+
 #include <gtk/gtk.h>
+#include <gio/gio.h>
+#include <cstring>
 
 
-gboolean clipboard_callback(gpointer data);
-
-//#include <gtk/gtk.h>
-
-
-//extern GMainContext * gtk_main_context;
+namespace
+{
 
 
+   constexpr const char * g_pszGnomeCopiedFiles = "x-special/gnome-copied-files";
+   constexpr const char * g_pszUriList = "text/uri-list";
+   constexpr gsize g_uMaximumClipboardFilePayload = 16 * 1024 * 1024;
+   constexpr gsize g_uClipboardReadBlockSize = 64 * 1024;
 
 
+   GdkClipboard * gtk4_standard_clipboard()
+   {
+
+      auto pdisplay = gdk_display_get_default();
+
+      if(!pdisplay)
+      {
+
+         return nullptr;
+
+      }
+
+      return gdk_display_get_clipboard(pdisplay);
+
+   }
 
 
+   GdkClipboard * gtk4_primary_clipboard()
+   {
+
+      auto pdisplay = gdk_display_get_default();
+
+      if(!pdisplay)
+      {
+
+         return nullptr;
+
+      }
+
+      return gdk_display_get_primary_clipboard(pdisplay);
+
+   }
 
 
+   bool gtk4_formats_have_plain_text(const GdkContentFormats * pformats)
+   {
 
+      if(!pformats)
+      {
+
+         return false;
+
+      }
+
+      if(gdk_content_formats_contain_gtype(pformats, G_TYPE_STRING))
+      {
+
+         return true;
+
+      }
+
+      gsize cMimeTypes = 0;
+
+      auto ppszMimeTypes = gdk_content_formats_get_mime_types(pformats, &cMimeTypes);
+
+      for(gsize i = 0; i < cMimeTypes; ++i)
+      {
+
+         if(ppszMimeTypes[i] && g_str_has_prefix(ppszMimeTypes[i], "text/plain"))
+         {
+
+            return true;
+
+         }
+
+      }
+
+      return false;
+
+   }
+
+
+   bool gtk4_formats_have_file_list(const GdkContentFormats * pformats)
+   {
+
+      if(!pformats)
+      {
+
+         return false;
+
+      }
+
+      return
+         gdk_content_formats_contain_mime_type(pformats, g_pszGnomeCopiedFiles)
+         ||
+         gdk_content_formats_contain_mime_type(pformats, g_pszUriList);
+
+   }
+
+
+   bool gtk4_formats_have_image(const GdkContentFormats * pformats)
+   {
+
+      if(!pformats)
+      {
+
+         return false;
+
+      }
+
+      if(gdk_content_formats_contain_gtype(pformats, GDK_TYPE_TEXTURE))
+      {
+
+         return true;
+
+      }
+
+      gsize cMimeTypes = 0;
+
+      auto ppszMimeTypes = gdk_content_formats_get_mime_types(pformats, &cMimeTypes);
+
+      for(gsize i = 0; i < cMimeTypes; ++i)
+      {
+
+         if(ppszMimeTypes[i] && g_str_has_prefix(ppszMimeTypes[i], "image/"))
+         {
+
+            return true;
+
+         }
+
+      }
+
+      return false;
+
+   }
+
+
+   void gtk4_clipboard_request_complete(clipboard_data * pdata, bool bSucceeded)
+   {
+
+      if(!bSucceeded)
+      {
+
+         pdata->m_eclipboard = e_clipboard_error;
+
+      }
+
+      pdata->m_happening.set_happening();
+
+      // Balances the explicit increment_reference_count() performed before
+      // starting the GTK asynchronous request.
+      //::release(pdata);
+
+   }
+
+
+   GdkContentProvider * gtk4_content_provider_for_string(
+      const char * pszMimeType,
+      const ::string & str)
+   {
+
+      auto pbytes = g_bytes_new(str.c_str(), (gsize)str.length());
+
+      if(!pbytes)
+      {
+
+         return nullptr;
+
+      }
+
+      auto pprovider = gdk_content_provider_new_for_bytes(pszMimeType, pbytes);
+
+      g_bytes_unref(pbytes);
+
+      return pprovider;
+
+   }
+
+
+   bool gtk4_build_file_payloads(
+      const ::file::path_array_base & patha,
+      ::user::copydesk::enum_op eop,
+      ::string & strGnomeCopiedFiles,
+      ::string & strUriList)
+   {
+
+      if(patha.is_empty())
+      {
+
+         return false;
+
+      }
+
+      if(eop == ::user::copydesk::e_op_copy)
+      {
+
+         strGnomeCopiedFiles = "copy";
+
+      }
+      else if(eop == ::user::copydesk::e_op_cut)
+      {
+
+         strGnomeCopiedFiles = "cut";
+
+      }
+      else
+      {
+
+         return false;
+
+      }
+
+      for(auto & path : patha)
+      {
+
+         GError * perror = nullptr;
+
+         auto pszUri = g_filename_to_uri(path.c_str(), nullptr, &perror);
+
+         if(!pszUri)
+         {
+
+            if(perror)
+            {
+
+               g_error_free(perror);
+
+            }
+
+            return false;
+
+         }
+
+         strGnomeCopiedFiles += "\n";
+         strGnomeCopiedFiles += pszUri;
+
+         strUriList += pszUri;
+         strUriList += "\r\n";
+
+         g_free(pszUri);
+
+      }
+
+      return true;
+
+   }
+
+
+   bool gtk4_add_file_uri(
+      ::file::path_array_base & patha,
+      const char * pszUri)
+   {
+
+      if(!pszUri || !*pszUri)
+      {
+
+         return false;
+
+      }
+
+      GError * perror = nullptr;
+
+      auto pszFilename = g_filename_from_uri(pszUri, nullptr, &perror);
+
+      if(!pszFilename)
+      {
+
+         if(perror)
+         {
+
+            g_error_free(perror);
+
+         }
+
+         return false;
+
+      }
+
+      patha.add(::file::path(pszFilename));
+
+      g_free(pszFilename);
+
+      return true;
+
+   }
+
+
+   bool gtk4_parse_uri_list(
+      clipboard_data * pdata,
+      const char * pszUriList)
+   {
+
+      if(!pszUriList)
+      {
+
+         return false;
+
+      }
+
+      auto ppszUris = g_uri_list_extract_uris(pszUriList);
+
+      if(!ppszUris)
+      {
+
+         return false;
+
+      }
+
+      bool bAddedAny = false;
+
+      for(auto ppszUri = ppszUris; *ppszUri; ++ppszUri)
+      {
+
+         if(gtk4_add_file_uri(pdata->m_patha, *ppszUri))
+         {
+
+            bAddedAny = true;
+
+         }
+
+      }
+
+      g_strfreev(ppszUris);
+
+      return bAddedAny;
+
+   }
+
+
+   bool gtk4_parse_file_payload(
+      clipboard_data * pdata,
+      const char * pszMimeType,
+      const guint8 * pData,
+      gsize uSize)
+   {
+
+      if(!pszMimeType || !pData)
+      {
+
+         return false;
+
+      }
+
+      auto pszPayload = g_strndup((const char *)pData, uSize);
+
+      if(!pszPayload)
+      {
+
+         return false;
+
+      }
+
+      pdata->m_patha.clear();
+      pdata->m_eop = ::user::copydesk::e_op_copy;
+
+      bool bSucceeded = false;
+
+      if(g_strcmp0(pszMimeType, g_pszGnomeCopiedFiles) == 0)
+      {
+
+         auto pszLineEnd = std::strpbrk(pszPayload, "\r\n");
+
+         if(pszLineEnd)
+         {
+
+            *pszLineEnd = '\0';
+
+            auto pszUriList = pszLineEnd + 1;
+
+            while(*pszUriList == '\r' || *pszUriList == '\n')
+            {
+
+               ++pszUriList;
+
+            }
+
+            if(g_ascii_strcasecmp(pszPayload, "copy") == 0)
+            {
+
+               pdata->m_eop = ::user::copydesk::e_op_copy;
+               bSucceeded = gtk4_parse_uri_list(pdata, pszUriList);
+
+            }
+            else if(g_ascii_strcasecmp(pszPayload, "cut") == 0)
+            {
+
+               pdata->m_eop = ::user::copydesk::e_op_cut;
+               bSucceeded = gtk4_parse_uri_list(pdata, pszUriList);
+
+            }
+
+         }
+
+      }
+      else if(g_strcmp0(pszMimeType, g_pszUriList) == 0)
+      {
+
+         // text/uri-list has no standard copy-versus-cut indication.
+         pdata->m_eop = ::user::copydesk::e_op_copy;
+         bSucceeded = gtk4_parse_uri_list(pdata, pszPayload);
+
+      }
+
+      g_free(pszPayload);
+
+      return bSucceeded;
+
+   }
+
+
+   struct gtk4_clipboard_stream_request
+   {
+
+      ::pointer < clipboard_data >       m_pdata;
+      GInputStream *         m_pstream;
+      GByteArray *           m_pbytearray;
+      char *                 m_pszMimeType;
+
+   };
+
+
+   void gtk4_clipboard_stream_request_destroy(
+      gtk4_clipboard_stream_request * prequest,
+      bool bSucceeded)
+   {
+
+      if(prequest->m_pstream)
+      {
+
+         g_object_unref(prequest->m_pstream);
+
+      }
+
+      if(prequest->m_pbytearray)
+      {
+
+         g_byte_array_unref(prequest->m_pbytearray);
+
+      }
+
+      g_free(prequest->m_pszMimeType);
+
+      auto pdata = prequest->m_pdata;
+
+      g_free(prequest);
+
+      gtk4_clipboard_request_complete(pdata, bSucceeded);
+
+   }
+
+
+   void gtk4_clipboard_file_stream_read(
+      GObject * psource,
+      GAsyncResult * presult,
+      gpointer puserData)
+   {
+
+      auto prequest = (gtk4_clipboard_stream_request *)puserData;
+
+      GError * perror = nullptr;
+
+      auto pbytes = g_input_stream_read_bytes_finish(
+         G_INPUT_STREAM(psource),
+         presult,
+         &perror);
+
+      if(!pbytes)
+      {
+
+         if(perror)
+         {
+
+            g_error_free(perror);
+
+         }
+
+         gtk4_clipboard_stream_request_destroy(prequest, false);
+
+         return;
+
+      }
+
+      gsize uSize = 0;
+
+      auto pData = (const guint8 *)g_bytes_get_data(pbytes, &uSize);
+
+      if(uSize == 0)
+      {
+
+         g_bytes_unref(pbytes);
+
+         auto bSucceeded = gtk4_parse_file_payload(
+            prequest->m_pdata,
+            prequest->m_pszMimeType,
+            prequest->m_pbytearray->data,
+            prequest->m_pbytearray->len);
+
+         gtk4_clipboard_stream_request_destroy(prequest, bSucceeded);
+
+         return;
+
+      }
+
+      if(prequest->m_pbytearray->len + uSize > g_uMaximumClipboardFilePayload)
+      {
+
+         g_bytes_unref(pbytes);
+
+         gtk4_clipboard_stream_request_destroy(prequest, false);
+
+         return;
+
+      }
+
+      g_byte_array_append(prequest->m_pbytearray, pData, (guint)uSize);
+
+      g_bytes_unref(pbytes);
+
+      g_input_stream_read_bytes_async(
+         prequest->m_pstream,
+         g_uClipboardReadBlockSize,
+         G_PRIORITY_DEFAULT,
+         nullptr,
+         &gtk4_clipboard_file_stream_read,
+         prequest);
+
+   }
+
+
+   void gtk4_clipboard_file_read_ready(
+      GObject * psource,
+      GAsyncResult * presult,
+      gpointer puserData)
+   {
+
+      auto pdata = (clipboard_data *)puserData;
+
+      GError * perror = nullptr;
+      const char * pszMimeType = nullptr;
+
+      auto pstream = gdk_clipboard_read_finish(
+         GDK_CLIPBOARD(psource),
+         presult,
+         &pszMimeType,
+         &perror);
+
+      if(!pstream)
+      {
+
+         if(perror)
+         {
+
+            g_error_free(perror);
+
+         }
+
+         gtk4_clipboard_request_complete(pdata, false);
+
+         return;
+
+      }
+
+      auto prequest = g_new0(gtk4_clipboard_stream_request, 1);
+
+      prequest->m_pdata = pdata;
+      prequest->m_pstream = pstream;
+      prequest->m_pbytearray = g_byte_array_new();
+      prequest->m_pszMimeType = g_strdup(pszMimeType);
+
+      if(!prequest->m_pbytearray || !prequest->m_pszMimeType)
+      {
+
+         gtk4_clipboard_stream_request_destroy(prequest, false);
+
+         return;
+
+      }
+
+      g_input_stream_read_bytes_async(
+         prequest->m_pstream,
+         g_uClipboardReadBlockSize,
+         G_PRIORITY_DEFAULT,
+         nullptr,
+         &gtk4_clipboard_file_stream_read,
+         prequest);
+
+   }
+
+
+   void gtk4_clipboard_text_read_ready(
+      GObject * psource,
+      GAsyncResult * presult,
+      gpointer puserData)
+   {
+
+      auto pdata = (clipboard_data *)puserData;
+
+      GError * perror = nullptr;
+
+      auto pszText = gdk_clipboard_read_text_finish(
+         GDK_CLIPBOARD(psource),
+         presult,
+         &perror);
+
+      if(!pszText)
+      {
+
+         if(perror)
+         {
+
+            g_error_free(perror);
+
+         }
+
+         gtk4_clipboard_request_complete(pdata, false);
+
+         return;
+
+      }
+
+      pdata->m_str = pszText;
+
+      g_free(pszText);
+
+      gtk4_clipboard_request_complete(pdata, true);
+
+   }
+
+
+   void gtk4_clipboard_texture_read_ready(
+      GObject * psource,
+      GAsyncResult * presult,
+      gpointer puserData)
+   {
+
+      auto pdata = (clipboard_data *)puserData;
+
+      GError * perror = nullptr;
+
+      auto ptexture = gdk_clipboard_read_texture_finish(
+         GDK_CLIPBOARD(psource),
+         presult,
+         &perror);
+
+      if(!ptexture)
+      {
+
+         if(perror)
+         {
+
+            g_error_free(perror);
+
+         }
+
+         gtk4_clipboard_request_complete(pdata, false);
+
+         return;
+
+      }
+
+      auto cx = gdk_texture_get_width(ptexture);
+      auto cy = gdk_texture_get_height(ptexture);
+
+      bool bSucceeded = false;
+
+      if(cx > 0 && cy > 0 && pdata->m_pimage)
+      {
+
+         pdata->m_pimage->create({cx, cy});
+         pdata->m_pimage->map();
+
+#if GTK_CHECK_VERSION(4, 10, 0)
+
+         // ca2 images on Linux are BGRA. The old GdkPixbuf code copied
+         // straight-alpha RGBA into straight-alpha BGRA, so request the
+         // equivalent non-premultiplied format here.
+         auto pdownloader = gdk_texture_downloader_new(ptexture);
+
+         gdk_texture_downloader_set_format(
+            pdownloader,
+            GDK_MEMORY_B8G8R8A8);
+
+         gdk_texture_downloader_download_into(
+            pdownloader,
+            (guchar *)pdata->m_pimage->image32(),
+            (gsize)pdata->m_pimage->scan_size());
+
+         gdk_texture_downloader_free(pdownloader);
+
+#else
+
+         // GTK 4.0 through 4.8 only provide gdk_texture_download(), whose
+         // output is CAIRO_FORMAT_ARGB32 (premultiplied BGRA on the usual
+         // little-endian Linux targets). Convert it back to straight alpha
+         // to preserve the semantics of the previous GdkPixbuf path.
+         gdk_texture_download(
+            ptexture,
+            (guchar *)pdata->m_pimage->image32(),
+            (gsize)pdata->m_pimage->scan_size());
+
+         pdata->m_pimage->div_alpha();
+
+#endif
+
+         bSucceeded = true;
+
+      }
+
+      g_object_unref(ptexture);
+
+      gtk4_clipboard_request_complete(pdata, bSucceeded);
+
+   }
+
+
+} // anonymous namespace
 
 
 namespace node_gtk4
@@ -38,94 +745,108 @@ namespace node_gtk4
    copydesk::~copydesk()
    {
 
+
    }
 
 
-   ::e_status copydesk::initialize(::particle * pparticle)
+   void copydesk::initialize_copydesk(::windowing::window * pwindow)
    {
 
-      auto estatus = ::user::copydesk::initialize(pparticle);
-
-      if(!estatus)
-      {
-
-         return estatus;
-
-      }
-
-      return estatus;
+      ::user::copydesk::initialize_copydesk(pwindow);
 
    }
 
 
-   ::e_status copydesk::finalize()
+   void copydesk::destroy()
    {
 
-      auto estatus = ::user::copydesk::finalize();
-
-      return ::success;
+      ::user::copydesk::destroy();
 
    }
-
-
-   //bool copydesk::set_plain_text(const ::scoped_string & scopedstrParam)
-   //{
-
-   //   string str(strParam);
-
-   //      string strText(str);
-
-   //      ::user::copydesk::set_plain_text(strText);
-
-   //   });
-
-   //   return true;
-
-   //}
 
 
    bool copydesk::_set_plain_text(const ::scoped_string & scopedstr)
    {
 
-      auto psystem = system();
+      ::string str(scopedstr);
 
-      auto pnode = psystem->node();
+      bool bSucceeded = false;
 
-      pnode->node_fork([this, str]
+      //auto pnode = system()->node();
+
+      ::procedure procedure;
+
+      procedure = [&]()
       {
 
-         GtkClipboard * clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+         auto pclipboard = gtk4_standard_clipboard();
 
-         gtk_clipboard_set_text(clipboard, str.c_str(), str.length());
+         if(!pclipboard)
+         {
 
-      });
+            return;
 
-      return true;
+         }
+
+         gdk_clipboard_set_text(pclipboard, str.c_str());
+
+         bSucceeded = true;
+
+      };
+
+      procedure.set_timeout(1_min);
+
+      system()->send(procedure);
+
+      return bSucceeded;
 
    }
 
 
-   bool copydesk::_get_plain_text(string & str)
+   bool copydesk::_get_plain_text(::string & str)
    {
 
-      ::pointer<clipboard_data>pdata = allocateø clipboard_data(this, e_clipboard_get_plain_text);
+      auto pdata =
+         allocateø clipboard_data(this, e_clipboard_get_plain_text);
 
-      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_plain_text"));
+      //pdata->increment_reference_count(
+        // REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_plain_text"));
 
-      auto idle_source = g_idle_source_new();
+      system()->acme_windowing()->main_post([pdata]
+      {
 
-      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
+         auto pclipboard = gtk4_standard_clipboard();
 
-      g_source_attach(idle_source, g_main_context_default());
+         if(!pclipboard)
+         {
 
-      if(!pdata->m_happening.wait(seconds(5)).succeeded())
+            gtk4_clipboard_request_complete(pdata, false);
+
+            return;
+
+         }
+
+         gdk_clipboard_read_text_async(
+            pclipboard,
+            nullptr,
+            &gtk4_clipboard_text_read_ready,
+            pdata);
+
+      });
+
+      if(!pdata->m_happening.wait(1_min).succeeded())
       {
 
          return false;
 
       }
 
-      g_source_destroy(idle_source);
+      if(pdata->m_eclipboard == e_clipboard_error)
+      {
+
+         return false;
+
+      }
 
       str = pdata->m_str;
 
@@ -137,24 +858,36 @@ namespace node_gtk4
    bool copydesk::_has_plain_text()
    {
 
-      ::pointer<ovar>payload(allocateø ovar());
+      bool bHasPlainText = false;
 
-      payload->m_var = false;
+      //auto pnode = system()->node();
 
-      auto psystem = system();
+      ::procedure procedure;
 
-      auto pnode = psystem->node();
 
-      pnode->node_send(seconds(5), [=]()
+      procedure = [&]()
       {
 
-         GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+         auto pclipboard = gtk4_standard_clipboard();
 
-         payload->m_var = gtk_clipboard_wait_is_text_available (clipboard);
+         if(!pclipboard)
+         {
 
-      });
+            return;
 
-      return payload->m_var.operator bool();
+         }
+
+         bHasPlainText = gtk4_formats_have_plain_text(
+            gdk_clipboard_get_formats(pclipboard));
+
+      };
+
+
+      procedure.set_timeout(1_min);
+
+      system()->send(procedure);
+
+      return bHasPlainText;
 
    }
 
@@ -162,42 +895,90 @@ namespace node_gtk4
    bool copydesk::_has_filea()
    {
 
-      ::pointer<clipboard_data>pdata = allocateø clipboard_data(this, e_clipboard_get_file_target_count);
+      bool bHasFileList = false;
 
-      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_has_filea"));
+      //auto pnode = system()->node();
 
-      auto idle_source = g_idle_source_new();
+      ::procedure procedure;
 
-      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
+      procedure = [&]()
+      {
 
-      g_source_attach(idle_source, g_main_context_default());
+         auto pclipboard = gtk4_standard_clipboard();
 
-      if(!pdata->m_happening.wait(seconds(5)).succeeded())
+         if(!pclipboard)
+         {
+
+            return;
+
+         }
+
+         bHasFileList = gtk4_formats_have_file_list(
+            gdk_clipboard_get_formats(pclipboard));
+
+      };
+
+      procedure.set_timeout(1_min);
+
+      system()->send(procedure);
+
+      return bHasFileList;
+
+   }
+
+
+   bool copydesk::_get_filea(
+      ::file::path_array_base & patha,
+      enum_op & eop)
+   {
+
+      auto pdata =
+         allocateø clipboard_data(this, e_clipboard_get_patha);
+
+      //pdata->increment_reference_count(
+//         REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_filea"));
+
+      system()->acme_windowing()->main_post([pdata]
+      {
+
+         auto pclipboard = gtk4_standard_clipboard();
+
+         if(!pclipboard)
+         {
+
+            gtk4_clipboard_request_complete(pdata, false);
+
+            return;
+
+         }
+
+         static const char * s_ppszMimeTypes[] =
+         {
+
+            g_pszGnomeCopiedFiles,
+            g_pszUriList,
+            nullptr,
+
+         };
+
+         gdk_clipboard_read_async(
+            pclipboard,
+            s_ppszMimeTypes,
+            G_PRIORITY_DEFAULT,
+            nullptr,
+            &gtk4_clipboard_file_read_ready,
+            pdata);
+
+      });
+
+      if(!pdata->m_happening.wait(1_min).succeeded())
       {
 
          return false;
 
       }
 
-      return pdata->m_nTargets > 0;
-
-   }
-
-
-   bool copydesk::_get_filea(::file::path_array_base & patha, e_op & eop)
-   {
-
-      ::pointer<clipboard_data>pdata = allocateø clipboard_data(this, e_clipboard_get_patha);
-
-      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_filea"));
-
-      auto idle_source = g_idle_source_new();
-
-      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
-
-      g_source_attach(idle_source, g_main_context_default());
-
-      if(!pdata->m_happening.wait(seconds(5)).succeeded() || pdata->m_eclipboard == e_clipboard_error)
+      if(pdata->m_eclipboard == e_clipboard_error)
       {
 
          return false;
@@ -205,66 +986,199 @@ namespace node_gtk4
       }
 
       eop = pdata->m_eop;
-
       patha = pdata->m_patha;
 
-      return true;
+      return !patha.is_empty();
 
    }
 
 
-   bool copydesk::_set_filea(const ::file::path_array_base & patha, e_op eop)
+   bool copydesk::_set_filea(
+      const ::file::path_array_base & patha,
+      enum_op eop)
    {
 
-      ::pointer<clipboard_data>pdata = allocateø clipboard_data(this, e_clipboard_set_patha);
+      ::string strGnomeCopiedFiles;
+      ::string strUriList;
 
-      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_set_filea"));
-
-      pdata->m_eop = eop;
-
-      pdata->m_patha = patha;
-
-      auto idle_source = g_idle_source_new();
-
-      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
-
-      g_source_attach(idle_source, g_main_context_default());
-
-      if(!pdata->m_happening.wait(seconds(5)).succeeded())
+      if(!gtk4_build_file_payloads(
+         patha,
+         eop,
+         strGnomeCopiedFiles,
+         strUriList))
       {
 
          return false;
 
       }
 
-      g_source_destroy(idle_source);
+      bool bSucceeded = false;
 
-      return true;
+      ///auto pnode = system()->node();
+      ///
+      ::procedure procedure;
+
+      procedure = [&]()
+      {
+
+         auto pclipboard = gtk4_standard_clipboard();
+
+         if(!pclipboard)
+         {
+
+            return;
+
+         }
+
+         GdkContentProvider * pprovidera[2] =
+         {
+
+            gtk4_content_provider_for_string(
+               g_pszGnomeCopiedFiles,
+               strGnomeCopiedFiles),
+
+            gtk4_content_provider_for_string(
+               g_pszUriList,
+               strUriList),
+
+         };
+
+         if(!pprovidera[0] || !pprovidera[1])
+         {
+
+            if(pprovidera[0])
+            {
+
+               g_object_unref(pprovidera[0]);
+
+            }
+
+            if(pprovidera[1])
+            {
+
+               g_object_unref(pprovidera[1]);
+
+            }
+
+            return;
+
+         }
+
+         // The union provider takes ownership of the child providers.
+         auto punionprovider = gdk_content_provider_new_union(
+            pprovidera,
+            2);
+
+         if(!punionprovider)
+         {
+
+            g_object_unref(pprovidera[0]);
+            g_object_unref(pprovidera[1]);
+
+            return;
+
+         }
+
+         bSucceeded = gdk_clipboard_set_content(
+            pclipboard,
+            punionprovider);
+
+         g_object_unref(punionprovider);
+
+      };
+
+      procedure.set_timeout(1_min);
+
+      system()->send(procedure);
+
+      return bSucceeded;
 
    }
 
 
-   bool copydesk::_desk_to_image(::image::image *pimage)
+   bool copydesk::_desk_to_image(::image::image * pimage)
    {
 
-      ::pointer<clipboard_data>pdata = allocateø clipboard_data(this, e_clipboard_get_image);
-
-      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_desk_to_image"));
-
-      pdata->m_pimage = create_image();
-
-      auto idle_source = g_idle_source_new();
-
-      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
-
-      g_source_attach(idle_source, g_main_context_default());
-
-      if(!pdata->m_happening.wait(seconds(5)).succeeded() || pdata->m_eclipboard == e_clipboard_error)
+      if(!pimage)
       {
 
          return false;
 
       }
+
+      auto pdata =
+         allocateø clipboard_data(this, e_clipboard_get_image);
+
+      pdata->m_pimage = image()->create_image();
+
+      //pdata->increment_reference_count(
+        // REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_desk_to_image"));
+
+      system()->acme_windowing()->main_post([pdata]
+      {
+
+         auto pclipboard = gtk4_standard_clipboard();
+
+         if(pclipboard
+            && !gtk4_formats_have_image(gdk_clipboard_get_formats(pclipboard)))
+         {
+
+            pclipboard = nullptr;
+
+         }
+
+         // GTK4 exposes the normal clipboard and the primary selection.
+         // There is no GDK_SELECTION_SECONDARY equivalent in GTK4.
+         if(!pclipboard)
+         {
+
+            auto pprimaryclipboard = gtk4_primary_clipboard();
+
+            if(pprimaryclipboard
+               && gtk4_formats_have_image(
+                  gdk_clipboard_get_formats(pprimaryclipboard)))
+            {
+
+               pclipboard = pprimaryclipboard;
+
+            }
+
+         }
+
+         if(!pclipboard)
+         {
+
+            gtk4_clipboard_request_complete(pdata, false);
+
+            return;
+
+         }
+
+         gdk_clipboard_read_texture_async(
+            pclipboard,
+            nullptr,
+            &gtk4_clipboard_texture_read_ready,
+            pdata);
+
+      });
+
+      if(!pdata->m_happening.wait(1_min).succeeded())
+      {
+
+         return false;
+
+      }
+
+      if(pdata->m_eclipboard == e_clipboard_error
+         || !pdata->m_pimage
+         || !pdata->m_pimage->is_ok())
+      {
+
+         return false;
+
+      }
+
+      pimage->create(pdata->m_pimage->size());
 
       pimage->copy(pdata->m_pimage);
 
@@ -273,12 +1187,96 @@ namespace node_gtk4
    }
 
 
-   bool copydesk::_image_to_desk(const ::image::image *pimage)
+   bool copydesk::_image_to_desk(const ::image::image * pimage)
    {
 
-      throw ::exception(todo);
+      if(!pimage || !pimage->is_ok())
+      {
 
-      return false;
+         return false;
+
+      }
+
+      pimage->map();
+
+      auto cx = pimage->width();
+      auto cy = pimage->height();
+      auto iScan = pimage->scan_size();
+
+      if(cx <= 0 || cy <= 0 || iScan < cx * 4)
+      {
+
+         pimage->unmap();
+
+         return false;
+
+      }
+
+      // Copy before entering GDK so the texture is independent of the ca2
+      // image mapping and remains valid after this function returns.
+      auto pbytes = g_bytes_new(
+         pimage->image32(),
+         (gsize)iScan * (gsize)cy);
+
+      pimage->unmap();
+
+      if(!pbytes)
+      {
+
+         return false;
+
+      }
+
+      bool bSucceeded = false;
+
+      //auto pnode = system()->node();
+
+      ::procedure procedure;
+
+      procedure = [&]()
+      {
+
+         auto pclipboard = gtk4_standard_clipboard();
+
+         if(!pclipboard)
+         {
+
+            return;
+
+         }
+
+         // This matches ca2's Linux BGRA, straight-alpha image storage.
+         // Use GDK_MEMORY_B8G8R8A8_PREMULTIPLIED instead if this particular
+         // image path stores premultiplied pixels.
+         auto ptexture = gdk_memory_texture_new(
+            cx,
+            cy,
+            GDK_MEMORY_B8G8R8A8,
+            pbytes,
+            (gsize)iScan);
+
+         if(!ptexture)
+         {
+
+            return;
+
+         }
+
+         gdk_clipboard_set_texture(pclipboard, ptexture);
+
+         g_object_unref(ptexture);
+
+         bSucceeded = true;
+
+      };
+
+      procedure.set_timeout(1_min);
+
+      system()->send(procedure);
+
+      g_bytes_unref(pbytes);
+
+      return bSucceeded;
 
    }
 
@@ -286,422 +1284,36 @@ namespace node_gtk4
    bool copydesk::_has_image()
    {
 
-      bool b = false;
+      bool bHasImage = false;
 
-      auto psystem = system();
+      //auto pnode = system()->node();
 
-      auto pnode = psystem->node();
+      ::procedure procedure;
 
-      pnode->node_send(10_s, __routine([&]()
+      procedure = [&]()
       {
 
-         GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+         auto pclipboard = gtk4_standard_clipboard();
 
-         b = gtk_clipboard_wait_is_image_available (clipboard);
+         if(!pclipboard)
+         {
 
-      }));
+            return;
 
-      return b;
+         }
+
+         bHasImage = gtk4_formats_have_image(
+            gdk_clipboard_get_formats(pclipboard));
+
+      };
+
+      procedure.set_timeout(1_min);
+
+      system()->send(procedure);
+
+      return bHasImage;
 
    }
 
 
 } // namespace node_gtk4
-
-
-//void clipboard_targets_func(GtkClipboard *clipboard, GdkAtom *atoms, gint n_atoms, gpointer data)
-//{
-//
-//   clipboard_data * pdata = (clipboard_data *) data;
-//
-//   GdkAtom target = gdk_atom_intern("x-special/gnome-copied-files", false);
-//
-//   pdata->m_nTargets = 0;
-//
-//   for(int i = 0; i < n_atoms; i++)
-//   {
-//
-//      if(atoms[i] == target)
-//      {
-//
-//         pdata->m_nTargets = 1;
-//
-//         break;
-//
-//      }
-//
-//   }
-//
-//   pdata->m_happening.set_happening();
-//
-//}
-//
-//void clipboard_image_received_func(GtkClipboard * clipboard, GdkPixbuf * pixbuf,	gpointer data)
-//{
-//
-//   clipboard_data * pdata = (clipboard_data *) data;
-//
-//   int iBitsPerSample = gdk_pixbuf_get_bits_per_sample(pixbuf);
-//
-//   int iChannels = gdk_pixbuf_get_n_channels (pixbuf);
-//
-//   GdkColorspace space = gdk_pixbuf_get_colorspace (pixbuf);
-//
-//   bool bHasAlpha = gdk_pixbuf_get_has_alpha (pixbuf);
-//
-//   if(iBitsPerSample == 8
-//         && (iChannels == 4 || iChannels == 3)
-//         && (space == GDK_COLORSPACE_RGB)
-//         && (bHasAlpha || !bHasAlpha))
-//   {
-//
-//      int w = gdk_pixbuf_get_width(pixbuf);
-//
-//      int h = gdk_pixbuf_get_height(pixbuf);
-//
-//      color32_t * pimage32Src = (color32_t *) gdk_pixbuf_read_pixels(pixbuf);
-//
-//      int iSrcScan = gdk_pixbuf_get_rowstride(pixbuf);
-//
-//      pdata->m_pimage->create({w, h});
-//
-//      if(pdata->m_pimage)
-//      {
-//
-//         pdata->m_pimage->map_base();
-//
-//         ::copy_image32_swap_red_blue(
-//         pdata->m_pimage->image32(),
-//         pdata->m_pimage->width(),
-//         pdata->m_pimage->height(),
-//         pdata->m_pimage->scan_size(),
-//         pimage32Src,
-//         iSrcScan);
-//
-//         if(!bHasAlpha)
-//         {
-//
-//            pdata->m_pimage->fill_channel(255, ::color::channel_alpha);
-//
-//         }
-//
-//      }
-//
-//   }
-//
-//   pdata->m_happening.set_happening();
-//
-//}
-//
-//
-//
-//void clipboard_received_func(GtkClipboard * clipboard, GtkSelectionData * selection_data, gpointer data)
-//{
-//
-//   clipboard_data * pdata = (clipboard_data *) data;
-//
-//   string str = (const_char_pointer )gtk_selection_data_get_data(selection_data);
-//
-//   string_array_base stra;
-//
-//   stra.add_lines(str);
-//
-//   if(stra.is_empty())
-//   {
-//
-//      pdata->m_eclipboard = e_clipboard_error;
-//
-//      pdata->m_happening.set_happening();
-//
-//      return;
-//
-//   }
-//
-//   string strOp = stra[0];
-//
-//   if(strOp.case_insensitive_order("copy") == 0)
-//   {
-//
-//      pdata->m_eop = ::user::copydesk::op_copy;
-//
-//   }
-//   else if(strOp.case_insensitive_order("cut") == 0)
-//   {
-//
-//      pdata->m_eop = ::user::copydesk::op_cut;
-//
-//   }
-//   else
-//   {
-//
-//      pdata->m_eclipboard = e_clipboard_error;
-//
-//      pdata->m_happening.set_happening();
-//
-//      return;
-//
-//   }
-//
-//   for(::collection::index i = 1; i < stra.get_size(); i++)
-//   {
-//
-//      string strItem = stra[i];
-//
-//      strItem.case_insensitive_begins_eat("file://");
-//
-//      pdata->m_patha.add(::file::path(strItem));
-//
-//   }
-//
-//   pdata->m_happening.set_happening();
-//
-//}
-//
-//
-//void clipboard_get_func(GtkClipboard * clipboard, GtkSelectionData * selection_data, guint info, gpointer user_data)
-//{
-//
-//   clipboard_data * pdata = (clipboard_data *) user_data;
-//
-//   //payload temp = _action + "\n" + _source; _action "cut"/"copy"
-//
-//   string strAction;
-//
-//   if(pdata->m_eop == ::user::copydesk::op_copy)
-//   {
-//
-//      strAction = "copy";
-//
-//   }
-//   else if(pdata->m_eop == ::user::copydesk::op_cut)
-//   {
-//
-//      strAction = "cut";
-//
-//   }
-//   else
-//   {
-//
-//      pdata->m_eclipboard = e_clipboard_error;
-//
-//      return;
-//
-//   }
-//
-//   string str;
-//
-//   if(info == 1)
-//   {
-//
-//      str = "# ";
-//
-//   }
-//
-//   str += strAction;
-//
-//   for(auto & path : pdata->m_patha)
-//   {
-//
-//      str += "\n";
-//
-//      str += "file://" + path;
-//
-//   }
-//
-//   GdkAtom target = gtk_selection_data_get_target(selection_data);
-//
-//   gtk_selection_data_set(selection_data, target, 8, (const guchar *) (const_char_pointer )str, str.length());
-//
-//
-//}
-//
-//
-//void clipboard_clear_func(GtkClipboard * clipboard, gpointer user_data)
-//{
-//
-//   clipboard_data * pdata = (clipboard_data *) user_data;
-//
-//   ::release(pdata);
-//
-//}
-//
-//void clipboard_text_request_callback(GtkClipboard *clipboard, const gchar * text, gpointer data)
-//{
-//
-//   clipboard_data * pdata = (clipboard_data *) data;
-//
-//   if(text != nullptr)
-//   {
-//
-//      pdata->m_str = text;
-//
-//   }
-//
-//   pdata->m_happening.set_happening();
-//
-//}
-//
-//
-//gboolean clipboard_callback(gpointer data)
-//{
-//
-//   clipboard_data * pdata = (clipboard_data *) data;
-//
-//   GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-//
-//   if(pdata->m_eclipboard == e_clipboard_get_plain_text)
-//   {
-//
-//      gtk_clipboard_request_text(clipboard, &clipboard_text_request_callback, pdata);
-//
-//   }
-//   else if(pdata->m_eclipboard == e_clipboard_set_patha)
-//   {
-//
-//      //_source = _fileCopy.Uri;
-//      //     _action = _radioMove.Active ? "cut" : "copy";
-//
-//      GtkTargetEntry entrya[2];
-//
-//      entrya[0].target = (char *) "x-special/gnome-copied-files";
-//      entrya[0].flags = 0;
-//      entrya[0].info = 0;
-//
-//      entrya[1].target = (char *) "text/uri-list_base";
-//      entrya[1].flags = 0;
-//      entrya[1].info = 1;
-//
-//      gtk_clipboard_set_with_data(clipboard, entrya, 2, &clipboard_get_func, &clipboard_clear_func, pdata);
-//
-//      pdata->m_happening.set_happening();
-//
-//   }
-//   else if(pdata->m_eclipboard == e_clipboard_get_patha)
-//   {
-//
-//      GdkAtom target = gdk_atom_intern("x-special/gnome-copied-files", false);
-//
-//      gtk_clipboard_request_contents(clipboard, target, &clipboard_received_func, pdata);
-//
-//   }
-//   else if(pdata->m_eclipboard == e_clipboard_get_file_target_count)
-//   {
-//
-//      gtk_clipboard_request_targets(clipboard, &clipboard_targets_func, pdata);
-//
-//   }
-//   else if(pdata->m_eclipboard == e_clipboard_get_image)
-//   {
-//
-//      if(gtk_clipboard_wait_is_image_available(clipboard))
-//      {
-//
-//         gtk_clipboard_request_image (clipboard, &clipboard_image_received_func, pdata);
-//
-//         return false;
-//
-//      }
-//
-//      clipboard = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
-//
-//      if(gtk_clipboard_wait_is_image_available(clipboard))
-//      {
-//
-//         gtk_clipboard_request_image (clipboard, &clipboard_image_received_func, pdata);
-//
-//         return false;
-//
-//      }
-//
-//      clipboard = gtk_clipboard_get(GDK_SELECTION_SECONDARY);
-//
-//      if(gtk_clipboard_wait_is_image_available(clipboard))
-//      {
-//
-//         gtk_clipboard_request_image (clipboard, &clipboard_image_received_func, pdata);
-//
-//         return false;
-//
-//      }
-//
-//      pdata->m_happening.set_happening();
-//
-////      GdkPixbuf * pixbuf = gtk_clipboard_wait_for_image(clipboard);
-////
-////      if(pixbuf == nullptr)
-////      {
-////
-////         clipboard = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
-////
-////         pixbuf = gtk_clipboard_wait_for_image(clipboard);
-////
-////      }
-////
-////      if(pixbuf != nullptr)
-////      {
-////
-////         clipboard_data * pdata = (clipboard_data *) data;
-////
-////         int iBitsPerSample = gdk_pixbuf_get_bits_per_sample(pixbuf);
-////
-////         int iChannels = gdk_pixbuf_get_n_channels (pixbuf);
-////
-////         GdkColorspace space = gdk_pixbuf_get_colorspace (pixbuf);
-////
-////         bool bHasAlpha = gdk_pixbuf_get_has_alpha (pixbuf);
-////
-////         if(iBitsPerSample == 8
-////            && (iChannels == 4 || iChannels == 3)
-////            && (space == GDK_COLORSPACE_RGB)
-////            && (bHasAlpha || !bHasAlpha))
-////         {
-////
-////            int w = gdk_pixbuf_get_width(pixbuf);
-////
-////            int h = gdk_pixbuf_get_height(pixbuf);
-////
-////            color32_t * pimage32Src = (color32_t *) gdk_pixbuf_read_pixels(pixbuf);
-////
-////            int iSrcScan = gdk_pixbuf_get_rowstride(pixbuf);
-////
-////            if(pdata->m_pimage = create_image({w,  h)})
-////            {
-////
-////               ::copy_image32(
-////                  pdata->m_pimage->width(),
-////                  pdata->m_pimage->height(),
-////                  pdata->m_pimage->m_pcolorref,
-////                  pdata->m_pimage->m_iScan,
-////                  pimage32Src,
-////                  iSrcScan);
-////
-////               if(!bHasAlpha)
-////               {
-////
-////                  pdata->m_pimage->fill_channel(255, ::color::channel_alpha);
-////
-////               }
-////
-////            }
-////
-////         }
-////
-////      }
-////
-////      pdata->m_happening.set_happening();
-//
-//
-//   }
-//   else
-//   {
-//
-//      throw ::exception(invalid_argument_exception());
-//
-//   }
-//
-//   return false;
-//
-//}
-//
-//
-//

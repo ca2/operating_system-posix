@@ -639,7 +639,7 @@ namespace gtk4
 
             m_pacmeuserinteraction->on_before_create_window(this);
 
-            bool bOk = true;
+            bool bOk = false;
 
             auto pgtk4windowingsystem = gtk4_acme_windowing();
 
@@ -664,6 +664,10 @@ namespace gtk4
                cy = 300;
 
             }
+
+            informationf("m_pointWindow %d, %d", m_pointWindow.x, m_pointWindow.y);
+
+            informationf("m_sizeWindow %d, %d", m_sizeWindow.cx, m_sizeWindow.cy);
 
             //auto pwindowOwner = owner_window();
 
@@ -780,6 +784,35 @@ namespace gtk4
 
             }
 
+            bOk = m_pgtkwidget != nullptr;
+
+            if (bOk)
+            {
+
+               _gtk_create_window_suffix(x, y, cx, cy);
+
+               on_send_window_create_message();
+
+            }
+
+         }
+
+
+         void window::on_send_window_create_message()
+         {
+
+            information() << "Going to message_call ::user::e_message_create";
+
+            m_pacmeuserinteraction->message_call(::user::e_message_create);
+
+         }
+
+
+         void window::_gtk_create_window_suffix(::i32 x, ::i32 y, ::i32 cx, ::i32 cy)
+         {
+
+            informationf("cx, cy %d, %d", cx, cy);
+
             m_sizeOnSizeRestored.cx = cx;
 
             m_sizeOnSizeRestored.cy = cy;
@@ -793,9 +826,21 @@ namespace gtk4
             if (GTK_IS_WINDOW(m_pgtkwidget))
             {
 
-               gtk_widget_set_size_request(m_pgtkwidget, 300, 300);
+               constexpr int minimum_width  = 300;
+               constexpr int minimum_height = 300;
 
-               gtk_window_set_default_size(GTK_WINDOW(m_pgtkwidget), cx, cy);
+               gtk_widget_set_size_request(
+                  m_pgtkwidget,
+                  minimum_width,
+                  minimum_height);
+
+               int expected_width  = cx;
+               int expected_height = cy;
+
+               gtk_window_set_default_size(
+                  GTK_WINDOW(m_pgtkwidget),
+                  expected_width,
+                  expected_height);
 
             }
             else
@@ -804,7 +849,6 @@ namespace gtk4
                gtk_widget_set_size_request(m_pgtkwidget, cx, cy);
 
             }
-
 
             set_interface_client_size(m_sizeOnSizeRestored);
 
@@ -1046,10 +1090,6 @@ namespace gtk4
                gtk_widget_realize(m_pgtkwidget);
 
             }
-
-            information() << "Going to call on_create_window";
-
-            m_pacmeuserinteraction->message_call(::user::e_message_create);
 
          }
 
@@ -1847,6 +1887,8 @@ namespace gtk4
          //else if(GTK_IS_WINDOW(m_pgtkwidget))
          {
 
+            informationf("gtk4::acme::windowing:window::__map Going to set widget(0x%016x) visible", m_pgtkwidget);
+
             gtk_widget_set_visible(m_pgtkwidget, true);
 
          }
@@ -2259,6 +2301,15 @@ namespace gtk4
    void window::_on_cairo_draw(GtkWidget* widget, cairo_t* cr)
    {
 
+      m_pnanographicscontext->attach(cr, m_sizeWindow, 0);
+
+      at_end_of_scope
+            {
+
+               m_pnanographicscontext->detach(0);
+
+            };
+
       m_pnanographicscontext->on_begin_draw();
 
       ::pointer<::micro::elemental> pelemental = m_pacmeuserinteraction;
@@ -2637,6 +2688,40 @@ void window::_on_focus_changed(bool bHasFocus)
    }
 
 
+         void window::show_window(::user_interface::enum_show_window eshowwindow)
+         {
+
+            main_post([this, eshowwindow]()
+            {
+
+               if (eshowwindow == ::user_interface::e_show_window_show_normal)
+               {
+
+                  gtk_widget_show(m_pgtkwidget);
+
+               }
+               else if (eshowwindow == ::user_interface::e_show_window_hide)
+               {
+
+                  if (GTK_IS_POPOVER(m_pgtkwidget))
+                  {
+
+                     gtk_popover_popdown(GTK_POPOVER(m_pgtkwidget));
+
+                  }
+                  else if (GTK_IS_WINDOW(m_pgtkwidget))
+                  {
+
+                     gtk_widget_set_visible(m_pgtkwidget, false);
+                     //gtk_window_close(GTK_WINDOW(m_pgtkwidget));
+
+                  }
+
+               }
+
+            });
+
+         }
 
 
 } // namespace windowing

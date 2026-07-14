@@ -208,7 +208,7 @@ drawing_area_state_flags_changed (
 
          auto puserinteraction = pwindow->user_interaction();
 
-         if(puserinteraction->const_layout().sketch().display() == ::e_display_iconic)
+         if(puserinteraction && puserinteraction->const_layout().sketch().display() == ::e_display_iconic)
          {
 
             pwindow->on_window_iconified();
@@ -365,6 +365,17 @@ gtk_im_context_commit (
 
       if (!m_pacmeuserinteraction)
       {
+
+         return;
+
+      }
+
+      auto puserinteraction = user_interaction();
+
+      if (!puserinteraction)
+      {
+
+         ::gtk4::acme::windowing::window::_on_cairo_draw(widget, cr);
 
          return;
 
@@ -606,15 +617,20 @@ gtk_im_context_commit (
 
          }
 
-         informationf("puserinteraction->set_size (gtk4 CT25) %d, %d", cx, cy);
+         if (::is_set(puserinteraction))
+         {
 
-         puserinteraction->set_size(s);
+            informationf("puserinteraction->set_size (gtk4 CT25) %d, %d", cx, cy);
 
-         puserinteraction->set_need_layout();
+            puserinteraction->set_size(s);
 
-         puserinteraction->set_need_redraw();
+            puserinteraction->set_need_layout();
 
-         puserinteraction->post_redraw();
+            puserinteraction->set_need_redraw();
+
+            puserinteraction->post_redraw();
+
+         }
 
       }
 
@@ -1293,14 +1309,6 @@ on_text(scopedstr, scopedstr.size());
 
       auto puserinteraction = user_interaction();
 
-      bool bVisible = true;
-
-      if (puserinteraction)
-      {
-
-         bVisible = puserinteraction->const_layout().sketch().is_screen_visible();
-
-      }
 
       //main_send([this, &bOk]()
       {
@@ -1362,61 +1370,140 @@ on_text(scopedstr, scopedstr.size());
 
          ::gtk4::acme::windowing::window::_create_window();
 
-         information() << "Going to call gtk_im_multicontext_new()";
-         /* Create an input method context for pre-edit handling */
-         m_pimcontext = gtk_im_multicontext_new();
-
-         information() << "Going to connect preedit-changed";
-         /* Connect the preedit-changed signal to capture intermediate results */
-         g_signal_connect(m_pimcontext, "preedit-changed", G_CALLBACK(on_preedit_changed), this);
-         information() << "Going to connect commit";
-         g_signal_connect(m_pimcontext, "commit", G_CALLBACK(gtk_im_context_commit), this);
-
-         /* Set up the key press happening handler for the window */
-         //g_signal_connect(m_pdrawingarea, "key-press-happening", G_CALLBACK(on_key_press), im_context);
-
-         /* Connect the preedit-changed signal to capture intermediate results */
-         
-         ::cast< ::windowing_gtk4::windowing>pwindowing = system()->acme_windowing();
-         
-         if(!is_using_x11())
-         {
-
-            g_signal_connect(m_pdrawingarea, "state-flags-changed", G_CALLBACK(drawing_area_state_flags_changed), this);
-
-            g_signal_connect(m_pgtkwidget, "state-flags-changed", G_CALLBACK(window_state_flags_changed), this);
-         
-	      }
-
-         g_signal_connect(m_pgtkwidget, "show", G_CALLBACK(window_show), this);
-
-         g_signal_connect(m_pgtkwidget, "hide", G_CALLBACK(window_hide), this);
-
-          //set_oswindow(this);
-
-          //pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
-
-         //__refdbg_add_referer
-
-         //m_puserinteraction->increment_reference_count();
-
-          //m_puserinteraction->increment_reference_count(
-            // REFERENCING_DEBUGGING_P_FUNCTION_NOTE(this, "windowing_gtk4::window::_create_window", "native_create_window"));
-
-          //m_puserinteraction->__defer_set_owner_to_impl();
-
-          bamf_set_icon();
-
-         //m_puserinteraction->send_message(e_message_create);
-
-
-          bOk = true;
-
+      //    information() << "Going to call gtk_im_multicontext_new()";
+      //    /* Create an input method context for pre-edit handling */
+      //    m_pimcontext = gtk_im_multicontext_new();
+      //
+      //    information() << "Going to connect preedit-changed";
+      //    /* Connect the preedit-changed signal to capture intermediate results */
+      //    g_signal_connect(m_pimcontext, "preedit-changed", G_CALLBACK(on_preedit_changed), this);
+      //    information() << "Going to connect commit";
+      //    g_signal_connect(m_pimcontext, "commit", G_CALLBACK(gtk_im_context_commit), this);
+      //
+      //    /* Set up the key press happening handler for the window */
+      //    //g_signal_connect(m_pdrawingarea, "key-press-happening", G_CALLBACK(on_key_press), im_context);
+      //
+      //    /* Connect the preedit-changed signal to capture intermediate results */
+      //
+      //    ::cast< ::windowing_gtk4::windowing>pwindowing = system()->acme_windowing();
+      //
+      //    if(!is_using_x11())
+      //    {
+      //
+      //       g_signal_connect(m_pdrawingarea, "state-flags-changed", G_CALLBACK(drawing_area_state_flags_changed), this);
+      //
+      //       g_signal_connect(m_pgtkwidget, "state-flags-changed", G_CALLBACK(window_state_flags_changed), this);
+      //
+	     //  }
+      //
+      //    g_signal_connect(m_pgtkwidget, "show", G_CALLBACK(window_show), this);
+      //
+      //    g_signal_connect(m_pgtkwidget, "hide", G_CALLBACK(window_hide), this);
+      //
+      //     //set_oswindow(this);
+      //
+      //     //pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
+      //
+      //    //__refdbg_add_referer
+      //
+      //    //m_puserinteraction->increment_reference_count();
+      //
+      //     //m_puserinteraction->increment_reference_count(
+      //       // REFERENCING_DEBUGGING_P_FUNCTION_NOTE(this, "windowing_gtk4::window::_create_window", "native_create_window"));
+      //
+      //     //m_puserinteraction->__defer_set_owner_to_impl();
+      //
+      //     bamf_set_icon();
+      //
+      //    //m_puserinteraction->send_message(e_message_create);
+      //
+      //
+      //     bOk = true;
+      //
       }
       //);
 
-      if (bOk)
+//       if (bOk)
+//       {
+//
+//          //::windowing::window * pimpl = this;
+//
+// #ifdef REPORT_OFFSET
+//
+//          printf("(7BB) offset of m_timeFocusStart in ::user::interaction_base = %d\n", offsetof(::user::interaction_base,m_timeFocusStart));
+//          printf("(7BB) offset of m_bExtendOnParent in ::user::interaction = %d\n", offsetof(::user::interaction, m_bExtendOnParent));
+//          printf("(7BB) offset of m_pwindow in ::user::interaction = %d\n", offsetof(::user::interaction, m_pwindow));
+//          printf("(7BB) offset of m_pImpl2 in ::windowing::window = %d\n", offsetof(::windowing::window, m_pImpl2));
+//          printf("(7BB) offset of m_timeLastExposureAddUp in ::windowing::window = %d\n", offsetof(::windowing::window, m_timeLastExposureAddUp));
+//          printf("(7BB) offset of m_strBitmapSource in ::windowing::window = %d\n", offsetof(::windowing::window, m_strBitmapSource));
+//          printf("(7BB) offset of m_bCursorRedraw in ::windowing::window = %d\n", offsetof(::windowing::window, m_bCursorRedraw));
+//          printf("(7BB) offset of m_bLockWindowUpdate in ::windowing::window = %d\n", offsetof(::windowing::window, m_bLockWindowUpdate));
+//          printf("(7BB) offset of m_bOkToUpdateScreen in ::windowing::window = %d\n", offsetof(::windowing::window, m_bOkToUpdateScreen));
+//          printf("(7BB) offset of m_sizeDrawn in ::windowing::window = %d\n", offsetof(::windowing::window, m_sizeDrawn));
+//          printf("(7BB) offset of m_pthreadMouseLeave in ::windowing::window = %d\n", offsetof(::windowing::window, m_pthreadMouseLeave));
+//          printf("(7BB) offset of m_bPointInside in ::windowing::window = %d\n", offsetof(::windowing::window, m_bPointInside));
+//          printf("(7BB) offset of m_pwindow in ::windowing::window = %d\n", offsetof(::windowing::window, m_pwindow));
+//
+// #endif
+//
+//          auto puserinteraction = user_interaction();
+//
+//          if (puserinteraction)
+//          {
+//
+//             auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
+//
+//             if (lresult == -1)
+//             {
+//
+//                throw ::exception(error_failed);
+//
+//             }
+//
+//             puserinteraction->m_ewindowflag |= e_window_flag_window_created;
+//
+//             puserinteraction->set_flag(e_flag_task_started);
+//
+//          }
+//          else
+//          {
+//
+//             m_pacmeuserinteraction->message_call(::user::e_message_create);
+//
+//          }
+//
+//       }
+//
+
+
+      if (m_pgtkwidget == nullptr)
       {
+
+         throw ::exception(error_failed);
+
+      }
+
+   }
+
+
+
+   void window::on_send_window_create_message()
+   {
+
+
+      bool bVisible = true;
+
+      auto puserinteraction = user_interaction();
+
+      if (puserinteraction)
+      {
+
+         bVisible = puserinteraction->const_layout().sketch().is_screen_visible();
+
+      }
+
+      //if (bOk)
+      //{
 
          //::windowing::window * pimpl = this;
 
@@ -1438,7 +1525,7 @@ on_text(scopedstr, scopedstr.size());
 
 #endif
 
-         auto puserinteraction = user_interaction();
+         //auto puserinteraction = user_interaction();
 
          if (puserinteraction)
          {
@@ -1464,31 +1551,85 @@ on_text(scopedstr, scopedstr.size());
 
          }
 
-      }
+      //}
 
 
-      if (bVisible)
-      {
 
-         map_window();
+         if (bVisible)
+         {
 
-      } else
-      {
+            map_window();
 
-         puserinteraction->const_layout().window().display() = e_display_none;
+         } else
+         {
 
-      }
+            puserinteraction->const_layout().window().display() = e_display_none;
 
-      if (!bOk)
-      {
-
-         throw ::exception(error_failed);
-
-      }
+         }
 
    }
 
 
+
+   void window::_gtk_create_window_suffix(::i32 x, ::i32 y, ::i32 cx, ::i32 cy)
+   {
+
+      ::gtk4::acme::windowing::window::_gtk_create_window_suffix(x, y, cx, cy);
+
+         information() << "Going to call gtk_im_multicontext_new()";
+         /* Create an input method context for pre-edit handling */
+         m_pimcontext = gtk_im_multicontext_new();
+
+         information() << "Going to connect preedit-changed";
+         /* Connect the preedit-changed signal to capture intermediate results */
+         g_signal_connect(m_pimcontext, "preedit-changed", G_CALLBACK(on_preedit_changed), this);
+         information() << "Going to connect commit";
+         g_signal_connect(m_pimcontext, "commit", G_CALLBACK(gtk_im_context_commit), this);
+
+         /* Set up the key press happening handler for the window */
+         //g_signal_connect(m_pdrawingarea, "key-press-happening", G_CALLBACK(on_key_press), im_context);
+
+         /* Connect the preedit-changed signal to capture intermediate results */
+
+         ::cast< ::windowing_gtk4::windowing>pwindowing = system()->acme_windowing();
+
+         if(!is_using_x11())
+         {
+
+            g_signal_connect(m_pdrawingarea, "state-flags-changed", G_CALLBACK(drawing_area_state_flags_changed), this);
+
+            g_signal_connect(m_pgtkwidget, "state-flags-changed", G_CALLBACK(window_state_flags_changed), this);
+
+         }
+
+         g_signal_connect(m_pgtkwidget, "show", G_CALLBACK(window_show), this);
+
+         g_signal_connect(m_pgtkwidget, "hide", G_CALLBACK(window_hide), this);
+
+         //set_oswindow(this);
+
+         //pimpl->m_puserinteraction->m_pinteractionimpl = pimpl;
+
+         //__refdbg_add_referer
+
+         //m_puserinteraction->increment_reference_count();
+
+         //m_puserinteraction->increment_reference_count(
+         // REFERENCING_DEBUGGING_P_FUNCTION_NOTE(this, "windowing_gtk4::window::_create_window", "native_create_window"));
+
+         //m_puserinteraction->__defer_set_owner_to_impl();
+
+         bamf_set_icon();
+
+         //m_puserinteraction->send_message(e_message_create);
+
+
+     //    bOk = true;
+
+   //}
+
+
+   }
 
 
 

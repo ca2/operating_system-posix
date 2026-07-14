@@ -52,7 +52,7 @@ namespace cairo
             void create(const ::i32_size & size) override;
             void resize(const ::i32_size & size) override;
             void attach(void * posdata, const ::i32_size & size, ::i32 iType) override;
-
+            void * detach(::i32 iType) override;
             void set_pen(::nano::graphics::pen * ppen) override;
             void set_brush(::nano::graphics::brush * pbrush) override;
             void set_font(::nano::graphics::font * pfont) override;

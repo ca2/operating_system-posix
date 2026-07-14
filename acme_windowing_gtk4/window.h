@@ -205,6 +205,9 @@ virtual void _on_focus_changed(bool bHasFocus);
 
             virtual void _on_text(const ::scoped_string & scopedstr);
 
+            virtual void on_send_window_create_message();
+            virtual void _gtk_create_window_suffix(::i32 x, ::i32 y, ::i32 cx, ::i32 cy);
+
             // virtual void __handle_pointer_enter(::wl_pointer * pwlpointer);
             // virtual void __handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis);
             // virtual void __handle_pointer_leave(::wl_pointer * pwlpointer, ::wayland::micro::window_base * pwaylandwindowLeave);
@@ -395,6 +398,9 @@ virtual void _on_focus_changed(bool bHasFocus);
 
             ::i32_rectangle get_window_rectangle_unlocked() override;
             void set_position_unlocked(const ::i32_point & point) override;
+
+
+            void show_window(::user_interface::enum_show_window eshowwindow) override;
 
 
          };

@@ -1,6 +1,9 @@
 #pragma once
 
 
+#include "aura/user/user/copydesk.h"
+
+
 namespace node_gtk4
 {
 
@@ -14,14 +17,15 @@ namespace node_gtk4
 
 
       copydesk();
-      virtual ~copydesk();
+      ~copydesk() override;
 
 
-      virtual ::e_status initialize(::particle * pparticle) override;
-      virtual ::e_status finalize() override;
+      //void initialize(::particle * pparticle) override;
+      void initialize_copydesk(::windowing::window * pwindow) override;
+      void destroy() override;
 
-      virtual bool _set_filea(const ::file::path_array_base & patha, e_op eop) override;
-      virtual bool _get_filea(::file::path_array_base & patha, e_op & eop) override;
+      virtual bool _set_filea(const ::file::path_array_base & patha, enum_op eop) override;
+      virtual bool _get_filea(::file::path_array_base & patha, enum_op & eop) override;
       virtual bool _has_filea() override;
 
 

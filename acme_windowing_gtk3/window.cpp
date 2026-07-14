@@ -2482,6 +2482,13 @@ m_phappeningLastMouseUp = pevent;
          //
          // }
 
+         void window::show_window(::user_interface::enum_show_window eshowwindow)
+         {
+
+
+         }
+
+
 
       }//namespace windowing
 

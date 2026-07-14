@@ -212,6 +212,8 @@ namespace gtk3
 			   virtual void _enable_mouse_wheel_messages();
 
 
+            void show_window(::user_interface::enum_show_window eshowwindow) override;
+
 
          };
 

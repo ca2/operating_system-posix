@@ -11,6 +11,8 @@ list(APPEND library_source
    application.h
    #desktop_environment.cpp
    #desktop_environment.h
+   copydesk.cpp
+   copydesk.h
    display.cpp
    display.h
    framework.cpp

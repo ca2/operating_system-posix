@@ -70,6 +70,10 @@ namespace windowing_gtk4
 
       void _create_window() override;
 
+      virtual void on_send_window_create_message();
+      virtual void _gtk_create_window_suffix(::i32 x, ::i32 y, ::i32 cx, ::i32 cy);
+
+
       void on_set_focus_to_child() override;
 
       void destroy() override;

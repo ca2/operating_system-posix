@@ -288,6 +288,25 @@ namespace cairo
          }
 
 
+         void* context::detach(i32 iType)
+         {
+
+            if (iType != 0 || !m_pdc)
+            {
+
+               throw ::exception(error_wrong_type);
+
+            }
+
+            auto pdc = m_pdc;
+            cairo_destroy(pdc);
+            m_pdc = nullptr;
+
+            return pdc;
+
+         }
+
+
          void context::set_pen(::nano::graphics::pen * ppen)
          {
 
