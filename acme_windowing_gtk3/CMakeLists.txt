@@ -40,12 +40,15 @@ list(APPEND library_source
 
 list(APPEND library_references
    acme
-   acme_windowing_g
+   gnome_library
+  acme_windowing_g
 )
 
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source})
+
+add_library(${PROJECT_NAME} SHARED ${library_source}
+   gtk3.cpp)
 target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)

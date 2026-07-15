@@ -18,33 +18,36 @@
 //#include <X11/XKBlib.h>
 //#include <X11/Xutil.h>
 #include "gdk_gdk.h"
+#include "acme/handler/request.h"
 #include "acme/operating_system/summary.h"
 #include "acme/parallelization/synchronous_lock.h"
-
+#include "gnome_library/file.h"
 #define GDK_SURFACE_EDGE_NONE ((GdkSurfaceEdge)-1)
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 
-bool gtk_is_session_dbus_available()
-{
-   GError *error = NULL;
-   GDBusConnection *connection =
-       g_bus_get_sync(G_BUS_TYPE_SESSION, NULL, &error);
+bool gtk3_is_session_dbus_available();
 
-   if (connection != NULL)
-   {
-      g_object_unref(connection);
-      return true;
-   }
-
-   if (error != NULL)
-   {
-      g_printerr("Failed to connect to session bus: %s\n", error->message);
-      g_error_free(error);
-   }
-
-   return false;
-}
+// bool gtk_is_session_dbus_available()
+// {
+//    GError *error = NULL;
+//    GDBusConnection *connection =
+//        g_bus_get_sync(G_BUS_TYPE_SESSION, NULL, &error);
+//
+//    if (connection != NULL)
+//    {
+//       g_object_unref(connection);
+//       return true;
+//    }
+//
+//    if (error != NULL)
+//    {
+//       g_printerr("Failed to connect to session bus: %s\n", error->message);
+//       g_error_free(error);
+//    }
+//
+//    return false;
+// }
 
 namespace gtk3
 {
@@ -303,7 +306,7 @@ namespace gtk3
 
 
 
-         static void s_on_startup_gtk_application(GApplication *, gpointer p)
+         static void s_on_gtk_application_startup(GApplication *, gpointer p)
          {
 
             auto* pgtk3windowingsystem = (::gtk3::acme::windowing::windowing*)p;
@@ -316,7 +319,7 @@ namespace gtk3
 
 
 
-         static void s_on_activate_gtk_application(GtkApplication*, gpointer p)
+         static void s_on_gtk_application_activate(GtkApplication*, gpointer p)
          {
 
             auto* pgtk3windowingsystem = (::gtk3::acme::windowing::windowing *)p;
@@ -327,6 +330,58 @@ namespace gtk3
 
             pgtk3windowingsystem->_on_gtk_application_activate();
 
+         }
+
+
+         static void s_on_gtk_application_open(
+   GApplication * application,
+   GFile       ** files,
+   gint           file_count,
+   const gchar  * hint,
+   gpointer       p)
+         {
+            auto* pgtk4windowingsystem = (::gtk3::acme::windowing::windowing*)p;
+
+            ::information() << "gtk4::acme::windowing::s_on_gtk_application_open";
+
+            // pgtk4windowingsystem->_hook_system_theme_change_callbacks();
+            //
+            // pgtk4windowingsystem->fetch_dark_mode();
+
+            //pgtk4windowingsystem->on_application_activate();
+
+            if (files && file_count > 0)
+            {
+
+               auto prequest = pgtk4windowingsystem->create_newø<::request>();
+
+               prequest->m_ecommand = e_command_file_open;
+
+               for (int i = 0; i < file_count; i++)
+               {
+
+                  auto pgfile = files[i];
+
+                  if (pgfile)
+                  {
+
+                     auto pfileG = pgtk4windowingsystem->create_newø < ::gnome_library::file >();
+
+                     pfileG->_attach_g_file(pgfile);
+
+                     prequest->m_payloadFile.payload_array_reference().add(pfileG);
+
+                     //pgtk4windowingsystem->m_papplication->m_bPostedCommandLineFileOpen = true;
+
+                     //pgtk4windowingsystem->m_papplication->post_request(prequest);
+
+                  }
+
+               }
+
+               pgtk4windowingsystem->m_papplication->post_request(prequest);
+
+            }
          }
 
 
@@ -457,12 +512,267 @@ namespace gtk3
 
 
 
+//          void windowing::run()
+//          {
+//
+//             defer_init_gtk();
+//
+//             //system()->prepare_application();
+//
+//              //int main(void) {
+//                  //int jid = jail_getid(".");
+//                  //if (jid < 0) {
+//                    //  //perror("jail_getid");
+//                     // information() << "Process is not in a jail?!?";
+//                  //} else {
+//                    //  informationf("Process is in jail ID: %d\n", jid);
+//                  //}
+//                //  return 0;
+//              //}
+//
+// 			   information() << "gtk4::acme::windowing::windowing::run";
+//
+//             ::string strId = application()->m_strAppId;
+//
+//             strId.find_replace("/", ".");
+//
+//             strId.find_replace("_", "-");
+//
+//             //gtk_init();
+//
+//             information() << "application id: " << strId;
+//
+//             ::set_main_user_thread();
+//
+//             //if (!g_dbus_is_address("unix:path=/tmp")) // or more properly:
+//
+//             int iExtraFlags = 0;
+//
+//             // ::string strDbusSessionBusAddress(node()->get_environment_variable("DBUS_SESSION_BUS_ADDRESS"));
+//             //
+//             // ::string strDbusFile;
+//             //
+//             // if(strDbusSessionBusAddress.begins_eat("unix:path="))
+//             // {
+//             //
+//             //    strDbusFile = strDbusSessionBusAddress.get_word(",");
+//             //
+//             //    warning() <<  "D-Bus file should be: " << strDbusFile;
+//             //
+//             // }
+//             //
+//             // bool bDbusFileExists = file()->exists(strDbusFile);
+//             //
+//             // if(bDbusFileExists)
+//             // {
+//             //
+//             //    information("D-Bus file exists (path=\"{}\")", strDbusFile);
+//             //
+//             // }
+//             // else
+//             // {
+//             //
+//             //    warning("D-Bus file doesn't exist (path=\"{}\")", strDbusFile);
+//             //
+//             // }
+//
+//             //bool bDbusSessionRunning =is_dbus_session_running();
+//
+//             bool bDbusSessionRunning = gtk_is_session_dbus_available();
+//
+//             if(bDbusSessionRunning)
+//             {
+//
+//                //information("D-Bus session is running (dbus-daemon process found)");
+//
+//                information("Session D-Bus is available");
+//
+//             }
+//             else
+//             {
+//
+//                //warning("D-Bus session isn't running (dbus-daemon process not found)");
+//
+//                information("Session D-Bus is NOT available");
+//
+//             }
+//
+//             //if(!bDbusFileExists || !bDbusSessionRunning)
+//             if(!bDbusSessionRunning)
+//             {
+//
+//                warning() <<  "No D-Bus session detected — falling back to non-unique mode";
+//
+//                iExtraFlags = G_APPLICATION_NON_UNIQUE;
+//
+//             }
+//
+// #if GLIB_CHECK_VERSION(2,74,0)
+//
+//             m_pgtkapplication = gtk_application_new(strId,(GApplicationFlags)( iExtraFlags|G_APPLICATION_HANDLES_OPEN));
+//
+// #else
+//
+//             m_pgtkapplication = gtk_application_new(strId, (GApplicationFlags)( iExtraFlags|G_APPLICATION_HANDLES_OPEN));
+//
+// #endif
+//
+//             if (!m_pgtkapplication)
+//             {
+//
+//                throw ::exception(error_failed);
+//
+//             }
+//
+//             information("connecting startup signal");
+//
+//             g_signal_connect(m_pgtkapplication, "startup", G_CALLBACK(s_on_startup_gtk_application), this);
+//
+//             information("connecting activate signal");
+//
+//             g_signal_connect(m_pgtkapplication, "activate", G_CALLBACK(s_on_activate_gtk_application), this);
+//
+//
+//             // // Retrieve system settings and listen for changes in dark mode preference
+//             // GtkSettings *settings = gtk_settings_get_default();
+//             // //update_theme_based_on_system(settings, NULL); // Check initial state
+//             // //g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(update_theme_based_on_system), NULL);
+//             //
+//             // // Get the current GTK theme name (or any other available property)
+//             // //gboolean b=1;
+//             // g_object_set(settings, "gtk-application-prefer-dark-theme", TRUE, NULL);
+//             // //g_print("Current theme: %s\n", theme_name);
+//             //
+//             // // Free the allocated string after use
+//             // //g_free(theme_name);
+//             //
+//             // ///GtkSettings *settings = gtk_settings_get_default();
+//             // g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
+//
+//             //g_application_hold(G_APPLICATION(m_pgtkapplication));
+//
+//
+//             // if(m_pacmedisplay->is_wayland())
+//             // {
+//             //
+//             //
+//             //
+//             // }
+//
+//                         information() << "gtk4::acme::windowing::windowing::run g_application_run";
+//
+//             auto pplatform = ::system();
+//
+//             auto argc = pplatform->get_argc();
+//
+//             auto args = pplatform->get_args();
+//
+//             information() << "gtk4::acme::windowing::windowing::run argc " << argc;
+//
+//             if (argc <= 0)
+//             {
+//                g_printerr("argc <= 0\n");
+//             }
+//
+//             if (!args)
+//             {
+//                g_printerr("args == NULL\n");
+//             }
+//             else
+//             {
+//                if (!args[0])
+//                {
+//                   g_printerr("args[0] == NULL\n");
+//                }
+//
+//                for (int i = 0; i < argc; ++i)
+//                {
+//                   if (!args[i])
+//                   {
+//                      g_printerr("args[%d] == NULL inside argc range\n", i);
+//                   }
+//                   else
+//                   {
+//                      g_printerr("args[%d] = '%s'\n", i, args[i]);
+//                   }
+//                }
+//             }
+//
+//             for(int i = 0; i <= argc; i++)
+//             {
+//
+//                 if(!args[i])
+//                 {
+//
+//                    information("gtk4::acme::windowing::windowing::run args[{}] = (nullptr) ", i);
+//
+//                 }
+//                 else
+//                 {
+//
+//                    information("gtk4::acme::windowing::windowing::run args[{}] = ({}){} ", i, (iptr)args[i], args[i]);
+//
+//                 }
+//
+//             }
+//
+//             //information() << "gtk4::acme::windowing::windowing::run __argc " << __argc;
+//
+//             //for(int i = 0; i < __argc; i++)
+//             //{
+//
+//             //    information("gtk4::acme::windowing::windowing::run args[{}] = ({}){} ", i, (iptr)__argv[i],__argv[i]);
+//
+//             //}
+//
+//             char **filtered_args = g_new0(char *, argc + 1);
+//             int filtered_argc = 0;
+//
+//             for (int i = 0; i < argc; ++i)
+//             {
+//
+//                auto filtered_arg = args[i];
+//
+//                if (i > 0 && is_platform_option(filtered_arg))
+//                   continue;
+//
+//                filtered_args[filtered_argc++] = filtered_arg;
+//             }
+//
+//
+//
+//             g_application_run(G_APPLICATION(m_pgtkapplication), filtered_argc, filtered_args);
+//
+//
+//             g_free(filtered_args);
+//             //
+//             // // //g_application_run (G_APPLICATION(m_pgtkapplication), ::system()->get_argc(), ::system()->get_args());
+//             // // //aaa_x11_main();
+//             // //
+//             // //
+//             // // while(::task_get_run())
+//             // // {
+//             // //
+//             // //    preempt(1_s);
+//             // //
+//             // // }
+//             // if(::system()->m_pmanualresethappeningMainLoopEnd)
+//             // {
+//             //
+//             //    ::system()->m_pmanualresethappeningMainLoopEnd->set_happening();
+//             //
+//             // }
+//
+//
+//          }
+
+
          void windowing::run()
          {
 
             defer_init_gtk();
 
-            //system()->prepare_application();
+            m_papplication->prepare_application();
 
              //int main(void) {
                  //int jid = jail_getid(".");
@@ -523,7 +833,7 @@ namespace gtk3
 
             //bool bDbusSessionRunning =is_dbus_session_running();
 
-            bool bDbusSessionRunning = gtk_is_session_dbus_available();
+            bool bDbusSessionRunning = gtk3_is_session_dbus_available();
 
             if(bDbusSessionRunning)
             {
@@ -569,14 +879,11 @@ namespace gtk3
 
             }
 
-            information("connecting startup signal");
+            g_signal_connect(m_pgtkapplication, "startup", G_CALLBACK(s_on_gtk_application_startup), this);
 
-            g_signal_connect(m_pgtkapplication, "startup", G_CALLBACK(s_on_startup_gtk_application), this);
+            g_signal_connect(m_pgtkapplication, "activate", G_CALLBACK(s_on_gtk_application_activate), this);
 
-            information("connecting activate signal");
-
-            g_signal_connect(m_pgtkapplication, "activate", G_CALLBACK(s_on_activate_gtk_application), this);
-
+            g_signal_connect(m_pgtkapplication, "open", G_CALLBACK(s_on_gtk_application_open), this);
 
             // // Retrieve system settings and listen for changes in dark mode preference
             // GtkSettings *settings = gtk_settings_get_default();
@@ -594,17 +901,16 @@ namespace gtk3
             // ///GtkSettings *settings = gtk_settings_get_default();
             // g_object_set(settings, "gtk-enable-animations", FALSE, NULL);
 
-            //g_application_hold(G_APPLICATION(m_pgtkapplication));
+            // g_application_hold(G_APPLICATION(m_pgtkapplication));
 
-
-            // if(m_pacmedisplay->is_wayland())
+            // if(m_pdisplay->is_wayland())
             // {
             //
             //
             //
             // }
 
-                        information() << "gtk4::acme::windowing::windowing::run g_application_run";
+            information() << "gtk4::acme::windowing::windowing::run g_application_run";
 
             auto pplatform = ::system();
 
@@ -684,30 +990,31 @@ namespace gtk3
                filtered_args[filtered_argc++] = filtered_arg;
             }
 
-
-
-            g_application_run(G_APPLICATION(m_pgtkapplication), filtered_argc, filtered_args);
-
+            int status = g_application_run(G_APPLICATION(m_pgtkapplication), filtered_argc, filtered_args);
 
             g_free(filtered_args);
+
+            //g_application_run(G_APPLICATION(m_pgtkapplication), argc, args);
+
+            //g_application_run(G_APPLICATION(m_pgtkapplication), __argc, __argv);
+
+            // //g_application_run (G_APPLICATION(m_pgtkapplication), ::system()->get_argc(), ::system()->get_args());
+            // //aaa_x11_main();
             //
-            // // //g_application_run (G_APPLICATION(m_pgtkapplication), ::system()->get_argc(), ::system()->get_args());
-            // // //aaa_x11_main();
-            // //
-            // //
-            // // while(::task_get_run())
-            // // {
-            // //
-            // //    preempt(1_s);
-            // //
-            // // }
+            //
+            // while(::task_get_run())
+            // {
+            //
+            //    preempt(1_s);
+            //
+            // }
+
             // if(::system()->m_pmanualresethappeningMainLoopEnd)
             // {
             //
             //    ::system()->m_pmanualresethappeningMainLoopEnd->set_happening();
             //
             // }
-
 
          }
 
