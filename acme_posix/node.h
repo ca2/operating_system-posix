@@ -182,8 +182,10 @@ namespace acme_posix
       ::string dynamic_library_prefix() override;
       ::string dynamic_library_suffix() override;
 
+::string get_current_operating_system_name() override;
+::string get_more_operating_system_version_information() override;
 
-
+memsize get_current_memory_usage();
    };
 
    

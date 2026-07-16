@@ -58,7 +58,7 @@ namespace windowing_gtk4
 
       void _on_window_visibility_changed(GObject * object, GParamSpec * pspec) override;
 
-      void _on_cairo_draw(GtkWidget * widget, cairo_t * cr) override;
+      void _on_cairo_draw(GtkWidget * widget, cairo_t * cr, const ::i32_size & sizeDraw) override;
 
       void _on_size(int cx, int cy) override;
 

@@ -397,6 +397,7 @@ namespace innate_ui_gtk4
       if (::is_null(pactivationtoken))
       {
 
+         information("show_front puseractivationtoken is null");
 
          show();
 
@@ -409,6 +410,8 @@ namespace innate_ui_gtk4
 
          if(GTK_IS_WINDOW(m_pgtkwidget))
          {
+
+            information("show_front gtk_window_present_with_time");
 
             gtk_window_present_with_time(GTK_WINDOW(m_pgtkwidget), pactivationtoken->m_time);
 
@@ -440,6 +443,8 @@ namespace innate_ui_gtk4
          if(pdialog)
          {
 
+            informationf("window::set_position gtk_fixed_put(%p,%p,%d,%d)", pdialog->m_pgtkwidgetFixed, m_pgtkwidget, point.x, point.y);
+
             gtk_fixed_put(GTK_FIXED(pdialog->m_pgtkwidgetFixed), m_pgtkwidget, point.x, point.y);
 
          }
@@ -457,7 +462,34 @@ namespace innate_ui_gtk4
       main_send([this, size]()
       {
 
-         gtk_widget_set_size_request(m_pgtkwidget, size.cx, size.cy);
+  if (!m_pgtkwidget)
+      {
+         return;
+      }
+
+      if (GTK_IS_WINDOW(m_pgtkwidget))
+      {
+         // Remove any previously forced minimum size.
+         gtk_widget_set_size_request(
+            m_pgtkwidget,
+            -1,
+            -1);
+
+         // Establish the initial/default top-level size.
+         gtk_window_set_default_size(
+            GTK_WINDOW(m_pgtkwidget),
+            size.cx,
+            size.cy);
+      }
+      else
+      {
+              informationf("gtk_widget_set_size_request(,%d,%d)", size.cx, size.cy);
+         gtk_widget_set_size_request(
+            m_pgtkwidget,
+            size.cx,
+            size.cy);
+      }
+
 
       });
 
@@ -496,9 +528,9 @@ namespace innate_ui_gtk4
    void window::center()
    {
 
-      main_send([this]()
-      {
-
+      //main_send([this]()
+      //{
+//
             //gtk_window_set_position(GTK_WINDOW(m_pgtkwidget), GTK_WIN_POS_CENTER);
          // auto hwnd = ::GetParent(m_hwnd);
          //
@@ -525,7 +557,7 @@ namespace innate_ui_gtk4
          //
          // RECT rThis2;
          // ::GetWindowRect(m_hwnd, &rThis2);
-      });
+      //});
 
 
    }

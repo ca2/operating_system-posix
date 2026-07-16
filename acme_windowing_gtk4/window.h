@@ -183,7 +183,7 @@ virtual void _on_focus_changed(bool bHasFocus);
 
             virtual void _on_window_visibility_changed(GObject* object, GParamSpec* pspec);
 
-            virtual void _on_cairo_draw(GtkWidget *widget, cairo_t *cr);
+            virtual void _on_cairo_draw(GtkWidget *widget, cairo_t *cr, const ::i32_size & sizeDraw);
 
             void _on_size(int cx, int cy) override;
 
@@ -318,10 +318,10 @@ virtual void _on_focus_changed(bool bHasFocus);
 
             //virtual void _draw(::nano::graphics::device * pnanodevice);
 
-            //void _on_cairo_draw(GtkWidget *widget, cairo_t *cr) override;
+            //void _on_cairo_draw(GtkWidget *widget, cairo_t *cr, const ::i32_size & sizeDraw) override;
 
             //virtual void on_draw(::nano::graphics::device * pnanodevice);
-
+virtual void _on_drawing_area_resize(int width, int height);
             virtual void on_char(int iChar);
 
             bool is_active_window() override;

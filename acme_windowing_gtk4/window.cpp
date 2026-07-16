@@ -34,6 +34,12 @@
 #include "acme/nano/graphics/pen.h"
 //#include "acme/user/micro/interchange.h"
 
+#ifdef GDK_WINDOWING_X11
+#include <gdk/x11/gdkx.h>
+#include <X11/Xlib.h>
+#endif
+
+
 #ifdef DEBIAN_LINUX
 
 void             gtk_css_provider_load_from_string (GtkCssProvider  *css_provider,
@@ -58,6 +64,50 @@ namespace gtk4
       namespace windowing
       {
 
+static void
+on_drawing_area_resize(
+   GtkDrawingArea * pdrawingarea,
+   int width,
+   int height,
+   gpointer pdata) noexcept
+{
+
+   auto pwindow =
+      static_cast<::gtk4::acme::windowing::window *>(pdata);
+
+   try
+   {
+
+      pwindow->_on_drawing_area_resize(width, height);
+
+   }
+   catch (const ::exception & exception)
+   {
+
+      information()
+         << "Exception in GtkDrawingArea::resize: "
+         << exception.get_message();
+
+   }
+   catch (...)
+   {
+
+      information()
+         << "Unknown exception in GtkDrawingArea::resize";
+
+   }
+
+}
+static void on_im_update(
+   GtkEventControllerKey* controller,
+   gpointer user_data)
+{
+   auto pwindow =
+      static_cast<::gtk4::acme::windowing::window*>(user_data);
+
+   // This signal means the IM context consumed a keypress.
+   // It does not provide committed text.
+}
          static void on_window_is_active_changed(GObject *window, GParamSpec *pspec, gpointer p) {
             auto pwindow = (::gtk4::acme::windowing::window*)p;
             gboolean is_active = gtk_window_is_active(GTK_WINDOW(window));
@@ -84,12 +134,18 @@ namespace gtk4
 
 
          static void
-         GtkDrawingAreaDrawFunc(GtkDrawingArea* drawing_area, cairo_t* cr, int width, int height, gpointer p)
+         GtkDrawingAreaDrawFunc(
+         GtkDrawingArea* drawing_area,
+          cairo_t* cr, int width, int height, gpointer p)
          {
 
             auto pwindow = (::gtk4::acme::windowing::window*)p;
 
-            pwindow->_on_cairo_draw(GTK_WIDGET(drawing_area), cr);
+informationf(
+   "GtkDrawingAreaDrawFunc width, height %d, %d",
+   width,
+   height);
+            pwindow->_on_cairo_draw(GTK_WIDGET(drawing_area), cr, {width, height});
 
          }
 
@@ -107,6 +163,8 @@ namespace gtk4
          static void on_button_released(GtkGestureClick* pgesture, int n_press, double x, double y, gpointer p)
          {
 
+            information("::gtk4::acme::windowing::on_button_released");
+
             auto pwindow = (::gtk4::acme::windowing::window*)p;
 
             pwindow->_on_button_released(pgesture, n_press, x, y);
@@ -119,6 +177,10 @@ namespace gtk4
 
             auto pwindow = (::gtk4::acme::windowing::window*)p;
 
+
+  informationf(
+      "GtkGestureClick click series stopped: gesture=%p",
+      pgesture);
             pwindow->_on_button_stopped(pgesture);
 
          }
@@ -355,7 +417,7 @@ namespace gtk4
 
 
          /* Callback function to handle key press happenings */
-         static gboolean on_key_released(GtkEventControllerKey* controller, guint keyval, guint keycode,
+         static void on_key_released(GtkEventControllerKey* controller, guint keyval, guint keycode,
                                          GdkModifierType state, gpointer user_data)
          {
 
@@ -365,15 +427,15 @@ namespace gtk4
 
             ::string str = gdk_keyval_name(keyval);
 
-            if (pwindow->_on_gtk_key_released(controller, keyval, keycode, state))
-            {
-
-               return true;
-
-            }
+            pwindow->_on_gtk_key_released(controller, keyval, keycode, state);
+//            {
+///
+   ///            return true;
+///
+   //         }
 
             /* Return FALSE to propagate the happening further */
-            return FALSE;
+            //return FALSE;
 
          }
 
@@ -491,30 +553,53 @@ namespace gtk4
          }
 
 
-         void window::_defer_get_window_rectangle_unlocked()
-         {
+        void window::_defer_get_window_rectangle_unlocked()
+        {
 
-            if (system()->acme_windowing()->get_ewindowing() != ::windowing::e_windowing_wayland)
-            {
+           if (system()->acme_windowing()->get_ewindowing()
+              == ::windowing::e_windowing_wayland)
+           {
 
-               ::pointer<::acme::user::interaction> pacmeuserinteraction = m_pacmeuserinteraction;
+              return;
 
-               auto rectangleWindow = this->get_window_rectangle();
+           }
 
-               if (pacmeuserinteraction)
-               {
+           auto rectangleWindow = get_window_rectangle_unlocked();
 
-                  pacmeuserinteraction->set_rectangle(rectangleWindow);
+           const auto sizeWindow = rectangleWindow.size();
 
-               }
+           // Do not destroy the valid cached size during initial mapping.
+           if (sizeWindow.cx <= 1 || sizeWindow.cy <= 1)
+           {
 
-               m_pointWindow = rectangleWindow.top_left();
+              informationf(
+                 "Ignoring invalid temporary GTK window size %d, %d",
+                 sizeWindow.cx,
+                 sizeWindow.cy);
 
-               m_sizeWindow = rectangleWindow.size();
+              return;
 
-            }
+           }
 
-         }
+           ::pointer<::acme::user::interaction> pinteraction =
+              m_pacmeuserinteraction;
+
+           if (pinteraction)
+           {
+
+              pinteraction->set_rectangle(rectangleWindow);
+
+           }
+
+           m_pointWindow = rectangleWindow.top_left();
+           m_sizeWindow = sizeWindow;
+
+           informationf(
+              "Updated m_sizeWindow to %d, %d",
+              m_sizeWindow.cx,
+              m_sizeWindow.cy);
+
+        }
 
 
          bool window::_on_gtk_key_pressed(GtkEventControllerKey* controller, guint keyval, guint keycode,
@@ -575,6 +660,11 @@ namespace gtk4
                GdkSurface* surface = gtk_native_get_surface(pgtknative);
 
                GdkToplevel* toplevel = GDK_TOPLEVEL(surface);
+
+               g_signal_handlers_disconnect_by_func(
+                  toplevel,
+                  reinterpret_cast<gpointer>(on_toplevel_compute_size),
+                  this);
 
                g_signal_connect(toplevel, "compute-size", G_CALLBACK(on_toplevel_compute_size), this);
 
@@ -639,6 +729,17 @@ namespace gtk4
 
             m_pacmeuserinteraction->on_before_create_window(this);
 
+            auto rectangleInitial = m_pacmeuserinteraction->initial_frame_rectangle();
+
+            if(rectangleInitial.is_set())
+            {
+
+                m_pointWindow = rectangleInitial.top_left();
+
+                m_sizeWindow = rectangleInitial.size();
+
+            }
+
             bool bOk = false;
 
             auto pgtk4windowingsystem = gtk4_acme_windowing();
@@ -684,6 +785,8 @@ namespace gtk4
                   information() << "It has owner window...";
 
                   m_pgtkwidget = gtk_popover_new();
+
+                  g_object_ref_sink(m_pgtkwidget);
 
                   gtk_popover_set_has_arrow(GTK_POPOVER(m_pgtkwidget), false);
 
@@ -826,8 +929,8 @@ namespace gtk4
             if (GTK_IS_WINDOW(m_pgtkwidget))
             {
 
-               constexpr int minimum_width  = 300;
-               constexpr int minimum_height = 300;
+               constexpr int minimum_width  = 100;
+               constexpr int minimum_height = 100;
 
                gtk_widget_set_size_request(
                   m_pgtkwidget,
@@ -854,9 +957,15 @@ namespace gtk4
 
             m_pdrawingarea = gtk_drawing_area_new();
 
-            //gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
+            g_signal_connect(
+               m_pdrawingarea,
+               "resize",
+               G_CALLBACK(on_drawing_area_resize),
+               this);
 
-            //gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
+            gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
+
+            gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
 
             gtk_widget_set_hexpand(m_pdrawingarea, true);
 
@@ -924,15 +1033,21 @@ namespace gtk4
 
             g_signal_connect(m_pgtkeventcontrollerKey, "key-released", G_CALLBACK(on_key_released), this);
 
-            /* Connect the "im-update" signal to capture composed text */
-            g_signal_connect(m_pgtkeventcontrollerKey, "im-update", G_CALLBACK(on_text_input), this);
+         //   /* Connect the "im-update" signal to capture composed text */
+           // g_signal_connect(m_pgtkeventcontrollerKey, "im-update", G_CALLBACK(on_text_input), this);
+
+g_signal_connect(
+   m_pgtkeventcontrollerKey,
+   "im-update",
+   G_CALLBACK(on_im_update),
+   this);
 
             /* Add the key controller to the window */
             gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerKey);
 
 
             g_signal_connect(m_pdrawingarea, "notify::has-focus", G_CALLBACK(on_focus_changed), this);
-            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "notify::active", G_CALLBACK(on_window_is_active_changed), this);
+            g_signal_connect(GTK_WINDOW(m_pgtkwidget), "notify::is-active", G_CALLBACK(on_window_is_active_changed), this);
 
             _enable_mouse_wheel_messages();
 
@@ -950,7 +1065,7 @@ namespace gtk4
 
                }
 
-               if (!bFocusable)
+               if (!bSensitive)
                {
 
                   gtk_widget_set_sensitive(m_pdrawingarea, true);
@@ -1032,9 +1147,13 @@ namespace gtk4
                information() << "Going to connect notify::visible";
                g_signal_connect(m_pgtkwidget, "notify::visible", G_CALLBACK(on_window_visibility_changed), this);
 
+            if(GTK_IS_WINDOW(m_pgtkwidget))
+            {
                // Connect to notify::is-maximized signal to track maximization changes
                information() << "Going to connect notify::maximized";
                g_signal_connect(m_pgtkwidget, "notify::maximized", G_CALLBACK(on_maximize_notify), this);
+
+              }
 
                information() << "Going to connect map";
                g_signal_connect(m_pgtkwidget, "map", G_CALLBACK(on_window_map), this);
@@ -1087,7 +1206,7 @@ namespace gtk4
 
                information() << "Going to gtk_widget_realize";
 
-               gtk_widget_realize(m_pgtkwidget);
+               //gtk_widget_realize(m_pgtkwidget);
 
             }
 
@@ -1116,6 +1235,16 @@ namespace gtk4
          void window::_on_window_visibility_changed(GObject* object, GParamSpec* pspec)
          {
 
+         auto pwidget = m_pgtkwidget;
+
+gboolean visible = gtk_widget_get_visible(pwidget);
+gboolean mapped  = gtk_widget_get_mapped(pwidget);
+gboolean realized = gtk_widget_get_realized(pwidget);
+
+information()
+   << "visible=" << (visible != FALSE)
+   << ", mapped=" << (mapped != FALSE)
+   << ", realized=" << (realized != FALSE);
 
          }
 
@@ -1434,34 +1563,36 @@ namespace gtk4
 
 #if !defined(FEDORA_LINUX) && !defined(SUSE_LINUX)
 
-            main_post([this, x, y]()
+::pointer<window> pthis = this;
+
+            main_post([pthis, x, y]()
             {
 
-               _gtk_show_system_menu(x, y);
+               pthis->_gtk_show_system_menu(x, y);
 
             });
 
 #else
 
-
-            application()->post([this, x, y]()
+::pointer<window> pthis = this;
+            application()->post([pthis, x, y]()
             {
                at_end_of_scope
                {
 
                   preempt(200_ms);
-                  m_bInhibitQueueDraw = false;
+                  pthis->m_bInhibitQueueDraw = false;
 
                };
 
-               m_bInhibitQueueDraw = true;
+               pthis->m_bInhibitQueueDraw = true;
 
                preempt(200_ms);
 
-               main_send([this, x, y]()
+               main_send([pthis, x, y]()
                {
 
-                  _gtk_show_system_menu(x, y);
+                  pthis->_gtk_show_system_menu(x, y);
 
                });
 
@@ -1477,7 +1608,7 @@ namespace gtk4
 
             auto* widget = m_pdrawingarea;
 
-            //gtk_widget_realize(m_pgtkwidget);
+            ////gtk_widget_realize(m_pgtkwidget);
 
 
             auto* pmenu = _create_system_menu();
@@ -1505,12 +1636,12 @@ namespace gtk4
 
 
             //gtk_widget_realize(m_pgtkwidget);
-            gtk_widget_realize(ppopover);
+            //gtk_widget_realize(ppopover);
 
 
             //main_post([this, ppopover]()
             //{
-            gtk_popover_present(GTK_POPOVER(ppopover));
+            //gtk_popover_present(GTK_POPOVER(ppopover));
 
             auto pbox = gtk_widget_get_first_child(ppopover);
 
@@ -1707,8 +1838,8 @@ namespace gtk4
 
             //
 
-            gtk_widget_realize(ppopover);
-            gtk_popover_present(GTK_POPOVER(ppopover));
+            //gtk_widget_realize(ppopover);
+            //gtk_popover_present(GTK_POPOVER(ppopover));
 
             //main_post([this, ppopover, pbox]()
             // {
@@ -1732,14 +1863,14 @@ namespace gtk4
                gtk_widget_set_size_request(ppopover, (double)width * 1.15, (double)height * 1.15);
             }
 
-            gtk_widget_realize(ppopover);
+            //gtk_widget_realize(ppopover);
 
             ///main_post([this, ppopover]()
             //{
 
-               //information() << "before gtk_popover_popup";
+               information() << "before gtk_popover_popup";
                gtk_popover_popup(GTK_POPOVER(ppopover));
-               //information() << "after gtk_popover_popup";
+               information() << "after gtk_popover_popup";
                //gtk_widget_set_visible(ppopover, true);
 
             //});
@@ -1763,6 +1894,34 @@ namespace gtk4
    void window::_destroy_window()
    {
 
+
+if (m_pgtkwidget)
+{
+   g_signal_handlers_disconnect_by_data(
+      m_pgtkwidget,
+      this);
+}
+
+if (m_pdrawingarea)
+{
+   g_signal_handlers_disconnect_by_data(
+      m_pdrawingarea,
+      this);
+}
+
+if (m_pgtkgestureClick)
+{
+   g_signal_handlers_disconnect_by_data(
+      m_pgtkgestureClick,
+      this);
+}
+
+if (m_pgtkeventcontrollerKey)
+{
+   g_signal_handlers_disconnect_by_data(
+      m_pgtkeventcontrollerKey,
+      this);
+}
       // if (m_pgtkgestureClick)
       // {
 
@@ -1875,9 +2034,16 @@ namespace gtk4
    void window::__map()
    {
 
-      main_send([this]()
-      {
+   show_window(::user_interface::e_show_window_show_normal);
 
+      /*main_send([this]()
+      {
+      
+      
+                                                                            
+                                                                            
+                                          auto pwidget = pthis->m_pgtkwidget
+                                          
          //if (GTK_IS_POPOVER(m_pgtkwidget))
          {
 
@@ -1894,7 +2060,7 @@ namespace gtk4
          }
 
       });
-
+                     */
    }
 
 
@@ -2298,10 +2464,39 @@ namespace gtk4
    }
 
 
-   void window::_on_cairo_draw(GtkWidget* widget, cairo_t* cr)
+   void window::_on_cairo_draw(GtkWidget* widget, cairo_t* cr, const ::i32_size & sizeDraw)
    {
 
-      m_pnanographicscontext->attach(cr, m_sizeWindow, 0);
+      informationf("::gtk4::acme::windowing::window::_on_cairo_draw m_sizeWindow %d, %d", m_sizeWindow.cx, m_sizeWindow.cy);
+  informationf(
+      "_on_cairo_draw actual size %d, %d, cached size %d, %d",
+      sizeDraw.cx,
+      sizeDraw.cy,
+      m_sizeWindow.cx,
+      m_sizeWindow.cy);
+
+   if (sizeDraw.cx <= 0 || sizeDraw.cy <= 0)
+   {
+
+      return;
+
+   }
+
+   //cairo_save(cr);
+
+   //cairo_set_source_rgb(cr, 0.2, 0.6, 0.8);
+   //cairo_paint(cr);
+
+   //cairo_restore(cr);
+
+   //return;
+   m_pnanographicscontext->attach(
+      cr,
+      sizeDraw,
+      0);
+
+
+      //m_pnanographicscontext->attach(cr, sizeDraw, 0);
 
       at_end_of_scope
             {
@@ -2314,8 +2509,16 @@ namespace gtk4
 
       ::pointer<::micro::elemental> pelemental = m_pacmeuserinteraction;
 
+
+
+
       if (pelemental)
       {
+
+        pelemental->m_rectangle.set_top_left(m_pointWindow);
+        pelemental->m_rectangle.set_size(m_sizeWindow);
+        //m_pnanographicscontext->clear(
+          //  ::argb(120, 100, 160, 200)); // Adapt constructor: opaque red
 
          pelemental->draw_background(m_pnanographicscontext);
 
@@ -2325,17 +2528,17 @@ namespace gtk4
 
       m_pnanographicscontext->on_end_draw();
 
-      auto pixmap = m_pnanographicscontext->pixmap();
+//      auto pixmap = m_pnanographicscontext->pixmap();
 
-      auto psurface = cairo_surface_for_pixmap(pixmap);
+  //    auto psurface = cairo_surface_for_pixmap(pixmap);
 
-      cairo_set_source_surface(cr, psurface, 0., 0.);
+    //  cairo_set_source_surface(cr, psurface, 0., 0.);
 
-      cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+//      cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 
-      cairo_paint(cr);
+  //    cairo_paint(cr);
 
-      cairo_surface_destroy(psurface);
+    //  cairo_surface_destroy(psurface);
 
    }
 
@@ -2374,6 +2577,8 @@ namespace gtk4
          m_pointWindow = r.top_left();
 
          m_sizeWindow = r.size();
+
+         informationf("right now (1) m_sizeWindow is %d, %d", m_sizeWindow.cx, m_sizeWindow.cy);
 
          _create_window();
 
@@ -2441,15 +2646,17 @@ namespace gtk4
       if (GTK_IS_WIDGET(m_pgtkwidget) && !m_bInhibitQueueDraw)
       {
 
-         main_post([this]()
+      ::pointer<window> pthis = this;
+
+         main_post([pthis]()
          {
 
 
             //if (GTK_IS_WIDGET(m_pgtkwidget) && m_pgtkwidgetChildPendingShow == nullptr)
-            if (GTK_IS_WIDGET(m_pgtkwidget) && !m_bInhibitQueueDraw)
+            if (GTK_IS_WIDGET(pthis->m_pgtkwidget) && !pthis->m_bInhibitQueueDraw)
             {
 
-               gtk_widget_queue_draw(m_pgtkwidget);
+               gtk_widget_queue_draw(pthis->m_pgtkwidget);
 
             }
 
@@ -2486,7 +2693,161 @@ namespace gtk4
    ::i32_rectangle window::get_window_rectangle_unlocked()
    {
 
+information("window::get_window_rectangle_unlocked");
+
+   GtkWidget * pwidget = m_pgtkwidget;
+
+   if (!pwidget || !GTK_IS_WIDGET(pwidget))
+   {
+
       return {};
+
+   }
+
+   // On Wayland, or before the native surface exists, this is the
+   // best position available to the application.
+   int x = m_pointWindow.x;
+   int y = m_pointWindow.y;
+
+int cx = gtk_widget_get_width(pwidget);
+int cy = gtk_widget_get_height(pwidget);
+
+informationf(
+   "gtk widget allocation cx, cy %d, %d",
+   cx,
+   cy);
+
+// The GtkWindow may have no useful allocation during the initial
+// map/configure sequence.
+if (cx <= 0)
+{
+
+   cx = m_sizeWindow.cx;
+
+}
+
+if (cy <= 0)
+{
+
+   cy = m_sizeWindow.cy;
+
+}
+
+if (cx <= 0)
+{
+
+   cx = m_sizeOnSizeRestored.cx;
+
+}
+
+if (cy <= 0)
+{
+
+   cy = m_sizeOnSizeRestored.cy;
+
+}
+
+   informationf("window::get_window_rectangle_unlocked cx, cy %d, %d", cx, cy);
+
+   GtkNative * pnative = gtk_widget_get_native(pwidget);
+
+   if (!pnative)
+   {
+
+   information("window::get_window_rectangle_unlocked ret(1)");
+
+      return {x, y, x + cx, y + cy};
+
+   }
+
+   GdkSurface * psurface = gtk_native_get_surface(pnative);
+
+   if (!psurface || gdk_surface_is_destroyed(psurface))
+   {
+
+      return {x, y, x + cx, y + cy};
+
+   }
+
+   // Prefer the native surface size. This is reported in GTK
+   // application pixels, not raw device pixels.
+   const int cxSurface = gdk_surface_get_width(psurface);
+   const int cySurface = gdk_surface_get_height(psurface);
+
+   if (cxSurface > 0)
+   {
+
+      cx = cxSurface;
+
+   }
+
+   if (cySurface > 0)
+   {
+
+      cy = cySurface;
+
+   }
+
+#ifdef GDK_WINDOWING_X11
+
+   GdkDisplay * pdisplay = gdk_surface_get_display(psurface);
+
+   if (pdisplay
+      && GDK_IS_X11_DISPLAY(pdisplay)
+      && GDK_IS_X11_SURFACE(psurface))
+   {
+
+      Display * pxdisplay =
+         gdk_x11_display_get_xdisplay(pdisplay);
+
+      ::Window xid =
+         gdk_x11_surface_get_xid(psurface);
+
+      if (pxdisplay && xid != None)
+      {
+
+         ::Window child = None;
+
+         int xNative = 0;
+         int yNative = 0;
+
+         const Bool bTranslated =
+            XTranslateCoordinates(
+               pxdisplay,
+               xid,
+               DefaultRootWindow(pxdisplay),
+               0,
+               0,
+               &xNative,
+               &yNative,
+               &child);
+
+         if (bTranslated)
+         {
+
+            // Xlib coordinates are native pixels while GDK surface
+            // dimensions are application pixels.
+            int iScale = gdk_surface_get_scale_factor(psurface);
+
+            if (iScale < 1)
+            {
+
+               iScale = 1;
+
+            }
+
+            x = xNative / iScale;
+            y = yNative / iScale;
+
+         }
+
+      }
+
+   }
+
+#endif
+
+   return {x, y, x + cx, y + cy};
 
    }
 
@@ -2595,6 +2956,8 @@ void window::_on_focus_changed(bool bHasFocus)
 
       guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
 
+      information("gtk4::acme::windowing::window::_on_button_released btn={}", button);
+
       ::pointer<::micro::elemental> pelemental = m_pacmeuserinteraction;
 
       if (pelemental)
@@ -2640,7 +3003,9 @@ void window::_on_focus_changed(bool bHasFocus)
    void window::_on_button_stopped(GtkGestureClick * pgesture)
    {
 
-      _on_button_released(pgesture, 1, -65535.0, -65535.0);
+      //information("::gtk4::acme::windowing::window::_on_button_stopped");
+
+      //_on_button_released(pgesture, 1, -65535.0, -65535.0);
 
    }
 
@@ -2691,28 +3056,63 @@ void window::_on_focus_changed(bool bHasFocus)
          void window::show_window(::user_interface::enum_show_window eshowwindow)
          {
 
-            main_post([this, eshowwindow]()
+         ::pointer<window> pthis = this;
+
+            main_post([pthis, eshowwindow]()
             {
 
                if (eshowwindow == ::user_interface::e_show_window_show_normal)
                {
 
-                  gtk_widget_show(m_pgtkwidget);
+auto pwidget = pthis->m_pgtkwidget;
 
+                   pthis->information()
+                              << "gtk4::acme::windowing::window::show_window";
+
+                           if (GTK_IS_WINDOW(pwidget))
+                           {
+
+                              pthis->information()
+                                 << "Calling gtk_window_present";
+
+                              gtk_window_present(
+                                 GTK_WINDOW(pwidget));
+
+                           }
+                           else if (GTK_IS_POPOVER(pwidget))
+                           {
+
+                              pthis->information()
+                                 << "Calling gtk_popover_popup";
+
+                              gtk_popover_popup(
+                                 GTK_POPOVER(pwidget));
+
+                           }
+                           else
+                           {
+
+                              gtk_widget_set_visible(
+                                 pwidget,
+                                 TRUE);
+
+                           }
                }
                else if (eshowwindow == ::user_interface::e_show_window_hide)
                {
 
-                  if (GTK_IS_POPOVER(m_pgtkwidget))
+                  if (GTK_IS_POPOVER(pthis->m_pgtkwidget))
                   {
 
-                     gtk_popover_popdown(GTK_POPOVER(m_pgtkwidget));
+                     gtk_popover_popdown(GTK_POPOVER(pthis->m_pgtkwidget));
 
                   }
-                  else if (GTK_IS_WINDOW(m_pgtkwidget))
+                  else if (GTK_IS_WINDOW(pthis->m_pgtkwidget))
                   {
 
-                     gtk_widget_set_visible(m_pgtkwidget, false);
+                    pthis->information("gtk4::acme::windowing::window::show_window gtk_widget_set_visible false");
+
+                     gtk_widget_set_visible(pthis->m_pgtkwidget, false);
                      //gtk_window_close(GTK_WINDOW(m_pgtkwidget));
 
                   }
@@ -2723,11 +3123,41 @@ void window::_on_focus_changed(bool bHasFocus)
 
          }
 
+void window::_on_drawing_area_resize(int width, int height)
+{
+
+   informationf(
+      "GtkDrawingArea resize %d, %d",
+      width,
+      height);
+
+   if (width <= 0 || height <= 0)
+   {
+
+      return;
+
+   }
+
+   //if (m_sizeWindow.cx == width
+//      && m_sizeWindow.cy == height)
+  // {
+
+    //  return;
+
+   //}
+
+   m_sizeWindow.cx = width;
+   m_sizeWindow.cy = height;
+        on_window_size({width, height});
+   // Recreate or resize the backing graphics resources here.
+   set_interface_client_size(m_sizeWindow);
+
+}
 
 } // namespace windowing
 
 
-} // namespace amce
+} // namespace acme
 
 
 } // namespace gtk4

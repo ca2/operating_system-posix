@@ -210,9 +210,69 @@ CLASS_DECL_ACME void dll_processes(u32_array & dwa, string_array_base & straProc
 }
 
 
+
+
+#include <sys/types.h>
+#include <sys/utsname.h>
+#include <unistd.h>
+
+#include <cstdio>
+
+#if defined(FREEBSD) || defined(__FreeBSD__)
+
+#include <sys/sysctl.h>
+#define file sysuser_file
+#define user sysuser_user
+#include <sys/user.h>
+#undef file
+#undef user
+
+#endif
+
 namespace acme_posix
 {
 
+   bool get_uname_information(
+      struct utsname & information)
+   {
+
+      zero(information);
+
+      return uname(&information) == 0;
+
+   }
+
+
+   ::string normalized_uname_version(
+      const_char_pointer pszVersion)
+   {
+
+      if (::is_null(pszVersion))
+      {
+
+         return {};
+
+      }
+
+      ::string strVersion = pszVersion;
+
+      strVersion.trim();
+
+      // uname's version field sometimes contains tabs/newlines.
+      strVersion.find_replace("\r", " ");
+      strVersion.find_replace("\n", " ");
+      strVersion.find_replace("\t", " ");
+
+      while (strVersion.contains("  "))
+      {
+
+         strVersion.find_replace("  ", " ");
+
+      }
+
+      return strVersion;
+
+   }
 
    node::node()
    {
@@ -3662,7 +3722,387 @@ return{};
          return false;
 
    }
+::string node::get_current_operating_system_name()
+{
 
+#if defined(LINUX) || defined(__linux__)
+
+   auto mapOsRelease =
+      read_os_release(this);
+
+   auto strPrettyName =
+      os_release_value(
+         mapOsRelease,
+         "PRETTY_NAME");
+
+   if (strPrettyName.has_character())
+   {
+
+      return strPrettyName;
+
+   }
+
+   auto strName =
+      os_release_value(
+         mapOsRelease,
+         "NAME");
+
+   auto strVersionId =
+      os_release_value(
+         mapOsRelease,
+         "VERSION_ID");
+
+   if (strName.has_character())
+   {
+
+      if (strVersionId.has_character())
+      {
+
+         return ::format(
+            "{} {}",
+            strName,
+            strVersionId);
+
+      }
+
+      return strName;
+
+   }
+
+#endif
+
+   struct utsname information;
+
+   if (!get_uname_information(information))
+   {
+
+#if defined(FREEBSD) || defined(__FreeBSD__)
+
+      return "FreeBSD";
+
+#elif defined(LINUX) || defined(__linux__)
+
+      return "Linux";
+
+#else
+
+      return "Unix";
+
+#endif
+
+   }
+
+#if defined(FREEBSD) || defined(__FreeBSD__)
+
+   return ::format(
+      "{} {}",
+      information.sysname,
+      information.release);
+
+#else
+
+   return information.sysname;
+
+#endif
+
+}
+
+
+::string node::get_more_operating_system_version_information()
+{
+
+   struct utsname information;
+
+   const bool bHasUname =
+      get_uname_information(information);
+
+#if defined(LINUX) || defined(__linux__)
+
+   auto mapOsRelease =
+      read_os_release(this);
+
+   auto strVersion =
+      os_release_value(
+         mapOsRelease,
+         "VERSION");
+
+   auto strVersionId =
+      os_release_value(
+         mapOsRelease,
+         "VERSION_ID");
+
+   auto strBuildId =
+      os_release_value(
+         mapOsRelease,
+         "BUILD_ID");
+
+   ::string strInformation;
+
+   if (strVersion.has_character())
+   {
+
+      strInformation =
+         ::format(
+            "Version {}",
+            strVersion);
+
+   }
+   else if (strVersionId.has_character())
+   {
+
+      strInformation =
+         ::format(
+            "Version {}",
+            strVersionId);
+
+   }
+
+   if (strBuildId.has_character())
+   {
+
+      if (strInformation.has_character())
+      {
+
+         strInformation += "; ";
+
+      }
+
+      strInformation +=
+         ::format(
+            "Build {}",
+            strBuildId);
+
+   }
+
+   if (bHasUname)
+   {
+
+      if (strInformation.has_character())
+      {
+
+         strInformation += "; ";
+
+      }
+
+      strInformation +=
+         ::format(
+            "Kernel {}; Architecture {}",
+            information.release,
+            information.machine);
+
+   }
+
+   if (strInformation.is_empty())
+   {
+
+      return "Linux version information unavailable";
+
+   }
+
+   return strInformation;
+
+
+#elif defined(FREEBSD) || defined(__FreeBSD__)
+
+
+   int iOsReleaseDate = 0;
+
+   size_t sizeOsReleaseDate =
+      sizeof(iOsReleaseDate);
+
+   const bool bHasOsReleaseDate =
+      sysctlbyname(
+         "kern.osreldate",
+         &iOsReleaseDate,
+         &sizeOsReleaseDate,
+         nullptr,
+         0) == 0;
+
+   if (bHasUname && bHasOsReleaseDate)
+   {
+
+      return ::format(
+         "Release {}; OSRELDATE {}; Architecture {}; Kernel {}",
+         information.release,
+         iOsReleaseDate,
+         information.machine,
+         normalized_uname_version(
+            information.version));
+
+   }
+
+   if (bHasUname)
+   {
+
+      return ::format(
+         "Release {}; Architecture {}; Kernel {}",
+         information.release,
+         information.machine,
+         normalized_uname_version(
+            information.version));
+
+   }
+
+   if (bHasOsReleaseDate)
+   {
+
+      return ::format(
+         "OSRELDATE {}",
+         iOsReleaseDate);
+
+   }
+
+   return "FreeBSD version information unavailable";
+
+
+#else
+
+
+   if (!bHasUname)
+   {
+
+      return
+         "Operating system version information unavailable";
+
+   }
+
+   return ::format(
+      "Release {}; Version {}; Architecture {}",
+      information.release,
+      normalized_uname_version(
+         information.version),
+      information.machine);
+
+
+#endif
+
+}
+
+
+memsize node::get_current_memory_usage()
+{
+
+#if defined(LINUX) || defined(__linux__)
+
+   ::string strStatm;
+
+   try
+   {
+
+      strStatm =
+         file()->as_string(
+            "/proc/self/statm");
+
+   }
+   catch (...)
+   {
+
+      return 0;
+
+   }
+
+   if (strStatm.is_empty())
+   {
+
+      return 0;
+
+   }
+
+   unsigned long long ullVirtualPages = 0;
+   unsigned long long ullResidentPages = 0;
+
+   const int iScanned =
+      sscanf(
+         strStatm,
+         "%llu %llu",
+         &ullVirtualPages,
+         &ullResidentPages);
+
+   if (iScanned != 2)
+   {
+
+      return 0;
+
+   }
+
+   const long lPageSize =
+      sysconf(_SC_PAGESIZE);
+
+   if (lPageSize <= 0)
+   {
+
+      return 0;
+
+   }
+
+   return static_cast<memsize>(
+      static_cast<::u64>(ullResidentPages)
+      * static_cast<::u64>(lPageSize));
+
+
+#elif defined(FREEBSD) || defined(__FreeBSD__)
+
+
+   struct kinfo_proc processInformation;
+
+   zero(processInformation);
+
+   size_t sizeProcessInformation =
+      sizeof(processInformation);
+
+   int iaMib[] =
+   {
+      CTL_KERN,
+      KERN_PROC,
+      KERN_PROC_PID,
+      static_cast<int>(getpid())
+   };
+
+   if (sysctl(
+         iaMib,
+         sizeof(iaMib) / sizeof(iaMib[0]),
+         &processInformation,
+         &sizeProcessInformation,
+         nullptr,
+         0) != 0)
+   {
+
+      return 0;
+
+   }
+
+   if (sizeProcessInformation == 0)
+   {
+
+      return 0;
+
+   }
+
+   const long lPageSize =
+      sysconf(_SC_PAGESIZE);
+
+   if (lPageSize <= 0)
+   {
+
+      return 0;
+
+   }
+
+   return static_cast<memsize>(
+      static_cast<::u64>(
+         processInformation.ki_rssize)
+      * static_cast<::u64>(lPageSize));
+
+
+#else
+
+
+   return 0;
+
+
+#endif
+
+}
 
 } // namespace acme_posix
 

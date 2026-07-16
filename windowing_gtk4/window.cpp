@@ -360,7 +360,7 @@ gtk_im_context_commit (
    // }
 
 
-   void window::_on_cairo_draw(GtkWidget * widget, cairo_t * cr)
+   void window::_on_cairo_draw(GtkWidget * widget, cairo_t * cr, const ::i32_size & sizeDraw)
    {
 
       if (!m_pacmeuserinteraction)
@@ -375,7 +375,7 @@ gtk_im_context_commit (
       if (!puserinteraction)
       {
 
-         ::gtk4::acme::windowing::window::_on_cairo_draw(widget, cr);
+         ::gtk4::acme::windowing::window::_on_cairo_draw(widget, cr, sizeDraw);
 
          return;
 
@@ -931,6 +931,15 @@ gtk_im_context_commit (
    void window::_on_button_pressed(GtkGestureClick * pgesture, int n_press, double x, double y)
    {
 
+      if(!user_interaction())
+      {
+
+        ::gtk4::acme::windowing::window::_on_button_pressed(pgesture, n_press, x, y);
+
+        return;
+
+      }
+
       if (n_press == 1)
       {
 
@@ -999,6 +1008,17 @@ gtk_im_context_commit (
    void window::_on_button_released(GtkGestureClick * pgesture, int n_press, double x, double y)
    {
 
+      information("::gtk4::acme::windowing::window::_on_button_stopped");
+
+      if(!user_interaction())
+      {
+
+        ::gtk4::acme::windowing::window::_on_button_released(pgesture, n_press, x, y);
+
+        return;
+
+      }
+
       if (n_press == 1)
       {
 
@@ -1064,6 +1084,15 @@ gtk_im_context_commit (
 
    void window::_on_motion_notify(GtkEventControllerMotion * pcontroller, double x, double y)
    {
+
+     if(!user_interaction())
+     {
+
+       ::gtk4::acme::windowing::window::_on_motion_notify(pcontroller, x, y);
+
+       return;
+
+     }
 
       auto pwindow = this;
 
@@ -1161,6 +1190,18 @@ gtk_im_context_commit (
    void window::_on_gtk_key_pressed(::u64 uGtkKey, ::u64 uGtkKeyCode)
    {
 
+      auto puserinteraction = user_interaction();
+
+      if(::is_null(puserinteraction))
+      {
+
+         ::gtk4::acme::windowing::window::_on_gtk_key_pressed(uGtkKey, uGtkKeyCode);
+
+         return;
+
+      }
+
+
       auto ekey = gtk_key_as_user_ekey(uGtkKey);
 
       if(ekey != ::user::e_key_none)
@@ -1176,8 +1217,6 @@ gtk_im_context_commit (
 
          pkey->m_ekey = ekey;
 
-         auto puserinteraction = user_interaction();
-
          puserinteraction->send_message(pkey);
 
 //         message_handler(pkey);
@@ -1191,6 +1230,17 @@ gtk_im_context_commit (
 
    void window::_on_gtk_key_released(::u64 uGtkKey, ::u64 uGtkKeyCode)
    {
+
+      auto puserinteraction = user_interaction();
+
+      if(::is_null(puserinteraction))
+      {
+
+         ::gtk4::acme::windowing::window::_on_gtk_key_released(uGtkKey, uGtkKeyCode);
+
+         return;
+
+      }
 
       auto ekey = gtk_key_as_user_ekey(uGtkKey);
 
@@ -1207,7 +1257,7 @@ gtk_im_context_commit (
 
          pkey->m_ekey = ekey;
 
-         auto puserinteraction = user_interaction();
+         //auto puserinteraction = user_interaction();
 
          puserinteraction->send_message(pkey);
 
@@ -2262,11 +2312,20 @@ on_text(scopedstr, scopedstr.size());
       main_send([this, strType, puserinteraction]()
       {
 
+if(::is_set(puserinteraction))
+{
          puserinteraction->message_handler(::user::e_message_destroy, 0, 0);
+
+         }
 
          _destroy_window();
 
+         if(::is_set(puserinteraction))
+         {
+
          puserinteraction->message_handler(::user::e_message_non_client_destroy, 0, 0);
+
+         }
 
          destroy();
 
@@ -2585,21 +2644,32 @@ on_text(scopedstr, scopedstr.size());
    void window::on_window_hidden()
    {
 
-      auto pshowwindow = create_newø < ::message::show_window >();
-
-      pshowwindow->m_eusermessage = ::user::e_message_show_window;
-
       auto puserinteraction = user_interaction();
 
-      pshowwindow->m_puserinteraction = puserinteraction;
+      if(::is_null(puserinteraction))
+      {
 
-      pshowwindow->m_pwindow = this;
+        ::gtk4::acme::windowing::window::on_window_hidden();
 
-      pshowwindow->m_operatingsystemwindow = this->operating_system_window();
+      }
+      else
+      {
 
-      pshowwindow->m_bShow = false;
+        auto pshowwindow = create_newø < ::message::show_window >();
 
-      puserinteraction->route_message(pshowwindow);
+        pshowwindow->m_eusermessage = ::user::e_message_show_window;
+
+        pshowwindow->m_puserinteraction = puserinteraction;
+
+        pshowwindow->m_pwindow = this;
+
+        pshowwindow->m_operatingsystemwindow = this->operating_system_window();
+
+        pshowwindow->m_bShow = false;
+
+        puserinteraction->route_message(pshowwindow);
+
+      }
 
    }
 
