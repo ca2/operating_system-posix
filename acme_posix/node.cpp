@@ -1147,6 +1147,25 @@ namespace acme_posix
    ::file::path node::process_identifier_module_path(::process_identifier iPid)
    {
 
+#if (defined(FREEBSD) || defined(NETBSD)) && defined(KERN_PROC_PATHNAME)
+
+      // FreeBSD and NetBSD expose the executable path through sysctl even
+      // when procfs is not mounted.
+      int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PATHNAME, (int) iPid };
+      char szPath[4096]{};
+      size_t sizePath = sizeof(szPath) - 1;
+
+      if (::sysctl(mib, 4, szPath, &sizePath, nullptr, 0) == 0
+         && sizePath > 0)
+      {
+
+         szPath[sizePath] = '\0';
+         return szPath;
+
+      }
+
+#endif
+
       struct stat sb;
 
       int iSize;
@@ -1195,6 +1214,13 @@ namespace acme_posix
       mem.set_size(iSize);
 
       s = readlink(str, (char *)mem.data(), iSize);
+
+      if (s < 0)
+      {
+
+         return {};
+
+      }
 
       if (s > sb.st_size)
       {
@@ -3728,7 +3754,7 @@ return{};
 #if defined(LINUX) || defined(__linux__)
 
    auto mapOsRelease =
-      read_os_release(this);
+      read_os_release();
 
    auto strPrettyName =
       os_release_value(
@@ -3819,7 +3845,7 @@ return{};
 #if defined(LINUX) || defined(__linux__)
 
    auto mapOsRelease =
-      read_os_release(this);
+      read_os_release();
 
    auto strVersion =
       os_release_value(
@@ -4120,5 +4146,3 @@ memsize node::get_current_memory_usage()
    return strExpanded;
 
 }
-
-
