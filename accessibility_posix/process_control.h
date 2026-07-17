@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "_.h"
+#include "../accessibility_gtk4/_.h"
 
 
 namespace accessibility_gtk4::process_control

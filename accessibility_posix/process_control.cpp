@@ -1,5 +1,5 @@
-#include "framework.h"
-#include "process_control.h"
+#include "../accessibility_gtk4/framework.h"
+#include "../accessibility_gtk4/process_control.h"
 #include <cerrno>
 #include <csignal>
 
