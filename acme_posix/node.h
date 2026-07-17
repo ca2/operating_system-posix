@@ -185,7 +185,7 @@ namespace acme_posix
 ::string get_current_operating_system_name() override;
 ::string get_more_operating_system_version_information() override;
 
-memsize get_current_memory_usage();
+memsize get_current_memory_usage() override;
    };
 
    
