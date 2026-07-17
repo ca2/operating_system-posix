@@ -19,8 +19,8 @@ set(library_source
    framework.h
    main_window.cpp
    main_window.h
-   process_control.cpp
-   process_control.h
+   #process_control.cpp
+   #process_control.h
 )
 
 if(GTK4_FOUND)
@@ -38,7 +38,7 @@ add_library(static_${PROJECT_NAME} STATIC ${library_source})
 # The ca2 target names can be overridden by the parent build if needed.
 set(
    ACCESSIBILITY_GTK4_CA2_LIBRARIES
-   axis;acme
+   axis;acme;accessibility_posix
    CACHE STRING
    "ca2 libraries linked by accessibility_gtk4"
 )
@@ -103,3 +103,22 @@ if(BUILD_TESTING AND UNIX)
       COMMAND accessibility_gtk4_process_control_test)
 
 endif()
+
+
+
+
+
+
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
+list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+
+
+
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
+#target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
+
+
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)

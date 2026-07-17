@@ -313,7 +313,7 @@ namespace gtk3
 
             ::information() << "gtk3::acme::windowing::s_on_startup_gtk_application";
 
-            pgtk3windowingsystem->_on_startup_gtk_application();
+            pgtk3windowingsystem->_on_gtk_application_startup();
 
          }
 
@@ -432,8 +432,10 @@ namespace gtk3
          }
 
 
-         void windowing::_on_startup_gtk_application()
+         void windowing::_on_gtk_application_startup()
          {
+
+            ::g::acme::windowing::windowing::_on_gtk_application_startup();
 
             ::information() << "gtk4::acme::windowing::windowing::_on_startup_gtk_application";
 

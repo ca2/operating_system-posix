@@ -272,11 +272,11 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
          void windowing::destroy()
          {
 
-            m_procedurelist.clear();
+            //m_procedurelist.clear();
 
-            m_procedurelistPriority.clear();
+            //m_procedurelistPriority.clear();
 
-            m_phappeningCreatingWGtk4Display.defer_destroy_and_release();
+            //m_phappeningCreatingWGtk4Display.defer_destroy_and_release();
 
             ::acme::windowing::windowing::destroy();
 
@@ -844,6 +844,14 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
                filtered_args[filtered_argc++] = filtered_arg;
             }
 
+            system()->m_ptaskhandler->m_procedureOnAfterTaskEndAndRelease =
+               []()
+               {
+
+                  g_application_quit(g_application_get_default());
+
+               };
+
             int status = g_application_run(G_APPLICATION(m_pgtkapplication), filtered_argc, filtered_args);
 
             g_free(filtered_args);
@@ -884,6 +892,8 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
          void windowing::_on_gtk_application_startup()
          {
 
+            ::g::acme::windowing::windowing::_on_gtk_application_startup();
+
             ::information() << "gtk4::acme::windowing::windowing::_on_startup_gtk_application";
 
             if (m_callbackOnStartupGtkApplication)
@@ -895,10 +905,10 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
 
             }
 
-            if (!m_bIsGtk4ApplicationHeld)
+            if (!m_bIsGtkApplicationHeld)
             {
 
-               m_bIsGtk4ApplicationHeld = true;
+               m_bIsGtkApplicationHeld = true;
 
                g_application_hold(G_APPLICATION(m_pgtkapplication));
 

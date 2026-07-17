@@ -62,6 +62,8 @@ list(APPEND library_source
 #   node.h
 #   pipe.cpp
 #   pipe.h
+   process_control.cpp
+   process_control.h
 #   registry.cpp
 #   registry.h
 #   #sapi.cpp
@@ -75,6 +77,11 @@ list(APPEND library_source
 #   uac_tools.h
 #   windows_desktop.cpp
    )
+
+
+list(APPEND library_references
+   acme
+)
 
 set_source_files_properties(_no_pch.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
@@ -99,7 +106,7 @@ if (MSVC)
        Gdiplus
        Setupapi
        Credui)
-elseif(LINUX)
+elseif(${LINUX} OR ${__BSD__})
 
     if(${USE_PKGCONFIG})
         #pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 appindicator-0.1)
@@ -109,7 +116,7 @@ elseif(LINUX)
     #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
     #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
     target_link_options(${PROJECT_NAME} PRIVATE -Wl,-rpath=\$ORIGIN)
-    target_link_libraries(${PROJECT_NAME} PRIVATE z dl pthread ncurses X11 Xrender Xinerama Xft ${PKGCONFIG_LIBRARIES})
+    target_link_libraries(${PROJECT_NAME} PRIVATE z ${library_references} ${PKGCONFIG_LIBRARIES})
     target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
     message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 endif()

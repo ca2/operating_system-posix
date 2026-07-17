@@ -2,7 +2,7 @@
 #include "accessibility.h"
 #include "application.h"
 #include "main_window.h"
-#include "axis/accessibility/accessibility.h"
+//#include "axis/accessibility/accessibility.h"
 // #include "acme/platform/node.h"
 // #include "acme/filesystem/filesystem/directory_system.h"
 // #include "node.h"
@@ -64,9 +64,9 @@ IMPLEMENT_FACTORY(accessibility_windows)
    //pfactory->add_factory_item < ::windows::crypto, ::crypto::crypto >();
    //pfactory->add_factory_item < ::windows::ip_enum, ::net::ip_enum >();
 
-   pfactory->add_factory_item < ::accessibility_windows::accessibility, ::accessibility::accessibility >();
-   pfactory->add_factory_item < ::accessibility_windows::application, ::accessibility::application >();
-   pfactory->add_factory_item < ::accessibility_windows::main_window, ::accessibility::main_window >();
+   pfactory->add_factory_item < ::accessibility_posix::accessibility, ::accessibility::accessibility >();
+   pfactory->add_factory_item < ::accessibility_posix::application, ::accessibility::application >();
+   pfactory->add_factory_item < ::accessibility_posix::main_window, ::accessibility::main_window >();
 
 }
 

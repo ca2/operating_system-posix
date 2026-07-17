@@ -28,22 +28,22 @@ namespace gtk4
          public:
 
 
-            ::pointer < manual_reset_happening >    m_phappeningCreatingWGtk4Display;
+            //::pointer < manual_reset_happening >    m_phappeningCreatingWGtk4Display;
 
-            ::map< GtkWidget, ::pointer < ::acme::windowing::window > >   m_mapWindow;
+            //::map< GtkWidget, ::pointer < ::acme::windowing::window > >   m_mapWindow;
 
             //::procedure                         m_callbackOnActivateGtkApplication;
-            GtkApplication *                    m_pgtkapplication;
-            gpointer                            m_pGtkSettingsDefault;
-            bool                                m_bIsGtk4ApplicationHeld = false;
+            //GtkApplication *                    m_pgtkapplication;
+            //gpointer                            m_pGtkSettingsDefault;
+            //bool                                m_bIsGtk4ApplicationHeld = false;
 
-            GAction *                           m_pactionColorScheme = nullptr;
+            //GAction *                           m_pactionColorScheme = nullptr;
 
 
-            itask                               m_itask;
+            //itask                               m_itask;
 
-            ::procedure_list_base               m_procedurelist;
-            ::procedure_list_base               m_procedurelistPriority;
+            //::procedure_list_base               m_procedurelist;
+            //::procedure_list_base               m_procedurelistPriority;
 
 
             windowing();

@@ -28,7 +28,7 @@ namespace g
          public:
 
 
-            ::pointer < manual_reset_happening >    m_phappeningCreatingWGtk4Display;
+            ::pointer < manual_reset_happening >    m_phappeningCreatingWGtkDisplay;
 
             ::map< GtkWidget *, ::pointer < ::acme::windowing::window > >   m_mapWindow;
 
@@ -36,15 +36,15 @@ namespace g
             //::procedure                         m_callbackOnActivateGtkApplication;
             GtkApplication *                    m_pgtkapplication;
             gpointer                            m_pGtkSettingsDefault;
-            bool                                m_bIsGtk4ApplicationHeld = false;
+            bool                                m_bIsGtkApplicationHeld = false;
 
             GAction *                           m_pactionColorScheme = nullptr;
 
 
-            itask                               m_itask;
+            //itask                               m_itask;
 
-            ::procedure_list_base               m_procedurelist;
-            ::procedure_list_base               m_procedurelistPriority;
+            //::procedure_list_base               m_procedurelist;
+            //::procedure_list_base               m_procedurelistPriority;
 
 //            bool m_bApplicationActivated = false;
 

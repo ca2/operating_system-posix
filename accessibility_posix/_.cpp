@@ -4,39 +4,37 @@
 #include "acme/prototype/string/international.h"
 #include "acme/prototype/string/string.h"
 #include "acme/_library.h"
-#include <shellapi.h>
-#include <shlobj.h>
 
 
-namespace acme_windows
+namespace acme_posix
 {
 
-
-   HINSTANCE load_library(const ::scoped_string & scopedstr)
-   {
-
-      return ::LoadLibraryW(utf8_to_unicode(scopedstr));
-
-   }
-
-
+   //
+   // HINSTANCE load_library(const ::scoped_string & scopedstr)
+   // {
+   //
+   //    return ::LoadLibraryW(utf8_to_unicode(scopedstr));
+   //
+   // }
 
 
 
-   ::u32 get_current_directory(string& str)
-   {
-
-      return ::GetCurrentDirectoryW(MAX_PATH * 8, wstring_adaptor(str, MAX_PATH * 8));
-
-   }
-
-
-   ::u32 get_temp_path(string& str)
-   {
-
-      return ::GetTempPathW(MAX_PATH * 8, wstring_adaptor(str, MAX_PATH * 8));
-
-   }
+   //
+   //
+   // ::u32 get_current_directory(string& str)
+   // {
+   //
+   //    return ::GetCurrentDirectoryW(MAX_PATH * 8, wstring_adaptor(str, MAX_PATH * 8));
+   //
+   // }
+   //
+   //
+   // ::u32 get_temp_path(string& str)
+   // {
+   //
+   //    return ::GetTempPathW(MAX_PATH * 8, wstring_adaptor(str, MAX_PATH * 8));
+   //
+   // }
 
 
    //int reg_query_value(HKEY hkey, const ::scoped_string & scopedstrSubKey, string& str)
@@ -73,14 +71,14 @@ namespace acme_windows
    //}
 
 
-   HICON extract_icon(HINSTANCE hInst, const ::scoped_string & scopedstrExeFileName, ::u32 nIconIndex)
-
-   {
-
-      return ::ExtractIconW(hInst, utf8_to_unicode(scopedstrExeFileName), nIconIndex);
-
-
-   }
+   // HICON extract_icon(HINSTANCE hInst, const ::scoped_string & scopedstrExeFileName, ::u32 nIconIndex)
+   //
+   // {
+   //
+   //    return ::ExtractIconW(hInst, utf8_to_unicode(scopedstrExeFileName), nIconIndex);
+   //
+   //
+   // }
 
 
 } // namespace windows

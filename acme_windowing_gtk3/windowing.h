@@ -79,7 +79,7 @@ namespace gtk3
 
       //void main_post(const ::procedure & procedure) override;
 
-         virtual void _on_startup_gtk_application();
+         void _on_gtk_application_startup() override;
       ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile) override;
          void each_window(const ::function < void(::acme::windowing::window*) > & function) override;
 

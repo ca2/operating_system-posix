@@ -3,6 +3,7 @@
 
 
 #include "acme/accessibility/main_window.h"
+#include "acme/operating_system/window.h"
 
 
 namespace accessibility_posix
