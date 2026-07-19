@@ -453,6 +453,47 @@ namespace windowing_gtk3
          if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
          {
 
+
+            const int iGtkWidth =
+   gtk_widget_get_allocated_width(widget);
+
+            const int iGtkHeight =
+               gtk_widget_get_allocated_height(widget);
+
+            const int iGtkScale =
+               gtk_widget_get_scale_factor(widget);
+
+            const auto sizeImage =
+               pitem->m_pimage2->size();
+
+            cairo_matrix_t matrix;
+
+            cairo_get_matrix(cr, &matrix);
+
+            fprintf(
+               stderr,
+               "GTK3 PRESENT: "
+               "gtk-allocation=%dx%d "
+               "gtk-scale=%d "
+               "m_sizeWindow=%dx%d "
+               "image=%dx%d "
+               "CTM=[%.2f %.2f %.2f %.2f %.2f %.2f]\n",
+               iGtkWidth,
+               iGtkHeight,
+               iGtkScale,
+               m_sizeWindow.cx,
+               m_sizeWindow.cy,
+               sizeImage.cx,
+               sizeImage.cy,
+               matrix.xx,
+               matrix.yx,
+               matrix.xy,
+               matrix.yy,
+               matrix.x0,
+               matrix.y0);
+
+            fflush(stderr);
+
             auto pgraphics = createø<::draw2d::graphics>();
             //         cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
             //         cairo_set_operator(cr, CAIRO_OPERATOR_CLEAR);
