@@ -1368,6 +1368,60 @@ m_phappeningLastMouseUp = pevent;
 
             auto psurface = cairo_surface_for_pixmap(pixmap);
 
+            int iWidgetScale = gtk_widget_get_scale_factor(widget);
+
+            int iLogicalWidth =
+               gtk_widget_get_allocated_width(widget);
+
+            int iLogicalHeight =
+               gtk_widget_get_allocated_height(widget);
+
+            double dSourceScaleX = 0.0;
+            double dSourceScaleY = 0.0;
+
+            cairo_surface_get_device_scale(
+               psurface,
+               &dSourceScaleX,
+               &dSourceScaleY);
+
+            double dTargetScaleX = 0.0;
+            double dTargetScaleY = 0.0;
+
+            cairo_surface_t * ptargetsurface = cairo_get_target(cr);
+
+            cairo_surface_get_device_scale(
+               ptargetsurface,
+               &dTargetScaleX,
+               &dTargetScaleY);
+
+            int iSurfaceWidth = -1;
+            int iSurfaceHeight = -1;
+
+            if(cairo_surface_get_type(psurface) == CAIRO_SURFACE_TYPE_IMAGE)
+            {
+
+               iSurfaceWidth =
+                  cairo_image_surface_get_width(psurface);
+
+               iSurfaceHeight =
+                  cairo_image_surface_get_height(psurface);
+
+            }
+
+            informationf(
+               "GTK3 draw: logical=%dx%d widget-scale=%d "
+               "source=%dx%d source-device-scale=%.2f,%.2f "
+               "target-device-scale=%.2f,%.2f",
+               iLogicalWidth,
+               iLogicalHeight,
+               iWidgetScale,
+               iSurfaceWidth,
+               iSurfaceHeight,
+               dSourceScaleX,
+               dSourceScaleY,
+               dTargetScaleX,
+               dTargetScaleY);
+
             cairo_set_source_surface(cr, psurface, 0., 0.);
 
             cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);

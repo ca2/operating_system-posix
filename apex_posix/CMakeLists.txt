@@ -120,7 +120,7 @@ elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
    #set_target_properties(${PROJECT_NAME} PROPERTIES CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-   if (${FILE_SYSTEM_INOTIFY} AND NOT DEFINED DEBIAN_LIKE AND ${USE_PKGCONFIG})
+   if (${FILE_SYSTEM_INOTIFY} AND NOT ${DEBIAN_LIKE} AND ${USE_PKGCONFIG})
 
       pkg_check_modules(${PROJECT_NAME}_PKGCONFIG libinotify)
       target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})

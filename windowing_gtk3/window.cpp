@@ -422,6 +422,16 @@ namespace windowing_gtk3
    void window::_on_cairo_draw(GtkWidget* widget, cairo_t* cr)
    {
 
+      fprintf(
+   stderr,
+   "ACTIVE GTK3 DRAW: %s:%d widget=%p cr=%p\n",
+   __FILE__,
+   __LINE__,
+   static_cast<void *>(widget),
+   static_cast<void *>(cr));
+
+      fflush(stderr);
+
       try
       {
 

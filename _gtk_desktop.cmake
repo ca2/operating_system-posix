@@ -40,7 +40,7 @@ else()
 
    #find_package(PkgConfig REQUIRED)
    # Try to find GTK 4 first
-   pkg_check_modules(GTK4 gtk4 QUIET)
+   pkg_check_modules(GTK4 QUIET gtk4)
    if(GTK4_FOUND)
       message(STATUS "GTK 4 found: ${GTK4_VERSION}")
       set(GTK_RELEASE ${GTK4_VERSION})
@@ -50,7 +50,7 @@ else()
 #     set(GTK_VERSION 4)
    else()
       # Fallback to GTK 3
-      pkg_check_modules(GTK3 gtk+-3.0 QUIET)
+      pkg_check_modules(GTK3 QUIET gtk+-3.0)
       if(GTK3_FOUND)
          message(STATUS "GTK 3 found: ${GTK3_VERSION}")
          set(GTK_RELEASE ${GTK3_VERSION})
@@ -63,6 +63,75 @@ else()
       endif()
    endif()
 
+
+   find_package(PkgConfig REQUIRED)
+
+   message(STATUS "PKG_CONFIG_EXECUTABLE=${PKG_CONFIG_EXECUTABLE}")
+   message(STATUS "PKG_CONFIG_PATH=$ENV{PKG_CONFIG_PATH}")
+   message(STATUS "PKG_CONFIG_LIBDIR=$ENV{PKG_CONFIG_LIBDIR}")
+   message(STATUS "PKG_CONFIG_SYSROOT_DIR=$ENV{PKG_CONFIG_SYSROOT_DIR}")
+
+   execute_process(
+      COMMAND "${PKG_CONFIG_EXECUTABLE}" --modversion gtk4
+      RESULT_VARIABLE GTK4_PKG_RESULT
+      OUTPUT_VARIABLE GTK4_PKG_OUTPUT
+      ERROR_VARIABLE GTK4_PKG_ERROR
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+      ERROR_STRIP_TRAILING_WHITESPACE
+   )
+
+   message(STATUS "gtk4 result=${GTK4_PKG_RESULT}")
+   message(STATUS "gtk4 version=${GTK4_PKG_OUTPUT}")
+   message(STATUS "gtk4 error=${GTK4_PKG_ERROR}")
+
+   execute_process(
+      COMMAND "${PKG_CONFIG_EXECUTABLE}" --modversion gtk+-3.0
+      RESULT_VARIABLE GTK3_PKG_RESULT
+      OUTPUT_VARIABLE GTK3_PKG_OUTPUT
+      ERROR_VARIABLE GTK3_PKG_ERROR
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+      ERROR_STRIP_TRAILING_WHITESPACE
+   )
+
+   message(STATUS "gtk+-3.0 result=${GTK3_PKG_RESULT}")
+   message(STATUS "gtk+-3.0 version=${GTK3_PKG_OUTPUT}")
+   message(STATUS "gtk+-3.0 error=${GTK3_PKG_ERROR}")
+
+   pkg_check_modules(GTK4 QUIET gtk4)
+
+   message(STATUS "GTK4_FOUND=${GTK4_FOUND}")
+   message(STATUS "GTK4_VERSION=${GTK4_VERSION}")
+   message(STATUS "GTK4_PKGCONFIG_EXECUTABLE=${PKG_CONFIG_EXECUTABLE}")
+
+   if(GTK4_FOUND)
+
+      message(STATUS "GTK 4 found: ${GTK4_VERSION}")
+      set(GTK_RELEASE "${GTK4_VERSION}")
+      set(GTK_VERSION 4)
+
+   else()
+
+      pkg_check_modules(GTK3 QUIET gtk+-3.0)
+
+      message(STATUS "GTK3_FOUND=${GTK3_FOUND}")
+      message(STATUS "GTK3_VERSION=${GTK3_VERSION}")
+
+      if(GTK3_FOUND)
+
+         message(STATUS "GTK 3 found: ${GTK3_VERSION}")
+         set(GTK_RELEASE "${GTK3_VERSION}")
+         set(GTK_VERSION 3)
+
+      else()
+
+         message(FATAL_ERROR
+            "Neither GTK 4 nor GTK 3 could be found.\n"
+            "gtk4 pkg-config error: ${GTK4_PKG_ERROR}\n"
+            "gtk3 pkg-config error: ${GTK3_PKG_ERROR}")
+
+      endif()
+
+   endif()
    # Print the detected GTK version
    message(STATUS "GTK_RELEASE is ${GTK_RELEASE}")
 

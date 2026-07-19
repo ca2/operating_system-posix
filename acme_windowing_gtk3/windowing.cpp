@@ -448,10 +448,10 @@ namespace gtk3
 
             }
 
-            if (!m_bIsGtk4ApplicationHeld)
+            if (!m_bIsGtkApplicationHeld)
             {
 
-               m_bIsGtk4ApplicationHeld = true;
+               m_bIsGtkApplicationHeld = true;
 
                g_application_hold(G_APPLICATION(m_pgtkapplication));
 
