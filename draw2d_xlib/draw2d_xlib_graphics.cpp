@@ -1681,15 +1681,15 @@ namespace draw2d_xlib
          /* p::image::image_pointer pimage1(this);
                       pimage1 = create_image(rectangleText.size());
                       pimage1->Fill(0, 0, 0, 0);
-         //               pimage1->get_graphics()->set_color(m_colorColor);
-                      pimage1->get_graphics()->SelectObject(&get_current_font());
-                      pimage1->get_graphics()->SetBkMode(TRANSPARENT);
-                      pimage1->get_graphics()->text_out(0, 0, str);
+         //               pgraphicsImage1->set_color(m_colorColor);
+                      pgraphicsImage1->SelectObject(&get_current_font());
+                      pgraphicsImage1->SetBkMode(TRANSPARENT);
+                      pgraphicsImage1->text_out(0, 0, str);
                       //pimage1->channel_from(::color::e_channel_opacity, image0);
                       ::image::image_pointer pimage2(this);
                       pimage2 = create_image(rectangleText.size());
                       pimage2->Fill(255, 0, 0, 0);
-                      pimage2->get_graphics()->set_alpha_mode(::draw2d::alpha_mode_set);
+                      pgraphicsImage2->set_alpha_mode(::draw2d::alpha_mode_set);
                       pimage2->from(i32_point(maximum(0, m_pointAlphaBlend.x - x), maximum(0, m_pointAlphaBlend.y - y)),
                          m_pimageAlphaBlend->get_graphics(), i32_point(maximum(0, x - m_pointAlphaBlend.x), maximum(0, y - m_pointAlphaBlend.y)),
                          i32_size(maximum(0, m_pimageAlphaBlend->width()-maximum(0, x - m_pointAlphaBlend.x)),
@@ -1700,7 +1700,7 @@ namespace draw2d_xlib
 
          /*           keeper < image > keep(&m_pimageAlphaBlend, nullptr, m_pimageAlphaBlend, true);
 
-                    return psystem->imaging().true_blend(this, ::i32_point(x, y), rectangleText.size(), pimage1->get_graphics(), ::i32_point());
+                    return psystem->imaging().true_blend(this, ::i32_point(x, y), rectangleText.size(), pgraphicsImage1, ::i32_point());
 
                     /*BLENDFUNCTION bf;
                     bf.BlendOp     = AC_SRC_OVER;
@@ -1708,7 +1708,7 @@ namespace draw2d_xlib
                     bf.SourceConstantAlpha = 0xFF;
                     bf.AlphaFormat = AC_SRC_ALPHA;
                     return ::AlphaBlend(get_handle1(), x, y,
-                       rectangleText.width(), rectangleText.height(), WIN_HDC(pimage1->get_graphics()), 0, 0, rectangleText.width(),
+                       rectangleText.width(), rectangleText.height(), WIN_HDC(pgraphicsImage1), 0, 0, rectangleText.width(),
                        rectangleText.height(), bf) != false; */
          //      }
          // }
@@ -1741,8 +1741,8 @@ namespace draw2d_xlib
                ::image::image_pointer pimage1;
                pimage1 = create_image(rectangleText.size());
                pbrush->create_solid(m_pbrush->m_color);
-               pimage1->get_graphics()->SelectObject(get_current_font());
-               pimage1->get_graphics()->text_out(0, 0, str);
+               pgraphicsImage1->SelectObject(get_current_font());
+               pgraphicsImage1->text_out(0, 0, str);
                pimage1->channel_from(::color::e_channel_opacity, image0);
                ::image::image_pointer pimage2;
                pimage2 = create_image(rectangleText.size());
@@ -1755,7 +1755,7 @@ namespace draw2d_xlib
 
                keep < image > keep(&m_pimageAlphaBlend, nullptr, m_pimageAlphaBlend, true);
 
-               return BitBlt((int) x, (int) y, rectangleText.width(), rectangleText.height(), pimage1->get_graphics(), 0, 0);
+               return BitBlt((int) x, (int) y, rectangleText.width(), rectangleText.height(), pgraphicsImage1, 0, 0);
 
                /*BLENDFUNCTION bf;
                bf.BlendOp     = AC_SRC_OVER;
@@ -1763,7 +1763,7 @@ namespace draw2d_xlib
                bf.SourceConstantAlpha = 0xFF;
                bf.AlphaFormat = AC_SRC_ALPHA;
                return ::AlphaBlend(get_handle1(), x, y,
-                  rectangleText.width(), rectangleText.height(), WIN_HDC(pimage1->get_graphics()), 0, 0, rectangleText.width(),
+                  rectangleText.width(), rectangleText.height(), WIN_HDC(pgraphicsImage1), 0, 0, rectangleText.width(),
                   rectangleText.height(), bf) != false; */
             }
          }

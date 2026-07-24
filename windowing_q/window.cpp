@@ -2082,7 +2082,7 @@ namespace windowing_q
       //
       //      {
       //
-      //         ::image::image_source imagesource(pimage->g(), pimage->rectangle());
+      //         ::image::image_source imagesource(pgraphicsImage, pimage->rectangle());
       //
       //         f64_rectangle rectangle(image1->rectangle());
       //
