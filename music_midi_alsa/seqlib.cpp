@@ -13,7 +13,7 @@
 // *  GNU General Public License for more details.
 // */
 //
-//#include "framework.h"
+//#include "platform.h"
 //
 //static void set_channel(snd_seq_event_t *ep, int chan);
 //

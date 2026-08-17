@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "dialog.h"
 #include "icon.h"
 #include "window.h"

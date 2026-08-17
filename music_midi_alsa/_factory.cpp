@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "midi.h"
 
 #if !BROAD_PRECOMPILED_HEADER

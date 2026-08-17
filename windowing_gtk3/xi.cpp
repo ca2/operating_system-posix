@@ -1,7 +1,7 @@
 //
 // Created by camilo on 17/02/2021. 00:45 BRT <3TBS_!!
 //
-#include "framework.h"
+#include "platform.h"
 #ifdef WITH_XI
 #include "windowing_gtk3.h"
 #include "acme/parallelization/synchronous_lock.h"

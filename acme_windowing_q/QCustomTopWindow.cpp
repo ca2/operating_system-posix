@@ -2,7 +2,7 @@
 //
 // Created by camilo on 2024-09-27 17:17 <3ThomasBorregaardSoresen!!
 ////
-#include "../acme_windowing_q6/framework.h"
+#include "../acme_windowing_q6/platform.h"
 #include "QCustomTopWindow.h"
 #include "../acme_windowing_q6/window.h"
 #include <QPainter>

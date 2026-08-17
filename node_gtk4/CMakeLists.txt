@@ -15,8 +15,8 @@ list(APPEND library_source
    copydesk.h
    display.cpp
    display.h
-   framework.cpp
-   framework.h
+   platform.cpp
+   platform.h
    gconf.cpp
    #gdk_gdk.cpp
    #gdk_gdk.h
@@ -66,8 +66,8 @@ add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 if (NOT ${NO_PRECOMPILED_HEADER})
 
-   target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
-   target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
+   target_precompile_headers(${PROJECT_NAME} PRIVATE platform.h)
+   target_precompile_headers(static_${PROJECT_NAME} PRIVATE platform.h)
 
 endif ()
 

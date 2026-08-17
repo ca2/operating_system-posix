@@ -1,7 +1,7 @@
 //
 // Created by camilo on 2025-01-12 15:32 <3ThomasBorregaardSorensen!!
 //
-#include "framework.h"
+#include "platform.h"
 #include "kde5.h"
 #include <QtDBus/QDBusInterface>
 #include <QtDBus/QDBusReply>

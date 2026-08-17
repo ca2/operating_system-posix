@@ -1,7 +1,7 @@
 //
 // Created by camilo on 17/02/2021. 23:08 BRT <3TBS_!!
 //
-#include "framework.h"
+#include "platform.h"
 #include "windowing_x11.h"
 #include "display.h"
 #include "acme/parallelization/synchronous_lock.h"

@@ -1,5 +1,5 @@
 // from interprocess_communication.cpp by Camilo 2021-10-19 18:58 BRT <3ThomasBorregaardSoerensen
-#include "framework.h"
+#include "platform.h"
 #include "interprocess_target.h"
 #include "acme/filesystem/filesystem/file_system.h"
 #include "acme/operating_system/shared_posix/c_errno.h"

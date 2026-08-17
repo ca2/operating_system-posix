@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "windowing_x11.h"
 #include "acme_windowing_x11/display_lock.h"
 #include <fcntl.h> // library for fcntl function

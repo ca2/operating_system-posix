@@ -1,7 +1,7 @@
 //
 // Created by camilo on 2024-05-26 22:03 <3ThomasBorregaardSorensen!!
 //
-#include "framework.h"
+#include "platform.h"
 #include "windowing.h"
 #include "acme/integrate/qt/image.h"
 #include "acme/nano/nano.h"

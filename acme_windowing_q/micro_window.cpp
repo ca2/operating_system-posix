@@ -1,7 +1,7 @@
 //
 // Created by camilo on 2025-01-10 16:51 <3ThomasBorregaardSorensen!!
 //
-#include "../acme_windowing_q6/framework.h"
+#include "../acme_windowing_q6/platform.h"
 #include "micro_window.h"
 
 

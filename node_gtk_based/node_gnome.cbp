@@ -242,11 +242,11 @@
 			<Option target="node_gnome"/>
 			<Option target="static_node_gnome"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gnome/framework.cpp">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gnome/platform.cpp">
 			<Option target="node_gnome"/>
 			<Option target="static_node_gnome"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gnome/framework.h">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gnome/platform.h">
 			<Option target="node_gnome"/>
 			<Option target="static_node_gnome"/>
 		</Unit>

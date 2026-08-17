@@ -230,11 +230,11 @@
 			<Option target="audio_sndio"/>
 			<Option target="static_audio_sndio"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/audio_sndio/framework.cpp">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/audio_sndio/platform.cpp">
 			<Option target="audio_sndio"/>
 			<Option target="static_audio_sndio"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/audio_sndio/framework.h">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/audio_sndio/platform.h">
 			<Option target="audio_sndio"/>
 			<Option target="static_audio_sndio"/>
 		</Unit>

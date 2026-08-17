@@ -21,8 +21,8 @@ list(APPEND library_source
         display.h
         #display_base.cpp
         #display_base.h
-        framework.cpp
-        framework.h
+        platform.cpp
+        platform.h
         #gdk_gdk.cpp
         #gdk_gdk.h
         gtk4.cpp
@@ -50,7 +50,7 @@ list(APPEND library_references
 
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
-target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE platform.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 

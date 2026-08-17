@@ -266,11 +266,11 @@
 			<Option target="windowing_x11"/>
 			<Option target="static_windowing_x11"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/windowing_x11/framework.cpp">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/windowing_x11/platform.cpp">
 			<Option target="windowing_x11"/>
 			<Option target="static_windowing_x11"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/windowing_x11/framework.h">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/windowing_x11/platform.h">
 			<Option target="windowing_x11"/>
 			<Option target="static_windowing_x11"/>
 		</Unit>

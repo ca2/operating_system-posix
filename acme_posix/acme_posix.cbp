@@ -320,11 +320,11 @@
 			<Option target="acme_posix"/>
 			<Option target="static_acme_posix"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/acme_posix/framework.cpp">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/acme_posix/platform.cpp">
 			<Option target="acme_posix"/>
 			<Option target="static_acme_posix"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/acme_posix/framework.h">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/acme_posix/platform.h">
 			<Option target="acme_posix"/>
 			<Option target="static_acme_posix"/>
 		</Unit>

@@ -1,5 +1,5 @@
 // Created by camilo on 8/11/25 (2025-08-11) 00:01 <3ThomasBorregaardSørensen!!
-#include "framework.h"
+#include "platform.h"
 #include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h>

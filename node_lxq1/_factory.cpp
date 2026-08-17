@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "copydesk.h"
 #include "notify_icon.h"
 #include "appindicator.h"

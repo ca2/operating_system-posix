@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "windowing_wayland.h"
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>

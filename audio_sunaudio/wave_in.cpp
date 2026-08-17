@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "wave_in.h"
 #include "translation.h"
 #include "acme/parallelization/synchronous_lock.h"

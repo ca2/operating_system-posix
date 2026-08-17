@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include <math.h>
 
 
@@ -2616,7 +2616,7 @@ namespace draw2d_xlib
          if(!pimage = create_image(rectangleWindow.bottom_right()))
             return false;
 
-         ::draw2d::graphics * pgraphics = pimage->get_graphics();
+         ::draw2d::graphics * pgraphics = pgraphicsImage;
 
          if(pgraphics->get_os_data() == nullptr)
             return false;

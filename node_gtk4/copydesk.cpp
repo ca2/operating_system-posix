@@ -1,5 +1,5 @@
 // Created by camilo on 2026-07-14 03:19 <3ThomasBorregaardSørensen!! Mummi!! Bilbo!!
-#include "framework.h"
+#include "platform.h"
 #include "copydesk.h"
 #include "acme/windowing/windowing.h"
 #include "aura_posix/clipboard_data.h"
@@ -681,7 +681,7 @@ namespace
       if(cx > 0 && cy > 0 && pdata->m_pimage)
       {
 
-         pdata->m_pimage->create({cx, cy});
+         pdata->m_pimage->create_as_descriptor({cx, cy});
          pdata->m_pimage->map();
 
 #if GTK_CHECK_VERSION(4, 10, 0)
@@ -1178,7 +1178,7 @@ namespace node_gtk4
 
       }
 
-      pimage->create(pdata->m_pimage->size());
+      pimage->create_as_descriptor(pdata->m_pimage->size());
 
       pimage->copy(pdata->m_pimage);
 

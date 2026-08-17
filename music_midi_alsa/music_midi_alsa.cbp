@@ -120,10 +120,10 @@
 		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-linux/music_midi_alsa/_library.h">
 			<Option target="music_midi_alsa"/>
 		</Unit>
-		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-linux/music_midi_alsa/framework.cpp">
+		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-linux/music_midi_alsa/platform.cpp">
 			<Option target="music_midi_alsa"/>
 		</Unit>
-		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-linux/music_midi_alsa/framework.h">
+		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-linux/music_midi_alsa/platform.h">
 			<Option target="music_midi_alsa"/>
 		</Unit>
 		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-linux/music_midi_alsa/message_out.cpp">

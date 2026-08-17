@@ -8,7 +8,7 @@
 // any later version.
 //
 // $Id: XKeyboard.cpp 53 2008-07-18 08:38:47Z jay $
-#include "framework.h"
+#include "platform.h"
 #include "xcb_keyboard.h"
 #include "xcb_exception.h"
 //!!!#include <X11/XKBlib.h>

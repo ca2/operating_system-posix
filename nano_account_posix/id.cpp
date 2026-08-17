@@ -2,7 +2,7 @@
 // Created by camilo on 2024-06-02 20:06 <3ThomasBorregaardSorensen!!
 // From acme/nano/account/id.cpp by camilo on 2024-06-02 20:11 <3ThomasBorregaardSorensen!!
 //
-#include "framework.h"
+#include "platform.h"
 #include "id.h"
 
 

@@ -1,7 +1,7 @@
 //
 // Created by camilo on 13/02/2021. 22:55 BRT <3TBS_!!
 //
-#include "framework.h"
+#include "platform.h"
 #include "file_memory_map.h"
 #include "mutex.h"
 #include "directory_system.h"

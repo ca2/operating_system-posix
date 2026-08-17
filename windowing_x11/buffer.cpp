@@ -1,7 +1,7 @@
 // created by Camilo <3CamiloSasukeThomasBorregaardSoerensen
 // recreated by Camilo 2021-01-28 22:42 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
-#include "framework.h"
+#include "platform.h"
 #include "windowing_x11.h"
 #include "buffer.h"
 #include "window.h"
@@ -221,7 +221,7 @@ namespace windowing_x11
             pgraphics->defer_set_size(pbufferitem->m_sizeBufferItemDraw);
 
          }
-         else if (pgraphics == pbufferitem->m_pimage2->g())
+         else if (pgraphics == pbufferitem->m_pgraphicsImage2->)
          {
 
 

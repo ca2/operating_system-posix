@@ -996,7 +996,7 @@
   <ItemGroup>
     <ClCompile Include="button.cpp" />
     <ClCompile Include="dialog.cpp" />
-    <ClCompile Include="framework.cpp">
+    <ClCompile Include="platform.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='StaticRelease|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='StaticMetaRelease|Win32'">Create</PrecompiledHeader>
@@ -1037,7 +1037,7 @@
   <ItemGroup>
     <ClInclude Include="button.h" />
     <ClInclude Include="dialog.h" />
-    <ClInclude Include="framework.h" />
+    <ClInclude Include="platform.h" />
     <ClInclude Include="icon.h" />
     <ClInclude Include="innate_ui.h" />
     <ClInclude Include="still.h" />

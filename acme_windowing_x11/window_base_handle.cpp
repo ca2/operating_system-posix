@@ -1,7 +1,7 @@
 //
 // Created by camilo on 2024-10-03 04:33 <3ThomasBorregaardSorensen!!
 //
-#include "framework.h"
+#include "platform.h"
 #include "window_base_handle.h"
 
 

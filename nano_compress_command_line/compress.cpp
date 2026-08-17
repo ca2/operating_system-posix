@@ -1,7 +1,7 @@
 //
 // Created by camilo on 2024-05-27 15:33 <3ThomasBorregaardSorensen!!
 //
-#include "framework.h"
+#include "platform.h"
 #include "compress.h"
 #include "acme/platform/node.h"
 

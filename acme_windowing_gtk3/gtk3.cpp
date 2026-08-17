@@ -1,7 +1,7 @@
 //
 // Created by camilo on 2026-07-15 01:36 <3ThomasBorregaardSorensen!! Mummi!! Bilbo
 //
-#include "framework.h"
+#include "platform.h"
 
 
 bool gtk3_is_session_dbus_available()

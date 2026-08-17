@@ -2,7 +2,7 @@
 //
 // Created by camilo on 2024-09-27 17:17 <3ThomasBorregaardSoresen!!
 ////
-#include "framework.h"
+#include "platform.h"
 // #include "QCustomTopWindow.h"
 // #include "window.h"
 // #include <QPainter>

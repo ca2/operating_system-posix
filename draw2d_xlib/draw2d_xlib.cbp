@@ -104,7 +104,7 @@
 		<Unit filename="draw2d_xlib_thumbnail_dc.cpp" />
 		<Unit filename="draw2d_xlib_region.cpp" />
 		<Unit filename="draw2d_xlib_region.h" />
-		<Unit filename="framework.h">
+		<Unit filename="platform.h">
 			<Option compile="1" />
 			<Option weight="0" />
 		</Unit>

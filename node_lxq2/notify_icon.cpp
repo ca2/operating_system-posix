@@ -1,7 +1,7 @@
 //
 // Created by camilo on 15/02/2021 <3ThomasBS_!!.
 //
-#include "framework.h"
+#include "platform.h"
 // #include "notify_icon.h"
 // #include "node.h"
 // #include "acme/constant/id.h"
@@ -204,9 +204,9 @@
 //
 //       ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
 //
-//       pimage24->g()->set_compositing_quality(::draw2d::e_compositing_quality_high_quality);
+//       pgraphicsImage24->set_compositing_quality(::draw2d::e_compositing_quality_high_quality);
 //
-//       pimage24->g()->draw(imagedrawing);
+//       pgraphicsImage24->draw(imagedrawing);
 //
 //       image()->save_image(pathIcon24, pimage24);
 //

@@ -1,7 +1,7 @@
 //
 // Created by camilo on 16/02/2021.
 //
-#include "framework.h"
+#include "platform.h"
 #include "display.h"
 #include "windowing.h"
 #include "window.h"

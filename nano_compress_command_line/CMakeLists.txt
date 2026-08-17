@@ -18,13 +18,13 @@ list(APPEND library_source
         _factory.cpp
         compress.cpp
         compress.h
-        framework.cpp
-        framework.h)
+        platform.cpp
+        platform.h)
 
 
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
-target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(static_${PROJECT_NAME} PRIVATE platform.h)
 
 #set_target_properties(static_${PROJECT_NAME}} PROPERTIES LINKER_LANGUAGE CXX)
 

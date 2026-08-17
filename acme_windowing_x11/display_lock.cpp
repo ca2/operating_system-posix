@@ -1,7 +1,7 @@
 //
 // Created by camilo on 16/02/2021. 22:05 BRT <3TBS_!!
 //
-#include "framework.h"
+#include "platform.h"
 //#ifdef WITH_X11
 //#include <X11/Xlib-xcb.h>
 //#endif

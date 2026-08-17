@@ -2,7 +2,7 @@
 // Created by camilo on 21/02/2022 23:15 <3ThomasBorregaardSorensen!!
 // Modified 2023-10-05 23:51
 //
-#include "framework.h"
+#include "platform.h"
 #include "display.h"
 #include "window.h"
 #include "windowing.h"
@@ -3598,7 +3598,7 @@ namespace x11
 //
 // Created by camilo on 21/02/2022 23:15 <3ThomasBorregaardSorensen!!
 //
-#include "framework.h"
+#include "platform.h"
 #include "display.h"
 #include "window.h"
 #include "acme/parallelization/mutex.h"

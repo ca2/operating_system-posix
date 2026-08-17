@@ -1,7 +1,7 @@
 //
 // Created by camilo on 20/01/2021. <3ThomasBS!!
 //
-#include "framework.h"
+#include "platform.h"
 #include "aura_posix/clipboard_data.h"
 #include <gtk/gtk.h>
 #include "aura/graphics/image/image.h"
@@ -62,7 +62,7 @@ void clipboard_image_received_func(GtkClipboard * clipboard, GdkPixbuf * pixbuf,
 
       int iSrcScan = gdk_pixbuf_get_rowstride(pixbuf);
 
-      pdata->m_pimage->create({w, h});
+      pdata->m_pimage->create_as_descriptor({w, h});
 
       if(pdata->m_pimage)
       {

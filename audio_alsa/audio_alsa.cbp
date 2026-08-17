@@ -126,10 +126,10 @@
 		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/audio_alsa/audio_mmsystem_wave_in.h">
 			<Option target="audio_alsa"/>
 		</Unit>
-		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/audio_alsa/framework.cpp">
+		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/audio_alsa/platform.cpp">
 			<Option target="audio_alsa"/>
 		</Unit>
-		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/audio_alsa/framework.h">
+		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/audio_alsa/platform.h">
 			<Option target="audio_alsa"/>
 		</Unit>
 		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/audio_alsa/snd_pcm.cpp">

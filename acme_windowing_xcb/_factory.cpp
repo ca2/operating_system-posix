@@ -1,5 +1,5 @@
 // From windowing_system_x11 by camilo on 2024-06-04 <3ThomasBorregaardSorensen!!
-#include "framework.h"
+#include "platform.h"
 #include "windowing_system.h"
 
 

@@ -270,11 +270,11 @@
 			<Option target="node_gtk3"/>
 			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/framework.cpp">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/platform.cpp">
 			<Option target="node_gtk3"/>
 			<Option target="static_node_gtk3"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/framework.h">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/node_gtk3/platform.h">
 			<Option target="node_gtk3"/>
 			<Option target="static_node_gtk3"/>
 		</Unit>

@@ -1,7 +1,7 @@
 //
 // Created by camilo on 02/05/2021.
 //
-#include "framework.h"
+#include "platform.h"
 #include "_xim_keyboard.h"
 #include <X11/keysym.h>
 

@@ -1,5 +1,5 @@
 // created by Camilo 2021-01-31 05:16 BRT <3CamiloSasukeThomasBorregaardSoerensen
-#include "framework.h"
+#include "platform.h"
 #include "monitor.h"
 //#include "display.h"
 #include "windowing_gtk3/display.h"

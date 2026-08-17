@@ -2,7 +2,7 @@
 // From acme_posix/file_system.h
 // on 2021-08-12
 // 18:20 BRT
-#include "framework.h"
+#include "platform.h"
 #include "directory_system.h"
 #include "path_system.h"
 #include "acme/operating_system/shared_posix/c_errno.h"

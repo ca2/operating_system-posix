@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 //#include "aura/message.h"
 #include "wave_out.h"
 #include "translation.h"

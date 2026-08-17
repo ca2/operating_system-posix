@@ -1,7 +1,7 @@
 //
 // Created by camilo on 9/24/24.
 //
-#include "framework.h"
+#include "platform.h"
 #include "icon.h"
 #include "acme/graphics/image/pixmap.h"
 #include "acme/platform/system.h"

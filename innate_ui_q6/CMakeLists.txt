@@ -8,8 +8,8 @@ list(APPEND library_source
    _factory.cpp
    button.cpp
    button.h
-   framework.cpp
-   framework.h
+   platform.cpp
+   platform.h
    dialog.cpp
    dialog.h
    icon.cpp
@@ -49,7 +49,7 @@ endif()
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
 
-target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE platform.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 

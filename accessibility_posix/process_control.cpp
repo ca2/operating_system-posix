@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "process_control.h"
 #include <cerrno>
 #include <csignal>

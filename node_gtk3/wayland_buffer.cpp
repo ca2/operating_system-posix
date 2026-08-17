@@ -1,7 +1,7 @@
 //
 // Created by camilo on 2024-09-14 13:27 <3ThomasBorregaardSorensen!!
 //
-#include "framework.h"
+#include "platform.h"
 #include "windowing_wayland.h"
 #include "wayland_buffer.h"
 #include "window.h"

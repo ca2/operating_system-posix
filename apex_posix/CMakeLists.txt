@@ -9,8 +9,8 @@ list(APPEND library_source
         _.h
         _.cpp
         _factory.cpp
-        framework.cpp
-        framework.h
+        platform.cpp
+        platform.h
         node.cpp
         node.h
         #os_context.cpp
@@ -96,8 +96,8 @@ endif ()
 
 if (NOT ${NO_PRECOMPILED_HEADER})
 
-    target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
-    target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
+    target_precompile_headers(${PROJECT_NAME} PRIVATE platform.h)
+    target_precompile_headers(static_${PROJECT_NAME} PRIVATE platform.h)
 
 endif ()
 

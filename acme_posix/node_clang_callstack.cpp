@@ -5,7 +5,7 @@
 //  Created by Camilo Sasuke Thomas Borregaard Soerensen on 30/09/22 23:56.
 //
 // Code originally found at https://eli.thegreenplace.net/2015/programmatic-access-to-the-call-stack-in-c/ on 30/09/22
-#include "framework.h"
+#include "platform.h"
 
 #if !defined(__clang__)
 #error "This file should be only compiled with a CLANG compiler."

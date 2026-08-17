@@ -35,8 +35,8 @@ list(APPEND library_source
    file_context.h
    file_memory_map.cpp
    file_memory_map.h
-   framework.cpp
-   framework.h
+   platform.cpp
+   platform.h
    integration_context.cpp
    integration_context.h
    mutex.cpp
@@ -88,8 +88,8 @@ list(TRANSFORM static_library_references PREPEND static_)
 
 if (NOT ${NO_PRECOMPILED_HEADER})
 
-   target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
-   target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
+   target_precompile_headers(${PROJECT_NAME} PRIVATE platform.h)
+   target_precompile_headers(static_${PROJECT_NAME} PRIVATE platform.h)
 
 endif ()
 

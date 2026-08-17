@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		76089035318EB1FF97DB185A /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF599A7229C617C36ACF820 /* framework.cpp */; };
+		76089035318EB1FF97DB185A /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF599A7229C617C36ACF820 /* platform.cpp */; };
 		C0CA4F8AEA5DBF4F463F4A43 /* _.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37042E97CCCFBE9237F324FD /* _.cpp */; };
 		089936B193725959005A35D2 /* http.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B99CE513C3882D37EC1C10 /* http.cpp */; };
 		9D24BFBEC0E01049DDC73962 /* _factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30357C2A2489B91809FFEDF2 /* _factory.cpp */; };
@@ -16,14 +16,14 @@
 		946129171F8CF1CB039113FF /* _nano_http.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A7BFDC4759E7584C4364031 /* _nano_http.h */; };
 		88D85E2062AD2DF06C138FC7 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 04AC99AB3B6890589725402D /* _.h */; };
 		8A75582A8AB80EFABF0BBA89 /* curl_easy.h in Headers */ = {isa = PBXBuildFile; fileRef = 40127274D3D650FEE9485D55 /* curl_easy.h */; };
-		EC701E608203464B0B902701 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 22200971E87EAF3D3F383EB4 /* framework.h */; };
+		EC701E608203464B0B902701 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 22200971E87EAF3D3F383EB4 /* platform.h */; };
 		C323572730BEF0670DC8D649 /* http.h in Headers */ = {isa = PBXBuildFile; fileRef = AD3891766188D3067E3AF5BE /* http.h */; };
 		D491880A36B12CA345BB1029 /* _nano_http.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A7BFDC4759E7584C4364031 /* _nano_http.h */; };
 		B442A074F8EAD58F521504CE /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 04AC99AB3B6890589725402D /* _.h */; };
 		2D15CF43331FB5CEEBBD92BC /* curl_easy.h in Headers */ = {isa = PBXBuildFile; fileRef = 40127274D3D650FEE9485D55 /* curl_easy.h */; };
-		96D031312B416D7295D4DC35 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 22200971E87EAF3D3F383EB4 /* framework.h */; };
+		96D031312B416D7295D4DC35 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 22200971E87EAF3D3F383EB4 /* platform.h */; };
 		07489F22F05F4795CFF63341 /* http.h in Headers */ = {isa = PBXBuildFile; fileRef = AD3891766188D3067E3AF5BE /* http.h */; };
-		F7DDEDE550194738308442BB /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF599A7229C617C36ACF820 /* framework.cpp */; };
+		F7DDEDE550194738308442BB /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDF599A7229C617C36ACF820 /* platform.cpp */; };
 		D790AA73AB8F6BAC7BB63190 /* _.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37042E97CCCFBE9237F324FD /* _.cpp */; };
 		AF8976278C700FDDB9971051 /* http.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51B99CE513C3882D37EC1C10 /* http.cpp */; };
 		BE57B6F2963BB694DDC3000D /* _factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30357C2A2489B91809FFEDF2 /* _factory.cpp */; };
@@ -42,8 +42,8 @@
 		135DCE54C7788D867A367800 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		40127274D3D650FEE9485D55 /* curl_easy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = curl_easy.h; sourceTree = "<group>"; };
 		475AC07CBEB3A7018F8C3115 /* curl_easy.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = curl_easy.cpp; sourceTree = "<group>"; };
-		22200971E87EAF3D3F383EB4 /* framework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = framework.h; sourceTree = "<group>"; };
-		CDF599A7229C617C36ACF820 /* framework.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
+		22200971E87EAF3D3F383EB4 /* platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		CDF599A7229C617C36ACF820 /* platform.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = platform.cpp; sourceTree = "<group>"; };
 		AD3891766188D3067E3AF5BE /* http.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http.h; sourceTree = "<group>"; };
 		51B99CE513C3882D37EC1C10 /* http.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = http.cpp; sourceTree = "<group>"; };
 		045EA19AB9AD1F92830A495F /* libstatic_nano_http_libcurl.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libstatic_nano_http_libcurl.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,8 +102,8 @@
 				135DCE54C7788D867A367800 /* CMakeLists.txt */,
 				40127274D3D650FEE9485D55 /* curl_easy.h */,
 				475AC07CBEB3A7018F8C3115 /* curl_easy.cpp */,
-				22200971E87EAF3D3F383EB4 /* framework.h */,
-				CDF599A7229C617C36ACF820 /* framework.cpp */,
+				22200971E87EAF3D3F383EB4 /* platform.h */,
+				CDF599A7229C617C36ACF820 /* platform.cpp */,
 				AD3891766188D3067E3AF5BE /* http.h */,
 				51B99CE513C3882D37EC1C10 /* http.cpp */,
 			);
@@ -127,7 +127,7 @@
 				946129171F8CF1CB039113FF /* _nano_http.h in Headers */,
 				88D85E2062AD2DF06C138FC7 /* _.h in Headers */,
 				8A75582A8AB80EFABF0BBA89 /* curl_easy.h in Headers */,
-				EC701E608203464B0B902701 /* framework.h in Headers */,
+				EC701E608203464B0B902701 /* platform.h in Headers */,
 				C323572730BEF0670DC8D649 /* http.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,7 +139,7 @@
 				D491880A36B12CA345BB1029 /* _nano_http.h in Headers */,
 				B442A074F8EAD58F521504CE /* _.h in Headers */,
 				2D15CF43331FB5CEEBBD92BC /* curl_easy.h in Headers */,
-				96D031312B416D7295D4DC35 /* framework.h in Headers */,
+				96D031312B416D7295D4DC35 /* platform.h in Headers */,
 				07489F22F05F4795CFF63341 /* http.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,7 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76089035318EB1FF97DB185A /* framework.cpp in Sources */,
+				76089035318EB1FF97DB185A /* platform.cpp in Sources */,
 				C0CA4F8AEA5DBF4F463F4A43 /* _.cpp in Sources */,
 				089936B193725959005A35D2 /* http.cpp in Sources */,
 				9D24BFBEC0E01049DDC73962 /* _factory.cpp in Sources */,
@@ -243,7 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7DDEDE550194738308442BB /* framework.cpp in Sources */,
+				F7DDEDE550194738308442BB /* platform.cpp in Sources */,
 				D790AA73AB8F6BAC7BB63190 /* _.cpp in Sources */,
 				AF8976278C700FDDB9971051 /* http.cpp in Sources */,
 				BE57B6F2963BB694DDC3000D /* _factory.cpp in Sources */,
@@ -321,7 +321,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = framework.h;
+				GCC_PREFIX_HEADER = platform.h;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_REUSE_STRINGS = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -442,7 +442,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = framework.h;
+				GCC_PREFIX_HEADER = platform.h;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_REUSE_STRINGS = YES;
 				GCC_VERSION = "";

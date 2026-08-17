@@ -14,7 +14,7 @@
 // */
 //
 //
-//#include "framework.h"
+//#include "platform.h"
 //
 ///*
 // * Initialize a midi happening from the context. The source and

@@ -1,5 +1,5 @@
 // Created by camilo on 2024-09-12 22:45 <3ThomasBorregaardSorensen!!
-#include "framework.h"
+#include "platform.h"
 #include "dialog.h"
 #include "innate_ui.h"
 #include "window.h"

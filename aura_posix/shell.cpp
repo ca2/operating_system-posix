@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "shell.h"
 #include "acme/filesystem/filesystem/directory_system.h"
 #include "acme/parallelization/synchronous_lock.h"
@@ -833,12 +833,12 @@ namespace aura_posix
 //               ::image::image_pointer pimage;
 //               pimage = create_image({iSize,  iSize});
 //               pimage->fill(255, color32_byte_red(crBk), color32_byte_green(crBk), color32_byte_blue(crBk));
-//               pimage->get_graphics()->set_alpha_mode(::draw2d::alpha_mode_blend);
+//               pgraphicsImage->set_alpha_mode(::draw2d::alpha_mode_blend);
 //
-//               m_pimagelistHover[iSize]->draw(pimage->get_graphics(), iImage, ::i32_point(), 0);
-//               m_pimagelistHover[iSize]->m_pimage->g()->set_alpha_mode(::draw2d::alpha_mode_set);
-//               m_pimagelistHover[iSize]->m_pimage->g()->BitBlt(iImage * 48, 0, 48, 48, pimage->get_graphics());
-//               m_pimagelistHover[iSize]->m_pimage->g()->set_alpha_mode(::draw2d::alpha_mode_blend);
+//               m_pimagelistHover[iSize]->draw(pgraphicsImage, iImage, ::i32_point(), 0);
+//               m_pimagelistHover[iSize]->m_pgraphicsImage->set_alpha_mode(::draw2d::alpha_mode_set);
+//               m_pimagelistHover[iSize]->m_pgraphicsImage->BitBlt(iImage * 48, 0, 48, 48, pgraphicsImage);
+//               m_pimagelistHover[iSize]->m_pgraphicsImage->set_alpha_mode(::draw2d::alpha_mode_blend);
 //
 //            }
 //
@@ -848,12 +848,12 @@ namespace aura_posix
 //               ::image::image_pointer pimage;
 //               pimage = __create_image(d->size());
 //               pimage->fill(255, color32_byte_red(crBk), color32_byte_green(crBk), color32_byte_blue(crBk));
-//               pimage->get_graphics()->set_alpha_mode(::draw2d::alpha_mode_blend);
-//               pimage->get_graphics()->draw(::i32_point(), d->size(), d->get_graphics());
-//               pimage->get_graphics()->fill_rectangle(i32_rectangle(d->size()), argb(123, color32_byte_red(crBk), color32_byte_green(crBk), color32_byte_blue(crBk)));
-//               m_pimagelist[iSize]->m_pimage->g()->set_alpha_mode(::draw2d::alpha_mode_set);
-//               m_pimagelist[iSize]->m_pimage->g()->draw(::i32_point(), d->size(), pimage->get_graphics());
-//               m_pimagelist[iSize]->m_pimage->g()->set_alpha_mode(::draw2d::alpha_mode_blend);
+//               pgraphicsImage->set_alpha_mode(::draw2d::alpha_mode_blend);
+//               pgraphicsImage->draw(::i32_point(), d->size(), d->get_graphics());
+//               pgraphicsImage->fill_rectangle(i32_rectangle(d->size()), argb(123, color32_byte_red(crBk), color32_byte_green(crBk), color32_byte_blue(crBk)));
+//               m_pimagelist[iSize]->m_pgraphicsImage->set_alpha_mode(::draw2d::alpha_mode_set);
+//               m_pimagelist[iSize]->m_pgraphicsImage->draw(::i32_point(), d->size(), pgraphicsImage);
+//               m_pimagelist[iSize]->m_pgraphicsImage->set_alpha_mode(::draw2d::alpha_mode_blend);
 //
 //            }
 //

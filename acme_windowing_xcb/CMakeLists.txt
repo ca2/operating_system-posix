@@ -16,8 +16,8 @@ list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
-        framework.cpp
-        framework.h
+        platform.cpp
+        platform.h
         #xcb_hook.cpp
         #xcb_hook.h
         #xcb_windowing.cpp
@@ -27,7 +27,7 @@ list(APPEND library_source
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
 
-target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE platform.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 

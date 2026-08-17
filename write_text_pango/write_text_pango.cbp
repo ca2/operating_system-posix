@@ -246,11 +246,11 @@
 			<Option target="write_text_pango"/>
 			<Option target="static_write_text_pango"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/write_text_pango/framework.cpp">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/write_text_pango/platform.cpp">
 			<Option target="write_text_pango"/>
 			<Option target="static_write_text_pango"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/write_text_pango/framework.h">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/write_text_pango/platform.h">
 			<Option target="write_text_pango"/>
 			<Option target="static_write_text_pango"/>
 		</Unit>

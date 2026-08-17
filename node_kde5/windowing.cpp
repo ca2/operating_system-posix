@@ -1,5 +1,5 @@
 // From node_gtk/windowing by camilo on 2023-02-23 05:05 BRT <3ThomasBorregaardSOrensen!!
-#include "framework.h"
+#include "platform.h"
 #include "windowing.h"
 
 

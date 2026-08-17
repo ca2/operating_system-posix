@@ -147,10 +147,10 @@
 		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/windowing_wayland/enum_display_monitors.cpp">
 			<Option target="windowing_wayland"/>
 		</Unit>
-		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/windowing_wayland/framework.cpp">
+		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/windowing_wayland/platform.cpp">
 			<Option target="windowing_wayland"/>
 		</Unit>
-		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/windowing_wayland/framework.h">
+		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/windowing_wayland/platform.h">
 			<Option target="windowing_wayland"/>
 		</Unit>
 		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/windowing_wayland/icon.cpp">

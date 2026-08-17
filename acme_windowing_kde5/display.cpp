@@ -2,7 +2,7 @@
 // From acme_windowing_gkt3/display on 2025-01-10 01:22 <3ThomasBorregaardSorensen!!
 // Created by camilo on 21/02/2022 23:15 <3ThomasBorregaardSorensen!!
 //
-#include "framework.h"
+#include "platform.h"
 #include "display.h"
 #include "window.h"
 #include "acme/constant/windowing2.h"

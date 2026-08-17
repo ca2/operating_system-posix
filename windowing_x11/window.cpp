@@ -1,7 +1,7 @@
 // created by Camilo <3CamiloSasukeThomasBorregaardSoerensen
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
-#include "framework.h"
+#include "platform.h"
 #include "buffer.h"
 #include "window.h"
 #include "windowing_x11.h"
@@ -2167,13 +2167,13 @@ namespace windowing_x11
 
                   }
 
-                  image1->g()->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
+                  pgraphicsImage1->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
 
                   {
 
-                     ::image::image_source imagesource(pimageTransport->g(), pimageTransport->rectangle());
+                     ::image::image_source imagesource(pgraphicsImageTransport->, pimageTransport->rectangle());
 
-                     f64_rectangle rectangle(image1->rectangle());
+                     f64_rectangle rectangle(pimage1->rectangle());
 
                      ::image::image_drawing_options imagedrawingoptions(rectangle);
 
@@ -2181,7 +2181,7 @@ namespace windowing_x11
 
                      //getfileimage.m_iImage = m_pimagelist[16]->set(getfileimage.m_iImage, imagedrawing);
 
-                     image1->g()->draw(imagedrawing);
+                     pgraphicsImage1->draw(imagedrawing);
 
                   }
 
@@ -2189,22 +2189,22 @@ namespace windowing_x11
 
                   memory m;
 
-                  int length = 2 + image1->area();
+                  int length = 2 + pimage1->area();
 
                   m.set_size(length * 4);
 
                   ::u32 *pcr = (::u32 *) m.data();
 
-                  pcr[0] = image1->width();
+                  pcr[0] = pimage1->width();
 
-                  pcr[1] = image1->height();
+                  pcr[1] = pimage1->height();
 
-                  int c = image1->area();
+                  int c = pimage1->area();
 
                   for (int i = 0; i < c; i++)
                   {
 
-                     pcr[i + 2] = image1->image32()[i].m_u32;
+                     pcr[i + 2] = pimage1->image32()[i].m_u32;
 
                   }
 

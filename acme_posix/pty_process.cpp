@@ -1,7 +1,7 @@
 //
 // Created by camilo on 3/26/26.
 //
-#include "framework.h"
+#include "platform.h"
 #include "pty_process.h"
 #include "acme/operating_system/posix/_.h"
 #include "acme/prototype/mathematics/mathematics.h"

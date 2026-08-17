@@ -8,8 +8,8 @@ list(APPEND library_source
    _factory.cpp
    display.cpp
    display.h
-   framework.cpp
-   framework.h
+   platform.cpp
+   platform.h
    activation_token.cpp
    activation_token.h
    gdk_3_and_4.cpp
@@ -41,8 +41,8 @@ add_library(static_${PROJECT_NAME} STATIC ${library_source})
 if (NOT ${NO_PRECOMPILED_HEADER})
 
 
-   target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
-   target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
+   target_precompile_headers(${PROJECT_NAME} PRIVATE platform.h)
+   target_precompile_headers(static_${PROJECT_NAME} PRIVATE platform.h)
 
 
 endif ()

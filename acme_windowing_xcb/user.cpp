@@ -1,7 +1,7 @@
 //
 // Created by camilo on 2024-04-19.
 //
-#include "framework.h"
+#include "platform.h"
 #include "user.h"
 #include "display.h"
 

@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "copydesk.h"
 #include "node.h"
 #include "aura/windowing/windowing.h"
@@ -262,7 +262,7 @@ return false;
 
                    //auto estatus =
                    //
-                   pimage->create({width, height});
+                   pimage->create_as_descriptor({width, height});
 
 //                   if (!estatus)
 //                   {

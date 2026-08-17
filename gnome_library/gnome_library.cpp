@@ -1,7 +1,7 @@
 //
 // Created by camilo on 2026-05-09 02:04 <3ThomasBorregaardSørensen!!
 //
-#include "framework.h"
+#include "platform.h"
 #include "gnome_library.h"
 
 

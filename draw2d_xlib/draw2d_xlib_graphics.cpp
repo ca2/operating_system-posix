@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 //!!!#include <X11/Xft/Xft.h>
 #include <math.h>
 

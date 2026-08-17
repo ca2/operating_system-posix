@@ -23,8 +23,8 @@ list(APPEND library_source
         _factory.cpp
         display.cpp
         display.h
-        framework.cpp
-        framework.h
+        platform.cpp
+        platform.h
         gdk_gdk.cpp
         gdk_gdk.h
         keyboard.cpp
@@ -49,7 +49,7 @@ list(APPEND library_references
 
 add_library(${PROJECT_NAME} SHARED ${library_source}
    gtk3.cpp)
-target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE platform.h)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 

@@ -8,7 +8,7 @@
 // Modified 2023-10-05 23:50
 // Merged window(1) by camilo on 2024-09-26 18:23 <3ThomasBorregaardSorensen!!
 //
-#include "framework.h"
+#include "platform.h"
 #include "display.h"
 #include "window.h"
 #include "windowing.h"

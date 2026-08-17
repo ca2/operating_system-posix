@@ -238,11 +238,11 @@
 			<Option target="aura_posix"/>
 			<Option target="static_aura_posix"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/framework.cpp">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/platform.cpp">
 			<Option target="aura_posix"/>
 			<Option target="static_aura_posix"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/framework.h">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/aura_posix/platform.h">
 			<Option target="aura_posix"/>
 			<Option target="static_aura_posix"/>
 		</Unit>

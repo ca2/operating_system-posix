@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "copydesk.h"
 //#include "acme/operating_system.h"
 #include "aura_posix/clipboard_data.h"
@@ -365,7 +365,7 @@ namespace node_gtk3
 //
 //      int iSrcScan = gdk_pixbuf_get_rowstride(pixbuf);
 //
-//      pdata->m_pimage->create({w, h});
+//      pdata->m_pimage->create_as_descriptor({w, h});
 //
 //      if(pdata->m_pimage)
 //      {

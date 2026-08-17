@@ -1,7 +1,7 @@
 //
 // Created by camilo on 09/12/2021 12:36 BRT <3ThomasBorregaardSorensen!!
 //
-#include "framework.h"
+#include "platform.h"
 // bkgmanage.c
 //#include <glib.h>
 //#include <gconf/gconf-client.h>

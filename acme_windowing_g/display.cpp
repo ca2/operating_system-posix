@@ -2,7 +2,7 @@
 // Created by camilo on 21/02/2022 23:15 <3ThomasBorregaardSorensen!!
 // Modified 2023-10-05 23:51
 //
-#include "framework.h"
+#include "platform.h"
 #include "display.h"
 #include "acme/constant/windowing2.h"
 #include "acme/parallelization/mutex.h"

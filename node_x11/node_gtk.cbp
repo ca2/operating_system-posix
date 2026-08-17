@@ -138,10 +138,10 @@
 		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/node_gtk/display.h">
 			<Option target="node_gtk"/>
 		</Unit>
-		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/node_gtk/framework.cpp">
+		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/node_gtk/platform.cpp">
 			<Option target="node_gtk"/>
 		</Unit>
-		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/node_gtk/framework.h">
+		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/node_gtk/platform.h">
 			<Option target="node_gtk"/>
 		</Unit>
 		<Unit filename="/home/camilo/solution/basis/operating_system/operating_system-posix/node_gtk/gconf.cpp">

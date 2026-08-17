@@ -1,7 +1,7 @@
 //
 // Created by camilo on 11/04/2022. 11:30 <3ThomasBorregaardSorensen!!
 //
-#include "framework.h"
+#include "platform.h"
 #include <X11/Xlib.h>
 #include "acme/include/_.h"
 

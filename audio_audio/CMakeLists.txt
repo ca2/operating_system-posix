@@ -9,8 +9,8 @@ list(APPEND library_source
    audio_mmsystem_wave_in.h
 #   audio_dev.cpp
 #   cmus_sndio.cpp
-   framework.cpp
-   framework.h
+   platform.cpp
+   platform.h
 audio_dev_sun.cpp
 audio_dev_pcm.cpp
 #audio_dev_arts.cpp
@@ -43,8 +43,8 @@ add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 if (NOT ${NO_PRECOMPILED_HEADER})
 
-    target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
-    target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
+    target_precompile_headers(${PROJECT_NAME} PRIVATE platform.h)
+    target_precompile_headers(static_${PROJECT_NAME} PRIVATE platform.h)
 
 endif ()
 

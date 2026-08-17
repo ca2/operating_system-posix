@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
-#include "framework.h"
+#include "platform.h"
 //#include "output.h"
 #include "timo_output_plugin.h"
 #include "timo_mixer.h"
