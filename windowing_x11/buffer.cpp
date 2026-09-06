@@ -183,10 +183,10 @@ namespace windowing_x11
 
          }
 
-         auto pgraphics = pbufferitem->g();
+         auto pdraw2dgraphics = pbufferitem->g();
 
          //if (!pbufferitem->m_pgraphics)
-         if (!pgraphics)
+         if (!pdraw2dgraphics)
          {
 
             auto pgraphicsBufferItem = createø < ::draw2d::graphics >();
@@ -215,13 +215,13 @@ namespace windowing_x11
             pbufferitem->m_pgraphicsBufferItem = pgraphicsBufferItem;
 
          }
-         else if (pgraphics == pbufferitem->m_pgraphicsBufferItem)
+         else if (pdraw2dgraphics == pbufferitem->m_pgraphicsBufferItem)
          {
 
-            pgraphics->defer_set_size(pbufferitem->m_sizeBufferItemDraw);
+            pdraw2dgraphics->defer_set_size(pbufferitem->m_sizeBufferItemDraw);
 
          }
-         else if (pgraphics == pbufferitem->m_pgraphicsImage2->)
+         else if (pdraw2dgraphics == pbufferitem->m_pgraphicsImage2->)
          {
 
 

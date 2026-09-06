@@ -25,7 +25,7 @@ namespace draw2d_xlib
 
    }
 
-   bool bitmap::CreateBitmap(::draw2d::graphics * pgraphics, int cx, int cy, ::u32 nPlanes, ::u32 nBitcount, const void * pdata, int iStrideParam)
+   bool bitmap::CreateBitmap(::draw2d::graphics * pdraw2dgraphics, int cx, int cy, ::u32 nPlanes, ::u32 nBitcount, const void * pdata, int iStrideParam)
    {
 
       cy = abs(cy);
@@ -103,7 +103,7 @@ namespace draw2d_xlib
    }
 
 
-   bool bitmap::CreateBitmapIndirect(::draw2d::graphics * pgraphics, LPBITMAP lpBitmap)
+   bool bitmap::CreateBitmapIndirect(::draw2d::graphics * pdraw2dgraphics, LPBITMAP lpBitmap)
    {
 
       return false;
@@ -111,7 +111,7 @@ namespace draw2d_xlib
    }
 
 
-   bool bitmap::CreateDIBSection(::draw2d::graphics * pgraphics, const BITMAPINFO * lpbmi, ::u32 usage, void ** ppdata, int * pstride, HANDLE hSection, ::u32 offset)
+   bool bitmap::CreateDIBSection(::draw2d::graphics * pdraw2dgraphics, const BITMAPINFO * lpbmi, ::u32 usage, void ** ppdata, int * pstride, HANDLE hSection, ::u32 offset)
    {
 
       int cy = abs(lpbmi->bmiHeader.biHeight);
@@ -211,7 +211,7 @@ namespace draw2d_xlib
    }
 
 
-   bool bitmap::CreateDIBitmap(::draw2d::graphics * pgraphics, const BITMAPINFOHEADER *pbmih, ::u32 flInit, const void *pjBits, const BITMAPINFO *pbmi, ::u32 iUsage)
+   bool bitmap::CreateDIBitmap(::draw2d::graphics * pdraw2dgraphics, const BITMAPINFOHEADER *pbmih, ::u32 flInit, const void *pjBits, const BITMAPINFO *pbmi, ::u32 iUsage)
    {
       return false;
    }
@@ -270,14 +270,14 @@ namespace draw2d_xlib
       //return Attach(::LoadBitmap(nullptr, MAKEINTRESOURCE(nIDBitmap)));
       return false;
    }
-   bool bitmap::CreateCompatibleBitmap(::draw2d::graphics * pgraphics, int cx, int cy)
+   bool bitmap::CreateCompatibleBitmap(::draw2d::graphics * pdraw2dgraphics, int cx, int cy)
    {
 
       m_mem.set_size(cx * cy * 4);
 
       memory_set(m_mem.get_data(), 0, m_mem.get_size());
 
-      if(!CreateBitmap(pgraphics, cx, cy, 1, 32, (color32_t *) m_mem.get_data(), cx * sizeof(color32_t)))
+      if(!CreateBitmap(pdraw2dgraphics, cx, cy, 1, 32, (color32_t *) m_mem.get_data(), cx * sizeof(color32_t)))
       {
 
          m_mem.set_size(0);
@@ -308,10 +308,10 @@ namespace draw2d_xlib
 //      return true;
 
    }
-   bool bitmap::CreateDiscardableBitmap(::draw2d::graphics * pgraphics, int nWidth, int nHeight)
+   bool bitmap::CreateDiscardableBitmap(::draw2d::graphics * pdraw2dgraphics, int nWidth, int nHeight)
    {
 
-      return CreateCompatibleBitmap(pgraphics, nWidth, nHeight);
+      return CreateCompatibleBitmap(pdraw2dgraphics, nWidth, nHeight);
 
    }
 

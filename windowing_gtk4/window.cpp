@@ -399,9 +399,9 @@ gtk_im_context_commit (
       if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
       {
 
-         auto pgraphics = createø<::draw2d::graphics>();
+         auto pdraw2dgraphics = createø<::draw2d::graphics>();
 
-         pgraphics->attach(cr);
+         pdraw2dgraphics->attach(cr);
 
          ::f64_rectangle r;
 
@@ -425,7 +425,7 @@ gtk_im_context_commit (
 //     cairo_fill(cr);
 
 
-         pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
+         pdraw2dgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
 
          ::image::image_source imagesource(pitem->m_pimage2, r);
 
@@ -433,14 +433,14 @@ gtk_im_context_commit (
 
          ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
 
-         pgraphics->draw(imagedrawing);
+         pdraw2dgraphics->draw(imagedrawing);
 
-         //pgraphics->set_text_color(::color::white);
+         //pdraw2dgraphics->set_solid_color(::color::white);
          //::string strSize;
          //strSize.formatf("Size: %d, %d\nSizeOnSize: %d, %d", width, height, m_sizeOnSize.cx, m_sizeOnSize.cy);
-         //pgraphics->text_out({10, 10}, strSize);
+         //pdraw2dgraphics->text_out({10, 10}, strSize);
 
-         pgraphics->detach();
+         pdraw2dgraphics->detach();
          // Set the fill color to blue (RGB: 0, 0, 1)
     // cairo_set_source_rgb(cr, 0, 0, 1); // RGB values for blue color
     //

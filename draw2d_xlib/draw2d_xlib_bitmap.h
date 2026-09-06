@@ -27,12 +27,12 @@ namespace draw2d_xlib
       bool LoadBitmap(const_char_pointer lpszResourceName);
       bool LoadBitmap(::u32 nIDResource);
       bool LoadOEMBitmap(::u32 nIDBitmap); // for OBM_/OCR_/OIC_
-      bool CreateBitmap(::draw2d::graphics * pgraphics, int nWidth, int nHeight, ::u32 nPlanes, ::u32 nBitcount, const void * lpBits, int iStride);
-      bool CreateBitmapIndirect(::draw2d::graphics * pgraphics, LPBITMAP lpBitmap);
-      bool CreateCompatibleBitmap(::draw2d::graphics * pgraphics, int nWidth, int nHeight);
-      bool CreateDiscardableBitmap(::draw2d::graphics * pgraphics, int nWidth, int nHeight);
-      bool CreateDIBSection(::draw2d::graphics * pgraphics, const BITMAPINFO * lpbmi, ::u32 usage, void **ppvBits, int * stride, HANDLE hSection, ::u32 offset);
-      bool CreateDIBitmap(::draw2d::graphics * pgraphics, const BITMAPINFOHEADER *pbmih, ::u32 flInit, const void *pjBits, const BITMAPINFO *pbmi, ::u32 iUsage);
+      bool CreateBitmap(::draw2d::graphics * pdraw2dgraphics, int nWidth, int nHeight, ::u32 nPlanes, ::u32 nBitcount, const void * lpBits, int iStride);
+      bool CreateBitmapIndirect(::draw2d::graphics * pdraw2dgraphics, LPBITMAP lpBitmap);
+      bool CreateCompatibleBitmap(::draw2d::graphics * pdraw2dgraphics, int nWidth, int nHeight);
+      bool CreateDiscardableBitmap(::draw2d::graphics * pdraw2dgraphics, int nWidth, int nHeight);
+      bool CreateDIBSection(::draw2d::graphics * pdraw2dgraphics, const BITMAPINFO * lpbmi, ::u32 usage, void **ppvBits, int * stride, HANDLE hSection, ::u32 offset);
+      bool CreateDIBitmap(::draw2d::graphics * pdraw2dgraphics, const BITMAPINFOHEADER *pbmih, ::u32 flInit, const void *pjBits, const BITMAPINFO *pbmi, ::u32 iUsage);
 
 
       int GetBitmap(BITMAP* pBitMap);

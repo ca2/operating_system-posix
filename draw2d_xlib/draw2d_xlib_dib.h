@@ -65,10 +65,10 @@ namespace draw2d_xlib
 
       using image::from;
       bool from(::image::image *pimage);
-      bool from(i32_point ptDest, ::draw2d::graphics * pgraphics, const ::i32_point & point, ::i32_size sz);
+      bool from(i32_point ptDest, ::draw2d::graphics * pdraw2dgraphics, const ::i32_point & point, ::i32_size sz);
 
       using image::to;
-      bool to(::draw2d::graphics * pgraphics, const ::i32_point & point, ::i32_size size, i32_point ptSrc);
+      bool to(::draw2d::graphics * pdraw2dgraphics, const ::i32_point & point, ::i32_size size, i32_point ptSrc);
 
       virtual bool update_window(::window * puserinteraction, ::message::message * pmessage);
       virtual bool print_window(::window * puserinteraction, ::message::message * pmessage);

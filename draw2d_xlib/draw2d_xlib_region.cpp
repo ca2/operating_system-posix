@@ -42,7 +42,7 @@ namespace draw2d_xlib
       ::i32_bool region::CreateRoundRectRgn(int x1, int y1, int x2, int y2, int x3, int y3)
       { return Attach(::CreateRoundRectRgn(x1, y1, x2, y2, x3, y3)); }
       ::i32_bool region::CreateFromPath(::image::image *pimage)
-      { ASSERT(pgraphics != nullptr); return Attach(::PathToRegion((dynamic_cast<::win::graphics * >(pgraphics))->get_handle1())); }
+      { ASSERT(pdraw2dgraphics != nullptr); return Attach(::PathToRegion((dynamic_cast<::win::graphics * >(pdraw2dgraphics))->get_handle1())); }
       ::i32_bool region::CreateFromData(const XFORM* lpXForm, int nCount, const RGNDATA* pRgnData)
       { return Attach(::ExtCreateRegion(lpXForm, nCount, pRgnData)); }
       int region::GetRegionData(LPRGNDATA lpRgnData, int nDataSize) const
@@ -75,27 +75,27 @@ namespace draw2d_xlib
       ::i32_bool region::rectInRegion(const ::i32_rectangle & rectangle) const
       { ASSERT(get_os_data() != nullptr); return ::rectInRegion((HRGN)get_os_data(), rectangle); }*/
 
-   /*   bool region::get(xlib_t * pgraphics)
+   /*   bool region::get(xlib_t * pdraw2dgraphics)
       {
 
-         xlib_set_source_rgba(pgraphics, 0.0, 0.0, 0.0, 0.0);
+         xlib_set_source_rgba(pdraw2dgraphics, 0.0, 0.0, 0.0, 0.0);
 
-         xlib_set_operator(pgraphics, CAIRO_OPERATOR_SOURCE);
+         xlib_set_operator(pdraw2dgraphics, CAIRO_OPERATOR_SOURCE);
 
          switch(m_etype)
          {
          case type_none:
             return true;
          case type_rect:
-            return get_rect(pgraphics);
+            return get_rect(pdraw2dgraphics);
          case type_oval:
-            return get_oval(pgraphics);
+            return get_oval(pdraw2dgraphics);
          case type_polygon:
-            return get_polygon(pgraphics);
+            return get_polygon(pdraw2dgraphics);
          case type_poly_polygon:
-            return get_polygon(pgraphics);
+            return get_polygon(pdraw2dgraphics);
          case type_combine:
-            return get_combine(pgraphics);
+            return get_combine(pdraw2dgraphics);
          default:
             throw ::not_implemented();
          }
@@ -104,18 +104,18 @@ namespace draw2d_xlib
 
       }
 
-      bool region::get_rect(xlib_t * pgraphics)
+      bool region::get_rect(xlib_t * pdraw2dgraphics)
       {
 
-         xlib_rectangle(pgraphics, m_x1, m_y1, m_x2, m_y2);
+         xlib_rectangle(pdraw2dgraphics, m_x1, m_y1, m_x2, m_y2);
 
-         xlib_fill(pgraphics);
+         xlib_fill(pdraw2dgraphics);
 
          return true;
 
       }
 
-      bool region::get_oval(xlib_t * pgraphics)
+      bool region::get_oval(xlib_t * pdraw2dgraphics)
       {
 
          double centerx    = (m_x2 + m_x1) / 2.0;
@@ -127,44 +127,44 @@ namespace draw2d_xlib
          if(radiusx == 0.0 || radiusy == 0.0)
             return false;
 
-         xlib_translate(pgraphics, centerx, centery);
+         xlib_translate(pdraw2dgraphics, centerx, centery);
 
-         xlib_scale(pgraphics, radiusx, radiusy);
+         xlib_scale(pdraw2dgraphics, radiusx, radiusy);
 
-         xlib_arc(pgraphics, 0.0, 0.0, 1.0, 0.0, 2.0 * 3.1415);
+         xlib_arc(pdraw2dgraphics, 0.0, 0.0, 1.0, 0.0, 2.0 * 3.1415);
 
-         xlib_fill(pgraphics);
+         xlib_fill(pdraw2dgraphics);
 
-         xlib_scale(pgraphics, 1.0 / radiusx, 1.0 / radiusy);
+         xlib_scale(pdraw2dgraphics, 1.0 / radiusx, 1.0 / radiusy);
 
-         xlib_translate(pgraphics, -centerx,  -centery);
+         xlib_translate(pdraw2dgraphics, -centerx,  -centery);
 
          return true;
 
       }
 
-      bool region::get_polygon(xlib_t * pgraphics)
+      bool region::get_polygon(xlib_t * pdraw2dgraphics)
       {
 
          if(m_nCount <= 0)
             return true;
 
 
-         xlib_move_to(pgraphics, m_lppoints[0].x, m_lppoints[0].y);
+         xlib_move_to(pdraw2dgraphics, m_lppoints[0].x, m_lppoints[0].y);
 
          for(int i = 1; i < m_nCount; i++)
          {
 
-            xlib_line_to(pgraphics, m_lppoints[i].x, m_lppoints[i].y);
+            xlib_line_to(pdraw2dgraphics, m_lppoints[i].x, m_lppoints[i].y);
 
          }
-         xlib_fill(pgraphics);
+         xlib_fill(pdraw2dgraphics);
 
          return true;
 
       }
 
-      bool region::get_poly_polygon(xlib_t * pgraphics)
+      bool region::get_poly_polygon(xlib_t * pdraw2dgraphics)
       {
 
          int n = 0;
@@ -174,57 +174,57 @@ namespace draw2d_xlib
             int jCount = m_lppolycounts[i];
             if(jCount > 0)
             {
-               xlib_move_to(pgraphics, m_lppoints[n].x, m_lppoints[n].y);
+               xlib_move_to(pdraw2dgraphics, m_lppoints[n].x, m_lppoints[n].y);
                n++;
                for(int j = 1; i < jCount; j++)
                {
-                  xlib_line_to(pgraphics, m_lppoints[n].x, m_lppoints[n].y);
+                  xlib_line_to(pdraw2dgraphics, m_lppoints[n].x, m_lppoints[n].y);
                   n++;
                }
             }
 
          }
-         xlib_fill(pgraphics);
+         xlib_fill(pdraw2dgraphics);
 
          return true;
 
       }
 
-      bool region::get_combine(xlib_t * pgraphics)
+      bool region::get_combine(xlib_t * pdraw2dgraphics)
       {
 
          xlib_push_group( graphics);
 
          dynamic_cast < ::draw2d_xlib::region * >(m_pregion1)->get( graphics);
 
-         xlib_pop_group_to_source(pgraphics);
+         xlib_pop_group_to_source(pdraw2dgraphics);
 
-         xlib_paint(pgraphics);
+         xlib_paint(pdraw2dgraphics);
 
-         xlib_push_group(pgraphics);
+         xlib_push_group(pdraw2dgraphics);
 
          dynamic_cast < ::draw2d_xlib::region * >(m_pregion2)->get( graphics);
 
-         xlib_pop_group_to_source(pgraphics);
+         xlib_pop_group_to_source(pdraw2dgraphics);
 
          if(m_ecombine == ::draw2d::region::combine_add)
          {
-            xlib_set_operator(pgraphics, CAIRO_OPERATOR_SOURCE);
+            xlib_set_operator(pdraw2dgraphics, CAIRO_OPERATOR_SOURCE);
          }
          else if(m_ecombine == ::draw2d::region::combine_exclude)
          {
-            xlib_set_operator(pgraphics, CAIRO_OPERATOR_CLEAR);
+            xlib_set_operator(pdraw2dgraphics, CAIRO_OPERATOR_CLEAR);
          }
          else if(m_ecombine == ::draw2d::region::combine_intersect)
          {
-            xlib_set_operator(pgraphics, CAIRO_OPERATOR_IN);
+            xlib_set_operator(pdraw2dgraphics, CAIRO_OPERATOR_IN);
          }
          else
          {
-            xlib_set_operator(pgraphics, CAIRO_OPERATOR_SOURCE);
+            xlib_set_operator(pdraw2dgraphics, CAIRO_OPERATOR_SOURCE);
          }
 
-         xlib_paint(pgraphics);
+         xlib_paint(pdraw2dgraphics);
 
          return true;
 

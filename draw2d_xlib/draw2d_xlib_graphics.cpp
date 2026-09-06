@@ -155,7 +155,7 @@ namespace draw2d_xlib
 
       }
 
-      if(pgraphics == nullptr)
+      if(pdraw2dgraphics == nullptr)
       {
 
 //         xlib_surface_t * psurface = xlib_image_surface_create(CAIRO_FORMAT_ARGB32, 1, 1);
@@ -183,9 +183,9 @@ namespace draw2d_xlib
       else
       {
 
-         m_pdc = ::CreateCompatibleDC((HDC) pgraphics->get_os_data());
+         m_pdc = ::CreateCompatibleDC((HDC) pdraw2dgraphics->get_os_data());
 
-         /*       xlib_surface_t * psurface = xlib_get_target((xlib_t *) pgraphics->get_os_data());
+         /*       xlib_surface_t * psurface = xlib_get_target((xlib_t *) pdraw2dgraphics->get_os_data());
 
                 if(xlib_surface_status(psurface) != CAIRO_STATUS_SUCCESS)
                    return false;
@@ -208,13 +208,13 @@ namespace draw2d_xlib
       /*
             HDC hdc = nullptr;
 
-            if(pgraphics == nullptr)
+            if(pdraw2dgraphics == nullptr)
             {
                hdc = ::CreateCompatibleDC(nullptr);
             }
             else
             {
-               hdc = ::CreateCompatibleDC((HDC)(dynamic_cast<::win::graphics * >(pgraphics))->get_handle1());
+               hdc = ::CreateCompatibleDC((HDC)(dynamic_cast<::win::graphics * >(pdraw2dgraphics))->get_handle1());
             }
 
             if(!Attach(hdc))
@@ -4232,56 +4232,56 @@ namespace draw2d_xlib
       int CALLBACK __enum_meta_file_procedure(HDC hDC,
          HANDLETABLE* pHandleTable, METARECORD* pMetaRec, int nHandles, LPARAM lParam)
       {
-         ::draw2d::graphics * pgraphics = (::draw2d::graphics *)lParam;
-         ASSERT_OK(pgraphics);
+         ::draw2d::graphics * pdraw2dgraphics = (::draw2d::graphics *)lParam;
+         ASSERT_OK(pdraw2dgraphics);
 
          switch (pMetaRec->rdFunction)
          {
             // these records have effects different for each graphics derived class
          case META_SETMAPMODE:
-            (dynamic_cast<::win::graphics * >(pgraphics))->SetMapMode((int)(short)pMetaRec->rdParm[0]);
+            (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->SetMapMode((int)(short)pMetaRec->rdParm[0]);
             break;
          case META_SETWINDOWEXT:
-            (dynamic_cast<::win::graphics * >(pgraphics))->set_window_ext(
+            (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->set_window_ext(
                (int)(short)pMetaRec->rdParm[1], (int)(short)pMetaRec->rdParm[0]);
             break;
          case META_SETWINDOWORG:
-            (dynamic_cast<::win::graphics * >(pgraphics))->SetWindowOrg(
+            (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->SetWindowOrg(
                (int)(short)pMetaRec->rdParm[1], (int)(short)pMetaRec->rdParm[0]);
             break;
          case META_SETVIEWPORTEXT:
-            (dynamic_cast<::win::graphics * >(pgraphics))->set_context_extents(
+            (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->set_context_extents(
                (int)(short)pMetaRec->rdParm[1], (int)(short)pMetaRec->rdParm[0]);
             break;
          case META_SETVIEWPORTORG:
-            (dynamic_cast<::win::graphics * >(pgraphics))->set_origin(
+            (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->set_origin(
                (int)(short)pMetaRec->rdParm[1], (int)(short)pMetaRec->rdParm[0]);
             break;
          case META_ScaLEWINDOWEXT:
-            (dynamic_cast<::win::graphics * >(pgraphics))->scale_window_ext(
+            (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->scale_window_ext(
                (int)(short)pMetaRec->rdParm[3], (int)(short)pMetaRec->rdParm[2],
                (int)(short)pMetaRec->rdParm[1], (int)(short)pMetaRec->rdParm[0]);
             break;
          case META_ScaLEVIEWPORTEXT:
-            (dynamic_cast<::win::graphics * >(pgraphics))->scale_context_extents(
+            (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->scale_context_extents(
                (int)(short)pMetaRec->rdParm[3], (int)(short)pMetaRec->rdParm[2],
                (int)(short)pMetaRec->rdParm[1], (int)(short)pMetaRec->rdParm[0]);
             break;
          case META_OFFSETVIEWPORTORG:
-            (dynamic_cast<::win::graphics * >(pgraphics))->offset_origin(
+            (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->offset_origin(
                (int)(short)pMetaRec->rdParm[1], (int)(short)pMetaRec->rdParm[0]);
             break;
          case META_SAVEDC:
-            (dynamic_cast<::win::graphics * >(pgraphics))->SaveDC();
+            (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->SaveDC();
             break;
          case META_RESTOREDC:
-            (dynamic_cast<::win::graphics * >(pgraphics))->RestoreDC((int)(short)pMetaRec->rdParm[0]);
+            (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->RestoreDC((int)(short)pMetaRec->rdParm[0]);
             break;
          case META_SETBKCOLOR:
-            (dynamic_cast<::win::graphics * >(pgraphics))->SetBkColor(*(UNALIGNED color32_t*)&pMetaRec->rdParm[0]);
+            (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->SetBkColor(*(UNALIGNED color32_t*)&pMetaRec->rdParm[0]);
             break;
          case META_SETTEXTCOLOR:
-            (dynamic_cast<::win::graphics * >(pgraphics))->SetTextColor(*(UNALIGNED color32_t*)&pMetaRec->rdParm[0]);
+            (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->SetTextColor(*(UNALIGNED color32_t*)&pMetaRec->rdParm[0]);
             break;
 
             // need to watch out for SelectObject(HFONT), for custom font mapping
@@ -4293,27 +4293,27 @@ namespace draw2d_xlib
                {
                   // object type is unknown, determine if it is a font
                   HFONT hStockFont = (HFONT)::GetStockObject(SYSTEM_FONT);
-                  HFONT hFontOld = (HFONT)::SelectObject((dynamic_cast<::win::graphics * >(pgraphics))->get_handle1(), hStockFont);
-                  HGDIOBJ hObjOld = ::SelectObject((dynamic_cast<::win::graphics * >(pgraphics))->get_handle1(), hObject);
+                  HFONT hFontOld = (HFONT)::SelectObject((dynamic_cast<::win::graphics * >(pdraw2dgraphics))->get_handle1(), hStockFont);
+                  HGDIOBJ hObjOld = ::SelectObject((dynamic_cast<::win::graphics * >(pdraw2dgraphics))->get_handle1(), hObject);
                   if (hObjOld == hStockFont)
                   {
                      // got the stock object back, so must be selecting a font
                      throw ::not_implemented();
-   //                  (dynamic_cast<::win::graphics * >(pgraphics))->SelectObject(::win::font::from_handle(pgraphics->get_app(), (HFONT)hObject));
+   //                  (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->SelectObject(::win::font::from_handle(pdraw2dgraphics->get_app(), (HFONT)hObject));
                      break;  // don't play the default record
                   }
                   else
                   {
                      // didn't get the stock object back, so restore everything
-                     ::SelectObject((dynamic_cast<::win::graphics * >(pgraphics))->get_handle1(), hFontOld);
-                     ::SelectObject((dynamic_cast<::win::graphics * >(pgraphics))->get_handle1(), hObjOld);
+                     ::SelectObject((dynamic_cast<::win::graphics * >(pdraw2dgraphics))->get_handle1(), hFontOld);
+                     ::SelectObject((dynamic_cast<::win::graphics * >(pdraw2dgraphics))->get_handle1(), hObjOld);
                   }
                   // and fall through to PlayMetaFileRecord...
                }
                else if (nObjType == OBJ_FONT)
                {
                   // play back as graphics::SelectObject(::write_text::font*)
-   //               (dynamic_cast<::win::graphics * >(pgraphics))->SelectObject(::win::font::from_handle(pgraphics->get_app(), (HFONT)hObject));
+   //               (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->SelectObject(::win::font::from_handle(pdraw2dgraphics->get_app(), (HFONT)hObject));
                   throw ::not_implemented();
                   break;  // don't play the default record
                }
@@ -4343,7 +4343,7 @@ namespace draw2d_xlib
             return ::PlayMetaFile(get_handle1(), hMF) != false;
          }
 
-         // for special playback, lParam == pgraphics
+         // for special playback, lParam == pdraw2dgraphics
          return ::EnumMetaFile(get_handle1(), hMF, __enum_meta_file_procedure, (LPARAM)this) != false;
    */
 
@@ -4783,7 +4783,7 @@ namespace draw2d_xlib
    // IMPLEMENT_DYNAMIC(user_exception, ::exception)
    //user_exception _simpleUserException(false, __IDS_USER_EXCEPTION);
 
-   // IMPLEMENT_DYNCREATE(pgraphics, object)
+   // IMPLEMENT_DYNCREATE(pdraw2dgraphics, object)
    // IMPLEMENT_DYNAMIC(CClientDC, graphics)
    // IMPLEMENT_DYNAMIC(CWindowDC, graphics)
    // IMPLEMENT_DYNAMIC(CPaintDC, graphics)

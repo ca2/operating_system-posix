@@ -3,10 +3,10 @@
 
 
 
-xlib_keep::xlib_keep(::draw2d::graphics * pgraphics, bool bSave)
+xlib_keep::xlib_keep(::draw2d::graphics * pdraw2dgraphics, bool bSave)
 {
 
-   m_pdc = pgraphics;
+   m_pdc = pdraw2dgraphics;
 
 
    m_bSave = false;

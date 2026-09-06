@@ -1926,7 +1926,7 @@ namespace windowing_kde5
             //
             // return;
 
-            //auto pgraphics = createø<::draw2d::graphics>();
+            //auto pdraw2dgraphics = createø<::draw2d::graphics>();
 
             int w = minimum(pitem->m_pimage2->width(), pqimage->width());
 
@@ -1942,8 +1942,8 @@ namespace windowing_kde5
 
             pimageTarget->copy(w, h, iTargetScan, pimageSource, iSourceScan);
 
-            // pgraphics->attach(cr);
-            // //pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
+            // pdraw2dgraphics->attach(cr);
+            // //pdraw2dgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
             // ::f64_rectangle r;
             // int width = gtk_widget_get_width(widget);
             // int height = gtk_widget_get_height(widget);
@@ -1952,17 +1952,17 @@ namespace windowing_kde5
             // r.right = width;
             // r.bottom = height;
             // //r.set_size(m_sizeOnSize);
-            // ///pgraphics->fill_solid_rectangle(r, argb(0, 0, 0, 0));
-            // pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
+            // ///pdraw2dgraphics->fill_solid_rectangle(r, argb(0, 0, 0, 0));
+            // pdraw2dgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
             // ::image::image_source imagesource(pitem->m_pimage2, r);
             // ::image::image_drawing_options imagedrawingoptions(r);
             // ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
-            // pgraphics->draw(imagedrawing);
-            // pgraphics->set_text_color(::color::white);
+            // pdraw2dgraphics->draw(imagedrawing);
+            // pdraw2dgraphics->set_solid_color(::color::white);
             // ::string strSize;
             // strSize.formatf("Size: %d, %d\nSizeOnSize: %d, %d", width, height, m_sizeOnSize.cx, m_sizeOnSize.cy);
-            // pgraphics->text_out({10, 10}, strSize);
-            // pgraphics->detach();
+            // pdraw2dgraphics->text_out({10, 10}, strSize);
+            // pdraw2dgraphics->detach();
             pbuffer->on_end_draw();
          }
       }
@@ -1975,7 +1975,7 @@ namespace windowing_kde5
       // r.right = 80;
       // r.bottom = 80;
       //
-      // pgraphics->fill_solid_rectangle(r, argb(1.0,0.1, 0.5, 0.8 ));
+      // pdraw2dgraphics->fill_solid_rectangle(r, argb(1.0,0.1, 0.5, 0.8 ));
 
 
       // cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background

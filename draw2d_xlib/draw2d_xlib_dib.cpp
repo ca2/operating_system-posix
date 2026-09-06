@@ -157,7 +157,7 @@ namespace draw2d_xlib
 
    bool image::create(::image::image *pimage)
    {
-      ::draw2d::bitmap * pbitmap = (dynamic_cast < ::draw2d_xlib::graphics * > (pgraphics))->get_current_bitmap();
+      ::draw2d::bitmap * pbitmap = (dynamic_cast < ::draw2d_xlib::graphics * > (pdraw2dgraphics))->get_current_bitmap();
       if(pbitmap == nullptr)
          return false;
       ::i32_size size = pbitmap->get_size();
@@ -165,7 +165,7 @@ namespace draw2d_xlib
       {
          return false;
       }
-      from(pgraphics);
+      from(pdraw2dgraphics);
       return true;
    }
 
@@ -192,13 +192,13 @@ namespace draw2d_xlib
       return true;
    }
 
-   bool image::to(::draw2d::graphics * pgraphics, const ::i32_point & point, ::i32_size size, const ::i32_point & pointSrc)
+   bool image::to(::draw2d::graphics * pdraw2dgraphics, const ::i32_point & point, ::i32_size size, const ::i32_point & pointSrc)
    {
 
-      return pgraphics->BitBlt(point.x, point.y, size.cx, size.cy, get_graphics(), pointSrc.x, pointSrc.y) != false;
+      return pdraw2dgraphics->BitBlt(point.x, point.y, size.cx, size.cy, get_graphics(), pointSrc.x, pointSrc.y) != false;
 
       /*  return SetDIBitsToDevice(
-           (dynamic_cast<::win::graphics * >(pgraphics))->get_handle1(),
+           (dynamic_cast<::win::graphics * >(pdraw2dgraphics))->get_handle1(),
            point.x, point.y,
            size.cx, size.cy,
            pointSrc.x, pointSrc.y, pointSrc.y, cy - pointSrc.y,
@@ -210,25 +210,25 @@ namespace draw2d_xlib
    bool image::from(::image::image *pimage)
    {
       ::draw2d::bitmap_pointer bitmap(this);
-      bitmap->CreateCompatibleBitmap(pgraphics, 1, 1);
-      ::draw2d::bitmap * pbitmap = pgraphics->SelectObject(bitmap);
+      bitmap->CreateCompatibleBitmap(pdraw2dgraphics, 1, 1);
+      ::draw2d::bitmap * pbitmap = pdraw2dgraphics->SelectObject(bitmap);
       if(pbitmap == nullptr)
          return false;
       ::i32_size size = pbitmap->get_size();
       if(!create(size))
       {
-         pgraphics->SelectObject(pbitmap);
+         pdraw2dgraphics->SelectObject(pbitmap);
          return false;
       }
       throw ::exception(todo);
-      // xxx bool bOk = GetDIBits(LNX_HDC(pgraphics), (HBITMAP) pbitmap->get_os_data(), 0, cy, m_pcolorref, &(m_info), DIB_RGB_COLORS) != false;
-      // xxx pgraphics->SelectObject(pbitmap);
+      // xxx bool bOk = GetDIBits(LNX_HDC(pdraw2dgraphics), (HBITMAP) pbitmap->get_os_data(), 0, cy, m_pcolorref, &(m_info), DIB_RGB_COLORS) != false;
+      // xxx pdraw2dgraphics->SelectObject(pbitmap);
       // xxx return bOk;
    }
 
-   bool image::from(i32_point ptDest, ::draw2d::graphics * pgraphics, const ::i32_point & point, ::i32_size sz)
+   bool image::from(i32_point ptDest, ::draw2d::graphics * pdraw2dgraphics, const ::i32_point & point, ::i32_size sz)
    {
-      return m_spgraphics->BitBlt(ptDest.x, ptDest.y, sz.cx, sz.cy, pgraphics, point.x, point.y) != false;
+      return m_spgraphics->BitBlt(ptDest.x, ptDest.y, sz.cx, sz.cy, pdraw2dgraphics, point.x, point.y) != false;
    }
 
    //void image::Fill ( int R, int G, int B )
@@ -2616,9 +2616,9 @@ namespace draw2d_xlib
          if(!pimage = create_image(rectangleWindow.bottom_right()))
             return false;
 
-         ::draw2d::graphics * pgraphics = pgraphicsImage;
+         ::draw2d::graphics * pdraw2dgraphics = pgraphicsImage;
 
-         if(pgraphics->get_os_data() == nullptr)
+         if(pdraw2dgraphics->get_os_data() == nullptr)
             return false;
 
          ::i32_rectangle rectanglePaint;
@@ -2629,24 +2629,24 @@ namespace draw2d_xlib
          m_spgraphics->SelectClipRgn(nullptr);
          if(puserinteraction->m_pguie != nullptr && puserinteraction->m_pguie != this)
          {
-            puserinteraction->m_pguie->_001OnDeferPaintLayeredWindowBackground(pgraphics);
+            puserinteraction->m_pguie->_001OnDeferPaintLayeredWindowBackground(pdraw2dgraphics);
          }
          else
          {
-            puserinteraction->_001OnDeferPaintLayeredWindowBackground(pgraphics);
+            puserinteraction->_001OnDeferPaintLayeredWindowBackground(pdraw2dgraphics);
          }
          m_spgraphics->SelectClipRgn(nullptr);
          m_spgraphics-> set_origin(::i32_point());
-         puserinteraction->_000OnDraw(pgraphics);
+         puserinteraction->_000OnDraw(pdraw2dgraphics);
          m_spgraphics->set_origin(::i32_point());
-         //(dynamic_cast<::win::graphics * >(pgraphics))->FillSolidRect(rectangleUpdate.left, rectangleUpdate.top, 100, 100, 255);
+         //(dynamic_cast<::win::graphics * >(pdraw2dgraphics))->FillSolidRect(rectangleUpdate.left, rectangleUpdate.top, 100, 100, 255);
          m_spgraphics->SelectClipRgn(nullptr);
          m_spgraphics->set_origin(::i32_point());
 
          m_spgraphics->SelectClipRgn( nullptr);
          m_spgraphics->BitBlt(rectanglePaint.left, rectanglePaint.top,
                               rectanglePaint.width(), rectanglePaint.height(),
-                              pgraphics, rectangleUpdate.left, rectangleUpdate.top,
+                              pdraw2dgraphics, rectangleUpdate.left, rectangleUpdate.top,
                               SRCCOPY);
 
          m_spgraphics->text_out(0, 0, "Xlib Drawing!!", 11);
