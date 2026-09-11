@@ -1782,7 +1782,7 @@ namespace draw2d_xlib
       pimage2 = create_image({cx,  cy});
       pimage2->Fill(0, 0, 0, 0);
 
-      pgraphicsImage2->DrawIcon(
+      pdraw2dgraphicsImage2->DrawIcon(
       0, 0,
       picon,
       cx, cy,
@@ -2616,7 +2616,7 @@ namespace draw2d_xlib
          if(!pimage = create_image(rectangleWindow.bottom_right()))
             return false;
 
-         ::draw2d::graphics * pdraw2dgraphics = pgraphicsImage;
+         ::draw2d::graphics * pdraw2dgraphics = pdraw2dgraphicsImage;
 
          if(pdraw2dgraphics->get_os_data() == nullptr)
             return false;

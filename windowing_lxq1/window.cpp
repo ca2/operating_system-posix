@@ -3275,11 +3275,11 @@ namespace windowing_lxq1
 //       //
 //       //      }
 //       //
-//       //      pgraphicsImage1->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
+//       //      pdraw2dgraphicsImage1->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
 //       //
 //       //      {
 //       //
-//       //         ::image::image_source imagesource(pgraphicsImage, pimage->rectangle());
+//       //         ::image::image_source imagesource(pdraw2dgraphicsImage, pimage->rectangle());
 //       //
 //       //         f64_rectangle rectangle(pimage1->rectangle());
 //       //
@@ -3289,7 +3289,7 @@ namespace windowing_lxq1
 //       //
 //       //         //getfileimage.m_iImage = m_pimagelist[16]->set(getfileimage.m_iImage, imagedrawing);
 //       //
-//       //         pgraphicsImage1->draw(imagedrawing);
+//       //         pdraw2dgraphicsImage1->draw(imagedrawing);
 //       //
 //       //      }
 //       //

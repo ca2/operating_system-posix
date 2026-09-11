@@ -208,9 +208,9 @@ namespace node_kde5
 //
 //       ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
 //
-//       pgraphicsImage24->set_compositing_quality(::draw2d::e_compositing_quality_high_quality);
+//       pdraw2dgraphicsImage24->set_compositing_quality(::draw2d::e_compositing_quality_high_quality);
 //
-//       pgraphicsImage24->draw(imagedrawing);
+//       pdraw2dgraphicsImage24->draw(imagedrawing);
 //
 //       image()->save_image(pathIcon24, pimage24);
 //
