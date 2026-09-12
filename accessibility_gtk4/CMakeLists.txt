@@ -24,8 +24,8 @@ list(APPEND library_source
    #   path_system.h
    application.cpp
    application.h
-   framework.cpp
-   framework.h
+   platform.cpp
+   platform.h
    main_window.cpp
    main_window.h
    #message_loop.cpp
@@ -111,6 +111,9 @@ configure_accessibility_gtk4_target(${PROJECT_NAME})
 configure_accessibility_gtk4_target(static_${PROJECT_NAME})
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE _accessibility_gtk4_project)
+
+
+if(${LINUX} OR ${__BSD__})
 
    #if(${USE_PKGCONFIG})
       #pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 appindicator-0.1)
