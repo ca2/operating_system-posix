@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.17)
 project(accessibility_gtk4 CXX)
 
+project(accessibility_gtk4 LANGUAGES CXX)
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GTK4 QUIET IMPORTED_TARGET gtk4)
 
 list(APPEND library_source
    _.cpp
@@ -20,38 +24,8 @@ list(APPEND library_source
    #   path_system.h
    application.cpp
    application.h
-   #   console.cpp
-   #   console.h
-   #   directory_context.cpp
-   #   directory_context.h
-   #   #dir_system.cpp
-   #   #dir_system.h
-   #   exclusive.cpp
-   #   exclusive.h
-   #   file_context.cpp
-   #   file_context.h
-   #   file_dialog.cpp
-   #   file_find.cpp
-   #   file_find.h
-   #   file_link.cpp
-   #   file_link.h
-   #   file_memory_map.cpp
-   #   file_memory_map.h
-   #   file_system.cpp
-   #   file_system.h
-   #   file_watcher.cpp
-   #   file_watcher.h
-   #   folder_dialog.cpp
-   platform.cpp
-   platform.h
-   #   integration_context.cpp
-   #   integration_context.h
-   #   itemidlist.cpp
-   #   itemidlist.h
-   #   known_folder_struct.cpp
-   #   known_folder_struct.h
-   #   language.cpp
-   #   list_serial_ports.cpp
+   framework.cpp
+   framework.h
    main_window.cpp
    main_window.h
    #message_loop.cpp
@@ -78,13 +52,14 @@ list(APPEND library_source
    #   windows_desktop.cpp
 )
 
+if(GTK4_FOUND)
 
-list(APPEND library_references
-   acme
-   accessibility_posix
-)
+   list(APPEND library_source
+      gtk_accessible.cpp
+      gtk_accessible.h
+   )
 
-set_source_files_properties(_no_pch.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+endif()
 
 add_library(${PROJECT_NAME} SHARED ${library_source})
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
@@ -95,19 +70,47 @@ target_precompile_headers(static_${PROJECT_NAME} PRIVATE platform.h)
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
-if (MSVC)
-   target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-   target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-   target_link_options(${PROJECT_NAME} PRIVATE "/IMPLIB:${LIBRARY_OUTPUT_PATH}/${PROJECT_NAME}.lib")
-   target_link_options(${PROJECT_NAME} PRIVATE "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.def")
-   target_link_libraries(${PROJECT_NAME} PRIVATE
-      acme_windows_common
-      acme_windows
-      acme
-      Gdiplus
-      Setupapi
-      Credui)
-elseif(${LINUX} OR ${__BSD__})
+# The ca2 target names can be overridden by the parent build if needed.
+set(
+   ACCESSIBILITY_GTK4_CA2_LIBRARIES
+   axis;acme
+   CACHE STRING
+   "ca2 libraries linked by accessibility_gtk4"
+)
+
+function(configure_accessibility_gtk4_target target_name)
+
+   target_compile_features(${target_name} PUBLIC cxx_std_17)
+
+   target_precompile_headers(${target_name} PRIVATE framework.h)
+
+   target_include_directories(${target_name} PRIVATE
+      ${CMAKE_CURRENT_SOURCE_DIR}/../..
+      ${CMAKE_CURRENT_SOURCE_DIR}/..
+      ${CMAKE_CURRENT_SOURCE_DIR}
+   )
+
+   target_link_libraries(${target_name} PRIVATE
+      ${ACCESSIBILITY_GTK4_CA2_LIBRARIES}
+   )
+
+   if(GTK4_FOUND)
+
+      target_link_libraries(${target_name} PRIVATE PkgConfig::GTK4)
+
+   endif()
+
+   set_target_properties(${target_name} PROPERTIES
+      LINKER_LANGUAGE CXX
+      POSITION_INDEPENDENT_CODE ON
+   )
+
+endfunction()
+
+configure_accessibility_gtk4_target(${PROJECT_NAME})
+configure_accessibility_gtk4_target(static_${PROJECT_NAME})
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE _accessibility_gtk4_project)
 
    #if(${USE_PKGCONFIG})
       #pkg_check_modules(PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 appindicator-0.1)
@@ -122,16 +125,15 @@ elseif(${LINUX} OR ${__BSD__})
    message("PKGCONFIG_LIBRARIES is " ${PKGCONFIG_LIBRARIES})
 endif()
 
+if(BUILD_TESTING AND UNIX)
 
+   add_executable(accessibility_gtk4_process_control_test
+      test/process_control.cpp)
 
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
+   target_link_libraries(accessibility_gtk4_process_control_test PRIVATE
+      static_accessibility_gtk4)
 
+   add_test(NAME accessibility_gtk4_process_control_test
+      COMMAND accessibility_gtk4_process_control_test)
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
-target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
-
-
-
-target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
+endif()
