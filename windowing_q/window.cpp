@@ -43,6 +43,7 @@
 #include <Qt>
 #include <acme/user/user/activation_token.h>
 #include <cairo/cairo.h>
+#include "aura/graphics/graphics/buffer_item.h"
 #include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
@@ -1017,27 +1018,29 @@ namespace windowing_q
 
       _synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      if (pitem && pitem->m_pimage2)
+      if (pitem && pitem->m_pimageBufferItem)
       {
 
-         pitem->m_pimage2->map();
+         pitem->m_pimageBufferItem->map();
 
-         if (pitem->m_pimage2.ok())
+         if (pitem->m_pimageBufferItem.ok())
          {
 
-            int w = minimum(pitem->m_pimage2->width(), pqimage->width());
+            int w = minimum(pitem->m_pimageBufferItem->width(), pqimage->width());
 
-            int h = minimum(pitem->m_pimage2->height(), pqimage->height());
+            int h = minimum(pitem->m_pimageBufferItem->height(), pqimage->height());
 
             auto pimageTarget = (::image32_t *)pqimage->bits();
 
             int iTargetScan = pqimage->bytesPerLine();
 
-            auto pimageSource = pitem->m_pimage2->data();
+            auto ppixmapImageBufferItem = pitem->m_pimageBufferItem->map();
 
-            int iSourceScan = pitem->m_pimage2->m_iScan;
+            auto pimage32BufferItem = ppixmapImageBufferItem->image32();
 
-            pimageTarget->copy(w, h, iTargetScan, pimageSource, iSourceScan);
+            int iSourceScan = ppixmapImageBufferItem->m_iScan;
+
+            pimageTarget->copy({w, h}, iTargetScan, pimage32BufferItem, iSourceScan);
 
             pbuffer->on_end_draw();
 

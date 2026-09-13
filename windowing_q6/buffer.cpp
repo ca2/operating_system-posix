@@ -1292,7 +1292,7 @@ namespace windowing_q6
 //
 //      buffer_size_and_position(pbufferitem);
 
-      auto pimageBuffer = pbufferitem->m_pimage2;
+      auto pimageBuffer = pbufferitem->m_pimageBufferItem;
 
       if (pimageBuffer->m_size != pbufferitem->m_sizeBufferItemWindow)
       {
@@ -1306,7 +1306,7 @@ namespace windowing_q6
 
       }
 
-      if(!double_buffer::_on_begin(pbufferitem))
+      if(!double_buffer_graphics::_on_begin(pbufferitem))
       {
 
          return false;

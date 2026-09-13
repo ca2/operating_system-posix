@@ -252,11 +252,11 @@ namespace node_kde6
 
          auto pclipboard = pqapplication->clipboard();
 
-         auto imageClipboard = pclipboard->image().convertToFormat(QImage::Format_ARGB32_Premultiplied);
+         auto qimageClipboard = pclipboard->image().convertToFormat(QImage::Format_ARGB32_Premultiplied);
 
-         int width = imageClipboard.width();
+         int width = qimageClipboard.width();
 
-         int height = imageClipboard.height();
+         int height = qimageClipboard.height();
 
          //auto estatus =
          //
@@ -271,15 +271,15 @@ namespace node_kde6
          //
          //                   }
 
-         auto pimage32Target = pimage->get_data();
+         auto ppixmapTarget = pimage->map();
 
-         int scanTarget = pimage->scan_size();
+         //int scanTarget = ppixmapTarget->m_iScan;
 
-         auto pimage32Source = (::image32_t *)imageClipboard.bits();
+         auto pimage32Source = (::image32_t *)qimageClipboard.bits();
 
-         int scanSource = imageClipboard.bytesPerLine();
+         int scanSource = qimageClipboard.bytesPerLine();
 
-         pimage32Target->copy(width, height, scanTarget, pimage32Source, scanSource);
+         ppixmapTarget->copy({width, height}, pimage32Source, scanSource);
 
          bOk = true;
 

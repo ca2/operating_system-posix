@@ -8,6 +8,7 @@
 #include "acme/platform/system.h"
 #include "acme/filesystem/filesystem/directory_context.h"
 #include "apex/platform/application.h"
+#include "aura/graphics/draw2d/graphics_lease.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/graphics/image/context.h"
 #include "aura/platform/context.h"
@@ -204,9 +205,15 @@ namespace node_kde6
 
       ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
 
-      pdraw2dgraphicsImage24->set_compositing_quality(::draw2d::e_compositing_quality_high_quality);
+      {
 
-      pdraw2dgraphicsImage24->draw(imagedrawing);
+         auto pdraw2dgraphicsImage24 = pimage24->acquire_graphics();
+
+         pdraw2dgraphicsImage24->set_compositing_quality(::draw2d::e_compositing_quality_high_quality);
+
+         pdraw2dgraphicsImage24->draw(imagedrawing);
+
+      }
 
       image()->save_image(pathIcon24, pimage24);
 
