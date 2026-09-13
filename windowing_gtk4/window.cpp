@@ -2,7 +2,7 @@
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "platform.h"
-#include "buffer.h"
+#include "graphics.h"
 #include "keyboard.h"
 #include "window.h"
 #include "windowing.h"

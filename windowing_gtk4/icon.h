@@ -39,12 +39,12 @@ namespace windowing_gtk4
       void * get_os_data(const ::i32_size & size) const override;
 
 
-      virtual void load_matter(const ::scoped_string & scopedstrPath) override;
-      virtual void load_app_tray_icon(const ::scoped_string & scopedstrPath) override;
-      virtual void load_file(const ::scoped_string & scopedstrPath) override;
+      void set_matter(const ::scoped_string & scopedstrPath) override;
+      void set_app_tray_icon(const ::scoped_string & scopedstrPath) override;
+      void set_file(const ::payload & payloadFile) override;
 
 
-      virtual ::image::image_pointer get_image(const ::i32_size & size) override;
+      ::image::image_pointer get_image(const ::i32_size & size) override;
 
       
    };

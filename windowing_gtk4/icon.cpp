@@ -61,7 +61,7 @@ namespace windowing_gtk4
    }
 
 
-   void icon::load_file(const ::scoped_string & scopedstrPath)
+   void icon::set_file(const ::payload & payloadFile)
    {
 
       //throw ::interface_only();
@@ -71,14 +71,14 @@ namespace windowing_gtk4
    }
 
 
-   void icon::load_matter(const ::scoped_string & scopedstrMatter)
+   void icon::set_matter(const ::scoped_string & scopedstrMatter)
    {
 
       auto pcontext = m_papplication;
 
       string strPath = pcontext->directory()->matter(scopedstrMatter);
 
-      load_file(strPath);
+      set_file(strPath);
 
 //      if (!load_file(strPath))
 //      {
@@ -94,7 +94,7 @@ namespace windowing_gtk4
    }
 
 
-   void icon::load_app_tray_icon(const ::scoped_string & scopedstrAppId)
+   void icon::set_app_tray_icon(const ::scoped_string & scopedstrAppId)
    {
 
       //auto estatus =
