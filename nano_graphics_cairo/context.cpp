@@ -5,7 +5,7 @@
 #include "context.h"
 #include "icon.h"
 #include "acme/exception/exception.h"
-#include "acme/graphics/image/image32.h"
+#include "acme/graphics/image/image32_t.h"
 #include "acme/graphics/image/pixmap.h"
 #include "acme/nano/graphics/brush.h"
 #include "acme/nano/graphics/font.h"
