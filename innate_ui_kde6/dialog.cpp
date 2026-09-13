@@ -5,7 +5,7 @@
 #include <QDialog>
 
 #include "innate_ui.h"
-#include "acme/platform/platform.h"
+#include "acme/platform/platform_platform.h"
 #include "acme/platform/system.h"
 #include "acme/platform/application.h"
 #include "acme/parallelization/manual_reset_happening.h"
