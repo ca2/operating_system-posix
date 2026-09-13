@@ -554,35 +554,35 @@ namespace q
          }
 
 
-         ::pixmap windowing::get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile)
+         ::pixmap_pointer windowing::get_pixmap_from_file(const ::block & block)
          {
 
-
-            QByteArray imageData = QByteArray::fromRawData((const_char_pointer )psourceFile,
-                                                           sizeSourceFile);  // Replace with actual image bytes and size
+            QByteArray imageData = QByteArray::fromRawData((const_char_pointer )block.data(), block.size());  // Replace with actual image bytes and size
 
             // Create a QImage object
-            QImage image;
+            QImage qimage;
 
             // Load the image from the QByteArray
-            if (!image.loadFromData(imageData)) {
+            if (!qimage.loadFromData(imageData))
+            {
 
                return {};
 
             }
 
-            QImage image32;
+            auto qimage32 = qimage.convertToFormat(QImage::Format_ARGB32_Premultiplied);
 
-            image32 = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
+            auto ppixmap = create_newø<::pixmap >();
 
-            memoryHost.assign(image32.bits(), image32.bytesPerLine() * image32.height());
+            ::i32_size size(qimage32.width(), qimage32.height());
 
-            ::pixmap pixmap;
+            auto pimage32 = (::image32_t *) qimage32.data_ptr();
 
-            pixmap.initialize({image32.width(), image32.height()}, (::image32_t *) memoryHost.data(),
-                              image32.bytesPerLine());
+            auto iScan = qimage32.bytesPerLine();
 
-            return pixmap;
+            ppixmap->create_from_data(size, pimage32, iScan);
+
+            return ppixmap;
 
          }
 

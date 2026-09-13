@@ -21,8 +21,8 @@ namespace windowing_q6
 
 
    class CLASS_DECL_AURA buffer :
-      virtual public ::graphics::double_buffer,
-      virtual public ::graphics::bitmap_source_buffer//,
+      virtual public ::graphics::double_buffer_graphics,
+      virtual public ::graphics::bitmap_source_buffer_graphics//,
       //virtual public ::acme_posix::shmem
    {
    public:

@@ -13,6 +13,7 @@
 #include "acme/platform/scoped_restore.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
 #include "apex/platform/system.h"
+#include "aura/graphics/graphics/buffer_item.h"
 #include "aura/graphics/image/image.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 //#include "aura/user/user/interaction_impl.h"
@@ -133,7 +134,7 @@ namespace windowing_q6
    void buffer::initialize_graphics_graphics(::windowing::window * pimpl)
    {
 
-      double_buffer::initialize_graphics_graphics(pimpl);
+      double_buffer_graphics::initialize_graphics_graphics(pimpl);
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
@@ -224,7 +225,7 @@ namespace windowing_q6
 //
 //      }
 
-      return ::graphics::double_buffer::update_buffer(pbufferitem);
+      return ::graphics::double_buffer_graphics::update_buffer(pbufferitem);
 
    }
 
@@ -380,9 +381,9 @@ namespace windowing_q6
    bool buffer::buffer_lock_round_swap_key_buffers()
    {
 
-      bool bOk1 = double_buffer::buffer_lock_round_swap_key_buffers();
+      bool bOk1 = double_buffer_graphics::buffer_lock_round_swap_key_buffers();
 
-      bool bOk2 = bitmap_source_buffer::buffer_lock_round_swap_key_buffers();
+      bool bOk2 = bitmap_source_buffer_graphics::buffer_lock_round_swap_key_buffers();
 
       return bOk1 && bOk2;
 

@@ -5,29 +5,47 @@
 #pragma once
 #include "acme/nano/graphics/icon.h"
 #include <cairo/cairo.h>
-namespace cairo {
-namespace nano {
-namespace graphics {
 
-class  CLASS_DECL_ACME icon:
-virtual public ::nano::graphics::icon{
-  public:
-
-    cairo_surface_t * m_pcairosurface;
-
-    icon();
-    ~icon();
-
-   ::i32_size size() const override;
+namespace cairo
+{
 
 
-   void load_image_file(const void *p, memsize size) override;
+   namespace nano
+   {
 
 
-};
+      namespace graphics
+      {
 
-} // user
-} // nano
+
+         class  CLASS_DECL_ACME icon:
+            virtual public ::nano::graphics::icon
+         {
+         public:
+
+
+            cairo_surface_t * m_pcairosurface;
+
+
+            icon();
+            ~icon() override;
+
+
+            ::i32_size size() const override;
+
+
+            void load_image_file(const ::block & block) override;
+
+
+         };
+
+
+      } // user
+
+
+   } // nano
+
+
 } // cairo
 
 

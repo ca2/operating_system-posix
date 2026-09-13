@@ -8,18 +8,18 @@ list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
-        buffer.cpp
-        buffer.h
+        #buffer.cpp
+        #buffer.h
         cursor.cpp
         cursor.h
         display.cpp
         display.h
         #display_xrender.cpp
         #enum_display_monitors.cpp
-        platform.cpp
-        platform.h
-   #gdk_gdk.cpp
-   #gdk_gdk.h
+        #gdk_gdk.cpp
+        #gdk_gdk.h
+        graphics.cpp
+        graphics.h
         icon.cpp
         icon.h
         keyboard.cpp
@@ -28,6 +28,8 @@ list(APPEND library_source
         #node.h
         #startupxxx-notification.cpp
         #startupxxx-notification.h
+        platform.cpp
+        platform.h
         text_composition_client.cpp
         text_composition_client.h
         #user.cpp

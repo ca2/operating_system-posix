@@ -72,7 +72,7 @@ namespace q
             void windowing_post_quit() override;
 
 
-            ::pixmap get_pixmap_from_file(memory & memoryHost, const void * psourceFile, memsize sizeSourceFile) override;
+            ::pixmap_pointer get_pixmap_from_file(const ::block & block) override;
 
 
       //   ::e_status x11_initialize() override;

@@ -20,9 +20,9 @@ namespace windowing_q
 {
 
 
-   class CLASS_DECL_WINDOWING_Q buffer :
-      virtual public ::graphics::double_buffer,
-      virtual public ::graphics::bitmap_source_buffer//,
+   class CLASS_DECL_WINDOWING_Q graphics :
+      virtual public ::graphics::double_buffer_graphics,
+      virtual public ::graphics::bitmap_source_buffer_graphics//,
       //virtual public ::acme_posix::shmem
    {
    public:
@@ -50,8 +50,8 @@ namespace windowing_q
       //interlocked_long_long                              m_interlockedXShmPutImage;
 
 
-      buffer();
-      ~buffer() override;
+      graphics();
+      ~graphics() override;
 
 
       virtual ::windowing_q::window * q_window();

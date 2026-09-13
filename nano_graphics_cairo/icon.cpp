@@ -25,19 +25,22 @@ namespace cairo
          {
 
             m_pcairosurface = nullptr;
+
          }
 
 
          icon::~icon()
          {
+
             if (m_pcairosurface)
             {
-
 
                cairo_surface_destroy(m_pcairosurface);
 
                m_pcairosurface = nullptr;
+
             }
+
          }
 
 
@@ -59,7 +62,7 @@ namespace cairo
          }
 
 
-         void icon::load_image_file(const void* p, memsize size)
+         void icon::load_image_file(const ::block & block)
          {
 
             if (m_pcairosurface)
@@ -71,21 +74,20 @@ namespace cairo
 
             }
 
-            ::memory memoryHost;
+            auto ppixmap = system()->acme_windowing()->get_pixmap_from_file(block);
 
-            auto pixmap = system()->acme_windowing()->get_pixmap_from_file(memoryHost, p, size);
-
-
-            if (pixmap.is_ok())
+            if (ppixmap.ok())
             {
+
                // Create a cairo surface using the ARGB32 data from memory
                m_pcairosurface = cairo_image_surface_create_for_data(
-                  memoryHost.data(), // Pointer to the raw data in memory
+                  (unsigned char *) ppixmap->image32(), // Pointer to the raw data in memory
                   CAIRO_FORMAT_ARGB32, // Data format (ARGB32)
-                  pixmap.width(), // Width of the surface
-                  pixmap.height(), // Height of the surface
-                  pixmap.m_iScan // Stride (number of bytes per row)
+                  ppixmap->width(), // Width of the surface
+                  ppixmap->height(), // Height of the surface
+                  ppixmap->m_iScan // Stride (number of bytes per row)
                );
+
             }
 
          }
@@ -98,7 +100,6 @@ namespace cairo
 
 
 } // cairo
-
 
 
 

@@ -1,6 +1,6 @@
 #include "platform.h"
 #include "text_composition_client.h"
-#include "buffer.h"
+#include "graphics.h"
 #include "display.h"
 #include "window.h"
 #include "windowing.h"
