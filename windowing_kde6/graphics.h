@@ -7,7 +7,7 @@
 //#include "windowing_system_wayland/_.h"
 //#include "aura/graphics/graphics/_graphics.h"
 //#include "acme/prototype/geometry2d/rectangle.h"
-#include "windowing_q6/buffer.h"
+#include "windowing_q6/graphics.h"
 //#include "aura/graphics/graphics/double_buffer.h"
 //#include "acme/graphics/image/pixmap.h"
 //#include "acme_posix/shmem.h"
