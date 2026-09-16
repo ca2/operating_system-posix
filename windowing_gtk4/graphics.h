@@ -50,8 +50,8 @@ namespace windowing_gtk4
       //interlocked_long_long                              m_interlockedXShmPutImage;
 
 
-      buffer();
-      ~buffer() override;
+      graphics();
+      ~graphics() override;
 
 
       //virtual ::windowing_gtk4::window * x11_window();

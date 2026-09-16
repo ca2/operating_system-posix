@@ -155,7 +155,7 @@ namespace gtk4
             // virtual void _apply_os_user_icon_theme();
             // virtual void _os_process_user_icon_theme(const ::scoped_string & scopedstrOsUserIconTheme);
 
-            ::pixmap get_pixmap_from_file(memory& memoryHost, const void* psourceFile, memsize sizeSourceFile) override;
+            ::pixmap_pointer get_pixmap_from_file(const ::block & blockMemoryFile) override;
 
 
             //svirtual ::acme::windowing::display * _defer_get_display(bool bBranch, ::GdkDisplay * pgdkdisplay);

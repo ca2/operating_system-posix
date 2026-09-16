@@ -695,10 +695,16 @@ namespace
             pdownloader,
             GDK_MEMORY_B8G8R8A8);
 
-         gdk_texture_downloader_download_into(
-            pdownloader,
-            (guchar *)pdata->m_pimage->image32(),
-            (gsize)pdata->m_pimage->scan_size());
+         {
+
+            auto ppixmap = pdata->m_pimage->map();
+
+            gdk_texture_downloader_download_into(
+               pdownloader,
+               (guchar *)ppixmap->image32(),
+               (gsize)ppixmap->m_iScan);
+
+         }
 
          gdk_texture_downloader_free(pdownloader);
 
@@ -1180,7 +1186,11 @@ namespace node_gtk4
 
       pimage->create_as_descriptor(pdata->m_pimage->size());
 
-      pimage->copy(pdata->m_pimage);
+      auto ppixmapSource = pdata->m_pimage->map();
+
+      auto ppixmapTarget = pimage->map();
+
+      ppixmapTarget->copy(ppixmapSource);
 
       return true;
 
@@ -1197,16 +1207,14 @@ namespace node_gtk4
 
       }
 
-      pimage->map();
+      auto ppixmapImage = ((::image::image *) pimage)->map();
 
-      auto cx = pimage->width();
-      auto cy = pimage->height();
-      auto iScan = pimage->scan_size();
+      auto cx = ppixmapImage->width();
+      auto cy = ppixmapImage->height();
+      auto iScan = ppixmapImage->m_iScan;
 
       if(cx <= 0 || cy <= 0 || iScan < cx * 4)
       {
-
-         pimage->unmap();
 
          return false;
 
@@ -1215,10 +1223,8 @@ namespace node_gtk4
       // Copy before entering GDK so the texture is independent of the ca2
       // image mapping and remains valid after this function returns.
       auto pbytes = g_bytes_new(
-         pimage->image32(),
+         ppixmapImage->image32(),
          (gsize)iScan * (gsize)cy);
-
-      pimage->unmap();
 
       if(!pbytes)
       {

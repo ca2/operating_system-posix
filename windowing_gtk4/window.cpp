@@ -15,6 +15,7 @@
 #include "acme/user/user/_text_stream.h"
 #include "apex/platform/node.h"
 #include "apex/platform/system.h"
+#include "aura/graphics/graphics/buffer_item.h"
 #include "aura/graphics/graphics/graphics.h"
 #include "aura/message/user.h"
 #include "aura/user/user/interaction_graphics_thread.h"
@@ -392,11 +393,11 @@ gtk_im_context_commit (
 
       synchronous_lock slGraphics(pbuffer->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      auto pitem = pbuffer->get_screen_item();
+      auto pbufferitem = pbuffer->get_screen_item();
 
-      synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+      synchronous_lock slImage(pbufferitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-      if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
+      if (pbufferitem && pbufferitem->m_pimageBufferItem && pbufferitem->m_pimageBufferItem.ok())
       {
 
          auto pdraw2dgraphics = createø<::draw2d::graphics>();
@@ -427,7 +428,7 @@ gtk_im_context_commit (
 
          pdraw2dgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
 
-         ::image::image_source imagesource(pitem->m_pimage2, r);
+         ::image::image_source imagesource(pbufferitem->m_pimageBufferItem, r);
 
          ::image::image_drawing_options imagedrawingoptions(r);
 

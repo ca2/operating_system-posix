@@ -20,7 +20,7 @@ __FACTORY_EXPORT void windowing_gtk4_factory(::factory::factory * pfactory)
 
    printf("windowing_gtk4 factory\n");
 
-   pfactory->add_factory_item < ::windowing_gtk4::buffer, ::graphics::graphics > ();
+   pfactory->add_factory_item < ::windowing_gtk4::graphics, ::graphics::graphics > ();
 
    pfactory->add_factory_item < ::windowing_gtk4::display, ::acme::windowing::display > ();
    pfactory->add_factory_item < ::windowing_gtk4::window, ::acme::windowing::window > ();
