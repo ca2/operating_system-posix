@@ -96,8 +96,8 @@ if (${__BSD__} OR ${DEBIAN} OR ${SUSE} OR ${FEDORA} OR ${UBUNTU} OR ${MANJARO})
    #)
 else ()
    list(APPEND this_system_libraries
-      KF6::Plasma
-      KF6::PlasmaQuick
+      Plasma::Plasma
+      Plasma::PlasmaQuick
    )
 endif ()
 
