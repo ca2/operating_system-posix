@@ -11,6 +11,7 @@
 #include "aura/graphics/graphics/double_buffer.h"
 #include "acme/graphics/image/pixmap.h"
 #include "acme_posix/shmem.h"
+#include "operating_system-posix/windowing_q/graphics.h"
 //#include <X11/Xlib.h>
 //#include <X11/extensions/XShm.h>
 //#include <X11/extensions/Xrender.h>
@@ -20,9 +21,10 @@ namespace windowing_q6
 {
 
 
-   class CLASS_DECL_AURA buffer :
-      virtual public ::graphics::double_buffer_graphics,
-      virtual public ::graphics::bitmap_source_buffer_graphics//,
+   class CLASS_DECL_AURA graphics :
+      virtual public ::windowing_q::graphics
+      //virtual public ::graphics::double_buffer_graphics,
+      //virtual public ::graphics::bitmap_source_buffer_graphics//,
       //virtual public ::acme_posix::shmem
    {
    public:
@@ -50,8 +52,8 @@ namespace windowing_q6
       //interlocked_long_long                              m_interlockedXShmPutImage;
 
 
-      buffer();
-      ~buffer() override;
+      graphics();
+      ~graphics() override;
 
 
       ::windowing_q6::window * q6_window();

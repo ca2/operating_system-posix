@@ -1,6 +1,6 @@
 #include "platform.h"
 //#include "text_composition_client.h"
-#include "buffer.h"
+#include "graphics.h"
 #include "display.h"
 #include "window.h"
 #include "windowing.h"
@@ -20,7 +20,7 @@ __FACTORY_EXPORT void windowing_kde6_factory(::factory::factory * pfactory)
 
    printf("windowing_kde6 factory\n");
 
-   pfactory->add_factory_item < ::windowing_kde6::buffer, ::graphics::graphics > ();
+   pfactory->add_factory_item < ::windowing_kde6::graphics, ::graphics::graphics > ();
 
    pfactory->add_factory_item < ::windowing_kde6::display, ::acme::windowing::display > ();
    pfactory->add_factory_item < ::windowing_kde6::window, ::acme::windowing::window > ();

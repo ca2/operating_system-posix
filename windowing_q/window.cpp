@@ -51,6 +51,7 @@
 #include "acme_windowing_q/q_5_and_6.h"
 
 
+// CLASS_DECL_ACME::string _001_pixmap_diagnostics(const pixmap_t * ppixmap);
 
 ::particle* user_synchronization();
 
@@ -989,7 +990,9 @@ namespace windowing_q
 
       auto pbuffer = m_pgraphicsgraphics.m_p;
 
-      if (!pbuffer)
+      _synchronous_lock slGraphics(::is_null(pbuffer) ? nullptr : pbuffer->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      if (!pbuffer || pbuffer->get_screen_index() < 0)
       {
 
          auto colorLightBlue = argb(0.5, 0.35, 0.7, 0.95);
@@ -1012,8 +1015,6 @@ namespace windowing_q
 
       }
 
-      _synchronous_lock slGraphics(pbuffer->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
-
       auto pitem = pbuffer->get_screen_item();
 
       _synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -1021,7 +1022,7 @@ namespace windowing_q
       if (pitem && pitem->m_pimageBufferItem)
       {
 
-         pitem->m_pimageBufferItem->map();
+         auto ppixmapImageBufferItem = pitem->m_pimageBufferItem->map();
 
          if (pitem->m_pimageBufferItem.ok())
          {
@@ -1034,11 +1035,27 @@ namespace windowing_q
 
             int iTargetScan = pqimage->bytesPerLine();
 
-            auto ppixmapImageBufferItem = pitem->m_pimageBufferItem->map();
-
             auto pimage32BufferItem = ppixmapImageBufferItem->image32();
 
             int iSourceScan = ppixmapImageBufferItem->m_iScan;
+
+            //::string strPixmap = _001_image32_diagnostics_t(ppixmapImageBufferItem).as_string();
+
+            //auto cx = ppixmapImageBufferItem->width();
+
+            //auto cy = ppixmapImageBufferItem->height();
+
+            // ppixmapImageBufferItem->blend_color({0, 0, 100, 100}, argb(0.5, 0.5 * 0.5, 0.8*0.5, 0.9*0.5));
+            //
+            // ppixmapImageBufferItem->blend_color({cx-100, 0, cx, 100}, argb(0.5, 0.5 * 0.5, 0.8*0.5, 0.9*0.5));
+            //
+            // ppixmapImageBufferItem->blend_color({0, cy-100, 100, cy}, argb(0.5, 0.5 * 0.5, 0.8*0.5, 0.9*0.5));
+            //
+            // ppixmapImageBufferItem->blend_color({cx-100, cy-100, cx, cy}, argb(0.5, 0.5 * 0.5, 0.8*0.5, 0.9*0.5));
+
+            //auto psz = strPixmap.c_str();
+
+            //information("buffer Item diagnostics: {}", strPixmap);
 
             pimageTarget->copy({w, h}, iTargetScan, pimage32BufferItem, iSourceScan);
 

@@ -20,8 +20,8 @@ namespace windowing_kde6
 {
 
 
-   class CLASS_DECL_AURA buffer :
-      virtual public ::windowing_q6::buffer
+   class CLASS_DECL_AURA graphics :
+      virtual public ::windowing_q6::graphics
       //,
       //virtual public ::graphics::bitmap_source_buffer//,
       //virtual public ::acme_posix::shmem
@@ -51,8 +51,8 @@ namespace windowing_kde6
 //      //interlocked_long_long                              m_interlockedXShmPutImage;
 
 
-      buffer();
-      ~buffer() override;
+      graphics();
+      ~graphics() override;
 //
 //
 //      ::windowing_kde6::window * kde6_window();

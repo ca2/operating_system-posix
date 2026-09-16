@@ -581,6 +581,18 @@ namespace windowing_q
 
       }
 
+
+      ::cast < ::windowing_q::window > pwindow = m_pwindow;
+
+      if (::is_null(pwindow))
+      {
+
+         return;
+
+      }
+
+      pwindow->window_update_screen();
+
 //      if (!m_pwindow->m_puserinteraction->is_window_screen_visible())
 //      {
 //

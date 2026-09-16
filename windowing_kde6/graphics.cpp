@@ -3,7 +3,7 @@
 // hi5 contribution...
 #include "platform.h"
 //#include "windowing_kde5.h"
-#include "buffer.h"
+#include "graphics.h"
 #include "window.h"
 #include "display.h"
 #include "windowing.h"
@@ -43,7 +43,7 @@ namespace windowing_kde6
    //    window_redraw
    // };
 
-   buffer::buffer()
+   graphics::graphics()
    {
 
       m_bXShmPutImagePending = false;
@@ -64,7 +64,7 @@ namespace windowing_kde6
    }
 
 
-   buffer::~buffer()
+   graphics::~graphics()
    {
 
 //      _destroy_shared_memory();

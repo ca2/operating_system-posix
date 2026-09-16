@@ -32,8 +32,8 @@ list(APPEND library_source
    _.h
    _factory.cpp
    #_library.h
-   buffer.cpp
-   buffer.h
+   graphics.cpp
+   graphics.h
    cursor.cpp
    cursor.h
    #debug.cpp

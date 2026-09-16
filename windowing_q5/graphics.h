@@ -20,7 +20,7 @@ namespace windowing_q5
 {
 
 
-   class CLASS_DECL_AURA buffer :
+   class CLASS_DECL_AURA graphics :
       virtual public ::windowing_q::buffer //,
       //virtual public ::graphics::bitmap_source_buffer//,
       //virtual public ::acme_posix::shmem
@@ -50,8 +50,8 @@ namespace windowing_q5
 //       //interlocked_long_long                              m_interlockedXShmPutImage;
 
 
-      buffer();
-      ~buffer() override;
+      graphics();
+      ~graphics() override;
 
 
       virtual ::windowing_q5::window * q5_window();
