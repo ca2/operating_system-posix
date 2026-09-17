@@ -655,6 +655,15 @@ namespace windowing_gtk4
 
       ::cast<::windowing_gtk4::window> pgtk4window = m_pwindow.m_p;
 
+      // GTK may have painted before the first frame was ready. Invalidate the
+      // drawing area whenever a completed screen buffer becomes available.
+      if (pgtk4window)
+      {
+
+         pgtk4window->window_update_screen();
+
+      }
+
       auto puserinteraction = m_pwindow->user_interaction();
 
       ::string strType = ::type(puserinteraction).name();

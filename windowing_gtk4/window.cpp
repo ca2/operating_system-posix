@@ -395,68 +395,62 @@ gtk_im_context_commit (
 
       auto pbufferitem = pbuffer->get_screen_item();
 
+      if (!pbufferitem)
+      {
+
+         return;
+
+      }
+
       synchronous_lock slImage(pbufferitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       if (pbufferitem && pbufferitem->m_pimageBufferItem && pbufferitem->m_pimageBufferItem.ok())
       {
 
-         auto pdraw2dgraphics = createø<::draw2d::graphics>();
+         // Like windowing_q, copy the mapped view, not the backing bitmap:
+         // the latter can include the window's desktop origin and spare pixels.
+         auto ppixmap = pbufferitem->m_pimageBufferItem->map();
 
-         pdraw2dgraphics->attach(cr);
+         int width = minimum(ppixmap->width(), sizeDraw.cx);
+         int height = minimum(ppixmap->height(), sizeDraw.cy);
 
-         ::f64_rectangle r;
-
-         int width = gtk_widget_get_width(widget);
-
-         int height = gtk_widget_get_height(widget);
-
-         r.left = 0;
-         r.top = 0;
-         r.right = width;
-         r.bottom = height;
-
-// cairo_reset_clip(cr);
-//              // Set the fill color to blue (RGB: 0, 0, 1)
-//     cairo_set_source_rgb(cr, 0, 0, 1); // RGB values for blue color
-//
-//     // Draw a rectangle with the specified width and height
-//     cairo_rectangle(cr, 0, 0, width, height);
-//
-//     // Fill the rectangle with the set color
-//     cairo_fill(cr);
-
-
-         pdraw2dgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-
-         ::image::image_source imagesource(pbufferitem->m_pimageBufferItem, r);
-
-         ::image::image_drawing_options imagedrawingoptions(r);
-
-         ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
-
-         pdraw2dgraphics->draw(imagedrawing);
-
-         //pdraw2dgraphics->set_solid_color(::color::white);
-         //::string strSize;
-         //strSize.formatf("Size: %d, %d\nSizeOnSize: %d, %d", width, height, m_sizeOnSize.cx, m_sizeOnSize.cy);
-         //pdraw2dgraphics->text_out({10, 10}, strSize);
-
-         pdraw2dgraphics->detach();
-         // Set the fill color to blue (RGB: 0, 0, 1)
-    // cairo_set_source_rgb(cr, 0, 0, 1); // RGB values for blue color
-    //
-    // // Draw a rectangle with the specified width and height
-    // cairo_rectangle(cr, 0, height/2,width, height/2);
-    //
-    // // Fill the rectangle with the set color
-    // cairo_fill(cr);
-
-         //if(pbuffer)
+         if (width <= 0 || height <= 0)
          {
 
-            pbuffer->on_end_draw();
+            return;
 
          }
+
+         // Own the pixels: GTK can retain this surface in its render node after
+         // the callback returns and the render thread reuses the screen buffer.
+         auto psurface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
+
+         if (cairo_surface_status(psurface) != CAIRO_STATUS_SUCCESS)
+         {
+
+            cairo_surface_destroy(psurface);
+            return;
+
+         }
+
+         auto ptarget = (::image32_t *)cairo_image_surface_get_data(psurface);
+
+         ptarget->copy({width, height}, cairo_image_surface_get_stride(psurface),
+            ppixmap->image32(), ppixmap->m_iScan);
+
+         cairo_surface_mark_dirty(psurface);
+
+         cairo_save(cr);
+         cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+         cairo_set_source_surface(cr, psurface, 0, 0);
+         cairo_rectangle(cr, 0, 0, width, height);
+         cairo_fill(cr);
+         cairo_restore(cr);
+
+         cairo_surface_destroy(psurface);
+
+         // The render thread already published this buffer. Painting it must
+         // not swap it back with the buffer reserved for the next frame.
 
 #ifdef DEEP_DEBUGGING
 
@@ -2406,28 +2400,21 @@ if(::is_set(puserinteraction))
    void window::window_update_screen()
    {
 
-      if(!m_bInhibitQueueDraw)
+      ::pointer<window> pthis = this;
+
+      main_post([pthis]()
       {
 
-         //information() << "::window::window_update_screen";
-
-         main_send([this]()
+         if (GTK_IS_WIDGET(pthis->m_pdrawingarea) && !pthis->m_bInhibitQueueDraw)
          {
 
-            if (GTK_IS_WIDGET(m_pgtkwidget) && !m_bInhibitQueueDraw)
-            {
+            pthis->set_window_position_unlocked();
 
-               //information() << "::window::window_update_screen (2)";
+            gtk_widget_queue_draw(pthis->m_pdrawingarea);
 
-               set_window_position_unlocked();
+         }
 
-               gtk_widget_queue_draw(m_pdrawingarea);
-
-            }
-
-         });
-
-      }
+      });
 
    }
 
