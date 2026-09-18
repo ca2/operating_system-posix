@@ -1589,7 +1589,7 @@ information()
 
                preempt(200_ms);
 
-               main_send([pthis, x, y]()
+               pthis->main_send([pthis, x, y]()
                {
 
                   pthis->_gtk_show_system_menu(x, y);
