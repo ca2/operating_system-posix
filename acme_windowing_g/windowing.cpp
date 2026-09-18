@@ -10,7 +10,7 @@
 #include "acme/constant/windowing2.h"
 #include "acme/handler/request.h"
 #include "acme/platform/application.h"
-#include  "acme/operating_system/posix/termination_handler.h"
+//#include  "acme/operating_system/posix/termination_handler.h"
 #include <glib-unix.h>
 
 namespace g
@@ -159,27 +159,27 @@ namespace g
          {
 
 
-            g_unix_fd_add(
-   termination_handler::notification_fd(),
-   G_IO_IN,
-   [](gint, GIOCondition condition, gpointer) -> gboolean
-   {
-      if (condition & G_IO_IN)
-      {
-         if (termination_handler::consume())
-         {
-            // GTK 4:
-            //g_application_quit(g_application_get_default());
-            ::system()->m_papplication->set_finish();
-
-            // GTK 3 without GApplication might instead use:
-            // gtk_main_quit();
-         }
-      }
-
-      return G_SOURCE_CONTINUE;
-   },
-   nullptr);
+   //          g_unix_fd_add(
+   // termination_handler::notification_fd(),
+   // G_IO_IN,
+   // [](gint, GIOCondition condition, gpointer) -> gboolean
+   // {
+   //    if (condition & G_IO_IN)
+   //    {
+   //       if (termination_handler::consume())
+   //       {
+   //          // GTK 4:
+   //          //g_application_quit(g_application_get_default());
+   //          ::system()->m_papplication->set_finish();
+   //
+   //          // GTK 3 without GApplication might instead use:
+   //          // gtk_main_quit();
+   //       }
+   //    }
+   //
+   //    return G_SOURCE_CONTINUE;
+   // },
+   // nullptr);
 
          }
 
@@ -206,7 +206,7 @@ namespace g
 
             }
 
-            _post_request(prequest);
+            post_request(prequest);
 
          }
 
