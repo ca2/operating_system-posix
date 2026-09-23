@@ -49,7 +49,7 @@ if(${WIN32})
    target_link_options(${PROJECT_NAME} PRIVATE "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.def")
    target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
 
-elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
+elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__})
 
    if (${USE_PKGCONFIG})
       pkg_check_modules(${PROJECT_NAME}_PKGCONFIG cairo)

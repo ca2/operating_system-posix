@@ -49,7 +49,7 @@ if(${WIN32})
     target_link_libraries(write_text_pango PRIVATE acme apex aqua aura Gdiplus)
 
 
-elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
+elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__})
 
 
     #if(${USE_PKGCONFIG})

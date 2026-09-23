@@ -46,7 +46,7 @@ if(${WIN32})
    target_link_options(windowing_x11 PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(windowing_x11 PRIVATE ${library_references} ${global_library_references})
    #add_dependencies(windowing_x11 draw2d_gdiplus)
-elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
+elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__})
 
 
    pkg_check_modules(${PROJECT_NAME}_PKGCONFIG x11 xi)

@@ -108,7 +108,7 @@ if(${WIN32})
    add_dependencies(${PROJECT_NAME} draw2d_gdiplus)
 
 
-elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
+elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__})
 
 
    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)

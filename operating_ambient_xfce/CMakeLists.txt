@@ -65,7 +65,7 @@ if(${WIN32})
    target_link_options(node_xfce PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(node_xfce PRIVATE ${library_references} ${global_library_references})
    add_dependencies(node_xfce draw2d_gdiplus)
-elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
+elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__})
 
 
    if(${USE_PKGCONFIG})

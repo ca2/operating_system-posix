@@ -124,7 +124,7 @@ if(${WIN32})
     target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references})
 
 
-elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
+elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__})
 
     if (${HAS_GTK4})
         #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG x11 glib-2.0 gtk4 ${APPINDICATOR_PKG_MODULE})

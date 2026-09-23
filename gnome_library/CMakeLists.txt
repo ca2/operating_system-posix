@@ -52,7 +52,7 @@ if(${WIN32})
    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references})
 
 
-elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
+elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__})
 
 
    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)

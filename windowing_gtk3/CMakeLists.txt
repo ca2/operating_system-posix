@@ -86,7 +86,7 @@ if(${WIN32})
    target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references})
    #add_dependencies(${PROJECT_NAME} draw2d_gdiplus)
-elseif (${LINUX} OR ${__BSD__} OR ${ANDROID})
+elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__})
 
 
    #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG xkbcommon x11 xrender xi xext libxxxstartupxxx-notification-1.0 wayland-client wayland-server wayland-cursor)
