@@ -50,7 +50,7 @@ if(${WIN32})
        Gdiplus
        Setupapi
        Credui)
-elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__})
+elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__} OR ${__SUNOS__})
 
     #if(${USE_PKGCONFIG})
         #pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 appindicator-0.1)

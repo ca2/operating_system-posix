@@ -86,7 +86,7 @@ if(${WIN32})
     target_link_libraries(windowing_xcb PRIVATE ${library_references} ${global_library_references})
 
 
-elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__})
+elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__} OR ${__SUNOS__})
 
 
     if (${USE_PKGCONFIG})
