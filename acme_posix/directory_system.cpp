@@ -753,36 +753,36 @@ namespace acme_posix
 } // namespace acme_posix
 
 
-#if defined(__APPLE__) || defined(__ANDROID__) || defined(__SUNOS__)
+//~ #if defined(__APPLE__) || defined(__ANDROID__) || defined(__SUNOS__)
 
 
-char * get_current_dir_name()
-{
+//~ char * get_current_dir_name()
+//~ {
 
-   auto size = pathconf(".", _PC_PATH_MAX);
+   //~ auto size = pathconf(".", _PC_PATH_MAX);
 
-   if (size <= 0) {
+   //~ if (size <= 0) {
 
-      size = PATH_MAX;
+      //~ size = PATH_MAX;
 
-   }
+   //~ }
 
-   char * buf = (char *) malloc(size + 1);
+   //~ char * buf = (char *) malloc(size + 1);
 
-   if (buf == nullptr) {
+   //~ if (buf == nullptr) {
 
-      return nullptr;
+      //~ return nullptr;
 
-   }
+   //~ }
 
-   auto ptr = getcwd(buf, (size_t)(size + 1));
+   //~ auto ptr = getcwd(buf, (size_t)(size + 1));
 
-   return ptr;
+   //~ return ptr;
 
-}
+//~ }
 
 
-#endif
+//~ #endif
 
 
 
