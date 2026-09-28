@@ -19,6 +19,8 @@ void utc_timespec(timespec * ptimespec);
 #include <unistd.h>
 #elif defined(LINUX)
 #include <unistd.h>
+#elif defined(__SUNOS__)
+#include <unistd.h>
 #endif
 
 
@@ -38,7 +40,7 @@ void utc_timespec(timespec * ptimespec);
 #endif
 
 
-#if defined(LINUX) || defined(SOLARIS) || defined(__APPLE__) || defined(__BSD__)
+#if defined(LINUX) || defined(SOLARIS) || defined(__APPLE__) || defined(__BSD__) || defined(__SUNOS__)
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <fcntl.h>

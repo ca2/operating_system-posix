@@ -17,7 +17,7 @@
 
 #include <ftw.h>
 
-#if defined(__APPLE__) || defined(__ANDROID__)
+#if defined(__APPLE__) || defined(__ANDROID__) || defined(__SUNOS__)
 
 char * get_current_dir_name();
 
@@ -59,6 +59,10 @@ char * get_current_dir_name();
 #include <errno.h>
 #include <stdio.h>
 char * get_current_dir_name();
+#elif defined(__SUNOS__)
+#include <sys/stat.h>
+#include <dirent.h>
+#include <unistd.h>
 #endif
 
 
@@ -68,6 +72,43 @@ char * get_current_dir_name();
 #if defined(_DEBUG) && defined(NETBSD)
 //#define LOG_HERE
 #endif
+
+bool is_directory_entry(
+   const ::file::path & path,
+   const struct dirent * dp)
+{
+
+#if defined(__SUNOS__)
+
+   struct stat st{};
+
+   return ::stat(path, &st) == 0
+      && S_ISDIR(st.st_mode);
+
+#else
+
+   if(dp->d_type == DT_DIR)
+   {
+
+      return true;
+
+   }
+
+   if(dp->d_type != DT_UNKNOWN)
+   {
+
+      return false;
+
+   }
+
+   struct stat st{};
+
+   return ::stat(path, &st) == 0
+      && S_ISDIR(st.st_mode);
+
+#endif
+
+}
 
 
 namespace acme_posix
@@ -250,21 +291,21 @@ namespace acme_posix
 
 #endif
 
-      bool bIsDir = false;
+      bool bIsDir = is_directory_entry(path, dp);
 
-      if (dp->d_type == DT_UNKNOWN) {
+//      if (dp->d_type == DT_UNKNOWN) {
 
-         if (is(path)) {
+//         if (is(path)) {
 
-            bIsDir = true;
+//            bIsDir = true;
 
-         }
+//         }
 
-      } else if (dp->d_type & DT_DIR) {
+//      } else if (dp->d_type & DT_DIR) {
 
-         bIsDir = true;
+//         bIsDir = true;
 
-      }
+//      }
 
       if (bIsDir) {
 
@@ -384,11 +425,17 @@ namespace acme_posix
 
       dirent * dp;
 
-      ::file::path path;
+      ::file::path pathBase;
+      
+      pathBase = scopedstr;
 
       while ((dp = readdir(dirp)) != nullptr) {
+		  
+		  auto path = pathBase / dp->d_name;
 
-         if (dp->d_type & DT_DIR) {
+         //if (dp->d_type & DT_DIR) {
+         if(is_directory_entry(path, dp))
+         {
 
             if (eflag & ::file::e_flag_folder && !(eflag & ::file::e_flag_file)) {
 
@@ -706,7 +753,7 @@ namespace acme_posix
 } // namespace acme_posix
 
 
-#if defined(__APPLE__) || defined(__ANDROID__)
+#if defined(__APPLE__) || defined(__ANDROID__) || defined(__SUNOS__)
 
 
 char * get_current_dir_name()

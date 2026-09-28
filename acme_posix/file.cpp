@@ -14,7 +14,7 @@
 #undef USE_MISC
 
 #include <dlfcn.h>
-#if defined(LINUX) || defined(__BSD__)
+#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__)
 #include <link.h>
 #include <unistd.h>
 #include <errno.h>

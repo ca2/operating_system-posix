@@ -96,7 +96,7 @@ using array_of_malloced_pointer = ::array_particle < array_of_malloced_pointer_b
 #endif
 
 
-#if defined(__APPLE__) || defined(NETBSD) || defined(FREEBSD)
+#if defined(__APPLE__) || defined(NETBSD) || defined(FREEBSD) || defined(__SUNOS__)
 
 #define HOST_NAME_MAX _POSIX_HOST_NAME_MAX
 
