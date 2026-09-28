@@ -21,6 +21,8 @@
 #include "acme/operating_system/apple/standard_exception.h"
 #elif defined(__ANDROID__)
 #include "acme/operating_system/android/standard_exception.h"
+#elif defined(__SUNOS__)
+#include "acme/operating_system/sunos/standard_exception.h"
 #endif
 
 
