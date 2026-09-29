@@ -7,7 +7,7 @@ if(${DESKTOP_AMBIENT})
     message(STATUS "_desktop_ambient_5.cmake DESKTOP_AMBIENT is set")
 
 add_subdirectory(operating_system-posix/aura_posix)
-add_subdirectory(operating_system-linux/aura_linux)
+add_subdirectory(operating_system-${PLATFORM_NAME}/aura_${PLATFORM_NAME})
 add_subdirectory(operating_system-posix/windowing_posix)
 add_subdirectory(operating_system-${PLATFORM_NAME}/node_${PLATFORM_NAME})
 # if(${LXDE_DESKTOP})
@@ -107,6 +107,6 @@ elseif(${LXQT_DESKTOP})
 
     endif()
 endif()
-
+endif()
 
 message("_desktop_ambient_5.cmake end ------------")
