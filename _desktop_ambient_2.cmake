@@ -6,6 +6,8 @@ message("_desktop_ambient_2.cmake begin ------------")
 if(${DESKTOP_AMBIENT})
 
 
+   message("DESKTOP_AMBIENT is set")
+   
    # DESKTOP_AMBIENT are dependant just on linux kernel version and glib version?
 
    if (${LXQT_DESKTOP})

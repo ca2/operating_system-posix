@@ -4,6 +4,11 @@ message("_desktop_ambient_1.cmake begin ------------")
 
 if(${DESKTOP_AMBIENT})
 
+
+
+   message("DESKTOP_AMBIENT is set")
+   
+
    if(DEFINED SYSROOT_XDG_CURRENT_DESKTOP)
       set(CURRENT_DESKTOP_ENVIRONMENT ${SYSROOT_XDG_CURRENT_DESKTOP})
    else()
@@ -55,6 +60,14 @@ if(${DESKTOP_AMBIENT})
       set(HAS_WAYLAND FALSE)
       message(STATUS "System is XFCE")
       set(DESKTOP_ENVIRONMENT_NAME "xfce")
+
+   elseif (${CURRENT_DESKTOP_ENVIRONMENT} STREQUAL "MATE")
+
+      set(XFCE_DESKTOP TRUE)
+      set(GTK_BASED_DESKTOP TRUE)
+      set(HAS_WAYLAND FALSE)
+      message(STATUS "System is MATE")
+      set(DESKTOP_ENVIRONMENT_NAME "mate")
 
    elseif (${CURRENT_DESKTOP_ENVIRONMENT} STREQUAL "X-Cinnamon")
 
