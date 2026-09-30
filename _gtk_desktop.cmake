@@ -1,4 +1,8 @@
 
+
+message("_gtk_desktop.cmake begin ------------")
+
+
 if(NOT ${GTK_BASED_DESKTOP})
 message(ERROR error)
 endif()
@@ -176,4 +180,7 @@ elseif(${GTK_RELEASE_MAJOR} GREATER_EQUAL 3)
 endif()
 
 
+
+
+message("_gtk_desktop.cmake end ------------")
 

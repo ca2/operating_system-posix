@@ -20,8 +20,8 @@
 #include "acme/windowing/windowing.h"
 #include "acme_windowing_g/gdk_3_and_4.h"
 #include <sys/poll.h>
-#include <wayland-client-protocol.h>
-#include <wayland-server-protocol.h>
+//#include <wayland-client-protocol.h>
+//#include <wayland-server-protocol.h>
 #include <xkbcommon/xkbcommon.h>
 #include <sys/mman.h>
 #include <errno.h>
