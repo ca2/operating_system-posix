@@ -2,7 +2,7 @@
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "platform.h"
-#include "buffer.h"
+#include "graphics.h"
 #include "keyboard.h"
 #include "window.h"
 #include "windowing_gtk3.h"
@@ -15,6 +15,7 @@
 #include "acme/user/user/_text_stream.h"
 #include "apex/platform/node.h"
 #include "apex/platform/system.h"
+#include "aura/graphics/graphics/buffer_item.h"
 #include "aura/graphics/graphics/graphics.h"
 #include "aura/message/user.h"
 #include "aura/user/user/interaction_thread.h"
@@ -450,7 +451,7 @@ namespace windowing_gtk3
 
          synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
-         if (pitem && pitem->m_pimage2 && pitem->m_pimage2.ok())
+         if (pitem && pitem->m_pimageBufferItem && pitem->m_pimageBufferItem.ok())
          {
 
 
@@ -464,7 +465,7 @@ namespace windowing_gtk3
                gtk_widget_get_scale_factor(widget);
 
             const auto sizeImage =
-               pitem->m_pimage2->size();
+               pitem->m_pimageBufferItem->size();
 
             cairo_matrix_t matrix;
 
@@ -526,7 +527,7 @@ namespace windowing_gtk3
             r.bottom = height;
             ///pdraw2dgraphics->fill_solid_rectangle(r, argb(0, 0, 0, 0));
             pdraw2dgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-            ::image::image_source imagesource(pitem->m_pimage2, r);
+            ::image::image_source imagesource(pitem->m_pimageBufferItem, r);
             ::image::image_drawing_options imagedrawingoptions(r);
             ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
             pdraw2dgraphics->draw(imagedrawing);

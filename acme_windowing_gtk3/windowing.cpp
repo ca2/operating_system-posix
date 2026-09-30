@@ -1261,11 +1261,11 @@ namespace gtk3
          //    }
 
 
-         ::pixmap windowing::get_pixmap_from_file(memory& memoryHost, const void* psourceFile, memsize sizeSourceFile)
+         ::pointer < ::pixmap > windowing::get_pixmap_from_file(const ::block & block)
          {
 
 
-            auto psurface = cairo_surface_from_file_in_memory(psourceFile, sizeSourceFile);
+            auto psurface = cairo_surface_from_file_in_memory(block.data(), block.size());
 
             if (::is_null(psurface))
             {
@@ -1274,11 +1274,11 @@ namespace gtk3
 
             }
 
-            auto pixmap = get_raw_data_from_cairo_surface(memoryHost, psurface);
+            auto ppixmap = pixmap_from_cairo_surface(psurface);
 
             cairo_surface_destroy(psurface);
 
-            return pixmap;
+            return ppixmap;
 
          }
 

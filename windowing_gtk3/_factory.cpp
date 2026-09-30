@@ -1,6 +1,6 @@
 #include "platform.h"
 #include "text_composition_client.h"
-#include "buffer.h"
+#include "graphics.h"
 #include "display.h"
 #include "window.h"
 #include "windowing.h"
@@ -20,7 +20,7 @@ __FACTORY_EXPORT void windowing_gtk3_factory(::factory::factory * pfactory)
 
    printf("windowing_gtk3 factory\n");
 
-   pfactory->add_factory_item < ::windowing_gtk3::buffer, ::graphics::graphics > ();
+   pfactory->add_factory_item < ::windowing_gtk3::graphics, ::graphics::graphics > ();
 
    pfactory->add_factory_item < ::windowing_gtk3::display, ::acme::windowing::display > ();
    pfactory->add_factory_item < ::windowing_gtk3::window, ::acme::windowing::window > ();

@@ -4,6 +4,7 @@
 #include "platform.h"
 #include "aura_posix/clipboard_data.h"
 #include <gtk/gtk.h>
+#include "aura/graphics/draw2d/draw2d.h"
 #include "aura/graphics/image/image.h"
 //#include "aura/graphics/image/_image.h"
 
@@ -35,6 +36,7 @@ void clipboard_targets_func(GtkClipboard *clipboard, GdkAtom *atoms, gint n_atom
 
 }
 
+
 void clipboard_image_received_func(GtkClipboard * clipboard, GdkPixbuf * pixbuf,	gpointer data)
 {
 
@@ -62,25 +64,25 @@ void clipboard_image_received_func(GtkClipboard * clipboard, GdkPixbuf * pixbuf,
 
       int iSrcScan = gdk_pixbuf_get_rowstride(pixbuf);
 
-      pdata->m_pimage->create_as_descriptor({w, h});
+      pdata->m_pimage->create_as_descriptor({w, h}, pdata->draw2d()->main_draw2d_domain());
 
       if(pdata->m_pimage)
       {
 
-         pdata->m_pimage->map();
+         auto ppixmapDataImage = pdata->m_pimage->map();
 
          //::copy_image32_swap_red_blue(
-            pdata->m_pimage->image32()->copy_swap_red_blue(
-            pdata->m_pimage->width(),
-            pdata->m_pimage->height(),
-            pdata->m_pimage->scan_size(),
+            ppixmapDataImage->m_pimage32->copy_swap_red_blue(
+            ppixmapDataImage->m_size.cx,
+            ppixmapDataImage->m_size.cy,
+            ppixmapDataImage->m_iScan,
             pimage32Src,
             iSrcScan);
 
          if(!bHasAlpha)
          {
 
-            pdata->m_pimage->fill_channel(255, ::color::e_channel_opacity);
+            ppixmapDataImage->fill_channel(255, ::color::e_channel_opacity);
 
          }
 

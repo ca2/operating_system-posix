@@ -708,6 +708,8 @@ void open_file_with_default_app_async(const_char_pointer filename) {
 
 #endif
 
+#ifdef GDK_IS_X11_DISPLAY
+
       if (GDK_IS_X11_DISPLAY (pgdkdisplay))
       {
 
@@ -720,6 +722,12 @@ void open_file_with_default_app_async(const_char_pointer filename) {
          return ::windowing::e_display_type_none;
 
       }
+      
+#else
+
+        return ::windowing::e_display_type_x11;
+
+#endif
 
    }
 

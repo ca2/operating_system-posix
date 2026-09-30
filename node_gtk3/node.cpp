@@ -35,7 +35,9 @@
 #include <gtk/gtk.h>
 #include <glib.h>
 #include <gdk/gdkdisplay.h>
+#ifdef HAS_WAYLAND
 #include <gdk/gdkwayland.h>
+#endif
 #include <gdk/gdkx.h>
 
 #include <sys/stat.h>
@@ -144,9 +146,9 @@ cairo_surface_t * __cairo_create_image_argb32_surface(::memory & m, int w, int h
 
    auto data = (image32_t *) cairo_image_surface_get_data(psurface);
 
-   ::pixmap pixmap;
+   ::pixmap_t pixmap;
 
-   pixmap.initialize({w, h}, data, s);
+   pixmap.initialize_pixmap({w, h}, data, s);
 
    return pixmap.average_color();
 
@@ -636,13 +638,13 @@ namespace node_gtk3
 
       auto psystem = system();
 
-      if (psystem->application()->m_bGtkApp)
-      {
+      //~ if (psystem->application()->m_bGtkApp)
+      //~ {
 
-         //apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
+         //~ //apex_application_run(psystem->m_strAppId, psystem->m_strProgName);
 
-      }
-      else
+      //~ }
+      //~ else
       {
 
          information() << "node_gtk3::system_main going to user_post";
@@ -2319,6 +2321,7 @@ namespace node_gtk3
 //
 //   }
 
+#ifdef HAS_WAYLAND
 
    ::wl_display * node::get_wayland_display()
    {
@@ -2330,6 +2333,8 @@ namespace node_gtk3
       return pwldisplay;
 
    }
+   
+   #endif
 
 
    bool node::defer_windowing_post(const ::procedure & procedure)

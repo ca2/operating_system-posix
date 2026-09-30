@@ -7,8 +7,9 @@
 #include "aura_posix/appindicator.h"
 #include "acme/handler/command_handler.h"
 
-
-#if defined(FREEBSD) || defined(__ARCH_LINUX__) || defined(FEDORA_LINUX) || defined(SUSE_LINUX) || defined(OPENBSD) || defined(NETBSD)
+#if defined(__SUNOS__)
+#include <libayatana-appindicator/app-indicator.h>
+#elif defined(FREEBSD) || defined(__ARCH_LINUX__) || defined(FEDORA_LINUX) || defined(SUSE_LINUX) || defined(OPENBSD) || defined(NETBSD)
 #include <libappindicator3-0.1/libappindicator/app-indicator.h>
 #else
 #include <libappindicator3-0.1/libappindicator/app-indicator.h>

@@ -138,9 +138,9 @@ namespace node_gtk3
       //::e_status _allocate_Display_and_connection() override;
 
       //void _on_gtk_init() override;
-
+#ifdef HAS_WAYLAND
       ::wl_display * get_wayland_display() override;
-
+#endif
 
       bool defer_windowing_post(const ::procedure & procedure) override;
 

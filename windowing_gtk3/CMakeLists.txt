@@ -9,8 +9,8 @@ list(APPEND library_source
    _.h
    _factory.cpp
    #_library.h
-   buffer.cpp
-   buffer.h
+   #buffer.cpp
+   #buffer.h
    cursor.cpp
    cursor.h
    debug.cpp
@@ -18,6 +18,8 @@ list(APPEND library_source
    display.h
    #display_xrender.cpp
    enum_display_monitors.cpp
+   graphics.cpp
+   graphics.h
    platform.cpp
    platform.h
    icon.cpp
@@ -80,6 +82,7 @@ endif ()
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 
+
 if(${WIN32})
    target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
    target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
@@ -93,17 +96,22 @@ elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__} OR ${__SUNOS__})
    list(APPEND extra_pkg_modules
       libstartup-notification-1.0
    )
+   
+   message("windowing_gtk3 \${APPINDICATOR_PKG_MODULE} is ${APPINDICATOR_PKG_MODULE}")
 
    pkg_check_modules(${PROJECT_NAME}_PKGCONFIG glib-2.0 gtk+-3.0 gdk-3.0 ${APPINDICATOR_PKG_MODULE} ${extra_pkg_modules})
 
 
    target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
    target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
+   
+   message("windowing_gtk3 \${\${PROJECT_NAME}_PKGCONFIG_CFLAGS}} is ${${PROJECT_NAME}_PKGCONFIG_CFLAGS}")
 
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
    target_compile_options(static_${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
+   message("windowing_gtk3 \${\${PROJECT_NAME}_PKGCONFIG_LDFLAGS}} is ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS}")
 
    target_link_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
    target_link_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})

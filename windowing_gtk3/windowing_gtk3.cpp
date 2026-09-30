@@ -36,7 +36,7 @@
 #include "windowing.h"
 #include "window.h"
 #include "display.h"
-#include "buffer.h"
+#include "graphics.h"
 #include "aura/message/user.h"
 //#include "aura/user/user/interaction_impl.h"
 #include "aura/platform/session.h"

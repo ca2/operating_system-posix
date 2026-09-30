@@ -3,7 +3,7 @@
 // hi5 contribution...
 #include "platform.h"
 #include "windowing_gtk3.h"
-#include "buffer.h"
+#include "graphics.h"
 #include "window.h"
 #include "display.h"
 #include "windowing.h"
@@ -13,6 +13,7 @@
 #include "acme/platform/scoped_restore.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
 #include "apex/platform/system.h"
+#include "aura/graphics/graphics/buffer_item.h"
 #include "aura/graphics/image/image.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 //#include "aura/user/user/interaction_impl.h"
@@ -33,7 +34,7 @@ namespace windowing_gtk3
 //   window_redraw(void *data, struct wl_callback *pwlcallback, uint32_t time)
 //   {
 //      // fprintf(stderr, "Redrawing\n");
-//      auto pbuffer = (buffer *) data;
+//      auto pbuffer = (graphics *) data;
 //      pbuffer->__handle_window_redraw(pwlcallback, time);
 //   }
 //
@@ -42,7 +43,7 @@ namespace windowing_gtk3
 //      window_redraw
 //   };
 
-   buffer::buffer()
+   graphics::graphics()
    {
 
       m_bXShmPutImagePending = false;
@@ -63,7 +64,7 @@ namespace windowing_gtk3
    }
 
 
-   buffer::~buffer()
+   graphics::~graphics()
    {
 
 //      _destroy_shared_memory();
@@ -73,7 +74,7 @@ namespace windowing_gtk3
    }
 
 
-   void buffer::_map_shared_memory(const ::i32_size & size)
+   void graphics::_map_shared_memory(const ::i32_size & size)
    {
 
       if(!m_bUseXShmIfAvailable)
@@ -88,7 +89,7 @@ namespace windowing_gtk3
    }
 
 
-//   void buffer::_destroy_shared_memory()
+//   void graphics::_destroy_shared_memory()
 //   {
 //
 //      if (m_shmaddr)
@@ -112,7 +113,7 @@ namespace windowing_gtk3
 //   }
 
 
-   ::windowing_gtk3::window * buffer::gtk3_window()
+   ::windowing_gtk3::window * graphics::gtk3_window()
    {
 
       ::cast < ::windowing_gtk3::window > pwindow = m_pwindow;
@@ -122,10 +123,10 @@ namespace windowing_gtk3
    }
 
 
-   void buffer::initialize_graphics_graphics(::windowing::window * pimpl)
+   void graphics::initialize_graphics_graphics(::windowing::window * pimpl)
    {
 
-      double_buffer::initialize_graphics_graphics(pimpl);
+      double_buffer_graphics::initialize_graphics_graphics(pimpl);
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
@@ -138,7 +139,7 @@ namespace windowing_gtk3
    }
 
 
-   void buffer::destroy()
+   void graphics::destroy()
    {
 
       if (!gtk3_window())
@@ -164,7 +165,7 @@ namespace windowing_gtk3
    }
 
 
-   bool buffer::update_buffer(::graphics::buffer_item * pbufferitem)
+   bool graphics::update_buffer(::graphics::buffer_item * pbufferitem)
    {
 
 //      auto pwindowing = m_pimpl->m_puserinteraction->windowing();
@@ -216,12 +217,12 @@ namespace windowing_gtk3
 //
 //      }
 
-      return ::graphics::double_buffer::update_buffer(pbufferitem);
+      return ::graphics::double_buffer_graphics::update_buffer(pbufferitem);
 
    }
 
 
-   bool buffer::create_os_buffer(const ::i32_size & size, int iStrideParam)
+   bool graphics::create_os_buffer(const ::i32_size & size, int iStrideParam)
    {
 
 //      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -264,7 +265,7 @@ namespace windowing_gtk3
    }
 
 
-   void buffer::destroy_os_buffer()
+   void graphics::destroy_os_buffer()
    {
 
 //      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -309,7 +310,7 @@ namespace windowing_gtk3
    }
 
 
-//   bool buffer::create_os_buffer(::image::image *pimage)
+//   bool graphics::create_os_buffer(::image::image *pimage)
 //   {
 //
 //      //synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -347,7 +348,7 @@ namespace windowing_gtk3
 //   }
 
 
-//   void buffer::destroy_os_buffer(::image::image *pimage)
+//   void graphics::destroy_os_buffer(::image::image *pimage)
 //   {
 //
 //      if(m_pimage != nullptr)
@@ -369,25 +370,25 @@ namespace windowing_gtk3
 //   }
 //
 
-   bool buffer::buffer_lock_round_swap_key_buffers()
+   bool graphics::buffer_lock_round_swap_key_buffers()
    {
 
-      bool bOk1 = double_buffer::buffer_lock_round_swap_key_buffers();
+      bool bOk1 = double_buffer_graphics::buffer_lock_round_swap_key_buffers();
 
-      bool bOk2 = bitmap_source_buffer::buffer_lock_round_swap_key_buffers();
+      bool bOk2 = bitmap_source_buffer_graphics::buffer_lock_round_swap_key_buffers();
 
       return bOk1 && bOk2;
 
    }
 
 //
-//   bool buffer::update_screen()
+//   bool graphics::update_screen()
 //   {
 //
 //      if (m_pimpl == nullptr)
 //      {
 //
-//         warningf("windowing_gtk3::buffer::update_screen !m_pimpl!!");
+//         warningf("windowing_gtk3::graphics::update_screen !m_pimpl!!");
 //
 //         return false;
 //
@@ -396,7 +397,7 @@ namespace windowing_gtk3
 //      if (!m_pimpl->m_pwindow)
 //      {
 //
-//         warningf("windowing_gtk3::buffer::update_screen !m_pimpl->m_pwindow!!");
+//         warningf("windowing_gtk3::graphics::update_screen !m_pimpl->m_pwindow!!");
 //
 //         return false;
 //
@@ -405,7 +406,7 @@ namespace windowing_gtk3
 //      if (!m_pimpl->m_puserinteraction->is_window_screen_visible())
 //      {
 //
-//         information() << "windowing_gtk3::buffer::update_screen XPutImage not called. Ui is not visible.";
+//         information() << "windowing_gtk3::graphics::update_screen XPutImage not called. Ui is not visible.";
 //
 //         return false;
 //
@@ -414,7 +415,7 @@ namespace windowing_gtk3
 //      if (!m_pwindow)
 //      {
 //
-//         warningf("windowing_gtk3::buffer::update_screen !m_pwindow!");
+//         warningf("windowing_gtk3::graphics::update_screen !m_pwindow!");
 //
 //         return false;
 //
@@ -430,7 +431,7 @@ namespace windowing_gtk3
 //   }
 
 
-//   bool buffer::_update_screen_lesser_lock()
+//   bool graphics::_update_screen_lesser_lock()
 //   {
 //
 ////      synchronous_lock slGraphics(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -450,25 +451,25 @@ namespace windowing_gtk3
 //   static void
 //   redraw(void *data, struct wl_callback *pwlcallback, uint32_t time)
 //   {
-//      auto pbuffer = (buffer *) data;
+//      auto pbuffer = (graphics *) data;
 //      pbuffer->redraw(pwlcallback, time);
 //   }
 //   static const struct wl_callback_listener frame_listener = {
 //      redraw
 //   };
 
-   void buffer::__redraw(struct wl_callback *pwlcallback, uint32_t time)
+   void graphics::__redraw(struct wl_callback *pwlcallback, uint32_t time)
    {
 
    }
 
 
 
-//   void buffer::__handle_window_redraw(::wl_callback *pwlcallback, uint32_t time)
+//   void graphics::__handle_window_redraw(::wl_callback *pwlcallback, uint32_t time)
 //   {
 //
 ////       fprintf(stdout, "Redrawing\n");
-////      //auto pbuffer = (buffer *) data;
+////      //auto pbuffer = (graphics *) data;
 ////      //pbuffer->__handle_window_redraw(pwlcallback, time);
 ////      wl_callback_destroy(m_pwlcallbackFrame);
 ////      ::pointer < ::windowing_gtk3::window > pwaylandwindow = m_pimpl->m_pwindow;
@@ -490,7 +491,7 @@ namespace windowing_gtk3
 ////                        pitem->m_pimage2->data(), pitem->m_pimage2->scan_size());
 ////
 ////      }
-//////      wl_surface_attach(surface, buffer, 0, 0);
+//////      wl_surface_attach(surface, graphics, 0, 0);
 ////      //wl_callback_add_listener(frame_callback, &frame_listener, NULL);
 ////      //wl_surface_commit(surface);
 ////
@@ -554,17 +555,17 @@ namespace windowing_gtk3
 //   }
 
 
-//   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
-//   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
-   //bool buffer::_post_update_screen()
+//   bool graphics::_update_screen_unlocked(::graphics::buffer_item * pitem)
+//   bool graphics::_update_screen_unlocked(::graphics::buffer_item * pitem)
+   //bool graphics::_post_update_screen()
    //{
-   void buffer::update_screen()
+   void graphics::update_screen()
    {
 
       if (!m_pwindow)
       {
 
-         warningf("windowing_gtk3::buffer::update_screen !m_pimpl!!");
+         warningf("windowing_gtk3::graphics::update_screen !m_pimpl!!");
 
          return;
 
@@ -573,7 +574,7 @@ namespace windowing_gtk3
 //      if (!m_pimpl->m_pwindow)
 //      {
 //
-//         warningf("windowing_gtk3::buffer::update_screen !m_pimpl->m_pwindow!!");
+//         warningf("windowing_gtk3::graphics::update_screen !m_pimpl->m_pwindow!!");
 //
 //         return false;
 //
@@ -582,7 +583,7 @@ namespace windowing_gtk3
 //      if (!m_pimpl->m_puserinteraction->is_window_screen_visible())
 //      {
 //
-//         information() << "windowing_gtk3::buffer::update_screen XPutImage not called. Ui is not visible.";
+//         information() << "windowing_gtk3::graphics::update_screen XPutImage not called. Ui is not visible.";
 //
 //         return false;
 //
@@ -591,7 +592,7 @@ namespace windowing_gtk3
 //      if (!m_pwindow)
 //      {
 //
-//         warningf("windowing_gtk3::buffer::update_screen !m_pwindow!");
+//         warningf("windowing_gtk3::graphics::update_screen !m_pwindow!");
 //
 //         return false;
 //
@@ -661,7 +662,7 @@ namespace windowing_gtk3
 //          {
 //
 //             information()
-//                << "::windowing_gtk3::buffer::update_screen this is not visible";
+//                << "::windowing_gtk3::graphics::update_screen this is not visible";
 //
 //             return false;
 //
@@ -699,7 +700,7 @@ namespace windowing_gtk3
 //
 //                if (!pwaylandwindow->windowing()->is_screen_visible(edisplay) && edisplay != e_display_iconic) {
 //
-//                   information() << "::windowing_gtk3::buffer::update_screen this is not visible (2)";
+//                   information() << "::windowing_gtk3::graphics::update_screen this is not visible (2)";
 //
 //                   return;
 //
@@ -732,7 +733,7 @@ namespace windowing_gtk3
 //
 //             }
 //
-// //                                       ::pointer<buffer> pbuffer = pimpl->m_pgraphics;
+// //                                       ::pointer<graphics> pbuffer = pimpl->m_pgraphics;
 // //
 // //                                       pbuffer->_update_screen_lesser_lock();
 //
@@ -967,14 +968,14 @@ namespace windowing_gtk3
 //       {
 //
 // #ifdef MORE_LOG
-//          information() << "buffer::update_screen end";
+//          information() << "graphics::update_screen end";
 // #endif
 //
 //       }
 //       else
 //       {
 //
-//          information() << "buffer::update_screen timeout";
+//          information() << "graphics::update_screen timeout";
 //
 //       }
 //
@@ -1094,7 +1095,7 @@ namespace windowing_gtk3
 // //      if (!m_pximage || !m_pximage->data || m_pximage->width <= 0 || m_pximage->height <= 0)
 // //      {
 // //
-// //         warningf("windowing_gtk3::buffer::update_screen X11 image null or empty!!");
+// //         warningf("windowing_gtk3::graphics::update_screen X11 image null or empty!!");
 // //
 // //         return false;
 // //
@@ -1103,7 +1104,7 @@ namespace windowing_gtk3
 // //      if (m_gc == nullptr)
 // //      {
 // //
-// //         warningf("windowing_gtk3::buffer::update_screen m_gc nullptr!!");
+// //         warningf("windowing_gtk3::graphics::update_screen m_gc nullptr!!");
 // //
 // //         return false;
 // //
@@ -1121,7 +1122,7 @@ namespace windowing_gtk3
 // //      if (sizeBitBlitting.any_gt(pitem->m_sizeInternal))
 // //      {
 // //
-// //         warning() << "What!! Drawn Buffer doesn't fit internal buffer (that should be at least same size as the buffer size)";
+// //         warning() << "What!! Drawn Buffer doesn't fit internal graphics (that should be at least same size as the graphics size)";
 // //
 // //      }
 // //
@@ -1248,7 +1249,7 @@ namespace windowing_gtk3
 // //
 // //      XFillRectangle(x11_window()->Display(), x11_window()->Window(), m_gc, 0, 0, iWidth, iHeight);
 // //
-// //      informationf("windowing_gtk3::buffer::update_screen BASIC_TEST FillRectangle(%d, %d)", iWidth, iHeight);
+// //      informationf("windowing_gtk3::graphics::update_screen BASIC_TEST FillRectangle(%d, %d)", iWidth, iHeight);
 // //
 // //#endif
 // //
@@ -1266,7 +1267,7 @@ namespace windowing_gtk3
    }
 
 
-   void buffer::on_update_screen(::graphics::buffer_item * pitem)
+   void graphics::on_update_screen(::graphics::buffer_item * pitem)
    {
 
       throw ("use update_window(void)");
@@ -1276,14 +1277,14 @@ namespace windowing_gtk3
    }
 
 
-   bool buffer::_on_begin(::graphics::buffer_item * pbufferitem)
+   bool graphics::_on_begin(::graphics::buffer_item * pbufferitem)
    {
 
 //      auto pbufferitem = get_buffer_item();
 //
 //      buffer_size_and_position(pbufferitem);
 
-      auto pimageBuffer = pbufferitem->m_pimage2;
+      auto pimageBuffer = pbufferitem->m_pimageBufferItem;
 
       if (pimageBuffer->m_size != pbufferitem->m_sizeBufferItemWindow)
       {
@@ -1297,7 +1298,7 @@ namespace windowing_gtk3
 
       }
 
-      if(!double_buffer::_on_begin(pbufferitem))
+      if(!double_buffer_graphics::_on_begin(pbufferitem))
       {
 
          return false;
@@ -1309,7 +1310,7 @@ namespace windowing_gtk3
    }
 
 
-//   bool buffer::presentation_complete()
+//   bool graphics::presentation_complete()
 //   {
 //
 //      if (x11_window()->m_interlockedXShmPutImage <= 0)

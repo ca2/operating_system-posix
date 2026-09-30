@@ -7,9 +7,9 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/acme.h"
 #include "apex/platform/system.h"
-
+#if HAS_WAYLAND
 #include <gdk/gdkwayland.h>
-
+#endif
 //::particle * user_synchronization();
 
 
