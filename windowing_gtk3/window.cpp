@@ -38,7 +38,7 @@
 //void on_sn_launch_context(void * pSnContext, Window window);
 
 void on_sn_launch_complete(void* pSnContext);
-
+#define MORE_LOG 1
 
 ::particle* user_synchronization();
 
@@ -454,18 +454,13 @@ namespace windowing_gtk3
          if (pitem && pitem->m_pimageBufferItem && pitem->m_pimageBufferItem.ok())
          {
 
+            const int iGtkWidth = gtk_widget_get_allocated_width(widget);
 
-            const int iGtkWidth =
-   gtk_widget_get_allocated_width(widget);
+            const int iGtkHeight = gtk_widget_get_allocated_height(widget);
 
-            const int iGtkHeight =
-               gtk_widget_get_allocated_height(widget);
+            const int iGtkScale = gtk_widget_get_scale_factor(widget);
 
-            const int iGtkScale =
-               gtk_widget_get_scale_factor(widget);
-
-            const auto sizeImage =
-               pitem->m_pimageBufferItem->size();
+            const auto sizeImage = pitem->m_pimageBufferItem->size();
 
             cairo_matrix_t matrix;
 
@@ -476,12 +471,15 @@ namespace windowing_gtk3
                "GTK3 PRESENT: "
                "gtk-allocation=%dx%d "
                "gtk-scale=%d "
+               "m_pointWindow=%dx%d "
                "m_sizeWindow=%dx%d "
                "image=%dx%d "
                "CTM=[%.2f %.2f %.2f %.2f %.2f %.2f]\n",
                iGtkWidth,
                iGtkHeight,
                iGtkScale,
+               m_pointWindow.x,
+               m_pointWindow.y,
                m_sizeWindow.cx,
                m_sizeWindow.cy,
                sizeImage.cx,
@@ -516,26 +514,62 @@ namespace windowing_gtk3
 
             pdraw2dgraphics->attach(cr);
             //pdraw2dgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-            ::f64_rectangle r;
+            ::f64_rectangle rectangleSource;
             //int width = gtk_widget_get_allocated_width(widget);
             //int height = gtk_widget_get_allocated_height(widget);
+            int x = m_pointWindow.x;
+            int y = m_pointWindow.y;
             int width = m_sizeWindow.cx;
             int height = m_sizeWindow.cy;
-            r.left = 0;
-            r.top = 0;
-            r.right = width;
-            r.bottom = height;
+            rectangleSource.left = x;
+            rectangleSource.top = y;
+            rectangleSource.set_size({width,height});
+            ::f64_rectangle rectangleTarget;
+            int xTarget = 0;
+            int yTarget = 0;
+            int widthTarget = m_sizeWindow.cx;
+            int heightTarget = m_sizeWindow.cy;
+            rectangleTarget.left = xTarget;
+            rectangleTarget.top = yTarget;
+            rectangleTarget.set_size({widthTarget, heightTarget});
             ///pdraw2dgraphics->fill_solid_rectangle(r, argb(0, 0, 0, 0));
             pdraw2dgraphics->set_alpha_mode(::draw2d::e_alpha_mode_set);
-            ::image::image_source imagesource(pitem->m_pimageBufferItem, r);
-            ::image::image_drawing_options imagedrawingoptions(r);
+            ::image::image_source imagesource(pitem->m_pimageBufferItem, rectangleSource);
+            ::image::image_drawing_options imagedrawingoptions(rectangleTarget);
             ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
             pdraw2dgraphics->draw(imagedrawing);
+            
+            if(1)
+            {
+                
+                pdraw2dgraphics->set_alpha_mode(::draw2d::e_alpha_mode_blend);
+                auto rectangleDiagnostic1 = ::f64_rectangle_dimension(0, 0, 50, 50);
+                auto colorDiagnostic1 = ::argb(0.5, 0.2, 0.6, 0.9);
+                pdraw2dgraphics->fill_solid_rectangle(rectangleDiagnostic1, colorDiagnostic1);
+                auto rectangleDiagnostic2 = ::f64_rectangle_dimension(m_sizeWindow.cx - 50, 0, 50, 50);
+                auto colorDiagnostic2 = ::argb(0.5, 0.2, 0.6, 0.9);
+                pdraw2dgraphics->fill_solid_rectangle(rectangleDiagnostic2, colorDiagnostic2);
+                auto rectangleDiagnostic3 = ::f64_rectangle_dimension(0, m_sizeWindow.cy - 50, 50, 50);
+                auto colorDiagnostic3 = ::argb(0.5, 0.2, 0.6, 0.9);
+                pdraw2dgraphics->fill_solid_rectangle(rectangleDiagnostic3, colorDiagnostic3);
+                auto rectangleDiagnostic4 = ::f64_rectangle_dimension(m_sizeWindow.cx - 50, m_sizeWindow.cy - 50, 50, 50);
+                auto colorDiagnostic4 = ::argb(0.5, 0.2, 0.6, 0.9);
+                pdraw2dgraphics->fill_solid_rectangle(rectangleDiagnostic4, colorDiagnostic4);
+                
+            }
+            
             pdraw2dgraphics->detach();
 
             pbuffer->on_end_draw();
 
          }
+         
+         
+        //~ cairo_set_source_rgba(cr, 0.1, 0.5, 0.8, 0.7);
+        //~ //         //
+        //~ //         // // Draw rectangle
+        //~ cairo_rectangle(cr, 0, 0, 50, 50); // x, y, width, height
+        //~ cairo_fill(cr);
 
 
          // ::f64_rectangle r;
@@ -3285,46 +3319,78 @@ namespace windowing_gtk3
 
    }
 
-   ::i32_rectangle window::get_window_rectangle()
-   {
+   //~ ::i32_rectangle window::get_window_rectangle()
+   //~ {
 
 
-   GdkWindow * pgdkwindow = gtk_widget_get_window(m_pgtkwidget);
+   //~ GdkWindow * pgdkwindow = gtk_widget_get_window(m_pgtkwidget);
 
-   if(!pgdkwindow)
-   {
-   return ::windowing::window::get_window_rectangle();
+   //~ if(!pgdkwindow)
+   //~ {
+   //~ return ::windowing::window::get_window_rectangle();
 
-   }
+   //~ }
 
-   GdkDisplay * pgdkdisplay = gdk_window_get_display(pgdkwindow);
+   //~ GdkDisplay * pgdkdisplay = gdk_window_get_display(pgdkwindow);
 
-       GdkMonitor * pgdkmonitor =
-           gdk_display_get_monitor_at_window(pgdkdisplay, pgdkwindow);
+       //~ GdkMonitor * pgdkmonitor =
+           //~ gdk_display_get_monitor_at_window(pgdkdisplay, pgdkwindow);
 
-       if(!pgdkmonitor)
-       {
-       return ::windowing::window::get_window_rectangle();
-       }
-           GdkRectangle geometry;
-           gdk_monitor_get_geometry(pgdkmonitor, &geometry);
-
-
-        return ::i32_rectangle_dimension(
-        geometry.x,
-        geometry.y,
-        geometry.width,
-        geometry.height
-        );
-           //int width  = geometry.width;
-           //int height = geometry.height;
-
-           //g_print("Monitor resolution: %dx%d\n", width, height);
-//       }
+       //~ if(!pgdkmonitor)
+       //~ {
+       //~ return ::windowing::window::get_window_rectangle();
+       //~ }
+           //~ GdkRectangle geometry;
+           //~ gdk_monitor_get_geometry(pgdkmonitor, &geometry);
 
 
-   }
+        //~ return ::i32_rectangle_dimension(
+        //~ geometry.x,
+        //~ geometry.y,
+        //~ geometry.width,
+        //~ geometry.height
+        //~ );
+           //~ //int width  = geometry.width;
+           //~ //int height = geometry.height;
 
+           //~ //g_print("Monitor resolution: %dx%d\n", width, height);
+//~ //       }
+
+
+   //~ }
+
+
+::i32_rectangle window::get_window_rectangle()
+{
+    GtkWidget * pgtkwidget = m_pgtkwidget;
+    if (!pgtkwidget)
+    {
+        return ::windowing::window::get_window_rectangle();
+    }
+
+    GdkWindow * pgdkwindow = gtk_widget_get_window(pgtkwidget);
+    if (!pgdkwindow)
+    {
+        return ::windowing::window::get_window_rectangle();
+    }
+
+    // Get the window's root coordinates (x, y) and its dimensions (width, height)
+    int x = 0;
+    int y = 0;
+    int width = 0;
+    int height = 0;
+
+    gdk_window_get_origin(pgdkwindow, &x, &y);
+    width = gdk_window_get_width(pgdkwindow);
+    height = gdk_window_get_height(pgdkwindow);
+
+    return ::i32_rectangle_dimension(
+        x,
+        y,
+        width,
+        height
+    );
+}
 
    //   ::Window window::get_parent_handle()
    //   {
@@ -5674,7 +5740,7 @@ namespace windowing_gtk3
 
       });
 
-#ifdef MORE_LOG
+#if MORE_LOG
       information() << "window_do_update_screen";
 #endif
 
