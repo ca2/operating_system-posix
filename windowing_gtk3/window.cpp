@@ -517,8 +517,10 @@ namespace windowing_gtk3
             ::f64_rectangle rectangleSource;
             //int width = gtk_widget_get_allocated_width(widget);
             //int height = gtk_widget_get_allocated_height(widget);
-            int x = m_pointWindow.x;
-            int y = m_pointWindow.y;
+            // The image buffer is local to the window; screen position must
+            // not offset the pixels copied when the window is moved.
+            int x = 0;
+            int y = 0;
             int width = m_sizeWindow.cx;
             int height = m_sizeWindow.cy;
             rectangleSource.left = x;
