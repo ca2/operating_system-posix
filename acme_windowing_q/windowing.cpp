@@ -580,7 +580,7 @@ namespace q
 
             auto iScan = qimage32.bytesPerLine();
 
-            ppixmap->create_from_data(size, pimage32, iScan);
+            ppixmap->create_from_data(size, pimage32, iScan, true, ::e_flag_success);
 
             return ppixmap;
 
