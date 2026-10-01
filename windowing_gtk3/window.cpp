@@ -1119,6 +1119,28 @@ namespace windowing_gtk3
       // // Pass the key press event to the IM context
       bool bHandled = (gtk_im_context_filter_keypress(m_pimcontext, event));
 
+#if defined(__SUNOS__)
+      // Some OpenIndiana IM configurations leave ordinary printable keys
+      // unhandled. Key-down messages alone do not carry character text.
+      if (!bHandled && !(event->state & (GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_META_MASK)))
+      {
+
+         auto unicode = gdk_keyval_to_unicode(event->keyval);
+         if (unicode && g_unichar_isprint(unicode))
+         {
+
+            gchar text[7] = {};
+            auto length = g_unichar_to_utf8(unicode, text);
+            text[length] = '\0';
+            information() << "GTK3 key: IM unhandled, delivering printable text";
+            _on_text(text);
+            bHandled = true;
+
+         }
+
+      }
+#endif
+
       gchar* preedit_string = NULL;
 
       gint cursor_pos = 0;
