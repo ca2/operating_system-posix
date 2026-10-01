@@ -146,6 +146,12 @@ namespace acme_posix
 
       m_sig.m_saSeg.sa_flags = SA_SIGINFO;
 
+#if defined(__SUNOS__)
+      // GCC unwinding from a signal handler can itself fault on SunOS.
+      // Keep a second SIGSEGV from recursively throwing more exceptions.
+      m_sig.m_saSeg.sa_flags |= SA_RESETHAND;
+#endif
+
       m_sig.m_saSeg.sa_sigaction = &sigsegv_handler;
 
       int iSigactionResult = sigaction(SIGSEGV, &m_sig.m_saSeg, &m_sigOld.m_saSeg);
