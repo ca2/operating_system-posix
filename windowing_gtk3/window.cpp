@@ -449,6 +449,13 @@ namespace windowing_gtk3
 
          auto pitem = pbuffer->get_screen_item();
 
+         if (!pitem)
+         {
+
+            return;
+
+         }
+
          synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
          if (pitem && pitem->m_pimageBufferItem && pitem->m_pimageBufferItem.ok())
@@ -517,12 +524,15 @@ namespace windowing_gtk3
             ::f64_rectangle rectangleSource;
             //int width = gtk_widget_get_allocated_width(widget);
             //int height = gtk_widget_get_allocated_height(widget);
-            // The image buffer is local to the window; screen position must
-            // not offset the pixels copied when the window is moved.
-            int x = 0;
-            int y = 0;
-            int width = m_sizeWindow.cx;
-            int height = m_sizeWindow.cy;
+            // Copy the viewport belonging to this buffered frame, which may
+            // precede the current window position during a move.
+            int x = pitem->m_pimageBufferItem->m_point.x;
+            int y = pitem->m_pimageBufferItem->m_point.y;
+            int width = sizeImage.cx;
+            int height = sizeImage.cy;
+            information() << "GTK3 present: buffered source origin=" << x << "," << y
+               << " size=" << width << "," << height
+               << " current window origin=" << m_pointWindow.x << "," << m_pointWindow.y;
             rectangleSource.left = x;
             rectangleSource.top = y;
             rectangleSource.set_size({width,height});
