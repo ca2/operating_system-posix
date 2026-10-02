@@ -12,17 +12,18 @@
 #include "acme/operating_system/summary.h"
 #include "acme/operating_system/shared_posix/c_errno.h"
 #include "acme/platform/node.h"
+#include "acme/operating_system/file.h"
 #include "acme/_operating_system.h"
 
 
 #include <ftw.h>
 
-#if defined(__APPLE__) || defined(__ANDROID__) || defined(__SUNOS__)
-
-char * get_current_dir_name();
-
-#endif
-
+//#if defined(__APPLE__) || defined(__ANDROID__) || defined(__SUNOS__)
+//
+//char * get_current_dir_name();
+//
+//#endif
+//
 
 #if defined(WINDOWS_DESKTOP)
 #include <Shlobj.h>
@@ -58,7 +59,7 @@ char * get_current_dir_name();
 #include <unistd.h>
 #include <errno.h>
 #include <stdio.h>
-char * get_current_dir_name();
+//char * get_current_dir_name();
 #elif defined(__SUNOS__)
 #include <sys/stat.h>
 #include <dirent.h>
@@ -619,21 +620,9 @@ namespace acme_posix
    ::file::path directory_system::current()
    {
 
-      auto pszCurrentDirName = get_current_dir_name();
+      auto pathCurrentDirectory = ::get_current_directory_path();
 
-      if (::is_null(pszCurrentDirName)) {
-
-         auto cerrno = c_errno();
-
-         auto estatus = cerrno.failed_estatus();
-
-         throw ::exception(estatus, "posix::directory_system::get_current");
-
-      }
-
-      string strCurrentDirName = ::string_from_strdup(pszCurrentDirName);
-
-      return strCurrentDirName;
+      return pathCurrentDirectory;
 
    }
 
