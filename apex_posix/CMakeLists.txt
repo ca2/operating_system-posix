@@ -4,6 +4,11 @@ project(apex_posix CXX)
 
 message(STATUS "Project: ${PROJECT_NAME}")
 
+if(CMAKE_SYSTEM_NAME STREQUAL "SunOS")
+    # SunOS application startup requires the System V IPC factories.
+    set(INTERPROCESS_COMMUNICATION_SYSTEM_5 ON)
+endif()
+
 
 list(APPEND library_source
         _.h
