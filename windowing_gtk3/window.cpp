@@ -38,7 +38,9 @@
 //void on_sn_launch_context(void * pSnContext, Window window);
 
 void on_sn_launch_complete(void* pSnContext);
-#define MORE_LOG 1
+#ifndef MORE_LOG
+#define MORE_LOG 0
+#endif
 
 ::particle* user_synchronization();
 
@@ -423,6 +425,7 @@ namespace windowing_gtk3
    void window::_on_cairo_draw(GtkWidget* widget, cairo_t* cr)
    {
 
+#if MORE_LOG
       fprintf(
    stderr,
    "ACTIVE GTK3 DRAW: %s:%d widget=%p cr=%p\n",
@@ -432,6 +435,7 @@ namespace windowing_gtk3
    static_cast<void *>(cr));
 
       fflush(stderr);
+#endif
 
       try
       {
@@ -461,13 +465,13 @@ namespace windowing_gtk3
          if (pitem && pitem->m_pimageBufferItem && pitem->m_pimageBufferItem.ok())
          {
 
+            const auto sizeImage = pitem->m_pimageBufferItem->size();
+#if MORE_LOG
             const int iGtkWidth = gtk_widget_get_allocated_width(widget);
 
             const int iGtkHeight = gtk_widget_get_allocated_height(widget);
 
             const int iGtkScale = gtk_widget_get_scale_factor(widget);
-
-            const auto sizeImage = pitem->m_pimageBufferItem->size();
 
             cairo_matrix_t matrix;
 
@@ -499,6 +503,7 @@ namespace windowing_gtk3
                matrix.y0);
 
             fflush(stderr);
+#endif
 
             auto pdraw2dgraphics = createø<::draw2d::graphics>();
             //         cairo_set_source_rgba(cr, 0, 0, 0, 0); // Fully transparent background
@@ -530,9 +535,11 @@ namespace windowing_gtk3
             int y = pitem->m_pimageBufferItem->m_point.y;
             int width = sizeImage.cx;
             int height = sizeImage.cy;
+#if MORE_LOG
             information() << "GTK3 present: buffered source origin=" << x << "," << y
                << " size=" << width << "," << height
                << " current window origin=" << m_pointWindow.x << "," << m_pointWindow.y;
+#endif
             rectangleSource.left = x;
             rectangleSource.top = y;
             rectangleSource.set_size({width,height});
