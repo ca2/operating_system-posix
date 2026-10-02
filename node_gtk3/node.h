@@ -99,7 +99,7 @@ namespace node_gtk3
 
       //void enable_wallpaper_change_notification() override;
 
-      //string get_file_icon_path(const ::scoped_string & scopedstrPath, int iSize) override;
+      string get_file_icon_path(const ::scoped_string & scopedstrPath, ::i32 iSize) override;
 
       //string get_file_content_type(const ::scoped_string & scopedstrPath) override;
 

@@ -51,6 +51,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <memory>
 
 void install_operating_system_default_signal_handlers();
 
@@ -1386,12 +1387,43 @@ namespace node_gtk3
 //   }
 //
 //
-//   string node::get_file_icon_path(const ::scoped_string & scopedstrPath, int iSize)
-//   {
-//
-//      return ::node_gtk3::g_get_file_icon_path(strPath, iSize);
-//
-//   }
+   string node::get_file_icon_path(const ::scoped_string & scopedstrPath, ::i32 iSize)
+   {
+      string strPath(scopedstrPath);
+      auto pstrIconPath = std::make_shared < string >();
+      user_send([strPath, iSize, pstrIconPath]()
+      {
+         auto pfile = g_file_new_for_path(strPath.c_str());
+         if (!pfile) return;
+         auto pinfo = g_file_query_info(pfile, G_FILE_ATTRIBUTE_STANDARD_ICON,
+            G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
+         if (pinfo)
+         {
+            auto picon = g_file_info_get_icon(pinfo);
+            if (picon && G_IS_FILE_ICON(picon))
+            {
+               auto pszPath = g_file_get_path(g_file_icon_get_file(G_FILE_ICON(picon)));
+               if (pszPath) *pstrIconPath = pszPath;
+               g_free(pszPath);
+            }
+            else if (picon)
+            {
+               auto ptheme = gtk_icon_theme_get_default();
+               auto piconinfo = ptheme ? gtk_icon_theme_lookup_by_gicon(ptheme, picon,
+                  iSize, GTK_ICON_LOOKUP_FORCE_SIZE) : nullptr;
+               if (piconinfo)
+               {
+                  auto pszPath = gtk_icon_info_get_filename(piconinfo);
+                  if (pszPath) *pstrIconPath = pszPath;
+                  g_object_unref(piconinfo);
+               }
+            }
+            g_object_unref(pinfo);
+         }
+         g_object_unref(pfile);
+      });
+      return *pstrIconPath;
+   }
 //
 //
 //   string node::get_file_content_type(const ::scoped_string & scopedstrPath)
