@@ -994,6 +994,17 @@ namespace gtk3
 
             int status = g_application_run(G_APPLICATION(m_pgtkapplication), filtered_argc, filtered_args);
 
+            auto bRegistered = g_application_get_is_registered(G_APPLICATION(m_pgtkapplication));
+            auto bRemote = bRegistered && g_application_get_is_remote(G_APPLICATION(m_pgtkapplication));
+            information() << "GTK3 application loop returned: status=" << status
+               << ", registered=" << bRegistered << ", remote=" << bRemote;
+            if (bRemote)
+            {
+
+               warning() << "GTK3 forwarded this launch to an existing D-Bus application instance: " << strId;
+
+            }
+
             g_free(filtered_args);
 
             //g_application_run(G_APPLICATION(m_pgtkapplication), argc, args);
