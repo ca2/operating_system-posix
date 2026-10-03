@@ -1,12 +1,15 @@
 #pragma once
-#include "audio_sunaudio/_.h"
-#include "audio_sunaudio/wave_out.h"
+
+
+
+#include "audio/audio/wave_out.h"
+
 
 namespace multimedia::audio_oss
 {
    // Reuse ca2 buffer/state handling, with OSS-specific device operations.
    class CLASS_DECL_AUDIO_OSS wave_out :
-      public ::multimedia::audio_sunaudio::wave_out
+      public virtual public ::wave::out
    {
    public:
       wave_out() = default;
