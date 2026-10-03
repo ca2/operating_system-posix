@@ -1,0 +1,22 @@
+# SunOS audio backends
+
+SunOS builds provide both `audio_sunaudio` (Sun audio API, /dev/audio) and
+`audio_oss` (OSS API, /dev/dsp). The CMake cache string `default_audio`
+offers both values and defaults to `audio_sunaudio`.
+
+To override the default for an application, put `sunaudio` or `oss` in
+`appconfig://audio.txt` and restart the application. The full target names
+`audio_sunaudio` and `audio_oss` are also accepted. An empty or unknown
+value falls back to the CMake default.
+
+Both backends honor ~/audio_device.txt, then AUDIODEV, then their own
+default device. Remove a backend-specific device override when switching APIs.
+
+The OSS module reuses audio_sunaudio's ca2 PCM buffer and state handling,
+but overrides all device operations with OSS ioctls. It supports playback,
+not capture. On illumos, pause drains queued samples before pausing further
+submissions, because SETTRIGGER is a compatibility no-op.
+
+NetBSD's audio_sunaudio retains audiodev/drvctl discovery and proplib.
+The SunOS path uses AUDIO_SETINFO/GETINFO and STREAMS I_FLUSH instead of
+NetBSD-specific format, mode, and blocksize controls.

@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include "snd_pcm.h"
 #include "sunaudio.h"
 
 
@@ -46,6 +45,8 @@ namespace multimedia
          void out_pause() override;
          void out_restart() override;
 
+
+         virtual ::string default_audio_device();
 
          virtual int _frames_to_bytes(int iFrameCount);
 

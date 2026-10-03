@@ -6,12 +6,8 @@ list(APPEND library_source
    _.h
    #_library.h
    _factory.cpp
-   audiodev.cpp
-   audiodev.h
    audio_mmsystem_wave_in.h
    #cmus_sndio.cpp
-   drvctl.cpp
-   drvctl.h
    platform.cpp
    platform.h
 #   snd_pcm.cpp
@@ -30,6 +26,10 @@ sunaudio.h
    wave_out.h
    )
 
+
+if(NOT __SUNOS__)
+   list(APPEND library_source audiodev.cpp audiodev.h drvctl.cpp drvctl.h)
+endif()
 
 list(APPEND library_references
    acme
@@ -60,13 +60,16 @@ if(${WIN32})
    target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
    target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
    target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
-   target_link_libraries(${PROJECT_NAME} PRIVATE prop ${library_references} ${global_library_references})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references})
 
 
 elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__} OR ${__SUNOS__})
 
 
-   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG sndio)
+# Device discovery uses NetBSD proplib, not sndio.
+   if(CMAKE_SYSTEM_NAME STREQUAL "NetBSD")
+      list(APPEND library_references prop)
+   endif()
 
 
    target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
@@ -74,13 +77,14 @@ elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__} OR ${__SUNOS__})
    target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
 
 
-   target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
-   target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
-   target_link_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
-   target_link_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${global_library_references})
-   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${global_library_references})
-   target_link_libraries(${PROJECT_NAME} PRIVATE prop ${library_references} ${global_library_references})
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references})
+   set(static_library_references acme apex aqua audio)
+   list(TRANSFORM static_library_references PREPEND static_)
+   if(CMAKE_SYSTEM_NAME STREQUAL "NetBSD")
+      list(APPEND static_library_references prop)
+   endif()
+   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${global_library_references})
+
    target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
    # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
 
@@ -99,6 +103,7 @@ target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_dire
 
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
+target_compile_definitions(static_${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
 
 
 

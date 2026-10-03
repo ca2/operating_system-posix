@@ -7,7 +7,11 @@
 #include "acme/parallelization/synchronous_lock.h"
 #include "acme/platform/node.h"
 #include "acme/prototype/time/_text_stream.h"
+#if !defined(__SUNOS__)
 #include "audiodev.h"
+#else
+#include <stdlib.h>
+#endif
 
 #include <sys/time.h>
 #include <stdio.h>
@@ -104,6 +108,22 @@ namespace multimedia
 
       }
 
+
+      ::string wave_out::default_audio_device()
+      {
+#if defined(__SUNOS__)
+         const char * device = getenv("AUDIODEV");
+         return device && *device ? device : "/dev/audio";
+#else
+         audiodev_refresh();
+         if (audiodev_count() > 0)
+         {
+            auto device = audiodev_get(0);
+            return "/dev/" + ::string(device->xname);
+         }
+         return "/dev/audio";
+#endif
+      }
 
       int wave_out::_frames_to_bytes(int iFrameCount)
       {
@@ -205,50 +225,13 @@ namespace multimedia
          
          information() << "audio_device.txt = \"" << strDevice << "\".";
          
+         strDevice.trim();
+
          if(strDevice.is_empty())
          {
-            
-            information() << "going to try to run command \"audiocfg list_base\".";
-            
-            //string strAudioCfgListOutput = node()->get_posix_shell_command_output("audiocfg list_base");
-            audiodev_refresh();
-            int iAudioDevCount = audiodev_count();
-            
-            information() << "audiodev_count(): " << iAudioDevCount;
-            
-            if(iAudioDevCount > 0)
-            {
-            
-               auto paudiodev =	audiodev_get(0);
-               
-               information() << "First Device Name: " << paudiodev->xname;
-               
-               strDevice = "/dev/" + ::string(paudiodev->xname);
-               
-            }
-            
-            //::string_array_base straLines;
-            
-            //straLines.add_lines(strAudioCfgListOutput);
-            
-            //if(straLines.size() >= 1)
-            //{
-            
-               //::string strFirstLine = straLines.first();
-               
-               //auto stra = strFirstLine.explode(" ");
-               
-               //if(stra.size() >= 3)
-               //{
-                  
-                  //strDevice = "/dev/" + stra[2];
-                  
-               //}
-               
-            //}
-            
+            strDevice = default_audio_device();
          }
-         
+
          if(strDevice.has_character())
          {
             
@@ -921,6 +904,10 @@ namespace multimedia
             }
 
 //            if (iFramesJustWritten == -OP_ERROR_INTERNAL)
+            if(iBytesJustWritten < 0 && iBytesJustWritten != -EAGAIN)
+            {
+               throw ::exception(error_failed, sunaudio_strerror(-iBytesJustWritten));
+            }
             if(iBytesJustWritten <=0)
             {
                

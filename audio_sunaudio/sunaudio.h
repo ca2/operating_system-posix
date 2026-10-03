@@ -75,27 +75,27 @@ namespace multimedia
          ~sun_object();
    
 
-         int sunaudio_open(int precision, ::u32 rate, unsigned char channels);
+         virtual int sunaudio_open(int precision, ::u32 rate, unsigned char channels);
 
-         int sunaudio_close();
+         virtual int sunaudio_close();
 
          void sunaudio_destroy();
 
-         int sunaudio_drain();
+         virtual int sunaudio_drain();
 
-         int sunaudio_flush();
+         virtual int sunaudio_flush();
 
-         memsize sunaudio_write(const void * data, memsize bytes);
+         virtual memsize sunaudio_write(const void * data, memsize bytes);
 
          const_char_pointer sunaudio_strerror(int error);
 
-         int sunaudio_pause();
+         virtual int sunaudio_pause();
 
-         int sunaudio_unpause();
+         virtual int sunaudio_unpause();
          
          //int sunaudio_wseek();
          
-         long sunaudio_avail();
+         virtual long sunaudio_avail();
 
 //int sndio_mixer_set_volume(int l, int r);
 //int sndio_mixer_get_volume(int *l, int *r);

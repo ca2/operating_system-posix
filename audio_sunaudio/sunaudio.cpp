@@ -27,6 +27,9 @@
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#if defined(__SUNOS__)
+#include <stropts.h>
+#endif
 
 
 //#include "timo_output_plugin.h"
@@ -39,9 +42,11 @@
 // static struct sio_hdl *m_hdl;
 // int cmus_sndio::m_iSndioVolume = SIO_MAXVOL;
 // int cmus_sndio::m_bSndioPaused;
+#if !defined(__SUNOS__)
 int get_global_audio_fd();
 void set_global_audio_fd(int iAudioFd);
 audio_info_t * get_global_initial_audio_info();
+#endif
 
 namespace multimedia
 {
@@ -55,6 +60,8 @@ namespace multimedia
    {
 	 m_fd = -1;
 	 m_ctlfd = -1;
+      m_llWrittenBytes = 0;
+      m_iLastSecond = -1;
 	m_strDevice = "/dev/audio";
 //      signal(SIGINT, cleanup);
 	//signal(SIGTERM, cleanup);
@@ -65,7 +72,7 @@ namespace multimedia
       
 sun_object::~sun_object()
 {
-   
+   sunaudio_close();
 }
    
 
@@ -106,6 +113,46 @@ int precision,
 	if (m_fd != -1)
 		return EEXIST;
 
+#if defined(__SUNOS__)
+   // illumos uses the Sun audio API; NetBSD's format and buffer ioctls
+   // below are not part of that interface. PCM is native-endian signed linear.
+   if ((precision != 8 && precision != 16 && precision != 32) || !rate || !channels)
+      return EINVAL;
+
+   m_fd = open(m_strDevice, O_WRONLY);
+   if (m_fd == -1)
+      return errno;
+
+   audio_info_t requested;
+   AUDIO_INITINFO(&requested);
+   requested.play.sample_rate = rate;
+   requested.play.channels = channels;
+   requested.play.precision = precision;
+   requested.play.encoding = AUDIO_ENCODING_LINEAR;
+   requested.play.pause = 1;
+
+   int error = 0;
+   if (ioctl(m_fd, AUDIO_SETINFO, &requested) == -1 ||
+       ioctl(m_fd, AUDIO_GETINFO, &m_audioinfo) == -1)
+      error = errno;
+   else if (m_audioinfo.play.sample_rate != rate ||
+            m_audioinfo.play.channels != channels ||
+            m_audioinfo.play.precision != precision ||
+            m_audioinfo.play.encoding != AUDIO_ENCODING_LINEAR)
+      error = ENOTSUP;
+
+   if (error)
+   {
+      close(m_fd);
+      m_fd = -1;
+      return error;
+   }
+   // open_ex supplies the application buffer size; there is no blocksize
+   // member in illumos audio_info_t.
+   m_llWrittenBytes = 0;
+   m_iLastSecond = -1;
+   return 0;
+#else
 	struct aformat_sun
 	{
       bool bSigned;
@@ -337,28 +384,31 @@ int precision,
    
 error:
 	data = errno;
+   if (get_global_audio_fd() == m_fd)
+      set_global_audio_fd(-1);
    information() << "errno=" << (int) data;
 	close(m_fd);
 	m_fd = -1;
 	return data;
+#endif
 }
 
 int
 sun_object::sunaudio_close()
 {
-	////struct sun_object *self = to_sun_object(object);
-
-	if (m_fd == -1) {
+   if (m_fd != -1)
+   {
       sunaudio_flush();
-      
-    	if(ioctl(m_fd, AUDIO_SETINFO, get_global_initial_audio_info())==-1)
+#if !defined(__SUNOS__)
+      if (get_global_audio_fd() == m_fd)
       {
-         //goto error;
+         ioctl(m_fd, AUDIO_SETINFO, get_global_initial_audio_info());
+         set_global_audio_fd(-1);
       }
-		close(m_fd);
-      set_global_audio_fd(-1);
-		m_fd = -1;
-	}
+#endif
+      close(m_fd);
+      m_fd = -1;
+   }
    return 0;
 }
 
@@ -386,7 +436,11 @@ sun_object::sunaudio_flush()
 {
 	//struct sun_object *self = to_sun_object(object);
 
+#if defined(__SUNOS__)
+   if (ioctl(m_fd, I_FLUSH, FLUSHW) == -1)
+#else
 	if (ioctl(m_fd, AUDIO_FLUSH, NULL) == -1)
+#endif
 		return errno;
 	return 0;
 }
@@ -397,7 +451,11 @@ sun_object::sunaudio_flush()
       
       //informationf("sunaudio writing %lld bytes", bytes);
       
-      auto ssize = write(m_fd, data, bytes);
+      ssize_t ssize;
+      do
+      {
+         ssize = write(m_fd, data, bytes);
+      } while (ssize < 0 && errno == EINTR);
       
       if(ssize < 0)
       {
@@ -422,7 +480,7 @@ sun_object::sunaudio_flush()
       if(lNewSecond != m_iLastSecond)
       {
 
-         informationf("sunaudio write... (%0ds)", lNewSecond);
+         informationf("sunaudio write... (%llds)", (long long) lNewSecond);
          
          m_iLastSecond = lNewSecond;
          
@@ -501,8 +559,6 @@ int sun_object::sunaudio_pause()
 {
    audio_info_t audioinfo;
    AUDIO_INITINFO(&audioinfo);
-	if (ioctl(m_fd, AUDIO_GETINFO, &audioinfo) == -1)
-		return errno;
    audioinfo.play.pause = 1;
 	if (ioctl(m_fd, AUDIO_SETINFO, &audioinfo) == -1)
 		return errno;
@@ -518,8 +574,6 @@ int sun_object::sunaudio_unpause()
    
       audio_info_t audioinfo;
    AUDIO_INITINFO(&audioinfo);
-	if (ioctl(m_fd, AUDIO_GETINFO, &audioinfo) == -1)
-		return errno;
    audioinfo.play.pause = 0;
 	if (ioctl(m_fd, AUDIO_SETINFO, &audioinfo) == -1)
 		return errno;
