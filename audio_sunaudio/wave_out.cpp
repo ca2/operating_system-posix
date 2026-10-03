@@ -1014,7 +1014,7 @@ namespace multimedia
          if (m_pprebuffer.is_null())
          {
 
-            return zero_t{};
+            return 0_s;
 
          }
 
@@ -1025,7 +1025,7 @@ namespace multimedia
          if (m_pwaveformat->m_waveformat.nSamplesPerSec <= 0)
          {
 
-            return zero_t{};
+            return 0_s;
 
          }
 
