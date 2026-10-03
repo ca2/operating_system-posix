@@ -35,7 +35,10 @@ sunaudio.h
    )
 
 
-if(NOT __SUNOS__)
+if(__SUNOS__)
+   list(APPEND library_source sunaudio_streams.cpp sunaudio_streams.h)
+   set_source_files_properties(sunaudio_streams.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+else()
    list(APPEND library_source audiodev.cpp audiodev.h drvctl.cpp drvctl.h)
 endif()
 

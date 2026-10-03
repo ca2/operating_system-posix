@@ -28,7 +28,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #if defined(__SUNOS__)
-#include <stropts.h>
+#include "sunaudio_streams.h"
 #endif
 
 
@@ -437,12 +437,12 @@ sun_object::sunaudio_flush()
 	//struct sun_object *self = to_sun_object(object);
 
 #if defined(__SUNOS__)
-   if (ioctl(m_fd, I_FLUSH, FLUSHW) == -1)
+   return audio_sunaudio_flush_stream(m_fd);
 #else
 	if (ioctl(m_fd, AUDIO_FLUSH, NULL) == -1)
-#endif
 		return errno;
 	return 0;
+#endif
 }
 
 
