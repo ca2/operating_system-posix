@@ -4,6 +4,9 @@ SunOS builds provide both `audio_sunaudio` (Sun audio API, /dev/audio) and
 `audio_oss` (OSS API, /dev/dsp). The CMake cache string `default_audio`
 offers both values and defaults to `audio_sunaudio`.
 
+On OpenIndiana, install the development headers for both APIs with:
+`sudo pkg install system/header/header-audio`.
+
 To override the default for an application, put `sunaudio` or `oss` in
 `appconfig://audio.txt` and restart the application. The full target names
 `audio_sunaudio` and `audio_oss` are also accepted. An empty or unknown

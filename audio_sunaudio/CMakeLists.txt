@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 3.16)
 project(audio_sunaudio CXX)
 
+if(__SUNOS__)
+   find_path(SUNOS_AUDIO_INCLUDE_DIR NAMES sys/audioio.h)
+   if(NOT SUNOS_AUDIO_INCLUDE_DIR)
+      message(FATAL_ERROR
+         "SunOS audio development headers are missing (sys/audioio.h). "
+         "Install them with: sudo pkg install system/header/header-audio")
+   endif()
+endif()
 
 list(APPEND library_source
    _.h
@@ -42,6 +50,10 @@ list(APPEND library_references
 add_library(${PROJECT_NAME} SHARED ${library_source})
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
+if(__SUNOS__)
+   target_include_directories(${PROJECT_NAME} PUBLIC ${SUNOS_AUDIO_INCLUDE_DIR})
+   target_include_directories(static_${PROJECT_NAME} PUBLIC ${SUNOS_AUDIO_INCLUDE_DIR})
+endif()
 
 if (NOT ${NO_PRECOMPILED_HEADER})
 
