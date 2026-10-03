@@ -6,12 +6,13 @@
 #include <unistd.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <string.h>
 
 namespace multimedia::audio_oss
 {
    wave_out::~wave_out()
    {
-      sunaudio_close();
+      device_close();
    }
 
    ::string wave_out::default_audio_device()
@@ -20,7 +21,7 @@ namespace multimedia::audio_oss
       return device && *device ? device : "/dev/dsp";
    }
 
-   int wave_out::sunaudio_open(int precision, ::u32 rate, unsigned char channels)
+   int wave_out::device_open(int precision, ::u32 rate, unsigned char channels)
    {
       if (m_fd != -1)
          return EEXIST;
@@ -60,36 +61,30 @@ namespace multimedia::audio_oss
          m_fd = -1;
          return error;
       }
-      // Metadata for the shared PCM buffer lifecycle, not a Sun audio ioctl.
-      m_audioinfo.play.precision = precision;
-      m_audioinfo.play.channels = channels;
-      m_audioinfo.play.sample_rate = rate;
-      m_llWrittenBytes = 0;
-      m_iLastSecond = -1;
       return 0;
    }
 
-   int wave_out::sunaudio_close()
+   int wave_out::device_close()
    {
       if (m_fd == -1)
          return 0;
-      sunaudio_flush();
+      device_flush();
       const int fd = m_fd;
       m_fd = -1;
       return close(fd) == -1 ? errno : 0;
    }
 
-   int wave_out::sunaudio_drain()
+   int wave_out::device_drain()
    {
       return ioctl(m_fd, SNDCTL_DSP_SYNC, nullptr) == -1 ? errno : 0;
    }
 
-   int wave_out::sunaudio_flush()
+   int wave_out::device_flush()
    {
       return ioctl(m_fd, SNDCTL_DSP_RESET, nullptr) == -1 ? errno : 0;
    }
 
-   memsize wave_out::sunaudio_write(const void * data, memsize bytes)
+   memsize wave_out::device_write(const void * data, memsize bytes)
    {
       ssize_t written;
       do
@@ -97,25 +92,24 @@ namespace multimedia::audio_oss
          written = write(m_fd, data, bytes);
       } while (written < 0 && errno == EINTR);
       if (written < 0)
-         return -errno;
-      m_llWrittenBytes += written;
+         return errno == EAGAIN ? 0 : -errno;
       return written;
    }
 
-   int wave_out::sunaudio_pause()
+   int wave_out::device_pause()
    {
       // illumos implements SETTRIGGER as a compatibility no-op. Draining
       // stops at the end of the queued buffers without dropping PCM data;
       // the shared wave state then prevents further buffer submissions.
 #if defined(__SUNOS__)
-      return sunaudio_drain();
+      return device_drain();
 #else
       int trigger = 0;
       return ioctl(m_fd, SNDCTL_DSP_SETTRIGGER, &trigger) == -1 ? errno : 0;
 #endif
    }
 
-   int wave_out::sunaudio_unpause()
+   int wave_out::device_resume()
    {
 #if defined(__SUNOS__)
       return 0;
@@ -125,12 +119,8 @@ namespace multimedia::audio_oss
 #endif
    }
 
-   long wave_out::sunaudio_avail()
+   ::string wave_out::device_error_message(int error)
    {
-      count_info position = {};
-      if (ioctl(m_fd, SNDCTL_DSP_GETOPTR, &position) == -1)
-         return -errno;
-      const int frameSize = m_audioinfo.play.channels * m_audioinfo.play.precision / 8;
-      return frameSize ? position.bytes / frameSize : 0;
+      return strerror(error);
    }
 }

@@ -15,8 +15,9 @@ value falls back to the CMake default.
 Both backends honor ~/audio_device.txt, then AUDIODEV, then their own
 default device. Remove a backend-specific device override when switching APIs.
 
-The OSS module reuses audio_sunaudio's ca2 PCM buffer and state handling,
-but overrides all device operations with OSS ioctls. It supports playback,
+Both modules inherit wave::buffered_wave_out in the platform-independent
+audio component. Each implements its own device operations; OSS does not
+include or link the Sun audio backend. It supports playback,
 not capture. On illumos, pause drains queued samples before pausing further
 submissions, because SETTRIGGER is a compatibility no-op.
 

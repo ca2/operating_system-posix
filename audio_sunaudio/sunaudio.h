@@ -30,7 +30,7 @@
 //#include "timo_output_plugin.h"
 //#include "timo_mixer.h"
 //#include "timo_sample_format.h"
-#include "audio/audio/wave/out.h"
+#include "audio/audio/wave/buffered_wave_out.h"
 
 #include <sys/audioio.h>
 
@@ -44,7 +44,7 @@ namespace multimedia
 
 
       class CLASS_DECL_AUDIO_SUNAUDIO sun_object :
-         virtual public ::wave::out
+         virtual public ::wave::buffered_wave_out
 
       {
       public:
@@ -54,8 +54,6 @@ namespace multimedia
          //struct sio_hdl *m_hdl;
          //int m_iSndioVolume = SIO_MAXVOL;
          //int m_bSndioPaused;
-         int m_iFrameByteCount;
-         int m_iBufferCount;
 
          //struct sun_object
          //{
@@ -65,7 +63,6 @@ namespace multimedia
          int m_ctlfd;
          audio_info_t m_audioinfo;
 
-         ::string m_strDevice;
    
          ::i64 m_llWrittenBytes;
          

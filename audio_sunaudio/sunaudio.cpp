@@ -378,7 +378,7 @@ int precision,
    informationf("total buffer size: %d", m_audioinfo.play.buffer_size);
    informationf("port: %d", m_audioinfo.play.port);
    informationf("block size: %d", m_audioinfo.blocksize);
-   m_iFrameByteCount = m_audioinfo.blocksize / (channels * precision/8);
+   m_iFrameCount = m_audioinfo.blocksize / (channels * precision/8);
 	m_llWrittenBytes = 0;
    return 0;
    
@@ -460,6 +460,8 @@ sun_object::sunaudio_flush()
       if(ssize < 0)
       {
       
+         if (errno == EAGAIN)
+            return 0;
          int iError = -errno;
          
          informationf("SUNAUDIO WRITE FAILED with %d", iError);
