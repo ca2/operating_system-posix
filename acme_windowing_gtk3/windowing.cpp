@@ -992,18 +992,29 @@ namespace gtk3
                filtered_args[filtered_argc++] = filtered_arg;
             }
 
-            int status = g_application_run(G_APPLICATION(m_pgtkapplication), filtered_argc, filtered_args);
+            // Inspect registration before run() unregisters the application on exit.
+            GError * pregistrationerror = nullptr;
+            if (!g_application_register(G_APPLICATION(m_pgtkapplication), nullptr, &pregistrationerror))
+            {
 
-            auto bRegistered = g_application_get_is_registered(G_APPLICATION(m_pgtkapplication));
-            auto bRemote = bRegistered && g_application_get_is_remote(G_APPLICATION(m_pgtkapplication));
-            information() << "GTK3 application loop returned: status=" << status
-               << ", registered=" << bRegistered << ", remote=" << bRemote;
+               string strError = pregistrationerror ? pregistrationerror->message : "unknown registration error";
+               if (pregistrationerror) g_error_free(pregistrationerror);
+               g_free(filtered_args);
+               error() << "GTK3 application registration failed: " << strError;
+               throw ::exception(error_failed, strError);
+
+            }
+            auto bRemote = g_application_get_is_remote(G_APPLICATION(m_pgtkapplication));
+            information() << "GTK3 application registered: remote=" << bRemote;
             if (bRemote)
             {
 
                warning() << "GTK3 forwarded this launch to an existing D-Bus application instance: " << strId;
 
             }
+
+            int status = g_application_run(G_APPLICATION(m_pgtkapplication), filtered_argc, filtered_args);
+            information() << "GTK3 application loop returned: status=" << status;
 
             g_free(filtered_args);
 
