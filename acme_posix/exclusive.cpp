@@ -124,6 +124,21 @@ namespace acme_posix
 
          m_iLock = lockf(m_iFile, F_TLOCK, 0);
 
+         if (m_iLock < 0)
+         {
+            struct flock lockOwner = {};
+            lockOwner.l_type = F_WRLCK;
+            lockOwner.l_whence = SEEK_SET;
+            lockOwner.l_start = 0;
+            lockOwner.l_len = 0;
+            if (fcntl(m_iFile, F_GETLK, &lockOwner) == 0
+                && lockOwner.l_type != F_UNLCK && lockOwner.l_pid > 0)
+               pparticle->informationf("Application exclusivity conflict: running instance PID %ld, lock %s",
+                  static_cast<long>(lockOwner.l_pid), pszPath);
+            else
+               pparticle->informationf("Application exclusivity lock failed: owner PID unavailable, lock %s", pszPath);
+         }
+
          pparticle->informationf("exclusive::exlusive file %d lock %d", m_iFile, m_iLock);
 
       }
