@@ -119,7 +119,22 @@ namespace multimedia::audio_oss
                << " bytes=" << written << " peak16=" << peak;
             m_bReportedNonzero = true;
             if (peak >= 1024)
+            {
                m_bReportedAudibleLevel = true;
+#ifdef SNDCTL_DSP_GETPLAYVOL
+               int volume = 0;
+               if (ioctl(m_fd, SNDCTL_DSP_GETPLAYVOL, &volume) != -1)
+                  information() << "audio_oss stream volume left=" << (volume & 255)
+                     << " right=" << ((volume >> 8) & 255);
+               else
+                  warning() << "audio_oss GETPLAYVOL failed errno=" << errno;
+#endif
+               int queuedBytes = 0;
+               if (ioctl(m_fd, SNDCTL_DSP_GETODELAY, &queuedBytes) != -1)
+                  information() << "audio_oss queued bytes=" << queuedBytes;
+               else
+                  warning() << "audio_oss GETODELAY failed errno=" << errno;
+            }
          }
       }
       return written;
