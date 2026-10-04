@@ -21,6 +21,7 @@ namespace windowing_gtk3
       //array < concrete < ::i32_size > >         m_sizea;
 
       i32_size_array                               m_sizea;
+      void * m_pGtkPixbuf = nullptr;
 
 
       icon();

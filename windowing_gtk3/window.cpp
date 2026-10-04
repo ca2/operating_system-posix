@@ -3,6 +3,7 @@
 // hi5 contribution...
 #include "platform.h"
 #include "graphics.h"
+#include "icon.h"
 #include "keyboard.h"
 #include "window.h"
 #include "windowing_gtk3.h"
@@ -938,6 +939,11 @@ namespace windowing_gtk3
 
    bool window::_on_window_state(GtkWidget* widget, GdkEventWindowState* happening)
    {
+
+      if (m_pacmeuserinteraction && !user_interaction())
+      {
+         return ::gtk3::acme::windowing::window::_on_window_state(widget, happening);
+      }
 
       if (happening->changed_mask & GDK_WINDOW_STATE_FOCUSED)
       {
@@ -2985,6 +2991,18 @@ namespace windowing_gtk3
    //   }
 
 
+   void window::set_icon(::windowing::icon *picon)
+   {
+      ::windowing::window::set_icon(picon);
+      ::cast<::windowing_gtk3::icon> pgtkicon = picon;
+      main_send([this, pgtkicon]()
+      {
+         if (m_pgtkwidget && pgtkicon)
+            gtk_window_set_icon(GTK_WINDOW(m_pgtkwidget),
+               static_cast<GdkPixbuf *>(pgtkicon->m_pGtkPixbuf));
+      });
+   }
+
    bool window::set_icon(::image::image* pimage)
    {
 
@@ -4549,6 +4567,13 @@ namespace windowing_gtk3
 
    void window::set_window_text(const ::scoped_string& scopedstr)
    {
+
+      ::string title(scopedstr);
+      main_send([this, title]()
+      {
+         if (m_pgtkwidget)
+            gtk_window_set_title(GTK_WINDOW(m_pgtkwidget), title.c_str());
+      });
 
       //      m_strWindowText = pszString;
 

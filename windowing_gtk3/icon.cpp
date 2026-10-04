@@ -2,6 +2,7 @@
 // recreated by Camilo 2021-01-28 16:38
 #include "platform.h"
 #include "icon.h"
+#include <gdk-pixbuf/gdk-pixbuf.h>
 #include "acme/exception/interface_only.h"
 #include "acme/filesystem/filesystem/directory_context.h"
 #include "apex/platform/context.h"
@@ -20,7 +21,8 @@ namespace windowing_gtk3
 
    icon::~icon()
    {
-
+      if (m_pGtkPixbuf)
+         g_object_unref(m_pGtkPixbuf);
 
    }
 
@@ -56,7 +58,7 @@ namespace windowing_gtk3
    void * icon::get_os_data(const ::i32_size & size) const
    {
 
-      return nullptr;
+      return m_pGtkPixbuf;
 
    }
 
@@ -64,7 +66,17 @@ namespace windowing_gtk3
    void icon::set_file(const ::payload & payloadFile)
    {
 
-      throw ::interface_only();
+      auto path = m_papplication->defer_process_path(payloadFile.as_file_path());
+      GError *error = nullptr;
+      auto pixbuf = gdk_pixbuf_new_from_file(path.c_str(), &error);
+      if (!pixbuf)
+      {
+         warning() << "GTK3 icon load failed: " << path;
+         if (error) g_error_free(error);
+         return;
+      }
+      if (m_pGtkPixbuf) g_object_unref(m_pGtkPixbuf);
+      m_pGtkPixbuf = pixbuf;
 
       //return false;
 

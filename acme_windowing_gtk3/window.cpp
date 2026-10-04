@@ -673,6 +673,11 @@ return FALSE;
 
             m_pgtkwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
+            auto strTitle = m_pacmeuserinteraction->get_window_text();
+            if (strTitle.is_empty())
+               strTitle = get_app()->m_strAppName;
+            gtk_window_set_title(GTK_WINDOW(m_pgtkwidget), strTitle.c_str());
+
             __refdbg_add_referer
 
             increment_reference_count();
