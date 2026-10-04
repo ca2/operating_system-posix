@@ -67,6 +67,8 @@ namespace cairo
 
             void _draw_text(const ::scoped_string & scopedstr, const ::f64_rectangle & rectangleText,
                             const ::e_draw_text & edrawtext, const ::e_align & ealign) override;
+            void draw_text123(const ::scoped_string & scopedstr, const ::f64_rectangle & rectangleText,
+                             const ::e_draw_text & edrawtext, const ::e_align & ealign) override;
             ::f64_size get_text_extents(const ::scoped_string & scopedstr) override;
 
             void rectangle(const ::f64_rectangle & rectangle) override;

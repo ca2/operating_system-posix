@@ -2,6 +2,8 @@
 // Created by camilo on 31/01/2022 20:15 <3ThomasBorregaardSorensen!! Thomas Likes number 5!!
 //
 #include "platform.h"
+#include <string>
+#include <vector>
 #include "context.h"
 #include "icon.h"
 #include "acme/exception/exception.h"
@@ -420,6 +422,17 @@ namespace cairo
          }
 
 
+         void context::draw_text123(const ::scoped_string & scopedstr, const ::f64_rectangle & rectangleText,
+                                    const ::e_draw_text & edrawtext, const ::e_align & ealign)
+         {
+
+            // Lay out the whole block here so wrapped lines and explicit newlines
+            // share the same line spacing and vertical alignment.
+            _draw_text(scopedstr, rectangleText, edrawtext, ealign);
+
+         }
+
+
          void context::_draw_text(const ::scoped_string & scopedstr, const ::f64_rectangle & rectangleText,
                                   const ::e_draw_text & edrawtext, const ::e_align & ealign)
          {
@@ -433,38 +446,86 @@ namespace cairo
 
             _set_font();
 
-            cairo_text_extents_t textextents = {};
             cairo_font_extents_t fontextents = {};
-
-            cairo_text_extents(m_pdc, scopedstr, &textextents);
             cairo_font_extents(m_pdc, &fontextents);
 
-            ::f64 x = rectangleText.left - textextents.x_bearing;
+            if (rectangleText.width() <= 0.0 || rectangleText.height() <= 0.0)
+               return;
+
+            ::string strText(scopedstr);
+            std::string text(strText.c_str());
+            std::vector<std::string> lines;
+            auto measure = [this](const std::string & line)
+            {
+               cairo_text_extents_t extents = {};
+               cairo_text_extents(m_pdc, line.c_str(), &extents);
+               return maximum(extents.width, extents.x_advance);
+            };
+
+            size_t paragraphStart = 0;
+            do
+            {
+               auto paragraphEnd = text.find('\n', paragraphStart);
+               if (paragraphEnd == std::string::npos)
+                  paragraphEnd = text.size();
+               auto paragraph = text.substr(paragraphStart, paragraphEnd - paragraphStart);
+               if (!paragraph.empty() && paragraph.back() == '\r')
+                  paragraph.pop_back();
+
+               if (!(edrawtext & e_draw_text_word_break) || paragraph.empty())
+                  lines.push_back(paragraph);
+               else
+               {
+                  size_t start = 0;
+                  while (start < paragraph.size())
+                  {
+                     size_t end = start;
+                     size_t lastBreak = std::string::npos;
+                     while (end < paragraph.size())
+                     {
+                        auto next = end + 1;
+                        // Advance by a complete UTF-8 code point.
+                        while (next < paragraph.size()
+                               && (static_cast<unsigned char>(paragraph[next]) & 0xc0) == 0x80)
+                           ++next;
+                        if (end > start && measure(paragraph.substr(start, next - start)) > rectangleText.width())
+                           break;
+                        if (paragraph[end] == ' ' || paragraph[end] == '\t')
+                           lastBreak = end;
+                        end = next;
+                     }
+                     auto lineEnd = end;
+                     if (end < paragraph.size() && lastBreak != std::string::npos && lastBreak > start)
+                        lineEnd = lastBreak;
+                     auto line = paragraph.substr(start, lineEnd - start);
+                     while (!line.empty() && (line.back() == ' ' || line.back() == '\t'))
+                        line.pop_back();
+                     lines.push_back(line);
+                     start = lineEnd;
+                     while (start < paragraph.size() && (paragraph[start] == ' ' || paragraph[start] == '\t'))
+                        ++start;
+                  }
+               }
+               if (paragraphEnd == text.size())
+                  break;
+               paragraphStart = paragraphEnd + 1;
+            } while (paragraphStart <= text.size());
+
+            auto lineHeight = maximum(fontextents.height, fontextents.ascent + fontextents.descent);
+            auto blockHeight = fontextents.ascent + fontextents.descent
+               + (lines.size() - 1) * lineHeight;
             ::f64 y = rectangleText.top + fontextents.ascent;
-
-            if (ealign & e_align_right)
-            {
-
-               x = rectangleText.right - textextents.width - textextents.x_bearing;
-
-            }
-            else if (ealign & e_align_horizontal_center)
-            {
-
-               x = rectangleText.left + (rectangleText.width() - textextents.width) / 2.0 - textextents.x_bearing;
-
-            }
 
             if (ealign & e_align_bottom)
             {
 
-               y = rectangleText.bottom - fontextents.descent;
+               y = rectangleText.bottom - blockHeight + fontextents.ascent;
 
             }
             else if (ealign & e_align_vertical_center)
             {
 
-               y = rectangleText.top + (rectangleText.height() - fontextents.height) / 2.0 + fontextents.ascent;
+               y = rectangleText.top + (rectangleText.height() - blockHeight) / 2.0 + fontextents.ascent;
 
             }
 
@@ -472,8 +533,19 @@ namespace cairo
             cairo_rectangle(m_pdc, rectangleText.left, rectangleText.top, rectangleText.width(), rectangleText.height());
             cairo_clip(m_pdc);
             _set_source(m_pbrush->m_color);
-            cairo_move_to(m_pdc, x, y);
-            cairo_show_text(m_pdc, scopedstr);
+            for (const auto & line : lines)
+            {
+               cairo_text_extents_t extents = {};
+               cairo_text_extents(m_pdc, line.c_str(), &extents);
+               auto x = rectangleText.left - extents.x_bearing;
+               if (ealign & e_align_right)
+                  x = rectangleText.right - extents.width - extents.x_bearing;
+               else if (ealign & e_align_horizontal_center)
+                  x = rectangleText.left + (rectangleText.width() - extents.width) / 2.0 - extents.x_bearing;
+               cairo_move_to(m_pdc, x, y);
+               cairo_show_text(m_pdc, line.c_str());
+               y += lineHeight;
+            }
             cairo_restore(m_pdc);
 
          }
