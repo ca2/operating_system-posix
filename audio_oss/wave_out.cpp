@@ -61,6 +61,12 @@ namespace multimedia::audio_oss
          m_fd = -1;
          return error;
       }
+      m_iPrecision = precision;
+      m_bReportedNonzero = false;
+      m_bReportedAudibleLevel = false;
+      information() << "audio_oss opened device=" << m_strDevice
+         << " rate=" << sampleRate << " channels=" << channelCount
+         << " precision=" << precision << " format=" << format;
       return 0;
    }
 
@@ -93,6 +99,29 @@ namespace multimedia::audio_oss
       } while (written < 0 && errno == EINTR);
       if (written < 0)
          return errno == EAGAIN ? 0 : -errno;
+      // Inspect only successfully submitted PCM. Two reports per open at most:
+      // initial nonzero samples and samples above approximately -30 dBFS.
+      if (written > 0 && m_iPrecision == 16 && !m_bReportedAudibleLevel)
+      {
+         int peak = 0;
+         const auto * pcm = static_cast<const unsigned char *>(data);
+         for (ssize_t offset = 0; offset + 1 < written; offset += 2)
+         {
+            short sample;
+            memcpy(&sample, pcm + offset, sizeof(sample));
+            int magnitude = sample < 0 ? -(int) sample : (int) sample;
+            if (magnitude > peak)
+               peak = magnitude;
+         }
+         if ((!m_bReportedNonzero && peak > 0) || peak >= 1024)
+         {
+            information() << "audio_oss submitted PCM device=" << m_strDevice
+               << " bytes=" << written << " peak16=" << peak;
+            m_bReportedNonzero = true;
+            if (peak >= 1024)
+               m_bReportedAudibleLevel = true;
+         }
+      }
       return written;
    }
 

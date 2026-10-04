@@ -7,6 +7,9 @@ namespace multimedia::audio_oss
    {
    public:
       int m_fd = -1;
+      int m_iPrecision = 0;
+      bool m_bReportedNonzero = false;
+      bool m_bReportedAudibleLevel = false;
 
       wave_out() = default;
       ~wave_out() override;
