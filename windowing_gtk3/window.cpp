@@ -4,6 +4,9 @@
 #include "platform.h"
 #include "graphics.h"
 #include "icon.h"
+#ifdef GDK_WINDOWING_X11
+#include <gdk/gdkx.h>
+#endif
 #include "keyboard.h"
 #include "window.h"
 #include "windowing_gtk3.h"
@@ -2935,6 +2938,24 @@ namespace windowing_gtk3
 
    bool window::bamf_set_icon()
    {
+
+#ifdef GDK_WINDOWING_X11
+      auto pathDesktopFile = node()->get_desktop_file_path(get_app());
+      if (pathDesktopFile.has_character())
+      {
+         main_send([this, pathDesktopFile]()
+         {
+            auto pgdkwindow = gtk_widget_get_window(m_pgtkwidget);
+            if (pgdkwindow && GDK_IS_X11_WINDOW(pgdkwindow))
+               gdk_property_change(pgdkwindow,
+                  gdk_atom_intern_static_string("_BAMF_DESKTOP_FILE"),
+                  gdk_atom_intern_static_string("UTF8_STRING"), 8,
+                  GDK_PROP_MODE_REPLACE,
+                  reinterpret_cast<const guchar *>(pathDesktopFile.c_str()),
+                  pathDesktopFile.length());
+         });
+      }
+#endif
 
       synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 

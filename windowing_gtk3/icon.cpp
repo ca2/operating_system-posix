@@ -2,6 +2,8 @@
 // recreated by Camilo 2021-01-28 16:38
 #include "platform.h"
 #include "icon.h"
+#include "acme/filesystem/filesystem/file_context.h"
+#include "acme/prototype/prototype/memory.h"
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "acme/exception/interface_only.h"
 #include "acme/filesystem/filesystem/directory_context.h"
@@ -68,7 +70,15 @@ namespace windowing_gtk3
 
       auto path = m_papplication->defer_process_path(payloadFile.as_file_path());
       GError *error = nullptr;
-      auto pixbuf = gdk_pixbuf_new_from_file(path.c_str(), &error);
+      auto bytes = m_papplication->file()->as_memory(payloadFile);
+      auto loader = gdk_pixbuf_loader_new();
+      bool loaded = gdk_pixbuf_loader_write(loader,
+         static_cast<const guchar *>(static_cast<const void *>(bytes.data())), bytes.size(), &error);
+      if (loaded)
+         loaded = gdk_pixbuf_loader_close(loader, &error);
+      auto pixbuf = loaded ? gdk_pixbuf_loader_get_pixbuf(loader) : nullptr;
+      if (pixbuf) g_object_ref(pixbuf);
+      g_object_unref(loader);
       if (!pixbuf)
       {
          warning() << "GTK3 icon load failed: " << path;
