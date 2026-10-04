@@ -34,7 +34,9 @@
 
    cairo_surface_flush(psurface);
 
-   pixmap.m_pimage32 = (::image32_t *) cairo_image_surface_get_data(psurface);
+   // map() derives the mapped pointer from the raw buffer. Without this,
+   // it allocates an empty buffer instead of exposing the Cairo pixels.
+   pixmap.m_pimage32Raw = (::image32_t *) cairo_image_surface_get_data(psurface);
    pixmap.m_sizeRaw.cx = cairo_image_surface_get_width(psurface);
    pixmap.m_sizeRaw.cy = cairo_image_surface_get_height(psurface);
    pixmap.m_iScan = cairo_image_surface_get_stride(psurface);
