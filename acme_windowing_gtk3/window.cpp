@@ -296,7 +296,9 @@ return FALSE;
 
             pwindow->_on_cairo_draw(widget, cr);
 
-            return FALSE;
+            // ca2 paints the complete window. GTK's default draw handler runs
+            // afterward and can replace it with the theme's transparent background.
+            return TRUE;
 
          }
 
@@ -1357,7 +1359,7 @@ m_phappeningLastMouseUp = pevent;
 
                cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 1.0);
 
-               cairo_fill(cr);
+               cairo_paint(cr);
 
                return ;
 
