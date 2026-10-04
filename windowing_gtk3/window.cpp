@@ -425,6 +425,13 @@ namespace windowing_gtk3
    void window::_on_cairo_draw(GtkWidget* widget, cairo_t* cr)
    {
 
+      // Micro dialogs use Nano graphics, not Aura's graphics-thread buffer.
+      if (m_pacmeuserinteraction && !user_interaction())
+      {
+         ::gtk3::acme::windowing::window::_on_cairo_draw(widget, cr);
+         return;
+      }
+
 #if MORE_LOG
       fprintf(
    stderr,
@@ -7137,6 +7144,12 @@ namespace windowing_gtk3
 
    void window::_on_configure()
    {
+
+      if (m_pacmeuserinteraction && !user_interaction())
+      {
+         ::gtk3::acme::windowing::window::_on_configure();
+         return;
+      }
 
       if (windowing_bias() == ::windowing::e_bias_linux_mint_x_cinnamon_22_1)
       {
