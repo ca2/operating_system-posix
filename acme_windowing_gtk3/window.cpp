@@ -1475,6 +1475,11 @@ m_phappeningLastMouseUp = pevent;
          void window::set_interface_client_size(const ::i32_size & sizeWindow) // set_size
          {
 
+            if (sizeWindow.cx <= 0 || sizeWindow.cy <= 0)
+            {
+               return;
+            }
+
             m_sizeWindow = sizeWindow;
 
             // if (!m_pcairosurface)
@@ -1484,17 +1489,15 @@ m_phappeningLastMouseUp = pevent;
             //
             // }
 
-            i32_rectangle r;
-
-            r = m_pacmeuserinteraction->get_client_rectangle();
+            m_pacmeuserinteraction->on_window_size(sizeWindow);
 
             //auto pgdkdisplay = m_pdisplay->m_pgdkdisplay;
 
             auto window = m_pgtkwidget;
 
-            auto w = r.width();
+            auto w = sizeWindow.cx;
 
-            auto h = r.height();
+            auto h = sizeWindow.cy;
 
             nano()->graphics();
 
