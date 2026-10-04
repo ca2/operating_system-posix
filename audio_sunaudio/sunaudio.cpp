@@ -151,6 +151,14 @@ int precision,
    // member in illumos audio_info_t.
    m_llWrittenBytes = 0;
    m_iLastSecond = -1;
+   m_bReportedNonzeroPlayback = false;
+   information() << "sunaudio opened device=" << m_strDevice
+      << " rate=" << m_audioinfo.play.sample_rate
+      << " channels=" << m_audioinfo.play.channels
+      << " precision=" << m_audioinfo.play.precision
+      << " gain=" << m_audioinfo.play.gain
+      << " muted=" << (int) m_audioinfo.output_muted
+      << " paused=" << (int) m_audioinfo.play.pause;
    return 0;
 #else
 	struct aformat_sun
@@ -471,6 +479,34 @@ sun_object::sunaudio_flush()
       }
       
       m_llWrittenBytes += ssize;
+
+#if defined(__SUNOS__)
+      if (!m_bReportedNonzeroPlayback && ssize > 0)
+      {
+         const auto samples = static_cast<const unsigned char *>(data);
+         for (ssize_t i = 0; i < ssize; ++i)
+         {
+            if (samples[i] == 0)
+               continue;
+            m_bReportedNonzeroPlayback = true;
+            audio_info_t status;
+            if (ioctl(m_fd, AUDIO_GETINFO, &status) == -1)
+            {
+               warning() << "sunaudio first nonzero write: AUDIO_GETINFO failed errno=" << errno;
+            }
+            else
+            {
+               information() << "sunaudio first nonzero write device=" << m_strDevice
+                  << " bytes=" << ssize << " gain=" << status.play.gain
+                  << " muted=" << (int) status.output_muted
+                  << " paused=" << (int) status.play.pause
+                  << " active=" << (int) status.play.active
+                  << " played_samples=" << status.play.samples;
+            }
+            break;
+         }
+      }
+#endif
       
       double dSeconds = m_llWrittenBytes * 8.0 /
        (double) (m_audioinfo.play.channels *

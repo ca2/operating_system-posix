@@ -67,6 +67,7 @@ namespace multimedia
          ::i64 m_llWrittenBytes;
          
          ::i64 m_iLastSecond;
+         bool m_bReportedNonzeroPlayback = false;
 
          sun_object();
          ~sun_object();
