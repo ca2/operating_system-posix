@@ -2547,6 +2547,27 @@ m_phappeningLastMouseUp = pevent;
          void window::show_window(::user_interface::enum_show_window eshowwindow)
          {
 
+            main_send([this, eshowwindow]()
+            {
+
+               if (!m_pgtkwidget)
+                  return;
+
+               if (eshowwindow == ::user_interface::e_show_window_hide)
+               {
+
+                  gtk_widget_hide(m_pgtkwidget);
+
+               }
+               else
+               {
+
+                  gtk_widget_show_all(m_pgtkwidget);
+                  gtk_window_present(GTK_WINDOW(m_pgtkwidget));
+
+               }
+
+            });
 
          }
 
