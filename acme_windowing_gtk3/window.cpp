@@ -680,6 +680,36 @@ return FALSE;
                strTitle = get_app()->m_strAppName;
             gtk_window_set_title(GTK_WINDOW(m_pgtkwidget), strTitle.c_str());
 
+            auto pmaininteraction = get_app()->main_acme_user_interaction();
+            if (pmaininteraction && pmaininteraction != m_pacmeuserinteraction)
+            {
+
+               ::cast<::gtk3::acme::windowing::window> pmainwindow =
+                  pmaininteraction->acme_windowing_window();
+               if (pmainwindow && pmainwindow->m_pgtkwidget)
+               {
+
+                  auto piconlist = gtk_window_get_icon_list(GTK_WINDOW(pmainwindow->m_pgtkwidget));
+                  if (piconlist)
+                  {
+
+                     gtk_window_set_icon_list(GTK_WINDOW(m_pgtkwidget), piconlist);
+                     g_list_free(piconlist);
+
+                  }
+                  else
+                  {
+
+                     auto pszIconName = gtk_window_get_icon_name(GTK_WINDOW(pmainwindow->m_pgtkwidget));
+                     if (pszIconName)
+                        gtk_window_set_icon_name(GTK_WINDOW(m_pgtkwidget), pszIconName);
+
+                  }
+
+               }
+
+            }
+
             __refdbg_add_referer
 
             increment_reference_count();
