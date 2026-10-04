@@ -742,7 +742,7 @@ namespace gtk3
                case ::windowing::e_operating_ambient_cinnamon:
                   return true;
                case ::windowing::e_operating_ambient_mate:
-                  return false; // don't know yet
+                  return true;
                case ::windowing::e_operating_ambient_lxde:
                   return false; // don't know yet
                case ::windowing::e_operating_ambient_xfce:
@@ -766,6 +766,8 @@ namespace gtk3
                   return "KDE Plasma Global Theme";
                case ::windowing::e_operating_ambient_cinnamon:
                   return "Linux Mint Cinnamon Global Theme";
+               case ::windowing::e_operating_ambient_mate:
+                  return "MATE GTK Theme";
                default:
                   return ::acme::windowing::display::theming_ui_name();
             };
@@ -829,7 +831,11 @@ namespace gtk3
             else if (edesktop == ::windowing::e_operating_ambient_mate)
             {
 
-               //return ::user::gsettings_set("org.mate.background", "picture-filename", strLocalImagePath);
+               if (!::gdk::gsettings_set("org.mate.interface", "gtk-theme", strDesktopTheme).ok())
+               {
+                  throw ::exception(error_failed);
+               }
+               ::gdk::gsettings_sync();
 
             }
             else if (edesktop == ::windowing::e_operating_ambient_lxde)
@@ -891,7 +897,7 @@ namespace gtk3
          break;
          case ::windowing::e_operating_ambient_mate:
 
-            bOk = ::gdk::gsettings_get(strDesktopTheme, "org.mate.background", "picture-filename").ok();
+            bOk = ::gdk::gsettings_get(strDesktopTheme, "org.mate.interface", "gtk-theme").ok();
 
             break;
 
