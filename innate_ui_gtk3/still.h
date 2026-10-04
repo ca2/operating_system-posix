@@ -28,6 +28,7 @@ namespace innate_ui_gtk3
 
       void set_icon(::innate_ui::icon * picon) override;
       void set_text(const ::scoped_string & scopedstr) override;
+      void layout() override;
    };
 
 

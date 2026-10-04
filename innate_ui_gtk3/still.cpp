@@ -68,7 +68,7 @@ namespace innate_ui_gtk3
 
       ::string str(scopedstr);
 
-      user_post([this, str]
+      user_send([this, str]
       ()
          {
 
@@ -77,6 +77,34 @@ namespace innate_ui_gtk3
 });
 
    }
+
+   void still::layout()
+   {
+
+      user_send([this]()
+      {
+
+         if (!m_pgtkwidget || m_bIcon)
+            return;
+
+         auto pattributes = pango_attr_list_new();
+         if (m_dFontSizeEm > 0.0)
+            pango_attr_list_insert(pattributes, pango_attr_scale_new(m_dFontSizeEm));
+         if (m_iFontWeight > 0)
+            pango_attr_list_insert(pattributes,
+               pango_attr_weight_new(static_cast<PangoWeight>(m_iFontWeight)));
+         gtk_label_set_attributes(GTK_LABEL(m_pgtkwidget), pattributes);
+         pango_attr_list_unref(pattributes);
+
+         // Dialogs use these dimensions immediately to position the next row.
+         auto playout = gtk_label_get_layout(GTK_LABEL(m_pgtkwidget));
+         pango_layout_get_pixel_size(playout, &m_iLayoutWidth, &m_iLayoutHeight);
+         m_iLayoutHeight = maximum(m_iLayoutHeight, 1);
+
+      });
+
+   }
+
 
    void still::set_icon(::innate_ui::icon * piconParam)
    {
