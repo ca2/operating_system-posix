@@ -2,6 +2,7 @@
 #include "app-core/ambient/mate_terminal_automation.h"
 #include <stdio.h>
 #include "acme/parallelization/_.h"
+#include "acme/platform/system.h"
 
 #include <unistd.h>
 #include <fcntl.h>
@@ -20,10 +21,18 @@ namespace
          for (auto &child : item->children()) dump(child, depth + 1, budget);
    }
 }
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **envp)
 {
    setvbuf(stdout, nullptr, _IOLBF, 0);
    fprintf(stderr, "MATE Terminal accessibility helper started\n");
+   // Follow ca2's console entry-point bootstrap before any ca2 strings,
+   // particles or referencing-debugging allocations. The system lives until
+   // process exit, as in acme/inline/console/main_executable.inl.
+   fprintf(stderr, "MATE Terminal accessibility: initializing Acme runtime\n");
+   auto psystem = new ::platform::system();
+   psystem->initialize_system(argc, argv, envp);
+   psystem->m_bConsole = true;
+   fprintf(stderr, "MATE Terminal accessibility: Acme runtime ready\n");
    if ((argc != 2 && argc != 3) || !argv[1][0]
        || (argc == 3 && ::string(argv[1]) != "--profile-id"))
    {

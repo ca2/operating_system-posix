@@ -2,6 +2,7 @@
 #include <atspi/atspi.h>
 #include "acme/parallelization/critical_section.h"
 #include <unistd.h>
+#include <stdio.h>
 
 namespace accessibility_atspi
 {
@@ -147,13 +148,16 @@ namespace accessibility_atspi
       static bool initialized = false;
       if (!initialized)
       {
+         fprintf(stderr, "Accessibility AT-SPI: initializing client\n");
          if (atspi_init() != 0)
             throw ::exception(error_failed, "Cannot initialize AT-SPI; enable desktop accessibility");
          atspi_set_timeout(1000, 1000);
          initialized = true;
       }
+      fprintf(stderr, "Accessibility AT-SPI: obtaining desktop root\n");
       auto root = atspi_get_desktop(0);
       if (!root) throw ::exception(error_failed, "No accessible desktop in this session");
+      fprintf(stderr, "Accessibility AT-SPI: creating ca2 desktop element\n");
       return allocateø accessible(root);
    }
 }
