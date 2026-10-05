@@ -8,10 +8,10 @@ namespace accessibility_atspi
    namespace
    {
       using namespace accessibility::automation;
-      struct error
+      struct atspi_error_guard
       {
          GError *value = nullptr;
-         ~error() { if (value) g_error_free(value); }
+         ~atspi_error_guard() { if (value) g_error_free(value); }
          void check() { if (value) throw ::exception(error_failed, value->message); }
       };
       template<class T> struct object
@@ -32,14 +32,14 @@ namespace accessibility_atspi
          ~accessible() override { g_object_unref(m_object); }
          ::string name() override
          {
-            error e;
+            atspi_error_guard e;
             char *text = atspi_accessible_get_name(m_object, &e.value);
             ::string result = text ? text : "";
             g_free(text); e.check(); return result;
          }
          role type() override
          {
-            error e;
+            atspi_error_guard e;
             auto type = atspi_accessible_get_role(m_object, &e.value);
             e.check();
             switch (type)
@@ -58,7 +58,7 @@ namespace accessibility_atspi
          }
          unsigned int process_id() override
          {
-            error e;
+            atspi_error_guard e;
             auto id = atspi_accessible_get_process_id(m_object, &e.value);
             e.check(); return id;
          }
@@ -83,7 +83,7 @@ namespace accessibility_atspi
          {
             // Fresh children are important after GTK opens a menu or changes tabs.
             atspi_accessible_clear_cache(m_object);
-            error e;
+            atspi_error_guard e;
             auto count = atspi_accessible_get_child_count(m_object, &e.value);
             e.check();
             if (count > 4096) throw ::exception(error_failed, "Too many accessible children");
@@ -98,7 +98,7 @@ namespace accessibility_atspi
          }
          element_pointer parent() override
          {
-            error e;
+            atspi_error_guard e;
             auto item = atspi_accessible_get_parent(m_object, &e.value);
             if (e.value) { if (item) g_object_unref(item); e.check(); }
             if (!item) return nullptr;
@@ -108,7 +108,7 @@ namespace accessibility_atspi
          {
             object<AtspiAction> action{atspi_accessible_get_action_iface(m_object)};
             if (!action.value) return {};
-            error e;
+            atspi_error_guard e;
             int count = atspi_action_get_n_actions(action.value, &e.value);
             e.check();
             ::string_array_base result;
@@ -124,7 +124,7 @@ namespace accessibility_atspi
          {
             object<AtspiAction> action{atspi_accessible_get_action_iface(m_object)};
             if (!action.value) return false;
-            error e;
+            atspi_error_guard e;
             bool ok = atspi_action_do_action(action.value, index, &e.value);
             e.check(); return ok;
          }
@@ -132,7 +132,7 @@ namespace accessibility_atspi
          {
             object<AtspiSelection> selection{atspi_accessible_get_selection_iface(m_object)};
             if (!selection.value) return false;
-            error e;
+            atspi_error_guard e;
             bool ok = atspi_selection_select_child(selection.value, index, &e.value);
             e.check(); return ok;
          }
