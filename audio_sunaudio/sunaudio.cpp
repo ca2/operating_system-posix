@@ -354,7 +354,8 @@ int precision,
       
    }
    
-   m_audioinfo.blocksize = m_audioinfo.play.buffer_size / m_iBufferCountHint;
+   m_audioinfo.blocksize = minimum((int) m_audioinfo.play.buffer_size / m_iBufferCountHint,
+      m_iFrameCount * channels * (precision / 8));
    
    information() << "going to SETINFO with blocksize: " << m_audioinfo.blocksize;
    

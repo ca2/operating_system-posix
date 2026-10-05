@@ -19,6 +19,7 @@ namespace multimedia::audio_oss
       int device_drain();
       int device_flush();
       memsize device_write(const void * data, memsize bytes) override;
+      memsize device_queued_bytes() override;
       int device_pause() override;
       int device_resume() override;
       ::string device_error_message(int error) override;

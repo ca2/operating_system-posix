@@ -46,6 +46,14 @@ namespace multimedia::audio_oss
          return errno;
 
       const int requestedFormat = format;
+      // Fragment geometry must be requested before format negotiation/I/O.
+      // Drivers may round or ignore it; GETODELAY also bounds queue-ahead.
+      int blockBytes = m_iFrameCount * channels * (precision / 8);
+      int exponent = 4;
+      while (exponent < 24 && (1 << (exponent + 1)) <= blockBytes) ++exponent;
+      int fragments = (m_iBufferCount << 16) | exponent;
+      if (ioctl(m_fd, SNDCTL_DSP_SETFRAGMENT, &fragments) == -1)
+         warning() << "audio_oss fragment request not accepted, errno=" << errno;
       int channelCount = channels;
       int sampleRate = rate;
       int error = 0;
@@ -62,6 +70,9 @@ namespace multimedia::audio_oss
          return error;
       }
       m_iPrecision = precision;
+      int nativeBlock = 0;
+      if (ioctl(m_fd, SNDCTL_DSP_GETBLKSIZE, &nativeBlock) != -1)
+         information() << "audio_oss native fragment bytes=" << nativeBlock;
       m_bReportedNonzero = false;
       m_bReportedAudibleLevel = false;
       information() << "audio_oss opened device=" << m_strDevice
@@ -78,6 +89,12 @@ namespace multimedia::audio_oss
       const int fd = m_fd;
       m_fd = -1;
       return close(fd) == -1 ? errno : 0;
+   }
+
+   memsize wave_out::device_queued_bytes()
+   {
+      int bytes = 0;
+      return ioctl(m_fd, SNDCTL_DSP_GETODELAY, &bytes) == -1 ? -1 : maximum(0, bytes);
    }
 
    int wave_out::device_drain()
