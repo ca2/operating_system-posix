@@ -12,6 +12,14 @@ namespace accessibility_gtk3
       {
          return accessibility_gtk3::desktop();
       }
+
+      ::pointer<::accessibility::automation::menu_selection_result> select_application_menu(
+         const ::accessibility::automation::menu_selection_request &request) override
+      {
+         // Serialize full transactions in the application process. Ambient's
+         // ambient-change callbacks already run on ca2 worker tasks.
+         return accessibility_gtk3::select_application_menu(request);
+      }
    };
 }
 

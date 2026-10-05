@@ -9,7 +9,7 @@ target_link_libraries(accessibility_gtk3 PRIVATE accessibility_atspi acme)
 
 # Retain the existing helper name so Ambient and diagnostic commands keep
 # working; it now consumes the GTK3 component and generic selection API.
-add_executable(accessibility_atspi_mate_terminal ../accessibility_atspi/mate_terminal_main.cpp)
+add_executable(accessibility_atspi_mate_terminal EXCLUDE_FROM_ALL ../accessibility_atspi/mate_terminal_main.cpp)
 target_include_directories(accessibility_atspi_mate_terminal PRIVATE "${CMAKE_SOURCE_DIR}/source")
 target_link_libraries(accessibility_atspi_mate_terminal PRIVATE accessibility_gtk3 acme PkgConfig::ACCESSIBILITY_GIO)
 set_target_properties(accessibility_atspi_mate_terminal PROPERTIES

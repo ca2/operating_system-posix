@@ -11,15 +11,17 @@ iteration live in `acme/accessibility/selection.h`; Ambient retains only
 the MATE Terminal profile policy.
 
 The initial consumer is Ambient's MATE Terminal profile association.
-`accessibility_atspi_mate_terminal` runs outside Ambient's GTK process to
-keep synchronous accessibility calls away from its GUI thread. Automation
-is serialized across helper processes. Traversals and individual IPC calls
-are bounded. Terminal scrollback is excluded from tree traversal.
+Ambient invokes the accessibility component directly in its existing worker
+task. GTK3 serializes in-process automation transactions. Traversals and
+individual IPC calls are bounded; terminal scrollback is excluded.
+`accessibility_atspi_mate_terminal` is an optional diagnostic executable
+that uses the same component operation.
 
 ## OpenIndiana
 
 CMake enables `INCLUDE_ACCESSIBILITY_ATSPI` by default on SunOS. Building
-`_app_core_ambient` also builds the AT-SPI and GTK3 components and helper in `output`.
+`_app_core_ambient` also builds the AT-SPI and GTK3 shared components in `output`.
+The diagnostic executable is no longer an Ambient dependency.
 The development headers and pkgconf metadata for `atspi-2` and `gio-2.0`
 are required. Check before configuring:
 
@@ -45,14 +47,15 @@ Keep the terminal menubar visible for this initial implementation.
 cd ~/code/main/cmake-build-debug
 cmake ..
 build1 _app_core_ambient
+cmake --build . --target accessibility_atspi_mate_terminal
 ./output/accessibility_atspi_mate_terminal --dump
 ```
 
 The diagnostic dump is read-only and contains menu and tab labels, not
 terminal scrollback. Roles are the indices in the generic `role` enum.
 
-Ambient sends `--profile-id ID`; the helper reads the profile's visible
-name using GSettings, preserving quotes and non-ASCII characters. For a
+Ambient reads its associated profile name and sends a menu-selection request
+to `system()->accessibility()` in-process. For a
 manual test, `./output/accessibility_atspi_mate_terminal 'Dark'` selects
 that named profile in every accessible MATE Terminal window and tab.
 

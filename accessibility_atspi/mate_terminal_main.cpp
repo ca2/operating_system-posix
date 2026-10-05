@@ -1,5 +1,5 @@
 #include "accessibility_gtk3/automation.h"
-#include "app-core/ambient/mate_terminal_automation.h"
+
 #include <stdio.h>
 #include "acme/parallelization/_.h"
 #include "acme/platform/system.h"
@@ -55,72 +55,53 @@ int main(int argc, char **argv, char **envp)
          g_free(name); g_object_unref(settings);
          if (profile_name.is_empty()) throw ::exception(error_failed, "Terminal profile has no visible name");
       }
-      // Serialize automation from multiple Ambient instances. Closing this
+      // Serialize manual diagnostic processes. Closing this
       // descriptor releases the lock even if this helper fails.
       const char *home = getenv("HOME");
       if (!home) throw ::exception(error_failed, "HOME is not set");
       auto lock_path = ::string(home) + "/.ambient-mate-terminal-accessibility.lock";
       int lock = open(lock_path.c_str(), O_CREAT | O_RDWR, 0600);
-      struct flock request = {};
-      request.l_type = F_WRLCK; request.l_whence = SEEK_SET;
-      if (lock < 0 || fcntl(lock, F_SETLK, &request) < 0)
+      struct flock lockRequest = {};
+      lockRequest.l_type = F_WRLCK; lockRequest.l_whence = SEEK_SET;
+      if (lock < 0 || fcntl(lock, F_SETLK, &lockRequest) < 0)
          throw ::exception(error_failed, "Terminal accessibility automation is already running or cannot lock");
       fprintf(stderr, "MATE Terminal accessibility: connecting to AT-SPI\n");
-      ::pointer<session> automation = allocateø session(accessibility_gtk3::desktop());
-      int windows = 0, tabs = 0, failures = 0, applications = 0;
-      auto timeStart = ::time::now();
-      auto settle = [&]
-      {
-         if (timeStart.elapsed() > 30_s)
-            throw ::exception(error_failed, "Terminal automation timed out");
-         ::preempt(100_ms);
-      };
-      auto terminal_applications = automation->applications(
-         [](element &app) { return app.executable_name() == "mate-terminal"; });
-      fprintf(stderr, "MATE Terminal accessibility: found %lld terminal applications\n",
-         static_cast<long long>(terminal_applications.get_count()));
-      for (auto &app : terminal_applications)
-      {
-         if (timeStart.elapsed() > 30_s)
-            throw ::exception(error_failed, "Terminal automation timed out");
-         try
-         {
-            ++applications;
-            if (::string(argv[1]) == "--dump")
-            {
-               auto appWindows = automation->windows(app);
-               windows += static_cast<int>(appWindows.get_count());
-               fprintf(stderr, "MATE Terminal application PID %u: %lld windows\n",
-                  app->process_id(), static_cast<long long>(appWindows.get_count()));
-               int budget = 4096; dump(app, 0, budget); continue;
-            }
-            for (auto &window : automation->windows(app))
-            {
-               if (timeStart.elapsed() > 30_s)
-                  throw ::exception(error_failed, "Terminal automation timed out");
-               if (find_all(window, [](element &e) { return e.type() == role::terminal; }).is_empty()) continue;
-               try
-               {
-                  tabs += app_core_ambient::mate_terminal_automation::apply_window(window, profile_name, settle);
-                  ++windows;
-               }
-               catch (const ::exception &e) { ++failures; fprintf(stderr, "Window: %s\n", e.get_message().c_str()); }
-            }
-         }
-         catch (const ::exception &e) { ++failures; fprintf(stderr, "Application: %s\n", e.get_message().c_str()); }
-      }
-      close(lock);
-      if (!applications)
-      {
-         fprintf(stderr, "No MATE Terminal registered with AT-SPI; enable org.mate.interface accessibility, then reopen MATE Terminal\n");
-         return 1;
-      }
       if (::string(argv[1]) == "--dump")
-         printf("MATE Terminal accessibility dump: %d applications, %d windows, %d failures (read-only)\n",
-            applications, windows, failures);
-      else
-         printf("MATE Terminal accessibility: %d windows, %d tabs, %d failures\n", windows, tabs, failures);
-      return failures ? 1 : 0;
+      {
+         ::pointer<session> automation = allocateø session(accessibility_gtk3::desktop());
+         auto apps = automation->applications([](element &app)
+         { return app.executable_name() == "mate-terminal"; });
+         int windows = 0;
+         for (auto &app : apps)
+         {
+            auto appWindows = automation->windows(app);
+            windows += static_cast<int>(appWindows.get_count());
+            fprintf(stderr, "MATE Terminal application PID %u: %lld windows\n",
+               app->process_id(), static_cast<long long>(appWindows.get_count()));
+            int budget = 4096; dump(app, 0, budget);
+         }
+         close(lock);
+         printf("MATE Terminal accessibility dump: %lld applications, %d windows (read-only)\n",
+            static_cast<long long>(apps.get_count()), windows);
+         return apps.is_empty() ? 1 : 0;
+      }
+      auto request = allocateø menu_selection_request();
+      request->m_strExecutable = "mate-terminal";
+      request->m_strItem = profile_name;
+      request->m_bVerifyChecked = true;
+      request->m_windowMatches = [](element &window)
+      {
+         return !find_all(element_pointer(&window), [](element &item)
+         { return item.type() == role::terminal; }).is_empty();
+      };
+      auto result = accessibility_gtk3::select_application_menu(*request);
+      close(lock);
+      for (auto &message : result->m_errors) fprintf(stderr, "%s\n", message.c_str());
+      printf("MATE Terminal accessibility: %d windows, %d tabs, %d failures\n",
+         result->m_iWindows, result->m_iViews, result->m_iFailures);
+      if (result->m_iApplications == 0)
+         fprintf(stderr, "No MATE Terminal registered with desktop accessibility\n");
+      return result->m_iFailures || result->m_iApplications == 0 ? 1 : 0;
    }
    catch (const ::exception &e) { fprintf(stderr, "%s\n", e.get_message().c_str()); return 1; }
 }
