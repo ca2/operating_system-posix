@@ -426,6 +426,17 @@ namespace windowing_gtk3
    //   }
 
 
+   void window::request_initial_frame(const char *reason)
+   {
+      if (m_bRequestedInitialFrame || !user_interaction()) return;
+      m_bRequestedInitialFrame = true;
+      information() << "GTK3: requesting initial frame: " << reason
+         << " for " << ::platform::type(user_interaction()).name();
+      user_interaction()->set_need_layout();
+      user_interaction()->set_need_redraw();
+      user_interaction()->post_redraw();
+   }
+
    void window::_on_cairo_draw(GtkWidget* widget, cairo_t* cr)
    {
 
@@ -455,7 +466,7 @@ namespace windowing_gtk3
 
          if (!pbuffer)
          {
-
+            request_initial_frame("graphics buffer not ready");
             return;
 
          }
@@ -466,17 +477,36 @@ namespace windowing_gtk3
 
          if (!pitem)
          {
-
+            slGraphics.unlock();
+            request_initial_frame("screen buffer item not ready");
             return;
 
          }
 
          synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+         if (!pitem->m_pimageBufferItem || !pitem->m_pimageBufferItem.ok())
+         {
+            slImage.unlock();
+            slGraphics.unlock();
+            request_initial_frame("screen image not ready");
+            return;
+         }
 
          if (pitem && pitem->m_pimageBufferItem && pitem->m_pimageBufferItem.ok())
          {
 
             const auto sizeImage = pitem->m_pimageBufferItem->size();
+            if (!m_bLoggedInitialFrame)
+            {
+               m_bLoggedInitialFrame = true;
+               information() << "GTK3: presenting initial frame for "
+                  << ::platform::type(user_interaction()).name()
+                  << " source=" << sizeImage.cx << "x" << sizeImage.cy
+                  << " origin=" << pitem->m_pimageBufferItem->m_point.x << ","
+                  << pitem->m_pimageBufferItem->m_point.y
+                  << " widget=" << gtk_widget_get_allocated_width(widget) << "x"
+                  << gtk_widget_get_allocated_height(widget);
+            }
 #if MORE_LOG
             const int iGtkWidth = gtk_widget_get_allocated_width(widget);
 

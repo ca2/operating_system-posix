@@ -35,6 +35,9 @@ namespace windowing_gtk3
          , virtual public ::gtk3::acme::windowing::window
    {
    public:
+      bool m_bRequestedInitialFrame = false;
+      bool m_bLoggedInitialFrame = false;
+      void request_initial_frame(const char *reason);
 //::i32_point m_pointCursor2;
          //typedef struct {
                gboolean resizing;
