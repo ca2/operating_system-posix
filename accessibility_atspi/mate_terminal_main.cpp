@@ -22,6 +22,8 @@ namespace
 }
 int main(int argc, char **argv)
 {
+   setvbuf(stdout, nullptr, _IOLBF, 0);
+   fprintf(stderr, "MATE Terminal accessibility helper started\n");
    if ((argc != 2 && argc != 3) || !argv[1][0]
        || (argc == 3 && ::string(argv[1]) != "--profile-id"))
    {
@@ -53,6 +55,7 @@ int main(int argc, char **argv)
       request.l_type = F_WRLCK; request.l_whence = SEEK_SET;
       if (lock < 0 || fcntl(lock, F_SETLK, &request) < 0)
          throw ::exception(error_failed, "Terminal accessibility automation is already running or cannot lock");
+      fprintf(stderr, "MATE Terminal accessibility: connecting to AT-SPI\n");
       ::pointer<session> automation = allocateø session(accessibility_gtk3::desktop());
       int windows = 0, tabs = 0, failures = 0, applications = 0;
       auto timeStart = ::time::now();
@@ -64,6 +67,8 @@ int main(int argc, char **argv)
       };
       auto terminal_applications = automation->applications(
          [](element &app) { return app.executable_name() == "mate-terminal"; });
+      fprintf(stderr, "MATE Terminal accessibility: found %lld terminal applications\n",
+         static_cast<long long>(terminal_applications.get_count()));
       for (auto &app : terminal_applications)
       {
          if (timeStart.elapsed() > 30_s)
