@@ -41,7 +41,7 @@ namespace multimedia::audio_oss
       if (!rate || !channels)
          return EINVAL;
 
-      m_fd = open(m_strDevice, O_WRONLY);
+      m_fd = open(m_strDevice, O_WRONLY | O_NONBLOCK);
       if (m_fd == -1)
          return errno;
 

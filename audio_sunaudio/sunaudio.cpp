@@ -119,7 +119,7 @@ int precision,
    if ((precision != 8 && precision != 16 && precision != 32) || !rate || !channels)
       return EINVAL;
 
-   m_fd = open(m_strDevice, O_WRONLY);
+   m_fd = open(m_strDevice, O_WRONLY | O_NONBLOCK);
    if (m_fd == -1)
       return errno;
 

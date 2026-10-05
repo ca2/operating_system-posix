@@ -28,10 +28,15 @@ namespace input_xinput
          ~display_guard() { XCloseDisplay(value); }
       } guard{display};
       int opcode, event, error;
-      int major = 2, minor = 0;
+      // XI 2.0 suppresses raw events for other clients during a pointer
+      // grab. GTK grabs on press, which otherwise hides the release from
+      // this connection. XI 2.1 delivers raw events during those grabs.
+      int major = 2, minor = 1;
       if (!XQueryExtension(display, "XInputExtension", &opcode, &event, &error)
           || XIQueryVersion(display, &major, &minor) != Success)
-      { warning() << "XInput mouse hook requires XInput 2"; return; }
+      { warning() << "XInput mouse hook requires XInput 2.1"; return; }
+      if (major < 2 || (major == 2 && minor < 1))
+      { warning() << "XInput 2.1 is required to receive mouse releases during GTK grabs"; return; }
       unsigned char bits[XIMaskLen(XI_LASTEVENT)] = {};
       XISetMask(bits, XI_RawButtonPress);
       XISetMask(bits, XI_RawButtonRelease);
@@ -42,7 +47,7 @@ namespace input_xinput
       if (XISelectEvents(display, DefaultRootWindow(display), &mask, 1) != Success)
       { warning() << "XInput mouse hook: could not select raw button events"; return; }
       XFlush(display);
-      information() << "XInput global mouse hook started";
+      information() << "XInput global mouse hook started, protocol " << major << "." << minor;
       while (task_get_run())
       {
          if (!XPending(display))
