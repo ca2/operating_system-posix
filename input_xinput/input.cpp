@@ -83,13 +83,13 @@ namespace input_xinput
             auto symbol = XkbKeycodeToKeysym(display, button, group, 0);
             auto key = create_newø<::message::key>();
             key->m_eusermessage = kind == XI_RawKeyPress ? ::user::e_message_key_down : ::user::e_message_key_up;
-            ::user::enum_key translated = ::user::e_key_none;
+            ::user::e_key translated = ::user::e_key_none;
             if (symbol >= XK_a && symbol <= XK_z)
-               translated = (::user::enum_key) (::user::e_key_a + (symbol - XK_a));
+               translated = ::user::e_key_a + (symbol - XK_a);
             else if (symbol >= XK_A && symbol <= XK_Z)
-               translated = (::user::enum_key) (::user::e_key_a + (symbol - XK_A));
+               translated = ::user::e_key_a + (symbol - XK_A);
             else if (symbol >= XK_0 && symbol <= XK_9)
-               translated = (::user::enum_key) (::user::e_key_0 + (symbol - XK_0));
+               translated = ::user::e_key_0 + (symbol - XK_0);
             else switch (symbol)
             {
             case XK_Return: case XK_KP_Enter: translated = ::user::e_key_return; break;
