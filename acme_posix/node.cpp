@@ -27,6 +27,10 @@
 #include "acme/_operating_system.h"
 #include "acme/operating_system/ansi/_pthread.h"
 #include <poll.h>
+#ifdef __SUNOS__
+#include <sys/resource.h>
+#include <errno.h>
+#endif
 #include "pty_process.h"
 #define DEEP_LOG_HERE 0
 
@@ -1541,6 +1545,29 @@ namespace acme_posix
 
    bool node::set_process_priority(::enum_priority epriority)
 {
+#ifdef __SUNOS__
+      int iNice;
+      switch (epriority)
+      {
+      case e_priority_idle: iNice = 19; break;
+      case e_priority_lowest: iNice = 10; break;
+      case e_priority_below_normal: iNice = 5; break;
+      case e_priority_normal: iNice = 0; break;
+      case e_priority_above_normal: iNice = -5; break;
+      case e_priority_highest: iNice = -10; break;
+      case e_priority_time_critical: iNice = -20; break;
+      default: return false;
+      }
+      // A priority request must not prevent application startup when the
+      // desktop user has no permission to decrease the process nice value.
+      // This changes TS priority only, not the real-time scheduling class.
+      if (::setpriority(PRIO_PROCESS, 0, iNice) == 0)
+         return true;
+      int iError = errno;
+      warning() << "Could not set process priority: nice=" << iNice
+         << ", errno=" << iError;
+      return false;
+#else
       
 //#ifdef LINUX
       
@@ -1549,6 +1576,7 @@ namespace acme_posix
 //#else
       
       return ::platform::node::set_process_priority(epriority);
+#endif
       
 ///#endif
       
