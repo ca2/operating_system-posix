@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.17)
+project(accessibility_atspi CXX)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(ACCESSIBILITY_ATSPI REQUIRED IMPORTED_TARGET atspi-2)
+pkg_check_modules(ACCESSIBILITY_GIO REQUIRED IMPORTED_TARGET GLOBAL gio-2.0)
+add_library(accessibility_atspi SHARED automation.cpp)
+target_compile_features(accessibility_atspi PUBLIC cxx_std_20)
+target_include_directories(accessibility_atspi PUBLIC
+   "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}/source/app" "${CMAKE_SOURCE_DIR}/source")
+target_link_libraries(accessibility_atspi PRIVATE acme PkgConfig::ACCESSIBILITY_ATSPI)
