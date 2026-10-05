@@ -19,8 +19,6 @@
 __FACTORY_EXPORT void input_xinput_factory(::factory::factory * pfactory)
 {
 
-   printf("input_xinput factory\n");
-
    pfactory->add_factory_item < ::input_xinput::input, ::input::input > ();
 
 //   pfactory->add_factory_item < ::windowing_x11::display, ::windowing::display > ();

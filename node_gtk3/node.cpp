@@ -2382,7 +2382,11 @@ namespace node_gtk3
    ::pointer<::input::input > node::create_input()
    {
 
+#ifdef __SUNOS__
+      auto & pfactory = ::system()->factory("input", "xinput");
+#else
       auto & pfactory = ::system()->factory("input", "libinput");
+#endif
 
       auto pinput = createø<::input::input>(pfactory);
 

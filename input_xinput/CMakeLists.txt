@@ -1,96 +1,21 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.17)
 project(input_xinput CXX)
-
-
-list(APPEND library_source
-   _.cpp
-   _.h
-   _factory.cpp
-   input.cpp
-   input.h
-   )
-
-
-list(APPEND library_references
-   acme
-   acme_posix
-   apex
-   apex_posix
-   aqua
-   aura
-   aura_posix
-   aura_${OPERATING_SYSTEM_NAME}
-   )
-
-list(APPEND static_library_references ${library_references})
-
-list(TRANSFORM static_library_references PREPEND static_)
-
-
-add_library(${PROJECT_NAME} SHARED ${library_source})
-add_library(static_${PROJECT_NAME} STATIC ${library_source})
-
-if (NOT ${NO_PRECOMPILED_HEADER})
-
-    target_precompile_headers(${PROJECT_NAME} PRIVATE platform.h)
-    target_precompile_headers(static_${PROJECT_NAME} PRIVATE platform.h)
-
-endif ()
-
-set_target_properties(windowing_x11 PROPERTIES LINKER_LANGUAGE CXX)
-
-
-if(${WIN32})
-   target_compile_options(windowing_x11 PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-   target_link_options(windowing_x11 PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-   target_link_options(windowing_x11 PRIVATE "/SUBSYSTEM:WINDOWS")
-   target_link_libraries(windowing_x11 PRIVATE ${library_references} ${global_library_references})
-   #add_dependencies(windowing_x11 draw2d_gdiplus)
-elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__} OR ${__SUNOS__})
-
-
-   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG x11 xi)
-   target_compile_options(windowing_x11 PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
-   target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
-   target_compile_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
-
-   target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
-   target_compile_options(static_${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-fpermissive  ${EXTRA_CXX_TARGET_COMPILER_OPTIONS}>)
-   target_compile_definitions(static_${PROJECT_NAME} PRIVATE CUBE)
-
-
-   target_link_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
-   target_link_options(static_${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_LDFLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references} ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
-   target_link_libraries(static_${PROJECT_NAME} PRIVATE ${static_library_references} ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${global_library_references})
-   target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
-   # target_link_options(static_${PROJECT_NAME} PRIVATE --whole-archive)
-
-
-   #add_dependencies(windowing_x11 draw2d_cairo)
-
-
-endif ()
-
-
-#list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-
-target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
-target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
-
-
-
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR})
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/..)
-list(APPEND library_include_directories ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-
-target_include_directories(${PROJECT_NAME} PRIVATE ${library_include_directories})
-target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_directories})
-
-
-target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
-
-
-
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(INPUT_XINPUT REQUIRED IMPORTED_TARGET x11 xi)
+set(input_xinput_sources _.cpp _.h _factory.cpp input.cpp input.h)
+add_library(input_xinput SHARED ${input_xinput_sources})
+add_library(static_input_xinput STATIC ${input_xinput_sources})
+foreach(input_target IN ITEMS input_xinput static_input_xinput)
+   target_compile_features(${input_target} PRIVATE cxx_std_20)
+   target_compile_definitions(${input_target} PRIVATE _input_xinput_project)
+   target_include_directories(${input_target} PRIVATE
+      "${CMAKE_CURRENT_SOURCE_DIR}/.." "${CMAKE_SOURCE_DIR}/source/app")
+   target_link_libraries(${input_target} PRIVATE acme apex aura PkgConfig::INPUT_XINPUT)
+   if(NOT NO_PRECOMPILED_HEADER)
+      target_precompile_headers(${input_target} PRIVATE platform.h)
+   endif()
+endforeach()
+target_compile_definitions(static_input_xinput PRIVATE CUBE)
+if(UNIX)
+   target_link_options(input_xinput PRIVATE -Wl,-z,defs)
+endif()

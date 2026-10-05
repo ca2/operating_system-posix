@@ -1,71 +1,13 @@
-// created by Camilo <3CamiloSasukeThomasBorregaardSoerensen
-// recreated by Camilo 2021-01-28 22:35 <3TBS, Mummi and bilbo!!
-// hi5 contribution...
 #pragma once
-
-
 #include "apex/input/input.h"
-#include "aura_posix/xinput.h"
-
-
 namespace input_xinput
 {
-
-
-   class CLASS_DECL_INPUT_XINPUT input :
-      virtual public ::input::input,
-      virtual public ::xinput::xinput
+   class CLASS_DECL_INPUT_XINPUT input : virtual public ::input::input
    {
    public:
-
-
-      //::pointer_array<::particle> m_particleaMouseHandler;
-      //::pointer_array<::particle> m_particleaKeyboardHandler;
-
-
-//#ifdef WITH_XI
-
-   int                                             m_xi_opcode = -1;
-      bool                                         m_bMouseEnabled;
-   bool                                            m_bKeyboardEnabled;
-      //::pointer<particle_array>                        m_pobjectaExtendedEventListener;
-
-//#endif
-
-
-   input();
+      input();
       ~input() override;
-
-
-      //void initialize(::particle * pparticle) override;
-
-
-      void defer_input() override;
-      //virtual bool __needs_xinput();
-
-
-//      virtual bool __handle(libinput_event * p);
-//      virtual bool __handle_pointer_button(libinput_event * p);
-//      virtual bool __handle_keyboard_key(libinput_event * p);
-
-
-//      void add_mouse_message_handler(::particle * pparticle) override;
-//      void add_keyboard_message_handler(::particle * pparticle)override;
-//
-//      void erase_mouse_message_handler(::particle * pparticle) override;
-//      void erase_keyboard_message_handler(::particle * pparticle) override;
-//
-
-
-      bool __handle_xinput(void * p, void *cookie) override;
-
-      //virtual bool __handle_xinput(XEvent * pevent, XGenericEventCookie *cookie);
-
-
+      void __input_task() override;
+      ::e_status is_keyboard_message_handling_enabled(::user::interaction_base *) override;
    };
-
-
-} // namespace input_xinput
-
-
-
+}
