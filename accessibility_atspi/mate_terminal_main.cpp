@@ -16,7 +16,8 @@ namespace
       if (!item || depth > 16 || --budget < 0) return;
       ::string indentation;
       for (int i = 0; i < depth; ++i) indentation += "  ";
-      printf("%s%d %s\n", indentation.c_str(), static_cast<int>(item->type()), item->name().c_str());
+      printf("%s%d [%s] %s\n", indentation.c_str(), static_cast<int>(item->type()),
+         item->role_name().c_str(), item->name().c_str());
       if (item->type() != role::terminal)
          for (auto &child : item->children()) dump(child, depth + 1, budget);
    }
@@ -85,7 +86,14 @@ int main(int argc, char **argv, char **envp)
          try
          {
             ++applications;
-            if (::string(argv[1]) == "--dump") { int budget = 4096; dump(app, 0, budget); continue; }
+            if (::string(argv[1]) == "--dump")
+            {
+               auto appWindows = automation->windows(app);
+               windows += static_cast<int>(appWindows.get_count());
+               fprintf(stderr, "MATE Terminal application PID %u: %lld windows\n",
+                  app->process_id(), static_cast<long long>(appWindows.get_count()));
+               int budget = 4096; dump(app, 0, budget); continue;
+            }
             for (auto &window : automation->windows(app))
             {
                if (timeStart.elapsed() > 30_s)
@@ -107,7 +115,11 @@ int main(int argc, char **argv, char **envp)
          fprintf(stderr, "No MATE Terminal registered with AT-SPI; enable org.mate.interface accessibility, then reopen MATE Terminal\n");
          return 1;
       }
-      printf("MATE Terminal accessibility: %d windows, %d tabs, %d failures\n", windows, tabs, failures);
+      if (::string(argv[1]) == "--dump")
+         printf("MATE Terminal accessibility dump: %d applications, %d windows, %d failures (read-only)\n",
+            applications, windows, failures);
+      else
+         printf("MATE Terminal accessibility: %d windows, %d tabs, %d failures\n", windows, tabs, failures);
       return failures ? 1 : 0;
    }
    catch (const ::exception &e) { fprintf(stderr, "%s\n", e.get_message().c_str()); return 1; }

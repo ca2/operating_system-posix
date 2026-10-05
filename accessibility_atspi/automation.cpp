@@ -51,11 +51,21 @@ namespace accessibility_atspi
             case ATSPI_ROLE_MENU: return role::menu;
             case ATSPI_ROLE_MENU_ITEM: return role::menu_item;
             case ATSPI_ROLE_RADIO_MENU_ITEM: return role::radio_menu_item;
+            case ATSPI_ROLE_RADIO_BUTTON: return role::radio_button;
+            case ATSPI_ROLE_CHECK_MENU_ITEM: return role::check_menu_item;
+            case ATSPI_ROLE_CHECK_BOX: return role::check_box;
             case ATSPI_ROLE_PAGE_TAB_LIST: return role::tab_list;
             case ATSPI_ROLE_PAGE_TAB: return role::tab;
             case ATSPI_ROLE_TERMINAL: return role::terminal;
             default: return role::other;
             }
+         }
+         ::string role_name() override
+         {
+            atspi_error_guard e;
+            char *text = atspi_accessible_get_role_name(m_object, &e.value);
+            ::string result = text ? text : "";
+            g_free(text); e.check(); return result;
          }
          unsigned int process_id() override
          {
