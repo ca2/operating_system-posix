@@ -2379,6 +2379,49 @@ namespace node_gtk3
    }
 
 
+   ::i32 node::os_launch_uri(const ::scoped_string &uri, char *errorBuffer, ::i32 errorBufferSize)
+   {
+      ::string target(uri);
+      char *scheme = g_uri_parse_scheme(target.c_str());
+      GFile *file = scheme ? g_file_new_for_uri(target.c_str())
+         : g_file_new_for_path(target.c_str());
+      g_free(scheme);
+      char *normalized = g_file_get_uri(file);
+      GError *error = nullptr;
+      bool launched = g_app_info_launch_default_for_uri(normalized, nullptr, &error);
+      char *local = g_file_get_path(file);
+      // Preserve the user's desktop association first. Only local text files
+      // fall back to an installed graphical editor; no association is changed.
+      if (!launched && local && ::string(local).case_insensitive_ends(".txt"))
+      {
+         for (auto editor : {"pluma", "geany", "gedit"})
+         {
+            char *program = g_find_program_in_path(editor);
+            if (!program) continue;
+            char *quoted = g_shell_quote(program);
+            ::string command = ::string(quoted) + " %f";
+            g_free(quoted); g_free(program);
+            g_clear_error(&error);
+            GAppInfo *app = g_app_info_create_from_commandline(command.c_str(), "Text Editor",
+               G_APP_INFO_CREATE_NONE, &error);
+            if (app)
+            {
+               GList files{};
+               files.data = file;
+               launched = g_app_info_launch(app, &files, nullptr, &error);
+               g_object_unref(app);
+            }
+            if (launched) break;
+         }
+      }
+      if (errorBuffer && errorBufferSize > 0)
+         snprintf(errorBuffer, errorBufferSize, "%s", launched ? "" :
+            (error ? error->message : "No application could open this file"));
+      g_clear_error(&error);
+      g_free(local); g_free(normalized); g_object_unref(file);
+      return launched ? 1 : 0;
+   }
+
    ::pointer<::input::input > node::create_input()
    {
 

@@ -146,6 +146,7 @@ namespace node_gtk3
 
 
       ::pointer < ::input::input > create_input() override;
+      ::i32 os_launch_uri(const ::scoped_string &uri, char *errorBuffer, ::i32 errorBufferSize) override;
 
 
       void launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion) override;
