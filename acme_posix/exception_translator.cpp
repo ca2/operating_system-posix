@@ -4,6 +4,7 @@
 //#define __XSI_VISIBLE 1
 //#endif
 #include "exception_translator.h"
+#include "acme/exception/call_stack.h"
 //#include "acme/exception/standard.h"
 //#include "acme/platform/sequencer.h"
 //#include "acme/user/user/conversation.h"
@@ -55,6 +56,7 @@ namespace acme_posix
 
    void exception_translator::sigsegv_handler(int signal, siginfo_t *psiginfo, void *pc)
    {
+      call_stack_signal_handler_scope signalContext;
 
       sigset_t set;
       sigemptyset(&set);
@@ -68,6 +70,7 @@ namespace acme_posix
 
    void exception_translator::sigfpe_handler(int signal, siginfo_t *psiginfo, void *pc)
    {
+      call_stack_signal_handler_scope signalContext;
 
       //sigset_t set;
       //sigemptyset(&set);
@@ -83,6 +86,7 @@ namespace acme_posix
 
    void exception_translator::sigpipe_handler(int signal, siginfo_t *psiginfo, void *pc)
    {
+      call_stack_signal_handler_scope signalContext;
 
       //      sigset_t set;
       //      sigemptyset(&set);
