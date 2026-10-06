@@ -152,6 +152,7 @@ int precision,
    m_llWrittenBytes = 0;
    m_iLastSecond = -1;
    m_bReportedNonzeroPlayback = false;
+   m_bReportedAudiblePlayback = false;
    information() << "sunaudio opened device=" << m_strDevice
       << " rate=" << m_audioinfo.play.sample_rate
       << " channels=" << m_audioinfo.play.channels
@@ -482,6 +483,22 @@ sun_object::sunaudio_flush()
       m_llWrittenBytes += ssize;
 
 #if defined(__SUNOS__)
+      if (!m_bReportedAudiblePlayback && ssize > 0 && m_audioinfo.play.precision == 16)
+      {
+         int peak = 0;
+         auto pcm = static_cast<const unsigned char *>(data);
+         for (ssize_t offset = 0; offset + 1 < ssize; offset += 2)
+         {
+            short sample;
+            memcpy(&sample, pcm + offset, sizeof(sample));
+            int magnitude = sample < 0 ? -(int)sample : (int)sample;
+            peak = maximum(peak, magnitude);
+         }
+         if ((!m_bReportedNonzeroPlayback && peak > 0) || peak >= 1024)
+            information() << "sunaudio PCM peak16=" << peak << " bytes=" << ssize
+               << " rate=" << m_audioinfo.play.sample_rate << " channels=" << m_audioinfo.play.channels;
+         if (peak >= 1024) m_bReportedAudiblePlayback = true;
+      }
       if (!m_bReportedNonzeroPlayback && ssize > 0)
       {
          const auto samples = static_cast<const unsigned char *>(data);
