@@ -3635,7 +3635,7 @@ namespace acme_posix
          
 #ifdef CUBE
 
-#if defined(LINUX) || defined(__BSD__)
+#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__)
 
          return "command_line";
          
@@ -3657,7 +3657,7 @@ namespace acme_posix
          
 #ifdef CUBE
 
-#if defined(LINUX) || defined(__BSD__)
+#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__)
 
          return "command_line";
          
