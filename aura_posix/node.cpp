@@ -496,9 +496,11 @@ namespace aura_posix
    void node::launch_app_by_app_id(const ::scoped_string & scopedstrAppId, bool bSingleExecutableVersion)
    {
 
-#if defined(LINUX) || defined(__BSD__)
+#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__)
 
       ::file::path path = get_executable_path_by_app_id(scopedstrAppId, bSingleExecutableVersion);
+
+      information() << "Launching installed application " << scopedstrAppId << " from " << path;
 
       ::file::path pathFolder = path.folder();
 
@@ -524,13 +526,13 @@ namespace aura_posix
 
       pathLog = pathLogFolder / strLogFileName;
 
-#if defined(FREEBSD)
+#if defined(FREEBSD) || defined(__SUNOS__)
 
       //strCommand = "\"/bin/sh\" -c \"\\\"" + (pathFolder/strName) + "\\\"\"";
       strCommand = "\"" + (pathFolder/strName) + "\"";
-::file::path pathExecutable = pathFolder/strName;
+      ::file::path pathExecutable = pathFolder/strName;
 
-        int iLaunchCode = launch_process_detached(pathExecutable);
+      int iLaunchCode = launch_process_detached(pathExecutable);
       //information() << "node::launch_app_by_app_id : " << strCommand;
 
      //auto inlinelog = std_inline_log();
