@@ -129,7 +129,7 @@ m_piconCurrent = picon;
 
       auto pimage = image()->get_image("matter://main/icon-256.png");
 
-      auto pimage24 = image()->create_image({24, 24});
+      auto pimage24 = image()->create_image({24, 24}, puserinteractionNotify->draw2d_domain());
 
       ::image::image_source imagesource(pimage);
 
