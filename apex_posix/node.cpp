@@ -6,7 +6,7 @@
 #include "acme/filesystem/filesystem/file_system.h"
 #include "acme/platform/system.h"
 #include "acme/exception/interface_only.h"
-#if defined(HAS_FREEDESKTOP)
+#if defined(HAS_FREEDESKTOP) && !defined(__HAIKU__)
 #include "apex/operating_system/freedesktop/desktop_file.h"
 #endif
 #include "acme/filesystem/filesystem/directory_system.h"
@@ -61,7 +61,7 @@ namespace apex_posix
    void node::on_prepare_application(::platform::application *papplication)
    {
 
-#if !defined(RASPBERRYPIOS) && !defined(__ANDROID__) && !defined(__APPLE__) && !defined(LINUX)
+#if !defined(RASPBERRYPIOS) && !defined(__ANDROID__) && !defined(__APPLE__) && !defined(LINUX) && !defined(__HAIKU__)
 
       try
       {
@@ -113,7 +113,7 @@ namespace apex_posix
    bool node::shell_link_target(::file::path &pathTarget, const ::file::path &pathLnk)
    {
       
-#if defined(HAS_FREEDESKTOP)
+#if defined(HAS_FREEDESKTOP) && !defined(__HAIKU__)
 
       if(pathLnk.case_insensitive_ends(".desktop"))
       {
@@ -157,7 +157,7 @@ namespace apex_posix
    bool node::shell_link_icon(::file::path& pathIcon, int& iIcon, const ::file::path& pathLnk)
    {
       
-#if defined(HAS_FREEDESKTOP)
+#if defined(HAS_FREEDESKTOP) && !defined(__HAIKU__)
 
       if(pathLnk.case_insensitive_ends(".desktop"))
       {
@@ -200,7 +200,7 @@ namespace apex_posix
    void node::create_app_shortcut(::platform::application * papp)
    {
       
-#if defined(HAS_FREEDESKTOP)
+#if defined(HAS_FREEDESKTOP) && !defined(__HAIKU__)
 
       auto pathShortcut = app_shortcut_path(papp);
 
@@ -335,7 +335,7 @@ namespace apex_posix
    ::file::path node::_get_auto_start_desktop_file_path(const ::scoped_string & scopedstrAppId)
    {
 
-#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__) || defined(__HAIKU__)
+#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__)
 
       auto pathHome = directory_system()->home();
 
@@ -364,7 +364,7 @@ namespace apex_posix
    void node::register_user_auto_start(::platform::application * papplication, const ::scoped_string & scopedstrArguments, bool bRegister)
    {
 
-#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__) || defined(__HAIKU__)
+#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__)
 
       ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(papplication->m_strAppId);
 
@@ -409,7 +409,7 @@ namespace apex_posix
    bool node::is_user_auto_start(const ::scoped_string & scopedstrAppId)
    {
 
-#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__) || defined(__HAIKU__)
+#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__)
 
 //#error "error that is good if occurs temporarily (for testing if this portion of code is included in compilation)"
 
