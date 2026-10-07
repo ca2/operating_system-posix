@@ -7,7 +7,7 @@
 #include "acme/operating_system/shared_posix/c_errno.h"
 #include <sys/stat.h>
 
-#if defined(__APPLE__) || defined(LINUX) || defined(__BSD__) || defined(__SUNOS__)
+#if defined(__APPLE__) || defined(LINUX) || defined(__BSD__) || defined(__SUNOS__) || defined(__HAIKU__)
 #include <unistd.h>
 #include <errno.h>
 #endif

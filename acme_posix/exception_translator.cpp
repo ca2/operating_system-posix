@@ -63,7 +63,11 @@ namespace acme_posix
       sigaddset(&set, SIGSEGV);
       pthread_sigmask(SIG_UNBLOCK, &set, nullptr);
 
+#if defined(__HAIKU__)
+      throw ::exception(error_segmentation_fault);
+#else
       throw standard_access_violation(signal, psiginfo, pc);
+#endif
 
    }
 

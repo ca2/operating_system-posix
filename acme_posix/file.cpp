@@ -510,7 +510,7 @@ namespace acme_posix
 
       int lLoOffset = lOff & 0xffffffff;
       
-#if defined(__APPLE__) || defined(__BSD__)
+#if defined(__APPLE__) || defined(__BSD__) || defined(__HAIKU__)
 
 #if HEAVY_FILE_LOG
       
@@ -552,7 +552,7 @@ namespace acme_posix
       int lLoOffset = 0;
 //      int lHiOffset = 0;
       
-#if defined(__APPLE__) || defined(__BSD__)
+#if defined(__APPLE__) || defined(__BSD__) || defined(__HAIKU__)
 
       filesize pos = ::lseek(m_iFile, lLoOffset, SEEK_CUR);
       
