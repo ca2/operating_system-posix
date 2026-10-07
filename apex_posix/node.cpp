@@ -16,7 +16,7 @@
 #include "acme/_operating_system.h"
 
 
-#if defined(LINUX) || defined(__APPLE__) || defined(__ANDROID__) || defined(__BSD__) || defined(__SUNOS__)
+#if defined(LINUX) || defined(__APPLE__) || defined(__ANDROID__) || defined(__BSD__) || defined(__SUNOS__) || defined(__HAIKU__)
 
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -335,7 +335,7 @@ namespace apex_posix
    ::file::path node::_get_auto_start_desktop_file_path(const ::scoped_string & scopedstrAppId)
    {
 
-#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__)
+#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__) || defined(__HAIKU__)
 
       auto pathHome = directory_system()->home();
 
@@ -364,7 +364,7 @@ namespace apex_posix
    void node::register_user_auto_start(::platform::application * papplication, const ::scoped_string & scopedstrArguments, bool bRegister)
    {
 
-#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__)
+#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__) || defined(__HAIKU__)
 
       ::file::path pathAutoStartDesktopFilePath = _get_auto_start_desktop_file_path(papplication->m_strAppId);
 
@@ -409,7 +409,7 @@ namespace apex_posix
    bool node::is_user_auto_start(const ::scoped_string & scopedstrAppId)
    {
 
-#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__)
+#if defined(LINUX) || defined(__BSD__) || defined(__SUNOS__) || defined(__HAIKU__)
 
 //#error "error that is good if occurs temporarily (for testing if this portion of code is included in compilation)"
 
