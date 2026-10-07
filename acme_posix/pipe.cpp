@@ -2,6 +2,10 @@
 
 #include "pipe.h"
 #include <stdlib.h>
+#if defined(__HAIKU__)
+#include <fcntl.h>
+#include <unistd.h>
+#endif
 
 
 #if defined(LINUX) || defined(__ANDROID__) || defined(__APPLE__) || defined(__BSD__) || defined(__SUNOS__)
