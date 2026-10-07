@@ -28,7 +28,7 @@
 #if defined(WINDOWS_DESKTOP)
 #include <Shlobj.h>
 #include <shellapi.h>
-#elif defined(__APPLE__)
+#elif defined(__APPLE__) || defined(__HAIKU__)
 #include <sys/stat.h>
 #include <dirent.h>
 #include <unistd.h>
@@ -79,7 +79,7 @@ bool is_directory_entry(
    const struct dirent * dp)
 {
 
-#if defined(__SUNOS__)
+#if defined(__SUNOS__) || defined(__HAIKU__)
 
    struct stat st{};
 

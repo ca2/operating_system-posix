@@ -19,6 +19,10 @@
 #include <unistd.h>
 #include <sys/time.h>
 
+#if defined(__HAIKU__)
+#include <image.h>
+#endif
+
 
 #if defined(LINUX)
 #include "acme/operating_system/ansi/binreloc.h"
@@ -570,6 +574,15 @@ namespace acme_posix
       
       return {};
 
+   #elif defined(__HAIKU__)
+      int32 cookie = 0;
+      image_info info = {};
+      while (::get_next_image_info(B_CURRENT_TEAM, &cookie, &info) == B_OK)
+      {
+         if (info.type == B_APP_IMAGE)
+            return info.name;
+      }
+      throw ::exception(error_failed);
    #else
 
       return ::get_module_path();
