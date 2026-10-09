@@ -21,6 +21,7 @@ list(APPEND library_source
         platform.cpp
         platform.h)
 
+
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 target_precompile_headers(static_${PROJECT_NAME} PRIVATE platform.h)
