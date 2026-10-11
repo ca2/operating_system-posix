@@ -27,6 +27,9 @@
 #include "acme/_operating_system.h"
 #include "acme/operating_system/ansi/_pthread.h"
 #include <poll.h>
+#ifdef __HAIKU__
+#include <OS.h>
+#endif
 #ifdef __SUNOS__
 #include <sys/resource.h>
 #include <errno.h>
@@ -1545,7 +1548,35 @@ namespace acme_posix
 
    bool node::set_process_priority(::enum_priority epriority)
 {
-#ifdef __SUNOS__
+#ifdef __HAIKU__
+      int32 priority;
+      switch (epriority)
+      {
+      case e_priority_idle: priority = B_LOWEST_ACTIVE_PRIORITY; break;
+      case e_priority_lowest: priority = B_LOW_PRIORITY; break;
+      case e_priority_below_normal: priority = 8; break;
+      case e_priority_normal: priority = B_NORMAL_PRIORITY; break;
+      case e_priority_above_normal: priority = B_DISPLAY_PRIORITY; break;
+      case e_priority_highest: priority = B_URGENT_DISPLAY_PRIORITY; break;
+      case e_priority_time_critical: priority = B_REAL_TIME_PRIORITY; break;
+      default: return false;
+      }
+      thread_info current;
+      if (get_thread_info(find_thread(nullptr), &current) != B_OK) return false;
+      int32 cookie = 0;
+      thread_info info;
+      bool success = true;
+      while (get_next_thread_info(current.team, &cookie, &info) == B_OK)
+      {
+         auto status = set_thread_priority(info.thread, priority);
+         if (status != B_OK && status != B_BAD_THREAD_ID)
+         {
+            warning() << "Could not set Haiku thread priority: thread=" << info.thread << ", status=" << status;
+            success = false;
+         }
+      }
+      return success;
+#elif defined(__SUNOS__)
       int iNice;
       switch (epriority)
       {
