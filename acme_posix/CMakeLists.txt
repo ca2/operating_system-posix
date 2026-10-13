@@ -48,7 +48,7 @@ list(APPEND library_source
    pipe.h
    pty_process.cpp
    pty_process.h
-   process.cpp
+   process_process.cpp
    shmem.cpp
    shmem.h
    #stdio_file.cpp

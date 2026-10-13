@@ -3,7 +3,7 @@
 #include "acme/platform/system.h"
 #include "acme/prototype/collection/string_map.h"
 #include "acme/prototype/collection/str_array.h"
-#include "process.h"
+#include "process_process.h"
 
 
 #include <sys/wait.h>

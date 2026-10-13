@@ -2,7 +2,7 @@
 //#include "file_context.h"
 //#include "os_context.h"
 #include "node.h"
-#include "posix_spawn/process.h"
+#include "posix_spawn/process_process.h"
 #if defined(INTERPROCESS_COMMUNICATION_SYSTEM_5)
 #include "system_5/interprocess_caller.h"
 #include "system_5/interprocess_target.h"

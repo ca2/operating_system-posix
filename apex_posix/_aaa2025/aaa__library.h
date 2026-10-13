@@ -20,7 +20,7 @@
 
 
 #ifdef POSIX_SPAWN
-#include "posix_spawn/process.h"
+#include "posix_spawn/process_process.h"
 #endif
 
 

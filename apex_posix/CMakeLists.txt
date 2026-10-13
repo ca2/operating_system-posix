@@ -59,8 +59,8 @@ if (${POSIX_SPAWN})
 
 
     list(APPEND library_source
-            posix_spawn/process.cpp
-            posix_spawn/process.h)
+            posix_spawn/process_process.cpp
+            posix_spawn/process_process.h)
 
 
 endif ()

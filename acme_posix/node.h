@@ -37,7 +37,7 @@ namespace acme_posix
        //void calculate_dropbox_installed() override;
 
 
-      // defined at process.cpp
+      // defined at process_process.cpp
       void call_async(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, bool bPrivileged, ::u32 * puiPid = nullptr) override;
       void call_sync(const ::scoped_string & scopedstrPath, const ::scoped_string & scopedstrParam, const ::scoped_string & scopedstrDir, ::e_display edisplay, const class time & timeTimeout, ::property_set & set, int * piExitCode) override;
       ::process_identifier create_process(const ::scoped_string & scopedstrCommandLine) override;
@@ -46,7 +46,7 @@ namespace acme_posix
       //::e_status shell_execute_sync(const ::scoped_string & scopedstrFile, const ::scoped_string & scopedstrParams, class ::time timeTimeout) override;
 
 
-      // defined at process.cpp
+      // defined at process_process.cpp
       ::file::path process_identifier_module_path(::process_identifier pid) override;
       ::process_identifier_array module_path_processes_identifiers(const ::scoped_string & scopedstrModulePath, bool bModuleNameIsPropertyFormatted) override;
       string process_identifier_command_line(process_identifier pid) override;

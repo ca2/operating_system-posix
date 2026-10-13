@@ -364,7 +364,7 @@
 			<Option target="acme_posix"/>
 			<Option target="static_acme_posix"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/acme_posix/process.cpp">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/acme_posix/process_process.cpp">
 			<Option target="acme_posix"/>
 			<Option target="static_acme_posix"/>
 		</Unit>

@@ -1202,7 +1202,7 @@
     <ClInclude Include="port_forward.h" />
     <ClInclude Include="printer.h" />
     <ClInclude Include="print_job.h" />
-    <ClInclude Include="process.h" />
+    <ClInclude Include="process_process.h" />
     <ClInclude Include="process_data.h" />
     <ClInclude Include="registry.h" />
     <ClInclude Include="serial.h" />
@@ -1259,7 +1259,7 @@
     <ClCompile Include="parallelization.cpp" />
     <ClCompile Include="pipe.cpp" />
     <ClCompile Include="printer.cpp" />
-    <ClCompile Include="process.cpp" />
+    <ClCompile Include="process_process.cpp" />
     <ClCompile Include="registry.cpp" />
     <ClCompile Include="serial.cpp" />
     <ClCompile Include="shared_memory.cpp" />

@@ -274,11 +274,11 @@
 			<Option target="apex_posix"/>
 			<Option target="static_apex_posix"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/apex_posix/posix_spawn/process.cpp">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/apex_posix/posix_spawn/process_process.cpp">
 			<Option target="apex_posix"/>
 			<Option target="static_apex_posix"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/apex_posix/posix_spawn/process.h">
+		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/apex_posix/posix_spawn/process_process.h">
 			<Option target="apex_posix"/>
 			<Option target="static_apex_posix"/>
 		</Unit>
