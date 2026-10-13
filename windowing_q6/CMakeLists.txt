@@ -142,10 +142,10 @@ endif ()
 
 
 if(${WIN32})
-   target_compile_options(windowing_wayland PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-   target_link_options(windowing_wayland PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-   target_link_options(windowing_wayland PRIVATE "/SUBSYSTEM:WINDOWS")
-   target_link_libraries(windowing_wayland PRIVATE ${library_references} ${global_library_references})
+   target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
+   target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
+   target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
+   target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references})
    #add_dependencies(windowing_wayland draw2d_gdiplus)
 elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__} OR ${__SUNOS__} OR ${__HAIKU__})
 

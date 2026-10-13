@@ -7,4 +7,4 @@ add_library(accessibility_atspi SHARED automation.cpp)
 target_compile_features(accessibility_atspi PUBLIC cxx_std_20)
 target_include_directories(accessibility_atspi PUBLIC
    "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_SOURCE_DIR}/source/app" "${CMAKE_SOURCE_DIR}/source")
-target_link_libraries(accessibility_atspi PRIVATE acme PkgConfig::ACCESSIBILITY_ATSPI)
+target_link_libraries(${PROJECT_NAME} PRIVATE acme PkgConfig::ACCESSIBILITY_ATSPI)

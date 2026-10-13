@@ -80,10 +80,10 @@ set_target_properties(windowing_xcb PROPERTIES LINKER_LANGUAGE CXX)
 if(${WIN32})
 
 
-    target_compile_options(windowing_xcb PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-    target_link_options(windowing_xcb PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-    target_link_options(windowing_xcb PRIVATE "/SUBSYSTEM:WINDOWS")
-    target_link_libraries(windowing_xcb PRIVATE ${library_references} ${global_library_references})
+    target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
+    target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
+    target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references})
 
 
 elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__} OR ${__SUNOS__} OR ${__HAIKU__})

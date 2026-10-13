@@ -113,10 +113,10 @@ set_target_properties(apex_posix PROPERTIES LINKER_LANGUAGE CXX)
 if(${WIN32})
 
 
-    target_compile_options(apex_posix PRIVATE "/MD$<$<CONFIG:Debug>:d>")
-    target_link_options(apex_posix PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-    target_link_options(apex_posix PRIVATE "/SUBSYSTEM:WINDOWS")
-    target_link_libraries(apex_posix PRIVATE ${library_references} ${global_library_references})
+    target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
+    target_link_options(${PROJECT_NAME} PRIVATE "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
+    target_link_options(${PROJECT_NAME} PRIVATE "/SUBSYSTEM:WINDOWS")
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${library_references} ${global_library_references})
     add_dependencies(apex_posix draw2d_gdiplus)
 
 

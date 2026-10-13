@@ -133,7 +133,7 @@ if(BUILD_TESTING AND UNIX)
    add_executable(accessibility_gtk4_process_control_test
       test/process_control.cpp)
 
-   target_link_libraries(accessibility_gtk4_process_control_test PRIVATE
+   target_link_libraries(${PROJECT_NAME} PRIVATE
       static_accessibility_gtk4)
 
    add_test(NAME accessibility_gtk4_process_control_test
