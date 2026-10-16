@@ -1129,7 +1129,7 @@ namespace acme_posix
          else if(rc == EINVAL)
          {
 
-            informationf("mutex::_wait pthread_mutex_timedlock EINVAL timeWait%lld,%lld",timespecWait.tv_sec, timespecWait.tv_nsec);
+            informationf("mutex::_wait pthread_mutex_timedlock EINVAL timeWait%lld,%lld",static_cast<long long>(timespecWait.tv_sec), static_cast<long long>(timespecWait.tv_nsec));
 
             return false;
 
@@ -1142,7 +1142,7 @@ namespace acme_posix
          }
          else
          {
-            informationf("mutex::_wait pthread_mutex_timedlock ERRORFAILED timeWait%lld,%lld",timespecWait.tv_sec, timespecWait.tv_nsec);
+            informationf("mutex::_wait pthread_mutex_timedlock ERRORFAILED timeWait%lld,%lld",static_cast<long long>(timespecWait.tv_sec), static_cast<long long>(timespecWait.tv_nsec));
 
             throw ::exception(error_failed);
 
