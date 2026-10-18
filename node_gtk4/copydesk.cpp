@@ -3,6 +3,8 @@
 #include "copydesk.h"
 #include "acme/windowing/windowing.h"
 #include "aura_posix/clipboard_data.h"
+#include "aura/graphics/draw2d/domain.h"
+#include "aura/graphics/draw2d/draw2d.h"
 #include "aura/graphics/image/context.h"
 #include "aura/platform/system.h"
 #include "aura/platform/node.h"
@@ -681,7 +683,7 @@ namespace
       if(cx > 0 && cy > 0 && pdata->m_pimage)
       {
 
-         pdata->m_pimage->create_as_descriptor({cx, cy});
+         pdata->m_pimage->create_as_descriptor({cx, cy}, pdata->draw2d()->main_draw2d_domain());
          pdata->m_pimage->map();
 
 #if GTK_CHECK_VERSION(4, 10, 0)
@@ -1184,7 +1186,7 @@ namespace node_gtk4
 
       }
 
-      pimage->create_as_descriptor(pdata->m_pimage->size());
+      pimage->create_as_descriptor(pdata->m_pimage->size(), pdata->draw2d()->main_draw2d_domain());
 
       auto ppixmapSource = pdata->m_pimage->map();
 
