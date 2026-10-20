@@ -12,6 +12,8 @@
 #include <QMimeData>
 #include <windowing_kde6/windowing.h>
 
+#include "aura/graphics/draw2d/draw2d.h"
+
 
 namespace node_kde6
 {
@@ -260,7 +262,7 @@ namespace node_kde6
 
          //auto estatus =
          //
-         pimage->create_as_descriptor({width, height});
+         pimage->create_as_descriptor({width, height}, draw2d()->main_draw2d_domain());
 
          //                   if (!estatus)
          //                   {

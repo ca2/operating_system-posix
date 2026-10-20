@@ -15,6 +15,8 @@
 #include "aura/windowing/icon.h"
 #include "windowing_kde6/window.h"
 #include <QMenu>
+
+#include "aura/graphics/draw2d/draw2d.h"
 #include "windowing_kde6/windowing.h"
 //#include <QMe>
 
@@ -195,7 +197,7 @@ namespace node_kde6
 
       auto pimage = image()->get_image("matter://main/icon-256.png");
 
-      auto pimage24 = image()->create_image({24, 24});
+      auto pimage24 = image()->create_image({24, 24}, draw2d()->main_draw2d_domain());
 
       ::image::image_source imagesource(pimage);
 
