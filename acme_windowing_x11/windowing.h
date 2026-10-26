@@ -38,9 +38,10 @@ namespace x11
             //::e_status defer_initialize_windowing() override;
             //::e_status initialize_windowing() override;
             void initialize_windowing() override;
+            bool init_threads() override;
             //virtual void * get_Display();
-            void _main_send(const ::procedure & procedure) override;
-            void _main_post(const ::procedure & procedure) override;
+            void main_send(const ::procedure & procedure) override;
+            void main_post(const ::procedure & procedure) override;
             void display_error_trap_push(int i) override;
             void display_error_trap_pop_ignored(int i) override;
 
@@ -53,7 +54,10 @@ namespace x11
 
             void windowing_application_on_system_start() override;
 
-            void windowing_application_main_loop() override;
+            //void windowing_application_main_loop() override;
+
+
+            void run() override;
 
 
 

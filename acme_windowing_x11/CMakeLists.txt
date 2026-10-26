@@ -71,7 +71,7 @@ if (${WIN32})
 elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__} OR ${__SUNOS__} OR ${__HAIKU__})
 
 #   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG cairo xcb x11 xkbcommon)
-   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG cairo x11 xkbcommon)
+   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG cairo x11 xkbcommon xrender)
    target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
    #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
    #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})

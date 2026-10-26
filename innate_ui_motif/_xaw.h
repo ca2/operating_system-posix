@@ -3,7 +3,7 @@
 //
 #pragma once
 
-
+// apt libmotif-dev
 #include <Xm/Xm.h>
 #include <Xm/FileSB.h>
 #include <Xm/PushB.h>

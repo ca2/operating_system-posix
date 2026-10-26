@@ -504,7 +504,6 @@ namespace windowing_x11
          auto pmessage = create_newø<::user::message>();
 
          pmessage->m_pwindow = pwindowMouseCaptureOld;
-         pmessage->m_pacmewindowingwindow = pwindowMouseCaptureOld;
          pmessage->m_eusermessage = ::user::e_message_capture_changed;
          pmessage->m_wparam = 0;
          pmessage->m_lparam = pwindowMouseCaptureNew;
@@ -824,9 +823,9 @@ namespace windowing_x11
    XImage * display::_x11_create_image(::image::image_pointer pimage)
    {
 
-      pimage->map();
+      auto ppixmap = pimage->map();
 
-      char * image32 = (char *) pimage->get_data();
+      char * image32 = (char *) ppixmap->data();
 
       int width = pimage->width();
 
@@ -836,7 +835,7 @@ namespace windowing_x11
 
       int bitmap_pad = 32; // 32 for 24 and 32 bpp, 16, for 15&16
 
-      int bytes_per_line = pimage->scan_size(); // number of bytes in the client image between the start of one scanline and the start of the next
+      int bytes_per_line = ppixmap->scan(); // number of bytes in the client image between the start of one scanline and the start of the next
 
       XImage * pximage = XCreateImage(m_pDisplay, CopyFromParent, depth, ZPixmap, 0, image32, width, height,
                                       bitmap_pad, bytes_per_line);

@@ -37,7 +37,7 @@ namespace innate_ui_motif
       virtual void _xt_app_initialize();
       virtual void _xt_app_do_happenings();
       
-      void _user_post(const ::procedure & procedure) override;
+      void user_post(const ::procedure & procedure) override;
 
 
       //virtual LRESULT _window_procedure(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);

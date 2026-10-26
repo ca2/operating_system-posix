@@ -11,14 +11,14 @@ list(APPEND library_source
         _.cpp
         _.h
         _factory.cpp
-        buffer.cpp
-        buffer.h
         cursor.cpp
         cursor.h
         debug.cpp
         display.cpp
         display.h
         display_xrender.cpp
+        graphics.cpp
+        graphics.h
         platform.cpp
         platform.h
         icon.cpp

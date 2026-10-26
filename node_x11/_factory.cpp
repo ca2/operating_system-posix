@@ -1,6 +1,5 @@
 #include "platform.h"
 //#include "display.h"
-#include "node.h"
 //#include "desktop_environment.h"
 //#include "os_context.h"
 //#include "copydesk.h"
@@ -87,7 +86,6 @@ __FACTORY_EXPORT void node_x11_factory(::factory::factory * pfactory)
 //
 //   pfactory->add_factory_item < ::node_gtk3::windowing, ::windowing::windowing >();
 
-   pfactory->add_factory_item < ::node_x11::node, ::platform::node > ();
 
 
    //pfactory->add_factory_item < ::node_gtk3::desktop_environment, ::windowing::desktop_environment > ();

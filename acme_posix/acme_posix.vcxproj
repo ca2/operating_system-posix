@@ -1188,7 +1188,6 @@
     <ClInclude Include="internal.h" />
     <ClInclude Include="itemidlist.h" />
     <ClInclude Include="known_folder_struct.h" />
-    <ClInclude Include="mutex.h" />
     <ClInclude Include="nano_timer.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="acme_directory.h" />
@@ -1250,7 +1249,6 @@
     <ClCompile Include="lock.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="message_loop.cpp" />
-    <ClCompile Include="mutex.cpp" />
     <ClCompile Include="node.cpp" />
     <ClCompile Include="acme_path.cpp" />
     <ClCompile Include="console.cpp" />

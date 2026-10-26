@@ -47,6 +47,7 @@
 #include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
 #include "aura/platform/application.h"
+#include "apex/gpu/approach.h"
 //#include "windowing_system_wayland/xfree86_key.h"
 #include "acme_windowing_q/q_5_and_6.h"
 
@@ -1230,6 +1231,17 @@ namespace windowing_q
          {
             puserinteraction->const_layout().window().display() = e_display_none;
          }
+
+      }
+
+      ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+      if (bOk && puserinteraction && puserinteraction->is_graphical() && m_papplication->m_bGpu)
+      {
+
+         auto pgpuapproach = m_papplication->get_gpu_approach();
+
+         pgpuapproach->gpu_on_create_window(this);
 
       }
 

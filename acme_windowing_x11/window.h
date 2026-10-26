@@ -51,7 +51,7 @@ namespace x11
             Window                                       m_window;
             Window                                       m_windowRoot;
             cairo_surface_t *                            m_psurface;
-            ::pointer<::nano::graphics::device>          m_pnanodevice;
+            ::pointer<::nano::graphics::context>         m_pnanographicscontext;
             int                                          m_iDepth;
             //XVisualInfo                                  m_visualinfo;
             //Visual *                                     m_pvisual;
@@ -84,14 +84,16 @@ namespace x11
 
             ::acme::windowing::display * get_display() override;
 
+            ::f32 get_density_dpi_for_window() override;
+
             virtual ::x11::acme::windowing::display * x11_display();
 
             virtual ::x11::handle_t _x11_handle();
 
             virtual Display * __x11_display();
             virtual Window __x11_window();
-            long __x11_Window() override;
-            void * __x11_Display() override;
+//            long __x11_Window() override;
+  //          void * __x11_Display() override;
             //virtual int __x11_screen();
 
 
@@ -103,7 +105,7 @@ namespace x11
 
             void destroy() override;
 
-            void show_window() override;
+            void show_window(::user_interface::enum_show_window eshowwindow) override;
 
             bool __on_x11_event(XEvent *pevent) override;
 
@@ -114,7 +116,7 @@ namespace x11
 
             //virtual bool aaa_message_loop_step();
 
-            virtual void _draw(::nano::graphics::device * pnanodevice);
+            virtual void _draw(::nano::graphics::context * pnanographicscontext);
 
             //virtual void on_draw(::nano::graphics::device * pnanodevice);
 
@@ -191,12 +193,12 @@ namespace x11
             virtual int wm_test_state(const_char_pointer pszNetStateFlag);
             virtual bool _wm_add_erase_list_unlocked(Atom atomList, Atom atomFlag, bool bSet);
 
-            virtual void _on_cairo_draw(cairo_t *cr);
+            virtual void _on_cairo_draw(cairo_t *pcairo);
 
-            virtual void _user_send(const ::procedure & procedure) override;
-            virtual void _user_post(const ::procedure & procedure) override;
-            virtual void _main_send(const ::procedure & procedure) override;
-            virtual void _main_post(const ::procedure & procedure) override;
+            virtual void user_send(const ::procedure & procedure) override;
+            virtual void user_post(const ::procedure & procedure) override;
+            virtual void main_send(const ::procedure & procedure) override;
+            virtual void main_post(const ::procedure & procedure) override;
 
 
             //virtual void _draw(::nano::graphics::device * pnanodevice);

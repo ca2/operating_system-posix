@@ -51,10 +51,10 @@ namespace innate_ui_motif
    }
 
 
-   void innate_ui::_user_post(const ::procedure & procedure)
+   void innate_ui::user_post(const ::procedure & procedure)
    {
 
-      ::system()->acme_windowing()->_user_post(procedure);      //auto pparticle = (::subparticle *)procedure.m_pbase;
+      ::system()->acme_windowing()->user_post(procedure);      //auto pparticle = (::subparticle *)procedure.m_pbase;
 
       //pparticle->increment_reference_count();
 
@@ -74,7 +74,7 @@ namespace innate_ui_motif
          m_bXtAppInitialized = true;
 
 
-         _user_post([this]()
+         user_post([this]()
          {
 
 

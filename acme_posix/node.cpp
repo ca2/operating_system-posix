@@ -5,7 +5,7 @@
 #include "node.h"
 #include "file_system.h"
 #include "directory_system.h"
-#include "mutex.h"
+#include "acme/parallelization/mutex.h"
 #include "exclusive.h"
 #include "acme/exception/interface_only.h"
 #include "acme/filesystem/file/exception.h"

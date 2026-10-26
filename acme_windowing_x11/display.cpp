@@ -157,6 +157,17 @@ namespace x11
 
             set_main_user_thread();
 
+            // The display task receives X events while other Acme tasks may
+            // create, map, resize, or destroy windows. Ensure Xlib's
+            // thread-safety setup happens before the first Xlib call here,
+            // even when initialize_windowing() was skipped by a caller.
+            if (!psystem->acme_windowing()->init_threads())
+            {
+
+               throw ::exception(error_failed);
+
+            }
+
             m_pDisplay = XOpenDisplay(nullptr);
 
             if (m_pDisplay == NULL)
@@ -230,7 +241,7 @@ namespace x11
                       XRRGetCrtcInfo(m_pDisplay, res, output->crtc);
 
                   if (crtc) {
-                     m_rectangleaMonitor.ø(count++) = {
+                     m_rectangleaMonitor.atø(count++) = {
                         crtc->x,
                         crtc->y,
                         (int)crtc->x+crtc->width,
@@ -862,14 +873,23 @@ namespace x11
             //
             //      return { width, height };
 
-            if (m_rectangleaMonitor.is_empty())
+            if (!m_rectangleaMonitor.is_empty())
             {
 
-               return {};
+               auto size = m_rectangleaMonitor[0].size();
+
+               if (size.cx > 0 && size.cy > 0)
+               {
+
+                  return size;
+
+               }
 
             }
 
-            return m_rectangleaMonitor[0].size();
+            auto iScreen = DefaultScreen(m_pDisplay);
+
+            return {DisplayWidth(m_pDisplay, iScreen), DisplayHeight(m_pDisplay, iScreen)};
 
          }
 
@@ -1961,7 +1981,7 @@ namespace x11
 
             __check_refdbg
 
-            system()->acme_windowing()->_main_post(procedure);
+            system()->acme_windowing()->main_post(procedure);
 
             __check_refdbg
 
@@ -3232,11 +3252,19 @@ namespace x11
          bool display::__message_loop_step()
          {
 
-            auto psystem = system();
+            // This loop is entered from windowing::run() on the system's
+            // current main task. Iterate that task's queue; the acme_windowing
+            // singleton is not necessarily the task object executing run().
+            // Calling task_iteration() on a different task throws and turns
+            // normal X11 focus/map events into an exception message box.
+            auto ptaskCurrent = ::get_task();
 
-            auto pwindowing = psystem->acme_windowing();
+            if (::is_set(ptaskCurrent))
+            {
 
-            pwindowing->task_iteration();
+               ptaskCurrent->task_iteration();
+
+            }
 
             if(::is_null(m_pDisplay))
             {
@@ -3483,12 +3511,10 @@ namespace x11
 
             //m_pmanualresethappeningDisplayOpen->set_happening();
 
-
-            system()->acme_windowing()->windowing_application_on_start();
-            //system()->defer_post_aaa_application_start_file_open_request();
-            //system()->post_aaa_application_started();
-
-
+            // The operating-system node starts the application branch before
+            // entering windowing::run(). Do not start it again here: a second
+            // synchronous startup can block this thread before it begins
+            // dispatching X11 events.
             ____message_loop();
 
             if (m_pDisplay != nullptr)

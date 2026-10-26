@@ -340,14 +340,6 @@
 			<Option target="acme_posix"/>
 			<Option target="static_acme_posix"/>
 		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/acme_posix/mutex.cpp">
-			<Option target="acme_posix"/>
-			<Option target="static_acme_posix"/>
-		</Unit>
-		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/acme_posix/mutex.h">
-			<Option target="acme_posix"/>
-			<Option target="static_acme_posix"/>
-		</Unit>
 		<Unit filename="/home/camilo/cmake/integration/operating_system/operating_system-posix/acme_posix/node.cpp">
 			<Option target="acme_posix"/>
 			<Option target="static_acme_posix"/>

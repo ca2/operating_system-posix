@@ -39,8 +39,6 @@ list(APPEND library_source
    platform.h
    integration_context.cpp
    integration_context.h
-   mutex.cpp
-   mutex.h
    node.cpp
    node.h
    node_utsname.cpp

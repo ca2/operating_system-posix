@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B399BBFC8139CAB6C67FE43 /* mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = C285D8FF7219AEC65AECEDD8 /* mutex.h */; };
-		650A3B168D8E88BCB808E0B5 /* mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = C285D8FF7219AEC65AECEDD8 /* mutex.h */; };
-		3D514D567149D8E66F83B598 /* mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6106A9A84FDBA17F64EF68FD /* mutex.cpp */; };
-		7801736F87B85CD76EB9B763 /* mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6106A9A84FDBA17F64EF68FD /* mutex.cpp */; };
 		BAD37E2CDB39F371B306D68F /* list_serial_ports.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0186FC5112C73336D4EEC6A7 /* list_serial_ports.cpp */; };
 		D2626C39DF861D75DE19F7FB /* list_serial_ports.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0186FC5112C73336D4EEC6A7 /* list_serial_ports.cpp */; };
 		408EDD96272CF01EC1388252 /* exclusive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E5BAA254B91F83C9079D2D4F /* exclusive.cpp */; };
@@ -93,7 +89,6 @@
 		EE28839694E3CADFC1AECA55 /* file_context.h in Headers */ = {isa = PBXBuildFile; fileRef = A19529817E0A728A2AE9CC59 /* file_context.h */; };
 		9DFDE28597CC189F87AB51F8 /* file_context.h in Headers */ = {isa = PBXBuildFile; fileRef = A19529817E0A728A2AE9CC59 /* file_context.h */; };
 		8B4B0B9426AF2CFF22F23330 /* _posix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51EC604FD2697A7915E92F55 /* _posix.cpp */; };
-		21A4D966A1A913C2940213F8 /* mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = C285D8FF7219AEC65AECEDD8 /* mutex.h */; };
 		10D54023A9BDD4580AE585A1 /* _.h in Headers */ = {isa = PBXBuildFile; fileRef = 33D5C4B153CE17EB9C5D5638 /* _.h */; };
 		9F432D729DF469789B6072E1 /* pipe.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E61B98B01D8C8255AC9484C /* pipe.h */; };
 		80AB37665FA6EBB5E1F9FAFB /* exception_translator.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D90384CBDADE61511089568 /* exception_translator.h */; };
@@ -111,7 +106,6 @@
 		AA5C9C8607EC4FE8B90CB115 /* directory_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFF82DB9AD9DB9426CBACCB6 /* directory_system.cpp */; };
 		34072602CC913E52162007A3 /* _factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CF87F70BD4D48DDB060664D /* _factory.cpp */; };
 		9FDCA7ABB77478BC045602D6 /* list_serial_ports.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0186FC5112C73336D4EEC6A7 /* list_serial_ports.cpp */; };
-		08FB692B4CD5C3A9C79D4722 /* mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6106A9A84FDBA17F64EF68FD /* mutex.cpp */; };
 		45D6488EF3212A6FE4553930 /* exception_translator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3322B7F97E1484B83ACE4873 /* exception_translator.cpp */; };
 		CC20D4CFF402793CE8040351 /* pipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C53C00F637A3664145043CF8 /* pipe.cpp */; };
 		04BA0A1244E6417602AC8E10 /* file_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D28E31183D486665D086E878 /* file_system.cpp */; };
@@ -176,8 +170,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C285D8FF7219AEC65AECEDD8 /* mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mutex.h; sourceTree = "<group>"; };
-		6106A9A84FDBA17F64EF68FD /* mutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mutex.cpp; sourceTree = "<group>"; };
 		0186FC5112C73336D4EEC6A7 /* list_serial_ports.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = list_serial_ports.cpp; sourceTree = "<group>"; };
 		E5BAA254B91F83C9079D2D4F /* exclusive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exclusive.cpp; sourceTree = "<group>"; };
 		D99199377EFC2C752D487F8C /* exclusive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exclusive.h; sourceTree = "<group>"; };
@@ -287,8 +279,6 @@
 				2964E977ADDD87602A79F7A9 /* integration_context.h */,
 				63007BEE2A74876D1B563ACA /* integration_context.cpp */,
 				0186FC5112C73336D4EEC6A7 /* list_serial_ports.cpp */,
-				C285D8FF7219AEC65AECEDD8 /* mutex.h */,
-				6106A9A84FDBA17F64EF68FD /* mutex.cpp */,
 				2760419F3E04B20538C16B02 /* node.h */,
 				6267CA35A9E178CE41C6C8B4 /* node.cpp */,
 				3E4AB8BA8751A7714BD927A9 /* node_clang_callstack.cpp */,
@@ -330,7 +320,6 @@
 				C5F5FCA80C8FCAAA75F86855 /* file_context.h in Headers */,
 				E8AE63E00399B7CA84C58572 /* directory_context.h in Headers */,
 				AC8410E8F318E196770BD84A /* file.h in Headers */,
-				2B399BBFC8139CAB6C67FE43 /* mutex.h in Headers */,
 				3F52A1974C2B6C892F77735F /* integration_context.h in Headers */,
 				86872F5C1785E424DAB31D4D /* _.h in Headers */,
 				23EFBAD1F8E43ACE47A1C052 /* pipe.h in Headers */,
@@ -356,7 +345,6 @@
 				EE28839694E3CADFC1AECA55 /* file_context.h in Headers */,
 				DE83C9D7B66C3F68A68E8A3B /* directory_context.h in Headers */,
 				B6412A645E5CC261BBAE952B /* file.h in Headers */,
-				650A3B168D8E88BCB808E0B5 /* mutex.h in Headers */,
 				3BF1CADDAA18A2EC61E93E6B /* integration_context.h in Headers */,
 				6099FFFF069DCD9847999386 /* _.h in Headers */,
 				8F4C31D43F6ED45F97A3689E /* pipe.h in Headers */,
@@ -382,7 +370,6 @@
 				9DFDE28597CC189F87AB51F8 /* file_context.h in Headers */,
 				839432DAD174C6D857BF99ED /* directory_context.h in Headers */,
 				BA1C08295F71739046778525 /* file.h in Headers */,
-				21A4D966A1A913C2940213F8 /* mutex.h in Headers */,
 				A0B3DEDACB986317F5B24981 /* integration_context.h in Headers */,
 				10D54023A9BDD4580AE585A1 /* _.h in Headers */,
 				9F432D729DF469789B6072E1 /* pipe.h in Headers */,
@@ -561,7 +548,6 @@
 				5E8CC19DAA1461A12C05A891 /* _factory.cpp in Sources */,
 				3923494F1ACBD717408F58AF /* file_context.cpp in Sources */,
 				BAD37E2CDB39F371B306D68F /* list_serial_ports.cpp in Sources */,
-				3D514D567149D8E66F83B598 /* mutex.cpp in Sources */,
 				1795B30EB85EB4155126E68E /* exception_translator.cpp in Sources */,
 				51345F7306F10BBAD963A907 /* file.cpp in Sources */,
 				2584F43A13492794ED9C75EC /* integration_context.cpp in Sources */,
@@ -589,7 +575,6 @@
 				416106BC6511F7C442EC780D /* _factory.cpp in Sources */,
 				BC430014909AA3D814AAA9CE /* file_context.cpp in Sources */,
 				D2626C39DF861D75DE19F7FB /* list_serial_ports.cpp in Sources */,
-				7801736F87B85CD76EB9B763 /* mutex.cpp in Sources */,
 				2AA40E990DC7EC596170DB29 /* exception_translator.cpp in Sources */,
 				1F043D496567BCE18E2FE89F /* file.cpp in Sources */,
 				8303645217ADB7ACBAE56EF7 /* integration_context.cpp in Sources */,
@@ -617,7 +602,6 @@
 				34072602CC913E52162007A3 /* _factory.cpp in Sources */,
 				EBAD2F93537C406F555F7510 /* file_context.cpp in Sources */,
 				9FDCA7ABB77478BC045602D6 /* list_serial_ports.cpp in Sources */,
-				08FB692B4CD5C3A9C79D4722 /* mutex.cpp in Sources */,
 				45D6488EF3212A6FE4553930 /* exception_translator.cpp in Sources */,
 				347356423FEC47297FC71E70 /* file.cpp in Sources */,
 				B69FA56695BA6BA84FE7E581 /* integration_context.cpp in Sources */,

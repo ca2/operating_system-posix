@@ -36,7 +36,8 @@
 #include "windowing.h"
 #include "window.h"
 #include "display.h"
-#include "buffer.h"
+#include "graphics.h"
+#include "aura/graphics/graphics/buffer_item.h"
 #include "aura/message/user.h"
 //#include "aura/user/user/interaction_impl.h"
 #include "aura/platform/session.h"
@@ -737,15 +738,15 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 #define _NET_WM_STATE_ADD           1    // add/set property
 #define _NET_WM_STATE_TOGGLE        2    // toggle property
 
-   Atom *wm_get_list_raw(oswindow w, Atom atomList, unsigned long int *items);
+   Atom *wm_get_list_raw(const ::operating_system::window & operatingsystemwindow, Atom atomList, unsigned long int *items);
 
-   int wm_test_state(oswindow w, const_char_pointer pszNetStateFlag);
+   int wm_test_state(const ::operating_system::window & operatingsystemwindow, const_char_pointer pszNetStateFlag);
 
-   int wm_test_state_raw(oswindow w, const_char_pointer pszNetStateFlag);
+   int wm_test_state_raw(const ::operating_system::window & operatingsystemwindow, const_char_pointer pszNetStateFlag);
 
-   int wm_test_list_raw(oswindow w, Atom atomList, Atom atomFlag);
+   int wm_test_list_raw(const ::operating_system::window & operatingsystemwindow, Atom atomList, Atom atomFlag);
 
-   bool wm_add_remove_list_raw(oswindow w, Atom atomList, Atom atomFlag, bool bSet);
+   bool wm_add_remove_list_raw(const ::operating_system::window & operatingsystemwindow, Atom atomList, Atom atomFlag, bool bSet);
 
 
 
@@ -1604,7 +1605,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                auto pbufferitem = pbuffer->get_buffer_item();
 
-               auto sizeBitBlitting = pbufferitem->m_sizeBufferItemDraw;
+               //auto sizeBitBlitting = pbufferitem->m_sizeBufferItemDraw;
+
+               auto sizeBitBlitting = pbufferitem->m_sizeBufferItem;
 
                //px11window->m_pwindow->m_puserinteraction->_set_size(sizeBitBlitting, ::user::e_layout_window);
 
@@ -1634,7 +1637,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                //pbuffer->m_bXShmPutImagePending = false;
 
-               pbufferitem->m_manualresethappening.set_happening();
+               pbufferitem->m_pmanualresethappening->set_happening();
 
             }
 
@@ -1748,8 +1751,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
                auto pmouse = create_newø<::message::mouse>();
-
-               pmouse->m_pacmewindowingwindow = px11window;
 
                pmouse->m_pwindow = px11window;
 
@@ -1939,7 +1940,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                if (e.xmotion.state & Button1Mask)
                {
 
-                  wparam |= ::user::e_mouse_middle_button;
+                  wparam |= ::user::e_key_state_left_button;
 
                }
 
@@ -1951,8 +1952,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                //post_ui_message(msg);
 
                auto pmouse = px11window->create_newø<::message::mouse>();
-
-               pmouse->m_pacmewindowingwindow = px11window;
 
                pmouse->m_pwindow = px11window;
 
@@ -2070,7 +2069,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                   //auto pimpl = px11window->m_pwindow;
 
                   //auto puserinteraction = pimpl->m_puserinteraction;
-                  ::pointer<buffer> pbuffer = px11window->m_pgraphicsgraphics;
+                  ::pointer<graphics> pbuffer = px11window->m_pgraphicsgraphics;
 
                   if (pbuffer)
                   {
@@ -2495,12 +2494,13 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //            }
 
-            px11window->m_lX11MapNotify = 1;
-
-            informationf("windowing_x11 MapNotify");
-
             if (px11window)
             {
+
+               px11window->m_lX11MapNotify = 1;
+
+               informationf("windowing_x11 MapNotify xid=0x%lx",
+                            static_cast<unsigned long>(e.xmap.window));
 
                if (!XGetWindowAttributes(px11display->__x11_display(), px11window->Window(), &px11window->m_xwindowattributes))
                {
@@ -2513,8 +2513,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                auto pmouse = px11window->create_newø<::message::show_window>();
 
-               pmouse->m_pacmewindowingwindow = px11window;
-
                pmouse->m_pwindow = px11window;
 
                pmouse->m_eusermessage = ::user::e_message_show_window;
@@ -2526,6 +2524,16 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                pmouse->m_time.m_iNanosecond = (e.xmotion.time % 1_k) * 1_M;
 
                px11window->message_handler(pmouse);
+
+            }
+            else
+            {
+
+               // Acme-level windows such as micro message boxes can share
+               // this X display without being registered as windowing_x11
+               // windows. Their MapNotify events are not ours to dispatch.
+               informationf("windowing_x11 ignoring MapNotify for unregistered xid=0x%lx",
+                            static_cast<unsigned long>(e.xmap.window));
 
             }
 
@@ -2564,8 +2572,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
 
                   auto pmouse = px11window->create_newø<::message::show_window>();
-
-                  pmouse->m_pacmewindowingwindow = px11window;
 
                   pmouse->m_pwindow = px11window;
 
@@ -2892,8 +2898,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   auto pmousewheel = px11window->create_newø<::message::mouse_wheel>();
 
-                  pmousewheel->m_pacmewindowingwindow = px11window;
-
                   pmousewheel->m_pwindow = px11window;
 
                   pmousewheel->m_eusermessage = ::user::e_message_mouse_wheel;
@@ -2923,8 +2927,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                {
 
                   auto pmouse = px11window->create_newø<::message::mouse>();
-
-                  pmouse->m_pacmewindowingwindow = px11window;
 
                   pmouse->m_pwindow = px11window;
 
@@ -2976,7 +2978,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                auto pkey1 = create_newø<::message::key>();
 
-               pkey1->m_pacmewindowingwindow=px11window;
                pkey1->m_pwindow=px11window;
 
                if (e.xkey.type == KeyPress)
@@ -3052,8 +3053,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                   auto pkey = create_newø<::message::key>();
 
-                  pkey->m_pacmewindowingwindow = px11window;
-
                   pkey->m_pwindow = px11window;
 
                   //pkey->set(oswindow, oswindow, ::user::e_message_text_composition, 0, 0);
@@ -3091,8 +3090,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
             auto psetfocus = create_newø<::message::set_keyboard_focus>();
 
             informationf("FocusIn\n");
-
-            psetfocus->m_pacmewindowingwindow = px11window;
 
             psetfocus->m_pwindow = px11window;
 
@@ -3204,7 +3201,6 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                      auto pkillfocus = create_newø<::message::kill_keyboard_focus>();
 
-                     pkillfocus->m_pacmewindowingwindow = px11window;
                      pkillfocus->m_pwindow = px11window;
 
                      pkillfocus->m_eusermessage = ::user::e_message_kill_focus;
@@ -3217,7 +3213,9 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 
                      XGetInputFocus(px11display->__x11_display(), &wFocus, &revert_to_return);
 
-                     pkillfocus->m_pwindow = px11display->_window(wFocus);
+                     // Keep m_pwindow targeting the window losing focus; the
+                     // newly focused native window is separate message data.
+                     pkillfocus->m_pacmewindowingwindowNew = px11display->_window(wFocus);
 
                      //post_ui_message(msg);
 
@@ -3549,7 +3547,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //   }
 
 
-   void windowing::_user_send(const ::procedure &procedure)
+   void windowing::user_send(const ::procedure &procedure)
    {
 
       system()->acme_windowing()->send(procedure);
@@ -3557,7 +3555,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
    }
 
 
-   void windowing::_user_post(const ::procedure &procedure)
+   void windowing::user_post(const ::procedure &procedure)
    {
 
       system()->acme_windowing()->post(procedure);

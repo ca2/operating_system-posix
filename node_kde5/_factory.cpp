@@ -3,7 +3,6 @@
 #include "notify_icon.h"
 #include "appindicator.h"
 #include "desktop_environment.h"
-#include "node.h"
 //#include "windowing_system_wayland/windowing_system.h"
 //#include "windowing_system_xcb/windowing_system.h"
 //#include "windowing_system_kde5/windowing_system.h"
@@ -106,7 +105,6 @@ __FACTORY_EXPORT void node_kde5_factory(::factory::factory * pfactory)
 
    //pfactory->add_factory_item < ::node_kde5::desktop_environment, ::windowing::desktop_environment >();
 
-   pfactory->add_factory_item < ::node_kde5::node, ::platform::node > ();
 
 }
 

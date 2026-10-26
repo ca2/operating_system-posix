@@ -5,17 +5,26 @@
 #include "window.h"
 #include "display.h"
 #include "display_lock.h"
-#include "acme/nano/graphics/device.h"
+#include "acme/nano/graphics/context.h"
 #include "acme/platform/application.h"
 #include "acme/platform/system.h"
 #include "acme/user/micro/elemental.h"
+#include "acme/user/micro/theme.h"
 #include "acme/user/user/interaction.h"
 #include "acme/user/user/mouse.h"
 #include "_x11.h"
 #include <X11/Xatom.h>
+#include <X11/extensions/Xrender.h>
+#include <cairo/cairo-xlib.h>
 #include <xkbcommon/xkbcommon.h>
 #include <X11/XKBlib.h>
 #include <X11/Xutil.h>
+#include <X11/Xresource.h>
+#include <atomic>
+#include <cmath>
+#include <cstdlib>
+#include <mutex>
+#include <string>
 
 #include "acme/integrate/cairo/surface.h"
 #include "acme/windowing/windowing.h"
@@ -86,7 +95,7 @@ namespace x11
 
             //delete_drawing_objects();
 
-            m_pnanodevice.release();
+            m_pnanographicscontext.release();
 
          }
 
@@ -116,22 +125,22 @@ namespace x11
          }
 
 
-         long window::__x11_Window()
-         {
-
-
-            return __x11_window();
-
-         }
-
-
-         void * window::__x11_Display()
-         {
-
-
-            return __x11_display();
-
-         }
+         // long window::__x11_Window()
+         // {
+         //
+         //
+         //    return __x11_window();
+         //
+         // }
+         //
+         //
+         // void * window::__x11_Display()
+         // {
+         //
+         //
+         //    return __x11_display();
+         //
+         // }
 
 
          ::x11::acme::windowing::display * window::x11_display()
@@ -160,6 +169,81 @@ namespace x11
             }
 
             return m_px11display;
+
+         }
+
+
+         ::f32 window::get_density_dpi_for_window()
+         {
+
+            static std::atomic<::f32> s_fXftDpi{0.0f};
+
+            auto fDpi = s_fXftDpi.load(std::memory_order_acquire);
+
+            if (fDpi > 0.0f)
+            {
+
+               return fDpi;
+
+            }
+
+            auto pdisplay = m_px11display ? m_px11display->m_pDisplay : nullptr;
+
+            if (!pdisplay)
+            {
+
+               return ::acme::windowing::window::get_density_dpi_for_window();
+
+            }
+
+            static std::once_flag s_xrmInitialized;
+            std::call_once(s_xrmInitialized, []() { XrmInitialize(); });
+
+            ::x11::display_lock displaylock(pdisplay);
+
+            auto pszResources = XResourceManagerString(pdisplay);
+
+            fDpi = ::acme::windowing::window::get_density_dpi_for_window();
+
+            if (pszResources)
+            {
+
+               auto database = XrmGetStringDatabase(pszResources);
+
+               if (database)
+               {
+
+                  char * pszType = nullptr;
+                  XrmValue value{};
+
+                  if (XrmGetResource(database, "Xft.dpi", "Xft.Dpi", &pszType, &value)
+                     && value.addr && value.size > 0)
+                  {
+
+                     std::string strDpi(value.addr, value.size);
+                     char * pszEnd = nullptr;
+                     auto fCandidate = std::strtof(strDpi.c_str(), &pszEnd);
+
+                     if (pszEnd != strDpi.c_str() && std::isfinite(fCandidate)
+                        && fCandidate >= 72.0f && fCandidate <= 768.0f)
+                     {
+
+                        fDpi = fCandidate;
+
+                     }
+
+                  }
+
+                  XrmDestroyDatabase(database);
+
+               }
+
+            }
+
+            s_fXftDpi.store(fDpi, std::memory_order_release);
+            informationf("X11 window density DPI=%.1f scale=%.2f", fDpi, fDpi / 96.0f);
+
+            return fDpi;
 
          }
 
@@ -196,14 +280,28 @@ namespace x11
          void window::create_window()
          {
 
+            printf("x11::acme::windowing::window::create_window begin window=%p\n", static_cast<void *>(this));
+            fflush(stdout);
+
             get_display();
 
             main_send([this]()
             {
 
+               printf("x11::acme::windowing::window::create_window main_send begin\n");
+               fflush(stdout);
+
                _create_window();
 
+               printf("x11::acme::windowing::window::create_window main_send completed xid=0x%lx\n",
+                      static_cast<unsigned long>(m_window));
+               fflush(stdout);
+
             });
+
+            printf("x11::acme::windowing::window::create_window end xid=0x%lx\n",
+                   static_cast<unsigned long>(m_window));
+            fflush(stdout);
 
          }
 
@@ -224,13 +322,10 @@ namespace x11
 
             defer_construct_newø(m_px11data);
 
+            bool bVisualHasAlpha = false;
+
             if (m_lX11NativeVisualId >= 0)
-            //if (false)
             {
-
-               XVisualInfo visualinfo2={};
-
-               XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &visualinfo2);
 
                XVisualInfo viTemplate = {};
 
@@ -256,22 +351,79 @@ namespace x11
 
                m_pvisual = m_visualinfo.visual;
 
+               auto pformat = XRenderFindVisualFormat(display, m_pvisual);
+
+               bVisualHasAlpha = pformat
+                  && pformat->type == PictTypeDirect
+                  && pformat->direct.alphaMask != 0;
+
                XFree(pvisualinfo);
 
             }
             else
             {
 
-               if (XMatchVisualInfo(display, DefaultScreen(display), 32, TrueColor, &m_visualinfo))
+               // Prefer a real ARGB visual for compositing, but only when
+               // XRender confirms that the visual has an alpha channel.
+               auto iScreen = DefaultScreen(display);
+
+               XVisualInfo viTemplate{};
+
+               viTemplate.screen = iScreen;
+
+               viTemplate.depth = 32;
+
+               viTemplate.c_class = TrueColor;
+
+               int visualCount = 0;
+
+               auto pvisualinfoa = XGetVisualInfo(
+                  display,
+                  VisualScreenMask | VisualDepthMask | VisualClassMask,
+                  &viTemplate,
+                  &visualCount);
+
+               for (int iVisual = 0; pvisualinfoa && iVisual < visualCount; ++iVisual)
                {
 
-                  m_pvisual = m_visualinfo.visual;
+                  auto pformat = XRenderFindVisualFormat(display, pvisualinfoa[iVisual].visual);
+
+                  if (pformat
+                     && pformat->type == PictTypeDirect
+                     && pformat->direct.alphaMask != 0)
+                  {
+
+                     m_visualinfo = pvisualinfoa[iVisual];
+
+                     m_pvisual = m_visualinfo.visual;
+
+                     bVisualHasAlpha = true;
+
+                     break;
+
+                  }
 
                }
-               else
+
+               if (pvisualinfoa)
                {
 
-                  zero(m_visualinfo);
+                  XFree(pvisualinfoa);
+
+               }
+
+               if (!bVisualHasAlpha)
+               {
+
+                  m_pvisual = DefaultVisual(display, iScreen);
+
+                  m_visualinfo.visual = m_pvisual;
+
+                  m_visualinfo.visualid = XVisualIDFromVisual(m_pvisual);
+
+                  m_visualinfo.screen = iScreen;
+
+                  m_visualinfo.depth = DefaultDepth(display, iScreen);
 
                }
 
@@ -311,7 +463,7 @@ namespace x11
 
             // attr.border_pixmap = None;
 
-            attr.background_pixel = 0;
+            attr.background_pixel = bVisualHasAlpha ? 0 : WhitePixel(display, screen);
 
             attr.border_pixel = 0;
 
@@ -323,6 +475,14 @@ namespace x11
             int y = m_pointWindow.y;
             int w = m_sizeWindow.cx;
             int h = m_sizeWindow.cy;
+
+            printf("x11::acme::windowing::window XCreateWindow arguments: display=%p parent=0x%lx position=(%d,%d) size=(%d,%d) border=%d depth=%d class=%d visual=0x%lx colormap=0x%lx event_mask=0x%lx\n",
+                   static_cast<void *>(display), static_cast<unsigned long>(m_windowRoot),
+                   x, y, w, h, 0, m_iDepth, InputOutput,
+                   static_cast<unsigned long>(m_pvisual ? XVisualIDFromVisual(m_pvisual) : 0),
+                   static_cast<unsigned long>(m_colormap),
+                   static_cast<unsigned long>(attr.event_mask));
+            fflush(stdout);
 
             m_window = XCreateWindow(display, m_windowRoot,
                                      x, y, w, h,
@@ -337,6 +497,15 @@ namespace x11
                                      &attr
             );
 
+            printf("x11::acme::windowing::window XCreateWindow returned window=0x%lx\n",
+                   static_cast<unsigned long>(m_window));
+            fflush(stdout);
+
+            XSync(display, False);
+
+            printf("x11::acme::windowing::window XCreateWindow request synchronized successfully\n");
+            fflush(stdout);
+
             if(!m_window)
             {
 
@@ -344,11 +513,30 @@ namespace x11
 
             }
 
+            printf("x11::acme::windowing::window::_create_window before _wm_nodecorations xid=0x%lx\n",
+                   static_cast<unsigned long>(m_window));
+            fflush(stdout);
+
             _wm_nodecorations(false);
+
+            printf("x11::acme::windowing::window::_create_window after _wm_nodecorations xid=0x%lx\n",
+                   static_cast<unsigned long>(m_window));
+            fflush(stdout);
 
             XWindowAttributes attr2;
 
-            if (!XGetWindowAttributes(display, m_window, &attr2))
+            auto bGotWindowAttributes = XGetWindowAttributes(display, m_window, &attr2);
+
+            printf("x11::acme::windowing::window::_create_window XGetWindowAttributes returned=%d xid=0x%lx map_state=%d size=(%d,%d) depth=%d visual=0x%lx\n",
+                   bGotWindowAttributes, static_cast<unsigned long>(m_window),
+                   bGotWindowAttributes ? attr2.map_state : -1,
+                   bGotWindowAttributes ? attr2.width : -1,
+                   bGotWindowAttributes ? attr2.height : -1,
+                   bGotWindowAttributes ? attr2.depth : -1,
+                   static_cast<unsigned long>(bGotWindowAttributes ? XVisualIDFromVisual(attr2.visual) : 0));
+            fflush(stdout);
+
+            if (!bGotWindowAttributes)
             {
 
                windowing_output_debug_string("::window::full_screen 1.2");
@@ -361,21 +549,94 @@ namespace x11
 
             m_lX11NativeVisualId = attr2.visual->visualid;
 
+            constructø(m_pnanographicscontext);
+
+            m_psurface = cairo_xlib_surface_create(
+               display,
+               m_window,
+               m_pvisual,
+               attr2.width,
+               attr2.height);
+
+            if (cairo_surface_status(m_psurface) != CAIRO_STATUS_SUCCESS)
+            {
+
+               throw ::exception(error_failed);
+
+            }
+
+            auto pcairo = cairo_create(m_psurface);
+
+            if (cairo_status(pcairo) != CAIRO_STATUS_SUCCESS)
+            {
+
+               cairo_destroy(pcairo);
+
+               throw ::exception(error_failed);
+
+            }
+
+            m_pnanographicscontext->attach(pcairo, {attr2.width, attr2.height}, 0);
+
+            cairo_destroy(pcairo);
+
+            _update_window();
+
+            XFlush(display);
+
+            printf("x11::acme::windowing::window::_create_window completed xid=0x%lx\n",
+                   static_cast<unsigned long>(m_window));
+            fflush(stdout);
+
             //on_create_window();
 
          }
 
 
-         void window::show_window()
+         void window::show_window(::user_interface::enum_show_window eshowwindow)
          {
+
+            printf("x11::acme::windowing::window::show_window xid=0x%lx command=%d\n",
+                   static_cast<unsigned long>(m_window), static_cast<int>(eshowwindow));
+            fflush(stdout);
 
             display_lock displaylock(m_px11display->m_pDisplay);
 
-            XMapWindow(m_px11display->m_pDisplay, m_window);
+            if (eshowwindow == ::user_interface::e_show_window_show_normal)
+            {
 
-            XRaiseWindow(m_px11display->m_pDisplay, m_window);
+               auto iMapResult = XMapWindow(m_px11display->m_pDisplay, m_window);
 
-            set_active_window();
+               auto iRaiseResult = XRaiseWindow(m_px11display->m_pDisplay, m_window);
+
+               XSync(m_px11display->m_pDisplay, False);
+
+               printf("x11::acme::windowing::window::show_window map_result=%d raise_result=%d xid=0x%lx synchronized\n",
+                      iMapResult, iRaiseResult, static_cast<unsigned long>(m_window));
+               fflush(stdout);
+
+               // Mapping can clear an unmapped X window and queue Expose.
+               // Paint once after the map as well, so the initial frame is
+               // visible even before the Acme event pump dispatches Expose.
+               _update_window();
+
+               XFlush(m_px11display->m_pDisplay);
+
+               set_active_window();
+
+            }
+            else if (eshowwindow == ::user_interface::e_show_window_hide)
+            {
+
+               XUnmapWindow(m_px11display->m_pDisplay, m_window);
+
+            }
+            else
+            {
+
+               throw ::not_implemented("x11::acme::windowing::window::show_window unknown eshowwindow");
+
+            }
 
          }
 
@@ -410,35 +671,35 @@ namespace x11
          }
 
 
-         void window::_on_cairo_draw(cairo_t *cr)
+         void window::_on_cairo_draw(cairo_t *pcairo)
          {
 
-            if (!m_pnanodevice)
+            if (!m_pnanographicscontext)
             {
 
-               cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 1.0);
+               cairo_set_source_rgba(pcairo, 1.0, 1.0, 1.0, 1.0);
 
-               cairo_fill(cr);
+               cairo_fill(pcairo);
 
                return ;
 
             }
 
-            m_pnanodevice->on_begin_draw();
+            m_pnanographicscontext->on_begin_draw();
 
-            _draw(m_pnanodevice);
+            _draw(m_pnanographicscontext);
 
-            m_pnanodevice->on_end_draw();
+            m_pnanographicscontext->on_end_draw();
 
-            auto pixmap = m_pnanodevice->pixmap();
+            auto pixmap = m_pnanographicscontext->pixmap();
 
             auto psurface = cairo_surface_for_pixmap(pixmap);
 
-            cairo_set_source_surface(cr, psurface, 0., 0.);
+            cairo_set_source_surface(pcairo, psurface, 0., 0.);
 
-            cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+            cairo_set_operator(pcairo, CAIRO_OPERATOR_SOURCE);
 
-            cairo_paint(cr);
+            cairo_paint(pcairo);
 
             cairo_surface_destroy(psurface);
 
@@ -483,12 +744,17 @@ namespace x11
 
                m_pacmeuserinteraction->set_interaction_rectangle(r);
 
-               if (m_psurface)
+               if (m_pnanographicscontext)
                {
 
+                  if (m_psurface)
+                  {
 
-                  m_pnanodevice->resize(r.size());
+                     cairo_xlib_surface_set_size(m_psurface, r.width(), r.height());
 
+                     m_pnanographicscontext->m_size = r.size();
+
+                  }
 
                }
 
@@ -502,32 +768,19 @@ namespace x11
             else if (pevent->type == MapNotify)
             {
 
-               if (!m_psurface)
-               {
-
-                  i32_rectangle rectangleWindow = get_window_rectangle();
-
-                  auto display = m_px11display->m_pDisplay;
-
-                  auto window = m_window;
-
-                  auto w = rectangleWindow.width();
-
-                  auto h = rectangleWindow.height();
-
-                  constructø(m_pnanodevice);
-
-                  m_pnanodevice->create(w, h);
-                  //m_pnanodevice->create_for_x11(_x11_handle(), w, h);
-                  //m_pnanodevice = allocateø ::cairo::nano::graphics::device(pdc);
-
-               }
+               printf("x11::acme::windowing::window received MapNotify xid=0x%lx\n",
+                      static_cast<unsigned long>(m_window));
+               fflush(stdout);
 
                _update_window();
 
             }
             else if (pevent->type == Expose)
             {
+
+               printf("x11::acme::windowing::window received Expose xid=0x%lx\n",
+                      static_cast<unsigned long>(m_window));
+               fflush(stdout);
 
                _update_window();
 
@@ -764,23 +1017,99 @@ namespace x11
          void window::_update_window()
          {
 
-            // if(m_pnanodevice && m_psurface)
-            // {
-            //
-            //    m_pnanodevice->on_begin_draw();
-            //
-            //    m_pacmeuserinteraction->draw(m_pnanodevice);
-            //
-            //    m_pnanodevice->on_end_draw();
-            //
-            //    cairo_surface_flush(m_psurface);
-            //
-            // }
+            printf("x11::acme::windowing::window::_update_window xid=0x%lx context=%p\n",
+                   static_cast<unsigned long>(m_window), static_cast<void *>(m_pnanographicscontext));
+            fflush(stdout);
+
+            if (!m_pnanographicscontext)
+            {
+
+               return;
+
+            }
+
+            m_pnanographicscontext->on_begin_draw();
+
+            ::pointer<::micro::elemental> pelemental = m_pacmeuserinteraction;
+
+            printf("x11::acme::windowing::window draw route interaction=%p micro_elemental=%p\n",
+                   static_cast<void *>(m_pacmeuserinteraction), static_cast<void *>(pelemental));
+            fflush(stdout);
+
+            if (pelemental)
+            {
+
+               printf("x11::acme::windowing::window drawing micro background and foreground\n");
+               fflush(stdout);
+
+               auto ptheme = pelemental->micro_theme();
+
+               if (ptheme)
+               {
+
+                  // Clear the complete ARGB surface to the active theme's
+                  // opaque window color before drawing controls and text.
+                  // This preserves alpha-capable visuals without leaving
+                  // untouched pixels transparent.
+                  m_pnanographicscontext->clear(ptheme->m_colorWindow);
+
+                  // The Cairo clear above paints through the XRender visual
+                  // correctly. A parallel XFillRectangle here used an
+                  // incorrectly packed XRender pixel and replaced that opaque
+                  // clear with transparent pixels on 32-bit ARGB visuals.
+                  auto colorWindow = ptheme->m_colorWindow;
+
+                  printf("x11::acme::windowing::window Cairo theme clear visual=0x%lx size=(%d,%d) rgba=(%.3f,%.3f,%.3f,%.3f)\n",
+                         static_cast<unsigned long>(m_visualinfo.visualid),
+                         m_pnanographicscontext->m_size.cx,
+                         m_pnanographicscontext->m_size.cy,
+                         colorWindow.f64_red(),
+                         colorWindow.f64_green(),
+                         colorWindow.f64_blue(),
+                         colorWindow.f64_opacity());
+                  fflush(stdout);
+
+               }
+
+               pelemental->draw_background(m_pnanographicscontext);
+
+               pelemental->draw_foreground(m_pnanographicscontext);
+
+            }
+            else
+            {
+
+               printf("x11::acme::windowing::window draw skipped: interaction is not a micro::elemental\n");
+               fflush(stdout);
+
+            }
+
+            m_pnanographicscontext->on_end_draw();
+
+            if (m_psurface)
+            {
+
+               cairo_surface_flush(m_psurface);
+
+            }
+
+            if (m_psurface)
+            {
+
+               printf("x11::acme::windowing::window Cairo surface status=%d\n",
+                      cairo_surface_status(m_psurface));
+               fflush(stdout);
+
+            }
+
+            printf("x11::acme::windowing::window::_update_window completed xid=0x%lx\n",
+                   static_cast<unsigned long>(m_window));
+            fflush(stdout);
 
          }
 
 
-         void window::_draw(::nano::graphics::device * pnanodevice)
+         void window::_draw(::nano::graphics::context * pnanographicscontext)
          {
 
             ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
@@ -788,9 +1117,9 @@ namespace x11
             if(pelemental)
             {
 
-               pelemental->draw_background(pnanodevice);
+               pelemental->draw_background(pnanographicscontext);
 
-               pelemental->draw_foreground(pnanodevice);
+               pelemental->draw_foreground(pnanographicscontext);
 
             }
 
@@ -819,12 +1148,12 @@ namespace x11
 
                XUnmapWindow(m_px11display->m_pDisplay, m_window);
 
-               if(::is_set(m_pnanodevice))
+               if(::is_set(m_pnanographicscontext))
                {
 
                   //defer_finalize__destroy_and_release(m_pnanodevice);
 
-                  __destroy_and_release(m_pnanodevice);
+                  __destroy_and_release(m_pnanographicscontext);
 
                }
 
@@ -1185,7 +1514,7 @@ namespace x11
 
       Atom *patoms = nullptr;
 
-      long ::u32 num_items = 0;
+      long unsigned int num_items = 0;
 
       XGetWindowProperty(__x11_display(), __x11_window(), atomList, 0, 1024,
                          False, XA_ATOM, &actual_type, &actual_format,
@@ -1438,7 +1767,7 @@ namespace x11
 
             }
 
-            auto pacmeuserinteractionActive = pacmewindowing->m_pacmeuserinteractionActive;
+            auto pacmeuserinteractionActive = pacmewindowing->get_active_user_interaction();
 
             if (::is_null(pacmeuserinteractionActive))
             {
@@ -1459,7 +1788,7 @@ namespace x11
          }
 
 
-         void window::_user_send(const ::procedure & procedure)
+         void window::user_send(const ::procedure & procedure)
          {
 
             system()->acme_windowing()->send(procedure);
@@ -1467,7 +1796,7 @@ namespace x11
          }
 
 
-         void window::_user_post(const ::procedure & procedure)
+         void window::user_post(const ::procedure & procedure)
          {
 
             system()->acme_windowing()->post(procedure);
@@ -1475,18 +1804,18 @@ namespace x11
          }
 
 
-         void window::_main_send(const ::procedure & procedure)
+         void window::main_send(const ::procedure & procedure)
          {
 
-            _user_send(procedure);
+            user_send(procedure);
 
          }
 
 
-         void window::_main_post(const ::procedure & procedure)
+         void window::main_post(const ::procedure & procedure)
          {
 
-            _user_post(procedure);
+            user_post(procedure);
 
          }
 

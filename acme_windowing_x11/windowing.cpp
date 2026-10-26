@@ -39,6 +39,28 @@ namespace x11
          }
 
 
+         bool windowing::init_threads()
+         {
+
+            // Xlib requires this to be called before any other Xlib function
+            // when the display is accessed from more than one thread. Acme
+            // creates windows on application tasks while the display task
+            // polls and dispatches events, so the base implementation's
+            // no-op success is not sufficient here.
+            static const bool s_bXlibThreadsInitialized = XInitThreads() != 0;
+
+            if (!s_bXlibThreadsInitialized)
+            {
+
+               error() << "XInitThreads failed; X11 display access is not thread-safe";
+
+            }
+
+            return s_bXlibThreadsInitialized;
+
+         }
+
+
          windowing::~windowing()
          {
 
@@ -105,7 +127,7 @@ namespace x11
          // }
          //
 
-         void windowing::_main_send(const ::procedure & procedure)
+         void windowing::main_send(const ::procedure & procedure)
          {
 
             if(::is_main_thread())
@@ -151,7 +173,7 @@ namespace x11
          }
 
 
-         void windowing::_main_post(const ::procedure & procedure)
+         void windowing::main_post(const ::procedure & procedure)
          {
 
             ::task::post(procedure);
@@ -555,7 +577,8 @@ namespace x11
          }
 
 
-         void windowing::windowing_application_main_loop()
+         //void windowing::windowing_application_main_loop()
+         void windowing::run()
          {
 
 
@@ -566,6 +589,8 @@ namespace x11
             m_htask = ::current_htask();
 
             m_taskindex = ::current_task_index();
+
+            information() << "x11::acme::windowing::windowing::run entering the Acme X11 event loop";
 
             pdisplay->__message_loop();
 

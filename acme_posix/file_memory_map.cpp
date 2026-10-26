@@ -3,7 +3,7 @@
 //
 #include "platform.h"
 #include "file_memory_map.h"
-#include "mutex.h"
+#include "acme/parallelization/mutex.h"
 #include "directory_system.h"
 #include "acme/operating_system/ansi/file_c.h"
 #include "acme/filesystem/filesystem/file_system.h"
@@ -157,7 +157,7 @@ namespace acme_posix
 
       strMutex = m_strName + "-mutex";
 
-      set_synchronization(allocateø ::acme_posix::mutex(m_papplication, false, strMutex));
+      set_synchronization(allocateø ::mutex(m_papplication, false, strMutex));
 
       return true;
 

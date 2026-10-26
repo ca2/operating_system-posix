@@ -1,7 +1,6 @@
 #include "platform.h"
 #include "copydesk.h"
 #include "display.h"
-#include "node.h"
 //#include "desktop_environment.h"
 //#include "os_context.h"
 
@@ -52,7 +51,6 @@ __FACTORY_EXPORT void node_gtk4_factory(::factory::factory * pfactory)
 //
 //   pfactory->add_factory_item < ::node_gtk4::windowing, ::windowing::windowing >();
 
-   pfactory->add_factory_item < ::node_gtk4::node, ::platform::node > ();
 
 
 //   pfactory->add_factory_item < ::node_gtk4::desktop_environment, ::windowing::desktop_environment > ();

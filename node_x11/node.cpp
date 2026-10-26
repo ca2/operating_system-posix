@@ -95,7 +95,7 @@ cairo_surface_t * __cairo_create_image_argb32_surface(::memory & m, int w, int h
 
    ::pixmap pixmap;
 
-   pixmap.initialize({w, h}, data, s);
+   pixmap.initialize_pixmap({w, h}, data, s);
 
    return pixmap.average_color();
 
@@ -200,14 +200,14 @@ namespace node_x11
                      //system()->defer_post_aaa_application_start_file_open_request();
                      //system()->post_aaa_application_started();
 
-                     system()->acme_windowing()->windowing_application_on_start();
+                     system()->acme_windowing()->windowing_application_on_system_start();
 
                    });
 
 
          information() << "node_x11::system_main GTK_MAIN";
 
-         system()->acme_windowing()->windowing_application_main_loop();
+         system()->windowing()->call_main();
 
       }
 
@@ -301,7 +301,7 @@ namespace node_x11
 
       ::string strUrl(scopedstrUrl);
       
-      _main_post([strUrl]()
+      main_post([strUrl]()
       {
 
          ::install_operating_system_default_signal_handlers();

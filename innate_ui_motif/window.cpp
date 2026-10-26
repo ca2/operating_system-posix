@@ -132,7 +132,7 @@ namespace innate_ui_motif
    void window::_create()
    {
 
-      system()->innate_ui()->_user_post([this]()
+      system()->innate_ui()->user_post([this]()
       {
 
          ::cast < ::innate_ui_motif::innate_ui > pxawinnateui = ::system()->innate_ui();

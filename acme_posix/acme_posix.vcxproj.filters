@@ -68,9 +68,6 @@
     <ClInclude Include="file_find.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mutex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="path.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -254,9 +251,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="callstack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mutex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="list_serial_ports.cpp">

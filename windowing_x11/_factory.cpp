@@ -1,6 +1,6 @@
 #include "platform.h"
 #include "text_composition_client.h"
-#include "buffer.h"
+#include "graphics.h"
 #include "display.h"
 #include "window.h"
 #include "windowing.h"
@@ -26,7 +26,7 @@ __FACTORY_EXPORT void windowing_x11_factory(::factory::factory * pfactory)
 
    //nano_user_x11_factory(pfactory);
 
-   pfactory->add_factory_item < ::windowing_x11::buffer, ::graphics::graphics > ();
+   pfactory->add_factory_item < ::windowing_x11::graphics, ::graphics::graphics > ();
 
    pfactory->add_factory_item < ::windowing_x11::display, ::acme::windowing::display > ();
    pfactory->add_factory_item < ::windowing_x11::window, ::acme::windowing::window > ();

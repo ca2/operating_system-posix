@@ -335,7 +335,7 @@ void on_initialize_particle() override;
       virtual ::e_status mq_remove_window_from_all_queues( WINDOWING_X11_WINDOW_MEMBER );
 
 
-      long __x11_Window() override;
+      ::Window __x11_window() override;
 
       void __update_graphics_buffer() override;
       //void _window_request_presentation_locked() override;
@@ -353,19 +353,20 @@ void on_initialize_particle() override;
       virtual void _on_end_paint();
       virtual void _enable_net_wm_sync();
 
-      void _main_send(const ::procedure & procedure) override;
-      void _main_post(const ::procedure & procedure) override;
-      void _user_send(const ::procedure & procedure) override;
-      void _user_post(const ::procedure & procedure) override;
+      void main_send(const ::procedure & procedure) override;
+      void main_post(const ::procedure & procedure) override;
+      void user_send(const ::procedure & procedure) override;
+      void user_post(const ::procedure & procedure) override;
 
 
-      void _set_oswindow(::::acme::windowing::window * pacmewindowingwindow) override;
+      //void _set_oswindow(::acme::windowing::window * pacmewindowingwindow) override;
 
 
-      ::::acme::windowing::window * pacmewindowingwindow() const;
+      //::acme::windowing::window * acmewindowingwindow() const;
 
 
-      void * __x11_Display() override;
+      ::Display * __x11_display() override;
+
 
    };
 

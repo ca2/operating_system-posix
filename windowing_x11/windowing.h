@@ -69,8 +69,8 @@ namespace windowing_x11
       //void _send(const ::procedure & procedure) override;
       //void _post(const ::procedure & procedure) override;
 
-      void _user_send(const ::procedure &procedure) override;
-      void _user_post(const ::procedure &procedure) override;
+      void user_send(const ::procedure &procedure) override;
+      void user_post(const ::procedure &procedure) override;
 
       //void add_mouse_message_handler(::particle * pparticle) override;
       //void add_keyboard_message_handler(::particle * pparticle) override;
@@ -168,7 +168,9 @@ namespace windowing_x11
 
       virtual void _on_wm_state_change(::windowing::window * pwindow);
 
-      void windowing_application_main_loop();
+      //void windowing_application_main_loop();
+
+      void run() override;
 
 
    };

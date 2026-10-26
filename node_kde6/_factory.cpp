@@ -3,7 +3,6 @@
 #include "notify_icon.h"
 #include "appindicator.h"
 #include "desktop_environment.h"
-#include "node.h"
 //#include "windowing.h"
 
 
@@ -79,7 +78,6 @@ __FACTORY_EXPORT void node_kde6_factory(::factory::factory * pfactory)
 
    //pfactory->add_factory_item < ::node_kde6::desktop_environment, ::windowing::desktop_environment >();
 
-   pfactory->add_factory_item < ::node_kde6::node, ::platform::node > ();
 
 }
 

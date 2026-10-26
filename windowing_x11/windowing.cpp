@@ -560,11 +560,11 @@ namespace windowing_x11
    }
 
 
-   void windowing::windowing_application_main_loop()
+   void windowing::run()
    {
 
 
-      ::x11::acme::windowing::windowing::windowing_application_main_loop();
+      ::x11::acme::windowing::windowing::run();
 
 
    }

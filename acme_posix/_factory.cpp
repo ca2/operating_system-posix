@@ -7,7 +7,6 @@
 #include "directory_system.h"
 #include "file_system.h"
 #include "path_system.h"
-#include "mutex.h"
 #include "exception_translator.h"
 //#include "environment.h"
 
@@ -39,7 +38,6 @@ IMPLEMENT_FACTORY(acme_posix)
    pfactory->add_factory_item < ::acme_posix::exception_translator   , ::exception_translator >();
 
 
-   pfactory->add_factory_item < ::acme_posix::mutex                  , ::mutex >();
 
 
 //   pfactory->add_factory_item < ::acme_posix::environment            , ::operating_system::environment >();

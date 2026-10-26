@@ -2,7 +2,7 @@
 // recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
 // hi5 contribution...
 #include "platform.h"
-#include "buffer.h"
+#include "graphics.h"
 #include "window.h"
 #include "windowing_x11.h"
 #include "windowing.h"
@@ -128,21 +128,12 @@ namespace windowing_x11
    }
 
 
-   void window::_set_oswindow(::::acme::windowing::window * pacmewindowingwindow)
-   {
-
-
-
-   }
-
-
    //void window::create_window(::windowing::window * pimpl)
    void window::create_window()
    {
 
 
       ::windowing::window::create_window();
-
 
       return;
 
@@ -343,7 +334,12 @@ namespace windowing_x11
 
                      m_atomaNetWmState.clear();
 
+            informationf("windowing_x11::window::create_window before native _create_window");
+
             _create_window();
+
+            informationf("windowing_x11::window::create_window after native _create_window xid=0x%lx",
+               Window());
 
                      // ::Window window = XCreateWindow(display, DefaultRootWindow(display),
                      //                                 x, y,
@@ -366,6 +362,9 @@ namespace windowing_x11
                         sizehints.height = cy;
 
                         XSetNormalHints(display, m_window, &sizehints);  /* Where new_window is the ___new window */
+
+                        informationf("windowing_x11::window::create_window XSetNormalHints complete xid=0x%lx",
+                           Window());
 
                      }
 
@@ -419,6 +418,9 @@ namespace windowing_x11
                      auto estatus = initialize_x11_window(pdisplayx11, m_window, visual, m_iDepth, pdisplayx11->m_iScreen,
                                                           attr.colormap);
 
+                     informationf("windowing_x11::window::create_window initialize_x11_window status=%d xid=0x%lx",
+                        (int)estatus, Window());
+
                      if (!estatus)
                      {
 
@@ -446,11 +448,10 @@ namespace windowing_x11
                      //fflush(stdout);
 
 
-                     set_oswindow(this);
-
-                     set_os_data((void *) (::uptr) m_window);
-
                      _enable_net_wm_sync();
+
+                     informationf("windowing_x11::window::create_window _enable_net_wm_sync complete xid=0x%lx",
+                        Window());
 
                      //pimpl->set_os_data((::windowing::window *)this);
 
@@ -640,9 +641,21 @@ namespace windowing_x11
                      if (bVisible)
                      {
 
-                        informationf("windowing_x11::window::create_window map_window");
+                        informationf("windowing_x11::window::create_window map_window xid=0x%lx visible=%d",
+                           Window(), bVisible);
 
                         map_window();
+
+                        XWindowAttributes windowattributes;
+
+                        if (XGetWindowAttributes(Display(), Window(), &windowattributes))
+                        {
+
+                           informationf("windowing_x11::window::create_window mapped xid=0x%lx map_state=%d size=(%d,%d)",
+                              Window(), windowattributes.map_state,
+                              windowattributes.width, windowattributes.height);
+
+                        }
 
                      } else
                      {
@@ -676,7 +689,7 @@ namespace windowing_x11
                               //                  pusersystem->m_createstruct.cx, pusersystem->m_createstruct.cy, SWP_SHOWWINDOW);
 
                               set_window_position(e_zorder_top, x, y, cx, cy,
-                                 ::user::e_activation_set_active,
+                                 { ::user::e_activation_set_foreground, nullptr },
                                  false, false,
                                                   false,
                                                   edisplay);
@@ -1044,18 +1057,41 @@ namespace windowing_x11
 
       ::x11::acme::windowing::window::_create_window();
 
-      if (puserinteraction->is_graphical())
+      informationf("windowing_x11::window::_create_window native returned xid=0x%lx visible=%d",
+         Window(), bVisible);
+
+      if (bVisible && Window())
       {
 
-         if (m_papplication->m_bGpu)
+         informationf("windowing_x11::window::_create_window mapping visible window xid=0x%lx", Window());
+
+         map_window();
+
+         XSync(Display(), False);
+
+         XWindowAttributes windowattributes;
+
+         if (XGetWindowAttributes(Display(), Window(), &windowattributes))
          {
 
-            auto pgpuapproach = m_papplication->get_gpu_approach();
-
-            pgpuapproach->gpu_on_create_window(this);
+            informationf("windowing_x11::window::_create_window mapped xid=0x%lx map_state=%d size=(%d,%d)",
+               Window(), windowattributes.map_state,
+               windowattributes.width, windowattributes.height);
 
          }
-         //draw2d()->on_create_window(this);
+
+      }
+
+      if (puserinteraction->is_graphical() && m_papplication->m_bGpu)
+      {
+
+         informationf("windowing_x11::window::_create_window initialize GPU xid=0x%lx", Window());
+
+         auto pgpuapproach = m_papplication->get_gpu_approach();
+
+         pgpuapproach->gpu_on_create_window(this);
+
+         informationf("windowing_x11::window::_create_window GPU initialized xid=0x%lx", Window());
 
       }
 
@@ -1182,10 +1218,6 @@ namespace windowing_x11
 
                      //fflush(stdout);
 
-
-                     set_oswindow(this);
-
-                     set_os_data((void *) (::uptr) m_window);
 
                      _enable_net_wm_sync();
 
@@ -1413,7 +1445,7 @@ namespace windowing_x11
                               //                  pusersystem->m_createstruct.cx, pusersystem->m_createstruct.cy, SWP_SHOWWINDOW);
 
                               set_window_position(e_zorder_top, x, y, cx, cy,
-                                 ::user::e_activation_set_active,
+                                 { ::user::e_activation_set_foreground, nullptr },
                                  false, false,
                                                   false,
                                                   edisplay);
@@ -1482,14 +1514,6 @@ namespace windowing_x11
 
                   m_estatus = ::success;
 
-
-   }
-
-
-   ::oswindow window::oswindow() const
-   {
-
-      return (::oswindow) this;
 
    }
 
@@ -2156,9 +2180,9 @@ namespace windowing_x11
 
 #elif 1
 
-                  auto image1 = image()->create_image({32, 32});
+                  auto pimage1 = image()->create_image({32, 32}, pimageTransport->draw2d_domain());
 
-                  if (image1.nok())
+                  if (pimage1.nok())
                   {
 
                      bOk = false;
@@ -2167,11 +2191,13 @@ namespace windowing_x11
 
                   }
 
+                  auto pdraw2dgraphicsImage1 = pimage1->acquire_graphics();
+
                   pdraw2dgraphicsImage1->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
 
                   {
 
-                     ::image::image_source imagesource(pdraw2dgraphicsImageTransport->, pimageTransport->rectangle());
+                     ::image::image_source imagesource(pimageTransport, pimageTransport->rectangle());
 
                      f64_rectangle rectangle(pimage1->rectangle());
 
@@ -2184,8 +2210,6 @@ namespace windowing_x11
                      pdraw2dgraphicsImage1->draw(imagedrawing);
 
                   }
-
-                  ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
 
                   memory m;
 
@@ -2201,10 +2225,12 @@ namespace windowing_x11
 
                   int c = pimage1->area();
 
+                  auto ppixmapImage1 = pimage1->map();
+
                   for (int i = 0; i < c; i++)
                   {
 
-                     pcr[i + 2] = pimage1->image32()[i].m_u32;
+                     pcr[i + 2] = ppixmapImage1->data()[i].m_u32;
 
                   }
 
@@ -2218,8 +2244,8 @@ namespace windowing_x11
 
                   Atom cardinal = x11_display()->intern_atom("CARDINAL", False);
 
-                  int status = x_change_property(net_wm_icon, cardinal, 32, PropModeReplace,
-                                                 (const unsigned char *) pcr, length);
+                  int status = XChangeProperty(Display(), Window(), net_wm_icon, cardinal, 32, PropModeReplace,
+                                               (const unsigned char *) pcr, length);
 
                   if (status == BadAlloc)
                   {
@@ -3649,7 +3675,7 @@ namespace windowing_x11
       pmessagequeue->m_messagea.predicate_erase([this](MESSAGE &item)
                                                 {
 
-                                                   return item.m_pacmewindowingwindow == this;
+                                                   return item.m_operatingsystemwindow == operating_system_window();
 
                                                 });
 
@@ -5198,9 +5224,8 @@ namespace windowing_x11
 
                      auto puserinteractionParent = get_parent();
 
-                     ::oswindow oswindowParent = puserinteractionParent->m_pacmewindowingwindow;
-
-                     if (oswindowParent == nullptr)
+                     if (puserinteractionParent == nullptr
+                        || puserinteractionParent->m_pacmewindowingwindow == nullptr)
                      {
 
                         Atom atomNetClientListStacking = x11_display()->intern_atom("_NET_CLIENT_LIST_STACKING", False);
@@ -5477,18 +5502,35 @@ auto pwindowing = system()->acme_windowing();
 
       Atom *patoms = nullptr;
 
-      long ::u32 num_items = 0;
+      unsigned long num_items = 0;
 
-      XGetWindowProperty(Display(), Window(), atomList, 0, 1024,
-                         False, XA_ATOM, &actual_type, &actual_format,
-                         &num_items,
-                         &bytes_after, (unsigned char **) &patoms);
+      auto iStatus = XGetWindowProperty(Display(), Window(), atomList, 0, 1024,
+                                        False, XA_ATOM, &actual_type, &actual_format,
+                                        &num_items, &bytes_after,
+                                        reinterpret_cast<unsigned char **>(&patoms));
 
-      atoma.set_size(num_items);
+      // XGetWindowProperty returns no data for an absent/empty property. In
+      // that normal case both pointers can be null, and memory_copy rejects
+      // the zero-byte null copy by throwing from inside X11 event processing.
+      if (iStatus == Success
+         && actual_type == XA_ATOM
+         && actual_format == 32
+         && num_items > 0
+         && patoms)
+      {
 
-      ::memory_copy(atoma.data(), patoms, atoma.get_size_in_bytes());
+         atoma.set_size(num_items);
 
-      XFree(patoms);
+         ::memory_copy(atoma.data(), patoms, atoma.get_size_in_bytes());
+
+      }
+
+      if (patoms)
+      {
+
+         XFree(patoms);
+
+      }
 
       return atoma;
 
@@ -5895,10 +5937,10 @@ auto pwindowing = system()->acme_windowing();
 //   }
 
 
-   long window::__x11_Window()
+   ::Window window::__x11_window()
    {
 
-      return ::x11::acme::windowing::window::__x11_Window();
+      return ::x11::acme::windowing::window::__x11_window();
 
 
    }
@@ -5962,12 +6004,12 @@ auto pwindowing = system()->acme_windowing();
 
                                      configure_window_unlocked();
 
-                                     ::pointer<buffer> pbuffer = m_pgraphicsgraphics;
+                                     ::cast < ::windowing_x11::graphics > pgraphics = m_pgraphicsgraphics;
 
-                                     if(pbuffer)
+                                     if(pgraphics)
                                      {
 
-                                        pbuffer->_update_screen_lesser_lock();
+                                        pgraphics->_update_screen_lesser_lock();
 
                                      }
 
@@ -6232,39 +6274,39 @@ auto pwindowing = system()->acme_windowing();
    }
 
 
-   void window::_main_send(const ::procedure & procedure)
+   void window::main_send(const ::procedure & procedure)
    {
 
-      windowing()->_main_send(procedure);
+      windowing()->main_send(procedure);
 
    }
 
 
-   void window::_main_post(const ::procedure & procedure)
+   void window::main_post(const ::procedure & procedure)
    {
 
-      windowing()->_main_post(procedure);
+      windowing()->main_post(procedure);
 
    }
 
 
-   void window::_user_send(const ::procedure &procedure)
+   void window::user_send(const ::procedure &procedure)
    {
 
-      windowing()->_user_send(procedure);
+      windowing()->user_send(procedure);
 
    }
 
 
-   void window::_user_post(const ::procedure &procedure)
+   void window::user_post(const ::procedure &procedure)
    {
 
-      windowing()->_user_post(procedure);
+      windowing()->user_post(procedure);
 
    }
 
 
-   void * window::__x11_Display()
+   ::Display * window::__x11_display()
    {
 
       return m_px11display->m_pDisplay;
