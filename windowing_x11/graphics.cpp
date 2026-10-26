@@ -3,7 +3,7 @@
 // hi5 contribution...
 #include "platform.h"
 #include "windowing_x11.h"
-#include "buffer.h"
+#include "graphics.h"
 #include "window.h"
 #include "display.h"
 #include "windowing.h"
@@ -12,6 +12,7 @@
 #include "acme/platform/application.h"
 #include "acme/platform/node.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
+#include "aura/graphics/graphics/buffer_item.h"
 #include "aura/graphics/image/image.h"
 #include "acme_windowing_x11/display_lock.h"
 
@@ -20,7 +21,7 @@ namespace windowing_x11
 {
 
 
-   buffer::buffer()
+   graphics::graphics()
    {
 
       m_bXShmPutImagePending = false;
@@ -41,7 +42,7 @@ namespace windowing_x11
    }
 
 
-   buffer::~buffer()
+   graphics::~graphics()
    {
 
 //      _destroy_shared_memory();
@@ -51,7 +52,7 @@ namespace windowing_x11
    }
 
 
-   void buffer::_map_shared_memory(const ::i32_size & size)
+   void graphics::_map_shared_memory(const ::i32_size & size)
    {
 
       if(!m_bUseXShmIfAvailable)
@@ -90,7 +91,7 @@ namespace windowing_x11
 //   }
 
 
-   ::windowing_x11::window * buffer::x11_window()
+   ::windowing_x11::window * graphics::x11_window()
    {
 
       ::cast < ::windowing_x11::window > pwindow = m_pwindow;
@@ -100,10 +101,10 @@ namespace windowing_x11
    }
 
 
-   void buffer::initialize_graphics_graphics(::windowing::window * pimpl)
+   void graphics::initialize_graphics_graphics(::windowing::window * pimpl)
    {
 
-      double_buffer::initialize_graphics_graphics(pimpl);
+      double_buffer_graphics::initialize_graphics_graphics(pimpl);
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
@@ -116,7 +117,7 @@ namespace windowing_x11
    }
 
 
-   void buffer::destroy()
+   void graphics::destroy()
    {
 
       if (!x11_window())
@@ -142,160 +143,162 @@ namespace windowing_x11
    }
 
 
-   bool buffer::update_buffer(::graphics::buffer_item * pbufferitem)
+   bool graphics::update_buffer(::graphics::buffer_item * pbufferitem)
    {
 
-      if (application()->m_gpu.m_bUseSwapChainWindow)
-      {
+      return ::graphics::double_buffer_graphics::update_buffer(pbufferitem);
 
-         if (::is_null(m_pwindow))
-         {
-
-            return false;
-
-         }
-
-         ::image32_t * pimage32 = nullptr;
-
-         int iScan = -1;
-
-         ::i32_size sizeAllocate;
-
-         auto pwindowing = m_pwindow->user_interaction()->windowing();
-
-         auto pdisplay = pwindowing->display();
-
-         auto rectangleUnion = pdisplay->get_monitor_union_rectangle();
-
-         auto sizeLargeInternalBitmap = rectangleUnion.size();
-
-         if (pbufferitem->m_sizeBufferItemDraw.cx > sizeLargeInternalBitmap.cx)
-         {
-
-            sizeLargeInternalBitmap.cx = pbufferitem->m_sizeBufferItemDraw.cx;
-
-         }
-
-         if (pbufferitem->m_sizeBufferItemDraw.cy > sizeLargeInternalBitmap.cy)
-         {
-
-            sizeLargeInternalBitmap.cy = pbufferitem->m_sizeBufferItemDraw.cy;
-
-         }
-
-         auto pdraw2dgraphics = pbufferitem->g();
-
-         //if (!pbufferitem->m_pgraphics)
-         if (!pdraw2dgraphics)
-         {
-
-            auto pgraphicsBufferItem = createø < ::draw2d::graphics >();
-
-            auto puserinteraction = dynamic_cast < ::user::interaction * >( m_pwindow->m_pacmeuserinteraction.m_p);
-
-            //if (m_papplication->m_gpu.m_bUseSwapChainWindow)
-            //{
-
-            //   pbufferitem->m_pgraphics->create_offscreen_graphics_for_swap_chain_blitting(pbufferitem->m_sizeBufferItemDraw);
-
-            //}
-            //else
-            //{
-
-            pgraphicsBufferItem->create_for_window_draw2d(puserinteraction, pbufferitem->m_sizeBufferItemDraw);
-
-               //pbufferitem->m_pgraphics->create_memory_graphics(pbufferitem->m_sizeBufferItemDraw);
-
-//            }
-
-            //pbufferitem->m_pgraphics->set_hint_window_output();
-
-            //pbufferitem->m_pgraphics->create_window_graphics(m_pwindow);
-
-            pbufferitem->m_pgraphicsBufferItem = pgraphicsBufferItem;
-
-         }
-         else if (pdraw2dgraphics == pbufferitem->m_pgraphicsBufferItem)
-         {
-
-            pdraw2dgraphics->defer_set_size(pbufferitem->m_sizeBufferItemDraw);
-
-         }
-         else if (pdraw2dgraphics == pbufferitem->m_pgraphicsImage2->)
-         {
-
-
-
-         }
-
-
-
-
-         return true;
-
-      }
-
-      // debug() << "x11 buffer::update_buffer";
-      //
-      // auto pwindowing = m_pwindow->m_pacmeuserinteraction->acme_windowing();
-      //
-      // auto pdisplay = pwindowing->display();
-      //
-      // auto sizeLargeInternalBitmap = pdisplay->get_monitor_union_rectangle().size();
-      //
-      // if (pbufferitem->m_sizeI.cx > sizeLargeInternalBitmap.cx)
-      // {
-      //
-      //    sizeLargeInternalBitmap.cx = pbufferitem->m_size.cx;
-      //
-      // }
-      //
-      // if (pbufferitem->m_size.cy > sizeLargeInternalBitmap.cy)
-      // {
-      //
-      //    sizeLargeInternalBitmap.cy = pbufferitem->m_size.cy;
-      //
-      // }
-      //
-      // if (pbufferitem->m_sizeInternal.cx > sizeLargeInternalBitmap.cx)
-      // {
-      //
-      //    sizeLargeInternalBitmap.cx = pbufferitem->m_sizeInternal.cx;
-      //
-      // }
-      //
-      // if (pbufferitem->m_sizeInternal.cy > sizeLargeInternalBitmap.cy)
-      // {
-      //
-      //    sizeLargeInternalBitmap.cy = pbufferitem->m_sizeInternal.cy;
-      //
-      // }
-      //
-      // if (pbufferitem->m_sizeInternal.cx < sizeLargeInternalBitmap.cx
-      //     || pbufferitem->m_sizeInternal.cy < sizeLargeInternalBitmap.cy)
-      // {
-      //
-      //    _map_shared_memory(sizeLargeInternalBitmap);
-      //
-      //    if (m_shmaddr)
-      //    {
-      //
-      //       pbufferitem->m_sizeInternal = sizeLargeInternalBitmap;
-      //
-      //    }
-      //
-      // }
-      //
-      // debug() << "x11 buffer::update_buffer sizeLargeInternalBitmap : " << sizeLargeInternalBitmap;
-      //
-      // return ::graphics::double_buffer::update_buffer(pbufferitem);
-
-      return ::graphics::double_buffer::update_buffer(pbufferitem);
+//       if (application()->m_gpu.m_bUseSwapChainWindow)
+//       {
+//
+//          if (::is_null(m_pwindow))
+//          {
+//
+//             return false;
+//
+//          }
+//
+//          ::image32_t * pimage32 = nullptr;
+//
+//          int iScan = -1;
+//
+//          ::i32_size sizeAllocate;
+//
+//          auto pwindowing = m_pwindow->user_interaction()->windowing();
+//
+//          auto pdisplay = pwindowing->display();
+//
+//          auto rectangleUnion = pdisplay->get_monitor_union_rectangle();
+//
+//          auto sizeLargeInternalBitmap = rectangleUnion.size();
+//
+//          if (pbufferitem->m_sizeBufferItemDraw.cx > sizeLargeInternalBitmap.cx)
+//          {
+//
+//             sizeLargeInternalBitmap.cx = pbufferitem->m_sizeBufferItemDraw.cx;
+//
+//          }
+//
+//          if (pbufferitem->m_sizeBufferItemDraw.cy > sizeLargeInternalBitmap.cy)
+//          {
+//
+//             sizeLargeInternalBitmap.cy = pbufferitem->m_sizeBufferItemDraw.cy;
+//
+//          }
+//
+//          auto pdraw2dgraphics = pbufferitem->g();
+//
+//          //if (!pbufferitem->m_pgraphics)
+//          if (!pdraw2dgraphics)
+//          {
+//
+//             auto pgraphicsBufferItem = createø < ::draw2d::graphics >();
+//
+//             auto puserinteraction = dynamic_cast < ::user::interaction * >( m_pwindow->m_pacmeuserinteraction.m_p);
+//
+//             //if (m_papplication->m_gpu.m_bUseSwapChainWindow)
+//             //{
+//
+//             //   pbufferitem->m_pgraphics->create_offscreen_graphics_for_swap_chain_blitting(pbufferitem->m_sizeBufferItemDraw);
+//
+//             //}
+//             //else
+//             //{
+//
+//             pgraphicsBufferItem->create_for_window_draw2d(puserinteraction, pbufferitem->m_sizeBufferItemDraw);
+//
+//                //pbufferitem->m_pgraphics->create_memory_graphics(pbufferitem->m_sizeBufferItemDraw);
+//
+// //            }
+//
+//             //pbufferitem->m_pgraphics->set_hint_window_output();
+//
+//             //pbufferitem->m_pgraphics->create_window_graphics(m_pwindow);
+//
+//             pbufferitem->m_pgraphicsBufferItem = pgraphicsBufferItem;
+//
+//          }
+//          else if (pdraw2dgraphics == pbufferitem->m_pgraphicsBufferItem)
+//          {
+//
+//             pdraw2dgraphics->defer_set_size(pbufferitem->m_sizeBufferItemDraw);
+//
+//          }
+//          else if (pdraw2dgraphics == pbufferitem->m_pgraphicsImage2->)
+//          {
+//
+//
+//
+//          }
+//
+//
+//
+//
+//          return true;
+//
+//       }
+//
+//       // debug() << "x11 buffer::update_buffer";
+//       //
+//       // auto pwindowing = m_pwindow->m_pacmeuserinteraction->acme_windowing();
+//       //
+//       // auto pdisplay = pwindowing->display();
+//       //
+//       // auto sizeLargeInternalBitmap = pdisplay->get_monitor_union_rectangle().size();
+//       //
+//       // if (pbufferitem->m_sizeI.cx > sizeLargeInternalBitmap.cx)
+//       // {
+//       //
+//       //    sizeLargeInternalBitmap.cx = pbufferitem->m_size.cx;
+//       //
+//       // }
+//       //
+//       // if (pbufferitem->m_size.cy > sizeLargeInternalBitmap.cy)
+//       // {
+//       //
+//       //    sizeLargeInternalBitmap.cy = pbufferitem->m_size.cy;
+//       //
+//       // }
+//       //
+//       // if (pbufferitem->m_sizeInternal.cx > sizeLargeInternalBitmap.cx)
+//       // {
+//       //
+//       //    sizeLargeInternalBitmap.cx = pbufferitem->m_sizeInternal.cx;
+//       //
+//       // }
+//       //
+//       // if (pbufferitem->m_sizeInternal.cy > sizeLargeInternalBitmap.cy)
+//       // {
+//       //
+//       //    sizeLargeInternalBitmap.cy = pbufferitem->m_sizeInternal.cy;
+//       //
+//       // }
+//       //
+//       // if (pbufferitem->m_sizeInternal.cx < sizeLargeInternalBitmap.cx
+//       //     || pbufferitem->m_sizeInternal.cy < sizeLargeInternalBitmap.cy)
+//       // {
+//       //
+//       //    _map_shared_memory(sizeLargeInternalBitmap);
+//       //
+//       //    if (m_shmaddr)
+//       //    {
+//       //
+//       //       pbufferitem->m_sizeInternal = sizeLargeInternalBitmap;
+//       //
+//       //    }
+//       //
+//       // }
+//       //
+//       // debug() << "x11 buffer::update_buffer sizeLargeInternalBitmap : " << sizeLargeInternalBitmap;
+//       //
+//       // return ::graphics::double_buffer::update_buffer(pbufferitem);
+//
+//       return ::graphics::double_buffer::update_buffer(pbufferitem);
 
    }
 
 
-   bool buffer::create_os_buffer(const ::i32_size & size, int iStrideParam)
+   bool graphics::create_os_buffer(const ::i32_size & size, int iStrideParam)
    {
 
 //      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -338,7 +341,7 @@ namespace windowing_x11
    }
 
 
-   void buffer::destroy_os_buffer()
+   void graphics::destroy_os_buffer()
    {
 
 //      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -443,20 +446,31 @@ namespace windowing_x11
 //   }
 //
 
-   bool buffer::buffer_lock_round_swap_key_buffers()
+
+   bool graphics::buffer_lock_round_swap_key_buffers()
    {
 
-      bool bOk1 = double_buffer::buffer_lock_round_swap_key_buffers();
+      bool bOk1 = double_buffer_graphics::buffer_lock_round_swap_key_buffers();
 
-      bool bOk2 = bitmap_source_buffer::buffer_lock_round_swap_key_buffers();
+      bool bOk2 = bitmap_source_buffer_graphics::buffer_lock_round_swap_key_buffers();
 
       return bOk1 && bOk2;
 
    }
 
 
-   void buffer::update_screen()
+   void graphics::update_screen()
    {
+
+      // The GPU frame has already been presented through EGL on this X11
+      // window. XPutImage would write a second, unrelated frame to it.
+      if (m_papplication && m_papplication->m_gpu.m_bUseSwapChainWindow
+         && m_pwindow && m_pwindow->m_papexgpuwindowattachment)
+      {
+
+         return;
+
+      }
 
       information() << "x11 buffer::update_screen";
 
@@ -511,7 +525,7 @@ namespace windowing_x11
    }
 
 
-   bool buffer::_update_screen_lesser_lock()
+   bool graphics::_update_screen_lesser_lock()
    {
 
       _synchronous_lock slGraphics(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -527,12 +541,12 @@ namespace windowing_x11
    }
 
 
-   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
+   bool graphics::_update_screen_unlocked(::graphics::buffer_item * pitem)
    {
 
       debug() << "x11 buffer::_update_screen_unlocked";
 
-      auto sizeBitBlitting = pitem->m_sizeBufferItemDraw;
+      auto sizeBitBlitting = pitem->m_sizeBufferItemWindow;
 
       if (sizeBitBlitting.is_empty())
       {
@@ -543,9 +557,9 @@ namespace windowing_x11
 
       debug() << "x11 buffer::_update_screen_unlocked sizeBitBlitting : " << sizeBitBlitting;
 
-      auto & pimage = pitem->m_pimage2;
+      auto & pimage = pitem->m_pimageBufferItem;
 
-      pimage->map();
+      auto ppixmap = pimage->map();
 
 //      try
 //      {
@@ -630,7 +644,7 @@ namespace windowing_x11
          if (!m_pximage
              || m_pximage->width != sizeBitBlitting.cx
              || m_pximage->height != sizeBitBlitting.cy
-             || m_pximage->data != (char *) pimage->get_data())
+             || m_pximage->data != (char *) ppixmap->data())
          {
 
             if (m_pximage)
@@ -649,11 +663,11 @@ namespace windowing_x11
                   iWindowDepth,
                   ZPixmap,
                   0,
-                  (char *) pimage->get_data(),
+                  (char *) ppixmap->data(),
                   sizeBitBlitting.cx,
                   sizeBitBlitting.cy,
                   sizeof(color32_t) * 8,
-                  pimage->scan_size());
+                  ppixmap->scan());
 
 
             information() << "x11 buffer::_update_screen_unlocked Created XImage!!";
@@ -691,7 +705,7 @@ namespace windowing_x11
 
       }
 
-      if (sizeBitBlitting.any_gt(pitem->m_pimage2->size()))
+      if (sizeBitBlitting.any_gt(pitem->m_pimageBufferItem->size()))
       {
 
          warning() << "What!! Drawn Buffer doesn't fit internal buffer (that should be at least same size as the buffer size)";
@@ -708,7 +722,7 @@ namespace windowing_x11
          if (m_bXShm)
          {
 
-            if (!pitem->m_manualresethappening._wait(200_ms))
+            if (!pitem->m_pmanualresethappening->_wait(200_ms))
             {
 
                x11_window()->_on_end_paint();
@@ -733,9 +747,9 @@ namespace windowing_x11
             auto pimage32 = (::image32_t *) m_pximage->data;
 
             pimage32->copy(sizeBitBlitting,
-                         pitem->m_iScan, pimage->get_data(), pimage->scan_size());
+                         pitem->m_iScan, ppixmap->data(), ppixmap->scan());
 
-            pitem->m_manualresethappening.reset_happening();
+            pitem->m_pmanualresethappening->reset_happening();
 
             m_sizeLastBitBlitting = sizeBitBlitting;
 
@@ -854,7 +868,7 @@ namespace windowing_x11
    }
 
 
-   void buffer::on_update_screen(::graphics::buffer_item * pitem)
+   void graphics::on_update_screen(::graphics::buffer_item * pitem)
    {
 
       throw ("use update_window(void)");
@@ -864,16 +878,16 @@ namespace windowing_x11
    }
 
 
-   bool buffer::_on_begin_draw(::graphics::buffer_item * pbufferitem)
+   bool graphics::_on_begin(::graphics::buffer_item * pbufferitem)
    {
 
 //      auto pbufferitem = get_buffer_item();
 //
 //      buffer_size_and_position(pbufferitem);
 
-      auto pimageBuffer = pbufferitem->m_pimage2;
+      auto pimageBuffer = pbufferitem->m_pimageBufferItem;
 
-      if (pimageBuffer->m_size != pbufferitem->m_sizeBufferItemDraw)
+      if (pimageBuffer->m_size != pbufferitem->m_sizeBufferItemWindow)
       {
 
          if(!update_buffer(pbufferitem))
@@ -889,7 +903,7 @@ namespace windowing_x11
 
       debug() << "going to call double_buffer::_on_begin_draw";
 
-      if(!double_buffer::_on_begin_draw(pbufferitem))
+      if(!double_buffer_graphics::_on_begin(pbufferitem))
       {
 
          return false;

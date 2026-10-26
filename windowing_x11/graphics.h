@@ -20,12 +20,13 @@ namespace windowing_x11
 {
 
 
-   class CLASS_DECL_AURA buffer :
-      virtual public ::graphics::double_buffer,
-      virtual public ::graphics::bitmap_source_buffer,
+   class CLASS_DECL_AURA graphics :
+      virtual public ::graphics::double_buffer_graphics,
+      virtual public ::graphics::bitmap_source_buffer_graphics,
       virtual public ::acme_posix::shmem
    {
    public:
+
 
       ::pixmap             m_pixmap;
       XImage *             m_pximage;
@@ -49,8 +50,8 @@ namespace windowing_x11
       //interlocked_long_long                              m_interlockedXShmPutImage;
 
 
-      buffer();
-      ~buffer() override;
+      graphics();
+      ~graphics() override;
 
 
       virtual ::windowing_x11::window * x11_window();
@@ -82,7 +83,9 @@ namespace windowing_x11
 
       //void update_window();
 
-      bool _on_begin_draw(::graphics::buffer_item * pbufferitem) override;
+      //bool _on_begin_draw(::graphics::buffer_item * pbufferitem) override;
+
+      bool _on_begin(::graphics::buffer_item * pbufferitem) override;
 
       //bool presentation_complete() override;
 
