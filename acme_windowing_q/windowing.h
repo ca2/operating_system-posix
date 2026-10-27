@@ -5,6 +5,7 @@
 
 
 #include "acme/windowing/windowing.h"
+#include "acme/parallelization/manual_reset_happening.h"
 #include "micro_window.h"
 #include <mutex>
 #include <vector>
@@ -36,6 +37,7 @@ namespace q
             QApplication * m_pqapplication;
 
             std::mutex m_mutexWindowingReady;
+            manual_reset_happening m_happeningWindowingReady;
             std::vector<::procedure> m_procedureaAfterWindowingReady;
             bool m_bWindowingReady;
 

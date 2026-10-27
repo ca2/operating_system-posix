@@ -204,14 +204,41 @@ namespace q
 
             }
 
-            if (!papplication || !bWindowingReady)
+            if (!papplication)
             {
 
-               information() << "[qt.dispatch] synchronous call rejected before the Qt event loop is ready; windowing="
+               information() << "[qt.dispatch] synchronous call rejected because QApplication does not exist; windowing="
+                  << static_cast<const void *>(this);
+
+               throw ::exception(error_not_ready, "Qt windowing application does not exist");
+
+            }
+
+            if (QThread::currentThread() == papplication->thread())
+            {
+
+               procedure();
+
+               return;
+
+            }
+
+            if (!bWindowingReady)
+            {
+
+               information() << "[qt.dispatch] synchronous call waiting for the Qt event loop; windowing="
                   << static_cast<const void *>(this)
                   << " application=" << static_cast<const void *>(papplication);
 
-               throw ::exception(error_not_ready, "Qt windowing event loop is not ready");
+               if (!m_happeningWindowingReady.wait(procedure.timeout()))
+               {
+
+                  information() << "[qt.dispatch] timed out waiting for the Qt event loop to become ready; windowing="
+                     << static_cast<const void *>(this);
+
+                  throw ::exception(error_timeout, "Timed out waiting for the Qt windowing event loop to become ready");
+
+               }
 
             }
 
@@ -518,6 +545,8 @@ namespace q
                   procedurea.swap(m_procedureaAfterWindowingReady);
 
                }
+
+               m_happeningWindowingReady.set_happening();
 
                information() << "[qt.dispatch] Qt event loop ready; windowing="
                   << static_cast<const void *>(this)
