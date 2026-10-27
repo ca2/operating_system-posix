@@ -41,6 +41,7 @@ namespace q
          {
 
             m_pqapplication = nullptr;
+            m_bWindowingReady = false;
 
          }
 
@@ -188,6 +189,31 @@ namespace q
 
          void windowing::user_send(const ::procedure & procedure)
          {
+
+            QApplication * papplication;
+
+            bool bWindowingReady;
+
+            {
+
+               std::lock_guard<std::mutex> lock(m_mutexWindowingReady);
+
+               papplication = m_pqapplication;
+
+               bWindowingReady = m_bWindowingReady;
+
+            }
+
+            if (!papplication || !bWindowingReady)
+            {
+
+               information() << "[qt.dispatch] synchronous call rejected before the Qt event loop is ready; windowing="
+                  << static_cast<const void *>(this)
+                  << " application=" << static_cast<const void *>(papplication);
+
+               throw ::exception(error_not_ready, "Qt windowing event loop is not ready");
+
+            }
 
             if (::is_main_thread()) {
 
@@ -444,7 +470,17 @@ namespace q
 
             int argc = ::system()->get_argc();
 
-            m_pqapplication = ___new QApplication(argc, ::system()->get_args());
+            {
+
+               std::lock_guard<std::mutex> lock(m_mutexWindowingReady);
+
+               m_pqapplication = ___new QApplication(argc, ::system()->get_args());
+
+            }
+
+            information() << "[qt.dispatch] QApplication created; windowing="
+               << static_cast<const void *>(this)
+               << " application=" << static_cast<const void *>(m_pqapplication);
 
             auto handleApplicationState = [this](Qt::ApplicationState state) ->void
             {
@@ -468,9 +504,33 @@ namespace q
             m_pqapplication->setQuitOnLastWindowClosed(false);
 
             // This executes immediately after the event loop starts
-            QTimer::singleShot(0, m_pqapplication, [this]() {
-                //qDebug() << "The event loop has officially started!";
-                   m_papplication->post_request(nullptr);
+            QTimer::singleShot(0, m_pqapplication, [this]()
+            {
+
+               std::vector<::procedure> procedurea;
+
+               {
+
+                  std::lock_guard<std::mutex> lock(m_mutexWindowingReady);
+
+                  m_bWindowingReady = true;
+
+                  procedurea.swap(m_procedureaAfterWindowingReady);
+
+               }
+
+               information() << "[qt.dispatch] Qt event loop ready; windowing="
+                  << static_cast<const void *>(this)
+                  << " application=" << static_cast<const void *>(m_pqapplication)
+                  << " deferredCallbacks=" << procedurea.size();
+
+               for (const auto & procedure : procedurea)
+               {
+
+                  user_post(procedure);
+
+               }
+
             });
             //on_application_activate();
 
@@ -542,9 +602,41 @@ namespace q
          void windowing::user_post(const ::procedure & procedure)
          {
 
+            QApplication * papplication;
+
+            bool bDeferred = false;
+
+            {
+
+               std::lock_guard<std::mutex> lock(m_mutexWindowingReady);
+
+               papplication = m_pqapplication;
+
+               if (!m_bWindowingReady || !m_pqapplication)
+               {
+
+                  m_procedureaAfterWindowingReady.push_back(procedure);
+
+                  bDeferred = true;
+
+               }
+
+            }
+
+            if (bDeferred)
+            {
+
+               information() << "[qt.dispatch] queued call deferred until the Qt event loop is ready; windowing="
+                  << static_cast<const void *>(this)
+                  << " application=" << static_cast<const void *>(papplication);
+
+               return;
+
+            }
+
             // invoke on the main thread
             auto bAccepted = QMetaObject::invokeMethod(
-               m_pqapplication,
+               papplication,
                [this, procedure]
                {
 
@@ -584,9 +676,18 @@ namespace q
                Qt::QueuedConnection);
 
             information() << "[qt.dispatch] Qt queued callback accepted=" << bAccepted
-               << " application=" << static_cast<const void *>(m_pqapplication)
+               << " application=" << static_cast<const void *>(papplication)
+               << " windowing=" << static_cast<const void *>(this)
                << " callerThread=" << QThread::currentThreadId();
 
+
+         }
+
+
+         void windowing::post_after_windowing_ready(const ::procedure & procedure)
+         {
+
+            user_post(procedure);
 
          }
 

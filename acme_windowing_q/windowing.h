@@ -6,6 +6,8 @@
 
 #include "acme/windowing/windowing.h"
 #include "micro_window.h"
+#include <mutex>
+#include <vector>
 #ifdef number
 #error "macro 'number' defined here"
 #endif
@@ -33,6 +35,10 @@ namespace q
 
             QApplication * m_pqapplication;
 
+            std::mutex m_mutexWindowingReady;
+            std::vector<::procedure> m_procedureaAfterWindowingReady;
+            bool m_bWindowingReady;
+
             ::map < QWidget *, ::pointer < ::acme::windowing::window > > m_mapWindow;
 
 
@@ -54,6 +60,7 @@ namespace q
 
             void user_send(const ::procedure & procedure) override;
             void user_post(const ::procedure & procedure) override;
+            void post_after_windowing_ready(const ::procedure & procedure) override;
             void display_error_trap_push(int i) override;
             void display_error_trap_pop_ignored(int i) override;
 
