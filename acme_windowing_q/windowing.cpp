@@ -14,6 +14,8 @@
 #include "acme/platform/system.h"
 #include <QImage>
 #include <QByteArray>
+#include <QThread>
+#include <exception>
 
 #include "acme/windowing/window.h"
 //#include <X11/Xatom.h>
@@ -202,16 +204,26 @@ namespace q
 
             auto pevent = allocateø manual_reset_happening();
 
-            user_post([procedure, pevent]
+            information() << "[qt.dispatch] synchronous call queued from thread "
+               << QThread::currentThreadId() << " timeout=" << procedure.timeout();
+
+            user_post([this, procedure, pevent]
                       {
+
+                         information() << "[qt.dispatch] synchronous callback started on thread "
+                            << QThread::currentThreadId();
 
                          procedure();
 
                          pevent->set_happening();
 
+                         information() << "[qt.dispatch] synchronous callback completed";
+
                       });
 
             if (!pevent->wait(procedure.timeout())) {
+
+               information() << "[qt.dispatch] synchronous call timed out waiting for the Qt callback";
 
                throw ::exception(error_timeout);
                //pevent.release();
@@ -531,24 +543,49 @@ namespace q
          {
 
             // invoke on the main thread
-            QMetaObject::invokeMethod(
+            auto bAccepted = QMetaObject::invokeMethod(
                m_pqapplication,
-               [procedure]
+               [this, procedure]
                {
+
+                  information() << "[qt.dispatch] queued callback started on thread "
+                     << QThread::currentThreadId();
 
                   try
                   {
 
                      procedure();
 
+                     information() << "[qt.dispatch] queued callback completed";
+
+                  }
+                  catch (const ::exception & exception)
+                  {
+
+                     information() << "[qt.dispatch] queued callback threw ::exception: "
+                        << exception.get_message() << " details=" << exception.m_strDetails;
+
+                  }
+                  catch (const std::exception & exception)
+                  {
+
+                     information() << "[qt.dispatch] queued callback threw std::exception: "
+                        << exception.what();
+
                   }
                   catch (...)
                   {
+
+                     information() << "[qt.dispatch] queued callback threw an unknown exception";
 
                   }
 
                },
                Qt::QueuedConnection);
+
+            information() << "[qt.dispatch] Qt queued callback accepted=" << bAccepted
+               << " application=" << static_cast<const void *>(m_pqapplication)
+               << " callerThread=" << QThread::currentThreadId();
 
 
          }
