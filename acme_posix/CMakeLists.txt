@@ -69,6 +69,10 @@ add_library(${PROJECT_NAME} SHARED ${library_source}
 add_library(static_${PROJECT_NAME} STATIC ${library_source})
 
 
+
+target_compile_options(${PROJECT_NAME} PRIVATE
+   -Wsfinae-incomplete=2
+)
 #if (POSIX_LIST_SERIAL_PORTS)
 #
 #   target_compile_definitions(${PROJECT_NAME} PRIVATE POSIX_LIST_SERIAL_PORTS)

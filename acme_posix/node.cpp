@@ -443,7 +443,7 @@ namespace acme_posix
    ::pointer < ::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
-      return allocateø mutex(pparticleContext, bInitialOwner, "Local\\" + scopedstrName);
+      return allocateø mutex(pparticleContext, bInitialOwner, "Local\\" + scopedstrName, psecurityattributes);
 
    }
 
@@ -451,7 +451,7 @@ namespace acme_posix
    ::pointer < ::mutex > node::create_global_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
-      return allocateø mutex(pparticleContext, bInitialOwner, "Global\\" + scopedstrName);
+      return allocateø mutex(pparticleContext, bInitialOwner, "Global\\" + scopedstrName, psecurityattributes);
 
    }
 
