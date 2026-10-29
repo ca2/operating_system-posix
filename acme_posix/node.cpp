@@ -443,7 +443,7 @@ namespace acme_posix
    ::pointer < ::parallelization::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
-      return allocateø mutex(pparticleContext, bInitialOwner, "Local/" + scopedstrName, psecurityattributes);
+      return allocateø ::parallelization::mutex(pparticleContext, bInitialOwner, "Local/" + scopedstrName, psecurityattributes);
 
    }
 
@@ -451,7 +451,7 @@ namespace acme_posix
    ::pointer < ::parallelization::mutex > node::create_global_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
-      return allocateø mutex(pparticleContext, bInitialOwner, "Global/" + scopedstrName, psecurityattributes);
+      return allocateø ::parallelization::mutex(pparticleContext, bInitialOwner, "Global/" + scopedstrName, psecurityattributes);
 
    }
 
@@ -584,7 +584,7 @@ namespace acme_posix
 
    //pthread_mutex_init(m_pmutex, &attr);
 
-   auto pmutex = allocateø mutex(e_create_new, lpszName, iFd, false);
+   auto pmutex = allocateø ::parallelization::mutex(e_create_new, lpszName, iFd, false);
 
    return pmutex;
 
