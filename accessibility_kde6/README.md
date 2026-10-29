@@ -66,3 +66,36 @@ The uploaded Windows folder did not contain the bodies of its original
 The replacement classes therefore preserve the factory and inheritance shape
 but cannot carry over any private Windows-specific behavior that may exist in
 those missing files. The KDE6 helper implementation itself is complete.
+
+## KWin geometry fallback
+
+`system()->accessibility()->get_window_geometry(pid, title, geometry, windowId)`
+returns compositor-global client, frame, and output rectangles in **logical**
+coordinates, plus the output pixel scale. No Qt types are exposed in the ca2 API.
+An empty ID selects by PID and optional exact compositor title. An empty title
+requires exactly one normal window for that PID. Ambiguous matches return false;
+use the returned `m_strWindowId` for subsequent calls, including after renames.
+Failures leave the result unchanged. Negative output/window coordinates are valid.
+
+The provider lazily starts a private event thread and read-only KWin script over
+the session bus. Initial lookups may return false until the first snapshot arrives.
+The script observes metadata for normal windows and tracks moves, resizes, title
+changes, output changes, and closure. It does not capture screen pixels, activate
+windows, or move them. Snapshots are accepted only from the current KWin bus owner.
+KWin disconnects invalidate the cache; reconnection reloads the script. Teardown
+unloads the script and releases its bus registration and temporary file.
+Queries are cache lookups and do not block the GUI waiting for D-Bus. Backend
+selection uses `accessibility_kde6` on KDE6; the base implementation returns false.
+This depends on KWin's scripting D-Bus interface, not a portable Wayland protocol.
+A missing/disabled compositor scripting service makes geometry unavailable.
+
+Bitmap publishing uses this API only when the native windowing backend reports
+that absolute coordinates are unavailable. It publishes window-local pixels and
+separate logical placement/output bounds, so HiDPI bitmap pixels are not mistaken
+for desktop coordinates. Unknown or ambiguous geometry skips publishing a frame.
+
+Build with `-DCA2_KWIN_GEOMETRY_TESTS=ON` to enable
+`accessibility_kde6_geometry_test` (cache validation) and
+`accessibility_kde6_live_geometry_test` (requires a running KWin session; opens and
+moves only its own test windows). The live test covers geometry, fractional scale,
+move notifications, renames, multiple windows, and closure.

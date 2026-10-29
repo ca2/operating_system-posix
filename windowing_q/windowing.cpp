@@ -15,6 +15,7 @@
 #include "apex/input/input.h"
 #include "aura/windowing/cursor_manager.h"
 #include <X11/cursorfont.h>
+#include <QGuiApplication>
 //#include "acme/windowing/windowing_base.h"
 #include "aura/platform/session.h"
 #include "aura/platform/system.h"
@@ -75,14 +76,9 @@ namespace windowing_q
    bool windowing::has_readily_gettable_absolute_coordinates() const
    {
 
-      if(const_cast < windowing * >(this)->get_ewindowing() == ::windowing::e_windowing_wayland)
-      {
-
-         return false;
-
-      }
-
-      return true;
+      // The generic enum can retain its default during Qt initialization.
+      // Query the platform actually selected by Qt (wayland or wayland-egl).
+      return !QGuiApplication::platformName().startsWith(QStringLiteral("wayland"));
 
    }
 

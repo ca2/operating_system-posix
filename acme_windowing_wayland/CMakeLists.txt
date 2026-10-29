@@ -1,104 +1,20 @@
 cmake_minimum_required(VERSION 3.17)
-project(acme_windowing_wayland CXX)
+project(acme_windowing_wayland LANGUAGES C CXX)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(NATIVE_WAYLAND REQUIRED IMPORTED_TARGET wayland-client wayland-cursor xkbcommon)
+set(native_sources native/runtime.cpp native/backend.cpp native/factory.cpp ../wayland_static/wayland-xdg_wm_base.c)
+add_library(acme_windowing_wayland SHARED ${native_sources})
+target_link_libraries(acme_windowing_wayland PRIVATE acme PkgConfig::NATIVE_WAYLAND)
+target_include_directories(acme_windowing_wayland PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/../..)
+target_compile_definitions(acme_windowing_wayland PRIVATE _acme_windowing_wayland_project)
+target_link_options(acme_windowing_wayland PRIVATE -Wl,-z,defs -Wl,-rpath,\$ORIGIN)
 
-
-
-
-
-message(STATUS "CMAKE_SYSTEM_NAME is ${CMAKE_SYSTEM_NAME}")
-
-
-
-if(${WIN32})
-   set(LIBCXX_TARGETING_MSVC ON)
-else ()
-   set(LIBCXX_TARGETING_MSVC OFF)
-endif ()
-
-
-
-list(APPEND library_source
-        _.cpp
-        _.h
-        _factory.cpp
-        platform.cpp
-        platform.h
-        keyboard.cpp
-        keyboard.h
-        xkb_input.cpp
-        xkb_input.h
-        windowing_system.cpp
-        windowing_system.h
-        )
-
-add_library(${PROJECT_NAME} SHARED ${library_source})
-target_precompile_headers(${PROJECT_NAME} PRIVATE platform.h)
-
-set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
-
-
-
-if(${WIN32})
-
-
-
-
-   if(MSVC)
-
-
-      target_compile_options(${PROJECT_NAME} PRIVATE    "/MD$<$<CONFIG:Debug>:d>")
-      target_link_options(${PROJECT_NAME} PRIVATE    "/DEFAULTLIB:msvcrt$<$<CONFIG:Debug>:d>")
-      target_link_options(${PROJECT_NAME} PRIVATE    "/SUBSYSTEM:WINDOWS")
-      target_link_options(${PROJECT_NAME} PRIVATE    "/bigobj")
-      target_link_options(${PROJECT_NAME} PRIVATE    "/IMPLIB:${LIBRARY_OUTPUT_PATH}/${PROJECT_NAME}.lib")
-      target_link_options(${PROJECT_NAME} PRIVATE    "/DEF:${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.def")
-
-
-   else()
-
-
-      target_link_options(${PROJECT_NAME} PRIVATE "-mwindows")
-      target_sources(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.def")
-
-
-   endif()
-
-
-
-   target_link_libraries(${PROJECT_NAME} PRIVATE acme apex aqua aura Gdiplus)
-elseif (${LINUX})
-
-   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG cairo xkbcommon wayland-client wayland-server wayland-cursor)
-   target_compile_options(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
-   #target_compile_options(${PROJECT_NAME} PRIVATE -std=c++14)
-   #target_link_options(${PROJECT_NAME} PRIVATE ${GTK_LDFLAGS})
-   target_link_libraries(${PROJECT_NAME} PRIVATE acme ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
-   target_link_options(${PROJECT_NAME} PRIVATE -Wl,-z,defs)
-   message("PKGCONFIG_LIBRARIES is " ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
-endif ()
-
-add_dependencies(${PROJECT_NAME} acme)
-
-target_link_directories(${PROJECT_NAME} PRIVATE ${LIBRARY_OUTPUT_PATH})
-target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/storage-${OPERATING_SYSTEM_NAME}/library/x64/basis)
-target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/storage-${OPERATING_SYSTEM_NAME}/third/library/x64/basis)
-
-
-target_include_directories(${PROJECT_NAME} PRIVATE $ENV{HOME}/__config)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../..)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../source)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../source/app)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../source/app/_include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../source/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/operating_system-${OPERATING_SYSTEM_NAME})
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/operating_system-${OPERATING_SYSTEM_NAME}/_include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/third-${OPERATING_SYSTEM_NAME}/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/third-${OPERATING_SYSTEM_NAME}/third/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../../operating_system/third-${OPERATING_SYSTEM_NAME}/third/include/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-
-
-target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
-target_compile_definitions(${PROJECT_NAME} PRIVATE UNICODE)
-target_compile_definitions(${PROJECT_NAME} PRIVATE _UNICODE)
+option(CA2_NATIVE_WAYLAND_TESTS "Build Wayland protocol and live smoke tests" OFF)
+if(CA2_NATIVE_WAYLAND_TESTS)
+   add_executable(native_wayland_runtime_test test/runtime_smoke.cpp)
+   target_link_libraries(native_wayland_runtime_test PRIVATE acme_windowing_wayland)
+   # Callback-level regression test: implementation is included by the test so
+   # real seat/XKB events can be exercised without injecting desktop keystrokes.
+   add_executable(native_wayland_keyboard_test test/keyboard_events.cpp ../wayland_static/wayland-xdg_wm_base.c)
+   target_link_libraries(native_wayland_keyboard_test PRIVATE PkgConfig::NATIVE_WAYLAND)
+endif()
