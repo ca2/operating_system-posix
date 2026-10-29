@@ -43,7 +43,7 @@ namespace node_xfce
       m_atomNetWmState = None;
       m_atomLongStyleEx = 0;
       m_countReference = 1;
-//   m_pmutexInput           = ___new ::pointer < ::mutex >();
+//   m_pmutexInput           = ___new ::pointer < ::parallelization::mutex >();
 
    }
 

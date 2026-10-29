@@ -58,7 +58,7 @@ void on_sn_launch_complete(void *pSnContext);
 //bool aaa_x11_runnable_step();
 
 
-//::pointer< ::mutex > g_pmutexX11Runnable = nullptr;
+//::pointer< ::parallelization::mutex > g_pmutexX11Runnable = nullptr;
 //list_base < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
 
 
@@ -75,9 +75,9 @@ CLASS_DECL_AURA void update_application_session_cursor(void *pvoidApp, const i32
 
 
 // Tutor Exilius Q(t)List streaming contribution
-//::pointer< ::mutex > g_pmutexX11Runnable = nullptr;
+//::pointer< ::parallelization::mutex > g_pmutexX11Runnable = nullptr;
 //list_base < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
-//::pointer< ::mutex > g_pmutexX11Sync = nullptr;
+//::pointer< ::parallelization::mutex > g_pmutexX11Sync = nullptr;
 //manual_reset_happening * g_peventX11Sync = nullptr;
 //::pointer<::matter>g_prunnableX11Sync;
 Window g_windowX11Client = 0;
@@ -86,9 +86,9 @@ Window g_windowX11Client = 0;
 ::i32_bool _x11_get_cursor_pos(Display *d, ::i32_point *ppointCursor);
 
 
-//extern ::pointer< ::mutex >g_pmutexX11Runnable;
+//extern ::pointer< ::parallelization::mutex >g_pmutexX11Runnable;
 //extern list_base<::pointer<::matter >>*g_prunnableptrlX11;
-//extern ::pointer< ::mutex >g_pmutexX11Sync;
+//extern ::pointer< ::parallelization::mutex >g_pmutexX11Sync;
 //extern manual_reset_happening *g_peventX11Sync;
 //extern ::pointer<::matter>g_prunnableX11Sync;
 

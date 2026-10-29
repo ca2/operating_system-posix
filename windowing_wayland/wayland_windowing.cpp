@@ -110,7 +110,7 @@ void x11_kick_idle()
 
 
 
-//::pointer< ::mutex > g_pmutexX11 = nullptr;
+//::pointer< ::parallelization::mutex > g_pmutexX11 = nullptr;
 //
 //
 //bool g_bAcmeInitWindowing = false;
@@ -132,7 +132,7 @@ void x11_kick_idle()
 //
 //   int retval = fcntl(g_fdX11[0], F_SETFL, fcntl(g_fdX11[0], F_GETFL) | O_NONBLOCK);
 //
-//   g_pmutexX11 = ___new ::pointer < ::mutex >();
+//   g_pmutexX11 = ___new ::pointer < ::parallelization::mutex >();
 //
 //}
 
@@ -260,7 +260,7 @@ void x11_kick_idle()
 //
 //   XSetErrorHandler(_cx_XErrorHandler);
 //
-//   g_pmutexX11 = ___new ::pointer < ::mutex >();
+//   g_pmutexX11 = ___new ::pointer < ::parallelization::mutex >();
 //
 //   return ::success;
 //

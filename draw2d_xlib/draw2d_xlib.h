@@ -18,7 +18,7 @@ class window;
 #endif
 
 
-::pointer < ::mutex > & xlib_mutex();
+::pointer < ::parallelization::mutex > & xlib_mutex();
 void init_xlib_mutex(::particle * pparticle);
 
 

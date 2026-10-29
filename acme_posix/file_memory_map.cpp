@@ -157,7 +157,7 @@ namespace acme_posix
 
       strMutex = m_strName + "-mutex";
 
-      set_synchronization(allocateø ::mutex(m_papplication, false, strMutex, nullptr));
+      set_synchronization(allocateø ::parallelization::mutex(m_papplication, false, strMutex, nullptr));
 
       return true;
 

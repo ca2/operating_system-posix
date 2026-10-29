@@ -83,7 +83,7 @@ namespace lxq1
 //             // gdk_x11 does error handling?!?!?!
 //             //XSetErrorHandler(_c_XErrorHandler);
 //
-//             //g_pmutexX11 = ___new ::pointer < ::mutex >();
+//             //g_pmutexX11 = ___new ::pointer < ::parallelization::mutex >();
 //
 // //      return ::success;
 //

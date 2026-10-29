@@ -16,7 +16,7 @@ namespace draw2d_xlib
       //,     m_u32(pparticle)
    {
 
-      mutex()                = ___new ::pointer < ::mutex >(pparticle);
+      mutex()                = ___new ::pointer < ::parallelization::mutex >(pparticle);
 
       m_bPrinting       = false;
       m_pimageAlphaBlend  = nullptr;

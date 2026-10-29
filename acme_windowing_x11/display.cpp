@@ -4055,7 +4055,7 @@ void set_main_user_thread();
 // //
 // //      XSetErrorHandler(::x11::micro::_c_XErrorHandler);
 // //
-// //      //g_pmutexX11 = ___new ::pointer < ::mutex >();
+// //      //g_pmutexX11 = ___new ::pointer < ::parallelization::mutex >();
 // //
 // //      return ::success;
 // //

@@ -1762,7 +1762,7 @@ namespace windowing_q
    //   osptra *window::s_pdataptra = nullptr;
    //
    //
-   //   ::pointer< ::mutex >window::s_pmutex = nullptr;
+   //   ::pointer< ::parallelization::mutex >window::s_pmutex = nullptr;
 
 
    //   int oswindow_find_message_only_window(::windowing::window *pimpl)

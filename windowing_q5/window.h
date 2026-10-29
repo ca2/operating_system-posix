@@ -96,7 +96,7 @@ namespace windowing_q5
 //       //XSyncValue                                   m_xsyncvalueNetWmSync;
 //       //XSyncValue                                   m_xsyncvalueNetWmSyncPending;
 //       ////static oswindow_dataptra *                 s_pdataptra;
-//       //static::pointer< ::mutex >                 s_pmutex;
+//       //static::pointer< ::parallelization::mutex >                 s_pmutex;
 //       //bool                                         m_bNetWmStateHidden;
 //       //bool                                         m_bNetWmStateMaximized;
 //       //bool                                         m_bNetWmStateFocused;

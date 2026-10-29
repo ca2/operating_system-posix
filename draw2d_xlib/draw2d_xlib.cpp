@@ -1,10 +1,10 @@
 #include "platform.h"
 
 
-static ::pointer< ::mutex > s_pmutexDraw2dXlib = nullptr;
+static ::pointer< ::parallelization::mutex > s_pmutexDraw2dXlib = nullptr;
 
 
-::pointer < ::mutex > & xlib_mutex()
+::pointer < ::parallelization::mutex > & xlib_mutex()
 {
 
    return *s_pmutexDraw2dXlib;
@@ -15,6 +15,6 @@ static ::pointer< ::mutex > s_pmutexDraw2dXlib = nullptr;
 void init_xlib_mutex(::particle * pparticle)
 {
 
-    s_pmutexDraw2dXlib = ___new ::pointer < ::mutex >(pparticle);
+    s_pmutexDraw2dXlib = ___new ::pointer < ::parallelization::mutex >(pparticle);
 
 }

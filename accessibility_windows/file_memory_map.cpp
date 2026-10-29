@@ -118,9 +118,9 @@ namespace acme_windows
 
       //string strMutex;
 
-      //strMutex = strPath + "-::mutex";
+      //strMutex = strPath + "-::parallelization::mutex";
 
-      //set_mutex(___new class ::mutex(e_create_new, strMutex, nullptr, false));
+      //set_mutex(___new class ::parallelization::mutex(e_create_new, strMutex, nullptr, false));
 
       return true;
 

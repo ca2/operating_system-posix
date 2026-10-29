@@ -49,7 +49,7 @@
 //bool aaa_x11_runnable_step();
 
 #define HAVE_MKOSTEMP
-//::pointer< ::mutex > g_pmutexX11Runnable = nullptr;
+//::pointer< ::parallelization::mutex > g_pmutexX11Runnable = nullptr;
 //list < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
 
 
@@ -165,9 +165,9 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const i3
 //
 //
 //// Tutor Exilius Q(t)List streaming contribution
-////::pointer< ::mutex > g_pmutexX11Runnable = nullptr;
+////::pointer< ::parallelization::mutex > g_pmutexX11Runnable = nullptr;
 ////list < ::pointer<::matter >>* g_prunnableptrlX11 = nullptr;
-////::pointer< ::mutex > g_pmutexX11Sync = nullptr;
+////::pointer< ::parallelization::mutex > g_pmutexX11Sync = nullptr;
 ////manual_reset_happening * g_peventX11Sync = nullptr;
 ////::pointer<::matter>g_prunnableX11Sync;
 //Window g_windowX11Client = 0;
@@ -176,9 +176,9 @@ CLASS_DECL_AURA void update_application_session_cursor(void * pvoidApp, const i3
 //int_bool _x11_get_cursor_pos(Display * d, ::i32_point * ppointCursor);
 //
 //
-////extern ::pointer< ::mutex >g_pmutexX11Runnable;
+////extern ::pointer< ::parallelization::mutex >g_pmutexX11Runnable;
 ////extern list<::pointer<::matter >>*g_prunnableptrlX11;
-////extern ::pointer< ::mutex >g_pmutexX11Sync;
+////extern ::pointer< ::parallelization::mutex >g_pmutexX11Sync;
 ////extern manual_reset_happening *g_peventX11Sync;
 ////extern ::pointer<::matter>g_prunnableX11Sync;
 //
@@ -3441,7 +3441,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
 //
 //   XSetErrorHandler(_cx_XErrorHandler);
 //
-//   //g_pmutexX11 = ___new ::pointer < ::mutex >();
+//   //g_pmutexX11 = ___new ::pointer < ::parallelization::mutex >();
 //
 //   return ::success;
 //
