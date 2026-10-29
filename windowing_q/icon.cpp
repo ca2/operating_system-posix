@@ -2,6 +2,10 @@
 // recreated by Camilo 2021-01-28 16:38
 #include "platform.h"
 #include "icon.h"
+#include "aura/graphics/image/context.h"
+#include "aura/graphics/draw2d/draw2d.h"
+#include "aura/graphics/draw2d/domain.h"
+#include "aura/platform/system.h"
 #include "acme/exception/interface_only.h"
 #include "acme/filesystem/filesystem/directory_context.h"
 #include "apex/platform/context.h"
@@ -64,9 +68,7 @@ namespace windowing_q
    void icon::set_file(const ::payload & payloadFile)
    {
 
-      //throw ::interface_only();
-
-      //return false;
+      m_payload = payloadFile;
 
    }
 
@@ -116,9 +118,8 @@ namespace windowing_q
    ::image::image_pointer icon::get_image(const ::i32_size& size)
    {
 
-      throw ::interface_only();
-      
-      return nullptr;
+      return image()->get_image(m_payload,
+         {.draw2d_domain = system()->draw2d()->main_draw2d_domain()});
 
    }
 

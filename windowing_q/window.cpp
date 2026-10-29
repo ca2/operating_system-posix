@@ -46,6 +46,9 @@
 #include "aura/graphics/graphics/buffer_item.h"
 #include "aura/graphics/image/context.h"
 #include "aura/graphics/image/drawing.h"
+#include "aura/windowing/icon.h"
+#include <QIcon>
+#include <QGuiApplication>
 #include "aura/platform/application.h"
 #include "apex/gpu/approach.h"
 //#include "windowing_system_wayland/xfree86_key.h"
@@ -1018,12 +1021,19 @@ namespace windowing_q
 
       auto pitem = pbuffer->get_screen_item();
 
+      if (!pitem)
+      {
+
+         return;
+
+      }
+
       _synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
       if (pitem && pitem->m_pimageBufferItem)
       {
 
-         auto ppixmapImageBufferItem = pitem->m_pimageBufferItem->map();
+         auto ppixmapImageBufferItem = pitem->m_pimageBufferItem->map(::image::e_map_read_only);
 
          if (pitem->m_pimageBufferItem.ok())
          {
@@ -1060,7 +1070,8 @@ namespace windowing_q
 
             pimageTarget->copy({w, h}, iTargetScan, pimage32BufferItem, iSourceScan);
 
-            pbuffer->on_end_draw();
+            // The rendering thread has already completed and swapped this frame.
+            // Painting must not swap buffers again while holding the screen lock.
 
          }
 
@@ -1195,6 +1206,12 @@ namespace windowing_q
          m_sizeWindow.cx = cx;
 
          m_sizeWindow.cy = cy;
+
+         // Wayland resolves the taskbar icon through the desktop-file app id.
+         // Set it before Qt creates the native surface.
+         auto strDesktopId = application()->m_strAppId;
+         strDesktopId.replace_with(".", "/");
+         QGuiApplication::setDesktopFileName(QString::fromUtf8(strDesktopId.c_str()));
 
          ::q::acme::windowing::window::_create_window();
 
@@ -2063,6 +2080,32 @@ namespace windowing_q
    //      return XChangeProperty(Display(), Window(), property, type, format, mode, data, nelements);
    //
    //   }
+
+
+   void window::set_icon(::windowing::icon * picon)
+   {
+
+      ::windowing::window::set_icon(picon);
+
+      if (!picon)
+         return;
+
+      auto pimage = picon->get_image({64, 64});
+      if (pimage.nok())
+         return;
+
+      auto pixels = pimage->map(::image::e_map_read_only);
+      QImage image((const uchar *)pixels->image32(), pimage->width(),
+         pimage->height(), pixels->m_iScan, QImage::Format_ARGB32_Premultiplied);
+      // Own the pixels before the mapping lease ends and the UI call is queued.
+      auto imageIcon = image.copy();
+      main_post([this, imageIcon]()
+      {
+         if (m_pqwidget)
+            m_pqwidget->setWindowIcon(QIcon(QPixmap::fromImage(imageIcon)));
+      });
+
+   }
 
 
    bool window::set_icon(::image::image* pimage)

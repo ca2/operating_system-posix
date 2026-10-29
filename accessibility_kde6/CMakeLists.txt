@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
 project(accessibility_kde6 CXX)
+find_package(Qt6 REQUIRED COMPONENTS Core DBus)
 
 
 list(APPEND library_source
@@ -8,6 +9,8 @@ list(APPEND library_source
    _factory.cpp
 #   _file.cpp
 #   _no_pch.cpp
+   kwin_bridge.cpp
+   kwin_bridge.h
    accessibility.cpp
    accessibility.h
 #   create_process.cpp
@@ -156,3 +159,20 @@ target_include_directories(static_${PROJECT_NAME} PRIVATE ${library_include_dire
 
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
+
+foreach(target accessibility_kde6 static_accessibility_kde6)
+   set_target_properties(${target} PROPERTIES AUTOMOC ON)
+   set_source_files_properties(kwin_bridge.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+   target_link_libraries(${target} PRIVATE Qt6::Core Qt6::DBus accessibility_posix)
+endforeach()
+
+option(CA2_KWIN_GEOMETRY_TESTS "Build KWin geometry cache tests" OFF)
+if(CA2_KWIN_GEOMETRY_TESTS)
+   find_package(Qt6 REQUIRED COMPONENTS Widgets)
+   add_executable(accessibility_kde6_live_geometry_test test/live_kwin_geometry.cpp kwin_bridge.cpp)
+   set_target_properties(accessibility_kde6_live_geometry_test PROPERTIES AUTOMOC ON)
+   target_link_libraries(accessibility_kde6_live_geometry_test PRIVATE Qt6::Core Qt6::DBus Qt6::Widgets)
+   add_executable(accessibility_kde6_geometry_test test/kwin_geometry.cpp kwin_bridge.cpp)
+   set_target_properties(accessibility_kde6_geometry_test PROPERTIES AUTOMOC ON)
+   target_link_libraries(accessibility_kde6_geometry_test PRIVATE Qt6::Core Qt6::DBus)
+endif()
