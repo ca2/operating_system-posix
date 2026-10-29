@@ -11,6 +11,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE accessibility_atspi acme)
 # working; it now consumes the GTK3 component and generic selection API.
 add_executable(accessibility_atspi_mate_terminal EXCLUDE_FROM_ALL ../accessibility_atspi/mate_terminal_main.cpp)
 target_include_directories(accessibility_atspi_mate_terminal PRIVATE "${CMAKE_SOURCE_DIR}/source")
-target_link_libraries(${PROJECT_NAME} PRIVATE accessibility_gtk3 acme PkgConfig::ACCESSIBILITY_GIO)
+target_link_libraries(accessibility_atspi_mate_terminal PRIVATE accessibility_gtk3 acme PkgConfig::ACCESSIBILITY_GIO)
 set_target_properties(accessibility_atspi_mate_terminal PROPERTIES
    BUILD_RPATH "$ORIGIN" RUNTIME_OUTPUT_DIRECTORY "${LIBRARY_OUTPUT_PATH}")
