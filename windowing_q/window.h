@@ -269,6 +269,7 @@ void on_initialize_particle() override;
 
 
       virtual bool set_icon(::image::image *pimage);
+      void set_icon(::windowing::icon * picon) override;
 
       //virtual int x_change_property(Atom property, Atom type, int format, int mode, const unsigned char * data, int nelements);
 
