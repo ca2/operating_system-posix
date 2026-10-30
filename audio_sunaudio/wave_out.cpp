@@ -3,6 +3,7 @@
 #include "audio/audio/wave/format.h"
 #include <sys/ioctl.h>
 #if defined(__SUNOS__)
+#include <stropts.h> // Solaris declares ioctl here.
 #include <stdlib.h>
 #else
 #include "audiodev.h"
