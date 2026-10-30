@@ -64,13 +64,13 @@ namespace acme_posix
 
       ::process_identifier current_process_identifier() override;
       
-      ::pointer < ::mutex > create_local_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes = nullptr) override;
-      ::pointer < ::mutex > create_global_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes = nullptr) override;
+      ::pointer < ::parallelization::mutex > create_local_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes = nullptr) override;
+      ::pointer < ::parallelization::mutex > create_global_named_mutex(::particle * pparticleContext, bool bInitiallyOwned, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes = nullptr) override;
 
-      ::pointer<::mutex> open_named_mutex(::particle * pparticle, const_char_pointer lpszName);
+      ::pointer<::parallelization::mutex> open_named_mutex(::particle * pparticle, const_char_pointer lpszName);
 
-      ::pointer < ::mutex > open_local_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName) override;
-      ::pointer < ::mutex > open_global_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName) override;
+      ::pointer < ::parallelization::mutex > open_local_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName) override;
+      ::pointer < ::parallelization::mutex > open_global_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName) override;
 
       ::pointer < ::acme::exclusive > get_exclusive(::particle * pparticleContext, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes = nullptr) override;
 

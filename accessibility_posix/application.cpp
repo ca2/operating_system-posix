@@ -33,7 +33,7 @@ class block_input :
 protected:
    
    
-   ::pointer < ::mutex >         m_pmutexCa2Input;
+   ::pointer < ::parallelization::mutex >         m_pmutexCa2Input;
    bool                          m_bBlocked;
 
 

@@ -440,7 +440,7 @@ namespace acme_posix
    }
 
 
-   ::pointer < ::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
+   ::pointer < ::parallelization::mutex > node::create_local_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
       return allocateø mutex(pparticleContext, bInitialOwner, "Local/" + scopedstrName, psecurityattributes);
@@ -448,7 +448,7 @@ namespace acme_posix
    }
 
 
-   ::pointer < ::mutex > node::create_global_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
+   ::pointer < ::parallelization::mutex > node::create_global_named_mutex(::particle * pparticleContext, bool bInitialOwner, const ::scoped_string & scopedstrName, security_attributes * psecurityattributes)
    {
 
       return allocateø mutex(pparticleContext, bInitialOwner, "Global/" + scopedstrName, psecurityattributes);
@@ -457,7 +457,7 @@ namespace acme_posix
 
 
 
-   ::pointer<::mutex>node::open_named_mutex(::particle * pparticle, const_char_pointer lpszName)
+   ::pointer<::parallelization::mutex>node::open_named_mutex(::particle * pparticle, const_char_pointer lpszName)
 {
 
 #ifdef WINDOWS
@@ -619,7 +619,7 @@ namespace acme_posix
 }
 
 
-   ::pointer < ::mutex > node::open_local_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName)
+   ::pointer < ::parallelization::mutex > node::open_local_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName)
    {
 
       return open_named_mutex(pparticleContext, "Local/" + scopedstrName);
@@ -627,7 +627,7 @@ namespace acme_posix
    }
 
 
-   ::pointer < ::mutex > node::open_global_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName)
+   ::pointer < ::parallelization::mutex > node::open_global_named_mutex(::particle * pparticleContext, const ::scoped_string & scopedstrName)
    {
 
       return open_named_mutex(pparticleContext, "Global/" + scopedstrName);

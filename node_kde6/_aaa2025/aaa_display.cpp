@@ -46,7 +46,7 @@
 ////      m_atomNetWmState = None;
 ////      m_atomLongStyleEx = 0;
 ////      m_countReference = 1;
-////   m_pmutexInput           = aaa_primitive_new ::pointer < ::mutex >();
+////   m_pmutexInput           = aaa_primitive_new ::pointer < ::parallelization::mutex >();
 //
 //   }
 //
