@@ -1013,7 +1013,7 @@ namespace acme_windows
 
       //if (WaitForSingleObject(m_hMutexRead, U32_INFINITE_TIMEOUT) != WAIT_OBJECT_0)
       //{
-      //   throw ::exception(error_io, "Error claiming read ::mutex.");
+      //   throw ::exception(error_io, "Error claiming read ::parallelization::mutex.");
       //}
 
    }
@@ -1028,7 +1028,7 @@ namespace acme_windows
 
     /*  if (!ReleaseMutex(m_hMutexRead))
       {
-         throw ::exception(error_io, "Error releasing read ::mutex.");
+         throw ::exception(error_io, "Error releasing read ::parallelization::mutex.");
       }*/
    }
 
@@ -1036,7 +1036,7 @@ namespace acme_windows
    //{
    //   //if (WaitForSingleObject(m_hMutexWrite, U32_INFINITE_TIMEOUT) != WAIT_OBJECT_0)
    //   //{
-   //     // throw ::exception(error_io, "Error claiming write ::mutex.");
+   //     // throw ::exception(error_io, "Error claiming write ::parallelization::mutex.");
    //   //}
 
    //   m_mutexWrite->lock();
@@ -1046,7 +1046,7 @@ namespace acme_windows
    //{
    //   //if (!ReleaseMutex(m_hMutexWrite))
    //   //{
-   //     // throw ::exception(error_io, "Error releasing write ::mutex.");
+   //     // throw ::exception(error_io, "Error releasing write ::parallelization::mutex.");
    //   //}
 
    //   m_pmutexWrite->unlock();
