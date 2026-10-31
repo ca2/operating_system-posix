@@ -99,7 +99,7 @@ elseif (${LINUX} OR ${__BSD__} OR ${__ANDROID__} OR ${__SUNOS__} OR ${__HAIKU__}
    endif()
 
 
-   if(${OPENBSD})
+   if(${OPENBSD} OR ${__SUNOS__})
 	   pkg_check_modules(${PROJECT_NAME}_PKGCONFIG gtk4 x11 egl)
 	   list(APPEND library_references GL)
    else()

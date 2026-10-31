@@ -1221,11 +1221,17 @@ g_signal_connect(
 
                // Create a scroll event controller and attach it to the label
 
-               m_pgtkeventcontrollerScroll = gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_VERTICAL);
+               // Capture before GtkWindowHandle/gestures can consume wheel
+               // events. The framework consumes discrete wheel notches.
+               m_pgtkeventcontrollerScroll = gtk_event_controller_scroll_new(
+                  (GtkEventControllerScrollFlags)(GTK_EVENT_CONTROLLER_SCROLL_VERTICAL
+                     | GTK_EVENT_CONTROLLER_SCROLL_DISCRETE));
+               gtk_event_controller_set_propagation_phase(m_pgtkeventcontrollerScroll, GTK_PHASE_CAPTURE);
 
                g_signal_connect(m_pgtkeventcontrollerScroll, "scroll", G_CALLBACK(on_scroll), this);
 
                gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerScroll);
+               information() << "GTK4 mouse wheel controller installed (capture, discrete)";
 
             }
 

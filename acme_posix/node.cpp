@@ -3210,6 +3210,41 @@ namespace acme_posix
 
    void node::detached_command(const ::scoped_string & scopedstrCommand, const ::file::path & pathLog)
    {
+#if defined(__SUNOS__)
+      // Keep the complete shell program in argv[2]. Re-parsing nested double
+      // quotes through command_system used to leave nohup without a command.
+      ::string strScript = "nohup " + ::string(scopedstrCommand);
+      if (pathLog.has_character())
+      {
+         ::string strLog(pathLog);
+         strLog.find_replace("'", "'\\''");
+         strScript += " > '" + strLog + "' 2>&1";
+      }
+      else
+      {
+         strScript += " > /dev/null 2>&1";
+      }
+      strScript += " < /dev/null &";
+      char * argv[] = {const_cast<char *>("/bin/sh"), const_cast<char *>("-c"),
+         const_cast<char *>(strScript.c_str()), nullptr};
+      pid_t pid;
+      int result = posix_spawn(&pid, argv[0], nullptr, nullptr, argv, ::system()->m_envp);
+      if (result != 0)
+      {
+         throw ::exception(error_failed, "Could not spawn detached command shell");
+      }
+      int status = 0;
+      pid_t waited;
+      do
+      {
+         waited = waitpid(pid, &status, 0);
+      } while (waited < 0 && errno == EINTR);
+      if (waited < 0 || !WIFEXITED(status) || WEXITSTATUS(status) != 0)
+      {
+         throw ::exception(error_failed, "Detached command shell failed");
+      }
+      return;
+#endif
 
       ::string strCommand;
 

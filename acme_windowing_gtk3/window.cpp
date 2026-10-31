@@ -675,6 +675,14 @@ return FALSE;
 
             m_pgtkwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
+            // Match the desktop file name and StartupWMClass used by the launcher.
+            // Set this before realization so GNOME can identify Store-launched windows.
+            ::string strDesktopId = get_app()->m_strAppId;
+            strDesktopId.find_replace("/", ".");
+            strDesktopId.find_replace("_", "-");
+            gtk_window_set_wmclass(GTK_WINDOW(m_pgtkwidget),
+               strDesktopId.c_str(), strDesktopId.c_str());
+
             auto strTitle = m_pacmeuserinteraction->get_window_text();
             if (strTitle.is_empty())
                strTitle = get_app()->m_strAppName;
@@ -723,6 +731,9 @@ return FALSE;
             }
 
             ::cast < ::gtk3::acme::windowing::windowing> pgtk3windowing  = system()->acme_windowing();
+
+            if (GTK_IS_APPLICATION(pgtk3windowing->m_pgtkapplication))
+               gtk_window_set_application(GTK_WINDOW(m_pgtkwidget), pgtk3windowing->m_pgtkapplication);
 
             pgtk3windowing->_set_window(GTK_WINDOW(m_pgtkwidget), this);
 

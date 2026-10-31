@@ -26,8 +26,10 @@
 //#if
 //#include <linux/input.h> // for BTN_LEFT
 #include <sys/poll.h>
+#if !defined(__SUNOS__)
 #include <wayland-client-protocol.h>
 #include <wayland-server-protocol.h>
+#endif
 #include <xkbcommon/xkbcommon.h>
 #include <sys/mman.h>
 #include <errno.h>
@@ -2967,8 +2969,16 @@ namespace gtk4
          }
 
 
+
+
          bool display::is_wayland()
          {
+
+#if defined(__SUNOS__)
+
+            return false;
+
+#else
 
             if (GDK_IS_WAYLAND_DISPLAY(m_pgdkdisplay))
             {
@@ -2978,6 +2988,8 @@ namespace gtk4
             }
 
             return false;
+
+#endif
 
          }
 

@@ -28,6 +28,7 @@ namespace windowing_gtk4
       GtkIMContext *                      m_pimcontext;
 
       bool                                m_bImFocus;
+      double                              m_dWheelStepsPending = 0.0;
 
 
       window();

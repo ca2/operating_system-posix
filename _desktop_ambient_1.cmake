@@ -27,9 +27,24 @@ if(DESKTOP_AMBIENT)
    endif()
 
    # Non-Linux Unix desktops may leave XDG_CURRENT_DESKTOP empty.
-   # __SYSTEM_DESKTOP_ENVIRONMENT is supplied by ca2's shell environment.
-   if(NOT CURRENT_DESKTOP_ENVIRONMENT AND DEFINED ENV{__SYSTEM_DESKTOP_ENVIRONMENT})
-      set(CURRENT_DESKTOP_ENVIRONMENT "$ENV{__SYSTEM_DESKTOP_ENVIRONMENT}")
+   # __SYSTEM_AMBIENT is supplied by ca2's shell environment.
+   if(NOT CURRENT_DESKTOP_ENVIRONMENT AND DEFINED ENV{__SYSTEM_AMBIENT})
+      set(CURRENT_DESKTOP_ENVIRONMENT "$ENV{__SYSTEM_AMBIENT}")
+   endif()
+
+   message(STATUS "Desktop probe: system=${CMAKE_SYSTEM_NAME}; cross=${CMAKE_CROSSCOMPILING}")
+   message(STATUS "Desktop inputs: SYSROOT_XDG_CURRENT_DESKTOP='${SYSROOT_XDG_CURRENT_DESKTOP}'; XDG_CURRENT_DESKTOP='$ENV{XDG_CURRENT_DESKTOP}'; __SYSTEM_AMBIENT='$ENV{__SYSTEM_AMBIENT}'")
+   string(STRIP "${CURRENT_DESKTOP_ENVIRONMENT}" CURRENT_DESKTOP_ENVIRONMENT)
+   string(TOLOWER "${CURRENT_DESKTOP_ENVIRONMENT}" _ca2_desktop_value)
+   if(_ca2_desktop_value STREQUAL "unknown" OR _ca2_desktop_value STREQUAL "none")
+      message(STATUS "Desktop probe: '${CURRENT_DESKTOP_ENVIRONMENT}' does not identify a desktop")
+      set(CURRENT_DESKTOP_ENVIRONMENT "")
+   endif()
+
+   # Match the SunOS runtime fallback when no desktop is reported.
+   if(CMAKE_SYSTEM_NAME STREQUAL "SunOS" AND NOT CURRENT_DESKTOP_ENVIRONMENT)
+      set(CURRENT_DESKTOP_ENVIRONMENT "gnome")
+      message(STATUS "No desktop reported; using SunOS GNOME fallback")
    endif()
 
    message(STATUS "Current desktop environment is ${CURRENT_DESKTOP_ENVIRONMENT}")

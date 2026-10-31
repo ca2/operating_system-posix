@@ -23,7 +23,9 @@
 #include "aura/platform/message_queue.h"
 #include "aura_posix/node.h"
 #include "acme/constant/user_key.h"
+#if !defined(__SUNOS__)
 #include <wayland-client.h>
+#endif
 //#include <linux/input.h>
 #include <xkbcommon/xkbcommon.h>
 #include "aura/graphics/image/context.h"
@@ -95,27 +97,6 @@ namespace windowing_gtk4
 
       }
 
-   }
-
-
-   /* Pre-edit text callback */
-   static void on_preedit_changed(GtkIMContext *im_context, gpointer user_data)
-   {
-
-      auto pwindow = (window*) user_data;
-      gchar *preedit_string = NULL;
-      gint cursor_pos = 0;
-
-      /* Get the current preedit string */
-      gtk_im_context_get_preedit_string(im_context, &preedit_string, NULL, &cursor_pos);
-
-      if (preedit_string) {
-         /* Print the intermediate result */
-         g_print("Intermediate preedit text at preedit changed: %s\n", preedit_string);
-         pwindow->_on_text(preedit_string);
-
-         g_free(preedit_string);
-      }
    }
 
 
@@ -1271,7 +1252,6 @@ on_text(scopedstr, scopedstr.size());
 
    }
 
-
    void window::_on_gtk_im_context_commit(const_char_pointer psz)
    {
 
@@ -1419,7 +1399,6 @@ on_text(scopedstr, scopedstr.size());
       //    /* Create an input method context for pre-edit handling */
       //    m_pimcontext = gtk_im_multicontext_new();
       //
-      //    information() << "Going to connect preedit-changed";
       //    /* Connect the preedit-changed signal to capture intermediate results */
       //    g_signal_connect(m_pimcontext, "preedit-changed", G_CALLBACK(on_preedit_changed), this);
       //    information() << "Going to connect commit";
@@ -1625,9 +1604,7 @@ on_text(scopedstr, scopedstr.size());
          /* Create an input method context for pre-edit handling */
          m_pimcontext = gtk_im_multicontext_new();
 
-         information() << "Going to connect preedit-changed";
          /* Connect the preedit-changed signal to capture intermediate results */
-         g_signal_connect(m_pimcontext, "preedit-changed", G_CALLBACK(on_preedit_changed), this);
          information() << "Going to connect commit";
          g_signal_connect(m_pimcontext, "commit", G_CALLBACK(gtk_im_context_commit), this);
 
@@ -2850,28 +2827,6 @@ if(::is_set(puserinteraction))
 
       bool bHandled = gtk_im_context_filter_keypress(m_pimcontext, happening);
 
-      gchar *preedit_string = NULL;
-
-      gint cursor_pos = 0;
-
-      gtk_im_context_get_preedit_string(m_pimcontext, &preedit_string, NULL, &cursor_pos);
-
-      if (preedit_string)
-      {
-
-         g_print("Intermediate preedit text at key pressed: %s\n", preedit_string);
-
-         ::string str(preedit_string);
-
-         if(str.has_character())
-         {
-
-            _on_text(str);
-
-         }
-         g_free(preedit_string);
-      }
-
       if(bHandled)
       {
 
@@ -2893,28 +2848,6 @@ return false;
 
       bool bHandled = gtk_im_context_filter_keypress(m_pimcontext, happening);
 
-      gchar *preedit_string = NULL;
-
-      gint cursor_pos = 0;
-
-      gtk_im_context_get_preedit_string(m_pimcontext, &preedit_string, NULL, &cursor_pos);
-
-      if (preedit_string)
-      {
-
-         g_print("Intermediate preedit text at key released: %s\n", preedit_string);
-
-         ::string str(preedit_string);
-
-         if(str.has_character())
-         {
-
-            _on_text(str);
-
-         }
-         g_free(preedit_string);
-      }
-
       if(bHandled)
       {
 
@@ -2929,6 +2862,15 @@ return false;
 
    bool window::_on_gtk_scroll(GtkEventControllerScroll * peventcontrollerScroll, double dx, double dy)
    {
+      // Smooth wheels/touchpads send fractional steps. Do not truncate each
+      // event to zero, or turn every small fraction into a full wheel notch.
+      m_dWheelStepsPending -= dy;
+      int steps = (int)m_dWheelStepsPending;
+      if (steps == 0)
+      {
+         return dy != 0.0;
+      }
+      m_dWheelStepsPending -= steps;
 
       auto pmouse = create_newø<::message::mouse_wheel>();
 
@@ -2970,7 +2912,7 @@ return false;
 
             pmouse->m_pointAbsolute = m_pointCursor2;
             
-            debugf("Scroll event: dx=%d, dy=%d, cursor position: x=%df, y=%d\n", dx, dy, x, y);
+            debugf("Scroll event: dx=%.2f, dy=%.2f, cursor position: x=%.2f, y=%.2f\n", dx, dy, x, y);
             
          }
          else
@@ -2987,11 +2929,11 @@ return false;
          }
       }
 
-      pmouse->m_Δ = (short)-dy*120;
+      pmouse->m_Δ = (short)(steps * 120);
 
       message_handler(pmouse);
 
-      return false;
+      return pmouse->m_bRet;
 
    }
 

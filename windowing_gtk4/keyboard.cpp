@@ -14,7 +14,9 @@
 //#include "apex/user/user/prototype.h"
 #include "apex/user/user/interaction_base.h"
 //#include "windowing_system_wayland/xkb_input.h"
+#if !defined(__SUNOS__)
 #include <wayland-server-protocol.h>
+#endif
 #include <xkbcommon/xkbcommon.h>
 #include <sys/mman.h>
 #include <unistd.h>

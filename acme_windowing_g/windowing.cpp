@@ -149,8 +149,15 @@ namespace g
          void windowing::user_post(const ::procedure& procedure)
          {
 
-            // Safely update the GTK label in the main thread
-            g_main_context_invoke(NULL, execute_on_main_thread, øraw_new ::procedure(procedure));
+            // invoke() may acquire an idle context and run immediately on the
+            // caller, including before GtkApplication has been initialized.
+            // Attach a source so only the main-loop thread dispatches the work.
+            auto psource = g_idle_source_new();
+            g_source_set_priority(psource, G_PRIORITY_DEFAULT);
+            g_source_set_callback(psource, execute_on_main_thread,
+               øraw_new ::procedure(procedure), nullptr);
+            g_source_attach(psource, g_main_context_default());
+            g_source_unref(psource);
 
          }
 
