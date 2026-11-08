@@ -67,7 +67,7 @@ namespace windowing_gtk4
 
       virtual void _on_drawing_area_keyboard_focus_lost();
 
-      void create_window() override;
+      void create_window(::enum_parallelization eparallelization) override;
 
       void _create_window() override;
 

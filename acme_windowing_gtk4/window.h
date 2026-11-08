@@ -129,7 +129,7 @@ bool m_bHasFocusCached;
             ~window() override;
 virtual ::gtk4::acme::windowing::windowing * gtk4_acme_windowing();
 
-            void create_window() override;
+            void create_window(::enum_parallelization eparallelization) override;
             void _create_window() override;
 
 

@@ -2572,10 +2572,10 @@ if (m_pgtkeventcontrollerKey)
    }
 
 
-   void window::create_window()
+   void window::create_window(::enum_parallelization eparallelization)
    {
 
-      main_send([this]()
+      main_call(eparallelization, [this]()
       {
 
          auto r = m_pacmeuserinteraction->get_window_rectangle();
