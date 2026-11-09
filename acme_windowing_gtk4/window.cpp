@@ -27,6 +27,8 @@
 #include "acme/user/user/interaction.h"
 #include "acme/user/user/mouse.h"
 #include "acme/user/micro/elemental.h"
+#include "acme/user/micro/dialog.h"
+#include "acme/user/micro/main_window.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
 #include "acme/constant/_user_key_text.h"
 #include "acme/nano/nano.h"
@@ -502,6 +504,7 @@ informationf(
             m_bHasKeyboardFocus = false;
 
             m_pgtkwidget = nullptr;
+            m_pdrawingarea = nullptr;
 
             m_pgtkeventcontrollerKey = nullptr;
 
@@ -779,7 +782,8 @@ informationf(
 
                ::cast<::gtk4::acme::windowing::window> pwindowOwner = owner_window();
 
-               if (pwindowOwner)
+               // Dialogs need a real transient toplevel; menus use popovers.
+               if (pwindowOwner && !dynamic_cast<::micro::dialog *>(m_pacmeuserinteraction.m_p))
                {
 
                   information() << "It has owner window...";
@@ -862,6 +866,17 @@ informationf(
                //gtk_window_set_startup_id(GTK_WINDOW(m_pgtkwidget), strId);
 
                gtk_window_set_decorated(GTK_WINDOW(m_pgtkwidget), false);
+
+               if (dynamic_cast<::micro::dialog *>(m_pacmeuserinteraction.m_p))
+               {
+                  ::cast<window> pwindowOwner = owner_window();
+                  if (pwindowOwner && GTK_IS_WINDOW(pwindowOwner->m_pgtkwidget))
+                  {
+                     gtk_window_set_transient_for(GTK_WINDOW(m_pgtkwidget), GTK_WINDOW(pwindowOwner->m_pgtkwidget));
+                     gtk_window_set_modal(GTK_WINDOW(m_pgtkwidget), true);
+                     information() << "Created transient modal micro dialog";
+                  }
+               }
 
                auto css_provider = gtk_css_provider_new();
 
@@ -1022,6 +1037,14 @@ informationf(
             g_signal_connect(m_pgtkeventcontrollerMotion, "motion", G_CALLBACK(on_motion_notify), this);
 
             g_signal_connect(m_pgtkeventcontrollerMotion, "enter", G_CALLBACK(on_enter_notify), this);
+            g_signal_connect(m_pgtkeventcontrollerMotion, "leave", G_CALLBACK(+[](
+               GtkEventControllerMotion *, gpointer data)
+            {
+               auto pwindow = static_cast<window *>(data);
+               auto phover = pwindow->m_pacmeuserinteractionHover;
+               pwindow->m_pacmeuserinteractionHover.release();
+               if (phover) phover->on_mouse_leave();
+            }), this);
 
             gtk_widget_add_controller(m_pdrawingarea, m_pgtkeventcontrollerMotion);
 
@@ -1947,6 +1970,7 @@ if (m_pgtkeventcontrollerKey)
       }
 
       m_pgtkwidget = nullptr;
+      m_pdrawingarea = nullptr;
 
       if (GTK_IS_POPOVER(pgtkwidget))
       {
@@ -2648,29 +2672,16 @@ if (m_pgtkeventcontrollerKey)
 
    void window::redraw()
    {
-
-      if (GTK_IS_WIDGET(m_pgtkwidget) && !m_bInhibitQueueDraw)
+      ::pointer<window> hold = this;
+      main_post([hold]()
       {
+         if (hold->m_bInhibitQueueDraw) return;
 
-      ::pointer<window> pthis = this;
-
-         main_post([pthis]()
-         {
-
-
-            //if (GTK_IS_WIDGET(m_pgtkwidget) && m_pgtkwidgetChildPendingShow == nullptr)
-            if (GTK_IS_WIDGET(pthis->m_pgtkwidget) && !pthis->m_bInhibitQueueDraw)
-            {
-
-               gtk_widget_queue_draw(pthis->m_pgtkwidget);
-
-            }
-
-
-         });
-
-      }
-
+         // GTK4 caches the drawing area's render node. Invalidating only its
+         // toplevel leaves custom controls showing their previous state.
+         auto ptarget = hold->m_pdrawingarea ? hold->m_pdrawingarea : hold->m_pgtkwidget;
+         if (GTK_IS_WIDGET(ptarget)) gtk_widget_queue_draw(ptarget);
+      });
    }
 
 
@@ -3011,7 +3022,17 @@ void window::_on_focus_changed(bool bHasFocus)
 
       //information("::gtk4::acme::windowing::window::_on_button_stopped");
 
-      //_on_button_released(pgesture, 1, -65535.0, -65535.0);
+      // A cancelled gesture must not leave a micro button looking pressed.
+      ::cast<::micro::elemental> pelemental = m_pacmeuserinteraction;
+      if (pelemental)
+      {
+         auto pmain = pelemental->micro_main_window();
+         if (pmain)
+         {
+            pmain->m_atomLeftButtonDown = e_dialog_result_none;
+            pmain->redraw();
+         }
+      }
 
    }
 
