@@ -137,7 +137,7 @@ namespace windowing_gtk3
       //void create_window(::windowing::window * pimpl) override;
 
 
-      void create_window() override;
+      void create_window(::enum_parallelization eparallelization) override;
       void _create_window() override;
 
 

@@ -503,12 +503,12 @@ return FALSE;
 //         }
 
 
-         void window::create_window()
+         void window::create_window(::enum_parallelization eparallelization)
          {
 
             get_display();
 
-            main_send([this]()
+            main_call(eparallelization, [this]()
             {
 
                          auto r = m_pacmeuserinteraction->get_rectangle();
