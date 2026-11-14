@@ -737,6 +737,9 @@ namespace acme_posix
 #elif !defined(APPLE_IOS)
       if (::system("systemctl reboot") != 0) throw ::exception(error_failed);
 #endif
+
+      //return success;
+
    }
 
 
@@ -3205,6 +3208,7 @@ namespace acme_posix
 
    void node::detached_command(const ::scoped_string & scopedstrCommand, const ::file::path & pathLog)
    {
+#if defined(__SUNOS__) || defined(NETBSD) || defined(__NetBSD__)
       // Keep the complete shell program in argv[2]. Re-parsing nested double
       // quotes through command_system used to leave nohup without a command.
       ::string strScript = "nohup " + ::string(scopedstrCommand);
@@ -3236,6 +3240,41 @@ namespace acme_posix
       if (waited < 0 || !WIFEXITED(status) || WEXITSTATUS(status) != 0)
       {
          throw ::exception(error_failed, "Detached command shell failed");
+      }
+      return;
+#endif
+
+      ::string strCommand;
+
+      ::string strCommandToDetach(scopedstrCommand);
+
+      if(pathLog.has_character())
+      {
+
+         strCommand.formatf("/bin/sh -c \"nohup %s > \\\"%s\\\"\"",
+                             strCommandToDetach.c_str(),
+                             pathLog.c_str());
+      }
+      else
+      {
+
+         strCommand.formatf("/bin/sh -c \"nohup %s\"", strCommandToDetach.c_str());
+
+      }
+
+
+      printf_line("Going to execute command: \"%s\"", strCommand.c_str());
+
+      auto log = std_inline_log();
+
+      log.set_timeout(5_min);
+
+      auto iExitCode = this->command_system(strCommand, log);
+
+      if(iExitCode != 0) {
+
+         throw ::exception(error_failed);
+
       }
 
    }

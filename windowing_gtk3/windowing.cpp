@@ -16,11 +16,62 @@
 #include "aura/platform/system.h"
 #include "aura/platform/session.h"
 #include "aura/user/user/user.h"
+#include "acme/platform/node.h"
 //#include "windowing_system_x11/display_lock.h"
 
 
 namespace windowing_gtk3
 {
+
+   void windowing::set_dark_mode(bool bDarkMode)
+   {
+      if (::windowing::get_eoperating_ambient() != ::windowing::e_operating_ambient_xfce)
+      {
+         ::windowing_posix::windowing::set_dark_mode(bDarkMode);
+         return;
+      }
+      ::string theme = node()->m_strTheme;
+      theme.trim();
+      if (theme.is_empty())
+      {
+         // Some GTK installations do not supply an Adwaita-dark theme name.
+         // Use explicit resource stylesheets so a missing theme cannot silently
+         // fall back to light while the setting still says "dark".
+         theme = bDarkMode ? "ca2-Adwaita-dark" : "ca2-Adwaita-light";
+         char *directory = g_build_filename(g_get_user_data_dir(), "themes", theme.c_str(), "gtk-3.0", nullptr);
+         if (g_mkdir_with_parents(directory, 0700) != 0)
+         {
+            g_free(directory);
+            throw ::exception(error_failed, "Could not create the XFCE appearance theme.");
+         }
+         const char *css = bDarkMode
+            ? "@import url(\"resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css\");\n"
+            : "@import url(\"resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained.css\");\n";
+         char *path = g_build_filename(directory, "gtk.css", nullptr);
+         bool written = g_file_set_contents(path, css, -1, nullptr);
+         g_free(path);
+         // Keep the result deterministic even in an app that prefers the dark
+         // variant of the selected theme.
+         path = g_build_filename(directory, "gtk-dark.css", nullptr);
+         written = g_file_set_contents(path, css, -1, nullptr) && written;
+         g_free(path);
+         g_free(directory);
+         if (!written)
+            throw ::exception(error_failed, "Could not write the XFCE appearance theme.");
+      }
+      const char *arguments[] = { "xfconf-query", "-c", "xsettings", "-p", "/Net/ThemeName",
+         "--create", "-t", "string", "-s", theme.c_str(), nullptr };
+      GError *error = nullptr;
+      int status = 0;
+      bool applied = g_spawn_sync(nullptr, const_cast<char **>(arguments), nullptr,
+         G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, nullptr, &status, &error);
+      if (applied)
+         applied = g_spawn_check_wait_status(status, &error);
+      g_clear_error(&error);
+      if (!applied)
+         throw ::exception(error_failed, "XFCE rejected the appearance setting.");
+      information() << "XFCE appearance applied: " << (bDarkMode ? "dark" : "light");
+   }
 
 
    windowing::windowing()
