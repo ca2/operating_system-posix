@@ -184,8 +184,33 @@ namespace gtk3
 
          windowing::~windowing()
          {
+            if (auto settings = gtk_settings_get_default())
+               g_signal_handlers_disconnect_by_data(settings, this);
+         }
 
+         bool windowing::dark_mode()
+         {
+            return m_bGtkDarkMode.load();
+         }
 
+         void windowing::fetch_dark_mode()
+         {
+            // Resolve the actual CSS colors, not merely a theme name that may
+            // be missing and silently fall back to GTK's default appearance.
+            GtkWidget *probe = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+            GdkRGBA rgba = {};
+            bool resolved = gtk_style_context_lookup_color(
+               gtk_widget_get_style_context(probe), "theme_bg_color", &rgba);
+            gtk_widget_destroy(probe);
+            if (!resolved)
+               return;
+            auto background = argb(255, (int)(rgba.red * 255.0),
+               (int)(rgba.green * 255.0), (int)(rgba.blue * 255.0));
+            bool dark = background.get_luminance() <= 0.5;
+            m_bGtkDarkMode.store(dark);
+            set_dark_mode_time(::time::now());
+            on_system_dark_mode_change(dark, background);
+            information() << "GTK appearance observed: " << (dark ? "dark" : "light");
          }
 
 
@@ -436,6 +461,17 @@ namespace gtk3
          {
 
             ::g::acme::windowing::windowing::_on_gtk_application_startup();
+
+            auto settings = gtk_settings_get_default();
+            auto changed = +[](GObject *, GParamSpec *, gpointer data)
+            {
+               auto windowing = static_cast<gtk3::acme::windowing::windowing *>(data);
+               // Run after GTK has finished applying the new stylesheet.
+               windowing->main_post([windowing]() { windowing->fetch_dark_mode(); });
+            };
+            g_signal_connect(settings, "notify::gtk-theme-name", G_CALLBACK(changed), this);
+            g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(changed), this);
+            main_post([this]() { fetch_dark_mode(); });
 
             ::information() << "gtk4::acme::windowing::windowing::_on_startup_gtk_application";
 
