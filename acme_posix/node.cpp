@@ -3210,7 +3210,7 @@ namespace acme_posix
 
    void node::detached_command(const ::scoped_string & scopedstrCommand, const ::file::path & pathLog)
    {
-#if defined(__SUNOS__)
+#if defined(__SUNOS__) || defined(NETBSD) || defined(__NetBSD__)
       // Keep the complete shell program in argv[2]. Re-parsing nested double
       // quotes through command_system used to leave nohup without a command.
       ::string strScript = "nohup " + ::string(scopedstrCommand);
