@@ -626,8 +626,6 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
          void windowing::run()
          {
 
-            m_papplication->prepare_application();
-
              //int main(void) {
                  //int jid = jail_getid(".");
                  //if (jid < 0) {
@@ -896,21 +894,24 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
 
             ::information() << "gtk4::acme::windowing::windowing::_on_startup_gtk_application";
 
-            if (m_callbackOnStartupGtkApplication)
-            {
-
-               m_callbackOnStartupGtkApplication();
-
-               return;
-
-            }
-
             if (!m_bIsGtkApplicationHeld)
             {
 
                m_bIsGtkApplicationHeld = true;
 
                g_application_hold(G_APPLICATION(m_pgtkapplication));
+
+            }
+
+            // Only the primary GTK instance emits startup. Starting the worker
+            // before g_application_run() lets a forwarded launch destroy its
+            // display while the worker is still creating the main window.
+            m_papplication->prepare_application();
+
+            if (m_callbackOnStartupGtkApplication)
+            {
+
+               m_callbackOnStartupGtkApplication();
 
             }
 

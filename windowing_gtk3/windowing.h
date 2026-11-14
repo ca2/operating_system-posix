@@ -54,6 +54,7 @@ namespace windowing_gtk3
       void initialize(::particle * pparticle) override;
 
       void initialize_windowing() override;
+      void set_dark_mode(bool bDarkMode) override;
 
 
       bool has_readily_gettable_absolute_coordinates() const override;

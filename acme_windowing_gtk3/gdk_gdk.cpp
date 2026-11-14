@@ -620,15 +620,61 @@ namespace gdk
    }
 
 
+static bool launch_browser_fallback(const char *uri) {
+    char *scheme = g_uri_parse_scheme(uri);
+    bool web_uri = scheme && (!g_ascii_strcasecmp(scheme, "http") ||
+                              !g_ascii_strcasecmp(scheme, "https"));
+    g_free(scheme);
+    if (!web_uri)
+        return false;
+
+    const char *browsers[] = { "firefox", "chromium", "chromium-browser", "google-chrome" };
+    for (const char *browser : browsers) {
+        char *executable = g_find_program_in_path(browser);
+        if (!executable)
+            continue;
+        char *argv[] = { executable, const_cast<char *>(uri), NULL };
+        GError *error = NULL;
+        gboolean launched = g_spawn_async(NULL, argv, NULL, G_SPAWN_DEFAULT,
+                                          NULL, NULL, NULL, &error);
+        g_free(executable);
+        if (launched) {
+            g_print("Browser fallback: started %s (page loading is not verified).\n", browser);
+            return true;
+        }
+        g_printerr("Browser fallback: could not start %s: %s\n", browser, error->message);
+        g_clear_error(&error);
+    }
+    g_printerr("Browser fallback: no supported browser could be started.\n");
+    return false;
+}
+
+static GAppInfo *default_app_for_file_or_uri(GFile *file, GError **error) {
+    char *scheme = g_file_get_uri_scheme(file);
+    if (scheme && g_ascii_strcasecmp(scheme, "file") != 0) {
+        GAppInfo *app = g_app_info_get_default_for_uri_scheme(scheme);
+        if (!app)
+            g_set_error(error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
+                        "No default application registered for URI scheme '%s'", scheme);
+        g_free(scheme);
+        return app;
+    }
+    g_free(scheme);
+    return g_file_query_default_handler(file, NULL, error);
+}
+
 void open_file_with_default_app(const_char_pointer filename) {
     GError * pgerror = NULL;
-    GFile *file = g_file_new_for_path(filename);
+    GFile *file = g_file_new_for_commandline_arg(filename);
     
     // Get the default application for the file type
-    GAppInfo *app_info = g_file_query_default_handler(file, NULL, &pgerror);
+    GAppInfo *app_info = default_app_for_file_or_uri(file, &pgerror);
     if (!app_info) {
         g_printerr("Could not find a default application to open '%s': %s\n", filename, pgerror->message);
         g_clear_error(&pgerror);
+        char *uri = g_file_get_uri(file);
+        launch_browser_fallback(uri);
+        g_free(uri);
         g_object_unref(file);
         return;
     }
@@ -637,12 +683,17 @@ void open_file_with_default_app(const_char_pointer filename) {
     
 
     // Launch the file with the default application
-    if (!g_app_info_launch(app_info, g_list_append(NULL, file), NULL, &pgerror)) {
+    GList *files = g_list_append(NULL, file);
+    if (!g_app_info_launch(app_info, files, NULL, &pgerror)) {
         g_printerr("Failed to open '%s': %s\n", filename, pgerror->message);
         g_clear_error(&pgerror);
+        char *uri = g_file_get_uri(file);
+        launch_browser_fallback(uri);
+        g_free(uri);
+    } else {
+        printf_line("gdk::open_file_with_default_app launch accepted");
     }
-
-    printf_line("gdk::open_file_with_default_app succeeded for : \"%s\"", filename);
+    g_list_free(files);
 
     // Clean up
     g_object_unref(app_info);
@@ -658,31 +709,38 @@ void on_file_opened(GObject *source_object, GAsyncResult *res, gpointer user_dat
     if (!success) {
         g_printerr("Failed to open file: %s\n", pgerror->message);
         g_clear_error(&pgerror);
+        launch_browser_fallback(static_cast<const char *>(user_data));
     } else {
-        g_print("File opened successfully.\n");
+        g_print("Default application accepted the URI launch.\n");
     }
+    g_free(user_data);
 }
 
 // Function to open the file asynchronously with the default application
 void open_file_with_default_app_async(const_char_pointer filename) {
     GError * pgerror = NULL;
-    GFile *file = g_file_new_for_path(filename);
+    GFile *file = g_file_new_for_commandline_arg(filename);
 
     // Get the default application for the file type
-    GAppInfo *app_info = g_file_query_default_handler(file, NULL, &pgerror);
+    GAppInfo *app_info = default_app_for_file_or_uri(file, &pgerror);
     if (!app_info) {
         g_printerr("Could not find a default application to open '%s': %s\n", filename, pgerror->message);
         g_clear_error(&pgerror);
+        char *uri = g_file_get_uri(file);
+        launch_browser_fallback(uri);
+        g_free(uri);
         g_object_unref(file);
         return;
     }
+
+    g_print("Launching URI with default application: %s\n", g_app_info_get_id(app_info));
 
     // Prepare a URI list_base with the file URI
     char *file_uri = g_file_get_uri(file);
     GList *uris = g_list_append(NULL, file_uri);
 
     // Launch the file asynchronously with the default application
-    g_app_info_launch_uris_async(app_info, uris, NULL,NULL,(GAsyncReadyCallback) &on_file_opened, NULL);
+    g_app_info_launch_uris_async(app_info, uris, NULL,NULL,(GAsyncReadyCallback) &on_file_opened, g_strdup(file_uri));
 
     // Clean up
     g_free(file_uri);
