@@ -686,8 +686,8 @@ namespace windowing_gtk3
    }
 
 
-
 } // namespace windowing
+
 
 
 
