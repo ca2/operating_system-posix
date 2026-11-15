@@ -2,6 +2,7 @@
 // Created by camilo on 2024-05-26 22:03 <3ThomasBorregaardSorensen!!
 //
 #include "platform.h"
+#include <memory>
 #include "display.h"
 #include "window.h"
 #include "windowing.h"
@@ -1079,13 +1080,63 @@ namespace gtk3
          }
 
 
+         ::string windowing::file_icon_path(const ::scoped_string & scopedstrPath, ::i32 iSize)
+         {
+            string strPath(scopedstrPath);
+            auto pstrIconPath = std::make_shared < string >();
+            user_send([strPath, iSize, pstrIconPath]()
+            {
+               auto pfile = g_file_new_for_path(strPath.c_str());
+               if (!pfile) return;
+               auto pinfo = g_file_query_info(pfile, G_FILE_ATTRIBUTE_STANDARD_ICON,
+                  G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
+               GIcon * picon = pinfo ? g_file_info_get_icon(pinfo) : nullptr;
+               GIcon * pfallback = nullptr;
+               if (!picon)
+               {
+                  // Virtual files have no local inode. Guess the type from their name.
+                  auto pszType = g_content_type_guess(strPath.c_str(), nullptr, 0, nullptr);
+                  pfallback = pszType ? g_content_type_get_icon(pszType) : nullptr;
+                  g_free(pszType);
+                  picon = pfallback;
+               }
+               if (picon && G_IS_FILE_ICON(picon))
+               {
+                  auto pszPath = g_file_get_path(g_file_icon_get_file(G_FILE_ICON(picon)));
+                  if (pszPath) *pstrIconPath = pszPath;
+                  g_free(pszPath);
+               }
+               else if (picon)
+               {
+                  auto ptheme = gtk_icon_theme_get_default();
+                  auto piconinfo = ptheme ? gtk_icon_theme_lookup_by_gicon(ptheme, picon,
+                     iSize, GTK_ICON_LOOKUP_FORCE_SIZE) : nullptr;
+                  if (piconinfo)
+                  {
+                     auto pszPath = gtk_icon_info_get_filename(piconinfo);
+                     if (pszPath) *pstrIconPath = pszPath;
+                     g_object_unref(piconinfo);
+                  }
+               }
+               if (pfallback) g_object_unref(pfallback);
+               if (pinfo) g_object_unref(pinfo);
+               g_object_unref(pfile);
+            });
+            return *pstrIconPath;
+         }
+
          void windowing::windowing_post_quit()
          {
 
-            main_post([this]()
+            if (!m_pgtkapplication) return;
+            auto application = G_APPLICATION(g_object_ref(m_pgtkapplication));
+            // Dispatch directly through GLib: the system node may already be
+            // released when the system task asks the native loop to stop.
+            user_post([application]()
             {
 
-               g_application_quit(G_APPLICATION(m_pgtkapplication));
+               g_application_quit(application);
+               g_object_unref(application);
 
             });
 
