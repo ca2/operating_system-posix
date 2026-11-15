@@ -1,5 +1,6 @@
 #include "platform.h"
 #include "watcher.h"
+#include "acme/parallelization/synchronous_lock.h"
 #include "acme/filesystem/watcher/watch.h"
 
 
@@ -146,12 +147,14 @@ namespace inotify
    bool watcher::file_watcher_step()
    {
 
-      for (auto & item: m_watchset)
+      ::file::file_watch_array watches;
       {
-
-         item.item()->file_watch_step();
-
+         synchronous_lock lock(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+         for (auto & item : m_watchset) watches.add(item.item());
       }
+      // Keep watches alive while polling, without blocking UI registration/removal.
+      for (auto & watch : watches) watch->file_watch_step();
+      if (watches.is_empty()) task_sleep(100_ms);
 
       return true;
 

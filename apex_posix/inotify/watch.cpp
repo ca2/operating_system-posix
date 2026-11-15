@@ -23,9 +23,11 @@ namespace inotify
    watch::watch()
    {
 
-      m_timevalTimeOut.tv_sec = 1;
+      m_iFd = -1;
+      m_watchdescriptor = -1;
+      m_timevalTimeOut.tv_sec = 0;
 
-      m_timevalTimeOut.tv_usec = 0;
+      m_timevalTimeOut.tv_usec = 100000;
 
       FD_ZERO(&m_fdset);
 
@@ -35,7 +37,11 @@ namespace inotify
    watch::~watch()
    {
 
-      inotify_rm_watch(m_iFd, m_watchdescriptor);
+      if (m_iFd >= 0)
+      {
+         if (m_watchdescriptor >= 0) inotify_rm_watch(m_iFd, m_watchdescriptor);
+         ::close(m_iFd);
+      }
 
    }
 
@@ -93,6 +99,7 @@ namespace inotify
 //
 //      pwatch->add_listener(plistener);
 
+      m_watchdescriptor = wd;
       id() = wd;
 
       m_pathFolder = pathFolder;

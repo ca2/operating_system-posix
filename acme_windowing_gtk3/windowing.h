@@ -6,6 +6,7 @@
 
 
 #include "acme_windowing_g/windowing.h"
+#include "acme/windowing/file_icon_provider.h"
 
 
 namespace gtk3
@@ -22,11 +23,13 @@ namespace gtk3
 
 	
       class CLASS_DECL_ACME_WINDOWING_GTK3 windowing :
-           virtual public ::g::acme::windowing::windowing
+           virtual public ::g::acme::windowing::windowing,
+           public ::acme::windowing::file_icon_provider
    {
    public:
 
       //::procedure             m_callbackOnActivateGtkApplication;
+      ::string file_icon_path(const ::scoped_string & path, ::i32 size) override;
       GtkApplication *        m_pgtkapplication;
       std::atomic<bool>       m_bGtkDarkMode{false};
 
