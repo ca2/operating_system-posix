@@ -18,22 +18,23 @@ if(DESKTOP_AMBIENT)
    set(XCINNAMON_DESKTOP FALSE)
    set(LABWC_DESKTOP FALSE)
    set(GTK_BASED_DESKTOP FALSE)
+   set(DESKTOP_ENVIRONMENT_NAME "")
    
 
-   if(DEFINED SYSROOT_XDG_CURRENT_DESKTOP)
-      set(CURRENT_DESKTOP_ENVIRONMENT ${SYSROOT_XDG_CURRENT_DESKTOP})
+   # Explicit overrides work for IDE/remote builds without a desktop environment.
+   # The CMake variable (-D__AMBIENT=xfce) takes priority.
+   if(DEFINED __AMBIENT AND NOT "${__AMBIENT}" STREQUAL "")
+      set(CURRENT_DESKTOP_ENVIRONMENT "${__AMBIENT}")
+   elseif(DEFINED ENV{__AMBIENT} AND NOT "$ENV{__AMBIENT}" STREQUAL "")
+      set(CURRENT_DESKTOP_ENVIRONMENT "$ENV{__AMBIENT}")
+   elseif(DEFINED SYSROOT_XDG_CURRENT_DESKTOP)
+      set(CURRENT_DESKTOP_ENVIRONMENT "${SYSROOT_XDG_CURRENT_DESKTOP}")
    else()
       set(CURRENT_DESKTOP_ENVIRONMENT $ENV{XDG_CURRENT_DESKTOP})
    endif()
 
-   # Non-Linux Unix desktops may leave XDG_CURRENT_DESKTOP empty.
-   # __SYSTEM_AMBIENT is supplied by ca2's shell environment.
-   if(NOT CURRENT_DESKTOP_ENVIRONMENT AND DEFINED ENV{__SYSTEM_AMBIENT})
-      set(CURRENT_DESKTOP_ENVIRONMENT "$ENV{__SYSTEM_AMBIENT}")
-   endif()
-
    message(STATUS "Desktop probe: system=${CMAKE_SYSTEM_NAME}; cross=${CMAKE_CROSSCOMPILING}")
-   message(STATUS "Desktop inputs: SYSROOT_XDG_CURRENT_DESKTOP='${SYSROOT_XDG_CURRENT_DESKTOP}'; XDG_CURRENT_DESKTOP='$ENV{XDG_CURRENT_DESKTOP}'; __SYSTEM_AMBIENT='$ENV{__SYSTEM_AMBIENT}'")
+   message(STATUS "Desktop inputs: SYSROOT_XDG_CURRENT_DESKTOP='${SYSROOT_XDG_CURRENT_DESKTOP}'; XDG_CURRENT_DESKTOP='$ENV{XDG_CURRENT_DESKTOP}'; __AMBIENT='${__AMBIENT}'; ENV{__AMBIENT}='$ENV{__AMBIENT}'")
    string(STRIP "${CURRENT_DESKTOP_ENVIRONMENT}" CURRENT_DESKTOP_ENVIRONMENT)
    string(TOLOWER "${CURRENT_DESKTOP_ENVIRONMENT}" _ca2_desktop_value)
    if(_ca2_desktop_value STREQUAL "unknown" OR _ca2_desktop_value STREQUAL "none")
@@ -137,10 +138,30 @@ if(DESKTOP_AMBIENT)
    endif()
 
 
-   message(STATUS "DESKTOP_ENVIRONMENT_NAME is ${DESKTOP_ENVIRONMENT_NAME}")
+   # Report the selected desktop and the backend version determined above.
+   # GTK's release is a toolkit version, not the desktop's own release.
+   if(LXQT_DESKTOP)
+      message(STATUS "Desktop ambient selection: desktop=${DESKTOP_ENVIRONMENT_NAME}; LXQt version=${LXQ_RELEASE}; ambient major=${LXQ_RELEASE_MAJOR}")
+   elseif(KDE_DESKTOP)
+      message(STATUS "Desktop ambient selection: desktop=${DESKTOP_ENVIRONMENT_NAME}; Plasma version=${PLASMA_RELEASE}; ambient major=${PLASMA_RELEASE_MAJOR}")
+   elseif(GTK_BASED_DESKTOP)
+      set(_ca2_desktop_label "${DESKTOP_ENVIRONMENT_NAME}")
+      if(LABWC_DESKTOP)
+         set(_ca2_desktop_label "labwc")
+      endif()
+      set(_ca2_gtk_release "${GTK_RELEASE}")
+      if("${_ca2_gtk_release}" STREQUAL "")
+         set(_ca2_gtk_release "not detected")
+      endif()
+      message(STATUS "Desktop ambient selection: desktop=${_ca2_desktop_label}; GTK version=${_ca2_gtk_release}; ambient major=${GTK_RELEASE_MAJOR}")
+   else()
+      message(STATUS "Desktop ambient selection: no supported desktop selected (input='${CURRENT_DESKTOP_ENVIRONMENT}')")
+   endif()
 
    # DESKTOP_AMBIENT are dependant just on linux kernel version and glib version?
 
+else()
+   message(STATUS "Desktop ambient selection: disabled (DESKTOP_AMBIENT is off)")
 endif()
 
 

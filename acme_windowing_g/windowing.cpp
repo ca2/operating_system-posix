@@ -194,7 +194,21 @@ namespace g
          void windowing::_on_gtk_application_activate()
          {
 
-            m_papplication->post_request(nullptr);
+            if (m_papplication->m_bPostedApplicationStartRequest)
+            {
+
+               auto prequest = create_newø<::request>();
+               prequest->m_ecommand = e_command_default_start;
+               prequest->m_strAppId = m_papplication->m_strAppId;
+               m_papplication->post_request(prequest);
+
+            }
+            else
+            {
+
+               m_papplication->post_request(nullptr);
+
+            }
 
          }
 

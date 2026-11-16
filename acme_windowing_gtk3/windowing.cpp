@@ -2,6 +2,7 @@
 // Created by camilo on 2024-05-26 22:03 <3ThomasBorregaardSorensen!!
 //
 #include "platform.h"
+#include <memory>
 #include "display.h"
 #include "window.h"
 #include "windowing.h"
@@ -184,8 +185,33 @@ namespace gtk3
 
          windowing::~windowing()
          {
+            if (auto settings = gtk_settings_get_default())
+               g_signal_handlers_disconnect_by_data(settings, this);
+         }
 
+         bool windowing::dark_mode()
+         {
+            return m_bGtkDarkMode.load();
+         }
 
+         void windowing::fetch_dark_mode()
+         {
+            // Resolve the actual CSS colors, not merely a theme name that may
+            // be missing and silently fall back to GTK's default appearance.
+            GtkWidget *probe = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+            GdkRGBA rgba = {};
+            bool resolved = gtk_style_context_lookup_color(
+               gtk_widget_get_style_context(probe), "theme_bg_color", &rgba);
+            gtk_widget_destroy(probe);
+            if (!resolved)
+               return;
+            auto background = argb(255, (int)(rgba.red * 255.0),
+               (int)(rgba.green * 255.0), (int)(rgba.blue * 255.0));
+            bool dark = background.get_luminance() <= 0.5;
+            m_bGtkDarkMode.store(dark);
+            set_dark_mode_time(::time::now());
+            on_system_dark_mode_change(dark, background);
+            information() << "GTK appearance observed: " << (dark ? "dark" : "light");
          }
 
 
@@ -436,6 +462,17 @@ namespace gtk3
          {
 
             ::g::acme::windowing::windowing::_on_gtk_application_startup();
+
+            auto settings = gtk_settings_get_default();
+            auto changed = +[](GObject *, GParamSpec *, gpointer data)
+            {
+               auto windowing = static_cast<gtk3::acme::windowing::windowing *>(data);
+               // Run after GTK has finished applying the new stylesheet.
+               windowing->main_post([windowing]() { windowing->fetch_dark_mode(); });
+            };
+            g_signal_connect(settings, "notify::gtk-theme-name", G_CALLBACK(changed), this);
+            g_signal_connect(settings, "notify::gtk-application-prefer-dark-theme", G_CALLBACK(changed), this);
+            main_post([this]() { fetch_dark_mode(); });
 
             ::information() << "gtk4::acme::windowing::windowing::_on_startup_gtk_application";
 
@@ -1043,13 +1080,63 @@ namespace gtk3
          }
 
 
+         ::string windowing::file_icon_path(const ::scoped_string & scopedstrPath, ::i32 iSize)
+         {
+            string strPath(scopedstrPath);
+            auto pstrIconPath = std::make_shared < string >();
+            user_send([strPath, iSize, pstrIconPath]()
+            {
+               auto pfile = g_file_new_for_path(strPath.c_str());
+               if (!pfile) return;
+               auto pinfo = g_file_query_info(pfile, G_FILE_ATTRIBUTE_STANDARD_ICON,
+                  G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
+               GIcon * picon = pinfo ? g_file_info_get_icon(pinfo) : nullptr;
+               GIcon * pfallback = nullptr;
+               if (!picon)
+               {
+                  // Virtual files have no local inode. Guess the type from their name.
+                  auto pszType = g_content_type_guess(strPath.c_str(), nullptr, 0, nullptr);
+                  pfallback = pszType ? g_content_type_get_icon(pszType) : nullptr;
+                  g_free(pszType);
+                  picon = pfallback;
+               }
+               if (picon && G_IS_FILE_ICON(picon))
+               {
+                  auto pszPath = g_file_get_path(g_file_icon_get_file(G_FILE_ICON(picon)));
+                  if (pszPath) *pstrIconPath = pszPath;
+                  g_free(pszPath);
+               }
+               else if (picon)
+               {
+                  auto ptheme = gtk_icon_theme_get_default();
+                  auto piconinfo = ptheme ? gtk_icon_theme_lookup_by_gicon(ptheme, picon,
+                     iSize, GTK_ICON_LOOKUP_FORCE_SIZE) : nullptr;
+                  if (piconinfo)
+                  {
+                     auto pszPath = gtk_icon_info_get_filename(piconinfo);
+                     if (pszPath) *pstrIconPath = pszPath;
+                     g_object_unref(piconinfo);
+                  }
+               }
+               if (pfallback) g_object_unref(pfallback);
+               if (pinfo) g_object_unref(pinfo);
+               g_object_unref(pfile);
+            });
+            return *pstrIconPath;
+         }
+
          void windowing::windowing_post_quit()
          {
 
-            main_post([this]()
+            if (!m_pgtkapplication) return;
+            auto application = G_APPLICATION(g_object_ref(m_pgtkapplication));
+            // Dispatch directly through GLib: the system node may already be
+            // released when the system task asks the native loop to stop.
+            user_post([application]()
             {
 
-               g_application_quit(G_APPLICATION(m_pgtkapplication));
+               g_application_quit(application);
+               g_object_unref(application);
 
             });
 

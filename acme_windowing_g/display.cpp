@@ -356,6 +356,54 @@ namespace g
 
          case ::windowing::e_operating_ambient_xfce:
          {
+            // xfdesktop may not have any backdrop properties until a user
+            // chooses a wallpaper. Discover the connected output in that case.
+            ::string_array_base properties;
+            properties.add_lines(node()->get_posix_shell_command_output(
+               "xfconf-query -c xfce4-desktop -l"));
+            ::string_array_base images;
+            for (auto property : properties)
+            {
+               property.trim();
+               if (property.begins("/backdrop/") &&
+                  (property.ends("/last-image") || property.ends("/image-path")))
+                  images.add(property);
+            }
+            if (images.is_empty())
+            {
+               ::string_array_base monitors;
+               monitors.add_lines(node()->get_posix_shell_command_output(
+                  "if command -v xrandr >/dev/null 2>&1; then xrandr --listmonitors; "
+                  "else /usr/X11R7/bin/xrandr --listmonitors; fi"));
+               ::collection::index index = 0;
+               for (auto monitor : monitors)
+               {
+                  monitor.trim();
+                  if (!monitor.contains(":") || monitor.begins("Monitors:"))
+                     continue;
+                  if (index++ != iMonitorIndex)
+                     continue;
+                  auto name = monitor.substr(monitor.rear_find_index(' ') + 1);
+                  images.add("/backdrop/screen0/monitor" + name + "/workspace0/last-image");
+               }
+            }
+            if (images.is_empty())
+               throw ::exception(error_failed, "No XFCE monitor found for the wallpaper.");
+            for (const auto &property : images)
+            {
+               const char *arguments[] = { "xfconf-query", "-c", "xfce4-desktop", "-p",
+                  property.c_str(), "--create", "-t", "string", "-s", strLocalImagePath.c_str(), nullptr };
+               GError *error = nullptr;
+               int status = 0;
+               bool applied = g_spawn_sync(nullptr, const_cast<char **>(arguments), nullptr,
+                  G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, nullptr, &status, &error);
+               if (applied)
+                  applied = g_spawn_check_wait_status(status, &error);
+               g_clear_error(&error);
+               if (!applied)
+                  throw ::exception(error_failed, "XFCE rejected the wallpaper setting.");
+            }
+            information() << "XFCE wallpaper applied: " << strLocalImagePath;
         //
         //
         //     ::string strOutput;

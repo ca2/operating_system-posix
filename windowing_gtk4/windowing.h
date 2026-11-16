@@ -51,6 +51,9 @@ namespace windowing_gtk4
       void destroy() override;
 
 
+      bool has_notify_icon_interface() override;
+
+
       bool has_readily_gettable_absolute_coordinates() const override;
 
 

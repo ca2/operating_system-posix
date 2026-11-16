@@ -2,9 +2,11 @@
 // Created by camilo on 2024-05-26 21:59 <3ThomasBorregaardSorensen!!
 //
 #pragma once
+#include <atomic>
 
 
 #include "acme_windowing_g/windowing.h"
+#include "acme/windowing/file_icon_provider.h"
 
 
 namespace gtk3
@@ -21,12 +23,15 @@ namespace gtk3
 
 	
       class CLASS_DECL_ACME_WINDOWING_GTK3 windowing :
-           virtual public ::g::acme::windowing::windowing
+           virtual public ::g::acme::windowing::windowing,
+           public ::acme::windowing::file_icon_provider
    {
    public:
 
       //::procedure             m_callbackOnActivateGtkApplication;
+      ::string file_icon_path(const ::scoped_string & path, ::i32 size) override;
       GtkApplication *        m_pgtkapplication;
+      std::atomic<bool>       m_bGtkDarkMode{false};
 
       map_base < GtkWindow * , ::pointer < ::gtk3::acme::windowing::window> > m_windowmap;
 
@@ -40,6 +45,8 @@ namespace gtk3
 
       //::e_status defer_initialize_windowing_system() override;
       void initialize_windowing() override;
+      bool dark_mode() override;
+      void fetch_dark_mode() override;
 
       //void windowing_application_main_loop() override;
          //void _on_activate_gtk_application() override;

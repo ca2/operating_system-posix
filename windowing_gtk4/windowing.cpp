@@ -60,6 +60,17 @@ namespace windowing_gtk4
    }
 
 
+   bool windowing::has_notify_icon_interface()
+   {
+
+      // GTK4 currently has no notification icon implementation registered.
+      // A desktop StatusNotifier host alone cannot make icons available to us.
+      // Keep this consistent with simple_frame_window::has_notify_icon().
+      return false;
+
+   }
+
+
    bool windowing::has_readily_gettable_absolute_coordinates() const
    {
 
