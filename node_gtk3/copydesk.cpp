@@ -9,6 +9,7 @@
 
 
 gboolean clipboard_callback(gpointer data);
+void clipboard_received_func(GtkClipboard *, GtkSelectionData *, gpointer);
 
 //#include <gtk/gtk.h>
 
@@ -95,6 +96,15 @@ namespace node_gtk3
    bool copydesk::_get_plain_text(string & str)
    {
 
+      if (::is_main_thread())
+      {
+         auto text = gtk_clipboard_wait_for_text(gtk_clipboard_get(GDK_SELECTION_CLIPBOARD));
+         if (!text) return false;
+         str = text;
+         g_free(text);
+         return true;
+      }
+
       ::pointer<clipboard_data>pdata = allocateø clipboard_data(this, e_clipboard_get_plain_text);
 
       __refdbg_add_referer
@@ -147,6 +157,10 @@ namespace node_gtk3
    bool copydesk::_has_filea()
    {
 
+      if (::is_main_thread())
+         return gtk_clipboard_wait_is_target_available(gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),
+            gdk_atom_intern("x-special/gnome-copied-files", false));
+
       ::pointer<clipboard_data>pdata = allocateø clipboard_data(this, e_clipboard_get_file_target_count);
 
       __refdbg_add_referer
@@ -173,6 +187,20 @@ namespace node_gtk3
 
    bool copydesk::_get_filea(::file::path_array_base & patha, enum_op & eop)
    {
+
+      if (::is_main_thread())
+      {
+         auto clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+         auto selection = gtk_clipboard_wait_for_contents(clipboard, gdk_atom_intern("x-special/gnome-copied-files", false));
+         if (!selection) return false;
+         ::pointer<clipboard_data> data = allocateø clipboard_data(this, e_clipboard_get_patha);
+         clipboard_received_func(clipboard, selection, data);
+         gtk_selection_data_free(selection);
+         if (data->m_eclipboard == e_clipboard_error) return false;
+         patha = data->m_patha;
+         eop = data->m_eop;
+         return true;
+      }
 
       ::pointer<clipboard_data>pdata = allocateø clipboard_data(this, e_clipboard_get_patha);
 
@@ -215,6 +243,14 @@ namespace node_gtk3
 
       pdata->m_patha = patha;
 
+      // A toolbar click can arrive on GTK's own thread. Do not queue an idle
+      // callback there and then wait for that same thread to execute it.
+      if (::is_main_thread())
+      {
+         clipboard_callback(pdata);
+         return pdata->m_eclipboard != e_clipboard_error;
+      }
+
       auto idle_source = g_idle_source_new();
 
       g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
@@ -230,7 +266,7 @@ namespace node_gtk3
 
       g_source_destroy(idle_source);
 
-      return true;
+      return pdata->m_eclipboard != e_clipboard_error;
 
    }
 
