@@ -906,14 +906,29 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
             // Only the primary GTK instance emits startup. Starting the worker
             // before g_application_run() lets a forwarded launch destroy its
             // display while the worker is still creating the main window.
-            m_papplication->prepare_application();
-
-            if (m_callbackOnStartupGtkApplication)
+            // Preparation sends synchronously to the application thread, which
+            // may already be waiting for GTK to create its window. Keep GTK's
+            // event loop free to service that request while preparation runs.
+            m_papplication->post([this]()
             {
 
-               m_callbackOnStartupGtkApplication();
+               m_papplication->prepare_application();
 
-            }
+               // Preserve preparation-before-startup ordering and run the
+               // continuation on the GTK thread, as before.
+               main_post([this]()
+               {
+
+                  if (m_callbackOnStartupGtkApplication)
+                  {
+
+                     m_callbackOnStartupGtkApplication();
+
+                  }
+
+               });
+
+            });
 
          }
 
