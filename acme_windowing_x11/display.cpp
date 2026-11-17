@@ -3505,6 +3505,16 @@ namespace x11
          }
 
 
+         display * display::get(::particle * pparticle)
+         {
+
+            throw todo;
+
+            return nullptr;
+
+         }
+
+
          void display::__message_loop()
          {
 

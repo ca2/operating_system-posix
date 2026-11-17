@@ -84,6 +84,9 @@ namespace x11
             virtual void __on_x11_open_display();
 
 
+            static display * get(::particle * pparticle);
+
+
             bool is_branch_current() const override;
 
 
