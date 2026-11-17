@@ -15,7 +15,7 @@
 #include "acme_windowing_x11/display_lock.h"
 #include <X11/extensions/Xrender.h>
 
-#include "operating_system.h"
+//#include "operating_system.h"
 
 
 extern ::app_core * g_pappcore;

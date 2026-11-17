@@ -2077,7 +2077,7 @@ Retrieved from: http://en.literateprograms.org/Hello_World_(C,_Cairo)?oldid=1038
                      if (!pbuffer->m_bXShm || !pbuffer->m_bXShmPutImagePending)
                      {
 
-                        if (m_papplication->m_gpu.m_bUseSwapChainWindow)
+                        if (m_papplication->use_gpu_swap_chain())
                         {
 
                            bool bChangedPosition = false;

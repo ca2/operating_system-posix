@@ -129,17 +129,17 @@ namespace windowing_x11
 
 
    //void window::create_window(::windowing::window * pimpl)
-   void window::create_window()
+   void window::create_window(enum_parallelization eparallelization)
    {
 
 
-      ::windowing::window::create_window();
+      ::windowing::window::create_window(eparallelization);
 
       return;
 
       ::e_status estatus = error_failed;
 
-      system()->acme_windowing()->send([this, &estatus]()
+      system()->acme_windowing()->user_call(eparallelization, [this, &estatus]()
                {
 
                   //bool bOk = true;
@@ -1044,7 +1044,7 @@ namespace windowing_x11
       if (puserinteraction->is_graphical())
       {
 
-         if (m_papplication->m_bGpu)
+         if (m_papplication->is_using_gpu())
          {
 
             auto pgpuapproach = m_papplication->get_gpu_approach();
@@ -1082,7 +1082,7 @@ namespace windowing_x11
 
       }
 
-      if (puserinteraction->is_graphical() && m_papplication->m_bGpu)
+      if (puserinteraction->is_graphical() && m_papplication->is_using_gpu())
       {
 
          informationf("windowing_x11::window::_create_window initialize GPU xid=0x%lx", Window());
@@ -5991,7 +5991,7 @@ auto pwindowing = system()->acme_windowing();
       //windowing()->windowing_post([this]()
       //
       //
-                               if(!application()->m_gpu.m_bUseSwapChainWindow)
+                               if(!application()->use_gpu_swap_chain())
                                {
                                   user_post([this]()
                                   {

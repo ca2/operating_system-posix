@@ -277,7 +277,7 @@ namespace x11
          }
 
 
-         void window::create_window()
+         void window::create_window(::enum_parallelization eparallelization)
          {
 
             printf("x11::acme::windowing::window::create_window begin window=%p\n", static_cast<void *>(this));
@@ -285,7 +285,7 @@ namespace x11
 
             get_display();
 
-            main_send([this]()
+            main_call(eparallelization, [this]()
             {
 
                printf("x11::acme::windowing::window::create_window main_send begin\n");

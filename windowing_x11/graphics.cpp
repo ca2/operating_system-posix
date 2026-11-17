@@ -464,7 +464,7 @@ namespace windowing_x11
 
       // The GPU frame has already been presented through EGL on this X11
       // window. XPutImage would write a second, unrelated frame to it.
-      if (m_papplication && m_papplication->m_gpu.m_bUseSwapChainWindow
+      if (m_papplication && m_papplication->use_gpu_swap_chain()
          && m_pwindow && m_pwindow->m_papexgpuwindowattachment)
       {
 
