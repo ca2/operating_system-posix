@@ -165,3 +165,12 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
 
 
 
+
+if(BUILD_TESTING)
+   add_executable(gtk3_input_dispatch_test test/input_dispatch.cpp)
+   target_compile_features(gtk3_input_dispatch_test PRIVATE cxx_std_20)
+   target_include_directories(gtk3_input_dispatch_test PRIVATE ${library_include_directories})
+   target_compile_options(gtk3_input_dispatch_test PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
+   target_link_libraries(gtk3_input_dispatch_test PRIVATE ${PROJECT_NAME} ${library_references} ${global_library_references} ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES})
+   add_test(NAME gtk3_input_dispatch_test COMMAND gtk3_input_dispatch_test)
+endif()

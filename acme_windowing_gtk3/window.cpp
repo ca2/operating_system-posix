@@ -377,6 +377,7 @@ return FALSE;
 
          window::window()
          {
+            m_pgtkwidget = nullptr;
             m_bGtkWindowMapped = false;
             //m_bLeftButtonDown = false;
             //m_psurface = nullptr;
@@ -1958,16 +1959,19 @@ m_phappeningLastMouseUp = pevent;
 
             __check_refdbg
 
-            if (GTK_IS_POPOVER(m_pgtkwidget))
+            auto widget = m_pgtkwidget;
+            m_pgtkwidget = nullptr;
+            m_bGtkWindowMapped = false;
+            if (GTK_IS_POPOVER(widget))
             {
 
-               gtk_widget_unparent(GTK_WIDGET(m_pgtkwidget));
+               gtk_widget_unparent(GTK_WIDGET(widget));
 
             }
-            else if (GTK_IS_WINDOW(m_pgtkwidget))
+            else if (GTK_IS_WINDOW(widget))
             {
 
-               gtk_widget_destroy(GTK_WIDGET(m_pgtkwidget));
+               gtk_widget_destroy(GTK_WIDGET(widget));
 
             }
 
@@ -2590,7 +2594,10 @@ m_phappeningLastMouseUp = pevent;
          void window::show_window(::user_interface::enum_show_window eshowwindow)
          {
 
-            main_send([this, eshowwindow]()
+            // Creation is asynchronous, including when display() is called by
+            // a GTK click callback (e.g. Details). Queue show behind creation.
+            ::pointer<window> hold = this;
+            main_post([this, hold, eshowwindow]()
             {
 
                if (!m_pgtkwidget)

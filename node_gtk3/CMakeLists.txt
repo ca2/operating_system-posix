@@ -159,3 +159,13 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE _${PROJECT_NAME}_project)
 
 
 
+
+if(BUILD_TESTING AND UNIX)
+   add_executable(gtk3_clipboard_main_thread_test test/clipboard_main_thread.cpp)
+   target_compile_features(gtk3_clipboard_main_thread_test PRIVATE cxx_std_20)
+   target_include_directories(gtk3_clipboard_main_thread_test PRIVATE ${library_include_directories})
+   target_compile_options(gtk3_clipboard_main_thread_test PRIVATE ${${PROJECT_NAME}_PKGCONFIG_CFLAGS})
+   target_link_libraries(gtk3_clipboard_main_thread_test PRIVATE ${PROJECT_NAME} ${library_references} ${global_library_references} ${${PROJECT_NAME}_PKGCONFIG_LIBRARIES} ${CMAKE_DL_LIBS})
+   add_test(NAME gtk3_clipboard_main_thread_test COMMAND gtk3_clipboard_main_thread_test)
+   set_tests_properties(gtk3_clipboard_main_thread_test PROPERTIES SKIP_RETURN_CODE 77 TIMEOUT 15)
+endif()

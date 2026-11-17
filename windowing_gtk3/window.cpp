@@ -1283,7 +1283,13 @@ namespace windowing_gtk3
 
          ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-         puserinteraction->send_message(pkey);
+         if (!puserinteraction) return;
+         // GTK must return to its main loop: key handlers can request clipboard
+         // data or show native windows, both of which need that same loop.
+         puserinteraction->user_post([puserinteraction, pkey]()
+         {
+            puserinteraction->message_handler(pkey);
+         });
 
          //         message_handler(pkey);
 
@@ -1314,7 +1320,13 @@ namespace windowing_gtk3
 
          ::cast<::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
-         puserinteraction->send_message(pkey);
+         if (!puserinteraction) return;
+         // GTK must return to its main loop: key handlers can request clipboard
+         // data or show native windows, both of which need that same loop.
+         puserinteraction->user_post([puserinteraction, pkey]()
+         {
+            puserinteraction->message_handler(pkey);
+         });
 
          //aaa_m_pacmeuserinteractionKeyboardFocus->send_message(pkey);
 
@@ -1420,7 +1432,12 @@ namespace windowing_gtk3
    void window::_on_text(const ::scoped_string& scopedstr)
    {
 
-      on_text(scopedstr, scopedstr.size());
+      ::cast<::user::interaction> target = m_pacmeuserinteraction;
+      if (!target) return;
+      ::pointer<window> window = this;
+      ::string text(scopedstr);
+      // IM text must stay ordered with the queued key-down/key-up events.
+      target->user_post([window, text]() { window->on_text(text.c_str(), text.size()); });
 
    }
 

@@ -100,7 +100,15 @@ void clipboard_received_func(GtkClipboard * clipboard, GtkSelectionData * select
 
    clipboard_data * pdata = (clipboard_data *) data;
 
-   string str = (const_char_pointer )gtk_selection_data_get_data(selection_data);
+   auto length = gtk_selection_data_get_length(selection_data);
+   auto bytes = gtk_selection_data_get_data(selection_data);
+   if (length <= 0 || !bytes)
+   {
+      pdata->m_eclipboard = e_clipboard_error;
+      pdata->m_happening.set_happening();
+      return;
+   }
+   string str((const_char_pointer)bytes, length);
 
    string_array_base stra;
 
@@ -258,6 +266,8 @@ gboolean clipboard_callback(gpointer data)
    }
    else if(pdata->m_eclipboard == e_clipboard_set_patha)
    {
+      // The caller may have timed out; retain the callback data through signalling.
+      ::pointer<clipboard_data> keepAlive = pdata;
 
       //_source = _fileCopy.Uri;
       //     _action = _radioMove.Active ? "cut" : "copy";
@@ -272,7 +282,11 @@ gboolean clipboard_callback(gpointer data)
       entrya[1].flags = 0;
       entrya[1].info = 1;
 
-      gtk_clipboard_set_with_data(clipboard, entrya, 2, &clipboard_get_func, &clipboard_clear_func, pdata);
+      if (!gtk_clipboard_set_with_data(clipboard, entrya, 2, &clipboard_get_func, &clipboard_clear_func, pdata))
+      {
+         pdata->m_eclipboard = e_clipboard_error;
+         ::release(pdata); // No clipboard ownership was established.
+      }
 
       pdata->m_happening.set_happening();
 
