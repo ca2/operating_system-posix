@@ -664,6 +664,47 @@ namespace q
          }
 
 
+         void window::show_window(::user_interface::enum_show_window eshowwindow)
+         {
+
+            ::pointer<window> hold = this;
+
+            main_post([this, hold, eshowwindow]()
+            {
+
+               if (!m_pqwidget)
+               {
+
+                  return;
+
+               }
+
+               if (eshowwindow == ::user_interface::e_show_window_hide)
+               {
+
+                  m_pqwidget->hide();
+
+               }
+               else if (eshowwindow == ::user_interface::e_show_window_minimize)
+               {
+
+                  m_pqwidget->showMinimized();
+
+               }
+               else
+               {
+
+                  m_pqwidget->show();
+                  m_pqwidget->raise();
+                  m_pqwidget->activateWindow();
+
+               }
+
+            });
+
+         }
+
+
          ::e_status window::_map_window()
          {
 

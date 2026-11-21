@@ -74,6 +74,8 @@ namespace q
 
             virtual void _show_window();
 
+            void show_window(::user_interface::enum_show_window eshowwindow) override;
+
             //bool _on_event(xcb_generic_event_t *pevent) override;
 
             virtual void _update_window();

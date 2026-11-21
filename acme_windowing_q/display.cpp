@@ -180,21 +180,37 @@ namespace q
          ::i32_size display::get_main_screen_size()
          {
 
+            if (::is_main_thread() && !QGuiApplication::instance())
+            {
 
-            QScreen *primaryScreen = QGuiApplication::primaryScreen();
-            if (!primaryScreen) {
-              // qWarning() << "No primary screen found!";
-               return {1920,1080};
+               return {1920, 1080};
+
             }
 
-            // Get the screen geometry
-            QRect screenGeometry = primaryScreen->geometry();
-            int width = screenGeometry.width();
-            int height = screenGeometry.height();
+            ::i32_size size(1920, 1080);
 
-            //qDebug() << "Primary screen size: " << width << "x" << height;
+            system()->acme_windowing()->user_send([&size]()
+            {
 
-            return {width, height};
+               QScreen * primaryScreen = QGuiApplication::primaryScreen();
+
+               if (!primaryScreen)
+               {
+
+                  // qWarning() << "No primary screen found!";
+                  return;
+
+               }
+
+               // Get the screen geometry
+               QRect screenGeometry = primaryScreen->geometry();
+
+               size.cx = screenGeometry.width();
+               size.cy = screenGeometry.height();
+
+            });
+
+            return size;
 
          }
 
