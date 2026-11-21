@@ -2500,6 +2500,16 @@ if(::is_set(puserinteraction))
    }
 
 
+   gboolean window::_on_window_close_request(GtkWindow * pgtkwindow)
+   {
+
+      _on_windowing_close_window();
+
+      return TRUE;
+
+   }
+
+
    void window::window_restore()
    {
 
