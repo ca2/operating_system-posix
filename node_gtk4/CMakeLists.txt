@@ -29,6 +29,8 @@ list(APPEND library_source
    node.h
    node_file_dialog.cpp
    node_folder_dialog.cpp
+   notify_icon.cpp
+   notify_icon.h
    windowing.cpp
    windowing.h
 )

@@ -256,6 +256,7 @@ virtual void _on_focus_changed(bool bHasFocus);
             virtual void _on_simple_key_message(::user::e_key ekey, ::user::enum_message emesssage);
             virtual void _on_text_composition(const ::scoped_string & scopedstrText);
             void _on_windowing_close_window() override;
+            virtual gboolean _on_window_close_request(GtkWindow * pgtkwindow);
 
 
             virtual void _on_geometry_change();
