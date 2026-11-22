@@ -221,6 +221,16 @@ static void on_im_update(
          }
 
 
+         static gboolean on_window_close_request(GtkWindow* pgtkwindow, gpointer p)
+         {
+
+            auto pwindow = (::gtk4::acme::windowing::window*)p;
+
+            return pwindow->_on_window_close_request(pgtkwindow);
+
+         }
+
+
          void on_window_sizing(GObject* pgobject, GParamSpec* pspec, gpointer p)
          {
 
@@ -1152,6 +1162,8 @@ g_signal_connect(
                g_signal_connect(GTK_WINDOW(m_pgtkwidget), "notify::default-width", G_CALLBACK(on_window_sizing), this);
                information() << "Going to connect notify::default-height";
                g_signal_connect(GTK_WINDOW(m_pgtkwidget), "notify::default-height", G_CALLBACK(on_window_sizing), this);
+               information() << "Going to connect close-request";
+               g_signal_connect(GTK_WINDOW(m_pgtkwidget), "close-request", G_CALLBACK(on_window_close_request), this);
 
             }
 
@@ -2335,6 +2347,14 @@ if (m_pgtkeventcontrollerKey)
    void window::_on_windowing_close_window()
    {
 
+
+   }
+
+
+   gboolean window::_on_window_close_request(GtkWindow * pgtkwindow)
+   {
+
+      return FALSE;
 
    }
 

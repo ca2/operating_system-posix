@@ -66,13 +66,15 @@ namespace q
 
             void on_initialize_particle() override;
 
-            void create_window() override;
+            void create_window(::enum_parallelization eparallelization) override;
 
             void _create_window() override;
 
             void destroy() override;
 
             virtual void _show_window();
+
+            void show_window(::user_interface::enum_show_window eshowwindow) override;
 
             //bool _on_event(xcb_generic_event_t *pevent) override;
 

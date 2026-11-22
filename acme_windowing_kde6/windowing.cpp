@@ -13,6 +13,17 @@
 #include "acme/platform/system.h"
 #include <QImage>
 #include <QByteArray>
+#include <QApplication>
+#include <QDir>
+#include <QFileInfo>
+#include <QIcon>
+#include <QMimeDatabase>
+#include <QPalette>
+#include <QPixmap>
+#include <QUrl>
+#include <KFileItem>
+#include <KIconLoader>
+#include <unistd.h>
 //#include <X11/Xatom.h>
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
@@ -528,6 +539,228 @@ namespace kde6
 //            return false;
 //
 //         }
+
+
+         ::string windowing::file_icon_path(const ::scoped_string & scopedstrPath, ::i32 iSize)
+         {
+
+            if (scopedstrPath.is_empty())
+            {
+
+               return {};
+
+            }
+
+            if (iSize <= 0)
+            {
+
+               iSize = 48;
+
+            }
+
+            ::string strPath(scopedstrPath);
+            ::string strIconPath;
+
+            user_send([&strPath, iSize, &strIconPath]()
+            {
+
+               QString qPath = QString::fromUtf8(strPath.c_str(), (qsizetype)strPath.size());
+
+               QString iconName;
+
+               QFileInfo info(qPath);
+
+               if (info.exists())
+               {
+
+                  KFileItem item(QUrl::fromLocalFile(qPath), KFileItem::NormalMimeTypeDetermination);
+
+                  iconName = item.iconName();
+
+                  if (iconName.isEmpty())
+                  {
+
+                     iconName = info.isDir() ? QStringLiteral("folder") : QStringLiteral("unknown");
+
+                  }
+
+               }
+               else
+               {
+
+                  QMimeDatabase mimeDb;
+
+                  QMimeType mime = mimeDb.mimeTypeForFile(qPath, QMimeDatabase::MatchExtension);
+
+                  if (mime.isValid())
+                  {
+
+                     iconName = mime.iconName();
+
+                     if (iconName.isEmpty())
+                     {
+
+                        iconName = mime.genericIconName();
+
+                     }
+
+                  }
+
+                  if (iconName.isEmpty())
+                  {
+
+                     iconName = QStringLiteral("unknown");
+
+                  }
+
+               }
+
+               auto * ploader = KIconLoader::global();
+
+               QString rawPath = ploader ? ploader->iconPath(iconName, -iSize, true) : QString();
+
+               if (!rawPath.isEmpty()
+                  && rawPath.endsWith(QStringLiteral(".png"), Qt::CaseInsensitive)
+                  && QFileInfo::exists(rawPath))
+               {
+
+                  QByteArray utf8 = rawPath.toUtf8();
+
+                  strIconPath.assign(utf8.constData(), utf8.size());
+
+                  return;
+
+               }
+
+               // Render SVG / themed icons through KDE's icon loader so Breeze
+               // CSS color schemes and active palette colors are applied cleanly,
+               // and cache the resulting PNG per theme/palette/name/size.
+               QString themeTag = QIcon::themeName();
+
+               if (themeTag.isEmpty())
+               {
+
+                  themeTag = QStringLiteral("default");
+
+               }
+
+               QPalette pal = QApplication::palette();
+
+               QString paletteTag = pal.color(QPalette::WindowText).name().mid(1)
+                  + QLatin1Char('_')
+                  + pal.color(QPalette::Highlight).name().mid(1);
+
+               QString safeName = iconName;
+
+               for (QChar & ch : safeName)
+               {
+
+                  if (!ch.isLetterOrNumber() && ch != QLatin1Char('-') && ch != QLatin1Char('_') && ch != QLatin1Char('.'))
+                  {
+
+                     ch = QLatin1Char('_');
+
+                  }
+
+               }
+
+               QString cacheDirPath = QDir::tempPath()
+                  + QStringLiteral("/ca2-kde6-icons-")
+                  + QString::number((qulonglong)::getuid())
+                  + QLatin1Char('/')
+                  + themeTag
+                  + QLatin1Char('_')
+                  + paletteTag;
+
+               QDir().mkpath(cacheDirPath);
+
+               QString cachePath = cacheDirPath
+                  + QLatin1Char('/')
+                  + safeName
+                  + QLatin1Char('_')
+                  + QString::number(iSize)
+                  + QStringLiteral(".png");
+
+               if (!QFileInfo::exists(cachePath))
+               {
+
+                  QPixmap pixmap;
+
+                  if (ploader)
+                  {
+
+                     pixmap = ploader->loadIcon(iconName, KIconLoader::NoGroup, iSize,
+                        KIconLoader::DefaultState, QStringList(), nullptr, true);
+
+                  }
+
+                  if (pixmap.isNull())
+                  {
+
+                     QIcon icon = QIcon::fromTheme(iconName);
+
+                     if (!icon.isNull())
+                     {
+
+                        pixmap = icon.pixmap(iSize, iSize);
+
+                     }
+
+                  }
+
+                  if (pixmap.isNull())
+                  {
+
+                     if (!rawPath.isEmpty() && QFileInfo::exists(rawPath))
+                     {
+
+                        QByteArray utf8 = rawPath.toUtf8();
+
+                        strIconPath.assign(utf8.constData(), utf8.size());
+
+                     }
+
+                     return;
+
+                  }
+
+                  QString tmpPath = cachePath + QStringLiteral(".tmp.") + QString::number((qulonglong)::getpid());
+
+                  if (pixmap.save(tmpPath, "PNG"))
+                  {
+
+                     if (!QFile::rename(tmpPath, cachePath))
+                     {
+
+                        QFile::remove(tmpPath);
+
+                        if (!QFileInfo::exists(cachePath))
+                        {
+
+                           pixmap.save(cachePath, "PNG");
+
+                        }
+
+                     }
+
+                  }
+
+               }
+
+               if (QFileInfo::exists(cachePath))
+               {
+
+                  QByteArray utf8 = cachePath.toUtf8();
+
+                  strIconPath.assign(utf8.constData(), utf8.size());
+
+               }
+
+            });
+
+            return strIconPath;
+
+         }
 
 
       } // namespace windowing

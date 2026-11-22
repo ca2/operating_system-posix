@@ -1,6 +1,7 @@
 #include "platform.h"
 #include "copydesk.h"
 #include "display.h"
+#include "notify_icon.h"
 //#include "desktop_environment.h"
 //#include "os_context.h"
 
@@ -46,7 +47,7 @@ __FACTORY_EXPORT void node_gtk4_factory(::factory::factory * pfactory)
 //
 //   pfactory->add_factory_item < ::node_gtk4::monitor, ::windowing::monitor > ();
    pfactory->add_factory_item < ::node_gtk4::copydesk, ::user::copydesk > ();
-//   pfactory->add_factory_item < ::node_gtk4::notify_icon, ::user::notify_icon > ();
+   pfactory->add_factory_item < ::node_gtk4::notify_icon, ::user::notify_icon > ();
 //   pfactory->add_factory_item < ::node_gtk4::appindicator, ::aura::posix::appindicator >();
 //
 //   pfactory->add_factory_item < ::node_gtk4::windowing, ::windowing::windowing >();
