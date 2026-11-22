@@ -9,6 +9,7 @@
 // Merged window(1) by camilo on 2024-09-26 18:23 <3ThomasBorregaardSorensen!!
 //
 #include "platform.h"
+#include "aura/graphics/graphics/frame_trace.h"
 #include "display.h"
 #include "window.h"
 #include "windowing.h"
@@ -143,10 +144,12 @@ static void on_im_update(
 
             auto pwindow = (::gtk4::acme::windowing::window*)p;
 
-informationf(
-   "GtkDrawingAreaDrawFunc width, height %d, %d",
-   width,
-   height);
+#if AURA_FRAME_TRACE_LEVEL >= 3
+            informationf(
+               "GtkDrawingAreaDrawFunc width, height %d, %d",
+               width,
+               height);
+#endif
             pwindow->_on_cairo_draw(GTK_WIDGET(drawing_area), cr, {width, height});
 
          }
