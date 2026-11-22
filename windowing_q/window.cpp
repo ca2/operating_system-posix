@@ -3119,73 +3119,13 @@ namespace windowing_q
    {
       windowing_output_debug_string("::window::is_window_visible 1");
 
-      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
-
-      //      display_lock displaylock(x11_display()->__x11_display());
-      //
-      //      if (x11_display()->is_null())
-      //      {
-      //
-      //         windowing_output_debug_string("::window::is_window_visible 1.1");
-      //
-      //         return false;
-      //
-      //      }
-      //
-      //      return _is_window_visible_unlocked();
-
-
-      return true;
-      //      XWindowAttributes attr;
-      //
-      //      if (!XGetWindowAttributes(Display(), Window(), &attr))
-      //      {
-      //
-      //         windowing_output_debug_string("::window::is_window_visible 1.2");
-      //
-      //         return false;
-      //
-      //      }
-      //
-      //      windowing_output_debug_string("::window::is_window_visible 2");
-      //
-      //      return attr.map_state == IsViewable;
+      return m_bVisible.load(std::memory_order_relaxed);
    }
 
 
    bool window::_is_window_visible_unlocked()
    {
-      //      windowing_output_debug_string("::window::is_window_visible 1");
-      //
-      //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
-      //
-      //      display_lock displaylock(x11_display()->__x11_display());
-      //
-      //      if (x11_display()->is_null())
-      //      {
-      //
-      //         windowing_output_debug_string("::window::is_window_visible 1.1");
-      //
-      //         return false;
-      //
-      //      }
-
-      //      XWindowAttributes attr;
-      //
-      //      if (!XGetWindowAttributes(Display(), Window(), &attr))
-      //      {
-      //
-      //         windowing_output_debug_string("::window::is_window_visible 1.2");
-      //
-      //         return false;
-      //
-      //      }
-      //
-      //      windowing_output_debug_string("::window::is_window_visible 2");
-      //
-      //      return attr.map_state == IsViewable;
-
-      return true;
+      return m_bVisible.load(std::memory_order_relaxed);
    }
 
 

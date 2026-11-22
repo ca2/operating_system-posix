@@ -683,6 +683,7 @@ namespace q
                {
 
                   m_pqwidget->hide();
+                  m_bVisible.store(false, std::memory_order_relaxed);
 
                }
                else if (eshowwindow == ::user_interface::e_show_window_minimize)
@@ -695,6 +696,7 @@ namespace q
                {
 
                   m_pqwidget->show();
+                  m_bVisible.store(true, std::memory_order_relaxed);
                   m_pqwidget->raise();
                   m_pqwidget->activateWindow();
 
@@ -709,6 +711,7 @@ namespace q
          {
 
             m_pqwidget->show();
+            m_bVisible.store(true, std::memory_order_relaxed);
 
             return ::success;
 
@@ -721,6 +724,7 @@ namespace q
             //auto estatus = m_pdisplay->_unmap_window(m_window);
 
             m_pqwidget->hide();
+            m_bVisible.store(false, std::memory_order_relaxed);
 
             return ::success;
 
@@ -1195,6 +1199,8 @@ namespace q
 
             m_pqwidget = nullptr;
 
+            m_bVisible.store(false, std::memory_order_relaxed);
+
             //XCloseDisplay(m_pdisplay->m_pdisplay);
 
             m_happeningEnd.set_happening();
@@ -1246,6 +1252,14 @@ namespace q
          {
 
             m_pqwidget->resize(size.cx, size.cy);
+
+         }
+
+
+         void window::_on_show(bool bShow)
+         {
+
+            m_bVisible.store(bShow, std::memory_order_relaxed);
 
          }
 
