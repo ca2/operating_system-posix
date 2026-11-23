@@ -9,6 +9,7 @@
 // Merged window(1) by camilo on 2024-09-26 18:23 <3ThomasBorregaardSorensen!!
 //
 #include "platform.h"
+#include "aura/graphics/graphics/frame_trace.h"
 #include "display.h"
 #include "window.h"
 #include "windowing.h"
@@ -143,10 +144,12 @@ static void on_im_update(
 
             auto pwindow = (::gtk4::acme::windowing::window*)p;
 
-informationf(
-   "GtkDrawingAreaDrawFunc width, height %d, %d",
-   width,
-   height);
+#if AURA_FRAME_TRACE_LEVEL >= 3
+            informationf(
+               "GtkDrawingAreaDrawFunc width, height %d, %d",
+               width,
+               height);
+#endif
             pwindow->_on_cairo_draw(GTK_WIDGET(drawing_area), cr, {width, height});
 
          }
@@ -214,6 +217,16 @@ informationf(
             auto pwindow = (::gtk4::acme::windowing::window*)p;
 
             pwindow->_on_window_visibility_changed(object, pspec);
+
+         }
+
+
+         static gboolean on_window_close_request(GtkWindow* pgtkwindow, gpointer p)
+         {
+
+            auto pwindow = (::gtk4::acme::windowing::window*)p;
+
+            return pwindow->_on_window_close_request(pgtkwindow);
 
          }
 
@@ -1149,6 +1162,8 @@ g_signal_connect(
                g_signal_connect(GTK_WINDOW(m_pgtkwidget), "notify::default-width", G_CALLBACK(on_window_sizing), this);
                information() << "Going to connect notify::default-height";
                g_signal_connect(GTK_WINDOW(m_pgtkwidget), "notify::default-height", G_CALLBACK(on_window_sizing), this);
+               information() << "Going to connect close-request";
+               g_signal_connect(GTK_WINDOW(m_pgtkwidget), "close-request", G_CALLBACK(on_window_close_request), this);
 
             }
 
@@ -2332,6 +2347,14 @@ if (m_pgtkeventcontrollerKey)
    void window::_on_windowing_close_window()
    {
 
+
+   }
+
+
+   gboolean window::_on_window_close_request(GtkWindow * pgtkwindow)
+   {
+
+      return FALSE;
 
    }
 

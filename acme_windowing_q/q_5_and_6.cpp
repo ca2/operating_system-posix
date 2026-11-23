@@ -109,7 +109,8 @@ namespace q
          case Qt::Key_Enter: // 0x01000005	Typically located on the keypad.
             return ::user::e_key_return;
          // case Qt::Key_Insert: // 0x01000006
-         // case Qt::Key_Delete: // 0x01000007
+         case Qt::Key_Delete: // 0x01000007
+            return ::user::e_key_delete;
          // case Qt::Key_Pause: // 0x01000008	The Pause/Break key (Note: Not related to pausing media)
          // case Qt::Key_Print: // 0x01000009
          // case Qt::Key_SysReq: // 0x0100000a
@@ -118,7 +119,7 @@ namespace q
          case Qt::Key_Home: // 0x01000010
             return ::user::e_key_home;
          case Qt::Key_End: // 0x01000011
-            return ::user::e_key_home;
+            return ::user::e_key_end;
          case Qt::Key_Left: // 0x01000012
             return ::user::e_key_left;
          case Qt::Key_Up: // 0x01000013

@@ -57,6 +57,8 @@ if(${HAS_Q6})
       Qt6::Core
       Qt6::Widgets
       KF6::ConfigCore
+      KF6::KIOCore
+      KF6::IconThemes
    )
 
 elseif(${HAS_Q5})

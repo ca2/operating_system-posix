@@ -1081,10 +1081,10 @@ namespace windowing_q
 
 
    //void window::create_window(::windowing::window * pimpl)
-   void window::create_window(::enum_parallelization eparallelization)
+   void window::create_window()
    {
 
-      ::windowing::window::create_window(eparallelization);
+      ::windowing::window::create_window();
 
       // main_send([this]()
       // {
@@ -1253,7 +1253,7 @@ namespace windowing_q
 
       ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
 
-      if (bOk && puserinteraction && puserinteraction->is_graphical() && m_papplication->is_user_service())
+      if (bOk && puserinteraction && puserinteraction->is_graphical() && m_papplication->is_using_gpu())
       {
 
          auto pgpuapproach = m_papplication->get_gpu_approach();

@@ -311,6 +311,7 @@ if(${DESKTOP_AMBIENT})
       set(default_windowing "windowing_kde5")
       elseif(${HAS_KDE6})
 
+      set(default_accessibility accessibility_kde6)
       set(default_operating_ambient operating_ambient_kde6)
       list(APPEND app_common_dependencies operating_ambient_kde6)
       add_compile_definitions(DESKTOP_ENVIRONMENT_KDE=6)
@@ -537,6 +538,7 @@ if(${DESKTOP_AMBIENT})
       ${default_windowing}
       ${default_node}
       ${default_operating_ambient}
+      ${default_accessibility}
    )
 
 

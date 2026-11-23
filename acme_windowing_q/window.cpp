@@ -398,11 +398,65 @@ namespace q
 
             int cy = m_sizeWindow.cy;
 
+            if (cx <= 0 || cy <= 0)
+            {
+
+               auto r = pacmeuserinteraction->get_rectangle();
+
+               if (r.width() > 0 && r.height() > 0)
+               {
+
+                  x = r.left;
+
+                  y = r.top;
+
+                  cx = r.width();
+
+                  cy = r.height();
+
+                  m_pointWindow = {x, y};
+
+                  m_sizeWindow = {cx, cy};
+
+               }
+
+            }
+
             auto pmainwindow = ___new QCustomTopWindow(this);
 
             m_pqwidget = pmainwindow;
 
-            pmainwindow->setWindowFlags(Qt::FramelessWindowHint | Qt::CustomizeWindowHint); // No window decorations
+            QWidget * pqwidgetOwner = nullptr;
+
+            if (pacmeuserinteraction->m_pacmeuserinteractionOwner)
+            {
+
+               auto pownerWindow = dynamic_cast<::q::acme::windowing::window *>(
+                  pacmeuserinteraction->m_pacmeuserinteractionOwner->acme_windowing_window());
+
+               if (pownerWindow && pownerWindow->m_pqwidget)
+               {
+
+                  pqwidgetOwner = pownerWindow->m_pqwidget;
+
+               }
+
+            }
+
+            if (pqwidgetOwner)
+            {
+
+               pmainwindow->setParent(
+                  pqwidgetOwner,
+                  Qt::ToolTip | Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint);
+
+            }
+            else
+            {
+
+               pmainwindow->setWindowFlags(Qt::FramelessWindowHint | Qt::CustomizeWindowHint); // No window decorations
+
+            }
             pmainwindow->setAttribute(Qt::WA_TranslucentBackground); // Translucent background
             pmainwindow->setAttribute(Qt::WA_NoSystemBackground, true);
             pmainwindow->setAttribute(Qt::WA_OpaquePaintEvent, false);
@@ -416,6 +470,15 @@ namespace q
 
             //on_create_window();
             m_pacmeuserinteraction->message_call(::user::e_message_create);
+
+            ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+
+            if (pelemental && cx > 0 && cy > 0)
+            {
+
+               pelemental->on_window_size({cx, cy});
+
+            }
 
          }
 
@@ -664,10 +727,54 @@ namespace q
          }
 
 
+         void window::show_window(::user_interface::enum_show_window eshowwindow)
+         {
+
+            ::pointer<window> hold = this;
+
+            main_post([this, hold, eshowwindow]()
+            {
+
+               if (!m_pqwidget)
+               {
+
+                  return;
+
+               }
+
+               if (eshowwindow == ::user_interface::e_show_window_hide)
+               {
+
+                  m_pqwidget->hide();
+                  m_bVisible.store(false, std::memory_order_relaxed);
+
+               }
+               else if (eshowwindow == ::user_interface::e_show_window_minimize)
+               {
+
+                  m_pqwidget->showMinimized();
+
+               }
+               else
+               {
+
+                  m_pqwidget->show();
+                  m_bVisible.store(true, std::memory_order_relaxed);
+                  m_pqwidget->raise();
+                  m_pqwidget->activateWindow();
+
+               }
+
+            });
+
+         }
+
+
          ::e_status window::_map_window()
          {
 
             m_pqwidget->show();
+            m_bVisible.store(true, std::memory_order_relaxed);
 
             return ::success;
 
@@ -680,6 +787,7 @@ namespace q
             //auto estatus = m_pdisplay->_unmap_window(m_window);
 
             m_pqwidget->hide();
+            m_bVisible.store(false, std::memory_order_relaxed);
 
             return ::success;
 
@@ -1024,6 +1132,15 @@ namespace q
          void window::_update_window()
          {
 
+            if (m_pqwidget)
+            {
+
+               m_pqwidget->update();
+
+               return;
+
+            }
+
             ::cast<::micro::elemental> pelemental = m_pacmeuserinteraction;
 
             if (m_pnanographicscontext && pelemental)
@@ -1031,7 +1148,7 @@ namespace q
 
                m_pnanographicscontext->on_begin_draw();
 
-               pelemental->on_draw(m_pnanographicscontext);
+               pelemental->_on_draw(m_pnanographicscontext);
 
                m_pnanographicscontext->on_end_draw();
 
@@ -1137,22 +1254,74 @@ namespace q
          //}
 
 
+         void window::destroy_window()
+         {
+
+            if (m_pqwidget)
+            {
+
+               auto * pqwidget = m_pqwidget;
+
+               m_pqwidget = nullptr;
+
+               pqwidget->hide();
+
+               const QObjectList children = pqwidget->children();
+
+               for (QObject * pchild : children)
+               {
+
+                  if (auto * pchildWidget = qobject_cast<QWidget *>(pchild))
+                  {
+
+                     pchildWidget->setParent(nullptr, pchildWidget->windowFlags());
+
+                  }
+
+               }
+
+               pqwidget->close();
+
+               pqwidget->deleteLater();
+
+            }
+
+            ::acme::windowing::window::destroy_window();
+
+         }
+
+
          void window::destroy()
          {
 
-            _unmap_window();
+            if (m_pqwidget)
+            {
 
-            //m_pdisplay->_destroy_window(m_window);
+               _unmap_window();
 
-            //m_pdisplay->erase_listener(this);
+               // Detach any Qt child popup widgets so deleting this widget cannot double-free them.
+               const QObjectList children = m_pqwidget->children();
+               for (QObject * pchild : children)
+               {
 
-            //m_pdisplay->erase_window(this);
+                  if (auto * pchildWidget = qobject_cast<QWidget *>(pchild))
+                  {
 
-            m_pqwidget->close();
+                     pchildWidget->setParent(nullptr, pchildWidget->windowFlags());
 
-            delete m_pqwidget;
+                  }
 
-            m_pqwidget = nullptr;
+               }
+
+               m_pqwidget->close();
+
+               delete m_pqwidget;
+
+               m_pqwidget = nullptr;
+
+            }
+
+            m_bVisible.store(false, std::memory_order_relaxed);
 
             //XCloseDisplay(m_pdisplay->m_pdisplay);
 
@@ -1196,6 +1365,15 @@ namespace q
          void window::set_position_unlocked(const ::i32_point & point)
          {
 
+            if (!m_pqwidget)
+            {
+
+               return;
+
+            }
+
+            m_pointWindow = point;
+
             m_pqwidget->move(point.x, point.y);
 
          }
@@ -1204,7 +1382,35 @@ namespace q
          void window::set_size_unlocked(const ::i32_size & size)
          {
 
-            m_pqwidget->resize(size.cx, size.cy);
+            if (!m_pqwidget)
+            {
+
+               return;
+
+            }
+
+            m_sizeWindow = size;
+
+            if (m_pacmeuserinteraction && m_pacmeuserinteraction->is_true("fixed_size"))
+            {
+
+               m_pqwidget->setFixedSize(size.cx, size.cy);
+
+            }
+            else
+            {
+
+               m_pqwidget->resize(size.cx, size.cy);
+
+            }
+
+         }
+
+
+         void window::_on_show(bool bShow)
+         {
+
+            m_bVisible.store(bShow, std::memory_order_relaxed);
 
          }
 
@@ -1930,10 +2136,10 @@ namespace q
 
             ::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
 
-            if(pelemental)
+            if(pelemental && cx > 0 && cy > 0)
             {
 
-               pelemental->on_size();
+               pelemental->on_window_size({cx, cy});
 
             }
 

@@ -24,6 +24,8 @@
 //#include <X11/Xutil.h>
 #include <QTimer>
 
+#define DEEP_LOG_HERE 0
+
 
 namespace q
 {
@@ -204,17 +206,7 @@ namespace q
 
             }
 
-            if (!papplication)
-            {
-
-               information() << "[qt.dispatch] synchronous call rejected because QApplication does not exist; windowing="
-                  << static_cast<const void *>(this);
-
-               throw ::exception(error_not_ready, "Qt windowing application does not exist");
-
-            }
-
-            if (QThread::currentThread() == papplication->thread())
+            if (papplication && QThread::currentThread() == papplication->thread())
             {
 
                procedure();
@@ -223,7 +215,17 @@ namespace q
 
             }
 
-            if (!bWindowingReady)
+            if (!papplication && ::is_main_thread())
+            {
+
+               information() << "[qt.dispatch] synchronous call rejected on main thread because QApplication does not exist; windowing="
+                  << static_cast<const void *>(this);
+
+               throw ::exception(error_not_ready, "Qt windowing application does not exist");
+
+            }
+
+            if (!bWindowingReady || !papplication)
             {
 
                information() << "[qt.dispatch] synchronous call waiting for the Qt event loop; windowing="
@@ -237,6 +239,24 @@ namespace q
                      << static_cast<const void *>(this);
 
                   throw ::exception(error_timeout, "Timed out waiting for the Qt windowing event loop to become ready");
+
+               }
+
+               {
+
+                  std::lock_guard<std::mutex> lock(m_mutexWindowingReady);
+
+                  papplication = m_pqapplication;
+
+               }
+
+               if (!papplication)
+               {
+
+                  information() << "[qt.dispatch] synchronous call rejected because QApplication does not exist after wait; windowing="
+                     << static_cast<const void *>(this);
+
+                  throw ::exception(error_not_ready, "Qt windowing application does not exist");
 
                }
 
@@ -257,20 +277,26 @@ namespace q
 
             auto pevent = allocateø manual_reset_happening();
 
+#if DEEP_LOG_HERE >= 9
             information() << "[qt.dispatch] synchronous call queued from thread "
                << QThread::currentThreadId() << " timeout=" << procedure.timeout();
+#endif
 
             user_post([this, procedure, pevent]
                       {
 
+#if DEEP_LOG_HERE >= 9
                          information() << "[qt.dispatch] synchronous callback started on thread "
                             << QThread::currentThreadId();
+#endif
 
                          procedure();
 
                          pevent->set_happening();
 
+#if DEEP_LOG_HERE >= 9
                          information() << "[qt.dispatch] synchronous callback completed";
+#endif
 
                       });
 
@@ -497,11 +523,13 @@ namespace q
 
             int argc = ::system()->get_argc();
 
+            auto pqapplication = ___new QApplication(argc, ::system()->get_args());
+
             {
 
                std::lock_guard<std::mutex> lock(m_mutexWindowingReady);
 
-               m_pqapplication = ___new QApplication(argc, ::system()->get_args());
+               m_pqapplication = pqapplication;
 
             }
 
@@ -669,15 +697,19 @@ namespace q
                [this, procedure]
                {
 
+#if DEEP_LOG_HERE >= 9
                   information() << "[qt.dispatch] queued callback started on thread "
                      << QThread::currentThreadId();
+#endif
 
                   try
                   {
 
                      procedure();
 
+#if DEEP_LOG_HERE >= 9
                      information() << "[qt.dispatch] queued callback completed";
+#endif
 
                   }
                   catch (const ::exception & exception)
@@ -704,10 +736,22 @@ namespace q
                },
                Qt::QueuedConnection);
 
+#if DEEP_LOG_HERE >= 9
             information() << "[qt.dispatch] Qt queued callback accepted=" << bAccepted
                << " application=" << static_cast<const void *>(papplication)
                << " windowing=" << static_cast<const void *>(this)
                << " callerThread=" << QThread::currentThreadId();
+#else
+            if (!bAccepted)
+            {
+
+               warning() << "[qt.dispatch] Qt queued callback accepted=0"
+                  << " application=" << static_cast<const void *>(papplication)
+                  << " windowing=" << static_cast<const void *>(this)
+                  << " callerThread=" << QThread::currentThreadId();
+
+            }
+#endif
 
 
          }
