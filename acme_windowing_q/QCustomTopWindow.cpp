@@ -231,7 +231,7 @@ void QCustomTopWindow::focusOutEvent(QFocusEvent * happening)
 
    }
 
-   QWidget::focusInEvent(happening);
+   QWidget::focusOutEvent(happening);
 
 }
 

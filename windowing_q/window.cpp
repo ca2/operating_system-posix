@@ -49,6 +49,7 @@
 #include "aura/windowing/icon.h"
 #include <QIcon>
 #include <QGuiApplication>
+#include <QThread>
 #include "aura/platform/application.h"
 #include "apex/gpu/approach.h"
 //#include "windowing_system_wayland/xfree86_key.h"
@@ -224,6 +225,15 @@ namespace windowing_q
 
       ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
 
+      if (puserinteraction
+         && (puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
+         && system()->acme_windowing()->get_ewindowing() == ::windowing::e_windowing_wayland)
+      {
+
+         return;
+
+      }
+
       ::i32_point p(x, y);
 
       if (m_pointWindow != p)
@@ -258,6 +268,14 @@ namespace windowing_q
 
       ::i32_size s(cx, cy);
 
+      if (puserinteraction && puserinteraction->is_true("fixed_size")
+         && m_sizeWindow.cx > 1 && m_sizeWindow.cy > 1 && s != m_sizeWindow)
+      {
+
+         return;
+
+      }
+
       if (m_sizeWindow != s)
       {
 
@@ -290,8 +308,68 @@ namespace windowing_q
    }
 
 
+   void window::_on_show(bool bShow)
+   {
+
+      bool bWasVisible = m_bVisible.load(std::memory_order_relaxed);
+
+      ::q::acme::windowing::window::_on_show(bShow);
+
+      if (!bShow && bWasVisible)
+      {
+
+         ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+         if (puserinteraction
+            && (puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
+            && puserinteraction->const_layout().sketch().is_screen_visible()
+            && !puserinteraction->has_finishing_flag()
+            && !puserinteraction->has_destroying_flag())
+         {
+
+            puserinteraction->post_message(::user::e_message_close);
+
+         }
+
+      }
+
+   }
+
+
    void window::_on_mouse_press(QMouseEvent* pevent)
    {
+
+      {
+
+         ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+         if (m_pqwidget && puserinteraction && !(puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
+         {
+
+            const QObjectList children = m_pqwidget->children();
+
+            for (QObject * pchild : children)
+            {
+
+               if (auto * pchildWidget = qobject_cast<QWidget *>(pchild))
+               {
+
+                  auto wt = pchildWidget->windowFlags() & Qt::WindowType_Mask;
+
+                  if ((wt == Qt::ToolTip || wt == Qt::Popup) && pchildWidget->isVisible())
+                  {
+
+                     pchildWidget->hide();
+
+                  }
+
+               }
+
+            }
+
+         }
+
+      }
 
       if(m_bResizingWindowFromBottomRight || m_bRepositioningWindowFromCenter)
       {
@@ -726,7 +804,7 @@ namespace windowing_q
              int i3 = strText.c_str()[2];
              int i4 = strText.c_str()[3];
 
-              if (strText.has_character() && (strText[0] >=32 || strText[0] < 0))
+              if (strText.has_character() && ((strText[0] >= 32 && strText[0] != 127) || strText[0] < 0))
               {
                  on_text(strText.c_str(), strText.size());
               }
@@ -1214,6 +1292,65 @@ namespace windowing_q
          QGuiApplication::setDesktopFileName(QString::fromUtf8(strDesktopId.c_str()));
 
          ::q::acme::windowing::window::_create_window();
+
+         if (puserinteraction && (puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
+         {
+
+            QWidget * pParentQWidget = nullptr;
+
+            auto powner = puserinteraction->owner_interaction();
+
+            while (powner)
+            {
+
+               auto ptoplevel = powner->top_level();
+
+               if (!ptoplevel)
+               {
+
+                  break;
+
+               }
+
+               if (!(ptoplevel->m_ewindowflag & e_window_flag_arbitrary_positioning))
+               {
+
+                  if (auto pownerWindow = dynamic_cast<::q::acme::windowing::window *>(ptoplevel->windowing_window()))
+                  {
+
+                     pParentQWidget = pownerWindow->m_pqwidget;
+
+                  }
+
+                  break;
+
+               }
+
+               powner = ptoplevel->owner_interaction();
+
+            }
+
+            Qt::WindowFlags popupFlags = Qt::ToolTip | Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint;
+
+            if (pParentQWidget)
+            {
+
+               m_pqwidget->setParent(pParentQWidget, popupFlags);
+
+            }
+            else
+            {
+
+               m_pqwidget->setWindowFlags(popupFlags);
+
+            }
+
+            m_pqwidget->setAttribute(Qt::WA_TranslucentBackground);
+            m_pqwidget->setAttribute(Qt::WA_NoSystemBackground, true);
+            m_pqwidget->setAttribute(Qt::WA_OpaquePaintEvent, false);
+            m_pqwidget->setMouseTracking(true);
+
+         }
 
          m_pqwidget->move(x, y);
 
@@ -3464,14 +3601,14 @@ namespace windowing_q
                                               bool bNoSize, ::e_display edisplay)
    {
 
-       _configure_window_unlocked(zorder,useractivation, bNoZorder, edisplay);
+      if (!bNoMove || !bNoSize)
+      {
 
-       if(!bNoMove || !bNoSize)
-       {
+         _strict_set_window_position_unlocked(x, y, cx, cy, bNoMove, bNoSize);
 
-           _strict_set_window_position_unlocked(x, y, cx, cy, bNoMove, bNoSize);
+      }
 
-       }
+      _configure_window_unlocked(zorder, useractivation, bNoZorder, edisplay);
 
       return true;
 
@@ -3482,35 +3619,57 @@ namespace windowing_q
                                            const ::user::activation& useractivation, bool bNoZorder, ::e_display edisplay)
    {
 
-::cast < ::user::interaction> puserinteraction = m_pacmeuserinteraction;
+      ::cast < ::user::interaction> puserinteraction = m_pacmeuserinteraction;
 
       if (!(puserinteraction->m_ewindowflag & e_window_flag_window_created))
       {
          return false;
       }
 
-      if(equivalence_sink(edisplay) == e_display_normal)
+      if (!m_pqwidget)
+      {
+         return false;
+      }
+
+      if (equivalence_sink(edisplay) == e_display_normal)
       {
 
-         m_pqwidget->showNormal();
+         auto wt = m_pqwidget->windowFlags() & Qt::WindowType_Mask;
+
+         if (wt == Qt::Popup || wt == Qt::ToolTip)
+         {
+
+            m_pqwidget->show();
+
+         }
+         else
+         {
+
+            m_pqwidget->showNormal();
+
+         }
+
+         m_bVisible.store(true, std::memory_order_relaxed);
 
       }
-      else if(edisplay == e_display_zoomed)
+      else if (edisplay == e_display_zoomed)
       {
 
          m_pqwidget->showMaximized();
+         m_bVisible.store(true, std::memory_order_relaxed);
 
       }
-      else if(edisplay == e_display_iconic)
+      else if (edisplay == e_display_iconic)
       {
 
          m_pqwidget->showMinimized();
 
       }
-      else if(!::is_screen_visible(edisplay))
+      else if (!::is_screen_visible(edisplay))
       {
 
          m_pqwidget->hide();
+         m_bVisible.store(false, std::memory_order_relaxed);
 
       }
 
@@ -4333,40 +4492,75 @@ namespace windowing_q
 
       if (::is_set(puserinteraction))
       {
-         //::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
-
-         //if (pinteraction.is_set())
-         {
-            puserinteraction->send_message(::user::e_message_destroy, 0, 0);
-         }
+         puserinteraction->send_message(::user::e_message_destroy, 0, 0);
       }
 
-      // if (::is_set(m_pxdgtoplevel))
-      // {
-      //
-      //    xdg_toplevel_destroy(m_pxdgtoplevel);
-      //
-      //    m_pxdgtoplevel = nullptr;
-      //
-      // }
-      //
-      // if (::is_set(m_pwlsurface))
-      // {
-      //
-      //    wl_surface_destroy(m_pwlsurface);
-      //
-      // }
+      if (m_pqwidget)
+      {
+
+         m_bVisible.store(false, std::memory_order_relaxed);
+
+         auto cleanupWidget = [this]()
+         {
+
+            if (m_pqwidget)
+            {
+
+               m_bVisible.store(false, std::memory_order_relaxed);
+
+               const QObjectList children = m_pqwidget->children();
+
+               for (QObject * pchild : children)
+               {
+
+                  if (auto * pchildWidget = qobject_cast<QWidget *>(pchild))
+                  {
+
+                     pchildWidget->setParent(nullptr, pchildWidget->windowFlags());
+
+                  }
+
+               }
+
+               m_pqwidget->hide();
+
+               m_pqwidget->close();
+
+               m_pqwidget->deleteLater();
+
+               m_pqwidget = nullptr;
+
+            }
+
+         };
+
+         if (QThread::currentThread() == m_pqwidget->thread())
+         {
+
+            cleanupWidget();
+
+         }
+         else
+         {
+
+            ::pointer<window> hold = this;
+
+            main_post([hold, cleanupWidget]()
+            {
+
+               cleanupWidget();
+
+            });
+
+         }
+
+      }
 
       ::windowing::window::destroy_window();
 
-      //if (::is_set(pwindow))
+      if (::is_set(puserinteraction))
       {
-         //::pointer<::user::interaction> pinteraction = pwindow->m_puserinteraction;
-
-         //if (pinteraction.is_set())
-         {
-            puserinteraction->send_message(::user::e_message_non_client_destroy, 0, 0);
-         }
+         puserinteraction->send_message(::user::e_message_non_client_destroy, 0, 0);
       }
    }
 
@@ -4603,10 +4797,12 @@ namespace windowing_q
 
       }
 
-      main_post([this]()
+      ::pointer<window> hold = this;
+
+      main_post([this, hold]()
       {
 
-         if (::is_null(m_pqwidget))
+         if (has_destroying_flag() || has_finishing_flag() || ::is_null(m_pqwidget) || ::is_null(user_interaction()))
          {
 
             return;
@@ -4615,9 +4811,12 @@ namespace windowing_q
 
          set_window_position_unlocked();
 
-         //m_pqwidget->repaint();
+         if (::is_set(m_pqwidget))
+         {
 
-         m_pqwidget->update();
+            m_pqwidget->update();
+
+         }
 
       });
 
@@ -4662,7 +4861,23 @@ namespace windowing_q
       main_send([this]()
       {
 
+         if (!m_pqwidget)
+         {
+
+            return;
+
+         }
+
+         m_pqwidget->activateWindow();
+
          m_pqwidget->setFocus(Qt::MouseFocusReason);
+
+         if (m_pqwidget->hasFocus() && !m_bKeyboardFocus)
+         {
+
+            _on_set_focus();
+
+         }
 
       });
 

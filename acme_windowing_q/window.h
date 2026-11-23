@@ -73,6 +73,7 @@ namespace q
             void _create_window() override;
 
             void destroy() override;
+            void destroy_window() override;
 
             virtual void _show_window();
 
