@@ -232,7 +232,20 @@ namespace
 
          GError * perror = nullptr;
 
-         auto pszUri = g_filename_to_uri(path.c_str(), nullptr, &perror);
+         // Provider paths identify remote files; they are already URIs, not
+         // local filenames. Keep their identifiers intact for file-manager paste.
+         auto pszScheme = g_uri_parse_scheme(path.c_str());
+         bool bProviderUri = pszScheme && g_ascii_strcasecmp(pszScheme, "file") != 0
+            && strstr(path.c_str(), "://") != nullptr;
+         g_free(pszScheme);
+
+         if(strchr(path.c_str(), '\r') || strchr(path.c_str(), '\n'))
+         {
+            return false;
+         }
+
+         auto pszUri = bProviderUri ? g_strdup(path.c_str())
+            : g_filename_to_uri(path.c_str(), nullptr, &perror);
 
          if(!pszUri)
          {
@@ -273,6 +286,22 @@ namespace
 
          return false;
 
+      }
+
+      auto pszScheme = g_uri_parse_scheme(pszUri);
+      bool bProviderUri = pszScheme && g_ascii_strcasecmp(pszScheme, "file") != 0
+         && strstr(pszUri, "://") != nullptr;
+      g_free(pszScheme);
+
+      if(strchr(pszUri, '\r') || strchr(pszUri, '\n'))
+      {
+         return false;
+      }
+
+      if(bProviderUri)
+      {
+         patha.add(::file::path(pszUri));
+         return true;
       }
 
       GError * perror = nullptr;
