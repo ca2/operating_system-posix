@@ -1,6 +1,8 @@
 #include "platform.h"
 #include "copydesk.h"
 #include "node.h"
+#include "aura/graphics/draw2d/draw2d.h"
+#include "aura/graphics/draw2d/domain.h"
 #include "aura/windowing/windowing.h"
 #include "acme/_operating_system.h"
 #include "operating_system-posix/aura_posix/clipboard_data.h"
@@ -10,6 +12,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QMimeData>
+#include <QUrl>
 #include <windowing_lxq2/windowing.h>
 
 
@@ -71,20 +74,29 @@ namespace node_lxq2
    bool copydesk::_set_plain_text(const ::scoped_string & scopedstr)
    {
 
-      auto psystem = system();
+      ::string strText(scopedstr);
 
-      auto pnode = psystem->node();
+      bool bOk = false;
 
-      //      pnode->node_fork([this, str]
-      //      {
-      //
-      //         GtkClipboard * clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-      //
-      //         gtk_clipboard_set_text(clipboard, str.c_str(), str.length());
-      //
-      //      });
+      user_send([&strText, &bOk]()
+      {
 
-      return true;
+         auto pclipboard = QApplication::clipboard();
+
+         if (!pclipboard)
+         {
+
+            return;
+
+         }
+
+         pclipboard->setText(QString::fromUtf8(strText.c_str(), (qsizetype)strText.size()));
+
+         bOk = true;
+
+      });
+
+      return bOk;
 
    }
 
@@ -92,28 +104,38 @@ namespace node_lxq2
    bool copydesk::_get_plain_text(string& str)
    {
 
-      //      ::pointer<clipboard_data>pdata = allocateø clipboard_data(get_context_application(), e_clipboard_get_plain_text);
-      //
-      //      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_plain_text"));
-      //
-      //      auto idle_source = g_idle_source_new();
-      //
-      //      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
-      //
-      //      g_source_attach(idle_source, g_main_context_default());
-      //
-      //      if(!pdata->m_happening.wait(seconds(5)).succeeded())
-      //      {
-      //
-      //         return false;
-      //
-      //      }
-      //
-      //      g_source_destroy(idle_source);
-      //
-      //      str = pdata->m_str;
+      bool bOk = false;
 
-      return true;
+      user_send([&str, &bOk]()
+      {
+
+         auto pclipboard = QApplication::clipboard();
+
+         if (!pclipboard)
+         {
+
+            return;
+
+         }
+
+         auto pmimedata = pclipboard->mimeData();
+
+         if (!pmimedata || !pmimedata->hasText())
+         {
+
+            return;
+
+         }
+
+         QByteArray utf8 = pclipboard->text().toUtf8();
+
+         str.assign(utf8.constData(), utf8.size());
+
+         bOk = true;
+
+      });
+
+      return bOk;
 
    }
 
@@ -121,24 +143,20 @@ namespace node_lxq2
    bool copydesk::_has_plain_text()
    {
 
-      auto ppayload = allocateø payload_object();
+      bool bHas = false;
 
-      ppayload->m_payload = false;
+      user_send([&bHas]()
+      {
 
-      auto psystem = system();
+         auto pclipboard = QApplication::clipboard();
 
-      auto pnode = psystem->node();
+         auto pmimedata = pclipboard ? pclipboard->mimeData() : nullptr;
 
-      //      pnode->node_send([=]()
-      //      {
-      //
-      //         //GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-      //
-      //         //payload->m_var = gtk_clipboard_wait_is_text_available (clipboard);
-      //
-      //      });
+         bHas = pmimedata && pmimedata->hasText();
 
-      return ppayload->m_payload.operator bool();
+      });
+
+      return bHas;
 
    }
 
@@ -146,26 +164,23 @@ namespace node_lxq2
    bool copydesk::_has_filea()
    {
 
-      return false;
+      bool bHas = false;
 
-      //      ::pointer<clipboard_data>pdata = allocateø clipboard_data(get_context_application(), e_clipboard_get_file_target_count);
-      //
-      //      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_has_filea"));
-      //
-      //      auto idle_source = g_idle_source_new();
-      //
-      //      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
-      //
-      //      g_source_attach(idle_source, g_main_context_default());
-      //
-      //      if(!pdata->m_happening.wait(seconds(5)).succeeded())
-      //      {
-      //
-      //         return false;
-      //
-      //      }
-      //
-      //      return pdata->m_nTargets > 0;
+      user_send([&bHas]()
+      {
+
+         auto pclipboard = QApplication::clipboard();
+
+         auto pmimedata = pclipboard ? pclipboard->mimeData() : nullptr;
+
+         bHas = pmimedata && (
+            pmimedata->hasFormat(QStringLiteral("application/x-ca2-file-list")) ||
+            pmimedata->hasFormat(QStringLiteral("x-special/gnome-copied-files")) ||
+            pmimedata->hasUrls());
+
+      });
+
+      return bHas;
 
    }
 
@@ -173,30 +188,179 @@ namespace node_lxq2
    bool copydesk::_get_filea(::file::path_array_base& patha, enum_op& eop)
    {
 
-      //      ::pointer<clipboard_data>pdata = allocateø clipboard_data(get_context_application(), e_clipboard_get_patha);
-      //
-      //      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_filea"));
-      //
-      //      auto idle_source = g_idle_source_new();
-      //
-      //      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
-      //
-      //      g_source_attach(idle_source, g_main_context_default());
-      //
-      //      if(!pdata->m_happening.wait(seconds(5)).succeeded() || pdata->m_eclipboard == e_clipboard_error)
-      //      {
-      //
-      //         return false;
-      //
-      //      }
-      //
-      //      eop = pdata->m_eop;
-      //
-      //      patha = pdata->m_patha;
-      //
-      //      return true;
+      patha.clear();
+      eop = e_op_copy;
 
-      return false;
+      bool bOk = false;
+
+      user_send([&patha, &eop, &bOk]()
+      {
+
+         auto pclipboard = QApplication::clipboard();
+
+         auto pmimedata = pclipboard ? pclipboard->mimeData() : nullptr;
+
+         if (!pmimedata)
+         {
+
+            return;
+
+         }
+
+         auto parseOp = [](const QByteArray & line, enum_op & opOut) -> bool
+         {
+            QByteArray trimmed = line.trimmed().toLower();
+            if (trimmed == "copy")
+            {
+               opOut = e_op_copy;
+               return true;
+            }
+            if (trimmed == "cut")
+            {
+               opOut = e_op_cut;
+               return true;
+            }
+            return false;
+         };
+
+         if (pmimedata->hasFormat(QStringLiteral("application/x-ca2-file-list")))
+         {
+
+            QList<QByteArray> lines = pmimedata->data(QStringLiteral("application/x-ca2-file-list")).split('\n');
+
+            if (lines.size() >= 2 && parseOp(lines[0], eop))
+            {
+
+               for (qsizetype i = 1; i < lines.size(); ++i)
+               {
+
+                  QByteArray line = lines[i];
+
+                  if (line.endsWith('\r'))
+                  {
+
+                     line.chop(1);
+
+                  }
+
+                  if (!line.isEmpty())
+                  {
+
+                     patha.add(::file::path(::string(line.constData(), line.size())));
+
+                  }
+
+               }
+
+               bOk = patha.has_element();
+
+               if (bOk)
+               {
+
+                  return;
+
+               }
+
+            }
+
+         }
+
+         if (pmimedata->hasFormat(QStringLiteral("x-special/gnome-copied-files")))
+         {
+
+            QList<QByteArray> lines = pmimedata->data(QStringLiteral("x-special/gnome-copied-files")).split('\n');
+
+            if (lines.size() >= 2 && parseOp(lines[0], eop))
+            {
+
+               for (qsizetype i = 1; i < lines.size(); ++i)
+               {
+
+                  QByteArray line = lines[i].trimmed();
+
+                  if (line.isEmpty() || line.startsWith('#'))
+                  {
+
+                     continue;
+
+                  }
+
+                  QUrl url = QUrl::fromEncoded(line);
+
+                  if (url.isLocalFile())
+                  {
+
+                     QByteArray localUtf8 = url.toLocalFile().toUtf8();
+
+                     patha.add(::file::path(::string(localUtf8.constData(), localUtf8.size())));
+
+                  }
+                  else if (url.isValid())
+                  {
+
+                     QByteArray uriUtf8 = url.toString(QUrl::FullyDecoded).toUtf8();
+
+                     patha.add(::file::path(::string(uriUtf8.constData(), uriUtf8.size())));
+
+                  }
+                  else
+                  {
+
+                     patha.add(::file::path(::string(line.constData(), line.size())));
+
+                  }
+
+               }
+
+               bOk = patha.has_element();
+
+               if (bOk)
+               {
+
+                  return;
+
+               }
+
+            }
+
+         }
+
+         if (pmimedata->hasUrls())
+         {
+
+            QByteArray cutData = pmimedata->data(QStringLiteral("application/x-kde-cutselection"));
+
+            eop = (cutData.trimmed() == "1") ? e_op_cut : e_op_copy;
+
+            for (const QUrl & url : pmimedata->urls())
+            {
+
+               if (url.isLocalFile())
+               {
+
+                  QByteArray localUtf8 = url.toLocalFile().toUtf8();
+
+                  patha.add(::file::path(::string(localUtf8.constData(), localUtf8.size())));
+
+               }
+               else if (url.isValid())
+               {
+
+                  QByteArray uriUtf8 = url.toString(QUrl::FullyDecoded).toUtf8();
+
+                  patha.add(::file::path(::string(uriUtf8.constData(), uriUtf8.size())));
+
+               }
+
+            }
+
+            bOk = patha.has_element();
+
+         }
+
+      });
+
+      return bOk;
 
    }
 
@@ -204,32 +368,95 @@ namespace node_lxq2
    bool copydesk::_set_filea(const ::file::path_array_base& patha, enum_op eop)
    {
 
-      //      ::pointer<clipboard_data>pdata = allocateø clipboard_data(get_context_application(), e_clipboard_set_patha);
-      //
-      //      pdata->increment_reference_count(REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_set_filea"));
-      //
-      //      pdata->m_eop = eop;
-      //
-      //      pdata->m_patha = patha;
-      //
-      //      auto idle_source = g_idle_source_new();
-      //
-      //      g_source_set_callback(idle_source, &clipboard_callback, pdata, nullptr);
-      //
-      //      g_source_attach(idle_source, g_main_context_default());
-      //
-      //      if(!pdata->m_happening.wait(seconds(5)).succeeded())
-      //      {
-      //
-      //         return false;
-      //
-      //      }
-      //
-      //      g_source_destroy(idle_source);
-      //
-      //      return true;
+      if (patha.is_empty() || (eop != e_op_copy && eop != e_op_cut))
+      {
 
-      return false;
+         return false;
+
+      }
+
+      QList<QUrl> urls;
+
+      QByteArray baCa2List = (eop == e_op_cut) ? "cut" : "copy";
+
+      QByteArray baGnome = baCa2List;
+
+      for (const auto & path : patha)
+      {
+
+         if (path.is_empty())
+         {
+
+            continue;
+
+         }
+
+         QString qPath = QString::fromUtf8(path.c_str(), (qsizetype)path.size());
+
+         baCa2List.append('\n');
+         baCa2List.append(qPath.toUtf8());
+
+         QUrl url = qPath.contains(QStringLiteral("://"))
+            ? QUrl(qPath)
+            : QUrl::fromLocalFile(qPath);
+
+         if (url.isValid())
+         {
+
+            urls.append(url);
+
+            baGnome.append('\n');
+            baGnome.append(url.toEncoded());
+
+         }
+
+      }
+
+      if (baCa2List.indexOf('\n') < 0)
+      {
+
+         return false;
+
+      }
+
+      bool bOk = false;
+
+      user_send([&urls, &baCa2List, &baGnome, eop, &bOk]()
+      {
+
+         auto pclipboard = QApplication::clipboard();
+
+         if (!pclipboard)
+         {
+
+            return;
+
+         }
+
+         auto pmimedata = new QMimeData();
+
+         if (!urls.isEmpty())
+         {
+
+            pmimedata->setUrls(urls);
+
+         }
+
+         pmimedata->setData(
+            QStringLiteral("application/x-kde-cutselection"),
+            eop == e_op_cut ? QByteArray("1") : QByteArray("0"));
+
+         pmimedata->setData(QStringLiteral("x-special/gnome-copied-files"), baGnome);
+
+         pmimedata->setData(QStringLiteral("application/x-ca2-file-list"), baCa2List);
+
+         pclipboard->setMimeData(pmimedata);
+
+         bOk = true;
+
+      });
+
+      return bOk;
 
    }
 
@@ -260,7 +487,7 @@ namespace node_lxq2
 
          //auto estatus =
          //
-         pimage->create_as_descriptor({width, height});
+         pimage->create_as_descriptor({width, height}, draw2d()->main_draw2d_domain());
 
          //                   if (!estatus)
          //                   {
@@ -271,9 +498,11 @@ namespace node_lxq2
          //
          //                   }
 
-         auto pimage32Target = pimage->get_data();
+         auto ppixmapImage = pimage->map();
 
-         int scanTarget = pimage->scan_size();
+         auto pimage32Target = ppixmapImage->data();
+
+         int scanTarget = ppixmapImage->scan_size();
 
          auto pimage32Source = (::image32_t *)imageClipboard.bits();
 
@@ -305,15 +534,18 @@ namespace node_lxq2
    bool copydesk::_has_image()
    {
 
-      ::cast<::windowing_lxq2::windowing> pwindowing = system()->windowing();
+      bool bHasImage = false;
 
-      auto pqapplication = pwindowing->m_pqapplication;
+      user_send([&bHasImage]()
+      {
 
-      auto pclipboard = pqapplication->clipboard();
+         auto pclipboard = QApplication::clipboard();
 
-      auto pdata = pclipboard->mimeData();
+         auto pdata = pclipboard ? pclipboard->mimeData() : nullptr;
 
-      bool bHasImage = pdata->hasImage();
+         bHasImage = pdata && pdata->hasImage();
+
+      });
 
       return bHasImage;
 

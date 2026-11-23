@@ -13,6 +13,7 @@
 #include "acme/platform/scoped_restore.h"
 #include "acme/prototype/geometry2d/_text_stream.h"
 #include "apex/platform/system.h"
+#include "aura/graphics/graphics/buffer_item.h"
 #include "aura/graphics/image/image.h"
 #include "aura/user/user/interaction_graphics_thread.h"
 //#include "aura/user/user/interaction_impl.h"
@@ -74,6 +75,10 @@ namespace windowing_lxq2
    }
 
 
+} // namespace windowing_lxq2
+#if 0
+
+
    void graphics::_map_shared_memory(const ::i32_size & size)
    {
 
@@ -133,7 +138,7 @@ namespace windowing_lxq2
    void graphics::initialize_graphics_graphics(::windowing::window * pimpl)
    {
 
-      double_graphics::initialize_graphics_graphics(pimpl);
+      double_buffer_graphics::initialize_graphics_graphics(pimpl);
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
@@ -224,7 +229,7 @@ namespace windowing_lxq2
 //
 //      }
 
-      return ::graphics::double_graphics::update_buffer(pbufferitem);
+      return ::graphics::double_buffer_graphics::update_buffer(pbufferitem);
 
    }
 
@@ -380,9 +385,9 @@ namespace windowing_lxq2
    bool graphics::buffer_lock_round_swap_key_buffers()
    {
 
-      bool bOk1 = double_graphics::buffer_lock_round_swap_key_buffers();
+      bool bOk1 = double_buffer_graphics::buffer_lock_round_swap_key_buffers();
 
-      bool bOk2 = bitmap_source_graphics::buffer_lock_round_swap_key_buffers();
+      bool bOk2 = bitmap_source_buffer_graphics::buffer_lock_round_swap_key_buffers();
 
       return bOk1 && bOk2;
 
@@ -1291,7 +1296,7 @@ namespace windowing_lxq2
 //
 //      buffer_size_and_position(pbufferitem);
 
-      auto pimageBuffer = pbufferitem->m_pimage2;
+      auto pimageBuffer = pbufferitem->m_pimageBufferItem ;
 
       if (pimageBuffer->m_size != pbufferitem->m_sizeBufferItemWindow)
       {
@@ -1305,7 +1310,7 @@ namespace windowing_lxq2
 
       }
 
-      if(!double_graphics::_on_begin(pbufferitem))
+      if(!double_buffer_graphics::_on_begin(pbufferitem))
       {
 
          return false;
@@ -1334,6 +1339,7 @@ namespace windowing_lxq2
 
 
 } // namespace windowing_kde5
+#endif
 
 
 
