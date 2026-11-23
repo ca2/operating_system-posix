@@ -32,8 +32,6 @@ list(APPEND library_source
    _.h
    _factory.cpp
    #_library.h
-   buffer.cpp
-   buffer.h
    cursor.cpp
    cursor.h
    #debug.cpp
@@ -41,6 +39,8 @@ list(APPEND library_source
    display.h
    #display_xrender.cpp
    #enum_display_monitors.cpp
+   graphics.cpp
+   graphics.h
    platform.cpp
    platform.h
    gdk_gdk.cpp

@@ -3,7 +3,7 @@
 // hi5 contribution...
 #include "platform.h"
 //#include "windowing_kde5.h"
-#include "buffer.h"
+#include "graphics.h"
 #include "window.h"
 #include "display.h"
 #include "windowing.h"
@@ -34,8 +34,8 @@ namespace windowing_lxq2
    // window_redraw(void *data, struct wl_callback *pwlcallback, uint32_t time)
    // {
    //    // fprintf(stderr, "Redrawing\n");
-   //    auto pbuffer = (buffer *) data;
-   //    pbuffer->__handle_window_redraw(pwlcallback, time);
+   //    auto pgraphics = (graphics *) data;
+   //    pgraphics->__handle_window_redraw(pwlcallback, time);
    // }
 
 
@@ -43,7 +43,7 @@ namespace windowing_lxq2
    //    window_redraw
    // };
 
-   buffer::buffer()
+   graphics::graphics()
    {
 
       m_bXShmPutImagePending = false;
@@ -64,7 +64,7 @@ namespace windowing_lxq2
    }
 
 
-   buffer::~buffer()
+   graphics::~graphics()
    {
 
 //      _destroy_shared_memory();
@@ -74,7 +74,7 @@ namespace windowing_lxq2
    }
 
 
-   void buffer::_map_shared_memory(const ::i32_size & size)
+   void graphics::_map_shared_memory(const ::i32_size & size)
    {
 
       if(!m_bUseXShmIfAvailable)
@@ -89,7 +89,7 @@ namespace windowing_lxq2
    }
 
 
-//   void buffer::_destroy_shared_memory()
+//   void graphics::_destroy_shared_memory()
 //   {
 //
 //      if (m_shmaddr)
@@ -113,7 +113,7 @@ namespace windowing_lxq2
 //   }
 
 
-   ::windowing_lxq2::window * buffer::lxq2_window()
+   ::windowing_lxq2::window * graphics::lxq2_window()
    {
 
       ::cast < ::windowing_lxq2::window > plxq2window = m_pwindow;
@@ -130,10 +130,10 @@ namespace windowing_lxq2
    }
 
 
-   void buffer::initialize_graphics_graphics(::windowing::window * pimpl)
+   void graphics::initialize_graphics_graphics(::windowing::window * pimpl)
    {
 
-      double_buffer::initialize_graphics_graphics(pimpl);
+      double_graphics::initialize_graphics_graphics(pimpl);
 
       //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
 
@@ -146,7 +146,7 @@ namespace windowing_lxq2
    }
 
 
-   void buffer::destroy()
+   void graphics::destroy()
    {
 
       if (!lxq2_window())
@@ -172,7 +172,7 @@ namespace windowing_lxq2
    }
 
 
-   bool buffer::update_buffer(::graphics::buffer_item * pbufferitem)
+   bool graphics::update_buffer(::graphics::buffer_item * pbufferitem)
    {
 
 //      auto pwindowing = m_pimpl->m_puserinteraction->windowing();
@@ -224,12 +224,12 @@ namespace windowing_lxq2
 //
 //      }
 
-      return ::graphics::double_buffer::update_buffer(pbufferitem);
+      return ::graphics::double_graphics::update_buffer(pbufferitem);
 
    }
 
 
-   bool buffer::create_os_buffer(const ::i32_size & size, int iStrideParam)
+   bool graphics::create_os_buffer(const ::i32_size & size, int iStrideParam)
    {
 
 //      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -272,7 +272,7 @@ namespace windowing_lxq2
    }
 
 
-   void buffer::destroy_os_buffer()
+   void graphics::destroy_os_buffer()
    {
 
 //      synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -317,7 +317,7 @@ namespace windowing_lxq2
    }
 
 
-//   bool buffer::create_os_buffer(::image::image *pimage)
+//   bool graphics::create_os_buffer(::image::image *pimage)
 //   {
 //
 //      //synchronous_lock sl(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -355,7 +355,7 @@ namespace windowing_lxq2
 //   }
 
 
-//   void buffer::destroy_os_buffer(::image::image *pimage)
+//   void graphics::destroy_os_buffer(::image::image *pimage)
 //   {
 //
 //      if(m_pimage != nullptr)
@@ -377,25 +377,25 @@ namespace windowing_lxq2
 //   }
 //
 
-   bool buffer::buffer_lock_round_swap_key_buffers()
+   bool graphics::buffer_lock_round_swap_key_buffers()
    {
 
-      bool bOk1 = double_buffer::buffer_lock_round_swap_key_buffers();
+      bool bOk1 = double_graphics::buffer_lock_round_swap_key_buffers();
 
-      bool bOk2 = bitmap_source_buffer::buffer_lock_round_swap_key_buffers();
+      bool bOk2 = bitmap_source_graphics::buffer_lock_round_swap_key_buffers();
 
       return bOk1 && bOk2;
 
    }
 
 //
-//   bool buffer::update_screen()
+//   bool graphics::update_screen()
 //   {
 //
 //      if (m_pimpl == nullptr)
 //      {
 //
-//         warningf("windowing_kde5::buffer::update_screen !m_pimpl!!");
+//         warningf("windowing_kde5::graphics::update_screen !m_pimpl!!");
 //
 //         return false;
 //
@@ -404,7 +404,7 @@ namespace windowing_lxq2
 //      if (!m_pimpl->m_pwindow)
 //      {
 //
-//         warningf("windowing_kde5::buffer::update_screen !m_pimpl->m_pwindow!!");
+//         warningf("windowing_kde5::graphics::update_screen !m_pimpl->m_pwindow!!");
 //
 //         return false;
 //
@@ -413,7 +413,7 @@ namespace windowing_lxq2
 //      if (!m_pimpl->m_puserinteraction->is_window_screen_visible())
 //      {
 //
-//         information() << "windowing_kde5::buffer::update_screen XPutImage not called. Ui is not visible.";
+//         information() << "windowing_kde5::graphics::update_screen XPutImage not called. Ui is not visible.";
 //
 //         return false;
 //
@@ -422,7 +422,7 @@ namespace windowing_lxq2
 //      if (!m_pwindow)
 //      {
 //
-//         warningf("windowing_kde5::buffer::update_screen !m_pwindow!");
+//         warningf("windowing_kde5::graphics::update_screen !m_pwindow!");
 //
 //         return false;
 //
@@ -438,7 +438,7 @@ namespace windowing_lxq2
 //   }
 
 
-//   bool buffer::_update_screen_lesser_lock()
+//   bool graphics::_update_screen_lesser_lock()
 //   {
 //
 ////      synchronous_lock slGraphics(synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
@@ -465,14 +465,14 @@ namespace windowing_lxq2
 //      redraw
 //   };
 
-//    void buffer::__redraw(struct wl_callback *pwlcallback, uint32_t time)
+//    void graphics::__redraw(struct wl_callback *pwlcallback, uint32_t time)
 //    {
 //
 //    }
 //
 //
 //
-//    void buffer::__handle_window_redraw(::wl_callback *pwlcallback, uint32_t time)
+//    void graphics::__handle_window_redraw(::wl_callback *pwlcallback, uint32_t time)
 //    {
 //
 // //       fprintf(stdout, "Redrawing\n");
@@ -562,17 +562,17 @@ namespace windowing_lxq2
 //    }
 
 
-//   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
-//   bool buffer::_update_screen_unlocked(::graphics::buffer_item * pitem)
-   //bool buffer::_post_update_screen()
+//   bool graphics::_update_screen_unlocked(::graphics::buffer_item * pitem)
+//   bool graphics::_update_screen_unlocked(::graphics::buffer_item * pitem)
+   //bool graphics::_post_update_screen()
    //{
-   void buffer::update_screen()
+   void graphics::update_screen()
    {
 
       // if (m_pimpl == nullptr)
       // {
       //
-      //    warningf("windowing_kde5::buffer::update_screen !m_pimpl!!");
+      //    warningf("windowing_kde5::graphics::update_screen !m_pimpl!!");
       //
       //    return;
       //
@@ -581,7 +581,7 @@ namespace windowing_lxq2
       if (!m_pwindow)
       {
 
-         warningf("windowing_kde5::buffer::update_screen !m_pimpl->m_pwindow!!");
+         warningf("windowing_kde5::graphics::update_screen !m_pimpl->m_pwindow!!");
 
          return;
 
@@ -590,7 +590,7 @@ namespace windowing_lxq2
 //      if (!m_pimpl->m_puserinteraction->is_window_screen_visible())
 //      {
 //
-//         information() << "windowing_kde5::buffer::update_screen XPutImage not called. Ui is not visible.";
+//         information() << "windowing_kde5::graphics::update_screen XPutImage not called. Ui is not visible.";
 //
 //         return false;
 //
@@ -599,7 +599,7 @@ namespace windowing_lxq2
 //      if (!m_pwindow)
 //      {
 //
-//         warningf("windowing_kde5::buffer::update_screen !m_pwindow!");
+//         warningf("windowing_kde5::graphics::update_screen !m_pwindow!");
 //
 //         return false;
 //
@@ -669,7 +669,7 @@ namespace windowing_lxq2
 //          {
 //
 //             information()
-//                << "::windowing_kde5::buffer::update_screen this is not visible";
+//                << "::windowing_kde5::graphics::update_screen this is not visible";
 //
 //             return false;
 //
@@ -707,7 +707,7 @@ namespace windowing_lxq2
 //
 //                if (!pwaylandwindow->windowing()->is_screen_visible(edisplay) && edisplay != e_display_iconic) {
 //
-//                   information() << "::windowing_kde5::buffer::update_screen this is not visible (2)";
+//                   information() << "::windowing_kde5::graphics::update_screen this is not visible (2)";
 //
 //                   return;
 //
@@ -975,14 +975,14 @@ namespace windowing_lxq2
 //       {
 //
 // #ifdef MORE_LOG
-//          information() << "buffer::update_screen end";
+//          information() << "graphics::update_screen end";
 // #endif
 //
 //       }
 //       else
 //       {
 //
-//          information() << "buffer::update_screen timeout";
+//          information() << "graphics::update_screen timeout";
 //
 //       }
 //
@@ -1102,7 +1102,7 @@ namespace windowing_lxq2
 // //      if (!m_pximage || !m_pximage->data || m_pximage->width <= 0 || m_pximage->height <= 0)
 // //      {
 // //
-// //         warningf("windowing_kde5::buffer::update_screen X11 image null or empty!!");
+// //         warningf("windowing_kde5::graphics::update_screen X11 image null or empty!!");
 // //
 // //         return false;
 // //
@@ -1111,7 +1111,7 @@ namespace windowing_lxq2
 // //      if (m_gc == nullptr)
 // //      {
 // //
-// //         warningf("windowing_kde5::buffer::update_screen m_gc nullptr!!");
+// //         warningf("windowing_kde5::graphics::update_screen m_gc nullptr!!");
 // //
 // //         return false;
 // //
@@ -1256,7 +1256,7 @@ namespace windowing_lxq2
 // //
 // //      XFillRectangle(x11_window()->Display(), x11_window()->Window(), m_gc, 0, 0, iWidth, iHeight);
 // //
-// //      informationf("windowing_kde5::buffer::update_screen BASIC_TEST FillRectangle(%d, %d)", iWidth, iHeight);
+// //      informationf("windowing_kde5::graphics::update_screen BASIC_TEST FillRectangle(%d, %d)", iWidth, iHeight);
 // //
 // //#endif
 // //
@@ -1274,7 +1274,7 @@ namespace windowing_lxq2
    }
 
 
-   void buffer::on_update_screen(::graphics::buffer_item * pitem)
+   void graphics::on_update_screen(::graphics::buffer_item * pitem)
    {
 
       throw ("use update_window(void)");
@@ -1284,7 +1284,7 @@ namespace windowing_lxq2
    }
 
 
-   bool buffer::_on_begin(::graphics::buffer_item * pbufferitem)
+   bool graphics::_on_begin(::graphics::buffer_item * pbufferitem)
    {
 
 //      auto pbufferitem = get_buffer_item();
@@ -1305,7 +1305,7 @@ namespace windowing_lxq2
 
       }
 
-      if(!double_buffer::_on_begin(pbufferitem))
+      if(!double_graphics::_on_begin(pbufferitem))
       {
 
          return false;
@@ -1317,7 +1317,7 @@ namespace windowing_lxq2
    }
 
 
-//   bool buffer::presentation_complete()
+//   bool graphics::presentation_complete()
 //   {
 //
 //      if (x11_window()->m_interlockedXShmPutImage <= 0)

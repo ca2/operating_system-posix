@@ -139,7 +139,7 @@ void on_initialize_particle() override;
          //virtual void _on_cairo_draw(GtkWidget *widget, cairo_t *cr);
       //void create_window(::windowing::window * pimpl) override;
 
-      void create_window() override;
+      void create_window(::enum_parallelization eparallelization) override;
 
 
          void _create_window() override;

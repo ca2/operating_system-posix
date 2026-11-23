@@ -4,7 +4,7 @@
 #pragma once
 
 
-#include "windowing_q6/buffer.h"
+#include "windowing_q6/graphics.h"
 // //#include "aura/graphics/graphics/_graphics.h"
 // #include "acme/prototype/geometry2d/rectangle.h"
 // #include "aura/graphics/graphics/bitmap_source_buffer.h"
@@ -20,8 +20,8 @@ namespace windowing_lxq2
 {
 
 
-   class CLASS_DECL_AURA buffer :
-      virtual public ::windowing_q6::buffer//,
+   class CLASS_DECL_AURA graphics :
+      virtual public ::windowing_q6::graphics//,
       //virtual public ::graphics::bitmap_source_buffer//,
       //virtual public ::acme_posix::shmem
    {
@@ -50,8 +50,8 @@ namespace windowing_lxq2
 //       //interlocked_long_long                              m_interlockedXShmPutImage;
 //
 
-      buffer();
-      ~buffer() override;
+      graphics();
+      ~graphics() override;
 
 
       ::windowing_lxq2::window * lxq2_window();

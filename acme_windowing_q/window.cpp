@@ -245,7 +245,7 @@ namespace q
          // }
 
 
-         void window::create_window()
+         void window::create_window(::enum_parallelization eparallelization)
          {
 
             auto λCreateWindow = [this]()
@@ -255,7 +255,7 @@ namespace q
 
             };
 
-            main_send(λCreateWindow);
+            main_call(eparallelization,λCreateWindow);
 
 
             //          get_display();
