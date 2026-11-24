@@ -63,10 +63,77 @@ namespace windowing_gtk4
    bool windowing::has_notify_icon_interface()
    {
 
-      // GTK4 currently has no notification icon implementation registered.
-      // A desktop StatusNotifier host alone cannot make icons available to us.
-      // Keep this consistent with simple_frame_window::has_notify_icon().
-      return false;
+      GError * perror = nullptr;
+
+      GDBusConnection * pconnection = g_bus_get_sync(G_BUS_TYPE_SESSION, nullptr, &perror);
+
+      if (perror)
+      {
+
+         g_error_free(perror);
+         perror = nullptr;
+
+      }
+
+      if (!pconnection)
+      {
+
+         return false;
+
+      }
+
+      GVariant * presult = g_dbus_connection_call_sync(
+         pconnection,
+         "org.kde.StatusNotifierWatcher",
+         "/StatusNotifierWatcher",
+         "org.freedesktop.DBus.Properties",
+         "Get",
+         g_variant_new("(ss)", "org.kde.StatusNotifierWatcher", "IsStatusNotifierHostRegistered"),
+         G_VARIANT_TYPE("(v)"),
+         G_DBUS_CALL_FLAGS_NO_AUTO_START,
+         500,
+         nullptr,
+         &perror);
+
+      g_object_unref(pconnection);
+
+      if (perror)
+      {
+
+         g_error_free(perror);
+
+      }
+
+      if (!presult)
+      {
+
+         return false;
+
+      }
+
+      bool bRegistered = false;
+
+      GVariant * pvalue = nullptr;
+
+      g_variant_get(presult, "(v)", &pvalue);
+
+      if (pvalue)
+      {
+
+         if (g_variant_is_of_type(pvalue, G_VARIANT_TYPE_BOOLEAN))
+         {
+
+            bRegistered = g_variant_get_boolean(pvalue) != FALSE;
+
+         }
+
+         g_variant_unref(pvalue);
+
+      }
+
+      g_variant_unref(presult);
+
+      return bRegistered;
 
    }
 
@@ -82,7 +149,7 @@ namespace windowing_gtk4
    bool windowing::is_branch_current() const
    {
 
-      return system()->acme_windowing()->is_branch_current();
+      return ::gtk4::acme::windowing::windowing::is_branch_current();
 
 
    }

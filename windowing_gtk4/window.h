@@ -217,6 +217,7 @@ namespace windowing_gtk4
       void final_mouse_message_handling(::message::mouse * pmouse) override;
 
       void _on_windowing_close_window() override;
+      gboolean _on_window_close_request(GtkWindow * pgtkwindow) override;
 
       void window_restore() override;
 

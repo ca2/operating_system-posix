@@ -1,0 +1,6480 @@
+// created by Camilo <3CamiloSasukeThomasBorregaardSoerensen
+// recreated by Camilo 2021-01-28 22:20 <3TBS, Mummi and bilbo!!
+// hi5 contribution...
+#include "platform.h"
+#include "graphics.h"
+#include "keyboard.h"
+#include "window.h"
+#include "windowing.h"
+#include "windowing.h"
+#include "display.h"
+#include "cursor.h"
+#include "acme/constant/message.h"
+#include "acme/operating_system/a_system_menu.h"
+#include "acme/parallelization/synchronous_lock.h"
+#include "acme/prototype/geometry2d/_text_stream.h"
+#include "acme/user/user/_text_stream.h"
+#include "apex/platform/node.h"
+#include "apex/platform/system.h"
+#include "aura/graphics/graphics/graphics.h"
+#include "aura/message/user.h"
+#include "aura/user/user/interaction_graphics_thread.h"
+//#include "aura/user/user/interaction_impl.h"
+#include "aura/platform/message_queue.h"
+#include "aura_posix/node.h"
+//#include <X11/Xatom.h>
+//#include <X11/extensions/sync.h>
+//#include <wayland-client.h>
+//#include <gdk/gdkwindow.h>
+#include "acme_windowing_q/QCustomTopWindow.h"
+//#include <linux/input.h> // for BTN_LEFT,...
+//#include <xkbcommon/xkbcommon.h>
+//#include <gio/gio.h>
+//#include "app-graphics/gcom/backimpact/visual_effect.h"
+#include <QtGlobal>
+#include <QAction>
+#include <QMainWindow>
+//#include <QApplication>
+//#include <QMainWindow>
+#include <QMenu>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QPixmap>
+#include <Qt>
+#include <acme/user/user/activation_token.h>
+#include <cairo/cairo.h>
+#include "aura/graphics/graphics/buffer_item.h"
+#include "aura/graphics/image/context.h"
+#include "aura/graphics/image/drawing.h"
+#include "aura/windowing/icon.h"
+#include <QIcon>
+#include <QGuiApplication>
+#include <QThread>
+#include "aura/platform/application.h"
+#include "apex/gpu/approach.h"
+//#include "windowing_system_wayland/xfree86_key.h"
+#include "acme_windowing_q/q_5_and_6.h"
+
+
+// CLASS_DECL_ACME::string _001_pixmap_diagnostics(const pixmap_t * ppixmap);
+
+::particle* user_synchronization();
+
+
+#undef ALOG_CONTEXT
+#define ALOG_CONTEXT ::trace_object(::trace_category_windowing)
+
+
+namespace windowing_q
+{
+
+   window::window()
+   {
+      resizing = false;
+      moving = false;
+
+      m_bKeyboardFocus = false;
+
+      m_bPendingStartMove = false;
+
+   }
+
+
+   window::~window()
+   {
+   }
+
+
+   void window::on_initialize_particle()
+   {
+
+      ::windowing_posix::window::on_initialize_particle();
+      //::q::micro::window::on_initialize_particle();
+
+   }
+
+
+   // void window::_set_oswindow(::::acme::windowing::window * pacmewindowingwindow)
+   // {
+   // }
+   //
+   //
+   // ::oswindow window::oswindow() const
+   // {
+   //    return (::oswindow)this;
+   // }
+   //
+
+
+   void window::defer_show_system_menu(::user::mouse* pmouse)
+   {
+
+      ::q::acme::windowing::window::defer_show_system_menu(pmouse);
+      //::q::micro::window::defer_show_system_menu(pmouse);
+
+
+      // // Function to create and show the popup menu
+      //
+      // m_psystemmenu = puserinteraction->create_system_menu();
+      //
+      // QMenu contextMenu(m_pqwidget);
+      //
+      // // Create actions for the context menu with custom arguments
+      // for (auto pmenuitem: *m_psystemmenu)
+      // {
+      //
+      //    if (pmenuitem->m_strName.is_empty())
+      //    {
+      //
+      //       contextMenu.addSeparator();
+      //
+      //       continue;
+      //
+      //    }
+      //
+      //    auto paction = ___new QAction(pmenuitem->m_strName.c_str(), m_pqwidget);
+      //
+      //    m_pqwidget->connect(paction, &QAction::triggered, [this, pmenuitem]()
+      //    {
+      //
+      //       on_a_system_menu_item(pmenuitem);
+      //
+      //    });
+      //
+      //    m_qactiona.add(paction);
+      //
+      //    contextMenu.addAction(paction);
+      //
+      // }
+      //
+      // // Show the context menu at the cursor position
+      // contextMenu.exec({pmouse->m_pointAbsolute.x, pmouse->m_pointAbsolute.y});
+      //
+
+   }
+
+
+
+   void window::_on_display_change(::e_display edisplay)
+   {
+
+
+      ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+      if (edisplay == e_display_zoomed)
+      {
+
+
+         puserinteraction->display(::e_display_zoomed);
+
+         application()->fork([this]()
+         {
+
+            preempt(100_ms);
+
+            user_post([this]()
+            {
+
+               // GdkSurface * pgdksurface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+               //
+               // int cx = gdk_surface_get_width(pgdksurface);
+               //
+               // int cy = gdk_surface_get_height(pgdksurface);
+
+               //_on_size(cx, cy);
+
+            });
+
+         });
+
+      }
+      else
+      {
+
+         puserinteraction->display(::e_display_normal);
+
+         application()->fork([this]()
+         {
+
+            preempt(100_ms);
+
+            user_post([this]()
+            {
+
+               // GdkSurface * pgdksurface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+               //
+               // int cx = gdk_surface_get_width(pgdksurface);
+               //
+               // int cy = gdk_surface_get_height(pgdksurface);
+               //
+               // _on_size(cx, cy);
+
+            });
+
+         });
+
+      }
+
+   }
+
+
+   void window::_on_reposition(int x, int y)
+   {
+
+      //::windowing::window* pimpl = m_pwindow;
+
+      ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+      if (puserinteraction
+         && (puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
+         && system()->acme_windowing()->get_ewindowing() == ::windowing::e_windowing_wayland)
+      {
+
+         return;
+
+      }
+
+      ::i32_point p(x, y);
+
+      if (m_pointWindow != p)
+      {
+
+         m_pointWindow = p;
+
+         on_window_configuration_change();
+
+         // if (puserinteraction)
+         // {
+         //
+         //    puserinteraction->_on_configure_notify_unlocked();
+         //
+         // }
+         //
+         // //puserinteraction->layout().m_statea[::user::e_layout_window].m_point2 = p;
+         //
+         // //puserinteraction->on_reposition();
+
+      }
+
+   }
+
+
+   void window::_on_size(int cx, int cy)
+   {
+
+      //::windowing::window* pimpl = m_pwindow;
+
+      ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+      ::i32_size s(cx, cy);
+
+      if (puserinteraction && puserinteraction->is_true("fixed_size")
+         && m_sizeWindow.cx > 1 && m_sizeWindow.cy > 1 && s != m_sizeWindow)
+      {
+
+         return;
+
+      }
+
+      if (m_sizeWindow != s)
+      {
+
+         //gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (m_pdrawingarea), cx);
+         //gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (m_pdrawingarea), cy);
+
+         m_sizeWindow = s;
+
+         on_window_configuration_change();
+
+         // if (puserinteraction)
+         // {
+         //
+         //
+         //
+         // }
+
+         // puserinteraction->layout().m_statea[::user::e_layout_window].m_size = s;
+         //
+         // puserinteraction->set_size(s);
+         //
+         // puserinteraction->set_need_layout();
+         //
+         // puserinteraction->set_need_redraw();
+         //
+         // puserinteraction->post_redraw();
+
+      }
+
+   }
+
+
+   void window::_on_show(bool bShow)
+   {
+
+      bool bWasVisible = m_bVisible.load(std::memory_order_relaxed);
+
+      ::q::acme::windowing::window::_on_show(bShow);
+
+      if (!bShow && bWasVisible)
+      {
+
+         ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+         if (puserinteraction
+            && (puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
+            && puserinteraction->const_layout().sketch().is_screen_visible()
+            && !puserinteraction->has_finishing_flag()
+            && !puserinteraction->has_destroying_flag())
+         {
+
+            puserinteraction->post_message(::user::e_message_close);
+
+         }
+
+      }
+
+   }
+
+
+   void window::_on_mouse_press(QMouseEvent* pevent)
+   {
+
+      {
+
+         ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+         if (m_pqwidget && puserinteraction && !(puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
+         {
+
+            const QObjectList children = m_pqwidget->children();
+
+            for (QObject * pchild : children)
+            {
+
+               if (auto * pchildWidget = qobject_cast<QWidget *>(pchild))
+               {
+
+                  auto wt = pchildWidget->windowFlags() & Qt::WindowType_Mask;
+
+                  if ((wt == Qt::ToolTip || wt == Qt::Popup) && pchildWidget->isVisible())
+                  {
+
+                     pchildWidget->hide();
+
+                  }
+
+               }
+
+            }
+
+         }
+
+      }
+
+      if(m_bResizingWindowFromBottomRight || m_bRepositioningWindowFromCenter)
+      {
+         
+         release_mouse_capture();
+         
+         m_bRepositioningWindowFromCenter = false;
+         
+         m_bResizingWindowFromBottomRight = false;
+
+      }
+
+      {
+
+         auto pmouse = create_newø<::message::mouse>();
+
+         pmouse->m_operatingsystemwindow = this->operating_system_window();
+
+         pmouse->m_pwindow = this;
+
+         pmouse->m_iTimestamp = pevent->timestamp();
+
+         if (pevent->button() == Qt::MouseButton::LeftButton)
+         {
+            pmouse->m_eusermessage = ::user::e_message_left_button_down;
+         }
+         else if (pevent->button() == Qt::MouseButton::RightButton)
+         {
+            pmouse->m_eusermessage = ::user::e_message_right_button_down;
+         }
+         else if (pevent->button() == Qt::MouseButton::MiddleButton)
+         {
+            pmouse->m_eusermessage = ::user::e_message_middle_button_down;
+         }
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+
+         m_pointCursor2.x = pevent->globalPosition().x();
+         m_pointCursor2.y = pevent->globalPosition().y();
+
+         pmouse->m_pointHost.x = pevent->position().x();
+         pmouse->m_pointHost.y = pevent->position().y();
+
+#else
+
+         m_pointCursor2.x = pevent->globalX();
+         m_pointCursor2.y = pevent->globalY();
+
+         pmouse->m_pointHost.x = pevent->x();
+         pmouse->m_pointHost.y = pevent->y();
+
+#endif
+
+         pmouse->m_pointAbsolute = m_pointCursor2;
+
+         if (m_bPendingStartMove)
+         {
+
+            m_bPendingStartMove = false;
+
+            defer_perform_entire_reposition_process(pmouse);
+
+            return;
+
+         }
+
+         message_handler(pmouse);
+
+      }
+
+   }
+
+
+   void window::_on_mouse_release(QMouseEvent* pevent)
+   {
+
+      if(m_bResizingWindowFromBottomRight || m_bRepositioningWindowFromCenter)
+      {
+         
+         release_mouse_capture();
+         
+         m_bRepositioningWindowFromCenter = false;
+         
+         m_bResizingWindowFromBottomRight = false;
+
+      }
+      
+      //if(n_press == 1)
+      {
+
+         // auto button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pgesture));
+         //
+         // if (button == 1)
+         // {
+         //
+         //    moving = FALSE;
+         //    resizing = FALSE;
+         // }
+
+
+         //::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+         //if (::is_set(puserinteraction))
+         {
+
+            auto pmouse = create_newø<::message::mouse>();
+
+            pmouse->m_operatingsystemwindow = this->operating_system_window();
+
+            pmouse->m_pwindow = this;
+
+            if (pevent->button() == Qt::MouseButton::LeftButton)
+            {
+               pmouse->m_eusermessage = ::user::e_message_left_button_up;
+            }
+            else if (pevent->button() == Qt::MouseButton::RightButton)
+            {
+               pmouse->m_eusermessage = ::user::e_message_right_button_up;
+            }
+            else if (pevent->button() == Qt::MouseButton::MiddleButton)
+            {
+               pmouse->m_eusermessage = ::user::e_message_middle_button_up;
+            }
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+
+            m_pointCursor2.x = pevent->globalPosition().x();
+            m_pointCursor2.y = pevent->globalPosition().y();
+
+            pmouse->m_pointHost.x = pevent->position().x();
+            pmouse->m_pointHost.y = pevent->position().y();
+
+#else
+
+            m_pointCursor2.x = pevent->globalX();
+            m_pointCursor2.y = pevent->globalY();
+
+            pmouse->m_pointHost.x = pevent->x();
+            pmouse->m_pointHost.y = pevent->y();
+
+#endif
+
+            pmouse->m_pointAbsolute = m_pointCursor2;
+
+            //pmouse->m_time.m_iSecond = millis / 1_k;
+
+            //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+
+            //pwindow->message_handler(pmouse);
+
+            //wayland_windowing()->post_ui_message(pmouse);
+
+            message_handler(pmouse);
+         }
+
+
+      }
+   }
+
+
+   void window::_on_mouse_motion(QMouseEvent* pevent)
+   {
+
+      if(m_bRepositioningWindowFromCenter)
+      {
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+
+         auto p = pevent->globalPosition();
+
+#else
+
+         auto p = pevent->globalPos();
+
+#endif
+
+         p.setX(p.x() - m_pqwidget->size().width()/2);
+         p.setY(p.y() - m_pqwidget->size().height()/2);
+
+         m_pqwidget->move(p.x(), p.y());
+         return;
+
+      }
+      else if(m_bResizingWindowFromBottomRight)
+      {
+
+         QSize s;
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+
+         auto p = pevent->globalPosition();
+
+#else
+
+         auto p = pevent->globalPos();
+
+#endif
+
+         s.setWidth(p.x()-m_pqwidget->pos().x());
+         s.setHeight(p.y()-m_pqwidget->pos().y());
+
+         m_pqwidget->resize(s);
+         return;
+
+      }
+
+      //::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+      //if (::is_set(pwindow))
+      {
+
+         __check_refdbg;
+
+         auto pmouse = create_newø < ::message::mouse >();
+
+         __check_refdbg;
+
+         pmouse->m_operatingsystemwindow = this->operating_system_window();
+
+         __check_refdbg;
+
+         pmouse->m_pwindow = this;
+
+         __check_refdbg;
+
+         pmouse->m_eusermessage = ::user::e_message_mouse_move;
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+
+         m_pointCursor2.x = pevent->globalPosition().x();
+         m_pointCursor2.y = pevent->globalPosition().y();
+
+         pmouse->m_pointHost.x = pevent->position().x();
+         pmouse->m_pointHost.y = pevent->position().y();
+
+#else
+
+         m_pointCursor2.x = pevent->globalX();
+         m_pointCursor2.y = pevent->globalY();
+
+         pmouse->m_pointHost.x = pevent->x();
+         pmouse->m_pointHost.y = pevent->y();
+
+#endif
+
+         pmouse->m_pointAbsolute = m_pointCursor2;
+
+         __check_refdbg;
+
+         message_handler(pmouse);
+
+         __check_refdbg;
+
+      }
+
+   }
+
+
+   void window::_on_wheel(QWheelEvent * pevent)
+   {
+
+
+      __check_refdbg;
+
+      auto pmouse = create_newø < ::message::mouse_wheel >();
+
+      __check_refdbg;
+
+      pmouse->m_operatingsystemwindow = this->operating_system_window();
+
+      __check_refdbg;
+
+      pmouse->m_pwindow = this;
+
+      __check_refdbg;
+
+      pmouse->m_eusermessage = ::user::e_message_mouse_wheel;
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 8)
+
+      m_pointCursor2.x = pevent->globalPosition().x();
+      m_pointCursor2.y = pevent->globalPosition().y();
+
+      pmouse->m_pointHost.x = pevent->position().x();
+      pmouse->m_pointHost.y = pevent->position().y();
+
+#else
+
+      m_pointCursor2.x = pevent->globalX();
+      m_pointCursor2.y = pevent->globalY();
+
+      pmouse->m_pointHost.x = pevent->x();
+      pmouse->m_pointHost.y = pevent->y();
+
+#endif
+
+      pmouse->m_pointAbsolute = m_pointCursor2;
+
+      int iY = pevent->angleDelta().y();
+
+      informationf("vertical wheel scroll iy:%d", iY);
+
+      pmouse->m_Δ = (short) iY;
+
+      __check_refdbg;
+
+      message_handler(pmouse);
+
+      __check_refdbg;
+
+   }
+
+
+   //
+   //
+   //    static void on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y, gpointer p)
+   //    {
+   //
+   //       auto pwindow = (::windowing_q::window *)p;
+   //
+   //       pwindow->_on_enter_notify(pcontroller, x, y);
+   //
+   //    }
+   //
+   //
+   //    void window::_on_enter_notify(GtkEventControllerMotion* pcontroller, double x, double y)
+   //    {
+   //
+   // //      GtkWidget* widget = gtk_event_controller_get_widget(GTK_EVENT_CONTROLLER(pcontroller));
+   //
+   //
+   //    }
+
+   //
+   // // Callback for when the window visibility changes (minimized/hidden or restored)
+   // static void on_window_visibility_changed(GObject* object, GParamSpec* pspec, gpointer p)
+   // {
+   //    auto pwindow = (::windowing_q::window *)p;
+   //
+   //    pwindow->_on_window_visibility_changed(object, pspec);
+   // }
+   //
+   //
+   // void window::_on_window_visibility_changed(GObject* object, GParamSpec* pspec)
+   // {
+   //    GtkWindow* window = GTK_WINDOW(object);
+   //    gboolean is_visible = gtk_widget_get_visible(GTK_WIDGET(window));
+   //
+   //    if (!is_visible)
+   //    {
+   //       //      g_print("Window has been minimized (hidden).\n");
+   //    }
+   //    else
+   //    {
+   //       g_print("Window has been restored.\n");
+   //
+   //       //::windowing::window* pimpl = m_pwindow;
+   //
+   //       puserinteraction->display(::e_display_normal);
+   //
+   //       puserinteraction->set_need_layout();
+   //
+   //       puserinteraction->set_need_redraw();
+   //
+   //       puserinteraction->post_redraw();
+   //    }
+   // }
+   //
+   // // Callback for when Option 1 is selected from the popover menu
+   // static void on_window_simple_action(GSimpleAction *action, GVariant *parameter, gpointer p)
+   // {
+   //    auto pwindow = (::windowing_q::window *)p;
+   //    gchar * name = nullptr;
+   //    g_object_get(action, "name", &name, nullptr);
+   //    pwindow->_on_window_simple_action(name);
+   //    g_free(name);
+   //    //g_print("Option 1 selected from popover menu!\n");
+   // }
+
+
+
+
+             void window::_on_key_press(QKeyEvent * pevent)
+    {
+
+            // if(m_bResizingWindowFromBottomRight ||
+            //    m_bRepositioningWindowFromCenter)
+            // {
+            //    m_pqwidget->releaseMouse();
+            //    m_bRepositioningWindowFromCenter = false;
+            //    m_bResizingWindowFromBottomRight = false;
+            // }
+
+
+//          ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+          //if (::is_set(pelemental))
+          {
+             auto pkey = create_newø<::message::key>();
+
+             pkey->m_eusermessage = ::user::e_message_key_down;
+
+              pkey->m_operatingsystemwindow = this->operating_system_window();
+             //
+              pkey->m_pwindow = this;
+
+             // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+             //
+             // // Get the GdkEvent from the sequence
+             // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+             //
+             // guint32 timestamp = gdk_event_get_time (happening);
+
+             pkey->m_iTimestamp = pevent->timestamp();
+
+             // m_pointCursor2.x = pevent->globalX();
+             // m_pointCursor2.y = pevent->globalY();
+             //
+             //
+             // pmouse->m_pointHost.x = pevent->x();
+             // pmouse->m_pointHost.y = pevent->y();
+
+             //pkey->m_pointAbsolute = m_pointCursor2;
+
+
+             pkey->m_ekey = ::q::user_key_from_qt_key(pevent->key());
+
+             ::string strText(pevent->text().toUtf8().data());
+
+             int i1 = strText.c_str()[0];
+             int i2 = strText.c_str()[1];
+             int i3 = strText.c_str()[2];
+             int i4 = strText.c_str()[3];
+
+              if (strText.has_character() && ((strText[0] >= 32 && strText[0] != 127) || strText[0] < 0))
+              {
+                 on_text(strText.c_str(), strText.size());
+              }
+
+             //if (pevent->button() == Qt::MouseButton::LeftButton)
+             // {
+             //    pmouse->m_emessage = e_message_left_button_down;
+             //    pelemental->fore_on_left_button_down(pmouse);
+             //    if (!pmouse->m_bRet)
+             //    {
+             //
+             //       pelemental->back_on_left_button_down(pmouse);
+             //    }
+             //
+             // }
+             // else if (pevent->button() == Qt::MouseButton::RightButton)
+             // {
+             //    pmouse->m_emessage = e_message_right_button_down;
+             //    pelemental->fore_on_right_button_down(pmouse);
+             //    if (!pmouse->m_bRet)
+             //    {
+             //
+             //      pelemental->back_on_right_button_down(pmouse);
+             //
+             //    }
+             //
+             // }
+             // else if (pevent->button() == Qt::MouseButton::MiddleButton)
+             // {
+             //    pmouse->m_emessage = e_message_middle_button_down;
+             // }
+
+
+             // //pmouse->m_time.m_iSecond = millis / 1_k;
+             //
+             // //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+             //
+             // //pwindow->message_handler(pmouse);
+             //
+             // //wayland_windowing()->post_ui_message(pmouse);
+             //
+             // if(m_bPendingStartMove)
+             // {
+             //    m_bPendingStartMove =false;
+             //
+             //    defer_perform_entire_reposition_process(pmouse);
+             //    return;
+             //
+             // }
+             //
+             // pwindow->message_handler(pmouse);
+
+             message_handler(pkey);
+          }
+
+       }
+
+
+             void window::_on_key_release(QKeyEvent * pevent)
+    {
+
+            // if(m_bResizingWindowFromBottomRight ||
+            //    m_bRepositioningWindowFromCenter)
+            // {
+            //    m_pqwidget->releaseMouse();
+            //    m_bRepositioningWindowFromCenter = false;
+            //    m_bResizingWindowFromBottomRight = false;
+            // }
+
+
+          //::cast < ::micro::elemental > pelemental = m_pacmeuserinteraction;
+
+          //if (::is_set(pelemental))
+          {
+             auto pkey = create_newø<::message::key>();
+
+             pkey->m_eusermessage = ::user::e_message_key_up;
+
+              pkey->m_operatingsystemwindow = this->operating_system_window();
+             //
+              pkey->m_pwindow = this;
+
+             // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pgesture));
+             //
+             // // Get the GdkEvent from the sequence
+             // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pgesture), sequence);
+             //
+             // guint32 timestamp = gdk_event_get_time (happening);
+
+             pkey->m_iTimestamp = pevent->timestamp();
+
+             // m_pointCursor2.x = pevent->globalX();
+             // m_pointCursor2.y = pevent->globalY();
+             //
+             //
+             // pmouse->m_pointHost.x = pevent->x();
+             // pmouse->m_pointHost.y = pevent->y();
+
+             //pkey->m_pointAbsolute = m_pointCursor2;
+
+
+             pkey->m_ekey = ::q::user_key_from_qt_key(pevent->key());
+
+             //pkey->m_strText = pevent->text().toUtf8();
+
+             //if (pevent->button() == Qt::MouseButton::LeftButton)
+             // {
+             //    pmouse->m_emessage = e_message_left_button_down;
+             //    pelemental->fore_on_left_button_down(pmouse);
+             //    if (!pmouse->m_bRet)
+             //    {
+             //
+             //       pelemental->back_on_left_button_down(pmouse);
+             //    }
+             //
+             // }
+             // else if (pevent->button() == Qt::MouseButton::RightButton)
+             // {
+             //    pmouse->m_emessage = e_message_right_button_down;
+             //    pelemental->fore_on_right_button_down(pmouse);
+             //    if (!pmouse->m_bRet)
+             //    {
+             //
+             //      pelemental->back_on_right_button_down(pmouse);
+             //
+             //    }
+             //
+             // }
+             // else if (pevent->button() == Qt::MouseButton::MiddleButton)
+             // {
+             //    pmouse->m_emessage = e_message_middle_button_down;
+             // }
+
+
+             // //pmouse->m_time.m_iSecond = millis / 1_k;
+             //
+             // //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+             //
+             // //pwindow->message_handler(pmouse);
+             //
+             // //wayland_windowing()->post_ui_message(pmouse);
+             //
+             // if(m_bPendingStartMove)
+             // {
+             //    m_bPendingStartMove =false;
+             //
+             //    defer_perform_entire_reposition_process(pmouse);
+             //    return;
+             //
+             // }
+             //
+             // pwindow->message_handler(pmouse);
+
+             message_handler(pkey);
+          }
+
+       }
+
+
+   void window::_on_text(const scoped_string& scopedstr)
+   {
+
+      on_text(scopedstr.begin(), scopedstr.size());
+
+
+   }
+
+
+   void window::show_task(bool bShow)
+   {
+
+      //throw ::interface_only();
+
+   }
+
+   // void window::_on_window_simple_action(const_char_pointer pszActionName)
+   // {
+   //
+   //    ::string strActionName(scopedstrActionName);
+   //
+   //    if (strActionName == "minimize")
+   //    {
+   //
+   //       window_minimize();
+   //
+   //    }
+   //    else if (strActionName == "maximize")
+   //    {
+   //
+   //       window_maximize();
+   //
+   //    }
+   //    else if (strActionName == "about_box")
+   //    {
+   //
+   //       application()->show_about_box();
+   //
+   //    }
+   //    else if (strActionName == "close")
+   //    {
+   //
+   //       puserinteraction->post_message(e_message_close);
+   //
+   //    }
+   //    else if (strActionName == "")
+   //    {
+   //
+   //       print_line("reaching here?!");
+   //       //defer_perform_entire_reposition_process(nullptr);
+   //
+   //    }
+   //    else if (strActionName == "")
+   //    {
+   //
+   //       print_line("also here");
+   //
+   //       //defer_perform_entire_resizing_process(::experience::e_frame_sizing_top_left, nullptr);
+   //
+   //    }
+   //
+   // }
+
+
+   // void window::_on_a_system_menu_item_action_triggered(::operating_system::a_system_menu_item * pitem)
+   // {
+   //
+   //    _on_window_simple_action(pitem->m_strAtom);
+   //
+   // }
+
+
+   // static void on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size, gpointer p)
+   // {
+   //
+   //    auto pwindow = (::windowing_q::window *)p;
+   //
+   //    pwindow->_on_toplevel_compute_size(self, size);
+   //
+   // }
+   //
+   //
+   // void window::_on_toplevel_compute_size(GdkToplevel * self, GdkToplevelSize* size)
+   // {
+   //
+   //    gboolean bIsMaximized = gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget));
+   //
+   //    if(bIsMaximized)
+   //    {
+   //
+   //       int w = 0;
+   //
+   //       int h = 0;
+   //
+   //       gdk_toplevel_size_get_bounds(size, &w, &h);
+   //
+   //       gdk_toplevel_size_set_size(size, w, h);
+   //
+   //    }
+   //
+   // }
+
+
+   void window::_on_qimage_draw(QImage* pqimage)
+   {
+
+      auto pbuffer = m_pgraphicsgraphics.m_p;
+
+      _synchronous_lock slGraphics(::is_null(pbuffer) ? nullptr : pbuffer->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      if (!pbuffer || pbuffer->get_screen_index() < 0)
+      {
+
+         auto colorLightBlue = argb(0.5, 0.35, 0.7, 0.95);
+
+         auto w = pqimage->width();
+
+         auto h = pqimage->height();
+
+         auto p = (image32_t *)pqimage->bits();
+
+         auto s = pqimage->bytesPerLine();
+
+         image32_t image32Source(colorLightBlue, ::color_indexes());
+
+         p->set_rectangle(0, 0, w, h, s, image32Source);
+
+         p->blend_rectangle(2, 2, w - 4, 32, s, image32Source);
+
+         return;
+
+      }
+
+      auto pitem = pbuffer->get_screen_item();
+
+      if (!pitem)
+      {
+
+         return;
+
+      }
+
+      _synchronous_lock slImage(pitem->m_pmutex, DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      if (pitem && pitem->m_pimageBufferItem)
+      {
+
+         auto ppixmapImageBufferItem = pitem->m_pimageBufferItem->map(::image::e_map_read_only);
+
+         if (pitem->m_pimageBufferItem.ok())
+         {
+
+            int w = minimum(pitem->m_pimageBufferItem->width(), pqimage->width());
+
+            int h = minimum(pitem->m_pimageBufferItem->height(), pqimage->height());
+
+            auto pimageTarget = (::image32_t *)pqimage->bits();
+
+            int iTargetScan = pqimage->bytesPerLine();
+
+            auto pimage32BufferItem = ppixmapImageBufferItem->image32();
+
+            int iSourceScan = ppixmapImageBufferItem->m_iScan;
+
+            //::string strPixmap = _001_image32_diagnostics_t(ppixmapImageBufferItem).as_string();
+
+            //auto cx = ppixmapImageBufferItem->width();
+
+            //auto cy = ppixmapImageBufferItem->height();
+
+            // ppixmapImageBufferItem->blend_color({0, 0, 100, 100}, argb(0.5, 0.5 * 0.5, 0.8*0.5, 0.9*0.5));
+            //
+            // ppixmapImageBufferItem->blend_color({cx-100, 0, cx, 100}, argb(0.5, 0.5 * 0.5, 0.8*0.5, 0.9*0.5));
+            //
+            // ppixmapImageBufferItem->blend_color({0, cy-100, 100, cy}, argb(0.5, 0.5 * 0.5, 0.8*0.5, 0.9*0.5));
+            //
+            // ppixmapImageBufferItem->blend_color({cx-100, cy-100, cx, cy}, argb(0.5, 0.5 * 0.5, 0.8*0.5, 0.9*0.5));
+
+            //auto psz = strPixmap.c_str();
+
+            //information("buffer Item diagnostics: {}", strPixmap);
+
+            pimageTarget->copy({w, h}, iTargetScan, pimage32BufferItem, iSourceScan);
+
+            // The rendering thread has already completed and swapped this frame.
+            // Painting must not swap buffers again while holding the screen lock.
+
+         }
+
+      }
+
+   }
+
+
+   //void window::create_window(::windowing::window * pimpl)
+   void window::create_window(::enum_parallelization eparallelization)
+   {
+
+      ::windowing::window::create_window(eparallelization);
+
+      // main_send([this]()
+      // {
+      //
+      //    _create_window();
+      //
+      // });
+      //
+      // if (!is_window())
+      // {
+      //
+      //    throw ::exception(error_failed);
+      //
+      // }
+
+   }
+
+
+   void window::_create_window()
+   {
+
+      bool bOk = true;
+
+      printf_line("windowing_q::window::create_window");
+
+      {
+
+         _synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+         ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+         //auto pusersystem = puserinteraction->m_pusersystem;
+
+         if (puserinteraction)
+         {
+
+            puserinteraction->m_bMessageOnlyWindow = false;
+
+         }
+
+         auto pqwindowing = q_windowing();
+
+         auto pdisplay = pqwindowing->m_pdisplay;
+
+         if (puserinteraction)
+         {
+
+            puserinteraction->m_pacmewindowingwindow = this;
+
+         }
+         else
+         {
+
+            m_pacmeuserinteraction->m_pacmewindowingwindow = this;
+
+         }
+
+         m_pacmewindowingdisplayWindow = pdisplay;
+
+         information() << "window::create_window m_pdisplay : " << (::iptr)m_pacmewindowingdisplayWindow.m_p;
+
+         int x = 0;
+
+         int y = 0;
+
+         int cx = 0;
+
+         int cy = 0;
+
+         bool bVisible = true;
+
+         if (puserinteraction)
+         {
+
+            x = puserinteraction->const_layout().sketch().origin().x;
+
+            y = puserinteraction->const_layout().sketch().origin().y;
+
+            cx = puserinteraction->const_layout().sketch().width();
+
+            cy = puserinteraction->const_layout().sketch().height();
+
+            bVisible = puserinteraction->const_layout().sketch().is_screen_visible();
+
+         }
+         else
+         {
+
+            auto r = m_pacmeuserinteraction->get_rectangle();
+
+            x = r.left;
+
+            y = r.top;
+
+            cx = r.width();
+
+            cy = r.height();
+
+         }
+
+         if (cx <= 0)
+         {
+
+            cx = 1;
+
+         }
+
+         if (cy <= 0)
+         {
+
+            cy = 1;
+
+         }
+
+         m_pointWindow.x = x;
+
+         m_pointWindow.y = y;
+
+         m_sizeWindow.cx = cx;
+
+         m_sizeWindow.cy = cy;
+
+         // Wayland resolves the taskbar icon through the desktop-file app id.
+         // Set it before Qt creates the native surface.
+         auto strDesktopId = application()->m_strAppId;
+         strDesktopId.replace_with(".", "/");
+         QGuiApplication::setDesktopFileName(QString::fromUtf8(strDesktopId.c_str()));
+
+         ::q::acme::windowing::window::_create_window();
+
+         if (puserinteraction && (puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning))
+         {
+
+            QWidget * pParentQWidget = nullptr;
+
+            auto powner = puserinteraction->owner_interaction();
+
+            while (powner)
+            {
+
+               auto ptoplevel = powner->top_level();
+
+               if (!ptoplevel)
+               {
+
+                  break;
+
+               }
+
+               if (!(ptoplevel->m_ewindowflag & e_window_flag_arbitrary_positioning))
+               {
+
+                  if (auto pownerWindow = dynamic_cast<::q::acme::windowing::window *>(ptoplevel->windowing_window()))
+                  {
+
+                     pParentQWidget = pownerWindow->m_pqwidget;
+
+                  }
+
+                  break;
+
+               }
+
+               powner = ptoplevel->owner_interaction();
+
+            }
+
+            Qt::WindowFlags popupFlags = Qt::ToolTip | Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint;
+
+            if (pParentQWidget)
+            {
+
+               m_pqwidget->setParent(pParentQWidget, popupFlags);
+
+            }
+            else
+            {
+
+               m_pqwidget->setWindowFlags(popupFlags);
+
+            }
+
+            m_pqwidget->setAttribute(Qt::WA_TranslucentBackground);
+            m_pqwidget->setAttribute(Qt::WA_NoSystemBackground, true);
+            m_pqwidget->setAttribute(Qt::WA_OpaquePaintEvent, false);
+            m_pqwidget->setMouseTracking(true);
+
+         }
+
+         m_pqwidget->move(x, y);
+
+         m_pqwidget->resize(cx, cy);
+
+         // cx = maximum(cx, 800);
+         //
+         // cy = maximum(cy, 400);
+
+         m_sizeOnSize.cx = cx;
+
+         m_sizeOnSize.cy = cy;
+
+         //set_oswindow(this);
+
+         __refdbg_add_referer;
+
+         if (puserinteraction)
+         {
+
+            puserinteraction->increment_reference_count();
+
+         }
+
+         bamf_set_icon();
+
+         if (bVisible)
+         {
+            map_window();
+         }
+         else
+         {
+            puserinteraction->const_layout().window().display() = e_display_none;
+         }
+
+      }
+
+      ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+<<<<<<< HEAD
+      if (bOk && puserinteraction && puserinteraction->is_graphical() && m_papplication->is_user_service())
+=======
+      if (bOk && puserinteraction && puserinteraction->is_graphical() && m_papplication->is_using_gpu())
+>>>>>>> refs/remotes/origin/main
+      {
+
+         auto pgpuapproach = m_papplication->get_gpu_approach();
+
+         pgpuapproach->gpu_on_create_window(this);
+
+      }
+
+      if (bOk)
+      {
+
+
+#ifdef REPORT_OFFSET
+
+            printf("(7BB) offset of m_timeFocusStart in ::user::interaction_base = %d\n", offsetof(::user::interaction_base,m_timeFocusStart));
+            printf("(7BB) offset of m_bExtendOnParent in ::user::interaction = %d\n", offsetof(::user::interaction, m_bExtendOnParent));
+            printf("(7BB) offset of m_pwindow in ::user::interaction = %d\n", offsetof(::user::interaction, m_pwindow));
+            printf("(7BB) offset of m_pImpl2 in ::windowing::window = %d\n", offsetof(::windowing::window, m_pImpl2));
+            printf("(7BB) offset of m_timeLastExposureAddUp in ::windowing::window = %d\n", offsetof(::windowing::window, m_timeLastExposureAddUp));
+            printf("(7BB) offset of m_strBitmapSource in ::windowing::window = %d\n", offsetof(::windowing::window, m_strBitmapSource));
+            printf("(7BB) offset of m_bCursorRedraw in ::windowing::window = %d\n", offsetof(::windowing::window, m_bCursorRedraw));
+            printf("(7BB) offset of m_bLockWindowUpdate in ::windowing::window = %d\n", offsetof(::windowing::window, m_bLockWindowUpdate));
+            printf("(7BB) offset of m_bOkToUpdateScreen in ::windowing::window = %d\n", offsetof(::windowing::window, m_bOkToUpdateScreen));
+            printf("(7BB) offset of m_sizeDrawn in ::windowing::window = %d\n", offsetof(::windowing::window, m_sizeDrawn));
+            printf("(7BB) offset of m_pthreadMouseLeave in ::windowing::window = %d\n", offsetof(::windowing::window, m_pthreadMouseLeave));
+            printf("(7BB) offset of m_bPointInside in ::windowing::window = %d\n", offsetof(::windowing::window, m_bPointInside));
+            printf("(7BB) offset of m_pwindow in ::windowing::window = %d\n", offsetof(::windowing::window, m_pwindow));
+
+#endif
+
+         ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+         if (puserinteraction)
+         {
+
+            auto lresult = puserinteraction->send_message(::user::e_message_create, 0, 0);
+
+            if (lresult == -1)
+            {
+
+               throw ::exception(error_failed);
+
+            }
+
+            puserinteraction->m_ewindowflag |= e_window_flag_window_created;
+
+            puserinteraction->set_flag(e_flag_task_started);
+
+         }
+         else
+         {
+
+            m_pacmeuserinteraction->message_call(::user::e_message_create);
+
+         }
+
+      }
+
+   }
+
+
+   void window::destroy()
+   {
+      ::windowing_posix::window::destroy();
+
+      //::wayland::micro::window_base::destroy();
+   }
+
+
+   //   void window::__map()
+   //   {
+   //
+   //      if (m_pxdgtoplevel != nullptr || m_pxdgpopup != nullptr)
+   //      {
+   //
+   //         return;
+   //
+   //      }
+   //
+   //      information() << "windowing_q::window::__map";
+   //
+   //      ::minimum(m_sizeConfigure.cx);
+   //
+   //      ::minimum(m_sizeConfigure.cy);
+   //
+   //      m_bDoneFirstMapping = false;
+   //
+   //      //m_bXdgInitialConfigure = false;
+   //
+   //      m_uLastRequestSerial = 0;
+   //
+   //      m_uLastConfigureSerial = 0;
+   //
+   //      m_uLastAckSerial = 0;
+   //
+   //      auto pdisplaywayaland = dynamic_cast < ::windowing_q::display * > (m_pdisplay.m_p);
+   //
+   //      m_pwlsurface = wl_compositor_create_surface(pdisplaywayaland->m_pwlcompositor);
+   //
+   //      if (m_pwlsurface == NULL)
+   //      {
+   //
+   //         error() << "Can't create wayland surface";
+   //
+   //         throw ::exception(::error_failed);
+   //
+   //      }
+   //      else
+   //      {
+   //
+   //         information() << "Created wayland surface";
+   //
+   //      }
+   //
+   //      auto puserinteractionOwner = puserinteraction->m_puserinteractionOwner;
+   //
+   ////      if(puserinteractionOwner)
+   ////      {
+   ////
+   ////         ::pointer < window > pwindowOwner = puserinteractionOwner->window();
+   ////
+   ////         if(pwindowOwner->m_pwlsurface)
+   ////         {
+   ////
+   ////            m_pwlsubsurface = wl_subcompositor_get_subsurface(
+   ////               pdisplaywayaland->m_pwlsubcompositor,
+   ////               m_pwlsurface,
+   ////               pwindowOwner->m_pwlsurface);
+   ////
+   ////            if(m_pwlsubsurface)
+   ////            {
+   ////
+   ////               information() << "Created wayland subsurface";
+   ////
+   ////            }
+   ////            else
+   ////            {
+   ////
+   ////               information() << "Failed to create wayland subsurface";
+   ////
+   ////               wl_subsurface_set_desync(m_pwlsubsurface);
+   ////
+   ////            }
+   ////
+   ////         }
+   ////
+   ////      }
+   //
+   //      //wl_surface_add_listener(m_pwlsurface, &g_wl_surface_listener, this);
+   //
+   //      pdisplaywayaland->m_windowmap[m_pwlsurface] = this;
+   //
+   //      auto pxdgwmbase = pdisplaywayaland->m_pxdgwmbase;
+   //
+   //      information() << "pxdgwmbase : " << (::iptr) pxdgwmbase;
+   //
+   //      if (!m_pwlsubsurface)
+   //      {
+   //
+   //         m_pxdgsurface = xdg_wm_base_get_xdg_surface(pxdgwmbase, m_pwlsurface);
+   //
+   //         if (m_pxdgsurface == NULL)
+   //         {
+   //
+   //            pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
+   //
+   //            error() << "Can't create shell surface";
+   //
+   //            throw ::exception(::error_failed);
+   //
+   //         }
+   //         else
+   //         {
+   //
+   //            information() << "Created shell surface";
+   //
+   //         }
+   //
+   //         xdg_surface_add_listener(m_pxdgsurface, &xdg_surface_listener, this);
+   //
+   //      }
+   //
+   //      if (puserinteractionOwner)
+   //      {
+   //
+   //         m_pxdgpositioner = xdg_wm_base_create_positioner(pxdgwmbase);
+   //
+   //         auto p = puserinteraction->const_layout().sketch().origin();
+   //
+   //         if (puserinteraction)
+   //         {
+   //
+   //            if (puserinteraction->get_parent())
+   //            {
+   //
+   //               puserinteraction->get_parent()->client_to_host()(p);
+   //
+   //            }
+   //
+   //         }
+   //
+   //         m_pointWindow = p;
+   //
+   //         xdg_positioner_set_offset(m_pxdgpositioner,
+   //                                   m_pointWindow.x,
+   //                                   m_pointWindow.y);
+   //
+   //         information() << "xdg_positioner_set_offset " << m_pointWindow;
+   //
+   //         ::pointer<window> pwindowOwner = puserinteractionOwner->window();
+   //
+   ////         if(pwindowOwner->m_pwlsurface)
+   //         //       {
+   //
+   //         /* Assign the popup role */
+   //         //data->shell_surface.xdg.roleobj.popup.popup = xdg_surface_get_popup(data->shell_surface.xdg.surface,
+   //         //                                                                  focuseddata->shell_surface.xdg.surface,
+   //         //                                                                data->shell_surface.xdg.roleobj.popup.positioner);
+   //
+   //
+   //         m_pxdgpopup = xdg_surface_get_popup(m_pxdgsurface, pwindowOwner->m_pxdgsurface, m_pxdgpositioner);
+   //
+   //         xdg_popup_add_listener(m_pxdgpopup, &popup_listener_xdg, this);
+   //
+   //      }
+   //      else
+   //      {
+   //
+   //
+   //         m_pxdgtoplevel = xdg_surface_get_toplevel(m_pxdgsurface);
+   //
+   //         if (m_pxdgtoplevel == NULL)
+   //         {
+   //
+   //            pdisplaywayaland->m_windowmap.erase_item(m_pwlsurface);
+   //
+   //            error() << "Can't create toplevel";
+   //
+   //            throw ::exception(::error_failed);
+   //
+   //         }
+   //         else
+   //         {
+   //
+   //            information() << "Created toplevel";
+   //
+   //         }
+   //
+   //         xdg_toplevel_add_listener(m_pxdgtoplevel, &g_xdg_toplevel_listener, this);
+   //
+   //      }
+   //
+   //      //m_pointWindow.x = x;
+   //
+   //      //m_pointWindow.y = y;
+   //
+   //      //auto x = m_pointWindowBestEffort.x;
+   //
+   //      //auto y = m_pointWindowBestEffort.y;
+   //
+   //      auto x = m_pointWindow.x;
+   //
+   //      auto y = m_pointWindow.y;
+   //
+   //      auto cx = m_sizeWindow.cx;
+   //
+   //      auto cy = m_sizeWindow.cy;
+   //
+   //      if (m_pxdgsurface)
+   //      {
+   //
+   //         xdg_surface_set_window_geometry(m_pxdgsurface, x, y, cx, cy);
+   //
+   //      }
+   //
+   //      auto pimpl = m_pwindow;
+   //
+   //
+   //      if (m_pxdgtoplevel)
+   //      {
+   //
+   //         if (!(puserinteraction->m_ewindowflag & e_window_flag_satellite_window))
+   //         {
+   //
+   //            auto psystem = system();
+   //
+   //            string strApplicationServerName = psystem->get_application_server_name();
+   //
+   //            xdg_toplevel_set_app_id(m_pxdgtoplevel, strApplicationServerName);
+   //
+   //         }
+   //
+   //      }
+   //
+   //      string strWindowText = puserinteraction->get_window_text();
+   //
+   ////         if (strWindowText.has_character())
+   ////         {
+   ////
+   ////            strName = strWindowText;
+   ////
+   ////         }
+   //
+   //      //}
+   //
+   //      if (strWindowText.has_character())
+   //      {
+   //
+   //         xdg_toplevel_set_title(m_pxdgtoplevel, strWindowText);
+   //
+   //      }
+   //
+   //      m_timeLastConfigureRequest.Now();
+   //
+   //      m_uLastRequestSerial = m_uLastConfigureSerial;
+   //
+   //      wl_surface_commit(m_pwlsurface);
+   //
+   //      //m_timeLastConfigureRequest += 1_s;
+   //
+   //      while (!m_bXdgInitialConfigure)
+   //      {
+   //
+   //         //wl_display_flush(pdisplaywayaland->m_pwldisplay);
+   //
+   //         wl_display_dispatch(pdisplaywayaland->m_pwldisplay);
+   //
+   //         //wl_display_dispatch(pdisplaywayaland->m_pwldisplay);
+   //
+   //         //wl_display_roundtrip(pdisplaywayaland->m_pwldisplay);
+   //
+   //      }
+   //
+   //   }
+   //
+   //
+   //   void window::__unmap()
+   //   {
+   //
+   //      information() << "windowing_q::window::__unmap";
+   //
+   //      if (m_pwlsurface != nullptr)
+   //      {
+   //
+   //         /* Detach any previous buffers before resetting everything, otherwise when
+   //         * calling this a second time you'hi get an annoying protocol error
+   //         */
+   //         wl_surface_attach(m_pwlsurface, NULL, 0, 0);
+   //         wl_surface_commit(m_pwlsurface);
+   //
+   //      }
+   //
+   //      if (m_pxdgtoplevel != nullptr)
+   //      {
+   //
+   //         xdg_toplevel_destroy(m_pxdgtoplevel);
+   //
+   //         m_pxdgtoplevel = nullptr;
+   //
+   //      }
+   //
+   //
+   //      if (m_pxdgpopup != nullptr)
+   //      {
+   //
+   //         xdg_popup_destroy(m_pxdgpopup);
+   //
+   //         m_pxdgpopup = nullptr;
+   //
+   //      }
+   //
+   //      if (m_pxdgpositioner != nullptr)
+   //      {
+   //
+   //         xdg_positioner_destroy(m_pxdgpositioner);
+   //
+   //         m_pxdgpositioner = nullptr;
+   //
+   //      }
+   //
+   //      if (m_pxdgsurface != nullptr)
+   //      {
+   //
+   //         xdg_surface_destroy(m_pxdgsurface);
+   //
+   //         m_pxdgsurface = nullptr;
+   //
+   //      }
+   //
+   //      if (m_pwlsubsurface != nullptr)
+   //      {
+   //
+   //         wl_subsurface_destroy(m_pwlsubsurface);
+   //
+   //         m_pwlsubsurface = nullptr;
+   //
+   //      }
+   //
+   //      if (m_pwlsurface != nullptr)
+   //      {
+   //
+   //         wl_surface_destroy(m_pwlsurface);
+   //
+   //         m_pwlsurface = nullptr;
+   //
+   //      }
+   //
+   //   }
+
+
+   void window::set_wm_class(const_char_pointer psz)
+   {
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      //      m_strWMClass = psz;
+      //
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      XClassHint classHint;
+      //
+      //      classHint.res_name = (char *) (const_char_pointer )m_strWMClass;
+      //
+      //      classHint.res_class = (char *) (const_char_pointer )m_strWMClass;
+      //
+      //      XSetClassHint(Display(), Window(), &classHint);
+   }
+
+
+   int window::map_window()
+   {
+      int i = 0;
+
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+      //gtk_widget_set_visible(m_pgtkwidget, true);
+
+      m_pqwidget->show();
+
+      //      {
+      //
+      //         windowing_output_debug_string("\nwindow::map_window");
+      //
+      //         display_lock displaylock(x11_display()->__x11_display());
+      //
+      //         i = XMapWindow(Display(), Window());
+      //
+      //      }
+      //
+      //      //#ifdef WITH_SN
+      //
+      //      auto pwindowing = x11_windowing();
+      //
+      //      //  if (pwindowing->m_pSnLauncheeContext != nullptr)
+      //      if (!pwindowing->m_bFirstWindowMap)
+      //      {
+      //
+      //         pwindowing->m_bFirstWindowMap = true;
+      //
+      //         auto psystem = system();
+      //
+      //         auto pnode = psystem->node();
+      //
+      //         pnode->defer_notify_startup_complete();
+      //
+      //         on_sn_launch_complete(pwindowing->m_pSnLauncheeContext);
+      //
+      //         pwindowing->m_pSnLauncheeContext = nullptr;
+      //
+      //      }
+
+      //#endif // RASPBERRYPIOS
+
+      windowing_output_debug_string("\nwindow::map_window END");
+
+      return i;
+   }
+
+
+   int window::unmap_window(bool bWithdraw)
+   {
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      windowing_output_debug_string("\nwindow::unmap_window");
+
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      int i;
+      //
+      //      if (bWithdraw)
+      //      {
+      //
+      //         i = XWithdrawWindow(Display(), Window(), x11_display()->m_iScreen);
+      //
+      //      } else
+      //      {
+      //
+      //         i = XUnmapWindow(Display(), Window());
+      //
+      //      }
+
+      windowing_output_debug_string("\nwindow::unmap_window END");
+
+      return 1;
+   }
+
+
+   //   osptra *window::s_pdataptra = nullptr;
+   //
+   //
+   //   ::pointer< ::parallelization::mutex >window::s_pmutex = nullptr;
+
+
+   //   int oswindow_find_message_only_window(::windowing::window *pimpl)
+   //   {
+   //
+   //      if (pimpl == nullptr)
+   //      {
+   //
+   //         return -1;
+   //
+   //      }
+   //
+   //      single_lock slOsWindow(window::s_pmutex, true);
+   //
+   //      for (int i = 0; i < ::window::s_pdataptra->get_count(); i++)
+   //      {
+   //
+   //         if (::window::s_pdataptra->element_at(i)->m_bMessageOnlyWindow
+   //             && ::window::s_pdataptra->element_at(i)->m_pwindow == pimpl)
+   //         {
+   //
+   //            return i;
+   //
+   //         }
+   //
+   //      }
+   //
+   //      return -1;
+   //
+   //   }
+
+   //   int oswindow_find(Display *Display(), Window window)
+   //   {
+   //
+   //      single_lock slOsWindow(::window::s_pmutex, true);
+   //
+   //      for (int i = 0; i < ::window::s_pdataptra->get_count(); i++)
+   //      {
+   //         if (!::window::s_pdataptra->element_at(i)->m_bMessageOnlyWindow
+   //             && ::window::s_pdataptra->element_at(i)->m_osdisplay->display() == Display()
+   //             && ::window::s_pdataptra->element_at(i)->m_window == window)
+   //         {
+   //            return i;
+   //         }
+   //      }
+   //
+   //      return -1;
+   //
+   //   }
+
+   //   int oswindow_find(Window window)
+   //   {
+   //
+   //      single_lock slOsWindow(::window::s_pmutex, true);
+   //
+   //      for (int i = 0; i < ::window::s_pdataptra->get_count(); i++)
+   //      {
+   //         if (!::window::s_pdataptra->element_at(i)->m_bMessageOnlyWindow
+   //             && ::window::s_pdataptra->element_at(i)->m_window == window)
+   //         {
+   //            return i;
+   //         }
+   //      }
+   //
+   //      return -1;
+   //
+   //   }
+
+   //
+   //   window *oswindow_get_message_only_window(::windowing::window *pinteraction)
+   //   {
+   //
+   //      if (pinteraction == nullptr)
+   //      {
+   //
+   //         return nullptr;
+   //
+   //      }
+   //
+   //      single_lock slOsWindow(::window::s_pmutex, true);
+   //
+   //      auto pFind = oswindow_find_message_only_window(pinteraction);
+   //
+   //      if (::is_set(pFind))
+   //      {
+   //
+   //         return ::window::s_pdataptra->element_at(iFind);
+   //
+   //      }
+   //
+   //      ::window *pdata = ___new window();
+   //
+   //      pdata->m_bMessageOnlyWindow = true;
+   //      pdata->m_window = None;
+   //      pdata->m_pwindow = pinteraction;
+   //      pdata->m_osdisplay = nullptr;
+   //      pdata->m_parent = 0;
+   //      pdata->m_pmq = pinteraction->m_puserinteraction->m_pthreadUserInteraction->get_mq();
+   //
+   //      ::window::s_pdataptra->add(pdata);
+   //
+   //      return pdata;
+   //
+   //   }
+
+   //
+   //   window *oswindow_defer_get(Display *Display(), Window window)
+   //   {
+   //
+   //      single_lock slOsWindow(::window::s_pmutex, true);
+   //
+   //      auto pFind = oswindow_find(Display(), window);
+   //
+   //      if (::is_null(pFind))
+   //      {
+   //
+   //         return nullptr;
+   //
+   //      }
+   //
+   //      return ::window::s_pdataptra->element_at(iFind);
+   //
+   //   }
+
+
+   //   ::e_status
+   //   window::initialize_x11_window(::windowing_q::display * pdisplay, ::Window window, ::Visual * pvisual, int iDepth,
+   //                                 int iScreen, Colormap colormap)
+   //   {
+   //
+   //      //single_lock slOsWindow(::window::s_pmutex, true);
+   //
+   //      //      auto pFind = oswindow_find(Display(), window);
+   //      //
+   //      //      if (::is_set(pFind))
+   //      //      {
+   //      //
+   //      //         return ::window::s_pdataptra->element_at(iFind);
+   //      //
+   //      //      }
+   //      //
+   //      //      ::window *pdata = ___new ::window();
+   //
+   //      m_bMessageOnlyWindow = false;
+   //      //m_osdisplay = osdisplay_get(Display());
+   //      m_pdisplay = pdisplay;
+   //      m_window = window;
+   //
+   //      if (pvisual != nullptr)
+   //      {
+   //
+   //         m_visual = *pvisual;
+   //
+   //      }
+   //
+   //      m_iDepth = iDepth;
+   //      //m_iScreen = iScreen;
+   //      //m_colormap = colormap;
+   //      //m_parent = 0;
+   //
+   //      //::window::s_pdataptra->add(pdata);
+   //
+   //      x11_display()->m_windowmap[m_window] = this;
+   //
+   //      return ::success;
+   //
+   //   }
+   //
+
+   //void x11_on_start_session()
+   //{
+
+   //   Display * dpy = x11_get_display();
+   //
+   //   g_oswindowDesktop = oswindow_get(dpy, DefaultRootWindow(dpy));
+   //
+   //   g_oswindowDesktop->m_pwindow = nullptr;
+   //
+   //   XSelectInput(g_oswindowDesktop->Display(), g_oswindowDesktop->Window(), StructureNotifyMask);
+   //
+   //}
+
+   //   Display * window::Display()
+   //   {
+   //
+   //      return x11_display()->__x11_display();
+   //
+   //   }
+   //
+   //   Display * window::Display() const
+   //   {
+   //
+   //      return x11_display()->__x11_display();
+   //
+   //   }
+   //
+   //
+   //   int window::Screen()
+   //   {
+   //
+   //      return x11_display()->Screen();
+   //
+   //   }
+   //
+   //
+   //   int window::Screen() const
+   //   {
+   //
+   //      return x11_display()->Screen();
+   //
+   //   }
+   //
+   //
+   //   Window window::Window()
+   //   {
+   //
+   //      return m_window;
+   //
+   //   }
+   //
+   //
+   //   Window window::Window() const
+   //   {
+   //
+   //      return m_window;
+   //
+   //   }
+   //
+   //
+   //   Visual * window::Visual()
+   //   {
+   //
+   //      return &m_visual;
+   //
+   //   }
+   //
+   //
+   //   const Visual * window::Visual() const
+   //   {
+   //
+   //      return &m_visual;
+   //
+   //   }
+
+   //   window *oswindow_get(Window window)
+   //   {
+   //
+   //      single_lock slOsWindow(::window::s_pmutex, true);
+   //
+   //      auto pFind = oswindow_find(window);
+   //
+   //      if (::is_null(pFind))
+   //      {
+   //
+   //         return nullptr;
+   //
+   //      }
+   //
+   //      return ::window::s_pdataptra->element_at(iFind);
+   //
+   //   }
+
+
+   bool window::bamf_set_icon()
+   {
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      //      auto psystem = system();
+      //
+      //      auto pnode = psystem->node();
+      //
+      //      auto papp = get_app();
+      //
+      //      ::file::path path = pnode->get_desktop_file_path(papp);
+      //
+      //      informationf("windowing_q::interaction_impl::set_window_text");
+      //
+      //      //fflush(stdout);
+      //
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      Atom atomBamfDesktopFile = x11_display()->intern_atom("_BAMF_DESKTOP_FILE", False);
+      //
+      //      //Atom cardinal = x11_display()->intern_atom("STRING", False);
+      //
+      //      int status = XChangeProperty(
+      //         Display(),
+      //         Window(),
+      //         atomBamfDesktopFile,
+      //         XA_STRING,
+      //         8,
+      //         PropModeReplace,
+      //         (const unsigned char *) (const_char_pointer )path,
+      //         path.length());
+      //
+      //      informationf("windowing_q::window::bamf_set_icon END");
+      //
+      //      //fflush(stdout);
+      //
+      //      if (status != 0)
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+
+      return true;
+   }
+
+
+   //
+   //   int window::x_change_property(Atom property, Atom type, int format, int mode, const unsigned char * data, int nelements)
+   //   {
+   //
+   //      return XChangeProperty(Display(), Window(), property, type, format, mode, data, nelements);
+   //
+   //   }
+
+
+   void window::set_icon(::windowing::icon * picon)
+   {
+
+      ::windowing::window::set_icon(picon);
+
+      if (!picon)
+         return;
+
+      auto pimage = picon->get_image({64, 64});
+      if (pimage.nok())
+         return;
+
+      auto pixels = pimage->map(::image::e_map_read_only);
+      QImage image((const uchar *)pixels->image32(), pimage->width(),
+         pimage->height(), pixels->m_iScan, QImage::Format_ARGB32_Premultiplied);
+      // Own the pixels before the mapping lease ends and the UI call is queued.
+      auto imageIcon = image.copy();
+      main_post([this, imageIcon]()
+      {
+         if (m_pqwidget)
+            m_pqwidget->setWindowIcon(QIcon(QPixmap::fromImage(imageIcon)));
+      });
+
+   }
+
+
+   bool window::set_icon(::image::image* pimage)
+   {
+      // http://stackoverflow.com/questions/10699927/xlib-argb-window-icon
+      // http://stackoverflow.com/users/432509/ideasman42
+      //
+      //#if 0
+      //
+      //      ::u32 buffer[] =
+      //         {
+      //         16, 16,
+      //         4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 338034905, 3657433343, 0, 184483840, 234881279, 3053453567, 3221225727, 1879048447, 0, 0, 0, 0, 0, 0, 0, 1224737023, 3305111807, 3875537151,0, 0, 2063597823, 1291845887, 0, 67109119, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 50266112, 3422552319, 0, 0, 3070230783, 2063597823, 2986344703, 771752191, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3422552319, 0, 0, 3372220671, 1509949695, 704643327, 3355443455, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 3422552319, 0, 134152192, 3187671295, 251658495, 0, 3439329535, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3422552319, 0, 0, 2332033279, 1342177535, 167772415, 3338666239, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 3422552319, 0, 0, 436207871, 3322085628, 3456106751, 1375731967, 4278255360, 4026597120, 3758161664, 3489726208, 3204513536, 2952855296, 2684419840, 2399207168, 2130771712, 1845559040, 1593900800, 1308688128, 1040252672, 755040000, 486604544, 234946304, 4278255360, 4043374336, 3774938880, 3506503424, 3221290752, 2952855296, 2667642624, 2399207168, 2130771712, 1862336256, 1627453957, 1359017481, 1073805064, 788591627, 503379721, 218169088, 4278255360, 4043374336, 3758161664, 3506503424, 3221290752, 2952855296, 2684419840, 2415984384, 2130771712, 1862336256, 1577123584, 1308688128, 1040252672, 755040000, 486604544, 218169088, 4278190335, 4026532095, 3758096639, 3489661183, 3221225727, 2952790271, 2667577599, 2415919359, 2130706687, 1862271231, 1593835775, 1325400319, 1056964863, 771752191, 520093951, 234881279, 4278190335, 4026532095, 3758096639, 3489661183, 3221225727, 2952790271, 2667577599, 2415919359, 2130706687, 1862271231, 1593835775, 1325400319, 1056964863, 771752191, 503316735, 234881279, 4278190335, 4026532095, 3758096639, 3489661183, 3221225727, 2952790271, 2684354815, 2399142143, 2130706687, 1862271231, 1593835775, 1325400319, 1040187647, 771752191, 520093951, 234881279, 4294901760, 4043243520, 3774808064, 3506372608, 3221159936, 2952724480, 2684289024, 2399076352, 2147418112, 1862205440, 1593769984, 1308557312, 1040121856, 771686400, 503250944, 234815488, 4294901760, 4060020736, 3758030848, 3506372608, 3221159936, 2952724480, 2684289024, 2415853568, 2130640896, 1862205440, 1593769984, 1308557312, 1040121856, 771686400, 503250944, 234815488, 4294901760, 4043243520, 3774808064, 3489595392, 3237937152, 2952724480, 2684289024, 2415853568, 2147418112, 1862205440, 1593769984, 1325334528, 1056899072, 788463616, 503250944, 234815488,
+      //         32, 32,
+      //         4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 0, 0, 0, 0, 0, 0, 0, 0, 268369920, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 1509949695, 3120562431, 4009754879, 4194304255, 3690987775, 2130706687, 83886335, 0, 50331903, 1694499071, 3170894079, 3992977663, 4211081471, 3657433343, 1879048447, 16777471, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3087007999, 2281701631, 1191182591, 1040187647, 2030043391, 4127195391, 2566914303, 0, 16777471, 3254780159, 2181038335, 1191182591, 973078783, 2030043391,4177527039, 2130706687, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 0, 0, 0, 0, 2214592767, 4093640959, 0, 0, 0, 0, 0, 0, 0, 2298478847, 3909091583, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2214592767, 3607101695, 0, 0, 0, 0, 0, 0, 0, 1946157311, 4093640959, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 0, 536871167, 1191182591, 2281701631,3019899135, 637534463, 0, 0, 0, 100597760, 251592704, 33488896, 0, 3321889023, 2919235839, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2550137087, 4278190335, 4278190335, 3405775103, 570425599, 0, 0, 0, 0, 0, 0, 2046820607, 4043309311, 620757247, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 33488896, 0, 0, 218104063, 1291845887, 3841982719, 3388997887, 0, 0, 0, 0, 0, 1996488959, 4093640959, 1073742079, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1761607935, 4278190335, 150995199, 0, 0, 67109119, 2550137087, 3909091583, 889192703, 0, 0, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 0, 0, 0, 0, 2181038335, 3925868799, 0, 0, 218104063, 3070230783, 3623878911, 570425599, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 805306623, 3288334591, 1795162367, 1040187647, 1023410431, 2231369983, 4211081471, 1694499071, 0, 369099007, 3456106751, 3825205503, 1174405375, 872415487, 872415487, 872415487, 872415487, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4293984270, 2046951677, 3422552319, 4110418175, 4177527039, 3405775103, 1409286399, 0, 0, 1409286399, 4278190335, 4278190335, 4278190335, 4278190335, 4278190335, 4278190335, 4278190335, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760,4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 4294901760, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4278255360, 4144037632, 4009819904, 3875602176, 3741384448, 3607166720, 3472948992, 3338731264, 3204513536, 3053518592, 2936078080, 2801860352, 2650865408, 2516647680, 2382429952, 2264989440, 2113994496, 1996553984, 1862336256, 1728118528, 1577123584, 1459683072, 1325465344, 1191247616, 1040252672, 922812160, 771817216, 637599488, 503381760, 385941248, 234946304, 100728576, 4278255360, 4144037632, 4009819904, 3875602176, 3724607232, 3607166720, 3472948992, 3338731264, 3204513536, 3070295808, 2936078080, 2801860352, 2667642624, 2516647680, 2399207168, 2264989440, 2130771712, 1996553984, 1845559040, 1728118528, 1593900800, 1459683072, 1308688128, 1191247616, 1057029888, 922812160, 788594432, 637599488, 503381760, 369164032, 234946304, 117505792, 4278255360, 4144037632, 4009819904, 3875602176, 3741384448, 3607166720, 3472948992, 3338731264, 3204513536, 3053518592, 2919300864, 2801860352, 2650865408, 2533424896, 2399207168, 2264989440, 2113994496, 1996553984, 1862336256, 1728118528,1593900800, 1459683072, 1325465344, 1191247616, 1040252672, 906034944, 771817216, 654376704, 503381760, 369164032, 234946304, 117505792, 4278255360, 4144037632, 4009819904, 3858824960, 3741384448, 3607166720, 3472948992, 3338731264, 3204513536, 3070295808, 2936078080, 2801860352, 2667642624, 2533424896, 2382429952, 2264989440, 2130771712, 1979776768, 1862336256, 1728118528, 1577123584, 1442905856, 1325465344, 1191247616, 1040252672, 922812160, 771817216, 637599488, 503381760, 369164032, 234946304, 100728576, 4278255360, 4144037632, 4009819904, 3875602176, 3741384448, 3607166720, 3472948992, 3338731264, 3204513536, 3070295808, 2919300864, 2801860352, 2667642624, 2533424896, 2399207168, 2264989440, 2113994496, 1996553984, 1862336256, 1728118528, 1593900800, 1442905856, 1342241795, 1174470400, 1057029888, 906034944, 788594432, 654376704, 503381760, 385941248, 251723520, 100728576, 4278190335, 4160749823, 4026532095, 3892314367, 3741319423, 3623878911, 3472883967, 3338666239, 3221225727, 3070230783, 2952790271, 2818572543, 2667577599, 2533359871, 2399142143, 2264924415, 2147483903, 1996488959, 1862271231, 1728053503, 1593835775, 1459618047, 1325400319, 1191182591, 1056964863, 922747135, 788529407, 654311679, 520093951,385876223, 251658495, 117440767, 4278190335, 4160749823, 4026532095, 3892314367, 3741319423, 3623878911, 3489661183, 3355443455, 3221225727, 3087007999, 2936013055, 2801795327, 2667577599, 2533359871, 2399142143, 2281701631, 2130706687, 1996488959, 1862271231, 1728053503, 1593835775,1459618047, 1325400319, 1191182591, 1056964863, 922747135, 788529407, 654311679, 520093951, 385876223, 234881279, 100663551, 4278190335, 4160749823, 4026532095, 3892314367, 3758096639, 3623878911, 3489661183, 3355443455, 3221225727, 3087007999, 2936013055, 2801795327, 2667577599, 2550137087, 2415919359, 2264924415, 2130706687, 1996488959, 1862271231, 1728053503, 1593835775, 1459618047, 1325400319, 1191182591, 1056964863, 922747135, 788529407, 654311679, 503316735, 369099007, 251658495, 100663551, 4278190335, 4160749823, 4026532095, 3892314367, 3758096639, 3623878911, 3489661183, 3355443455, 3204448511, 3087007999, 2936013055, 2818572543, 2667577599, 2533359871, 2399142143, 2264924415, 2130706687, 1996488959, 1879048447, 1728053503, 1593835775, 1459618047, 1325400319, 1191182591, 1056964863, 922747135, 788529407, 654311679, 520093951, 385876223, 251658495, 117440767, 4278190335, 4160749823, 4026532095, 3892314367, 3758096639, 3623878911, 3489661183, 3355443455, 3221225727, 3087007999, 2952790271, 2818572543, 2667577599, 2533359871, 2399142143, 2264924415, 2147483903, 2013266175, 1862271231, 1744830719, 1610612991, 1476395263, 1342177535, 1191182591, 1056964863, 922747135, 788529407, 654311679, 520093951, 385876223, 251658495, 100663551, 4294901760, 4160684032, 4026466304, 3909025792, 3774808064, 3623813120, 3489595392, 3355377664, 3237937152, 3103719424, 2952724480, 2818506752, 2684289024, 2550071296, 2415853568, 2281635840, 2147418112, 2013200384, 1878982656, 1744764928, 1593769984, 1476329472,1325334528, 1207894016, 1056899072, 939458560, 788463616, 654245888, 520028160, 385810432, 251592704, 117374976, 4294901760, 4177461248, 4043243520, 3909025792, 3774808064, 3640590336, 3506372608, 3355377664, 3221159936, 3086942208, 2952724480, 2818506752, 2701066240, 2550071296, 2415853568, 2281635840, 2147418112, 2013200384, 1878982656, 1727987712, 1610547200, 1476329472, 1325334528, 1191116800, 1073676288, 922681344, 788463616, 654245888, 520028160, 385810432, 251592704, 100597760, 4294901760, 4177461248, 4043243520, 3909025792, 3774808064, 3640590336, 3489595392, 3372154880, 3237937152, 3103719424, 2952724480, 2818506752, 2700935170, 2550071296, 2415853568, 2281635840, 2147418112, 2013200384, 1878982656, 1744764928, 1610547200, 1459552256, 1342111744, 1191116800, 1056899072, 922681344, 788463616, 671023104, 520028160, 385810432, 251592704, 100597760, 4294901760, 4177461248, 4043243520, 3909025792, 3774808064, 3640590336, 3489595392, 3372154880, 3237937152, 3086942208, 2969501696, 2818506752, 2684289024, 2550071296, 2432630784, 2281635840, 2147418112, 2013200384, 1862205440, 1744764928, 1610547200, 1476329472, 1342111744, 1191116800, 1056899072, 922681344, 788463616, 654245888, 520028160, 385810432, 251592704, 117374976, 4294901760, 4177461248, 4043243520, 3909025792, 3774808064, 3623813120, 3506372608, 3372154880, 3237937152, 3103719424, 2952724480, 2835283968, 2684289024, 2550071296, 2432630784, 2281635840, 2147418112, 2046492676, 1862205440, 1744764928, 1610547200, 1476329472, 1342111744,1207894016, 1056899072, 939458560, 788463616, 654245888, 536281096, 385810432, 251592704, 134152192,
+      //         };
+      //
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      int iScreen = DefaultScreen(d);
+      //
+      //      Atom net_wm_icon = x11_display()->intern_atom("_NET_WM_ICON", False);
+      //
+      //      Atom cardinal = x11_display()->intern_atom("CARDINAL", False);
+      //
+      //      int length = 2 + 16 * 16 + 2 + 32 * 32;
+      //
+      //      int status = XChangeProperty(Display(), w->Window(), net_wm_icon, cardinal, 32, PropModeReplace, (const unsigned char*) buffer, length);
+      //
+      //      if(status != 0)
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //#elif 1
+      //
+      //      auto image1 = image()->create_image({32, 32});
+      //
+      //      if (image1.nok())
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //      pdraw2dgraphicsImage1->set_interpolation_mode(::draw2d::e_interpolation_mode_high_quality_bicubic);
+      //
+      //      {
+      //
+      //         ::image::image_source imagesource(pdraw2dgraphicsImage, pimage->rectangle());
+      //
+      //         f64_rectangle rectangle(pimage1->rectangle());
+      //
+      //         ::image::image_drawing_options imagedrawingoptions(rectangle);
+      //
+      //         ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
+      //
+      //         //getfileimage.m_iImage = m_pimagelist[16]->set(getfileimage.m_iImage, imagedrawing);
+      //
+      //         pdraw2dgraphicsImage1->draw(imagedrawing);
+      //
+      //      }
+      //
+      //      memory m(puserinteraction->get_app());
+      //
+      //      int length = 2 + pimage1->area();
+      //
+      //      m.set_size(length * 4);
+      //
+      //      ::u32 * pcr = (::u32 *) m.data();
+      //
+      //      pcr[0] = pimage1->width();
+      //
+      //      pcr[1] = pimage1->height();
+      //
+      //      int c = pimage1->area();
+      //
+      //      for (int i = 0; i < c; i++)
+      //      {
+      //
+      //         pcr[i + 2] = pimage1->image32()[i].m_u32;
+      //
+      //      }
+      //
+      //      windowing_output_debug_string("\nwindow::set_icon");
+      //
+      //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+      //
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      Atom net_wm_icon = x11_display()->intern_atom("_NET_WM_ICON", False);
+      //
+      //      Atom cardinal = x11_display()->intern_atom("CARDINAL", False);
+      //
+      //      int status = x_change_property(net_wm_icon, cardinal, 32, PropModeReplace, (const unsigned char *) pcr, length);
+      //
+      //      if (status == BadAlloc)
+      //      {
+      //
+      //
+      //      } else if (status != 0)
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //      windowing_output_debug_string("\nwindow::set_icon END");
+      //
+      //      fflush(stdout);
+      //
+      //#else
+      //
+      //      image d1(w->puserinteraction->create_new, this);
+      //
+      //      if(!d1->create(24, 24))
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //      d1->get_graphics()->set_interpolation_mode(e_interpolation_mode_high_quality_bicubic);
+      //
+      //      d1->get_graphics()->StretchBlt(0, 0, d1.width(), d1.height(), point->get_graphics(), 0, 0, point.width(), point.height());
+      //
+      //      image d2(w->puserinteraction->create_new, this);
+      //
+      //      if(!d2->create(54, 54))
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //      d2->get_graphics()->set_interpolation_mode(e_interpolation_mode_high_quality_bicubic);
+      //
+      //      d2->get_graphics()->StretchBlt(0, 0, d2.width(), d2.height(), point->get_graphics(), 0, 0, point.width(), point.height());
+      //
+      //      memory m(w->puserinteraction->get_context_application());
+      //
+      //      int length = 2 + d1->area() + 2 + d2->area();
+      //
+      //      m.set_size(length * 4);
+      //
+      //      ::u32 * pcr = (::u32 *) m.get_data();
+      //
+      //      pcr[0] = d1.width();
+      //
+      //      pcr[1] = d1.height();
+      //
+      //      int c = d1->area();
+      //
+      //      for(int i = 0; i < c; i++)
+      //      {
+      //
+      //         pcr[i+2] = d1->m_pcolorref[i];
+      //
+      //      }
+      //
+      //      memsize o;
+      //
+      //      o = 2 + d1->area();
+      //
+      //      pcr[o] = d2.width();
+      //
+      //      pcr[o+1] = d2.height();
+      //
+      //      c = d2->area();
+      //
+      //      for(int i = 0; i < c; i++)
+      //      {
+      //
+      //         pcr[i+o+2] = d2->m_pcolorref[i];
+      //
+      //      }
+      //
+      //      Display *display = w->display();
+      //
+      //      Atom net_wm_icon = XInternAtom(display, "_NET_WM_ICON", False);
+      //
+      //      Atom cardinal = XInternAtom(display, "CARDINAL", False);
+      //
+      //      int status = XChangeProperty(display, w->Window(), net_wm_icon, cardinal, 32, PropModeReplace, (const unsigned char*) pcr, length);
+      //
+      //      if(status != 0)
+      //      {
+      //
+      //         //file_put_contents("/home/camilo/window.txt", as_string((int)w->Window()));
+      //         return false;
+      //
+      //      }
+      //#endif
+      return true;
+   }
+
+
+   int window::store_name(const_char_pointer psz)
+   {
+      windowing_output_debug_string("\nwindow::store_name");
+
+      //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+      //
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      int i = XStoreName(Display(), Window(), psz);
+      //
+      //      windowing_output_debug_string("\nwindow::store_name END");
+
+      return 0;
+   }
+
+
+   int window::select_input(int iInput)
+   {
+      windowing_output_debug_string("\nwindow::select_input");
+
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      int i = XSelectInput(Display(), Window(), iInput);
+      //
+      //      windowing_output_debug_string("\nwindow::select_input END");
+
+      return 0;
+   }
+
+
+   int window::select_all_input()
+   {
+      windowing_output_debug_string("\nwindow::select_all_input");
+
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      int i = select_input(ExposureMask | ButtonPressMask);
+      //
+      //      windowing_output_debug_string("\nwindow::select_all_input");
+
+      return 0;
+   }
+
+
+   void window::post_nc_destroy()
+   {
+      if (!::is_null(this))
+      {
+         system()->acme_windowing()->erase_window(this);
+      }
+   }
+
+
+   // void window::set_user_interaction(::windowing::window* pimpl)
+   // {
+   //    //      single_lock sl(ms_pmutex, true);
+   //    //
+   //    //      if (::is_null(this))
+   //    //      {
+   //    //
+   //    //         throw ::exception(::exception("error, m_pdata cannot be nullptr to ::oswindow::set_user_interaction"));
+   //    //
+   //    //      }
+   //
+   //    //m_pwindow = pimpl;
+   //
+   //    ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+   //
+   //    m_htask = pimpl->get_app()->get_os_handle();
+   //
+   //    m_pmessagequeue = puserinteraction->m_pthreadUserInteraction->get_message_queue();
+   //
+   //    //oswindow_assign(this, pimpl);
+   // }
+
+
+   //   bool window::is_child(::::acme::windowing::window * pacmewindowingwindow)
+   //   {
+   //
+   //      if (oswindow == nullptr || oswindow->m_pwindow == nullptr ||
+   //          oswindow->puserinteraction == nullptr)
+   //      {
+   //
+   //         return false;
+   //
+   //      }
+   //
+   //      if (m_pwindow == nullptr || puserinteraction == nullptr)
+   //      {
+   //
+   //         return false;
+   //
+   //      }
+   //
+   //      return puserinteraction->is_child(oswindow->puserinteraction);
+   //
+   //   }
+   //
+   //
+   //   ::windowing::window * window::get_parent() const
+   //   {
+   //
+   //      return nullptr;
+   //
+   //   }
+
+
+   // //virtual ::Window get_parent_handle();
+   // oswindow window::get_parent_oswindow() const
+   // {
+   //    return nullptr;
+   // }
+
+
+   //   ::i32_point window::get_mouse_cursor_host_position()
+   //   {
+   //
+   //      return m_pointCursor;
+   //
+   //   }
+   //
+   //
+   //   ::i32_point window::get_mouse_cursor_absolute_position()
+   //   {
+   //
+   //      return m_pointCursorHost;
+   //
+   //   }
+
+
+   ::windowing_q::windowing* window::q_windowing()
+   {
+
+      ::cast <::windowing_q::windowing > pwindowing = system()->acme_windowing();
+
+      return pwindowing;
+
+   }
+
+
+   ::windowing_q::display* window::q_display()
+   {
+
+      ::cast < ::windowing_q::display > pdisplay = system()->acme_windowing()->acme_display();
+
+      return pdisplay;
+
+   }
+
+
+   //   ::Window window::get_parent_handle()
+   //   {
+   //
+   //      //single_lock slOsWindow(s_pmutex, true);
+   //
+   //      //if (::is_null(this))
+   //        // return 0;
+   //
+   //      return m_parent;
+   //
+   //   }
+
+
+   //   oswindow window::get_parent()
+   //   {
+   //
+   //      if (::is_null(this))
+   //      {
+   //
+   //         return nullptr;
+   //
+   //      }
+   //
+   //      return nullptr;
+   //
+   //   }
+
+
+   void window::set_parent(::windowing::window* pwindowNewParent)
+   {
+      if (::is_null(this))
+      {
+         throw ::exception(error_failed);
+      }
+
+      if (::is_null(pwindowNewParent))
+      {
+         throw ::exception(error_failed);
+      }
+
+      auto pwindowx11NewParent = dynamic_cast<::windowing_q::window *>(pwindowNewParent);
+
+      if (::is_null(pwindowx11NewParent))
+      {
+         throw ::exception(error_null_pointer);
+      }
+
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      XReparentWindow(Display(), Window(), pwindowx11NewParent->Window(), 0, 0);
+
+      //return ::success;
+   }
+
+
+   ///// Post an happening from the client to the X server
+   //   void window::send_client_event(Atom atom, ::u32 numArgs, ...)
+   //   {
+   //
+   //      XEvent xevent;
+   //
+   //      ::u32 i;
+   //
+   //      va_list argp;
+   //
+   //      va_start(argp, numArgs);
+   //
+   //      zero(xevent);
+   //
+   //      xevent.xclient.type = ClientMessage;
+   //      xevent.xclient.serial = 0;
+   //      xevent.xclient.send_event = False;
+   //      xevent.xclient.display = Display();
+   //      xevent.xclient.window = Window();
+   //      xevent.xclient.message_type = atom;
+   //      xevent.xclient.format = 32;
+   //
+   //      for (i = 0; i < numArgs; i++)
+   //      {
+   //
+   //         xevent.xclient.data.l[i] = va_arg(argp, int);
+   //
+   //      }
+   //
+   //      XSendEvent(Display(), RootWindow(Display(), x11_display()->m_iScreen), False,
+   //                 SubstructureRedirectMask | SubstructureNotifyMask, &xevent);
+   //
+   //      va_end(argp);
+   //
+   //   }
+   //
+   //
+   //   Atom get_window_long_atom(int nIndex);
+   //
+   //// Change _NET_WM_STATE if Window is Mapped
+   //   void window::_mapped_net_state_unlocked(bool add, int iScreen, Atom state1, Atom state2)
+   //   {
+   //
+   //      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+   //
+   //      XClientMessageEvent xclient;
+   //
+   //#define _NET_WM_STATE_REMOVE        0    /* remove/unset property */
+   //#define _NET_WM_STATE_ADD           1    /* add/set property */
+   //#define _NET_WM_STATE_TOGGLE        2    /* toggle property  */
+   //
+   //      zero(xclient);
+   //      xclient.type = ClientMessage;
+   //      xclient.window = Window();
+   //      xclient.message_type = x11_display()->intern_atom("_NET_WM_STATE", False);
+   //      xclient.format = 32;
+   //      xclient.data.l[0] = add ? _NET_WM_STATE_ADD : _NET_WM_STATE_REMOVE;
+   //      xclient.data.l[1] = state1;
+   //      xclient.data.l[2] = state2;
+   //      xclient.data.l[3] = 1; /* source indication */
+   //      xclient.data.l[4] = 0;
+   //
+   //      if(add)
+   //      {
+   //
+   //         if(state1 != None)
+   //         {
+   //            m_atomaNetWmState.add_unique(state1);
+   //         }
+   //         if(state2 != None)
+   //         {
+   //            m_atomaNetWmState.add_unique(state2);
+   //         }
+   //
+   //      }
+   //      else
+   //      {
+   //         if(state1 != None)
+   //         {
+   //            m_atomaNetWmState.erase(state1);
+   //         }
+   //         if(state2 != None)
+   //         {
+   //            m_atomaNetWmState.erase(state2);
+   //         }
+   //
+   //      }
+   //      XSendEvent(Display(), RootWindow(Display(), iScreen), False, SubstructureRedirectMask | SubstructureNotifyMask,
+   //                 (XEvent *) &xclient);
+   //      //     XSendEvent(Display(), RootWindow(Display(), iScreen), False, 0, (XEvent *) &xclient);
+   //
+   //
+   //
+   //
+   //
+   //   }
+   //
+   //
+   //   void window::unmapped_net_state_raw(Atom atom1, ...)
+   //   {
+   //
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+   //
+   //      XEvent xevent;
+   //
+   //      ::u32 i;
+   //
+   //      va_list argp;
+   //
+   //      va_start(argp, atom1);
+   //
+   //      zero(xevent);
+   //
+   //      array<Atom> atoms;
+   //
+   //      atoms.add(atom1);
+   //
+   //      while (true)
+   //      {
+   //
+   //         Atom atom = va_arg(argp, int);
+   //
+   //         if (atom == 0)
+   //         {
+   //
+   //            break;
+   //
+   //         }
+   //
+   //         atoms.add(atom);
+   //
+   //      }
+   //
+   //      if (atoms.has_elements())
+   //      {
+   //
+   //         XChangeProperty(Display(), Window(), x11_display()->intern_atom("_NET_WM_STATE", False),
+   //                         XA_ATOM, 32, PropModeReplace,
+   //                         (const unsigned char *) atoms.data(), atoms.size());
+   //      } else
+   //      {
+   //
+   //         XDeleteProperty(Display(), Window(), x11_display()->intern_atom("_NET_WM_STATE", False));
+   //
+   //      }
+   //
+   //      va_end(argp);
+   //
+   //   }
+   //
+   //
+   //   /// this function should be called in user/main thread
+   //   void window::show_window(const ::e_display & edisplay, const ::user::e_activation & useractivation)
+   //   {
+   //
+   //      aaa_user_post([this, edisplay, useractivation]()
+   //                                      {
+   //
+   //                                         windowing_output_debug_string("::window::show_window 1");
+   //
+   //                                         synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+   //
+   //                                         display_lock displaylock(x11_display()->__x11_display());
+   //
+   //                                         _show_window_unlocked(edisplay, useractivation);
+   //
+   ////         XWindowAttributes attr;
+   ////
+   ////         if (!XGetWindowAttributes(Display(), Window(), &attr))
+   ////         {
+   ////
+   ////            windowing_output_debug_string("::window::show_window 1.2");
+   ////
+   ////            return;
+   ////
+   ////            //return false;
+   ////
+   ////         }
+   ////
+   ////         if (edisplay == e_display_zoomed)
+   ////         {
+   ////
+   ////            int iMapState = attr.map_state;
+   ////
+   ////            if (iMapState != IsViewable)
+   ////            {
+   ////
+   ////               XMapWindow(Display(), Window());
+   ////
+   ////            }
+   ////
+   ////            auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
+   ////
+   ////            auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
+   ////
+   ////            mapped_net_state_raw(true, x11_display()->m_iScreen, atomMaxH, atomMaxP);
+   ////
+   ////
+   ////
+   ////
+   ////         }
+   //         if (edisplay == e_display_iconic)
+   //         {
+   //
+   //            //wm_iconify_window();
+   //            xdg_toplevel_set_minimized(m_pxdgtoplevel);
+   //
+   //        }
+   ////         else if (::is_visible(edisplay))
+   ////         {
+   ////
+   ////            if (attr.map_state == IsUnmapped)
+   ////            {
+   ////
+   ////               XMapWindow(Display(), Window());
+   ////
+   ////            }
+   ////
+   ////            wm_state_clear_raw(false);
+   ////
+   ////         }
+   ////         else
+   ////         {
+   ////
+   ////            if (attr.map_state != IsUnmapped)
+   ////            {
+   ////
+   ////               XWithdrawWindow(Display(), Window(), Screen());
+   ////
+   ////            }
+   ////
+   ////         }
+   ////
+   ////         windowing_output_debug_string("::window::show_window 2");
+   //
+   //                                         //return true;
+   //
+   //                                      }
+   //
+   //      );
+   //
+   //      //return ::success;
+   //
+   //   }
+   //
+   //
+   //   void window::_show_window_unlocked(const ::e_display & edisplay, const ::user::e_activation & useractivation)
+   //   {
+   //
+   //      //aaa_user_post([this, edisplay, useractivation]()
+   //      //{
+   //
+   //      windowing_output_debug_string("::window::show_window 1");
+   //
+   ////      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+   ////
+   ////      display_lock displaylock(x11_display()->__x11_display());
+   //
+   //      XWindowAttributes attr;
+   //
+   //      if (!XGetWindowAttributes(Display(), Window(), &attr))
+   //      {
+   //
+   //         windowing_output_debug_string("::window::show_window 1.2");
+   //
+   //         return;
+   //
+   //         //return false;
+   //
+   //      }
+   //
+   //      if (edisplay == e_display_zoomed)
+   //      {
+   //
+   //         int iMapState = attr.map_state;
+   //
+   //         if (iMapState != IsViewable)
+   //         {
+   //
+   //            XMapWindow(Display(), Window());
+   //
+   //         }
+   //
+   //         auto atomMaxH = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false);
+   //
+   //         auto atomMaxP = x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false);
+   //
+   //         _mapped_net_state_unlocked(true, x11_display()->m_iScreen, atomMaxH, atomMaxP);
+   //
+   //      } else if (edisplay == e_display_iconic)
+   //      {
+   //
+   //         wm_iconify_window();
+   //
+   //      } else if (::is_visible(edisplay))
+   //      {
+   //
+   //         if (attr.map_state == IsUnmapped)
+   //         {
+   //
+   //            XMapWindow(Display(), Window());
+   //
+   //         }
+   //
+   //         _wm_state_clear_unlocked(false);
+   //
+   //      } else
+   //      {
+   //
+   //         if (attr.map_state != IsUnmapped)
+   //         {
+   //
+   //            XWithdrawWindow(Display(), Window(), Screen());
+   //
+   //         }
+   //
+   //      }
+   //
+   //      windowing_output_debug_string("::window::show_window 2");
+   //
+   //      //return true;
+   //
+   //      //}
+   //
+   //      //);
+   //
+   //      //return ::success;
+   //
+   //   }
+
+
+   void window::full_screen(const ::i32_rectangle& rectangle)
+   {
+      ::i32_rectangle rBest;
+
+      auto pqdisplay = q_display();
+
+      int iMonitor = -1;
+
+      if (pqdisplay)
+      {
+
+         iMonitor = pqdisplay->get_best_monitor(&rBest, rectangle);
+
+      }
+
+      windowing_output_debug_string("::window::full_screen 1");
+
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      ////      if (x11_display()->is_null())
+      ////      {
+      ////
+      ////         windowing_output_debug_string("::window::full_screen 1.1");
+      ////
+      ////         return;
+      ////
+      ////      }
+      //
+      //      XWindowAttributes attr;
+      //
+      //      if (!XGetWindowAttributes(Display(), Window(), &attr))
+      //      {
+      //
+      //         windowing_output_debug_string("::window::full_screen 1.2");
+      //
+      //         fflush(stdout);
+      //
+      //         throw ::exception(error_failed);
+      //
+      //      }
+      //
+      //      ::i32_rectangle rWindow;
+      //
+      //      rWindow.left = attr.x;
+      //      rWindow.top = attr.y;
+      //      rWindow.right = attr.x + attr.width;
+      //      rWindow.bottom = attr.y + attr.height;
+      //
+      //      if (rBest != rWindow)
+      //      {
+      //
+      //         puserinteraction->place(rBest);
+      //
+      //         XMoveResizeWindow(Display(), Window(), rBest.left, rBest.top, rBest.width(), rBest.height());
+      //
+      //      }
+      //
+      //      if (attr.map_state == IsViewable)
+      //      {
+      //
+      //         _mapped_net_state_unlocked(true, Screen(),
+      //                                    x11_display()->intern_atom(::x11::e_atom_net_wm_state_fullscreen, false), 0);
+      //
+      //      } else
+      //      {
+      //
+      //         unmapped_net_state_raw(x11_display()->intern_atom(::x11::e_atom_net_wm_state_fullscreen, false), 0);
+      //
+      //         XMapWindow(Display(), Window());
+      //
+      //      }
+      //
+      //      windowing_output_debug_string("::window::full_screen 2");
+      //
+      //      ::fflush(stdout);
+      //
+      //      //return ::success;
+   }
+
+
+   void window::exit_iconify()
+   {
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      XWindowAttributes attr;
+      //
+      //      if (!XGetWindowAttributes(Display(), Window(), &attr))
+      //      {
+      //
+      //         windowing_output_debug_string("::window::exit_full_screen 1.2");
+      //
+      //         fflush(stdout);
+      //
+      //         throw ::exception(error_failed);
+      //
+      //      }
+      //
+      //      if (attr.map_state == IsViewable)
+      //      {
+      //
+      //         _mapped_net_state_unlocked(false, Screen(),
+      //                                    x11_display()->intern_atom(::x11::e_atom_net_wm_state_hidden, false), 0);
+      //
+      //      }
+      //
+      //      //return ::success;
+   }
+
+
+   void window::exit_full_screen()
+   {
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      XWindowAttributes attr;
+      //
+      //      if (!XGetWindowAttributes(Display(), Window(), &attr))
+      //      {
+      //
+      //         windowing_output_debug_string("::window::exit_full_screen 1.2");
+      //
+      //         fflush(stdout);
+      //
+      //         throw ::exception(error_failed);
+      //
+      //      }
+      //
+      //      if (attr.map_state == IsViewable)
+      //      {
+      //
+      //         _mapped_net_state_unlocked(false, Screen(), x11_display()->intern_atom("_NET_WM_STATE_FULLSCREEN", false), 0);
+      //
+      //      }
+      //
+      //      //return ::success;
+   }
+
+
+   void window::exit_zoomed()
+   {
+      //      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+      //
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      XWindowAttributes attr;
+      //
+      //      if (!XGetWindowAttributes(Display(), Window(), &attr))
+      //      {
+      //
+      //         windowing_output_debug_string("::window::exit_zoomed 1.2");
+      //
+      //         fflush(stdout);
+      //
+      //         throw ::exception(error_failed);
+      //
+      //      }
+      //
+      //      if (attr.map_state == IsViewable)
+      //      {
+      //
+      //         mapped_net_state_raw(false, Screen(),
+      //                              x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_horz, false),
+      //                              x11_display()->intern_atom(::x11::e_atom_net_wm_state_maximized_penn, false));
+      //
+      //      }
+
+      //return success;
+   }
+
+
+   //   iptr window::get_window_long_ptr(int nIndex)
+   //   {
+   //
+   //      return m_pwindow->get_window_long_ptr(nIndex);
+   //
+   //   }
+
+
+   //   iptr window::set_window_long_ptr(int nIndex, iptr i)
+   //   {
+   //
+   //      return m_pwindow->set_window_long_ptr(nIndex, i);
+   //
+   //      //iptr iOld = m_plongmap->operator[](nIndex);
+   //
+   //      //   if(nIndex == GWL_EXSTYLE)
+   //      //   {
+   //      //
+   //      //      if(is_different((l & WS_EX_TOOLWINDOW), (m_plongmap->operator[](nIndex) & WS_EX_TOOLWINDOW)))
+   //      //      {
+   //      //
+   //      //         wm_toolwindow(this, (l & WS_EX_TOOLWINDOW) != 0);
+   //      //
+   //      //      }
+   //      //
+   //      //   }
+   //
+   //      //m_plongmap->operator[](nIndex) = i;
+   //
+   //      //return iOld;
+   //
+   //   }
+
+
+   bool window::client_to_screen(::i32_point* ppoint)
+   {
+      return true;
+   }
+
+
+   bool window::screen_to_client(::i32_point* ppoint)
+   {
+      return true;
+   }
+
+
+   void window::main_post(const ::procedure & procedure)
+   {
+
+      system()->acme_windowing()->main_post(procedure);
+
+   }
+
+
+   void window::user_send(const ::procedure & procedure)
+   {
+
+      system()->acme_windowing()->user_send(procedure);
+
+   }
+
+
+
+   bool window::is_iconic()
+   {
+      //#ifdef XDISPLAY_LOCK_LOG
+      //
+      //      b_prevent_xdisplay_lock_log = true;
+      //
+      //#endif
+      //
+      //      long lState = -1;
+      //
+      //      if(!get_state(lState))
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //      bool bIconic = lState == IconicState;
+      //
+      //#ifdef XDISPLAY_LOCK_LOG
+      //
+      //      b_prevent_xdisplay_lock_log = false;
+      //
+      //#endif
+      //
+      //      return lState;
+      return false;
+   }
+
+
+   bool window::is_window_visible()
+   {
+      windowing_output_debug_string("::window::is_window_visible 1");
+
+      return m_bVisible.load(std::memory_order_relaxed);
+   }
+
+
+   bool window::_is_window_visible_unlocked()
+   {
+      return m_bVisible.load(std::memory_order_relaxed);
+   }
+
+
+   bool window::is_destroying()
+   {
+      if (::is_null(this))
+      {
+         return true;
+      }
+
+      // if (m_pwindow == nullptr)
+      // {
+      //    return true;
+      // }
+
+      ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+      if (!puserinteraction->m_bUserElementOk)
+      {
+         return true;
+      }
+
+      return false;
+   }
+
+
+#undef SET_WINDOW_POS_LOG
+
+
+   //   bool window::set_window_pos(class ::zorder zorder, int x, int y, int cx, int cy, ::u32 nFlags)
+   //   {
+   //
+   //      bool bOk = false;
+   //
+   //
+   //                  bOk = _set_window_pos(zorder, x, y, cx, cy, nFlags);
+   //
+   //               });
+   //
+   //      return bOk;
+   //
+   //   }
+
+
+   ::e_status window::set_window_icon(const ::file::path& path)
+   {
+      //      Atom net_wm_icon = x11_display()->intern_atom("_BAMF_DESKTOP_FILE", False);
+      //
+      //      Atom cardinal = x11_display()->intern_atom("STRING", False);
+      //
+      //      int ixa = XA_STRING;
+      //
+      //      int status = XChangeProperty(
+      //         Display(),
+      //         Window(),
+      //         net_wm_icon,
+      //         ixa,
+      //         8,
+      //         PropModeReplace,
+      //         (const unsigned char *) (const_char_pointer )path,
+      //         path.length());
+      //
+      //      informationf("----> freebsd::interaction_impl::bamf_set_icon END");
+      //
+      //      fflush(stdout);
+      //
+      //      if (status != 0)
+      //      {
+      //
+      //         return ::error_failed;
+      //
+      //      }
+      //
+      return ::success;
+   }
+
+
+   void window::main_send(const ::procedure & procedure)
+   {
+
+      system()->acme_windowing()->main_send(procedure);
+
+   }
+
+
+   //   void oswindow_data::wm_full_screen(const ::i32_rectangle & rectangle)
+   //   {
+   //
+   //      ::i32_rectangle rBest;
+   //
+   //      int iMonitor = best_xinerama_monitor(puserinteraction, rectangle, rBest);
+   //
+   //      windowing_output_debug_string("::oswindow_data::full_screen 1");
+   //
+   //      xdisplay d(display());
+   //
+   //      if(d.is_null())
+   //      {
+   //
+   //         windowing_output_debug_string("::oswindow_data::full_screen 1.1");
+   //
+   //         return;
+   //
+   //      }
+   //
+   //      XWindowAttributes attr;
+   //
+   //      if(!XGetWindowAttributes(display(), window(), &attr))
+   //      {
+   //
+   //         windowing_output_debug_string("::oswindow_data::full_screen 1.2");
+   //
+   //         fflush(stdout);
+   //
+   //         return;
+   //
+   //      }
+   //
+   //      ::i32_rectangle rWindow;
+   //
+   //      rWindow.left      = attr.x;
+   //      rWindow.top       = attr.y;
+   //      rWindow.right     = attr.x    + attr.width;
+   //      rWindow.bottom    = attr.y    + attr.height;
+   //
+   //      if(rBest != rWindow)
+   //      {
+   //
+   //         puserinteraction->place(rBest);
+   //
+   //         XMoveResizeWindow(d, m_window, rBest.left, rBest.top, rBest.width(), rBest.height());
+   //
+   //      }
+   //
+   //      if(attr.map_state == IsViewable)
+   //      {
+   //
+   //         mapped_net_state_raw(true, d, window(), m_iScreen, intern_atom(net_wm_state_fullscreen, false), 0);
+   //
+   //      }
+   //      else
+   //      {
+   //
+   //         unmapped_net_state_raw(d, window(), intern_atom(net_wm_state_fullscreen, false), 0);
+   //
+   //         XMapWindow(display(), window());
+   //
+   //      }
+   //
+   //      windowing_output_debug_string("::oswindow_data::full_screen 2");
+   //
+   //      ::fflush(stdout);
+   //
+   //   }
+   //
+
+
+   //   ::e_status window::x11_post_message(MESSAGE & msg)
+   //   {
+   //
+   //      try
+   //      {
+   //
+   //         if (msg.oswindow == nullptr)
+   //         {
+   //
+   //            auto pcontext = m_papplication;
+   //
+   //            pcontext->post_message(msg.id(), msg.wParam, msg.lParam);
+   //
+   //         } else
+   //         {
+   //
+   //            if (msg.oswindow != nullptr && msg.oswindow->m_pwindow != nullptr &&
+   //                msg.oswindow->puserinteraction != nullptr)
+   //            {
+   //
+   //               ::user::interaction * pinteraction = msg.oswindow->puserinteraction;
+   //
+   //               pinteraction->post_message(msg.id(), msg.wParam, msg.lParam);
+   //
+   //            }
+   //
+   //         }
+   //
+   //      }
+   //      catch (...)
+   //      {
+   //
+   //      }
+   //
+   //      return ::success;
+   //
+   //   }
+   //
+   //
+   //   ::e_status window::post_ui_message(const MESSAGE & message)
+   //   {
+   //
+   //      ::::acme::windowing::window * pacmewindowingwindow = message.oswindow;
+   //
+   //      ASSERT(oswindow != nullptr);
+   //
+   //      ::user::interaction * pinteraction = oswindow->puserinteraction;
+   //
+   //      ::thread * pthread = nullptr;
+   //
+   //      if (::is_set(pinteraction))
+   //      {
+   //
+   //         pthread = pinteraction->m_pthreadUserInteraction;
+   //
+   //      }
+   //
+   //      if (::is_null(pthread))
+   //      {
+   //
+   //         return ::error_failed;
+   //
+   //      }
+   //
+   //      auto pmessagequeue = pthread->m_pmessagequeue.get();
+   //
+   //      if (pmessagequeue == nullptr)
+   //      {
+   //
+   //         if (message.m_emessage == e_message_quit)
+   //         {
+   //
+   //            return ::error_failed;
+   //
+   //         }
+   //
+   //         pmessagequeue = pthread->aaa_get_message_queue();
+   //
+   //      }
+   //
+   //      if (pmessagequeue == nullptr)
+   //      {
+   //
+   //         return error_failed;
+   //
+   //      }
+   //
+   //      synchronous_lock ml(pmessagequeue->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+   //
+   //      if (message.m_emessage == e_message_quit)
+   //      {
+   //
+   //         informationf("e_message_quit thread");
+   //
+   //      }
+   //
+   //      if (message.m_emessage == e_message_left_button_down)
+   //      {
+   //
+   //         informationf("post_ui_message::e_message_left_button_down\n");
+   //
+   //      } else if (message.m_emessage == e_message_left_button_up)
+   //      {
+   //
+   //         informationf("post_ui_message::e_message_left_button_up\n");
+   //
+   //      }
+   //
+   //      pmessagequeue->m_messagea.add(message);
+   //
+   //      pmessagequeue->m_happeningNewMessage.set_happening();
+   //
+   //      return ::success;
+   //
+   //   }
+   //
+   //
+   //   ::e_status window::mq_remove_window_from_all_queues()
+   //   {
+   //
+   //      ::user::interaction * pinteraction = puserinteraction;
+   //
+   //      if (pinteraction == nullptr)
+   //      {
+   //
+   //         return error_failed;
+   //
+   //      }
+   //
+   //      if (pinteraction->get_app() == nullptr)
+   //      {
+   //
+   //         return error_failed;
+   //
+   //      }
+   //
+   //      itask idthread = pinteraction->get_app()->get_itask();
+   //
+   //      message_queue * pmq = aaa_get_message_queue(idthread, false);
+   //
+   //      if (pmq == nullptr)
+   //      {
+   //
+   //         return error_failed;
+   //
+   //      }
+   //
+   //      synchronous_lock ml(pmq->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+   //
+   //      pmq->m_messagea.predicate_erase([this](MESSAGE & item)
+   //                                      {
+   //
+   //                                         return item.oswindow == this;
+   //
+   //                                      });
+   //
+   //      return ::success;
+   //
+   //   }
+
+
+   bool window::set_window_position(const class ::zorder& zorder, int x, int y, int cx, int cy,
+                                    const ::user::activation& useractivation, bool bNoZorder, bool bNoMove, bool bNoSize,
+                                    ::e_display edisplay)
+   {
+      synchronous_lock sl(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      //display_lock displaylock(x11_display()->__x11_display());
+
+      information() << "windowing_q window::set_window_position ";
+
+      return _set_window_position_unlocked(zorder, x, y, cx, cy, useractivation, bNoZorder, bNoMove, bNoSize,
+                                           edisplay);
+   }
+
+
+   bool window::_set_window_position_unlocked(const class ::zorder& zorder, int x, int y, int cx, int cy,
+                                              const ::user::activation& useractivation, bool bNoZorder, bool bNoMove,
+                                              bool bNoSize, ::e_display edisplay)
+   {
+
+      if (!bNoMove || !bNoSize)
+      {
+
+         _strict_set_window_position_unlocked(x, y, cx, cy, bNoMove, bNoSize);
+
+      }
+
+      _configure_window_unlocked(zorder, useractivation, bNoZorder, edisplay);
+
+      return true;
+
+   }
+
+
+   bool window::_configure_window_unlocked(const class ::zorder& zorder,
+                                           const ::user::activation& useractivation, bool bNoZorder, ::e_display edisplay)
+   {
+
+      ::cast < ::user::interaction> puserinteraction = m_pacmeuserinteraction;
+
+      if (!(puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      {
+         return false;
+      }
+
+      if (!m_pqwidget)
+      {
+         return false;
+      }
+
+      if (equivalence_sink(edisplay) == e_display_normal)
+      {
+
+         auto wt = m_pqwidget->windowFlags() & Qt::WindowType_Mask;
+
+         if (wt == Qt::Popup || wt == Qt::ToolTip)
+         {
+
+            m_pqwidget->show();
+
+         }
+         else
+         {
+
+            m_pqwidget->showNormal();
+
+         }
+
+         m_bVisible.store(true, std::memory_order_relaxed);
+
+      }
+      else if (edisplay == e_display_zoomed)
+      {
+
+         m_pqwidget->showMaximized();
+         m_bVisible.store(true, std::memory_order_relaxed);
+
+      }
+      else if (edisplay == e_display_iconic)
+      {
+
+         m_pqwidget->showMinimized();
+
+      }
+      else if (!::is_screen_visible(edisplay))
+      {
+
+         m_pqwidget->hide();
+         m_bVisible.store(false, std::memory_order_relaxed);
+
+      }
+
+      return true;
+
+   }
+
+
+   bool window::_strict_set_window_position_unlocked(int x, int y, int cx, int cy, bool bNoMove, bool bNoSize)
+   {
+
+
+       return ::windowing::window::_strict_set_window_position_unlocked(x, y, cx, cy, bNoMove, bNoSize);
+
+
+   }
+
+
+   //   ::i32_bool window::show_window(
+   //                        const ::e_display &edisplay,
+   //                        const ::user::e_activation &useractivation
+   //   )
+   //   {
+   //
+   //      x11_sync([oswindow, edisplay, useractivation]()
+   //               {
+   //
+   //                  return oswindow->
+   //                     show_window(edisplay, useractivation
+   //                  );
+   //
+   //               });
+   //
+   //      return true;
+   //
+   //   }
+
+
+   //   iptr get_window_long_ptr(window *pdata, int
+   //   nIndex)
+   //   {
+   //
+   //      return pdata->
+   //         get_window_long_ptr(nIndex);
+   //
+   //   }
+
+
+   //   iptr set_window_long_ptr(window *pdata, int
+   //   nIndex,
+   //                            iptr i
+   //   )
+   //   {
+   //
+   //      return pdata->
+   //         set_window_long_ptr(nIndex, i
+   //      );
+   //
+   //   }
+
+
+   void window::set_window_text(const ::scoped_string& scopedstr)
+   {
+      //      m_strWindowText = pszString;
+
+      //windowing_output_debug_string("\nfreebsd::interaction_impl::set_window_text");
+
+      //fflush(stdout);
+
+      //x11_store_name(m_pacmewindowingwindow, m_strWindowText);
+
+      //x11_store_name(scopedstr);
+
+      //windowing_output_debug_string("\nfreebsd::interaction_impl::set_window_text END");
+
+      //fflush(stdout);
+   }
+
+
+   void window::set_tool_window(bool bSet)
+   {
+      //wm_toolwindow(bSet);
+
+      //return ::success;
+   }
+
+
+   void window::set_mouse_cursor2(::windowing::cursor* pcursor)
+   {
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      //      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      Atom net_wm_icon = x11_display()->intern_atom("_BAMF_DESKTOP_FILE", False);
+      //
+      //      Atom cardinal = x11_display()->intern_atom("STRING", False);
+      //
+      //      int ixa = XA_STRING;
+      //
+      //      ::file::path path = pcursor->get_file_path();
+      //
+      //      int status = XChangeProperty(
+      //         Display(),
+      //         Window(),
+      //         net_wm_icon,
+      //         ixa,
+      //         8,
+      //         PropModeReplace,
+      //         (const unsigned char *) (const_char_pointer )path,
+      //         path.length());
+      //
+      //      informationf("----> freebsd::interaction_impl::bamf_set_icon END");
+      //
+      //      fflush(stdout);
+      //
+      //      if (status != 0)
+      //      {
+      //
+      //         throw ::exception(error_failed);
+      //
+      //      }
+
+
+      //return true;
+   }
+
+
+   void window::set_mouse_cursor(::windowing::cursor* pcursor)
+   {
+
+      if (pcursor != m_pcursor)
+      {
+
+         __check_refdbg;
+
+         ::windowing::window::set_mouse_cursor(pcursor);
+
+         __check_refdbg;
+
+         if (is_main_thread())
+         {
+
+            __check_refdbg;
+
+            ::cast < ::windowing_q::cursor > pqcursor = m_pcursor;
+
+            __check_refdbg;
+
+            if (pqcursor)
+            {
+
+               __check_refdbg;
+
+               pqcursor->_create_os_cursor();
+
+               __check_refdbg;
+
+               auto qcursor = pqcursor->m_qcursor;
+
+               __check_refdbg;
+
+               m_pqwidget->setCursor(qcursor);
+
+               __check_refdbg;
+
+            }
+
+         }
+         else
+         {
+            main_post([this]()
+               {
+
+                  ::cast < ::windowing_q::cursor > pqcursor = m_pcursor;
+
+                  if (pqcursor)
+                  {
+
+                     pqcursor->_create_os_cursor();
+
+                     auto qcursor = pqcursor->m_qcursor;
+
+                     m_pqwidget->setCursor(qcursor);
+
+                  }
+
+               });
+
+         }
+
+      //windowing()->set_mouse_cursor2(pcursor);
+
+      }
+
+   }
+
+
+   //   string window::x11_get_name()
+   //   {
+   //
+   //      return ::x11_get_name(Display(), Window());
+   //
+   //   }
+   //
+   //
+   //   bool window::x11_get_window_rect(::i32_rectangle * prectangle)
+   //   {
+   //
+   //      return ::x11_get_window_rect(Display(), Window(), prectangle);
+   //
+   //   }
+
+
+   ::e_status window::window_rectangle(::i32_rectangle* prectangle)
+   {
+      //return x11_get_window_rect(prectangle) ? ::success : ::error_failed;
+
+      return ::success;
+   }
+
+
+   //   bool window::x11_get_client_rect(::i32_rectangle * prectangle)
+   //   {
+   //
+   //      //return ::x11_get_client_rect(Display(), Window(), prectangle);
+   //
+   //      return ::success;
+   //
+   //   }
+
+
+   ::e_status window::rectangle(::i32_rectangle* prectangle)
+   {
+      //return x11_get_client_rect(prectangle) ? ::success : error_failed;
+      return ::success;
+   }
+
+
+   //   void window::upper_window_rects(i32_rectangle_array & ra)
+   //   {
+   //
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+   //
+   ////      ra.erase_all();
+   ////
+   ////      windowing_output_debug_string("::GetFocus 1");
+   ////
+   ////#ifdef display_lock_LOCK_LOG
+   ////
+   ////      b_prevent_display_lock_lock_log = false;
+   ////
+   ////#endif
+   ////
+   ////      display_lock displaylock(x11_display()->__x11_display());
+   ////
+   ////      windowing_output_debug_string("::GetFocus 1.01");
+   ////
+   ////      auto windowa = x11_display()->x11_window_list();
+   ////
+   ////      if (windowa.last() == Window())
+   ////      {
+   ////
+   ////         return;
+   ////
+   ////      }
+   ////
+   ////      auto iFind = windowa.find_last(Window());
+   ////
+   ////      if (not_found(iFind))
+   ////      {
+   ////
+   ////         return;
+   ////
+   ////      }
+   ////
+   ////      ::i32_rectangle rectangle;
+   ////
+   ////      x11_get_window_rect(&rectangle);
+   ////
+   //////r = oswindow->puserinteraction->window_rectangle();
+   ////
+   //////string strTopic = x11_get_name(x11_display(), Window());
+   ////
+   ////      ::i32_rectangle rectangleTest;
+   ////
+   ////      for (iFind++; iFind < windowa.get_size(); iFind++)
+   ////      {
+   ////
+   //////string strItem = x11_get_name(x11_display(), windowa[iFind]);
+   ////
+   ////         ::i32_rectangle rectangleHigher;
+   ////
+   ////         if (::x11_get_window_rect(Display(), windowa[iFind], &rectangleHigher))
+   ////         {
+   ////
+   ////            ra.add(rectangleHigher);
+   ////
+   ////         }
+   ////
+   ////      }
+   //
+   //   }
+
+
+   void window::set_mouse_capture()
+   {
+
+      ::q::acme::windowing::window::set_mouse_capture();
+
+   }
+
+
+      //   void window::set_mouse_capture()
+   //   {
+   //
+   //      auto pthread = puserinteraction->m_pthreadUserInteraction;
+   //
+   //      windowing()->set_mouse_capture(pthread, this);
+   //
+   //      //::pointer < ::windowing_q::display > pwaylanddisplay = m_pdisplay;
+   //
+   //      //pwaylanddisplay->__capture_mouse(this, pwaylanddisplay->m_uLastButtonSerial);
+   //
+   //
+   ////      m_pwindowing->windowing_post([this]()
+   ////                                   {
+   ////
+   ////                                      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+   ////
+   //////                                      display_lock displaylock(x11_display()->__x11_display());
+   ////
+   ////                                      information() << "XGrabPointer";
+   //////
+   //////                                      auto grabStatus = XGrabPointer(Display(), Window(), False,
+   //////                                                                     ButtonPressMask | ButtonReleaseMask |
+   //////                                                                     PointerMotionMask,
+   //////                                                                     GrabModeAsync, GrabModeAsync, None, None,
+   //////                                                                     CurrentTime);
+   ////
+   //////                                      if (grabStatus != GrabSuccess)
+   //////                                      {
+   //////
+   //////                                         windowing_output_debug_string("\noswindow_data::SetCapture 2.1");
+   //////
+   //////                                         return;
+   //////
+   //////                                      }
+   ////
+   //////                                      auto pdisplay = x11_display();
+   //////
+   //////                                      if (pdisplay)
+   //////                                      {
+   //////
+   //////                                         pdisplay->_on_capture_changed_to(this);
+   //////
+   //////                                      }
+   ////
+   ////                                      windowing_output_debug_string("\noswindow_data::SetCapture 2");
+   ////
+   ////                                   });
+   ////
+   ////      //return ::success;
+   //
+   //   }
+   //
+   //
+   //   void window::release_mouse_capture()
+   //   {
+   //
+   //      auto pthread = puserinteraction->m_pthreadUserInteraction;
+   //
+   //      windowing()->release_mouse_capture(pthread);
+   //
+   //   }
+
+
+   bool window::has_mouse_capture()
+   {
+
+      if(!::q::acme::windowing::window::has_mouse_capture())
+      {
+
+         return false;
+
+      }
+
+      return true;
+
+   }
+
+
+   bool window::is_mouse_captured()
+   {
+
+      if(!::q::acme::windowing::window::is_mouse_captured())
+      {
+
+         return false;
+
+      }
+
+      return true;
+
+   }
+
+
+   void window::release_mouse_capture()
+   {
+
+      ::q::acme::windowing::window::release_mouse_capture();
+
+   }
+
+
+   void window::set_active_window()
+   {
+
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      information() << "::windowing_q::window::set_active_window";
+
+      user_post([this]()
+      {
+         windowing_output_debug_string("::set_active_window 1");
+
+         //         display_lock displaylock(x11_display()->__x11_display());
+
+         _set_active_window_unlocked();
+
+         //         XEvent xev;
+         //
+         //         zero(xev);
+         //
+         //         auto windowRoot = DefaultRootWindow(Display());
+         //
+         //         Atom atomActiveWindow = x11_display()->intern_atom("_NET_ACTIVE_WINDOW", False);
+         //
+         //         xev.xclient.type = ClientMessage;
+         //         xev.xclient.send_event = True;
+         //         xev.xclient.display = Display();
+         //         xev.xclient.window = Window();
+         //         xev.xclient.message_type = atomActiveWindow;
+         //         xev.xclient.format = 32;
+         //         xev.xclient.data.l[0] = 1;
+         //         xev.xclient.data.l[1] = 0;
+         //         xev.xclient.data.l[2] = 0;
+         //         xev.xclient.data.l[3] = 0;
+         //         xev.xclient.data.l[4] = 0;
+         //
+         //         XSendEvent(Display(), windowRoot, False, SubstructureRedirectMask | SubstructureNotifyMask, &xev);
+         //
+         //         windowing_output_debug_string("::set_active_window 2");
+      });
+
+      //      //auto estatus =
+      //      //
+      //      set_keyboard_focus();
+      //
+      ////      if (!estatus)
+      ////      {
+      ////
+      ////         return estatus;
+      ////
+      ////      }
+      ////
+      ////      return estatus;
+   }
+
+
+   void window::_set_active_window_unlocked()
+   {
+
+      ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+      if (!(puserinteraction->m_ewindowflag & e_window_flag_window_created))
+      {
+         // if (puserinteraction->const_layout().design().activation().m_eactivation == ::user::e_activation_default)
+         // {
+         //    puserinteraction->layout().m_statea[::user::e_layout_sketch].activation().m_eactivation =::user::e_activation_set_active;
+         // }
+
+         return;
+      }
+
+
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      {
+         windowing_output_debug_string("::set_active_window 1");
+
+         //display_lock displaylock(x11_display()->__x11_display());
+
+         //         XEvent xev;
+         //
+         //         zero(xev);
+
+         //         auto windowRoot = DefaultRootWindow(Display());
+         //
+         //         Atom atomActiveWindow = x11_display()->_intern_atom_unlocked("_NET_ACTIVE_WINDOW", False);
+         //
+         //         xev.xclient.type = ClientMessage;
+         //         xev.xclient.send_event = True;
+         //         xev.xclient.display = Display();
+         //         xev.xclient.window = Window();
+         //         xev.xclient.message_type = atomActiveWindow;
+         //         xev.xclient.format = 32;
+         //         xev.xclient.data.l[0] = 1;
+         //         xev.xclient.data.l[1] = 0;
+         //         xev.xclient.data.l[2] = 0;
+         //         xev.xclient.data.l[3] = 0;
+         //         xev.xclient.data.l[4] = 0;
+         //
+         //         XSendEvent(Display(), windowRoot, False, SubstructureRedirectMask | SubstructureNotifyMask, &xev);
+         //
+         //         windowing_output_debug_string("::set_active_window 2");
+      }
+
+      //auto estatus =
+      //
+      set_keyboard_focus();
+
+      //struct SDL_WaylandInput * input = data->input;
+      //SDL_Window *focus = SDL_GetKeyboardFocus();
+      //struct wl_surface *requesting_surface = focus ? focus->driverdata->surface : NULL;
+
+      //__activate_window(true);
+
+      //      if (!estatus)
+      //      {
+      //
+      //         return estatus;
+      //
+      //      }
+      //
+      //      return estatus;
+   }
+
+
+   /// should be run at user_thread
+   void window::set_foreground_window(::user::activation_token * puseractivationtoken)
+   {
+      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      //display_lock displaylock(x11_display()->__x11_display());
+
+      _set_foreground_window_unlocked(puseractivationtoken);
+
+      //      XRaiseWindow(Display(), Window());
+      //
+      //      XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime);
+
+      //return true;
+   }
+
+
+   /// should be run at user_thread
+   void window::_set_foreground_window_unlocked(::user::activation_token * puseractivactiontoken)
+   {
+      ////      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+      ////
+      ////      display_lock displaylock(x11_display()->__x11_display());
+      //
+      //      XRaiseWindow(Display(), Window());
+      //
+      //      XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime);
+      //
+      //      //return true;
+   }
+
+
+   //   Window window::_get_window_relative(enum_relative erelative, ::Window * windowa, int numItems)
+   //   {
+   //
+   //      if (::is_null(windowa))
+   //      {
+   //
+   //         windowing_output_debug_string("::_get_window_relative");
+   //
+   //         return 0;
+   //
+   //      }
+   //
+   //      ::Window window = 0;
+   //
+   //      switch (erelative)
+   //      {
+   //
+   //         case e_relative_first_sibling:
+   //         {
+   //
+   //            window = windowa[0];
+   //
+   //         }
+   //            break;
+   //
+   //         case e_relative_last_sibling:
+   //         {
+   //
+   //            window = windowa[numItems - 1];
+   //
+   //         }
+   //            break;
+   //
+   //         case e_relative_next_sibling:
+   //         case e_relative_previous_sibling:
+   //         {
+   //
+   //            int iFound = -1;
+   //
+   //            for (int i = 0; i < numItems; i++)
+   //            {
+   //
+   //               if (windowa[i] == Window())
+   //               {
+   //
+   //                  iFound = i;
+   //
+   //                  break;
+   //
+   //               }
+   //
+   //            }
+   //
+   //            if (iFound < 0)
+   //            {
+   //
+   //               return 0;
+   //
+   //            }
+   //
+   //            if (erelative == e_relative_next_sibling)
+   //            {
+   //
+   //               if (iFound + 1 >= numItems)
+   //               {
+   //
+   //                  return 0;
+   //
+   //               }
+   //
+   //               window = windowa[iFound + 1];
+   //
+   //            } else if (erelative == e_relative_previous_sibling)
+   //            {
+   //
+   //               if (iFound - 1 < 0)
+   //               {
+   //
+   //                  return 0;
+   //
+   //               }
+   //
+   //               window = windowa[iFound - 1];
+   //
+   //            } else
+   //            {
+   //
+   //               return 0;
+   //
+   //            }
+   //
+   //         }
+   //         default:
+   //         {
+   //
+   //            return 0;
+   //
+   //         }
+   //
+   //      }
+   //
+   //      return window;
+   //
+   //   }
+
+
+   //   ::windowing::window * window::get_window(enum_relative erelative)
+   //   {
+   //
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+   //
+   //      ::Window window = 0;
+   //
+   //      windowing_output_debug_string("::get_window 1");
+   //
+   //      display_lock displaylock(x11_display()->__x11_display());
+   //
+   //      if (erelative == e_relative_first_sibling ||
+   //          erelative == e_relative_last_sibling ||
+   //          erelative == e_relative_next_sibling ||
+   //          erelative == e_relative_previous_sibling)
+   //      {
+   //
+   //         ::oswindow oswindowParent = get_parent();
+   //
+   //         if (oswindowParent == nullptr)
+   //         {
+   //
+   //            Atom atomNetClientListStacking = x11_display()->intern_atom("_NET_CLIENT_LIST_STACKING", False);
+   //
+   //            Atom atomActualType;
+   //
+   //            int format;
+   //
+   //            unsigned long numItems, bytesAfter;
+   //
+   //            ::Window * windowa = nullptr;
+   //
+   //            int status = XGetWindowProperty(
+   //               Display(),
+   //               RootWindow(Display(), Screen()),
+   //               atomNetClientListStacking,
+   //               0L,
+   //               1024,
+   //               false,
+   //               AnyPropertyType,
+   //               &atomActualType,
+   //               &format,
+   //               &numItems,
+   //               &bytesAfter,
+   //               (unsigned char **) &windowa);
+   //
+   //            if (status >= Success && numItems)
+   //            {
+   //
+   //               window = _get_window_relative(erelative, windowa, numItems);
+   //
+   //            }
+   //
+   //            if (windowa != NULL)
+   //            {
+   //
+   //               XFree(windowa);
+   //
+   //            }
+   //
+   //         } else
+   //         {
+   //
+   //            ::Window root = 0;
+   //            ::Window parent = 0;
+   //            ::Window * pchildren = nullptr;
+   //            ::u32 numItems = 0;
+   //
+   //            int status = XQueryTree(Display(), Window(),
+   //                                    &root, &parent, &pchildren, &numItems);
+   //
+   //            if (status >= Success && numItems)
+   //            {
+   //
+   //               window = _get_window_relative(erelative, pchildren, numItems);
+   //
+   //            }
+   //
+   //            if (pchildren != nullptr)
+   //            {
+   //
+   //               XFree(pchildren);
+   //
+   //            }
+   //
+   //         }
+   //
+   //      } else
+   //      {
+   //
+   //         ::Window root = 0;
+   //         ::Window parent = 0;
+   //         ::Window * pchildren = nullptr;
+   //         ::u32 numItems = 0;
+   //
+   //         int status = XQueryTree(Display(), Window(),
+   //                                 &root, &parent, &pchildren, &numItems);
+   //
+   //         if (status >= Success && numItems)
+   //         {
+   //
+   //            if (erelative == e_relative_first_child)
+   //            {
+   //
+   //               window = pchildren[0];
+   //
+   //            } else if (erelative == e_relative_last_child)
+   //            {
+   //
+   //               window = pchildren[numItems - 1];
+   //
+   //            }
+   //
+   //         }
+   //
+   //         if (pchildren != nullptr)
+   //         {
+   //
+   //            XFree(pchildren);
+   //
+   //         }
+   //
+   //      }
+   //
+   //      auto pwindowx11 = x11_display()->_window(window);
+   //
+   //      if (::is_null(pwindowx11))
+   //      {
+   //
+   //         return nullptr;
+   //
+   //      }
+   //
+   //      return pwindowx11;
+   //
+   //   }
+
+
+   void window::destroy_window()
+   {
+      bool bOk = false;
+
+      ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+      if (::is_set(puserinteraction))
+      {
+         puserinteraction->send_message(::user::e_message_destroy, 0, 0);
+      }
+
+      if (m_pqwidget)
+      {
+
+         m_bVisible.store(false, std::memory_order_relaxed);
+
+         auto cleanupWidget = [this]()
+         {
+
+            if (m_pqwidget)
+            {
+
+               m_bVisible.store(false, std::memory_order_relaxed);
+
+               const QObjectList children = m_pqwidget->children();
+
+               for (QObject * pchild : children)
+               {
+
+                  if (auto * pchildWidget = qobject_cast<QWidget *>(pchild))
+                  {
+
+                     pchildWidget->setParent(nullptr, pchildWidget->windowFlags());
+
+                  }
+
+               }
+
+               m_pqwidget->hide();
+
+               m_pqwidget->close();
+
+               m_pqwidget->deleteLater();
+
+               m_pqwidget = nullptr;
+
+            }
+
+         };
+
+         if (QThread::currentThread() == m_pqwidget->thread())
+         {
+
+            cleanupWidget();
+
+         }
+         else
+         {
+
+            ::pointer<window> hold = this;
+
+            main_post([hold, cleanupWidget]()
+            {
+
+               cleanupWidget();
+
+            });
+
+         }
+
+      }
+
+      ::windowing::window::destroy_window();
+
+      if (::is_set(puserinteraction))
+      {
+         puserinteraction->send_message(::user::e_message_non_client_destroy, 0, 0);
+      }
+   }
+
+
+   bool window::is_window()
+   {
+      //      if (::oswindow_data::s_pdataptra->find_first(oswindow) < 0)
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+
+      //return true;
+
+      return true;
+   }
+
+
+   bool window::has_keyboard_focus()
+   {
+      //      auto pdisplay = x11_display();
+      //
+      //      if (::is_null(pdisplay))
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //      auto pwindowFocus = pdisplay->m_pwindowKeyboardFocus;
+      //
+      //      if (::is_null(pwindowFocus))
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //      auto pimplFocus = pwindowFocus->m_pwindow;
+      //
+      //      if (::is_null(pimplFocus))
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //      auto pinteractionFocus = pimplFocus->m_puserinteraction;
+      //
+      //      if (::is_null(pinteractionFocus))
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      //      if (!(pinteractionFocus->m_ewindowflag & ::e_window_flag_focus))
+      //      {
+      //
+      //         return false;
+      //
+      //      }
+      //
+      return m_bKeyboardFocus;
+      //return false;
+
+      //return ::q::acme::windowing::window::has_keyboard_focus();
+
+   }
+
+
+   void window::_on_set_focus()
+   {
+
+      m_bKeyboardFocus = true;
+
+   }
+
+
+   void window::_on_kill_focus()
+   {
+
+      m_bKeyboardFocus = false;
+
+   }
+
+
+   //
+   //
+   //   /// should be run in user thread
+   //   ::e_status window::x11_store_name(const_char_pointer pszName)
+   //   {
+   //
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+   //
+   //      display_lock displaylock(x11_display()->__x11_display());
+   //
+   //      XStoreName(Display(), Window(), pszName);
+   //
+   //      return ::success;
+   //
+   //   }
+   //
+
+   //   string window::x11_get_name()
+   //   {
+   //
+   //      string str;
+   //
+   //      char *name = NULL;
+   //      int status = XFetchName(Display(), Window(), &name);
+   //      if (status >= Success)
+   //      {
+   //         str = name;
+   //      }
+   //      XFree(name);
+   //      return str;
+   //
+   //   }
+
+   //// should be called in user_thread
+   //   ::i32_bool window::x11_get_window_rect(::i32_rectangle *prectangle)
+   //   {
+   //
+   //      XWindowAttributes attrs;
+   //
+   //      if (!XGetWindowAttributes(Display(), window, &attrs))
+   //      {
+   //
+   //         windowing_output_debug_string("::x11_get_window_rect 1.1 (xgetwindowattributes failed)");
+   //
+   //         return false;
+   //
+   //      }
+   //
+   //      int x = 0;
+   //
+   //      int y = 0;
+   //
+   //      int screen = XDefaultScreen((Display *) d);
+   //
+   //      Window windowRoot = RootWindow((Display *) Display(), screen);
+   //
+   //      Window child;
+   //
+   //      XTranslateCoordinates(Display(), window, windowRoot, 0, 0, &x, &y, &child);
+   //
+   //      prectangle->left = x + attrs.x;
+   //
+   //      prectangle->top = y + attrs.y;
+   //
+   //      prectangle->right = x + attrs.x + attrs.width;
+   //
+   //      prectangle->bottom = y + attrs.y + attrs.height;
+   //
+   //
+   //      windowing_output_debug_string("::x11_get_window_rect 2");
+   //
+   //      return true;
+   //
+   //   }
+
+   //   ::i32_bool window::this->rectangle(::i32_rectangle *prectangle)
+   //   {
+   //
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+   //
+   //      display_lock displaylock(x11_display()->__x11_display());
+   //
+   //      if (x11_display()->is_null())
+   //      {
+   //
+   //         windowing_output_debug_string("::this->rectangle 1.1 (display is null)");
+   //
+   //         return false;
+   //
+   //      }
+   //
+   //      XWindowAttributes attr;
+   //
+   //      if (XGetWindowAttributes(Display(), Window(), &attr) == 0)
+   //      {
+   //
+   //         windowing_output_debug_string("::this->rectangle 1.2 (xgetwindowattributes failed");
+   //
+   //         return false;
+   //
+   //      }
+   //
+   //      prectangle->left = 0;
+   //
+   //      prectangle->top = 0;
+   //
+   //      prectangle->right = prectangle->left + attr.width;
+   //
+   //      prectangle->bottom = prectangle->top + attr.height;
+   //
+   //      windowing_output_debug_string("::this->rectangle 2");
+   //
+   //      return true;
+   //
+   //   }
+
+
+   void window::__update_graphics_buffer()
+   {
+      user_post([this]()
+      {
+         //auto pimpl = m_pwindow;
+
+         auto pbuffer = m_pgraphicsgraphics;
+
+         if (::is_set(pbuffer))
+         {
+            
+            pbuffer->update_screen();
+
+         }
+      });
+
+      //}
+      //);
+   }
+
+
+   void window::window_update_screen()
+   {
+
+      if (::is_null(m_pqwidget))
+      {
+
+         return;
+
+      }
+
+      ::pointer<window> hold = this;
+
+      main_post([this, hold]()
+      {
+
+         if (has_destroying_flag() || has_finishing_flag() || ::is_null(m_pqwidget) || ::is_null(user_interaction()))
+         {
+
+            return;
+
+         }
+
+         set_window_position_unlocked();
+
+         if (::is_set(m_pqwidget))
+         {
+
+            m_pqwidget->update();
+
+         }
+
+      });
+
+
+#ifdef MORE_LOG
+
+      information() << "window_do_update_screen";
+
+#endif
+
+   }
+
+
+   //   void window::_window_request_presentation_locked()
+   //   {
+   //
+   //      synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+   //
+   //      display_lock displayLock(x11_display()->__x11_display());
+   //
+   //      auto pimpl = m_pwindow;
+   //
+   //      if (::is_set(pimpl))
+   //      {
+   //
+   //         pimpl->_window_request_presentation_unlocked();
+   //
+   //      }
+   //
+   //   }
+
+
+   //   void window::_on_visual_changed_unlocked()
+   //   {
+   //
+   //   }
+
+
+   void window::set_keyboard_focus()
+   {
+
+      main_send([this]()
+      {
+
+         if (!m_pqwidget)
+         {
+
+            return;
+
+         }
+
+         m_pqwidget->activateWindow();
+
+         m_pqwidget->setFocus(Qt::MouseFocusReason);
+
+         if (m_pqwidget->hasFocus() && !m_bKeyboardFocus)
+         {
+
+            _on_set_focus();
+
+         }
+
+      });
+
+      //::q::acme::windowing::window::set_keyboard_focus();
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      // if (m_pwlsurface == nullptr)
+      // {
+      //
+      //    return;
+      //
+      //    //throw ::exception(error_failed);
+      //
+      // }
+      //
+      // windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1");
+      //
+      // //display_lock displaylock(x11_display()->__x11_display());
+
+      //_set_keyboard_focus_unlocked();
+
+      //      if (!is_window())
+      //      {
+      //
+      //         windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1.1");
+      //
+      //         throw ::exception(error_failed);
+      //
+      //      }
+      //
+      //      if (!XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime))
+      //      {
+      //
+      //         windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1.3");
+      //
+      //         throw ::exception(error_failed);
+      //
+      //      }
+      //
+      //      windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 2");
+
+      //return ::success;
+   }
+
+
+   void window::_set_keyboard_focus_unlocked()
+   {
+      //synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+      //       if (m_pwlsurface == 0)
+      //       {
+      //
+      //          throw ::exception(error_failed);
+      //
+      //       }
+      //
+      //       windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1");
+      //
+      //       //display_lock displaylock(x11_display()->__x11_display());
+      //
+      //       if (!is_window())
+      //       {
+      //
+      //          windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1.1");
+      //
+      //          throw ::exception(error_failed);
+      //
+      //       }
+      //
+      // //      if (!XSetInputFocus(Display(), Window(), RevertToNone, CurrentTime))
+      // //      {
+      // //
+      // //         windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1.3");
+      // //
+      // //         throw ::exception(error_failed);
+      // //
+      // //      }
+      //
+      //       windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 2");
+      //
+      //       //return ::success;
+   }
+
+
+   bool window::is_active_window()
+   {
+
+      return ::windowing::window::is_active_window();
+
+   }
+
+
+   void window::bring_to_front()
+   {
+      //       synchronous_lock synchronouslock(user_synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+      //
+      //       if (m_pwlsurface == 0)
+      //       {
+      //
+      //          throw ::exception(error_failed);
+      //
+      //       }
+      //
+      //       windowing_output_debug_string("\nwindow(x11)::set_keyboard_focus 1");
+      //
+      // //      display_lock displaylock(x11_display()->__x11_display());
+      // //
+      // //      XRaiseWindow(displaylock.m_pdisplay, Window());
+      //
+      //       //return ::success;
+   }
+
+
+   //   bool window::presentation_complete()
+   //   {
+   //
+   //      return m_pwindow->m_pgraphics->presentation_complete();
+   //
+   //   }
+
+
+   void window::_on_end_paint()
+   {
+      //      if(m_enetwmsync == window::e_net_wm_sync_wait_paint)
+      //      {
+      //
+      //         m_enetwmsync == window::e_net_wm_sync_none;
+      //
+      //         if (!XSyncValueIsZero(m_xsyncvalueNetWmSync))
+      //         {
+      //
+      //            x_change_property(
+      //               x11_display()->m_atomNetWmSyncRequestCounter,
+      //               XA_CARDINAL,
+      //               32,
+      //               PropModeReplace,
+      //               (const unsigned char *) &m_xsyncvalueNetWmSync, 1);
+      //
+      //            XSyncIntToValue(&m_xsyncvalueNetWmSync, 0);
+      //
+      //         }
+      //
+      //      }
+      //
+   }
+
+
+   //   void window::_enable_net_wm_sync()
+   //   {
+   //
+   //      if (m_xsynccounterNetWmSync != None)
+   //      {
+   //
+   //         return;
+   //
+   //      }
+   //
+   //      //return;
+   //
+   //      auto atomWmProtocols = x11_display()->m_atomWmProtocols;
+   //
+   //      auto atomNetWmSyncRequest = x11_display()->m_atomNetWmSyncRequest;
+   //
+   //      m_enetwmsync = e_net_wm_sync_none;
+   //
+   //      _wm_add_remove_list_unlocked(atomWmProtocols, atomNetWmSyncRequest, true);
+   //
+   //      {
+   //
+   //         XSyncValue xsyncvalue;
+   //
+   //         XSyncIntToValue(&xsyncvalue, 1);
+   //
+   //         m_xsynccounterNetWmSync = XSyncCreateCounter(x11_display()->__x11_display(), xsyncvalue);
+   //
+   //      }
+   //
+   //      auto atomNetWmSyncRequestCounter = x11_display()->m_atomNetWmSyncRequestCounter;
+   //
+   //      x_change_property(atomNetWmSyncRequestCounter,
+   //                        XA_CARDINAL, 32, PropModeReplace, (const unsigned char *) &m_xsynccounterNetWmSync,
+   //                        1);
+   //
+   //      XSyncIntToValue(&m_xsyncvalueNetWmSyncPending, 0);
+   //
+   //      XSyncIntToValue(&m_xsyncvalueNetWmSync, 0);
+   //
+   //   }
+
+
+   //    void window::__handle_pointer_enter(::wl_pointer * pwlpointer)
+   //    {
+   //
+   //       information() << "__handle_pointer_enter";
+   //
+   //       //::wayland::micro::window_base::__handle_pointer_enter(pwlpointer);
+   //
+   //       //m_pointCursor2 = m_pointPointer;
+   //
+   //    }
+   //
+   //
+   //    void window::__handle_pointer_motion(::wl_pointer * pwlpointer, ::u32 millis)
+   //    {
+   //
+   //       //m_pwlpointer = pwlpointer;
+   //
+   //       //::wayland::micro::window_base::__handle_pointer_motion(pwlpointer, millis);
+   //
+   //       //m_pointCursor2 = m_pointPointer;
+   //
+   //       ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+   //
+   //       if(::is_set(pwindow))
+   //       {
+   //
+   //          auto pmouse = create_newø<::message::mouse>();
+   //
+   //          pmouse->m_operatingsystemwindow = this->operating_system_window();
+   //
+   //          pmouse->m_pwindow = this;
+   //
+   //          pmouse->m_emessage = e_message_mouse_move;
+   //
+   //          pmouse->m_pointHost = m_pointCursor2;
+   //
+   //          pmouse->m_pointAbsolute = m_pointCursor2;
+   //
+   //          pmouse->m_time.m_iSecond = millis / 1_k;
+   //
+   //          pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+   //
+   //          //pwindow->message_handler(pmouse);
+   //
+   //          //wayland_windowing()->post_ui_message(pmouse);
+   //
+   //          pwindow->message_handler(pmouse);
+   //
+   //       }
+   //
+   //    }
+   //
+   //
+   //    void window::__handle_pointer_leave(::wl_pointer * pwlpointer, ::windowing_q::window * pwaylandwindowLeave)
+   //    {
+   //
+   //       ::string strType = ::type(puserinteraction).name();
+   //
+   //       information()
+   //
+   //          << "__handle_pointer_leave";
+   //
+   //       //m_pwlpointer = pwlpointer;
+   //
+   // //            if (msg.oswindow)
+   // //            {
+   // //
+   // //               ::minimum(m_pointCursor.x);
+   // //
+   // //               ::minimum(m_pointCursor.y);
+   // //
+   // //
+   // //               if(e.xcrossing.mode == NotifyUngrab)
+   // //               {
+   // //
+   // //                  information() << "X11 LeaveNotify NotifyUngrab";
+   // //
+   // //               }
+   // //
+   // ////            if(e.xcrossing.mode == NotifyUngrab)
+   // ////            {
+   // ////
+   // ////  //             MESSAGE msgCaptureChanged;
+   // ////
+   // //////               msgCaptureChanged.oswindow = m_pwindowCapture;
+   // ////               msg.id() = e_message_capture_changed;
+   // ////               msg.wParam = 0;
+   // ////               msg.lParam = (lparam) (oswindow) (msg.oswindow == m_pwindowCapture ? nullptr : m_pwindowCapture.m_p);
+   // ////               msg.time = e.xcrossing.time;
+   // ////
+   // ////               post_ui_message(msg);
+   // ////
+   // ////            }
+   //
+   //
+   // //
+   //
+   //       ::minimum(m_pointCursor2.x);
+   //
+   //       ::minimum(m_pointCursor2.y);
+   //
+   // //      MESSAGE msg;
+   // //      msg.oswindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
+   // //      msg.id() = e_message_mouse_leave;
+   // //      msg.wParam = 0;
+   // //      msg.lParam = 0;
+   // //      //   msg.time = e.xcrossing.time;
+   // //      msg.time = 0;
+   // //
+   // //      wayland_windowing()->post_ui_message(msg);
+   //
+   //       auto pmouse = create_newø<::message::mouse>();
+   //
+   //       pmouse->m_pacmewindowingwindow = ::is_set(pwaylandwindowLeave) ? pwaylandwindowLeave : this;
+   //
+   //       pmouse->m_pwindow = pmouse->m_pacmewindowingwindow;
+   //
+   //       pmouse->m_emessage = e_message_mouse_leave;
+   //
+   //       pmouse->m_pointHost = m_pointCursor2;
+   //
+   //       pmouse->m_pointAbsolute = m_pointCursor2;
+   //
+   //       //pmouse->m_time.m_iSecond = millis / 1_k;
+   //
+   //       //pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+   //
+   //       //msg.wParam = 0;
+   //
+   //       //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
+   //
+   //       //post_ui_message(msg);
+   //       //wayland_windowing()->post_ui_message(pmouse);
+   //
+   //       m_pwindow->message_handler(pmouse);
+   //
+   // //            }
+   //
+   //    }
+   //
+   //
+   //    void window::__handle_pointer_button(::wl_pointer * pwlpointer, ::u32 linux_button, ::u32 pressed, ::u32 millis)
+   //    {
+   //
+   //       //::string strType = ::type(puserinteraction).name();
+   //
+   //       //m_pwlpointer = pwlpointer;
+   //
+   //       enum_message emessage = e_message_undefined;
+   //
+   //       //msg.id() = e_message_mouse_wheel;
+   //
+   //       //post_ui_message(pmouse);
+   //
+   //       bool bRet = true;
+   //
+   //       //msg.time = e.xbutton.time;
+   //
+   //       int Δ = 0;
+   //
+   //       if (pressed == WL_POINTER_BUTTON_STATE_PRESSED)
+   //       {
+   //
+   //          ::i32_point m_pointWindowDragStart;
+   //
+   //          if (linux_button == BTN_LEFT)
+   //          {
+   //
+   //             information() << "LeftButtonDown";
+   //
+   //             emessage = e_message_left_button_down;
+   //
+   //          }
+   //          else if (linux_button == BTN_MIDDLE)
+   //          {
+   //
+   //             emessage = e_message_middle_button_down;
+   //
+   //          }
+   //          else if (linux_button == BTN_RIGHT)
+   //          {
+   //
+   //             emessage = e_message_right_button_down;
+   //
+   //          }
+   //          else if (linux_button == BTN_GEAR_DOWN)
+   //          {
+   //
+   //             Δ = 120;
+   //
+   //          }
+   //          else if (linux_button == BTN_GEAR_UP)
+   //          {
+   //
+   //             Δ = -120;
+   //
+   //          }
+   //          else
+   //          {
+   //
+   //             bRet = false;
+   //
+   //          }
+   //
+   //       }
+   //       else if (pressed == WL_POINTER_BUTTON_STATE_RELEASED)
+   //       {
+   //
+   //          if (linux_button == BTN_LEFT)
+   //          {
+   //
+   //             information()
+   //                << "LeftButtonUp";
+   //
+   //             emessage = e_message_left_button_up;
+   //
+   //          }
+   //          else if (linux_button == BTN_MIDDLE)
+   //          {
+   //
+   //             emessage = e_message_middle_button_up;
+   //
+   //          }
+   //          else if (linux_button == BTN_RIGHT)
+   //          {
+   //
+   //             emessage = e_message_right_button_up;
+   //
+   //          }
+   //          else
+   //          {
+   //
+   //             bRet = false;
+   //
+   //          }
+   //
+   //       }
+   //       else
+   //       {
+   //
+   //          bRet = false;
+   //
+   //       }
+   //
+   //       //m_pointCursor2 = m_pointPointer;
+   //
+   // //      MESSAGE msg;
+   // //
+   // //      msg.oswindow = this;
+   // //
+   // //      msg.oswindow->set_cursor_position(m_pointCursor);
+   //
+   //
+   //
+   // //      int l = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.x;
+   // //      int t = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_point.y;
+   // //      int w = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cx;
+   // //      int h = msg.oswindow->m_pimpl->m_puserinteraction->layout().sketch().m_size.cy;
+   // //
+   // //      ::i32_rectangle r;
+   // //
+   // //      window_rectangle(msg.oswindow, &r);
+   // //
+   // //      int l1 = r.left;
+   // //      int t1 = r.top;
+   // //      int w1 = r.width();
+   // //      int h1 = r.height();
+   //
+   //       if (Δ != 0)
+   //       {
+   //
+   //          auto pmousewheel = create_newø<::message::mouse_wheel>();
+   //
+   //          pmousewheel->m_operatingsystemwindow = this->operating_system_window();
+   //
+   //          pmousewheel->m_pwindow = this;
+   //
+   //          pmousewheel->id() = e_message_mouse_wheel;
+   //
+   //          //msg.wParam = make_int(0, iDelta);
+   //
+   //          //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
+   //
+   //          pmousewheel->m_Δ = Δ;
+   //
+   //          pmousewheel->m_pointHost = m_pointCursor2;
+   //
+   //          pmousewheel->m_pointAbsolute = m_pointCursor2;
+   //
+   //          pmousewheel->m_time.m_iSecond = millis / 1_k;
+   //
+   //          pmousewheel->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+   //
+   //          //wayland_windowing()->post_ui_message(pmousewheel);
+   //
+   //          m_pwindow->message_handler(pmousewheel);
+   //
+   //       }
+   //       else if (bRet)
+   //       {
+   //
+   //          auto pmouse = create_newø<::message::mouse>();
+   //
+   //          pmouse->m_operatingsystemwindow = this->operating_system_window();
+   //
+   //          pmouse->m_pwindow = this;
+   //
+   //          pmouse->m_emessage = emessage;
+   //
+   //          pmouse->m_pointHost = m_pointCursor2;
+   //
+   //          pmouse->m_pointAbsolute = m_pointCursor2;
+   //
+   //          pmouse->m_time.m_iSecond = millis / 1_k;
+   //
+   //          pmouse->m_time.m_iNanosecond = (millis % 1_k) * 1_M;
+   //
+   //          //msg.wParam = 0;
+   //
+   //          //msg.lParam = make_int(e.xbutton.x_root, e.xbutton.y_root);
+   //
+   //          //post_ui_message(msg);
+   //          //wayland_windowing()->post_ui_message(pmouse);
+   //
+   //          m_pwindow->message_handler(pmouse);
+   //
+   //       }
+   //
+   //    }
+   // //
+   // //
+   // //   void window::__defer_update_wayland_buffer()
+   // //   {
+   // //
+   // //      if(m_uLastConfigureSerial && m_waylandbuffer.m_size != m_sizeWindow)
+   // //      {
+   // //
+   // //         auto pdisplaywayaland = dynamic_cast < ::windowing_q::display * > (m_pdisplay.m_p);
+   // //
+   // //         pdisplaywayaland->destroy_wayland_buffer(m_waylandbuffer);
+   // //
+   // //         pdisplaywayaland->update_wayland_buffer(m_waylandbuffer, m_sizeWindow);
+   // //
+   // //         //wl_surface_attach(m_pwlsurface, m_waylandbuffer.m_pwlbuffer, 0, 0);
+   // //
+   // //         //puserinteraction->set_need_redraw();
+   // //
+   // //         //puserinteraction->post_redraw();
+   // //
+   // //      }
+   // //      //wl_surface_damage(surface, 0, 0, WIDTH, HEIGHT);
+   // //      //wl_surface_commit(m_pwlsurface);
+   // //
+   // //   }
+   // //
+   // //
+   // //   void window::__defer_xdg_surface_ack_configure()
+   // //   {
+   // //
+   // //      if(m_uLastAckSerial < m_uLastConfigureSerial)
+   // //      {
+   // //
+   // //         m_uLastAckSerial = m_uLastConfigureSerial;
+   // //
+   // //         xdg_surface_ack_configure(m_pxdgsurface, m_uLastAckSerial);
+   // //
+   // //         ::string strType = ::type(puserinteraction).name();
+   // //
+   // //         information()
+   // //
+   // //            << "xdg_surface_ack_configure : " << m_uLastAckSerial;
+   // //
+   // //      }
+   // //
+   // //   }
+   // //
+   // //
+   // //   void window::__handle_xdg_surface_configure(::u32 serial)
+   // //   {
+   // //
+   // //      ::string strType = ::type(puserinteraction).name();
+   // //
+   // //      information()
+   // //
+   // //         << "__handle_xdg_surface_configure : " << serial;
+   // //
+   // //      if(!m_bXdgInitialConfigure)
+   // //      {
+   // //
+   // //         m_bXdgInitialConfigure = true;
+   // //
+   // //      }
+   // //
+   // //      m_uLastConfigureSerial = serial;
+   // //
+   // //      ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+   // //
+   // //      if(pwindow)
+   // //      {
+   // //
+   // //         ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+   // //
+   // //         if(puserinteraction)
+   // //         {
+   // //
+   // //            puserinteraction->set_need_redraw();
+   // //
+   // //            puserinteraction->post_redraw();
+   // //
+   // //         }
+   // //
+   // //      }
+   // //
+   // ////
+   // ////
+   // ////      if(m_bFirstConfigure)
+   // ////      {
+   // ////
+   // ////         m_bFirstConfigure = false;
+   // ////
+   // ////         __continue_initialization_after_configure();
+   // ////
+   // ////      }
+   // //
+   // //   }
+   //
+   //
+   //    void window::__handle_xdg_toplevel_configure(int width, int height, ::wl_array * pwlarrayState)
+   //    {
+   //
+   // //      ::string strType = ::type(puserinteraction).name();
+   // //
+   // //      ::i32_size size(width, height);
+   // //
+   // //      information()
+   // //
+   // //         << "__handle_xdg_toplevel_configure input size : " << size;
+   // //
+   // //      if(size.cx > 0)
+   // //      {
+   // //
+   // //         m_sizeWindow.cx = size.cx;
+   // //
+   // //      }
+   // //
+   // //      if(size.cy > 0)
+   // //      {
+   // //
+   // //         m_sizeWindow.cy = size.cy;
+   // //
+   // //      }
+   // //
+   // //      m_sizeConfigure = m_sizeWindow;
+   //
+   //       ::wayland::micro::window_base::__handle_xdg_toplevel_configure(width, height, pwlarrayState);
+   //
+   //       information()
+   //
+   //          << "__handle_xdg_toplevel_configure effective size : " << m_sizeWindow;
+   //
+   //       if (pwlarrayState->size == 0)
+   //       {
+   //
+   //          information()
+   //
+   //             << "pwlarrayState is EMPTY";
+   //
+   //       }
+   //       else
+   //       {
+   //
+   //          if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
+   //          {
+   //
+   //             information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_MAXIMIZED";
+   //
+   //          }
+   //
+   //          if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
+   //          {
+   //
+   //             information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_FULLSCREEN";
+   //
+   //          }
+   //
+   //          if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_ACTIVATED))
+   //          {
+   //
+   //             information() << "pwlarrayState contains XDG_TOPLEVEL_STATE_ACTIVATED";
+   //
+   //             if (puserinteraction->const_layout().window().display() == ::e_display_iconic)
+   //             {
+   //
+   //                ::string strType = ::type(puserinteraction).name();
+   //
+   //                information() << "Window was iconic type : " << strType;
+   //
+   //                if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_MAXIMIZED))
+   //                {
+   //
+   //                   puserinteraction->display(::e_display_zoomed);
+   //
+   //                }
+   //                else if (::wayland::micro::xdg_toplevel_state_array_contains(pwlarrayState, XDG_TOPLEVEL_STATE_FULLSCREEN))
+   //                {
+   //
+   //                   puserinteraction->display(::e_display_full_screen);
+   //
+   //                }
+   //                else
+   //                {
+   //
+   //                   puserinteraction->display(::e_display_normal);
+   //
+   //                }
+   //
+   //             }
+   //
+   //          }
+   //
+   //       }
+   //
+   //       puserinteraction->set_size(m_sizeWindow);
+   //
+   //    }
+   //
+   //
+   //    void window::_on_simple_key_message(::user::e_key ekey, ::enum_message emessage)
+   //    {
+   //
+   //       // TODO when do we get WL_KEYBOARD_KEY_STATE_REPEAT?
+   //       if (ekey != ::user::e_key_none)
+   //       {
+   //
+   //          auto pkey = create_newø<::message::key>();
+   //
+   //          pkey->
+   //             m_pacmewindowingwindow = this;
+   //
+   //          pkey->
+   //             m_pwindow = this;
+   //
+   //          pkey->
+   //             m_ekey = ekey;
+   //
+   //          if (emessage == e_message_key_down)
+   //          {
+   //
+   //             pkey->
+   //                id() = e_message_key_down;
+   //
+   //             information()
+   //
+   //                << "e_message_key_down";
+   //
+   //          }
+   //          else
+   //          {
+   //
+   //             pkey->
+   //                id() = e_message_key_up;
+   //
+   // //information() << "e_message_key_up : " << (iptr) ekey;
+   //
+   //             information()
+   //
+   //                << "e_message_key_up";
+   //
+   //          }
+   //
+   //          m_pwindow->
+   //             message_handler(pkey);
+   //
+   //       }
+   //
+   //    }
+
+   //
+   //    void window::_on_text_composition(const ::scoped_string & scopedstrText)
+   //    {
+   //
+   //    //Wayland_data_device_set_serial(input->data_device, serial);
+   //
+   //    auto pkey = create_newø<::message::key>();
+   //
+   //    pkey->
+   //    m_pacmewindowingwindow = this;
+   //
+   //    pkey->
+   //    m_pwindow = this;
+   //
+   //    pkey->
+   //    id() = e_message_text_composition;
+   //
+   //    pkey->
+   //    m_strText = scopedstrText;
+   //
+   //    information()
+   //
+   //    << "e_message_text_composition";
+   //
+   //    m_pwindow->
+   //    message_handler(pkey);
+   //
+   // }
+
+
+   bool window::defer_perform_entire_resizing_process(const ::experience::e_frame & eframeSizing, ::user::mouse* pmouse)
+   {
+
+      return ::q::acme::windowing::window::defer_perform_entire_resizing_process(eframeSizing, pmouse);
+
+      //auto pdisplay = q_display();
+
+      //if (pdisplay->is_wayland())
+      {
+
+         // guint button;
+         //
+         // if(::is_null(pmouse))
+         // {
+         //
+         //    button = 1;
+         //
+         // }
+         // else
+         // {
+         //
+         //    button= as_guint_button(pmouse->m_ebuttonstate);
+         //
+         // }
+         //
+         //
+         //
+         // //guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pclick));
+         // //Cast to Wayland display
+         // //struct wl_display *wl_display = gdk_wayland_display_get_wl_display(display);
+         //
+         //
+         // // Get the Wayland compositor (xdg_wm_base is part of the Wayland compositor)
+         // //struct wl_compositor *wl_compositor = gdk_wayland_display_get_wl_compositor(display);
+         //
+         // // Get the wl_surface from the GTK window
+         // //auto gdk_surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+         //
+         // //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
+         //
+         // // You need to create an xdg_surface using xdg_wm_base
+         // //struct xdg_wm_base *pxdgwmbase = q_windowing()->m_pdisplay->m_pxdgwmbase;
+         //
+         // // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
+         // //
+         // // // Get the GdkEvent from the sequence
+         // // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
+         // // if (!happening) {
+         // //    g_print("Failed to get happening from GdkGestureClick.\n");
+         // //    return;
+         // // }
+         // //
+         // // guint32 timestamp = gdk_event_get_time (happening);
+         //
+         // //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(happening);
+         //
+         // guint32 timestamp;
+         //
+         // if(::is_null(pmouse))
+         // {
+         //
+         //    timestamp = GDK_CURRENT_TIME;
+         //
+         // }
+         // else
+         // {
+         //    timestamp=  pmouse->m_iTimestamp;
+         // }
+         //
+         // //auto pgdkeventsequence = gdk_event_get_event_sequence(happening);
+         //
+         // auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+         //
+         //
+         // auto pgdkdisplay = pdisplay->m_pgdkdisplay;
+         //
+         // GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
+         //
+         // // Get the default pointer device (e.g., mouse)
+         // GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
+         //
+         // auto gdksurfacedge = as_gdk_surface_edge(eframeSizing);
+         //
+         // //_unlocked_defer_start_resize(resize_edge, pgesture, x, y);
+         //
+         // double x;
+         // double y;
+         // if(::is_null(pmouse))
+         // {
+         //    x = 8;
+         //    y = 8;
+         // }
+         // else
+         // {
+         //    x = pmouse->m_pointAbsolute.x;
+         //    y = pmouse->m_pointAbsolute.y;
+         // }
+         //
+         // gdk_toplevel_begin_resize(GDK_TOPLEVEL(toplevel), gdksurfacedge, pgdkdevicePointer, button, x, y, timestamp);
+         //
+
+
+         // Check if the backend is Wayland
+         //if (GDK_IS_WAYLAND_DISPLAY(gdk_display_get_default())) {
+         // Extract the Wayland happening serial
+         //guint32 serial = gdk_wayland_event_source_get_event_serial(happening);
+         //guint32 serial = wl_message_get_opcode(wl_message_from_opcode(object, opcode));
+
+         // guint32 serial = 0;
+         //
+         // auto pxdgsurface = xdg_wm_base_get_xdg_surface(pxdgwmbase, pwlsurface);
+         //
+         // auto pxdgtoplevel = xdg_surface_get_toplevel(pxdgsurface);
+         // // Get the seat (which manages input devices for the display)
+         // GdkSeat *seat = gdk_display_get_default_seat(display);
+         //
+         // // Get the default pointer device (e.g., mouse)
+         // GdkDevice *pointer = gdk_seat_get_pointer(seat);
+         // auto pwlseat = gdk_wayland_device_get_wl_seat(pointer);
+         //
+         // auto resizeedge = as_xdg_toplevel_resize_edge(eedge);
+         //
+         // xdg_toplevel_resize(
+         //           pxdgtoplevel,
+         //              pwlseat,
+         //              serial,
+         //              resizeedge);
+         //
+         // wl_display_dispatch(wl_display);
+         //
+         //
+         // wl_display_flush(wl_display);
+         //
+         // // Get the GdkSurface for the GTK window
+         // GdkSurface *gdk_surface = gtk_native_get_surface(GTK_NATIVE(window));
+         //
+         // // Get the Wayland surface associated with the GdkSurface
+         // struct wl_surface *wl_surface = gdk_wayland_window_get_wl_surface(GDK_WAYLAND_SURFACE(gdk_surface));
+         //
+         // if (!wl_surface) {
+         //    g_print("Failed to get Wayland surface\n");
+         //    return;
+         // }
+
+         // // Get the Wayland display
+         // struct wl_display *wl_display = gdk_wayland_display_get_wl_display(gdk_display_get_default());
+         //
+         // // Get the Wayland toplevel object (xdg_toplevel)
+         // struct xdg_toplevel *xdg_toplevel = gdk_wayland_window_get_xdg_toplevel(GDK_WAYLAND_SURFACE(gdk_surface));
+         //
+         // if (!xdg_toplevel) {
+         //    g_print("Failed to get xdg_toplevel\n");
+         //    return;
+         // }
+         //
+         // // Trigger the resize operation on the toplevel
+         // // Edges should be a combination of values like XDG_TOPLEVEL_RESIZE_EDGE_LEFT, XDG_TOPLEVEL_RESIZE_EDGE_RIGHT, etc.
+         // guint32 serial = 0;  // You need the serial of the last user happening, e.g., from a button press
+         // xdg_toplevel_resize(xdg_toplevel, gdk_wayland_display_get_seat(gdk_display_get_default()), serial, edges);
+         //
+         // g_print("Called xdg_toplevel_resize\n");
+         //
+         // // Flush the display to send the request
+         return true;
+      }
+
+      return false;
+   }
+
+
+   //      //windowing()->windowing_post([this]()
+   //        //                          {
+   //
+   //      auto pxdgtoplevel = m_pxdgtoplevel;
+   //
+   //      if(::is_set(pxdgtoplevel))
+   //      {
+   //
+   //         auto pwlseat = wayland_display()->m_pwlseat;
+   //
+   //         auto uSerial = wayland_display()->m_uLastButtonSerial;
+   //
+   //         xdg_toplevel_move(pxdgtoplevel, pwlseat, uSerial);
+   //
+   //      }
+   //
+   //          //                        });
+   ////      while (wl_display_dispatch(wayland_display()->m_pwldisplay) != -1)
+   ////      {
+   ////
+   ////
+   ////      }
+   //
+   //      return true;
+   //
+   //   }
+   //
+   //
+   bool window::defer_perform_entire_reposition_process(::user::mouse* pmouse)
+   {
+
+      return ::q::acme::windowing::window::defer_perform_entire_reposition_process(pmouse);
+      //return _perform_entire_resizing_process(eframeSizing);
+
+      // auto pdisplay = q_display();
+      //
+      // if (pdisplay->is_wayland())
+      {
+         // guint button;
+         //
+         // if(::is_null(pmouse))
+         // {
+         //
+         //    button = 0;
+         //
+         // }
+         // else
+         // {
+         //
+         //    button= as_guint_button(pmouse->m_ebuttonstate);
+         //
+         // }
+         //
+         //
+         // //guint button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(pclick));
+         // //Cast to Wayland display
+         // //struct wl_display *wl_display = gdk_wayland_display_get_wl_display(display);
+         //
+         //
+         // // Get the Wayland compositor (xdg_wm_base is part of the Wayland compositor)
+         // //struct wl_compositor *wl_compositor = gdk_wayland_display_get_wl_compositor(display);
+         //
+         // // Get the wl_surface from the GTK window
+         // //auto gdk_surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+         //
+         // //struct wl_surface *pwlsurface = gdk_wayland_surface_get_wl_surface(gdk_surface);
+         //
+         // // You need to create an xdg_surface using xdg_wm_base
+         // //struct xdg_wm_base *pxdgwmbase = q_windowing()->m_pdisplay->m_pxdgwmbase;
+         //
+         // // GdkEventSequence *sequence = gtk_gesture_get_last_updated_sequence(GTK_GESTURE(pclick));
+         // //
+         // // // Get the GdkEvent from the sequence
+         // // GdkEvent *happening = gtk_gesture_get_last_event(GTK_GESTURE(pclick), sequence);
+         // // if (!happening) {
+         // //    g_print("Failed to get happening from GdkGestureClick.\n");
+         // //    return;
+         // // }
+         // //
+         // // guint32 timestamp = gdk_event_get_time (happening);
+         //
+         // //GdkWaylandEventSource  peventsource * =gdk_event_get_event_sequence(happening);
+         //
+         // guint32 timestamp;
+         //
+         // if(::is_null(pmouse))
+         // {
+         //
+         //    timestamp = GDK_CURRENT_TIME;
+         //
+         // }
+         // else
+         // {
+         //    timestamp=  pmouse->m_iTimestamp;
+         // }
+         //
+         // //auto pgdkeventsequence = gdk_event_get_event_sequence(happening);
+         //
+         // auto toplevel = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+         //
+         //
+         // auto pgdkdisplay = pdisplay->m_pgdkdisplay;
+         //
+         // GdkSeat * pgdkseat = gdk_display_get_default_seat(pgdkdisplay);
+         //
+         // // Get the default pointer device (e.g., mouse)
+         // GdkDevice *pgdkdevicePointer = gdk_seat_get_pointer(pgdkseat);
+         // double x;
+         // double y;
+         // if(::is_null(pmouse))
+         // {
+         //    x = gtk_widget_get_width(m_pgtkwidget);
+         //    y = gtk_widget_get_height(m_pgtkwidget);
+         //
+         //    x/=2;
+         //    y/=2;
+         // }
+         // else
+         // {
+         //    x = pmouse->m_pointAbsolute.x;
+         //    y = pmouse->m_pointAbsolute.y;
+         // }
+         //
+         //
+         // gdk_toplevel_begin_move(GDK_TOPLEVEL(toplevel), pgdkdevicePointer, button, x, y, timestamp);
+
+         return true;
+      }
+      return false;
+   }
+
+
+   //      xdg_toplevel_resize_edge resizeedge = XDG_TOPLEVEL_RESIZE_EDGE_NONE;
+   //
+   //      ::copy(&resizeedge, &eframeSizing);
+   //
+   //      if(resizeedge == XDG_TOPLEVEL_RESIZE_EDGE_NONE)
+   //      {
+   //
+   //         return true;
+   //
+   //      }
+   //
+   //      information() << "defer_perform_entire_resizing_process resizeedge : " << (::iptr) resizeedge;
+   //
+   //      //windowing()->windowing_post([this, resizeedge]()
+   //        //                          {
+   //
+   //       if(::is_set(m_pxdgtoplevel))
+   //       {
+   //
+   //          m_resizeedge = resizeedge;
+   //
+   //          xdg_toplevel_resize(
+   //             m_pxdgtoplevel,
+   //             wayland_display()->m_pwlseat,
+   //             wayland_display()->m_uLastButtonSerial,
+   //             resizeedge);
+   //
+   //          //});
+   //       }
+   //
+   //      return true;
+   //
+   //   }
+
+
+   void window::final_mouse_message_handling(::message::mouse* pmouse)
+   {
+      ::windowing::window::final_mouse_message_handling(pmouse);
+
+      //      if(::is_null(pmouse))
+      //      {
+      //
+      //         return;
+      //
+      //      }
+      //
+      //      try
+      //      {
+      //
+      //         if(pmouse->m_pcursor)
+      //         {
+      //
+      //            windowing()->aaa_set_mouse_cursor(pmouse->m_pcursor);
+      //
+      //         }
+      //         else
+      //         {
+      //
+      //            windowing()->aaa_set_mouse_cursor(get_mouse_cursor());
+      //
+      //         }
+      //
+      //      }
+      //      catch(...)
+      //      {
+      //
+      //      }
+   }
+
+
+   //
+   // void window::__handle_keyboard_enter(::wl_keyboard *pwlkeyboard, uint32_t serial, ::wl_array *pwlarrayKeys)
+   // {
+   //
+   //    information() << "__handle_keyboard_enter";
+   //
+   //    ::wayland::micro::window_base::__handle_keyboard_enter(pwlkeyboard, serial, pwlarrayKeys);
+   //
+   // }
+   //
+   //
+   // void window::__handle_keyboard_leave(::wl_keyboard *pwlkeyboard, uint32_t serial)
+   // {
+   //
+   //    information() << "__handle_keyboard_leave";
+   //
+   //    ::wayland::micro::window_base::__handle_keyboard_leave(pwlkeyboard, serial);
+   //
+   // }
+
+
+   //   void window::__handle_keyboard_key(::wl_keyboard *pwlkeyboard, uint32_t serial, uint32_t time, uint32_t key, uint32_t pressed)
+   //   {
+   //
+   //      if (key < ARRAY_SIZE(xfree86_key_table2))
+   //      {
+   //
+   //         auto ekey = xfree86_key_table2[key];
+   //
+   //         // TODO when do we get WL_KEYBOARD_KEY_STATE_REPEAT?
+   //         if (ekey != ::user::e_key_none)
+   //         {
+   //
+   //            auto pkey = create_newø<::message::key>();
+   //
+   //            pkey->m_operatingsystemwindow = this->operating_system_window();
+   //
+   //            pkey->m_pwindow = this;
+   //
+   //            pkey->m_ekey = ekey;
+   //
+   //            if(pressed == WL_KEYBOARD_KEY_STATE_PRESSED)
+   //            {
+   //
+   //               pkey->m_emessage = e_message_key_down;
+   //
+   //               information() << "e_message_key_down";
+   //
+   //            }
+   //            else
+   //            {
+   //
+   //               pkey->m_emessage = e_message_key_up;
+   //
+   //               //information() << "e_message_key_up : " << (iptr) ekey;
+   //
+   //               information() << "e_message_key_up";
+   //
+   //            }
+   //
+   //            m_pwindow->message_handler(pkey);
+   //
+   //         }
+   //
+   //      }
+   //
+   //      ::pointer < ::windowing_q::keyboard > pkeyboard = windowing()->keyboard();
+   //
+   //      if (!pkeyboard->m_pxkbstate)
+   //      {
+   //
+   //         return;
+   //
+   //      }
+   //
+   //      const xkb_keysym_t *syms = nullptr;
+   //
+   //      // TODO can this happen?
+   //      if (::xkb_state_key_get_syms(pkeyboard->m_pxkbstate, key + 8, &syms) != 1)
+   //      {
+   //
+   //         return;
+   //
+   //      }
+   //
+   //      if (pressed)
+   //      {
+   //
+   //         char text[8];
+   //
+   //         auto size = ::xkb_keysym_to_utf8(syms[0], text, sizeof text);
+   //
+   //         if (size > 0)
+   //         {
+   //
+   //            text[size] = 0;
+   //
+   //            //Wayland_data_device_set_serial(input->data_device, serial);
+   //
+   //            auto pkey = create_newø<::message::key>();
+   //
+   //            pkey->m_operatingsystemwindow = this->operating_system_window();
+   //
+   //            pkey->m_pwindow = this;
+   //
+   //            pkey->m_emessage = e_message_text_composition;
+   //
+   //            pkey->m_strText = text;
+   //
+   //            information() << "e_message_text_composition";
+   //
+   //            m_pwindow->message_handler(pkey);
+   //
+   //         }
+   //
+   //      }
+   //
+   //   }
+   //
+   //
+   //   void window::__handle_keyboard_modifiers(::wl_keyboard *keyboard, uint32_t serial, uint32_t mods_depressed, uint32_t mods_latched, uint32_t mods_locked, uint32_t group)
+   //   {
+   //
+   //      ::pointer < ::windowing_q::keyboard > pkeyboard = windowing()->keyboard();
+   //
+   //      if (!pkeyboard->m_pxkbstate)
+   //      {
+   //
+   //         return;
+   //
+   //      }
+   //
+   //      ::xkb_state_update_mask(pkeyboard->m_pxkbstate, mods_depressed, mods_latched, mods_locked, 0, 0, group);
+   //
+   //   }
+
+
+   void window::_on_windowing_close_window()
+   {
+      ::windowing::window::_on_windowing_close_window();
+   }
+
+
+   // ::particle * window::get_interface_client_particle() // puserinteraction
+   // {
+   //
+   //    if(::is_null(m_pwindow))
+   //    {
+   //
+   //       return nullptr;
+   //
+   //    }
+   //
+   //    return puserinteraction;
+   //
+   // }
+   //virtual void set_window_width(int iWidth) = 0; // m_sizeWindow.cx
+   //virtual void set_window_height(int iHeight) = 0; // m_sizeWindow.cy
+   //virtual ::i32_size get_window_size() = 0; // m_sizeWindow
+   // void window::set_interface_client_size(const ::i32_size & sizeWindow) // set_size
+   // {
+   //
+   //    puserinteraction->set_size(sizeWindow);
+   //
+   // }
+   //
+   //
+   // bool window::is_window_stored_iconic() // puserinteraction->const_layout().window().display() == e_display_iconic
+   // {
+   //
+   //    return puserinteraction->const_layout().window().display() == e_display_iconic;
+   //
+   // }
+   //
+   //
+   // void window::window_maximize() // puserinteraction->display(::e_display_zoomed);
+   // {
+   //
+   //    puserinteraction->display(::e_display_zoomed);
+   //
+   // }
+   //
+   //
+   // void window::window_full_screen() // puserinteraction->display(::e_display_full_screen);
+   // {
+   //
+   //    puserinteraction->display(::e_display_full_screen);
+   //
+   // }
+   //
+   //
+   // void window::window_restore() // puserinteraction->display(::e_display_normal);
+   // {
+   //
+   //    puserinteraction->display(::e_display_normal);
+   //
+   // }
+   //
+
+
+   void window::window_restore()
+   {
+      // if (gtk_window_is_maximized(GTK_WINDOW(m_pgtkwidget)))
+      // {
+      //    gtk_window_unmaximize(GTK_WINDOW(m_pgtkwidget));
+      // }
+main_post([this]()
+   {
+      m_pqwidget->showNormal();
+
+
+   });
+
+   }
+
+
+   void window::window_minimize()
+   {
+
+      // // Get the GdkSurface of the window
+      // GdkSurface *surface = gtk_native_get_surface(GTK_NATIVE(m_pgtkwidget));
+      //
+      // // Get the GdkToplevel interface
+      // GdkToplevel *toplevel = GDK_TOPLEVEL(surface);
+      //
+      // // Minimize the window (iconify it)
+      // gdk_toplevel_minimize(toplevel);
+
+      main_post([this]()
+      {
+
+         m_pqwidget->showMinimized();
+
+      });
+
+   }
+
+
+   void window::window_maximize()
+   {
+      //gtk_window_maximize(GTK_WINDOW(m_pgtkwidget));
+
+      main_post([this]()
+      {
+
+         m_pqwidget->showMaximized();
+
+      });
+
+
+   }
+
+
+   bool window::is_window_zoomed()
+   {
+
+      bool bIsWindowZoomed = false;
+
+      main_send([this, &bIsWindowZoomed]()
+         {
+
+            bIsWindowZoomed = m_pqwidget->isMaximized();
+
+         });
+
+      return bIsWindowZoomed;
+
+   }
+
+
+   string _gtk_get_resize_cursor_name(enum_window_edge eedge)
+   {
+      const_char_pointer pszCursorName;
+      switch (eedge)
+      {
+         case e_window_edge_south: pszCursorName = "s-resize";
+            break;
+         case e_window_edge_south_west: pszCursorName = "sw-resize";
+            break;
+         case e_window_edge_south_east: pszCursorName = "se-resize";
+            break;
+         case e_window_edge_west: pszCursorName = "w-resize";
+            break;
+         case e_window_edge_east: pszCursorName = "e-resize";
+            break;
+         case e_window_edge_north_west: pszCursorName = "nw-resize";
+            break;
+         case e_window_edge_north_east: pszCursorName = "ne-resize";
+            break;
+         case e_window_edge_north: pszCursorName = "n-resize";
+            break;
+         default: pszCursorName = "";
+            break;
+
+      }
+
+      return pszCursorName;
+
+   }
+
+
+   void window::_set_cursor_from_name(const ::scoped_string& scopedstr)
+   {
+
+      ::string strCursorName(scopedstr);
+
+      // if (strCursorName.has_character())
+      // {
+      //
+      //    gtk_widget_set_cursor_from_name(m_pgtkwidget, strCursorName);
+      //
+      //    //        g_object_unref(cursor);
+      //
+      // }
+      // else
+      // {
+      //
+      //    gtk_widget_set_cursor_from_name(m_pgtkwidget,"default");
+      //
+      // }
+
+   }
+
+
+   // void window::_unlocked_defer_start_resize(enum_window_edge eedge, GtkGestureClick * pclick, double x, double y)
+   // {
+   //
+   //
+   // }
+   //
+
+   ::i32_rectangle window::_unlocked_defer_get_window_rectangle()
+   {
+
+      // Window   xw = GDK_SURFACE_XID (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
+      //
+      // if(xw)
+      // {
+      //
+      //    Display *xd = GDK_SURFACE_XDISPLAY (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
+      //
+      //    if(xd)
+      //    {
+      //
+      //       XWindowAttributes attrs{};
+      //
+      //       XGetWindowAttributes(xd, xw, &attrs);
+      //
+      //       ::i32_rectangle r;
+      //
+      //       r.left  = attrs.x;
+      //       r.top  = attrs.y;
+      //       r.right  = attrs.x + attrs.width;
+      //       r.bottom  = attrs.y + attrs.height;
+      //
+      //    }
+      //
+      // }
+
+      return {};
+
+   }
+
+
+   void window::_unlocked_defer_set_window_position(const ::i32_point& point)
+   {
+
+      // Window   xw = GDK_SURFACE_XID (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
+      //
+      // if(xw)
+      // {
+      //
+      //    Display *xd = GDK_SURFACE_XDISPLAY (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
+      //
+      //    if(xd)
+      //    {
+      //
+      //       XMoveWindow (xd, xw, (int)point.x, (int)point.y);
+      //
+      //    }
+      //
+      // }
+
+   }
+
+
+   void window::_unlocked_defer_set_window_position(const ::i32_point& point, const ::i32_size& size)
+   {
+
+      // Window   xw = GDK_SURFACE_XID (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
+      //
+      // if(xw)
+      // {
+      //
+      //    Display *xd = GDK_SURFACE_XDISPLAY (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
+      //
+      //    if(xd)
+      //    {
+      //
+      //       XMoveResizeWindow(xd, xw, (int)point.x, (int)point.y, (int) size.cx, (int) size.cy);
+      //
+      //    }
+      //
+      // }
+
+   }
+
+
+   void window::_unlocked_defer_set_window_size(const ::i32_size& size)
+   {
+
+      // Window   xw = GDK_SURFACE_XID (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
+      //
+      // if(xw)
+      // {
+      //    Display *xd = GDK_SURFACE_XDISPLAY (GDK_SURFACE (gtk_native_get_surface(GTK_NATIVE (m_pgtkwidget))));
+      //
+      //    if(xd)
+      //    {
+      //       XResizeWindow(xd, xw, (int)size.cx, (int)size.cy);
+      //    }
+      // }
+      //
+   }
+
+
+} // namespace windowing_q

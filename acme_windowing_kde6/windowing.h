@@ -5,6 +5,7 @@
 
 
 //#include "acme/windowing/windowing.h"
+#include "acme/windowing/file_icon_provider.h"
 #include "acme_windowing_q6/windowing.h"
 //#include <QApplication>
 
@@ -22,7 +23,8 @@ namespace kde6
 
 
    class CLASS_DECL_ACME_WINDOWING_KDE6 windowing :
-           virtual public ::q6::acme::windowing::windowing
+           virtual public ::q6::acme::windowing::windowing,
+           public ::acme::windowing::file_icon_provider
    {
    public:
 
@@ -32,6 +34,8 @@ namespace kde6
 
       windowing();
       ~windowing() override;
+
+      ::string file_icon_path(const ::scoped_string & scopedstrPath, ::i32 iSize) override;
 
 //       //::e_status defer_initialize_windowing_system() override;
 //       void initialize_windowing() override;

@@ -5,6 +5,7 @@
 
 
 #include "acme_windowing_g/windowing.h"
+#include "acme/windowing/file_icon_provider.h"
 #include "acme/prototype/collection/list.h"
 
 #include <gtk/gtk.h>
@@ -23,9 +24,12 @@ namespace gtk4
 
 
          class CLASS_DECL_ACME_WINDOWING_GTK4 windowing :
-            virtual public ::g::acme::windowing::windowing
+            virtual public ::g::acme::windowing::windowing,
+            public ::acme::windowing::file_icon_provider
          {
          public:
+
+            ::string file_icon_path(const ::scoped_string & scopedstrPath, ::i32 iSize) override;
 
 
             //::pointer < manual_reset_happening >    m_phappeningCreatingWGtk4Display;

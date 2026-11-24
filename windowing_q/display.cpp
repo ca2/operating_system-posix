@@ -22,6 +22,8 @@
 #include "acme/integrate/qt/geometry2d.h"
 #include <QGuiApplication>
 #include <QScreen>
+
+#define DEEP_LOG_HERE 0
 //#include "acme/operating_system/x11/display_lock.h"
 //#include <X11/extensions/Xrender.h>
 //#include <wayland-client-protocol.h>
@@ -242,6 +244,13 @@ namespace windowing_q
 
       _enumerate_monitor();
 
+      if (m_monitora.has_element())
+      {
+
+         ::q::acme::windowing::display::open_display();
+
+      }
+
    //    display_base::open();
 
       // m_pgdkdisplay = gdk_display_get_default();
@@ -265,32 +274,50 @@ namespace windowing_q
    void display::_enumerate_monitor()
    {
 
-      // Get the list_base of all screens
-      QList<QScreen *> screens = QGuiApplication::screens();
-
-      auto iMonitorCount = screens.size();
-
-      // Print the number of screens
-      information() << "Number of screens:" << iMonitorCount;
-
-      m_monitora.set_size(iMonitorCount);
-
-      ::collection::index iMonitor = 0;
-
-      for(auto pscreen : screens)
+      if (::is_main_thread() && !QGuiApplication::instance())
       {
 
-         auto & pmonitor = m_monitora[iMonitor];
-
-         defer_constructø(pmonitor);
-
-         pmonitor->m_pdisplay = this;
-
-         copy(pmonitor->m_rectangle, pscreen->geometry());
-
-         copy(pmonitor->m_rectangleWorkspace, pscreen->availableGeometry());
+         return;
 
       }
+
+      system()->acme_windowing()->user_send([this]()
+      {
+
+         // Get the list_base of all screens
+         QList<QScreen *> screens = QGuiApplication::screens();
+
+         auto iMonitorCount = screens.size();
+
+         // Print the number of screens
+#if DEEP_LOG_HERE >= 9
+         information() << "Number of screens:" << iMonitorCount;
+#endif
+
+         _synchronous_lock synchronouslock(this->synchronization(), DEFAULT_SYNCHRONOUS_LOCK_SUFFIX);
+
+         m_monitora.set_size(iMonitorCount);
+
+         ::collection::index iMonitor = 0;
+
+         for (auto pscreen : screens)
+         {
+
+            auto & pmonitor = m_monitora[iMonitor];
+
+            defer_constructø(pmonitor);
+
+            pmonitor->m_pdisplay = this;
+
+            copy(pmonitor->m_rectangle, pscreen->geometry());
+
+            copy(pmonitor->m_rectangleWorkspace, pscreen->availableGeometry());
+
+            iMonitor++;
+
+         }
+
+      });
 
    }
 
@@ -423,8 +450,30 @@ namespace windowing_q
    }
 
 
+   ::collection::count display::get_monitor_count()
+   {
+
+      if (!is_display_opened())
+      {
+
+         open_display();
+
+      }
+
+      return ::windowing::display::get_monitor_count();
+
+   }
+
+
    bool display::get_monitor_rectangle(::collection::index iMonitor, ::i32_rectangle & rectangle)
    {
+
+      if (!is_display_opened())
+      {
+
+         open_display();
+
+      }
 
       return ::windowing::display::get_monitor_rectangle(iMonitor, rectangle);
 
@@ -433,6 +482,13 @@ namespace windowing_q
 
    bool display::get_workspace_rectangle(::collection::index iMonitor, ::i32_rectangle & rectangle)
    {
+
+      if (!is_display_opened())
+      {
+
+         open_display();
+
+      }
 
       return ::windowing::display::get_workspace_rectangle(iMonitor, rectangle);
 

@@ -290,6 +290,34 @@ namespace windowing_q
    }
 
 
+   void window::_on_show(bool bShow)
+   {
+
+      bool bWasVisible = m_bVisible.load(std::memory_order_relaxed);
+
+      ::q::acme::windowing::window::_on_show(bShow);
+
+      if (!bShow && bWasVisible)
+      {
+
+         ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
+
+         if (puserinteraction
+            && (puserinteraction->m_ewindowflag & e_window_flag_arbitrary_positioning)
+            && puserinteraction->const_layout().sketch().is_screen_visible()
+            && !puserinteraction->has_finishing_flag()
+            && !puserinteraction->has_destroying_flag())
+         {
+
+            puserinteraction->post_message(::user::e_message_close);
+
+         }
+
+      }
+
+   }
+
+
    void window::_on_mouse_press(QMouseEvent* pevent)
    {
 
@@ -1081,10 +1109,10 @@ namespace windowing_q
 
 
    //void window::create_window(::windowing::window * pimpl)
-   void window::create_window()
+   void window::create_window(::enum_parallelization eparallelization)
    {
 
-      ::windowing::window::create_window();
+      ::windowing::window::create_window(eparallelization);
 
       // main_send([this]()
       // {
@@ -1253,7 +1281,7 @@ namespace windowing_q
 
       ::cast < ::user::interaction > puserinteraction = m_pacmeuserinteraction;
 
-      if (bOk && puserinteraction && puserinteraction->is_graphical() && m_papplication->m_bGpu)
+      if (bOk && puserinteraction && puserinteraction->is_graphical() && m_papplication->is_using_gpu())
       {
 
          auto pgpuapproach = m_papplication->get_gpu_approach();

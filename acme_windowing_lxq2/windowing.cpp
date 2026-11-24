@@ -13,6 +13,18 @@
 #include "acme/platform/system.h"
 #include <QImage>
 #include <QByteArray>
+#include <QApplication>
+#include <QDir>
+#include <QFile>
+#include <QFileIconProvider>
+#include <QFileInfo>
+#include <QIcon>
+#include <QMimeDatabase>
+#include <QPalette>
+#include <QPixmap>
+#include <QStandardPaths>
+#include <QStringList>
+#include <unistd.h>
 //#include <X11/Xatom.h>
 //#include <xkbcommon/xkbcommon.h>
 //#include <X11/XKBlib.h>
@@ -531,6 +543,292 @@ namespace lxq2
 //             return false;
 //
 //          }
+
+
+         ::string windowing::file_icon_path(const ::scoped_string & scopedstrPath, ::i32 iSize)
+         {
+
+            if (scopedstrPath.is_empty())
+            {
+
+               return {};
+
+            }
+
+            if (iSize <= 0)
+            {
+
+               iSize = 48;
+
+            }
+
+            ::string strPath(scopedstrPath);
+            ::string strIconPath;
+
+            user_send([&strPath, iSize, &strIconPath]()
+            {
+
+               QString qPath = QString::fromUtf8(strPath.c_str(), (qsizetype)strPath.size());
+
+               QFileInfo info(qPath);
+
+               QStringList candidateNames;
+
+               auto addCandidate = [&candidateNames](const QString & name)
+               {
+                  if (!name.isEmpty() && !candidateNames.contains(name))
+                  {
+                     candidateNames.append(name);
+                  }
+               };
+
+               bool bIsDirectory = false;
+
+               if (info.exists())
+               {
+
+                  if (info.isDir())
+                  {
+
+                     bIsDirectory = true;
+
+                     QString cleanPath = QDir::cleanPath(info.absoluteFilePath());
+
+                     auto matchLocation = [&cleanPath](QStandardPaths::StandardLocation loc) -> bool
+                     {
+                        QString locPath = QStandardPaths::writableLocation(loc);
+                        return !locPath.isEmpty() && QDir::cleanPath(locPath) == cleanPath;
+                     };
+
+                     if (cleanPath == QStringLiteral("/"))
+                     {
+                        addCandidate(QStringLiteral("drive-harddisk"));
+                     }
+                     else if (matchLocation(QStandardPaths::DesktopLocation))
+                     {
+                        addCandidate(QStringLiteral("user-desktop"));
+                        addCandidate(QStringLiteral("folder-desktop"));
+                     }
+                     else if (matchLocation(QStandardPaths::DocumentsLocation))
+                     {
+                        addCandidate(QStringLiteral("folder-documents"));
+                     }
+                     else if (matchLocation(QStandardPaths::DownloadLocation))
+                     {
+                        addCandidate(QStringLiteral("folder-download"));
+                     }
+                     else if (matchLocation(QStandardPaths::MusicLocation))
+                     {
+                        addCandidate(QStringLiteral("folder-music"));
+                     }
+                     else if (matchLocation(QStandardPaths::PicturesLocation))
+                     {
+                        addCandidate(QStringLiteral("folder-pictures"));
+                     }
+                     else if (matchLocation(QStandardPaths::MoviesLocation))
+                     {
+                        addCandidate(QStringLiteral("folder-videos"));
+                     }
+
+                     addCandidate(QStringLiteral("folder"));
+                     addCandidate(QStringLiteral("inode-directory"));
+
+                  }
+                  else
+                  {
+
+                     QMimeDatabase mimeDb;
+
+                     QMimeType mime = mimeDb.mimeTypeForFile(info);
+
+                     if (mime.isValid())
+                     {
+
+                        addCandidate(mime.iconName());
+                        addCandidate(mime.genericIconName());
+
+                     }
+
+                     addCandidate(QStringLiteral("text-x-generic"));
+                     addCandidate(QStringLiteral("application-octet-stream"));
+                     addCandidate(QStringLiteral("unknown"));
+
+                  }
+
+               }
+               else if (qPath.endsWith(QLatin1Char('/')))
+               {
+
+                  bIsDirectory = true;
+
+                  addCandidate(QStringLiteral("folder"));
+                  addCandidate(QStringLiteral("inode-directory"));
+
+               }
+               else
+               {
+
+                  QMimeDatabase mimeDb;
+
+                  QMimeType mime = mimeDb.mimeTypeForFile(qPath, QMimeDatabase::MatchExtension);
+
+                  if (mime.isValid())
+                  {
+
+                     addCandidate(mime.iconName());
+                     addCandidate(mime.genericIconName());
+
+                  }
+
+                  addCandidate(QStringLiteral("unknown"));
+                  addCandidate(QStringLiteral("application-octet-stream"));
+                  addCandidate(QStringLiteral("text-x-generic"));
+
+               }
+
+               QIcon icon;
+               QString iconName;
+
+               for (const QString & candidate : candidateNames)
+               {
+
+                  QIcon themed = QIcon::fromTheme(candidate);
+
+                  if (!themed.isNull())
+                  {
+
+                     icon = themed;
+                     iconName = candidate;
+                     break;
+
+                  }
+
+               }
+
+               if (icon.isNull())
+               {
+
+                  QFileIconProvider iconProvider;
+
+                  if (info.exists())
+                  {
+
+                     icon = iconProvider.icon(info);
+
+                  }
+                  else
+                  {
+
+                     icon = iconProvider.icon(bIsDirectory ? QFileIconProvider::Folder : QFileIconProvider::File);
+
+                  }
+
+                  iconName = bIsDirectory ? QStringLiteral("qt_folder") : QStringLiteral("qt_file");
+
+               }
+
+               if (icon.isNull())
+               {
+
+                  return;
+
+               }
+
+               QString themeTag = QIcon::themeName();
+
+               if (themeTag.isEmpty())
+               {
+
+                  themeTag = QStringLiteral("default");
+
+               }
+
+               QPalette pal = QApplication::palette();
+
+               QString paletteTag = pal.color(QPalette::WindowText).name().mid(1)
+                  + QLatin1Char('_')
+                  + pal.color(QPalette::Highlight).name().mid(1);
+
+               QString safeName = iconName;
+
+               for (QChar & ch : safeName)
+               {
+
+                  if (!ch.isLetterOrNumber() && ch != QLatin1Char('-') && ch != QLatin1Char('_') && ch != QLatin1Char('.'))
+                  {
+
+                     ch = QLatin1Char('_');
+
+                  }
+
+               }
+
+               QString cacheDirPath = QDir::tempPath()
+                  + QStringLiteral("/ca2-lxq2-icons-")
+                  + QString::number((qulonglong)::getuid())
+                  + QLatin1Char('/')
+                  + themeTag
+                  + QLatin1Char('_')
+                  + paletteTag;
+
+               QDir().mkpath(cacheDirPath);
+
+               QString cachePath = cacheDirPath
+                  + QLatin1Char('/')
+                  + safeName
+                  + QLatin1Char('_')
+                  + QString::number(iSize)
+                  + QStringLiteral(".png");
+
+               if (!QFileInfo::exists(cachePath))
+               {
+
+                  QPixmap pixmap = icon.pixmap(iSize, iSize);
+
+                  if (pixmap.isNull())
+                  {
+
+                     return;
+
+                  }
+
+                  QString tmpPath = cachePath + QStringLiteral(".tmp.") + QString::number((qulonglong)::getpid());
+
+                  if (pixmap.save(tmpPath, "PNG"))
+                  {
+
+                     if (!QFile::rename(tmpPath, cachePath))
+                     {
+
+                        QFile::remove(tmpPath);
+
+                        if (!QFileInfo::exists(cachePath))
+                        {
+
+                           pixmap.save(cachePath, "PNG");
+
+                        }
+
+                     }
+
+                  }
+
+               }
+
+               if (QFileInfo::exists(cachePath))
+               {
+
+                  QByteArray utf8 = cachePath.toUtf8();
+
+                  strIconPath.assign(utf8.constData(), utf8.size());
+
+               }
+
+            });
+
+            return strIconPath;
+
+         }
 
 
       } // namespace windowing

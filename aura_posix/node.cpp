@@ -10,14 +10,14 @@
 #include "acme/windowing/windowing.h"
 #include "apex/platform/application.h"
 #if !defined(HAS_GTK3) && !defined(HAS_GTK4) && !defined(HAS_KDE5) && !defined(HAS_KDE6)
-#ifdef WITH_X11
-#include <X11/Xlib.h>
-//::e_status deferx_initializex_x11();
-//Display * x11_get_display();
-#endif
-#ifdef WITH_XCB
-#include <X11/Xlib-xcb.h>
-#endif
+//#ifdef WITH_X11
+//#include <X11/Xlib.h>
+////::e_status deferx_initializex_x11();
+////Display * x11_get_display();
+//#endif
+//#ifdef WITH_XCB
+//#include <X11/Xlib-xcb.h>
+//#endif
 #endif
 
 int launch_process_detached(const ::file::path & pathExecutable);
@@ -356,16 +356,21 @@ namespace aura_posix
 
 #if defined(WITH_XCB)
 
-      m_pAuraPosixXcbConnection = XGetXCBConnection((Display *) m_pAuraPosixX11Display);
+      m_pAuraPosixXcbConnection = pacmedisplay->raw_xcb_connection();
 
-      if(!m_pAuraPosixXcbConnection)
+      // if(!m_pAuraPosixXcbConnection)
+      // {
+      //
+      //    return error_failed;
+      //
+      // }
+
+      if(m_pAuraPosixXcbConnection)
       {
 
-         return error_failed;
+         information() << "aura_posix::node::_allocate_Display_and_connection m_pAuraPosixXcbConnection : " << (::iptr)m_pAuraPosixXcbConnection;
 
       }
-
-      information() << "aura_posix::node::_allocate_Display_and_connection m_pAuraPosixXcbConnection : " << (::iptr)m_pAuraPosixXcbConnection;
 
 #endif
 

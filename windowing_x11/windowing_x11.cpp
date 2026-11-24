@@ -17,6 +17,7 @@
 #include <fcntl.h> // library for fcntl function
 #include <sys/stat.h>
 // apt install libxxf86vm-dev
+// sudo dnf install libXxf86vm-devel
 #include <X11/extensions/xf86vmode.h>
 #include <X11/Xatom.h>
 //!!!#define pointer x11_pointer

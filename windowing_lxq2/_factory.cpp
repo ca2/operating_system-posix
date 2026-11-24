@@ -1,7 +1,7 @@
 #include "platform.h"
 #include "text_composition_client.h"
-#include "buffer.h"
 #include "display.h"
+#include "graphics.h"
 #include "window.h"
 #include "windowing.h"
 #include "text_composition_client.h"
@@ -20,7 +20,7 @@ __FACTORY_EXPORT void windowing_lxq2_factory(::factory::factory * pfactory)
 
    printf("windowing_kde5 factory\n");
 
-   pfactory->add_factory_item < ::windowing_lxq2::buffer, ::graphics::graphics > ();
+   pfactory->add_factory_item < ::windowing_lxq2::graphics, ::graphics::graphics > ();
 
    pfactory->add_factory_item < ::windowing_lxq2::display, ::acme::windowing::display > ();
    pfactory->add_factory_item < ::windowing_lxq2::window, ::acme::windowing::window > ();

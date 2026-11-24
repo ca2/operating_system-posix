@@ -9,6 +9,7 @@
 #include "acme/parallelization/manual_reset_happening.h"
 #include "micro_window.h"
 #include <QWidget>
+#include <atomic>
 
 
 namespace q
@@ -31,6 +32,7 @@ namespace q
 
 
             QWidget *                                 m_pqwidget;
+            std::atomic<bool>                         m_bVisible{ false };
            // QWindow *                                    m_pqwindow;
 
             //::pointer<class display>                  m_pdisplay;
@@ -66,13 +68,16 @@ namespace q
 
             void on_initialize_particle() override;
 
-            void create_window() override;
+            void create_window(::enum_parallelization eparallelization) override;
 
             void _create_window() override;
 
             void destroy() override;
+            void destroy_window() override;
 
             virtual void _show_window();
+
+            void show_window(::user_interface::enum_show_window eshowwindow) override;
 
             //bool _on_event(xcb_generic_event_t *pevent) override;
 
@@ -95,6 +100,8 @@ namespace q
 
             void _on_reposition(int x, int y) override;
             void _on_size(int cx, int cy) override;
+
+            void _on_show(bool bShow) override;
 
             void _on_set_focus() override;
             void _on_kill_focus() override;

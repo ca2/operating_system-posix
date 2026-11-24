@@ -128,6 +128,8 @@ namespace windowing_q
 
       virtual bool is_null() const;
 
+      ::collection::count get_monitor_count() override;
+
       bool get_monitor_rectangle(::collection::index iMonitor, ::i32_rectangle & rectangle) override;
 
       bool get_workspace_rectangle(::collection::index iWorkspace, ::i32_rectangle & rectangle) override;

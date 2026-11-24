@@ -164,9 +164,52 @@ namespace
 
       pdata->m_happening.set_happening();
 
+      g_main_context_wakeup(g_main_context_default());
+
       // Balances the explicit increment_reference_count() performed before
       // starting the GTK asynchronous request.
-      //::release(pdata);
+      ::release(pdata);
+
+   }
+
+
+   bool gtk4_run_clipboard_request(
+      ::platform::system * psystem,
+      clipboard_data * pdata,
+      const ::procedure & procedureStart)
+   {
+
+      auto pcontext = g_main_context_default();
+
+      if (psystem->acme_windowing()->is_branch_current() || g_main_context_is_owner(pcontext))
+      {
+
+         procedureStart();
+
+         auto iStartUs = g_get_monotonic_time();
+         const gint64 iTimeoutUs = 60 * G_TIME_SPAN_SECOND;
+
+         while (!pdata->m_happening.wait(0_s).succeeded())
+         {
+
+            if (g_get_monotonic_time() - iStartUs >= iTimeoutUs)
+            {
+
+               return false;
+
+            }
+
+            g_main_context_iteration(pcontext, TRUE);
+
+         }
+
+         return true;
+
+      }
+
+      psystem->acme_windowing()->main_post(procedureStart);
+
+      return pdata->m_happening.wait(1_min).succeeded();
 
    }
 
@@ -232,7 +275,20 @@ namespace
 
          GError * perror = nullptr;
 
-         auto pszUri = g_filename_to_uri(path.c_str(), nullptr, &perror);
+         // Provider paths identify remote files; they are already URIs, not
+         // local filenames. Keep their identifiers intact for file-manager paste.
+         auto pszScheme = g_uri_parse_scheme(path.c_str());
+         bool bProviderUri = pszScheme && g_ascii_strcasecmp(pszScheme, "file") != 0
+            && strstr(path.c_str(), "://") != nullptr;
+         g_free(pszScheme);
+
+         if(strchr(path.c_str(), '\r') || strchr(path.c_str(), '\n'))
+         {
+            return false;
+         }
+
+         auto pszUri = bProviderUri ? g_strdup(path.c_str())
+            : g_filename_to_uri(path.c_str(), nullptr, &perror);
 
          if(!pszUri)
          {
@@ -273,6 +329,22 @@ namespace
 
          return false;
 
+      }
+
+      auto pszScheme = g_uri_parse_scheme(pszUri);
+      bool bProviderUri = pszScheme && g_ascii_strcasecmp(pszScheme, "file") != 0
+         && strstr(pszUri, "://") != nullptr;
+      g_free(pszScheme);
+
+      if(strchr(pszUri, '\r') || strchr(pszUri, '\n'))
+      {
+         return false;
+      }
+
+      if(bProviderUri)
+      {
+         patha.add(::file::path(pszUri));
+         return true;
       }
 
       GError * perror = nullptr;
@@ -428,10 +500,10 @@ namespace
    struct gtk4_clipboard_stream_request
    {
 
-      ::pointer < clipboard_data >       m_pdata;
-      GInputStream *         m_pstream;
-      GByteArray *           m_pbytearray;
-      char *                 m_pszMimeType;
+      clipboard_data *       m_pdata = nullptr;
+      GInputStream *         m_pstream = nullptr;
+      GByteArray *           m_pbytearray = nullptr;
+      char *                 m_pszMimeType = nullptr;
 
    };
 
@@ -459,7 +531,7 @@ namespace
 
       auto pdata = prequest->m_pdata;
 
-      g_free(prequest);
+      delete prequest;
 
       gtk4_clipboard_request_complete(pdata, bSucceeded);
 
@@ -577,7 +649,7 @@ namespace
 
       }
 
-      auto prequest = g_new0(gtk4_clipboard_stream_request, 1);
+      auto prequest = new gtk4_clipboard_stream_request();
 
       prequest->m_pdata = pdata;
       prequest->m_pstream = pstream;
@@ -804,7 +876,7 @@ namespace node_gtk4
 
       procedure.set_timeout(1_min);
 
-      system()->send(procedure);
+      system()->acme_windowing()->main_send(procedure);
 
       return bSucceeded;
 
@@ -817,10 +889,9 @@ namespace node_gtk4
       auto pdata =
          allocateø clipboard_data(this, e_clipboard_get_plain_text);
 
-      //pdata->increment_reference_count(
-        // REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_plain_text"));
+      pdata->increment_reference_count();
 
-      system()->acme_windowing()->main_post([pdata]
+      if(!gtk4_run_clipboard_request(system(), pdata, [pdata]
       {
 
          auto pclipboard = gtk4_standard_clipboard();
@@ -840,9 +911,7 @@ namespace node_gtk4
             &gtk4_clipboard_text_read_ready,
             pdata);
 
-      });
-
-      if(!pdata->m_happening.wait(1_min).succeeded())
+      }))
       {
 
          return false;
@@ -893,7 +962,7 @@ namespace node_gtk4
 
       procedure.set_timeout(1_min);
 
-      system()->send(procedure);
+      system()->acme_windowing()->main_send(procedure);
 
       return bHasPlainText;
 
@@ -928,7 +997,7 @@ namespace node_gtk4
 
       procedure.set_timeout(1_min);
 
-      system()->send(procedure);
+      system()->acme_windowing()->main_send(procedure);
 
       return bHasFileList;
 
@@ -943,10 +1012,9 @@ namespace node_gtk4
       auto pdata =
          allocateø clipboard_data(this, e_clipboard_get_patha);
 
-      //pdata->increment_reference_count(
-//         REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_get_filea"));
+      pdata->increment_reference_count();
 
-      system()->acme_windowing()->main_post([pdata]
+      if(!gtk4_run_clipboard_request(system(), pdata, [pdata]
       {
 
          auto pclipboard = gtk4_standard_clipboard();
@@ -977,9 +1045,7 @@ namespace node_gtk4
             &gtk4_clipboard_file_read_ready,
             pdata);
 
-      });
-
-      if(!pdata->m_happening.wait(1_min).succeeded())
+      }))
       {
 
          return false;
@@ -1097,7 +1163,7 @@ namespace node_gtk4
 
       procedure.set_timeout(1_min);
 
-      system()->send(procedure);
+      system()->acme_windowing()->main_send(procedure);
 
       return bSucceeded;
 
@@ -1119,10 +1185,9 @@ namespace node_gtk4
 
       pdata->m_pimage = image()->create_image();
 
-      //pdata->increment_reference_count(
-        // REFERENCING_DEBUGGING_P_NOTE(this, "copydesk::_desk_to_image"));
+      pdata->increment_reference_count();
 
-      system()->acme_windowing()->main_post([pdata]
+      if(!gtk4_run_clipboard_request(system(), pdata, [pdata]
       {
 
          auto pclipboard = gtk4_standard_clipboard();
@@ -1168,9 +1233,7 @@ namespace node_gtk4
             &gtk4_clipboard_texture_read_ready,
             pdata);
 
-      });
-
-      if(!pdata->m_happening.wait(1_min).succeeded())
+      }))
       {
 
          return false;
@@ -1280,7 +1343,7 @@ namespace node_gtk4
 
       procedure.set_timeout(1_min);
 
-      system()->send(procedure);
+      system()->acme_windowing()->main_send(procedure);
 
       g_bytes_unref(pbytes);
 
@@ -1317,7 +1380,7 @@ namespace node_gtk4
 
       procedure.set_timeout(1_min);
 
-      system()->send(procedure);
+      system()->acme_windowing()->main_send(procedure);
 
       return bHasImage;
 

@@ -16,6 +16,7 @@
 #include "apex/platform/node.h"
 #include "apex/platform/system.h"
 #include "aura/graphics/graphics/buffer_item.h"
+#include "aura/graphics/graphics/frame_trace.h"
 #include "aura/graphics/graphics/graphics.h"
 #include "aura/message/user.h"
 #include "aura/user/user/interaction_graphics_thread.h"
@@ -1193,7 +1194,7 @@ gtk_im_context_commit (
 
          pkey->m_ekey = ekey;
 
-         puserinteraction->send_message(pkey);
+         puserinteraction->post_message(pkey);
 
 //         message_handler(pkey);
 
@@ -1235,7 +1236,7 @@ gtk_im_context_commit (
 
          //auto puserinteraction = user_interaction();
 
-         puserinteraction->send_message(pkey);
+         puserinteraction->post_message(pkey);
 
          //aaa_m_pacmeuserinteractionKeyboardFocus->send_message(pkey);
 
@@ -2336,6 +2337,7 @@ if(::is_set(puserinteraction))
 
       __check_refdbg
 
+#if AURA_FRAME_TRACE_LEVEL >= 3
       if(bHasFocus)
       {
 
@@ -2346,6 +2348,7 @@ if(::is_set(puserinteraction))
          __check_refdbg
 
       }
+#endif
 
       return bHasFocus;
 
@@ -2442,12 +2445,14 @@ if(::is_set(puserinteraction))
 
       __check_refdbg
 
+#if AURA_FRAME_TRACE_LEVEL >= 3
       if(bIsActive)
       {
 
          debug() << "::window::is_active";
 
       }
+#endif
 
       return bIsActive;
 
@@ -2496,6 +2501,16 @@ if(::is_set(puserinteraction))
    {
 
       ::windowing::window::_on_windowing_close_window();
+
+   }
+
+
+   gboolean window::_on_window_close_request(GtkWindow * pgtkwindow)
+   {
+
+      _on_windowing_close_window();
+
+      return TRUE;
 
    }
 
