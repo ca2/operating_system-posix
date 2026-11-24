@@ -65,7 +65,6 @@ pty_process::pty_process()
    strMarker = "__command_done_" + mathematics()->random_alphanumeric(32) + "__";
 
    m_straMarker.add(strMarker);
-   m_straMarkerEcho.add("");
    m_straCommands.add("");
 
    m_strMarker = strMarker;
@@ -122,18 +121,15 @@ pty_process& pty_process::operator=(pty_process&& other) noexcept
 void pty_process::add_command_line(const ::scoped_string & scopedstrCommandLine)
 {
 
-   ::string strMarker;
+   auto strToken = mathematics()->random_alphanumeric(32);
+   ::string strCommand(scopedstrCommandLine);
+   strCommand.replace_with("'\\''", "'");
 
-   strMarker = "__command_done_" + mathematics()->random_alphanumeric(32) + "__";
-
-   ::string strMarkerEcho;
-
-   strMarkerEcho = "; echo \"" + strMarker + "\"";
-
-   m_straMarker.add(strMarker);
-   m_straMarkerEcho.add(strMarkerEcho);
-   m_straCommands.add(scopedstrCommandLine);
-
+   // The full marker exists only in the output of printf, even with terminal echo on.
+   m_straMarker.add("__command_done_" + strToken + "__");
+   m_straCommands.add("eval '" + strCommand +
+      "'; __ca2_status=$?; printf '\\n%s%s__\\n' '__command_done_' '" +
+      strToken + "'; (exit \"$__ca2_status\")");
 }
 
 
@@ -810,90 +806,77 @@ void pty_process::run()
 
    begin_terminal_bridge();
 
-   //::memory captured;
-   //bool sent_commands = false;
+   ::string strPendingInput;
+   memsize iWritten = 0;
+   bool bExitQueued = false;
 
-   while (true)
+   while (is_running())
    {
-      // struct pollfd pfd{};
-      // pfd.fd = proc.fd();
-      // pfd.events = POLLIN | POLLHUP;
-      //
-      // int pr = poll(&pfd, 1, 500);
-      // if (pr == -1) {
-      //    if (errno == EINTR) continue;
-      //    throw ::exception(error_failed, "poll");
-      //    break;
-      // }
-      //
-      // if (pr == 0) {
-      //    continue;
-      // }
-      //
-      // if (pfd.revents & POLLIN) {
       poll_read_stdout();
-         // auto chunk = proc.read_available();
-         // if (chunk.has_data()) {
-         //    captured += chunk;
-         //    fwrite(chunk.data(), 1, chunk.size(), stdout);
-         //    //std::cout << chunk << std::flush;
-         // }
 
-     //    if (!sent_commands) {
-
-      if (m_strMarkerEcho.is_empty()
-         && m_strMarker.is_empty())
+      if (strPendingInput.is_empty() && m_strMarker.is_empty() && !bExitQueued)
       {
-
          if (m_iCurrentCommand < m_straCommands.size())
          {
-
-            m_strCommand = m_straCommands[m_iCurrentCommand];
-
-            m_strMarkerEcho = m_straMarkerEcho[m_iCurrentCommand];
-
             m_strMarker = m_straMarker[m_iCurrentCommand];
-
-         //      m_iCurrentCommand++;
-
-            //auto pszCommand = m_strCommand.c_str();
-            //auto pszMarkerEcho = m_strMarkerEcho.c_str();
-            //auto pszMarker = m_strMarker.c_str();
-
-            ::string strOutputCommand = m_strCommand + m_strMarkerEcho + "\n";
-
-            //auto pszOutputCommand = strOutputCommand.c_str();
-
-               //str.find_replace("!", "\\!");
-            write_input(strOutputCommand);
-
+            strPendingInput = m_straCommands[m_iCurrentCommand] + "\n";
          }
-       //     sent_commands = true;
+         else if (m_straCommands.size() > 1)
+         {
+            strPendingInput = "exit $?\n";
+            bExitQueued = true;
+         }
       }
 
-      poll_write_stdin();
-
-      //}
-      //
-      // if (pfd.revents & POLLHUP) {
-      //    break;
-      // }
-      //
-      if (!is_running())
+      if (strPendingInput.has_character())
       {
+         auto n = write_input(strPendingInput.data() + iWritten, strPendingInput.size() - iWritten);
 
-         break;
+         if (n > 0)
+         {
+            iWritten += n;
+            if (iWritten == strPendingInput.size())
+            {
+               strPendingInput.clear();
+               iWritten = 0;
+            }
+         }
+         else if (n < 0 && errno != EINTR && errno != EAGAIN && errno != EWOULDBLOCK)
+         {
+            if (errno == EIO && !is_running())
+            {
+               break;
+            }
 
+            end_terminal_bridge();
+            throw ::exception(error_failed, "Could not send command to the inner shell");
+         }
       }
 
+      if (strPendingInput.is_empty() && !bExitQueued)
+      {
+         poll_write_stdin();
+      }
+      else
+      {
+         // Avoid spinning while a nonblocking write or shell exit is pending.
+         pollfd pfd{m_ptyMaster, POLLIN, 0};
+         if (strPendingInput.has_character())
+         {
+            pfd.events |= POLLOUT;
+         }
+         poll(&pfd, 1, 10);
+      }
    }
 
    poll_read_stdout();
+   if (m_memoryBuffer.has_data())
+   {
+      on_child_stdout(m_memoryBuffer.data(), m_memoryBuffer.size());
+      m_memoryBuffer.clear();
+   }
 
    end_terminal_bridge();
-   // Final drain
-   //captured += read_available();
-
    m_iExitCode = wait(true);
 
 }
@@ -902,160 +885,40 @@ void pty_process::run()
 void pty_process::on_child_raw_stdout(const void * p, memsize s)
 {
 
-   auto psz = (const char*)p;
-
    m_memoryBuffer.append(p, s);
 
-   while (m_memoryBuffer.has_data()
-      && (m_strMarkerEcho.has_character() || m_strMarker.has_character()))
+   if (m_strMarker.has_character())
    {
+      auto pfind = m_memoryBuffer.find(m_strMarker);
 
-
-
-      if (m_strMarkerEcho.has_character())
+      if (!pfind)
       {
-
-         auto iMarkerEchoSize = m_strMarkerEcho.size();
-
-         auto pfind = m_memoryBuffer.find(m_strMarkerEcho);
-
-         if (pfind)
+         // Retain only a possible marker prefix across PTY reads.
+         auto iKeep = minimum(m_memoryBuffer.size(), m_strMarker.size() - 1);
+         while (iKeep > 0 && !m_strMarker.begins(
+            ::string((const char *) (m_memoryBuffer.m_end - iKeep), iKeep)))
          {
-
-            auto iPosition = pfind - m_memoryBuffer.data();
-
-            m_strMarkerEcho.clear();
-
-            if (m_strMarker.is_empty())
-            {
-
-               throw ::pty_process_exception(error_wrong_state, "m_strMarker.is_empty()");
-
-            }
-
-            on_child_stdout(m_memoryBuffer.data(), iPosition);
-
-            m_memoryBuffer.delete_begin(iPosition + iMarkerEchoSize);
-
-         }
-         else
-         {
-
-            int iReserve = iMarkerEchoSize;
-
-            int iExtra = m_memoryBuffer.size();
-
-            int iCheck = minimum(iExtra, iReserve - 1);
-
-            int i = iCheck;
-
-            if (i < 0)
-            {
-
-               i = 0;
-
-            }
-
-            for (; i >= 1; i--)
-            {
-
-               ::string strTail((const char *) (m_memoryBuffer.m_end - i), i);
-
-               if (m_strMarkerEcho.begins(strTail))
-               {
-
-                  break;
-
-               }
-
-            }
-
-            on_child_stdout(m_memoryBuffer.data(), m_memoryBuffer.size() - i);
-
-            m_memoryBuffer.delete_begin(m_memoryBuffer.size() - i);
-
-            //;//m_iLastStdOut = m_memoryOutputRaw.size() - i;
-
+            --iKeep;
          }
 
-      }
-      else if (m_strMarker.has_character())
-      {
-
-         int iMarkerSize = m_strMarker.size();
-
-         auto pfind = m_memoryBuffer.find(m_strMarker);
-
-         if (pfind)
-         {
-
-            auto iPosition = pfind - m_memoryBuffer.data();
-
-            if (m_strMarkerEcho.has_character())
-            {
-               throw ::pty_process_exception(error_wrong_state, "m_strMarkerEcho.has_character()");
-            }
-
-            m_iCurrentCommand++;
-
-            m_strMarker.clear();
-
-            on_child_stdout(m_memoryBuffer, iPosition);
-
-            m_memoryBuffer.delete_begin(iPosition + iMarkerSize);
-
-         }
-         else
-         {
-
-            int iReserve = iMarkerSize;
-
-            int iExtra = m_memoryBuffer.size();
-
-            int iCheck = minimum(iExtra, iReserve - 1);
-
-            int i = iCheck;
-
-            if (i < 0)
-            {
-
-               i = 0;
-
-            }
-
-            for (; i >= 1; i--)
-            {
-
-               ::string strTail((const char *) (m_memoryBuffer.m_end - i), i);
-
-               if (m_strMarker.begins(strTail))
-               {
-
-                  break;
-
-               }
-
-            }
-
-            on_child_stdout(m_memoryBuffer.data(), m_memoryBuffer.size() - i);
-
-            m_memoryBuffer.delete_begin(m_memoryBuffer.size() - i);
-
-         }
-
+         auto iOutput = m_memoryBuffer.size() - iKeep;
+         on_child_stdout(m_memoryBuffer.data(), iOutput);
+         m_memoryBuffer.delete_begin(iOutput);
+         return;
       }
 
+      auto iPosition = pfind - m_memoryBuffer.data();
+      on_child_stdout(m_memoryBuffer.data(), iPosition);
+      m_memoryBuffer.delete_begin(iPosition + m_strMarker.size());
+      m_strMarker.clear();
+      ++m_iCurrentCommand;
    }
 
-   if (m_memoryBuffer.has_data() && m_strMarkerEcho.is_empty() && m_strMarker.is_empty())
+   if (m_memoryBuffer.has_data())
    {
-
       on_child_stdout(m_memoryBuffer.data(), m_memoryBuffer.size());
-
       m_memoryBuffer.clear();
-
    }
-
 
 }
 

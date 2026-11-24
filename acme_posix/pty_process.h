@@ -14,16 +14,12 @@ virtual public ::particle
 protected:
 
    ::string_array m_straCommands;
-   ::string_array m_straMarkerEcho;
    ::string_array m_straMarker;
    //iptr_array m_iaMarkerEcho;
    //iptr_array m_iaMarker;
    int m_iCurrentCommand = 0;
-   bool m_bWaitingMarker = false;
    //memsize m_iSearchMarkerFrom= 0;
    //memsize  m_iLastStdOut = 0;
-   ::string m_strCommand;
-   ::string m_strMarkerEcho;
    ::string m_strMarker;
 
 public:
