@@ -116,21 +116,25 @@ static void on_im_update(
             gboolean is_active = gtk_window_is_active(GTK_WINDOW(window));
 
             pwindow->_on_window_is_active_change(is_active);
+#if AURA_FRAME_TRACE_LEVEL >= 3
             if (is_active) {
                g_print("Main window is active\n");
             } else {
                g_print("Main window is inactive\n");
             }
+#endif
          }
 
          static void on_focus_changed(GObject *widget, GParamSpec *pspec, gpointer p) {
             auto pwindow = (::gtk4::acme::windowing::window*)p;
             gboolean has_keyboard_focus = gtk_widget_has_focus(GTK_WIDGET(widget));
+#if AURA_FRAME_TRACE_LEVEL >= 3
             if (has_keyboard_focus) {
                g_print("Widget gained focus\n");
             } else {
                g_print("Widget lost focus\n");
             }
+#endif
 
             pwindow->_on_focus_changed(has_keyboard_focus);
          }

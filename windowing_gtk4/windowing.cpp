@@ -149,7 +149,7 @@ namespace windowing_gtk4
    bool windowing::is_branch_current() const
    {
 
-      return system()->acme_windowing()->is_branch_current();
+      return ::gtk4::acme::windowing::windowing::is_branch_current();
 
 
    }

@@ -308,6 +308,59 @@ void windowing::each_window(const ::function < void(::acme::windowing::window*) 
          // }
 
 
+         ::string windowing::file_icon_path(const ::scoped_string & scopedstrPath, ::i32 iSize)
+         {
+            string strPath(scopedstrPath);
+            auto pstrIconPath = std::make_shared < string >();
+            user_send([strPath, iSize, pstrIconPath]()
+            {
+               auto pfile = g_file_new_for_path(strPath.c_str());
+               if (!pfile) return;
+               auto pinfo = g_file_query_info(pfile, G_FILE_ATTRIBUTE_STANDARD_ICON,
+                  G_FILE_QUERY_INFO_NONE, nullptr, nullptr);
+               GIcon * picon = pinfo ? g_file_info_get_icon(pinfo) : nullptr;
+               GIcon * pfallback = nullptr;
+               if (!picon)
+               {
+                  // Virtual files have no local inode. Guess the type from their name.
+                  auto pszType = g_content_type_guess(strPath.c_str(), nullptr, 0, nullptr);
+                  pfallback = pszType ? g_content_type_get_icon(pszType) : nullptr;
+                  g_free(pszType);
+                  picon = pfallback;
+               }
+               if (picon && G_IS_FILE_ICON(picon))
+               {
+                  auto pszPath = g_file_get_path(g_file_icon_get_file(G_FILE_ICON(picon)));
+                  if (pszPath) *pstrIconPath = pszPath;
+                  g_free(pszPath);
+               }
+               else if (picon)
+               {
+                  auto pdisplay = gdk_display_get_default();
+                  auto ptheme = pdisplay ? gtk_icon_theme_get_for_display(pdisplay) : nullptr;
+                  auto ppaintable = ptheme ? gtk_icon_theme_lookup_by_gicon(ptheme, picon,
+                     iSize, 1, GTK_TEXT_DIR_NONE, (GtkIconLookupFlags)0) : nullptr;
+                  if (ppaintable)
+                  {
+                     auto pgfile = gtk_icon_paintable_get_file(ppaintable);
+                     if (pgfile)
+                     {
+                        auto pszPath = g_file_get_path(pgfile);
+                        if (pszPath) *pstrIconPath = pszPath;
+                        g_free(pszPath);
+                        g_object_unref(pgfile);
+                     }
+                     g_object_unref(ppaintable);
+                  }
+               }
+               if (pfallback) g_object_unref(pfallback);
+               if (pinfo) g_object_unref(pinfo);
+               g_object_unref(pfile);
+            });
+            return *pstrIconPath;
+         }
+
+
          bool windowing::is_branch_current() const
          {
 
