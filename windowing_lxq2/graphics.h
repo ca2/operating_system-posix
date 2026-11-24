@@ -54,40 +54,40 @@ namespace windowing_lxq2
       ~graphics() override;
 
 
-      ::windowing_lxq2::window * lxq2_window();
-
-
-      void initialize_graphics_graphics(::windowing::window * pimpl) override;
-      void destroy() override;
-      //virtual void __handle_window_redraw(::wl_callback *pwlcallback, uint32_t time);
-
-      bool update_buffer(::graphics::buffer_item * pbufferitem) override;
-
-      virtual bool create_os_buffer(const ::i32_size & size, int iStride = -1);
-      virtual void destroy_os_buffer();
-
-
-      virtual void _map_shared_memory(const ::i32_size & size);
-
-
-//      virtual bool create_os_buffer(::image::image *pimage);
-//      virtual void destroy_os_buffer(::image::image *pimage);
-
-      void update_screen() override;
-      //virtual bool _post_update_screen();
-      //virtual bool _update_screen_unlocked(::graphics::buffer_item * pitem);
-      void on_update_screen(::graphics::buffer_item * pitem) override;
-
-
-      bool buffer_lock_round_swap_key_buffers() override;
-
-      //void update_window();
-
-      bool _on_begin(::graphics::buffer_item * pbufferitem) override;
-
-      //bool presentation_complete() override;
-
-      //void __redraw(struct wl_callback *pwlcallback, uint32_t time);
+//      ::windowing_lxq2::window * lxq2_window();
+//
+//
+//      void initialize_graphics_graphics(::windowing::window * pimpl) override;
+//      void destroy() override;
+//      //virtual void __handle_window_redraw(::wl_callback *pwlcallback, uint32_t time);
+//
+//      bool update_buffer(::graphics::buffer_item * pbufferitem) override;
+//
+//      virtual bool create_os_buffer(const ::i32_size & size, int iStride = -1);
+//      virtual void destroy_os_buffer();
+//
+//
+//      virtual void _map_shared_memory(const ::i32_size & size);
+//
+//
+////      virtual bool create_os_buffer(::image::image *pimage);
+////      virtual void destroy_os_buffer(::image::image *pimage);
+//
+//      void update_screen() override;
+//      //virtual bool _post_update_screen();
+//      //virtual bool _update_screen_unlocked(::graphics::buffer_item * pitem);
+//      void on_update_screen(::graphics::buffer_item * pitem) override;
+//
+//
+//      bool buffer_lock_round_swap_key_buffers() override;
+//
+//      //void update_window();
+//
+//      bool _on_begin(::graphics::buffer_item * pbufferitem) override;
+//
+//      //bool presentation_complete() override;
+//
+//      //void __redraw(struct wl_callback *pwlcallback, uint32_t time);
 
    };
 
