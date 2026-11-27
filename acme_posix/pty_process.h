@@ -21,6 +21,11 @@ protected:
    //memsize m_iSearchMarkerFrom= 0;
    //memsize  m_iLastStdOut = 0;
    ::string m_strMarker;
+   ::string m_strPendingCommandEcho;
+   bool m_bDiscardingCommandEcho = false;
+   bool m_bOutputOnCurrentLine = false;
+
+   void process_child_stdout(const void * p, memsize s);
 
 public:
    //private:

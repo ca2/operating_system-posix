@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <poll.h>
+#include <string_view>
 
 #include <unistd.h>
 #include <errno.h>
@@ -124,12 +125,14 @@ void pty_process::add_command_line(const ::scoped_string & scopedstrCommandLine)
    auto strToken = mathematics()->random_alphanumeric(32);
    ::string strCommand(scopedstrCommandLine);
    strCommand.replace_with("'\\''", "'");
+   // Send one input line even when the script contains literal newlines.
+   strCommand.replace_with("'$'\\n''", "\n");
 
    // The full marker exists only in the output of printf, even with terminal echo on.
    m_straMarker.add("__command_done_" + strToken + "__");
    m_straCommands.add("eval '" + strCommand +
-      "'; __ca2_status=$?; printf '\\n%s%s__\\n' '__command_done_' '" +
-      strToken + "'; (exit \"$__ca2_status\")");
+      "'; __exit_status=$?; printf '%s%s__' '__command_done_' '" +
+      strToken + "'; (exit \"$__exit_status\")");
 }
 
 
@@ -870,6 +873,14 @@ void pty_process::run()
    }
 
    poll_read_stdout();
+   if (m_strPendingCommandEcho.has_character() && !m_bDiscardingCommandEcho)
+   {
+      process_child_stdout(m_strPendingCommandEcho.data(), m_strPendingCommandEcho.size());
+   }
+   m_strPendingCommandEcho.clear();
+   m_bDiscardingCommandEcho = false;
+   m_bOutputOnCurrentLine = false;
+
    if (m_memoryBuffer.has_data())
    {
       on_child_stdout(m_memoryBuffer.data(), m_memoryBuffer.size());
@@ -883,6 +894,86 @@ void pty_process::run()
 
 
 void pty_process::on_child_raw_stdout(const void * p, memsize s)
+{
+   m_strPendingCommandEcho.append(static_cast<const char *>(p), s);
+   std::string_view output(m_strPendingCommandEcho.data(), m_strPendingCommandEcho.size());
+
+   auto show = [this](std::string_view visible)
+   {
+      if (!visible.empty())
+      {
+         process_child_stdout(visible.data(), visible.size());
+         m_bOutputOnCurrentLine = visible.back() != '\n';
+      }
+   };
+
+   while (!output.empty())
+   {
+      if (m_bDiscardingCommandEcho)
+      {
+         const auto newline = output.find('\n');
+         if (newline == std::string_view::npos)
+         {
+            // Keep a trailing CR in case the next read starts with LF.
+            output.remove_prefix(output.size() - (output.back() == '\r' ? 1 : 0));
+            break;
+         }
+
+         if (m_bOutputOnCurrentLine)
+         {
+            const auto ending = newline > 0 && output[newline - 1] == '\r' ? newline - 1 : newline;
+            show(output.substr(ending, newline - ending + 1));
+         }
+         output.remove_prefix(newline + 1);
+         m_bDiscardingCommandEcho = false;
+         continue;
+      }
+
+      // A shell prompt can precede the echo. Match the queued text before
+      // parsing completion markers, which can also occur within the echo.
+      auto match = output.size();
+      bool complete = false;
+      for (const auto & command : m_straCommands)
+      {
+         if (command.is_empty())
+         {
+            continue;
+         }
+
+         const std::string_view echo(command.data(), command.size());
+         for (auto pos = output.find(echo.front()); pos < match; pos = output.find(echo.front(), pos + 1))
+         {
+            const auto suffix = output.substr(pos);
+            if (suffix.starts_with(echo) || echo.starts_with(suffix))
+            {
+               match = pos;
+               complete = suffix.size() >= echo.size();
+               break;
+            }
+         }
+      }
+
+      show(output.substr(0, match));
+      output.remove_prefix(match);
+      if (!complete)
+      {
+         break;
+      }
+      m_bDiscardingCommandEcho = true;
+   }
+
+   if (output.empty())
+   {
+      m_strPendingCommandEcho.clear();
+   }
+   else
+   {
+      m_strPendingCommandEcho = ::string(output.data(), output.size());
+   }
+}
+
+
+void pty_process::process_child_stdout(const void * p, memsize s)
 {
 
    m_memoryBuffer.append(p, s);

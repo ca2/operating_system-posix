@@ -2985,9 +2985,9 @@ namespace acme_posix
       pty_process proc;
 
 
-      proc.add_command_line("echo 'hello from PtyProcess'");
-      proc.add_command_line("pwd");
-      proc.add_command_line("ls");
+      //proc.add_command_line("echo 'hello from PtyProcess'");
+      //proc.add_command_line("pwd");
+      //proc.add_command_line("ls");
 
       for (auto & strCommandLine : straCommands)
       {
