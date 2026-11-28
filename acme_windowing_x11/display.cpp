@@ -24,8 +24,8 @@
 #include "acme/platform/system.h"
 #include "acme/windowing/windowing.h"
 #include <sys/poll.h>
-#include <wayland-client-protocol.h>
-#include <wayland-server-protocol.h>
+//#include <wayland-client-protocol.h>
+//#include <wayland-server-protocol.h>
 #include <xkbcommon/xkbcommon.h>
 #include <sys/mman.h>
 #include <errno.h>
