@@ -257,7 +257,7 @@ namespace command_line
 
             ::string strUserAgent = set["in_headers"]["user-agent"];
             
-            print_line("Using the following user agent to download: \""  + strUserAgent +  "\".");
+            //print_line("Using the following user agent to download: \""  + strUserAgent +  "\".");
 
             strCommand.formatf("curl -fL -s -D - -A \"%s\" \"%s\" -o \"%s\"",strUserAgent.c_str(), strUrl.c_str(), path.c_str());
 
